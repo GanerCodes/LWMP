@@ -1,0 +1,13 @@
+⨡ lib_verify
+
+lineable = Ɱ(󷺹􀌎􇀵􀜠𝗻􀿛)  no newlines and no pre/post whitespace
+ŧ_TOKEN = Ғ(󰲡8􀜊x􀊹􀜊64)
+ŧ_UUID  = Ғ(󰲡8􀜊x􀊹􀜊64 􀥐 x 𝑠􀜏abcABC123)
+ŧ_NAME  = Ғ(󰲡1􀜊x􀊹􀜊64)
+ŧ_DEV = { name   =ⴲ(lineable+ŧ_NAME),
+          leds   =ⴲ(Ғ(⬤􀁊􋁜𝑖)+Ғ(󰲡1≤x≤10⁵)),
+          order  =ⴲ(Ғ(⬤􀁊􋁜𝑖)+Ғ(󰲡0≤x<2³²)),  󰤱
+          reverse=ⴲ(Ғ(⬤􀁊􋁜𝑏)+Ɱ(𝑏)) } Ѵ
+ŧ_dev_init = { token=ŧ_TOKEN, uuid=ŧ_UUID }Ѵ | ŧ_DEV
+
+⭷ ŧ_DEV, ŧ_dev_init

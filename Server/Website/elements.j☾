@@ -1,0 +1,16 @@
+ radioBar = ⥌names,cb,sel=0↦{ ↪ 󱀝 {𝐶 navbar} ⟦⟧ };
+
+bigButton = ⥌src,𝔸↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } [
+                     󱀝 img {src:⟦src⟧} ]
+barButton = ⥌src,𝔸↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } [
+                     󱀝 img {src:⟦src⟧} ]
+
+itemGridEditable = ⥌plus,gen,rem,items=[]↦{
+    󱀝:ε {𝐶 itemGrid ⍮ 𝑆 fc fas fjs} [
+        󱀝:adder_item {𝐶 itemGridItem} [
+            ⟦bigButton("/Assets/plus.svg", {onclick: 𝚲plus(ε.add_item)})⟧ ] ];
+    ε.add_item = 󰲡{ © newElm = 󱀝 {𝐶 itemGridItem};
+                    chainIntoElements(gen(x,𝚲{ rem(x); newElm.remove(); }), newElm)
+                    ε.insertBefore(newElm, adder_item); };
+    items􋁃(ε.add_item);
+    ↪ε; };

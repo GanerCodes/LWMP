@@ -1,0 +1,82 @@
+⦃from websockets.sync.server import serve as ⦃websocket_serve⦄⦄
+⦃from sqlitedict import SqliteDict⦄
+⦃from shutil import rmtree⦄
+⨡ lib_verify
+⨡ http
+⨡ j☾
+
+WEBSOCKET_PORT = 2096
+WEBSITE_PORT = 40
+SITE_SOURCE  = __dir__/‹Website›
+SITE_COMPILE = __dir__/‹website_compiled›
+DEV_DB       = __dir__/‹Data/dev.db›
+TOK_DB       = __dir__/‹Data/tok.db›
+
+
+‹Compiling Site...›☾
+¿SITE_COMPILE.is_dir: SITE_COMPILE rmtree
+transpile_dir(SITE_SOURCE,SITE_COMPILE)
+‹Compiled!›☾
+
+dev𝘋𝘉,tok𝘋𝘉 = DEV_DB⋄TOK_DBᴍSqliteDict(⬤,autocommit=✓)
+
+ws_clients = {}
+
+ dev𝘋𝘉􀊱tok𝘋𝘉􀜗𝑑􀦮
+
+safej = 󰲣x 𝐩≕b/y≕p→.is_relative_to(b)⭜􋄓p
+
+󱀘 𝔠: __getattr__=⥌𝕊,x↦𝚲{_=[x,⠤𝔸]}
+𝔠,𝔪 = 𝔠, 󷺹􊯛􋕞
+
+⊢ api(𝐭,𝐦,d=□):
+    ¿𝐦≡‹Get_devs›:
+        ¿𝐭∉tok𝘋𝘉: ↪⍁
+        ↪tok𝘋𝘉􊳬ᐵ,{ online=⟞∈ws_clients, ⠤dev𝘋𝘉􍪴ℵ 􀝊 ‹name leds order reverse›􀌌 }ᐸ 𝑑
+
+cors = {‹access-control-allow-origin›: ␛*}
+⊢ (HTTP_Server) server(𝚖,𝚙,𝙷,𝚎):
+    ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›☾
+    𝚙󷸊􀌎␛/
+    ¿𝚖≡‹GET󷺗›:  󰤱 get version of post
+               ¿(𝚙􀌎)􀌐: 𝚙 = ‹index.html›
+               ¿safej(SITE_COMPILE,𝚙)≕p→.exists¬: ↪400
+               ↪ p ᵇ, ℵ(𝙲𝚃=p.suffix)
+    ⸘𝚖≡‹POST›: d = 𝙷[‹content-length›] 𝑖 𝚎􋈷 𝔍󰄟
+               𝐭 = d􋕨ₜ󰂼ₖₑₙ􋕨 
+               ↪api(𝐭,⠤d 𝔪) 𝔍󰄞
+
+⊢ negotiate_controller_props(𝐈,𝚁,𝚆):  inform
+    𝐭,𝐮 = 𝐈ᵗᵒᵏᵉⁿ,𝐈ᵘᵘⁱᵈ
+    
+    ¿𝐭∉tok𝘋𝘉: tok𝘋𝘉􊳬 = ⍁
+    ¿𝐮∉𝐃≔tok𝘋𝘉􊳬: 𝐮 𝐃.append
+                 tok𝘋𝘉􊳬 = 𝐃
+    
+    ¿𝐮∉dev𝘋𝘉: dev𝘋𝘉􊳭 = 𝐈 𝑑
+    ¡       : 𝐂 = dev𝘋𝘉􊳭  current
+              ¿𝐭≠𝐨𝐭≔𝐂􋕨ₜ󰂼ₖₑₙ􋕨:
+                  𝐂􋕨ₜ󰂼ₖₑₙ􋕨 = 𝐭  lw has new tok
+                  dev𝘋𝘉􊳭 = 𝐂
+                  ¿𝐨𝐭􀉧tok𝘋𝘉 􀛾 𝐮􀉧𝐎􀯍tok𝘋𝘉􊳧􊳬:  remove dev from old tok
+                      𝐮 𝐎.remove
+                      tok𝘋𝘉􊳧􊳬 = 𝐎
+              ¿conf􇂼‹leds order reverse name›􀌌ᐖ𝐈􀉨⟞􀉧𝐂􀛾𝐈􍪴􀉟𝐂􍪴 􇂆􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑:
+                  conf 𝔠.Change_dev 𝔍󰄞 𝚆
+
+⊢ WS_handle(ws):
+    𝚁,𝚆 = ws.recv,ws.send
+         ∀: 𝐈 = ℵ((𝚁) 𝔍󰄟 ŧ_dev_init)
+             ws_clientsₛ = 𝐈ᵘᵘⁱᵈ
+             negotiate_controller_props(𝐈,𝚁,𝚆)
+    ¡ε=𝑒: ‹Disconnecting: ε=⟦ε⟧›☾
+          ε
+
+w = ₀
+𝚲ⓦ(websocket_serve(WS_handle, ‹0.0.0.0›, WEBSOCKET_PORT, server_header=□),
+   󷺹≕w₀→.serve_forever)󰅂 PL_THREAD
+
+‹Running server›☾
+    server(port=WEBSITE_PORT)
+¡𝑒𝑒: w₀.shutdown
+     exit

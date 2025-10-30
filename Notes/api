@@ -1,0 +1,40 @@
+TOKEN ─ ᔐ⁸􍦛⁶⁴
+UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
+NAME ─ ᔐ¹􍦛⁶⁴
+RGB ─ [U8,U8,U8]
+MODE ┬ effects ─ *EFFECT ╥ Reverse ─ □
+     │                   ╟ Brightness ─ ℝ⁺
+     │                   ╙ Rotate ┬ speed  ─ ℝ  led/s
+     │                            └ offset ─ ℝ
+     └╥ Modes ─ *MODE
+      ╙ Atom ┬ leds ─ ℕ⁺
+             └╥ Static ─ clr ─ RGB
+              ╟ Rainbow ┬ segs  ─ ℝ
+              ║         ├ sat   ─ U8
+              ║         └ val   ─ U8
+              ╙ Fade ┬ clrs  ─ *RGB
+                     ├ speed ─  ℝ⁰􍦛􋔛  transitions/s
+                     └ sharp ─  ℝ⁰􍦛¹
+USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE ┬ devs ─ *UUID
+                      │                       └ mode ─  MODE
+                      └ devs   ─ UUID ↦ DEV ┬ name    ─ NAME
+                                            ├ leds    ─ ℕ⁺
+                                            ├ order   ─ U32
+                                            ├ reverse ─ 𝔹
+                                            └ url     ─ ᔐ¹􍦛²⁵⁶
+COMMAND ┬ token ─ TOKEN
+        └╥ Get_devs ─ □
+         ╟ Set_scene ┬ scene  ─ NAME
+         ║           └ timing ─ TIMING ┬ que ─ 𝔹
+         ║                             └ dur ─ ℝ⁰􍦛􋔛
+         ╟ Change_dev ┬ uuid ─ UUID
+         ║            └ dev ─ DEV  all fields optional, also "delete:true" to del
+         ╟ Push_scenes ┬ uuid ─ UUID
+         ║             └ scenes ─ NAME ↦ SCENE
+         ╙ Pull_scenes ─ uuid ─ UUID
+
+
+tok ↦ uuid
+uuid ↦ dev{name leds order reverse}
+
+󷹇 when lw conflict server on its token we trust it

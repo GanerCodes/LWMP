@@ -1,0 +1,78 @@
+* { box-sizing: border-box; }
+
+html, body { width: 100%;
+             height: 100%;
+             padding: 0px;
+             margin: 0px;
+             background: #000;
+             color: #FFF; }
+input, button { outline: none;
+                border: 1px solid #888;
+                margin: 2px;
+                border-radius: 10px;
+                min-height: 40px;
+                background-color: #111; }
+input { min-width: 0px; }
+button { width: min-content; }
+button:hover, button:focus {
+              cursor: pointer;
+              transform: scale(1.03);
+              background-color: #222; }
+button:active{ transform: scale(1.05);
+               background-color: #333; }
+
+.fw { flex-wrap: wrap; }
+
+.fSpace { justify-content: space-between; }
+.fr  { flex-direction: row    }
+.fc  { flex-direction: column }
+.fas {  align-items: flex-start}
+.fjs {justify-items: flex-start}
+.fac {  align-items: center    }
+.fjc {justify-items: center    }
+.fae {  align-items: flex-end  }
+.fje {justify-items: flex-end  }
+
+.fg1 {flex-grow  : 1}
+.fg2 {flex-grow  : 2}
+.fg3 {flex-grow  : 3}
+.fs1 {flex-shrink: 1}
+.fs2 {flex-shrink: 2}
+.fs3 {flex-shrink: 3}
+
+.jc { justify-content: center }
+.ac {   align-content: center }
+.tal { text-align: left   }
+.tac { text-align: center }
+.tar { text-align: right  }
+
+.wminc {width: min-content;}
+.wmaxc {width: max-content;}
+
+.w   { width:    100%;}
+.h   {height:    100%;}
+.w2  { width:     50%;}
+.h2  {height:     50%;}
+.w3  { width: 33.333%;}
+.h3  {height: 33.333%;}
+.w4  { width:     25%;}
+.h4  {height:     25%;}
+.w5  { width:     20%;}
+.h5  {height:     20%;}
+.w23 { width: 66.665%;}
+.h23 {height: 66.665%;}
+.w89 { width: 88.888%;}
+.wa  { width:    auto;}
+.ha  {height:    auto;}
+
+.p0 { padding: 0px; };
+.m0 { margin : 0px; };
+
+.ar {aspect-ratio: 1;}
+
+.fas, .fjs, .fac, .fae, .fae, .fg1, .fg2, .fg3
+    .fr, .fc, .hcentered, .vcentered, .maxWcol,
+    .fCols, .fSpace, .fStart { display: flex; overflow: hidden; }
+
+.maxWcol { flex-direction: column; }
+.maxWcol > * { width: 100% }

@@ -1,0 +1,15 @@
+import machine,time
+p = machine.Pin(2)
+p.init(p.OUT)
+for i in range(2*4):
+    p.value(~i%2)
+    time.sleep(0.25)
+
+import esp,gc
+machine.freq(240_000_000)
+esp.osdebug(None)
+gc.collect()
+print("Starting LightWave")
+
+# import main
+import interface

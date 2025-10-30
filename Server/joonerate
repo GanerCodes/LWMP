@@ -1,0 +1,7 @@
+#!/bin/bash -e
+{ cd "${0%/*}"
+
+rm -r website_compiled || :
+☾ "$(☾ --get-dir)/Libraries/j☾/main.☾" Website website_compiled
+
+exit $?; }

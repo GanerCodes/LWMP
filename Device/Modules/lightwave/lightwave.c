@@ -1,0 +1,100 @@
+#include "py/obj.h"
+#include "py/runtime.h"
+#include "py/builtin.h"
+#include "py/objarray.h"
+#include <math.h>
+#include <stdint.h>
+
+#define f32    float
+#define u32 uint32_t
+#define u16 uint16_t
+#define i32  int32_t
+#define i16  int16_t
+#define u8   uint8_t
+#define i8    int8_t
+
+#pragma push_macro("ret")
+#define ret return
+
+#define OFFSET_R ((RGB_OFFS >>  0) & 0xFF)
+#define OFFSET_G ((RGB_OFFS >>  8) & 0xFF)
+#define OFFSET_B ((RGB_OFFS >> 16) & 0xFF)
+typedef struct { i32 σ,Σ,d,m; f32 r0,rΔ; } Seg;
+typedef struct { f32 r; i32 σ,Σ; } StackEntry;
+typedef struct { u8 r,g,b; } RGB;
+
+static inline f32 mod(f32 a, f32 b) { a = fmodf(a,b);
+                                      ret a<0 ?a+b: a; }
+static inline f32    lerp(f32 a, f32 b, f32 x) { ret (1.0-x)*a + x*b; }
+static inline u8    ulerp( u8 a,  u8 b,  u8 x) { ret a+(x*(b-a+1)+1 >> 8); }
+static inline RGB RGBlerp(RGB a, RGB b,  u8 x) { ret (RGB) { ulerp(a.r,b.r,x),
+                                                             ulerp(a.g,b.g,x),
+                                                             ulerp(a.b,b.b,x) }; }
+
+static inline RGB lightwave_hsv_to_rgb(u8 h, u8 s, u8 v) {
+    if(!s) ret (RGB){v,v,v};
+    u8 reg = h/43;
+    u8 r = (h - reg*43) * 6;
+    u8 p = ((u16)v * (255 - s)) >> 8;
+    u8 q = ((u16)v * (255 - (((u16)s*r) >> 8))) >> 8;
+    u8 t = ((u16)v * (255 - (((u16)s*(255-r)) >> 8))) >> 8;
+    switch(reg) { case  0: ret (RGB){v,t,p}; break;
+                  case  1: ret (RGB){q,v,p}; break;
+                  case  2: ret (RGB){p,v,t}; break;
+                  case  3: ret (RGB){p,q,v}; break;
+                  case  4: ret (RGB){t,p,v}; break;
+                  default: ret (RGB){v,p,q}; break; } }
+
+static inline RGB lightwave_atom_rainbow(f32 i, f32 n, f32 segN, u8 s, u8 v) {
+    ret lightwave_hsv_to_rgb((u8)(i*segN/n*0xFF), s, v); }
+
+static mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
+    Seg        *S        = (Seg        *)mp_obj_get_uint (args[0]);
+    u32         S_len    =               mp_obj_get_int  (args[1]);
+    StackEntry *stk      = (StackEntry *)mp_obj_get_uint (args[2]);
+    u8         *leds     = (u8         *)mp_obj_get_uint (args[3]);
+    f32         t        =               mp_obj_get_float(args[4]);
+    u32         RGB_OFFS =               mp_obj_get_int  (args[5]);
+    u8 OFF_R = OFFSET_R;
+    u8 OFF_G = OFFSET_G;
+    u8 OFF_B = OFFSET_B;
+    for(i32 i=0,p=0,d=0; i<S_len; i++) {
+        Seg s = S[i];
+        if(s.d<d) p += s.d - d;
+
+        stk[p] = (StackEntry){s.r0 + s.rΔ*t,s.σ,s.Σ};
+
+        if(!s.m) p++;
+        else{ i32 mode_id = s.m-1;
+              for(i32 o=0; o<s.Σ; o++) {
+                  f32 n=o;
+                  for(i32 q=p; q>=0; q--) {
+                      StackEntry e = stk[q];
+                      n = mod(n+e.r,e.Σ) + e.σ; }
+                  RGB c1 = lightwave_atom_rainbow(o             , s.Σ, 3.0, 0xFF, 0x15);
+                  RGB c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, 3.0, 0xFF, 0x15);
+                  u8 prop = 0xFF*(n - (u32)n);
+                  leds[3*(u32)n+OFF_R] = ulerp(c1.r,c2.r,prop);
+                  leds[3*(u32)n+OFF_G] = ulerp(c1.g,c2.g,prop);
+                  leds[3*(u32)n+OFF_B] = ulerp(c1.b,c2.b,prop);
+                  // RGB out = RGBlerp(c1,c2,prop);
+                  // leds[3*(u32)y+OFFSET_R] = out.r;
+                  // leds[3*(u32)y+OFFSET_G] = out.g;
+                  // leds[3*(u32)y+OFFSET_B] = out.b;
+              } }
+        d = s.d; }
+    
+    ret mp_const_none; }
+static MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(lightwave_assign_leds_obj,6,6,lightwave_assign_leds);
+
+static const mp_rom_map_elem_t lightwave_module_globals_table[] = {
+    { MP_ROM_QSTR(MP_QSTR___name__   ), MP_ROM_QSTR(MP_QSTR_lightwave)         },
+    { MP_ROM_QSTR(MP_QSTR_assign_leds), MP_ROM_PTR(&lightwave_assign_leds_obj) } };
+static MP_DEFINE_CONST_DICT(lightwave_module_globals, lightwave_module_globals_table);
+
+const mp_obj_module_t lightwave_user_cmodule = { .base    = { &mp_type_module },
+                                                 .globals = (mp_obj_dict_t*)&lightwave_module_globals };
+
+MP_REGISTER_MODULE(MP_QSTR_lightwave, lightwave_user_cmodule);
+
+#pragma pop_macro("ret")

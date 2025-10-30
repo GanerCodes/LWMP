@@ -1,0 +1,5 @@
+.vscode
+micropython/RGB_ORDER
+micropython/LED_COUNT
+*.db
+./venv

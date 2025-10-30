@@ -1,0 +1,12 @@
+𝔠 = 🆕 Proxy({}, { get(𝕊,x) { ↪𝚲({_:[x,⠤𝔸]}); } });
+
+api = 󱟱 ⥌token,method,⠤dat↦{
+    dat = { token, ⠤𝔠[method](⠤dat) };
+    © req = 󱫬 fetch("/api", {
+        method: "POST",
+        body: 𝔍􋀫(dat),
+        headers: { "Content-type": "application/json; charset=UTF-8" } });
+    © r = 󱫬 req.json();
+    r.status = req.status;
+    ☾(‹API with "⟦𝔍􋀫(dat,␀,"  ")⟧" → "⟦𝔍􋀫(r,␀,"  ")⟧"›);
+    ↪r; }

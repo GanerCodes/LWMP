@@ -1,0 +1,23 @@
+󰈙.body􍪙(
+    itemGridEditable(
+        ⥌gen↦gen(‹joe›),
+        ⥌x,rem↦[󱀝 {𝐶 fc ar w} [
+                  󱀝 txt ‹⟦x⟧›],
+                barButton(‹/Assets/trash.svg›, {onclick: rem})],
+        󰲡☾(‹Removing ⟦x⟧›),
+        [1,2,3,4]));
+
+mode = { effects: [𝔠.Brightness(1), 𝔠.Rotate({speed:2, offset:0})],
+         ⠤𝔠.Modes(
+            { effects: [], 
+              ⠤𝔠.Atom({leds: 50, ⠤𝔠.Static({clr: [255,0,0]})}) },
+            { effects: [𝔠.Rotate({speed:-1, offset:0})],
+              ⠤𝔠.Atom({leds: 50, ⠤𝔠.Rainbow({segs: 5.0, sat:255, val:255})})}) };
+
+api("sweebddddd", "Get_devs")
+api("sqaner", "Push_scenes", { uuid: "1234ab", 
+                               scenes: { myScene: { devs: ["1234ab","41241dc"],
+                                                    mode: mode                 }}});
+api("sqaner", "Set_scene", { scene: "myScene",
+                             timing: { que: false,
+                                       dur: 0      }});

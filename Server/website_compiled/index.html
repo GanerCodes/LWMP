@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Lightwave</title>
+        <link rel="icon" type="image/x-icon" href="/Assets/favicon.ico">
+        <link rel="stylesheet" href="style_base.css">
+        <link rel="stylesheet" href="style_elms.css">
+    </head>
+    <body>
+        <script type="module">
+            (1,eval)(await (await fetch("./header.js")).text());
+            (1,eval)(await (await fetch("./elements.js")).text());
+            (1,eval)(await (await fetch("./api.js")).text());
+            (1,eval)(await (await fetch("./main.js")).text());
+            // 󰤱 prob precompile some of this stuff into bigger files
+        </script>
+    </body>
+</html>
