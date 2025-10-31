@@ -1,12 +1,18 @@
 𝔠 = 🆕 Proxy({}, { get(𝕊,x) { ↪𝚲({_:[x,⠤𝔸]}); } });
 
+𝖦 = 𝚲[✓,⠤𝔸]  Good
+𝖡 = 𝚲[✗,⠤𝔸]  Bad
+
+api_body = ⥌token,method,⠤dat↦𝔍􋀫({ token, ⠤𝔠[method](⠤dat) });
+
 api = 󱟱 ⥌token,method,⠤dat↦{
-    dat = { token, ⠤𝔠[method](⠤dat) };
+    © body = api_body(token,method,⠤dat);
     © req = 󱫬 fetch("/api", {
         method: "POST",
-        body: 𝔍􋀫(dat),
+        body,
         headers: { "Content-type": "application/json; charset=UTF-8" } });
     © r = 󱫬 req.json();
     r.status = req.status;
-    ☾(‹API with "⟦𝔍􋀫(dat,␀,"  ")⟧" → "⟦𝔍􋀫(r,␀,"  ")⟧"›);
+    ☾(‹API with "⟦𝔍􋀫(𝔍􋀭(body),␀,"  ")⟧" → "⟦𝔍􋀫(r,␀,"  ")⟧"›);
     ↪r; }
+apiURL = 𝚲‹⟦location.origin⟧/call/⟦encodeURIComponent(api_body(⠤𝔸))⟧›

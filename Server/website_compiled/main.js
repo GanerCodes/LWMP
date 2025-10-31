@@ -7,6 +7,23 @@
          (x,...𝔸)=>  print (`Removing ${x}`) , 
         [1 , 2 , 3 , 4])) ; 
 
+𝘋𝘉  =  𝔏𝔖 . þ02193("tokens" , {})
+updateDB  =   (...𝔸)=> 𝔏𝔖 . þ02191("tokens" , 𝘋𝘉)
+
+layout_from_tok  =  (𝐭) => {
+     if ( ! (𝐭 in 𝘋𝘉)) { 𝘋𝘉[𝐭] = { scenes : {} ,  devs : {} } ; 
+                 updateDB() ;  }
+     return 𝘋𝘉[𝐭] ;  }
+
+load_devices  =   async  (𝐭) => {
+     const  𝐋  =  layout_from_tok(𝐭)
+     let  r ; 
+    try{ r  =   await  api(𝐭 , "Get_devs") ;  }catch(e){}
+     if ( ! r  ||  r . status != 200)  return 𝖡(𝐋 . devs) ; 
+    𝐋 . devs  =  {  ... 𝐋 . devs ,   ... r . devs }
+    updateDB() ; 
+     return 𝖦(𝐋 . devs) ;  }
+
 mode  =  { effects :  [𝔠 . Brightness(1) ,  𝔠 . Rotate({speed : 2 ,  offset : 0})] , 
           ... 𝔠 . Modes(
             { effects :  [] ,  
@@ -14,10 +31,11 @@ mode  =  { effects :  [𝔠 . Brightness(1) ,  𝔠 . Rotate({speed : 2 ,  offse
             { effects :  [𝔠 . Rotate({speed :  - 1 ,  offset : 0})] , 
                ... 𝔠 . Atom({leds :  50 ,   ... 𝔠 . Rainbow({segs :  5.0 ,  sat : 255 ,  val : 255})})}) } ; 
 
-api("sweebddddd" ,  "Get_devs")
-api("sqaner" ,  "Push_scenes" ,  { uuid :  "1234ab" ,  
-                               scenes :  { myScene :  { devs :  ["1234ab" , "41241dc"] , 
-                                                    mode :  mode                 }}}) ; 
-api("sqaner" ,  "Set_scene" ,  { scene :  "myScene" , 
-                             timing :  { que :  false , 
-                                       dur :  0      }}) ; 
+
+load_devices("sweebddddd")
+
+
+
+
+
+

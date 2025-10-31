@@ -34,7 +34,8 @@ COMMAND ┬ token ─ TOKEN
          ╙ Pull_scenes ─ uuid ─ UUID
 
 
-tok ↦ uuid
-uuid ↦ dev{name leds order reverse}
+tok𝘋𝘉: token ↦ uuid
+dev𝘋𝘉: uuid ↦ {token name leds order reverse}
 
-󷹇 when lw conflict server on its token we trust it
+𝔠: encode a multi-choice value
+𝔪: decode said multi-choice value

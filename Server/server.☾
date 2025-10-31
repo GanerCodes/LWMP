@@ -1,6 +1,7 @@
 ⦃from websockets.sync.server import serve as ⦃websocket_serve⦄⦄
 ⦃from sqlitedict import SqliteDict⦄
 ⦃from shutil import rmtree⦄
+⦃import urllib⦄
 ⨡ lib_verify
 ⨡ http
 ⨡ j☾
@@ -12,41 +13,40 @@ SITE_COMPILE = __dir__/‹website_compiled›
 DEV_DB       = __dir__/‹Data/dev.db›
 TOK_DB       = __dir__/‹Data/tok.db›
 
+dev𝘋𝘉,tok𝘋𝘉 = DEV_DB⋄TOK_DBᴍSqliteDict(⬤,autocommit=✓)
 
 ‹Compiling Site...›☾
 ¿SITE_COMPILE.is_dir: SITE_COMPILE rmtree
 transpile_dir(SITE_SOURCE,SITE_COMPILE)
 ‹Compiled!›☾
 
-dev𝘋𝘉,tok𝘋𝘉 = DEV_DB⋄TOK_DBᴍSqliteDict(⬤,autocommit=✓)
-
 ws_clients = {}
 
- dev𝘋𝘉􀊱tok𝘋𝘉􀜗𝑑􀦮
+dev𝘋𝘉􀊱tok𝘋𝘉􀜗𝑑􀦮
 
 safej = 󰲣x 𝐩≕b/y≕p→.is_relative_to(b)⭜􋄓p
 
 󱀘 𝔠: __getattr__=⥌𝕊,x↦𝚲{_=[x,⠤𝔸]}
-𝔠,𝔪 = 𝔠, 󷺹􊯛􋕞
+𝔠,𝔪 = 𝔠,󷺹􊯛􋕞
 
 ⊢ api(𝐭,𝐦,d=□):
     ¿𝐦≡‹Get_devs›:
-        ¿𝐭∉tok𝘋𝘉: ↪⍁
-        ↪tok𝘋𝘉􊳬ᐵ,{ online=⟞∈ws_clients, ⠤dev𝘋𝘉􍪴ℵ 􀝊 ‹name leds order reverse›􀌌 }ᐸ 𝑑
+        ¿𝐭∉tok𝘋𝘉: ↪{}
+        ↪{ devs = tok𝘋𝘉􊳬ᐵ,{online=⟞∈ws_clients, ⠤dev𝘋𝘉􍪴ℵ 􀝊 ‹name leds order reverse›􀌌}ᐸ 𝑑 }
 
-cors = {‹access-control-allow-origin›: ␛*}
+POST = 󰲡api(x 𝔍󰄟☾≕d→􋕨ₜ󰂼ₖₑₙ􋕨,⠤d 𝔪) 𝔍󰄞, ℵ(𝙲𝚃=‹.json›)󰅂
+ cors = {‹access-control-allow-origin›: ␛*}
 ⊢ (HTTP_Server) server(𝚖,𝚙,𝙷,𝚎):
     ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›☾
     𝚙󷸊􀌎␛/
-    ¿𝚖≡‹GET󷺗›:  󰤱 get version of post
-               ¿(𝚙􀌎)􀌐: 𝚙 = ‹index.html›
+    ¿𝚖≡‹GET󷺗›: ¿(𝚙󷸊􀌎)􀌐: 𝚙 = ‹index.html›
+               ⸘𝚙.startswith(‹call/›):
+                   ↪POST(urllib.parse.unquote(𝚙).lstrip(‹call/›))
                ¿safej(SITE_COMPILE,𝚙)≕p→.exists¬: ↪400
                ↪ p ᵇ, ℵ(𝙲𝚃=p.suffix)
-    ⸘𝚖≡‹POST›: d = 𝙷[‹content-length›] 𝑖 𝚎􋈷 𝔍󰄟
-               𝐭 = d􋕨ₜ󰂼ₖₑₙ􋕨 
-               ↪api(𝐭,⠤d 𝔪) 𝔍󰄞
+    ⸘𝚖≡‹POST›: ↪POST(𝙷[‹content-length›] 𝑖 𝚎􋈷)
 
-⊢ negotiate_controller_props(𝐈,𝚁,𝚆):  inform
+⊢ negotiate_controller_props(𝐈,𝚁,𝚆):  update newly connected lw w/ current data
     𝐭,𝐮 = 𝐈ᵗᵒᵏᵉⁿ,𝐈ᵘᵘⁱᵈ
     
     ¿𝐭∉tok𝘋𝘉: tok𝘋𝘉􊳬 = ⍁
@@ -55,8 +55,8 @@ cors = {‹access-control-allow-origin›: ␛*}
     
     ¿𝐮∉dev𝘋𝘉: dev𝘋𝘉􊳭 = 𝐈 𝑑
     ¡       : 𝐂 = dev𝘋𝘉􊳭  current
-              ¿𝐭≠𝐨𝐭≔𝐂􋕨ₜ󰂼ₖₑₙ􋕨:
-                  𝐂􋕨ₜ󰂼ₖₑₙ􋕨 = 𝐭  lw has new tok
+              ¿𝐭≠𝐨𝐭≔𝐂􋕨ₜ󰂼ₖₑₙ􋕨:  lw controls tok so we update ourselves
+                  𝐂􋕨ₜ󰂼ₖₑₙ􋕨 = 𝐭
                   dev𝘋𝘉􊳭 = 𝐂
                   ¿𝐨𝐭􀉧tok𝘋𝘉 􀛾 𝐮􀉧𝐎􀯍tok𝘋𝘉􊳧􊳬:  remove dev from old tok
                       𝐮 𝐎.remove
