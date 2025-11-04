@@ -43,8 +43,8 @@ POST = 󰲡api(x 𝔍󰄟☾≕d→􋕨ₜ󰂼ₖₑₙ􋕨,⠤d 𝔪) 𝔍󰄞,
                ⸘𝚙.startswith(‹call/›):
                    ↪POST(urllib.parse.unquote(𝚙).lstrip(‹call/›))
                ¿safej(SITE_COMPILE,𝚙)≕p→.exists¬: ↪400
-               ↪ p ᵇ, ℵ(𝙲𝚃=p.suffix)
-    ⸘𝚖≡‹POST›: ↪POST(𝙷[‹content-length›] 𝑖 𝚎􋈷)
+               ↪ p ᵇ, ℵ(𝙲𝚃=p.suffix)({‹Cache-Control›:‹public, max-age=0, must-revalidate›})
+    ⸘𝚖≡‹POST›: ↪𝙷[‹content-length›] 𝑖 𝚎􋈷 POST
 
 ⊢ negotiate_controller_props(𝐈,𝚁,𝚆):  update newly connected lw w/ current data
     𝐭,𝐮 = 𝐈ᵗᵒᵏᵉⁿ,𝐈ᵘᵘⁱᵈ

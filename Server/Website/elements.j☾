@@ -6,7 +6,7 @@ barButton = ⥌src,𝔸↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } [
                      󱀝 img {src:⟦src⟧} ]
 
 itemGridEditable = ⥌plus,gen,rem,items=[]↦{
-    󱀝:ε {𝐶 itemGrid ⍮ 𝑆 fc fas fjs} [
+    󱀝:ε {𝐶 itemGrid} [
         󱀝:adder_item {𝐶 itemGridItem} [
             ⟦bigButton("/Assets/plus.svg", {onclick: 𝚲plus(ε.add_item)})⟧ ] ];
     ε.add_item = 󰲡{ © newElm = 󱀝 {𝐶 itemGridItem};

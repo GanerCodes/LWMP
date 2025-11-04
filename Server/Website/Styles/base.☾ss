@@ -1,0 +1,9 @@
+* ∣ box-sizing border-box
+input ∣ 𝚠≥ 0px
+
+«html body» ∣ 𝚠; 𝚑; 𝚙0; 𝚖0
+              𝚌𝚋 #000; 𝚌 #FFF
+«input button» ∣ outline none
+                 𝚋 1px solid #888; 𝚋𝚛 10px
+                 𝚑≥ 40px; 𝚖 2px
+                 𝚌𝚋 #111

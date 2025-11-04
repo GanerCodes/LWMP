@@ -1,7 +1,7 @@
 󰈙.body􍪙(
     itemGridEditable(
         ⥌gen↦gen(‹joe›),
-        ⥌x,rem↦[󱀝 {𝐶 fc ar w} [
+        ⥌x,rem↦[󱀝 {𝑆 ⦅𝚠; 𝚏TB⦆} [
                   󱀝 txt ‹⟦x⟧›],
                 barButton(‹/Assets/trash.svg›, {onclick: rem})],
         󰲡☾(‹Removing ⟦x⟧›),
@@ -30,7 +30,6 @@ mode = { effects: [𝔠.Brightness(1), 𝔠.Rotate({speed:2, offset:0})],
               ⠤𝔠.Atom({leds: 50, ⠤𝔠.Static({clr: [255,0,0]})}) },
             { effects: [𝔠.Rotate({speed:-1, offset:0})],
               ⠤𝔠.Atom({leds: 50, ⠤𝔠.Rainbow({segs: 5.0, sat:255, val:255})})}) };
-
 
 load_devices("sweebddddd")
 

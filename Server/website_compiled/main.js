@@ -2,7 +2,7 @@
 þF0219 . body . append(
     itemGridEditable(
         (gen) => gen(`joe`) , 
-        (x , rem) => [mkə( false  , {[`𝐶`] : `fc ar w`} , [(mkə(`txt` ,  false  , `${x}`))]) , 
+        (x , rem) => [mkə( false  , {[`𝑆`] : `width: 100%; display: flex; flex-direction: column;`} , [(mkə(`txt` ,  false  , `${x}`))]) , 
                 barButton(`/Assets/trash.svg` ,  {onclick :  rem})] , 
          (x,...𝔸)=>  print (`Removing ${x}`) , 
         [1 , 2 , 3 , 4])) ; 
@@ -30,7 +30,6 @@ mode  =  { effects :  [𝔠 . Brightness(1) ,  𝔠 . Rotate({speed : 2 ,  offse
                ... 𝔠 . Atom({leds :  50 ,   ... 𝔠 . Static({clr :  [255 , 0 , 0]})}) } , 
             { effects :  [𝔠 . Rotate({speed :  - 1 ,  offset : 0})] , 
                ... 𝔠 . Atom({leds :  50 ,   ... 𝔠 . Rainbow({segs :  5.0 ,  sat : 255 ,  val : 255})})}) } ; 
-
 
 load_devices("sweebddddd")
 
