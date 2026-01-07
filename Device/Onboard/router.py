@@ -1,4 +1,5 @@
 from utils import *
+import ntptime
 
 def wifi_via_file(f="credentials",retries=30,log=print):
   if f not in os.listdir():
@@ -19,9 +20,9 @@ def wifi_via_file(f="credentials",retries=30,log=print):
     if sta_if.isconnected():
       onboard_led(0)
       break
-    time.sleep(0.1)
+    sleep(0.1)
     onboard_led(0)
-    time.sleep(0.9)
+    sleep(0.9)
     log('Failed to connect to network [{}/{}] - "{}"'.format(i+1, r, sta_if.status()))
   else:
     sta_if.active(False)

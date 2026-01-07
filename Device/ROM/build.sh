@@ -6,9 +6,7 @@ PARTITIONS="$(pwd)/partitions.csv"
 USERMODS="$(realpath ../Modules)"
 NUM_CORES=15
 
-unalias . || :
-export PATH="$PATH:/opt/esp-idf/tools"
-source /opt/esp-idf/export.sh
+unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
 
 cd ../Micropython/ports/esp32
 [[ " $* " == *" -c "* ]] && rm -rf build
