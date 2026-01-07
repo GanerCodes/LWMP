@@ -57,9 +57,9 @@ pushd ./Device/Onboard
   # sudo mpremote connect "${DEVICE}" fs cp *.html : || :
   rm *.mpy || :
   [ -n "$CREDENTIALS" ] && {
-    echo -n "$CREDENTIALS" > /tmp/credentials
-    sudo mpremote connect "${DEVICE}" fs cp /tmp/credentials :/credentials
-    rm /tmp/credentials; }
+    echo -n "$CREDENTIALS" > /tmp/CREDENTIALS
+    sudo mpremote connect "${DEVICE}" fs cp /tmp/CREDENTIALS :/CREDENTIALS
+    rm /tmp/CREDENTIALS; }
   [ -n "$UUID" ] && {
     echo -n "$UUID" > /tmp/UUID
     sudo mpremote connect "${DEVICE}" fs cp /tmp/UUID :/UUID

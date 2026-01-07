@@ -1,6 +1,12 @@
 󰤱 Make AP auto-retry to connect using stored credentials (if existing) every 15􊽨 minutes of inactive AP connection
 
-Viz requested:
+Done
+  Fixed the dumb issues with flashing devices
+    (it also flashes faster and doesn't need fiddling with the button)
+  Device code cleanup
+  NTP Time (hopefully the like ±30ms is precise enough!!1)
+
+Viz requested
   Planned
     Simple Calibration Function (3 step menu, RGB confirmation)
     Settings Menu

@@ -1,7 +1,7 @@
 import ws_client
-from utils import *
-from router import *
-from timing import Time
+from utils     import *
+from timing    import Time
+from wifi      import wifi_connect,basic_AP
 from interface import Displayer,parse_rgb_mode,parse_bit_timing
 
 _FPS_DISPLAY_DELTA = const(20_000)
@@ -9,13 +9,26 @@ _TIMER_MODULO      = const(1<<24)
 
 UUID        = gen_load_UUID()
 WS_URL      = load_check_datafile("WS_URL"    , "wss://brynic_led_test.ganer.xyz:2096")
-LED_PIN     = load_check_datafile("LED_PIN"   , "23"             , int             )
-LED_COUNT   = load_check_datafile("LED_COUNT" , "500"            , int             )
-REVERSE     = load_check_datafile("REVERSE"   , "False"          , boolstr         )
-BIT_TIMING  = load_check_datafile("BIT_TIMING", "400 850 800 450", parse_bit_timing)
-RGB_ORDER   = load_check_datafile("RGB_ORDER" , "RGB"            , parse_rgb_mode  )
+LED_PIN     = load_check_datafile("LED_PIN"   , "23"             , int                )
+LED_COUNT   = load_check_datafile("LED_COUNT" , "500"            , int                )
+REVERSE     = load_check_datafile("REVERSE"   , "False"          , boolstr            )
+BIT_TIMING  = load_check_datafile("BIT_TIMING", "400 850 800 450", parse_bit_timing   )
+RGB_ORDER   = load_check_datafile("RGB_ORDER" , "RGB"            , parse_rgb_mode     )
 
-print(f"Wifi status: {wifi_via_file()}")
+try:
+  if "CREDENTIALS" not in os.listdir():
+    raise Exception("Credentials file not found.")
+  try:
+    ROUTER_SSID,ROUTER_PASS,TOKEN = map(str.strip,read_file(f).split('\n')[:3])
+  except Exception as ε:
+    raise Exception(f'Could not parse credentials file: {ε}')
+  if not wifi_connect(ROUTER_SSID,ROUTER_PASS):
+    raise Exception(f'Could not connect to wifi!')
+  Time()
+except Exception as ε:
+  print("Could not find wifi config, starting AP.")
+  basic_AP() # 󰤱 
+  machine.reset()
 
 ### TESTING STUFF ###
 
@@ -23,14 +36,13 @@ print(f"Wifi status: {wifi_via_file()}")
 N = (0,0.05, [(0,-0.05, [(0,0.1,25),(0.5,0,25),(0.5,0,25)]), (0,0,25), (0,0,25)])
 # N = (0,0, [(0,0, [(0,0,50)]), (0,2.5, [(0,0,150)])])
 
-Time()
 display = Displayer().load_mode(N)
 
 t0,next_t,n = Time.ms(),1,0
 while True:
   try:
     t = 0.001*float(Time.ms()-t0)
-    print(Time.ms(),flush=True)
+    print(Time.ms())
     # print(Time.now(),Time.ms(),t)
     
     display(t)
