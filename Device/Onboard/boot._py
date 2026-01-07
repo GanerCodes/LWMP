@@ -11,5 +11,4 @@ esp.osdebug(None)
 gc.collect()
 print("Starting LightWave")
 
-# import main
-import interface
+import main

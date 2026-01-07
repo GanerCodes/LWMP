@@ -19,8 +19,7 @@ _FPS_DISPLAY_DELTA = const(20_000)
 _TIMER_MODULO      = const(1<<24)
 
 START_TIME_MS = time.time_ns() // 1_000_000
-def uptime_ms():
-    return time.time_ns() // 1_000_000 - START_TIME_MS
+def uptime_ms(): return time.time_ns() // 1_000_000 - START_TIME_MS
 
 def parse_RGB_mode(mode):
     mode = mode.upper()

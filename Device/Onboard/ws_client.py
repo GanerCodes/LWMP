@@ -34,15 +34,7 @@ def urlparse(uri):
         port = match.group(3)
         path = match.group(4)
 
-        if protocol == 'wss':
-            if port is None:
-                port = 443
-        elif protocol == 'ws':
-            if port is None:
-                port = 80
-        else:
-            raise ValueError('Scheme {} is invalid'.format(protocol))
-
+        port = port or (433 if protocol == 'wss' else 'ws')
         return URI(protocol, host, int(port), path)
 
 class Websocket:

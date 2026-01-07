@@ -5,10 +5,10 @@
 # pip install mpy-cross
 # https://github.com/v923z/micropython-builder/releases/tag/latest
 
-DEVICE="/dev/${1-ttyACM1}" # ttyUSB0
+DEVICE="/dev/${1-ttyACM0}" # ttyUSB0
 WRITE_BAUD_RATE="2000000" # "460800"
 INTERACT_BAUD_RATE="115200"
-BUILD_ROM="1"
+# BUILD_ROM="1"
 # CLEAN_ROM="1"
 DO_FLASH="1"
 CREDENTIALS=$(echo -e 'TheWarp\nWarpStorm2025\ntesting')
@@ -40,21 +40,20 @@ pushd ./Device/Onboard
         mpy-cross -o "./${f%.py}.mpy" -march=xtensawin "./$f"
     done
     sudo rshell -b "${INTERACT_BAUD_RATE}" -p "${DEVICE}" cp *.mpy /pyboard
-    # sudo rshell -b "${INTERACT_BAUD_RATE}" -p "${DEVICE}" cp *.{mpy,html,template} /pyboard
+    sudo rshell -b "${INTERACT_BAUD_RATE}" -p "${DEVICE}" cp *.html /pyboard || :
     rm *.mpy || :
-    # [ -n "$CREDENTIALS" ] && {
-    #     echo -n "$CREDENTIALS" > /tmp/credentials
-    #     sudo rshell -b "${INTERACT_BAUD_RATE}" -p "${DEVICE}" cp /tmp/credentials /pyboard/credentials
-    #     rm /tmp/credentials; }
-    # [ -n "$UUID" ] && {
-    #     echo -n "$UUID" > /tmp/UUID
-    #     sudo rshell -b "${INTERACT_BAUD_RATE}" -p "${DEVICE}" cp /tmp/UUID /pyboard/UUID
-    #     rm /tmp/UUID; }
+    [ -n "$CREDENTIALS" ] && {
+        echo -n "$CREDENTIALS" > /tmp/credentials
+        sudo rshell -b "${INTERACT_BAUD_RATE}" -p "${DEVICE}" cp /tmp/credentials /pyboard/credentials
+        rm /tmp/credentials; }
+    [ -n "$UUID" ] && {
+        echo -n "$UUID" > /tmp/UUID
+        sudo rshell -b "${INTERACT_BAUD_RATE}" -p "${DEVICE}" cp /tmp/UUID /pyboard/UUID
+        rm /tmp/UUID; }
     sudo rshell -b "${INTERACT_BAUD_RATE}" -p "${DEVICE}" cp boot._py /pyboard/boot.py
     popd
 
-# echo Press enter to enter Screen session ; read
-
+echo Entering screen session
 sudo screen -S Lightwave "${DEVICE}" "${INTERACT_BAUD_RATE}"
 sudo screen -XS Lightwave quit
 
