@@ -23,13 +23,13 @@ for i in range(10):
 print(ℭ)
 
 controller = LED_Controller(pin=ℭ.LEDP, order=ℭ.RGB_ORDER, timing=ℭ.BIT_TIMING)
-# thread(controller.loop)
+thread(controller.loop)
 
 preset_ap     = (0,0, [(0,0, [(0,0,50)]), (0,0.25, [(0,0,150)])])
 preset_normal = (0,0.05, [(0,-0.05, [(0,0.1,100),(0.5,0,100),(0.5,0,100)]), (0,0,100), (0,0,100)])
 
-controller(preset_normal)
-controller.loop()
+# controller(preset_normal)
+# controller.loop()
 
 try:
   if not all(ℭ("token","r_ssid","r_pass")):
