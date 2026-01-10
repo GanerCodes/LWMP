@@ -2,10 +2,11 @@
 <html>
   <head>
     <title>Lightwave Setup</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       body {
-        background-color: rgb(0, 0, 0);
+        background-color: #000;
         color: #FFF;
         font-family: Sans-serif;
         margin: auto;
@@ -40,11 +41,13 @@
     </style>
     <script>
       function press() {
-        [SSID, PASS, TOKE] = ["SSID","PASS","TOKE"].map(x => document.getElementById(x).value)
-        if(SSID.length == 0 || PASS.length == 0 || TOKE.length == 0) return;
-        const content = ` ^Z_ ${JSON.stringify({SSID, PASS, TOKE})} ^Z_ `;
-        fetch(`${window.location.origin}/login`, { method: 'POST', body: content });
+        [SSID,PASS,TOKE] = ["SSID","PASS","TOKE"].map(x => document.getElementById(x).value);
+        if(!SSID.length || !PASS.length || !TOKE.length) return;
+        fetch("/submit", { method : "POST",
+                           headers: { "Content-Type": "application/json" },
+                           body   : JSON.stringify({R_SSID:SSID,R_PASS:PASS,TOKEN:TOKE}) })
         document.getElementById("content").innerHTML = `<p class="text">Sent login info and restarted controller!<br><br>AP Connection will re-open in ~30s if connection to router fails.</p>`;
+        setTimeout(_=>location.reload(),250);
       }
     </script>
   </head>

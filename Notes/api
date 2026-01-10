@@ -17,25 +17,26 @@ MODE ┬ effects ─ *EFFECT ╥ Reverse ─ □
                      └ sharp ─  ℝ⁰􍦛¹
 USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE ┬ devs ─ *UUID
                       │                       └ mode ─  MODE
-                      └ devs   ─ UUID ↦ DEV ┬ name    ─ NAME
-                                            ├ leds    ─ ℕ⁺
-                                            ├ order   ─ U32
-                                            ├ reverse ─ 𝔹
-                                            └ url     ─ ᔐ¹􍦛²⁵⁶
+                      └ devs   ─ UUID ↦ DEV ┬ name      ─ NAME
+                                            ├ ledc      ─ ℕ⁺
+                                            ├ rgb_order ─ U32
+                                            ├ reverse   ─ 𝔹
+                                            └ ws_url    ─ ᔐ¹􍦛²⁵⁶
+
 COMMAND ┬ token ─ TOKEN
         └╥ Get_devs ─ □
-         ╟ Set_scene ┬ scene  ─ NAME
-         ║           └ timing ─ TIMING ┬ que ─ 𝔹
-         ║                             └ dur ─ ℝ⁰􍦛􋔛
+         ╟ Set_scene ─ SCENE_ACTIVATION ┬ scene  ─ NAME
+         ║                              └ timing ─ TIMING ┬ que ─ 𝔹
+         ║                                                └ dur ─ ℝ⁰􍦛􋔛
          ╟ Change_dev ┬ uuid ─ UUID
-         ║            └ dev ─ DEV  all fields optional, also "delete:true" to del
+         ║            └ dev ─ DEV  all fields optional, also "delete:true" to del, also allows for token,R_SSID,R_PASS
          ╟ Push_scenes ┬ uuid ─ UUID
          ║             └ scenes ─ NAME ↦ SCENE
+         ╟ Set_schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
          ╙ Pull_scenes ─ uuid ─ UUID
 
-
 tok𝘋𝘉: token ↦ uuid
-dev𝘋𝘉: uuid ↦ {token name leds order reverse}
+dev𝘋𝘉: uuid ↦ {token name ledc order reverse}
 
 𝔠: encode a multi-choice value
 𝔪: decode said multi-choice value

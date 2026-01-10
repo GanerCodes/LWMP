@@ -1,6 +1,12 @@
 󰤱 Make AP auto-retry to connect using stored credentials (if existing) every 15􊽨 minutes of inactive AP connection
 
 Done
+  Reworked WiFi/AP things
+    Actual DNS trap, it now shows the popup when you connect to the AP
+      (at least on an iPhone 6 lol)
+    Got LED display working while HTTP and DNS servers run
+    Auto-restarts every 30 minutes without any connections/events
+      e.g. so now if your internet goes you don't need to unplug/replug lightwaves to get them to get out of setup mode
   Fixed the dumb issues with flashing devices
     (it also flashes faster and doesn't need fiddling with the button)
   Device code cleanup
