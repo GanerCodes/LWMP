@@ -1,20 +1,23 @@
-import machine,network,struct,select,random,time,sys,gc,os
+import binascii,machine,network,struct,socket,select,random,time,sys,ssl,os,gc,re
 import _thread as Thread
-import usocket as socket
-from time        import sleep
-from ulab        import numpy as np
 from json        import loads as 𝔍l, dumps as 𝔍d
+from time        import sleep
 from collections import namedtuple
 
 LED_ONBOARD = machine.Pin(2)
 LED_ONBOARD.init(LED_ONBOARD.OUT)
 onboard_led = lambda s=1: LED_ONBOARD.value(int(bool(s)))
 
-id = lambda *𝔸,**𝕂: 𝔸[0] if 𝔸 else None
+ID = lambda *𝔸,**𝕂: 𝔸[0] if 𝔸 else None
 thread = lambda f,*𝔸,**𝕂: Thread.start_new_thread(f,𝔸,𝕂)
 TRUE,FALSE = lambda *𝔸,**𝕂:True, lambda *𝔸,**𝕂:False
-boolstr = lambda s: s.strip().lower() in ('true', '1')
+boolstr = lambda s: s.strip().lower() in ('true','1')
 gen_id = lambda: hex(int(''.join(str(random.random())[2:] for i in range(3))))[2:10]
+mem_info = lambda: f"{gc.mem_alloc()}/{gc.mem_free()} = {gc.mem_alloc()/gc.mem_free()}"
+
+def dbg(*𝔸,**𝕂):
+  print("DEBUG:",*𝔸,**𝕂)
+  if 𝔸: return 𝔸[0]
 
 def read_file(fn,m="r"):
   with open(fn,m) as f:
@@ -72,4 +75,6 @@ class Settings:
     for k,v in 𝔸[0].items():
       𝕊.__setattr__(k,v)
     return 𝕊
+  __getitem__ = __getattr__
+  __setitem__ = __setattr__
   __repr__ = lambda 𝕊: "Settings⟨%s⟩"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)

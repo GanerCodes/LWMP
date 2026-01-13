@@ -1,6 +1,5 @@
 import machine,esp,gc
 machine.freq(240_000_000)
 esp.osdebug(None)
-gc.collect()
 print("Starting LightWave")
 import lw

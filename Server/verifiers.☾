@@ -10,4 +10,4 @@ lineable = Ɱ(󷺹􀌎􇀵􀜠𝗻􀿛)  no newlines and no pre/post whitesp
           reverse=ⴲ(Ғ(⬤􀁊􋁜𝑏)+Ɱ(𝑏)) } Ѵ
 ŧ_dev_init = { token=ŧ_TOKEN, uuid=ŧ_UUID }Ѵ | ŧ_DEV
 
-⭷ ŧ_DEV, ŧ_dev_init
+⭷ ŧ_DEV,ŧ_dev_init

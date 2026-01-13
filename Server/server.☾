@@ -2,16 +2,16 @@
 ⦃from sqlitedict import SqliteDict⦄
 ⦃from shutil import rmtree⦄
 ⦃import urllib⦄
-⨡ lib_verify
+⨡ verifiers
 ⨡ http
 ⨡ j☾
 
 WEBSOCKET_PORT = 2096
-WEBSITE_PORT = 4004
-SITE_SOURCE  = __dir__/‹Website›
-SITE_COMPILE = __dir__/‹website_compiled›
-DEV_DB       = __dir__/‹Data/dev.db›
-TOK_DB       = __dir__/‹Data/tok.db›
+WEBSITE_PORT   = 4004
+SITE_SOURCE    = __dir__􀋋‹Website›
+SITE_COMPILE   = __dir__􀋋‹website_compiled›
+DEV_DB         = __dir__􀋋‹Data/dev.db›
+TOK_DB         = __dir__􀋋‹Data/tok.db›
 
 dev𝘋𝘉,tok𝘋𝘉 = DEV_DB⋄TOK_DBᴍSqliteDict(⬤,autocommit=✓)
 
@@ -48,7 +48,7 @@ POST = 󰲡api(x 𝔍󰄟☾≕d→􋕨ₜ󰂼ₖₑₙ􋕨,⠤d 𝔪) 𝔍󰄞,
    ⸘𝚖≡‹POST›: ↪𝙷[‹content-length›] 𝑖 𝚎􋈷 POST
 
 ⊢negotiate_controller_props(𝐈,𝚁,𝚆):  update newly connected lw w/ current data
-   𝐭,𝐮 = 𝐈ᵗᵒᵏᵉⁿ,𝐈ᵘᵘⁱᵈ
+   𝐭,𝐮 = 𝐈ᵗᵒᵏᵉⁿ,𝐈ᵁᵁᴵᴰ
    
    ¿𝐭∉tok𝘋𝘉: tok𝘋𝘉􊳬 = ⍁
    ¿𝐮∉𝐃≔tok𝘋𝘉􊳬: 𝐮 𝐃.append
@@ -62,13 +62,13 @@ POST = 󰲡api(x 𝔍󰄟☾≕d→􋕨ₜ󰂼ₖₑₙ􋕨,⠤d 𝔪) 𝔍󰄞,
                  ¿𝐨𝐭􀉧tok𝘋𝘉 􀛾 𝐮􀉧𝐎􀯍tok𝘋𝘉􊳧􊳬:  remove dev from old tok
                      𝐮 𝐎.remove
                      tok𝘋𝘉􊳧􊳬 = 𝐎
-             ¿conf􇂼‹leds order reverse name›􀌌ᐖ𝐈􀉨⟞􀉧𝐂􀛾𝐈􍪴􀉟𝐂􍪴 􇂆􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑:
+             ¿conf􇂼‹LEDC RGB_ORDER REVERSE NAME›􀌌ᐖ𝐈􀉨⟞􀉧𝐂􀛾𝐈􍪴􀉟𝐂􍪴 􇂆􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑:
                  conf 𝔠.Change_dev 𝔍󰄞 𝚆
 
 ⊢WS_handle(ws):
    𝚁,𝚆 = ws.recv,ws.send
-        ∀: 𝐈 = ℵ(𝚁􀃅 􀯖 𝔍󰄟 􀯖 ŧ_dev_init)
-            ws_clientsₛ = 𝐈ᵘᵘⁱᵈ
+        ∀: 𝐈 = ℵ(𝚁􀃅 􀊸 􀯖 𝔍󰄟 􀯖 ŧ_dev_init)
+            ws_clientsₛ = 𝐈ᵁᵁᴵᴰ
             negotiate_controller_props(𝐈,𝚁,𝚆)
    ¡ε=𝑒: ‹Disconnecting: ε=⟦ε⟧›☾
          ε

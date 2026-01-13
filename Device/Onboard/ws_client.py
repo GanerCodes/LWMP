@@ -1,7 +1,6 @@
 # https://github.com/danni/uwebsockets
 
-import socket,binascii,struct,random,re,ssl
-from collections import namedtuple
+from util import *
 
 OP_CONT  = const(0x0)
 OP_TEXT  = const(0x1)
@@ -26,7 +25,7 @@ def urlparse(uri):
   M = URL_RE.match(uri)
   P = M.group(1)
   return URI(P, M.group(2),
-             int(M.group(3) or (433 if P=='wss' else 80)),
+             int(M.group(3) or ((80,433)[P=='wss'])),
              M.group(4))
 
 class NoDataException (Exception): pass
@@ -34,8 +33,23 @@ class ConnectionClosed(Exception): pass
 class Websocket:
   is_client = False
   def __init__(𝕊,sock):
-    𝕊.sock = sock
-    𝕊.open = True
+    𝕊.sock,𝕊.open = sock,True
+  def __call__(𝕊,buf=None,**𝕂):
+    if buf is None and not 𝕂:
+      return 𝕊.recv()
+    assert 𝕊.open
+    if isinstance(buf,str):
+      opcode = OP_TEXT
+      buf = buf.encode('utf-8')
+      assert not 𝕂
+    else:
+      opcode = OP_BYTES
+      if buf is None: buf = {}
+      if isinstance(buf,dict):
+        buf = 𝔍d(buf|𝕂 if 𝕂 else buf).encode("utf-8")
+      else:
+        assert not 𝕂
+    𝕊.write_frame(opcode,buf)
   def __enter__(𝕊):
     return 𝕊
   def __exit__(𝕊,exc_type,exc,tb):
@@ -92,14 +106,6 @@ class Websocket:
       elif opcode== OP_PONG: continue
       elif opcode== OP_CONT: raise NotImplementedError(opcode)
       raise ValueError(opcode)
-  def send(𝕊,buf):
-    assert 𝕊.open
-    if isinstance(buf,str):
-      opcode = OP_TEXT
-      buf = buf.encode('utf-8')
-    else:
-      opcode = OP_BYTES
-    𝕊.write_frame(opcode,buf)
   def close(𝕊,code=CLOSE_OK,reason=''):
     if not 𝕊.open: return
     𝕊.write_frame(OP_CLOSE, struct.pack('!H',code)+reason.encode('utf-8'))
@@ -112,28 +118,30 @@ class WebsocketClient(Websocket):
 
 def connect(uri):
   uri = urlparse(uri)
-  key = binascii.b2a_base64(bytes(random.getrandbits(8) for _ in range(16)))[:-1]
-  sock = socket.socket()
-  sock.settimeout(30)
-  addr = socket.getaddrinfo(uri.host, uri.port)
-  sock.connect(addr[0][4])
-  if uri.proto=='wss': sock = ssl.wrap_socket(sock, server_hostname=str(uri.host))
+  𝚂 = socket.socket() # 𝚂.settimeout(5)
+  𝚂.connect(socket.getaddrinfo(uri.host,uri.port)[0][4])
+  if uri.proto=='wss': 
+    import micropython
+    gc.collect(); micropython.mem_info()
+    𝚂 = ssl.wrap_socket(𝚂,server_hostname=uri.host,server_side=False,cert_reqs=0)
+    gc.collect(); micropython.mem_info()
 
-  send_header = lambda header,*𝔸: sock.write(header%𝔸 + "\r\n")
-  send_header(b'GET %s HTTP/1.1', uri.path or '/')
-  send_header(b'Host: %s:%s', uri.host, uri.port)
-  send_header(b'Connection: Upgrade')
-  send_header(b'Upgrade: websocket')
-  send_header(b'Sec-WebSocket-Key: %s', key)
-  send_header(b'Sec-WebSocket-Version: 13')
-  send_header(b'Origin: http://{hostname}:{port}'.format(hostname=uri.host, port=uri.port))
-  send_header(b'')
+  send_header = lambda h: 𝚂.write(h.encode("utf-8")+b"\r\n")
+  send_header(f"GET {uri.path or '/'} HTTP/1.1")
+  send_header(f"Host: {uri.host}:{uri.port}")
+  send_header(f"Connection: Upgrade")
+  send_header(f"Upgrade: websocket")
+  send_header(f"Sec-WebSocket-Key: {binascii.b2a_base64(bytes(random.getrandbits(8) for _ in range(16)))[:-1].decode("utf-8")}")
+  send_header(f"Sec-WebSocket-Version: 13")
+  # send_header(f"Origin: http://{uri.host}:{uri.port}")
+  send_header(f"Origin: http{'s'*(uri.proto=='wss')}://{uri.host}:{uri.port}")
+  send_header(f"")
 
-  header = sock.readline()[:-2]
+  header = 𝚂.readline()[:-2]
   assert header.startswith(b'HTTP/1.1 101 '), header
-
+  
   # We don't (currently) need these headers
   # FIXME: should we check the return key?
-  while header: header = sock.readline()[:-2]
-
-  return WebsocketClient(sock)
+  while header: header = 𝚂.readline()[:-2]
+  
+  return WebsocketClient(𝚂)
