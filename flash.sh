@@ -8,9 +8,9 @@
 DEVICE="/dev/${1-ttyACM0}" # ttyUSB0
 WRITE_BAUD_RATE="2000000" # "460800"
 INTERACT_BAUD_RATE="115200"
-BUILD_ROM="1"
-CLEAN_ROM="1"
-DO_FLASH="1"
+# BUILD_ROM="1"
+# CLEAN_ROM="1"
+# DO_FLASH="1"
 
 [[ -e "$DEVICE" ]] || { echo "Could not find ${DEVICE}!"
                         exit 1; }
@@ -18,7 +18,7 @@ DO_FLASH="1"
 sudo screen -XS Lightwave quit && sleep 0.1 || :
 sudo killall mpremote && sleep 0.1 || :
 
-[[ $DO_FLASH ]] && { sudo esptool -p "${DEVICE}" -b "${WRITE_BAUD_RATE}" erase-flash &
+[[ $DO_FLASH ]] && { esptool -p "${DEVICE}" -b "${WRITE_BAUD_RATE}" erase-flash &
                      flash_erase_pid=$!; }
 
 pushd ./Device
@@ -26,10 +26,12 @@ pushd ./Device
   [[ $DO_FLASH  ]] && {
     pushd ./ROM/Out
       wait $flash_erase_pid
-      sudo esptool -p "${DEVICE}" -b "${WRITE_BAUD_RATE}" \
-           --before default-reset --after hard-reset write-flash \
-           --flash-mode dio --flash-size detect --flash-freq 80m \
-           0x1000 bootloader.bin 0x8000 partition-table.bin 0x10000 micropython.bin
+      esptool -p "${DEVICE}" -b "${WRITE_BAUD_RATE}" \
+              --chip esp32 \
+              --before default-reset --after hard-reset write-flash \
+              --flash-mode dio --flash-size 4MB --flash-freq 40m \
+              0x1000       bootloader.bin 0x8000  partition-table.bin \
+              0xD000 ota_data_initial.bin 0x10000 micropython.bin 
       popd; }
   pushd ./Onboard
     for f in *.py; do

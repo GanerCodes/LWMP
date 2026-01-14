@@ -118,13 +118,13 @@ class WebsocketClient(Websocket):
 
 def connect(uri):
   uri = urlparse(uri)
-  𝚂 = socket.socket() # 𝚂.settimeout(5)
+  𝚂 = socket.socket()
+  𝚂.settimeout(5)
   𝚂.connect(socket.getaddrinfo(uri.host,uri.port)[0][4])
   if uri.proto=='wss': 
-    import micropython
-    gc.collect(); micropython.mem_info()
-    𝚂 = ssl.wrap_socket(𝚂,server_hostname=uri.host,server_side=False,cert_reqs=0)
-    gc.collect(); micropython.mem_info()
+    # mfw this doesn't even work when GC: total: 112000, used: 39520, free: 72480, max new split: 30720 ; No. of 1-blocks: 402, 2-blocks: 120, max blk sz: 157, max free sz: 3343 # "gc.collect()"; micropython.mem_info()
+    # 𝚂 = ssl.wrap_socket(𝚂,server_hostname=uri.host,server_side=False,cert_reqs=0)
+    pass
 
   send_header = lambda h: 𝚂.write(h.encode("utf-8")+b"\r\n")
   send_header(f"GET {uri.path or '/'} HTTP/1.1")

@@ -9,7 +9,7 @@ for i in range(10):
   onboard_led(~i%2)
   sleep(0.05)
 
-ℭ = Settings(WS_URL     =("wss://brynic_led_test.ganer.xyz:2096",                 ),
+ℭ = Settings(WS_URL     =("ws://brynic_led_test.ganer.xyz:2095",                  ),
             #WS_URL     =("ws://24.250.162.244:2095"            ,                 ),
              UUID       =(gen_id                                ,                 ),
              TOKEN      =(                                                        ),
@@ -17,7 +17,7 @@ for i in range(10):
              R_PASS     =(                                                        ),
              LEDP       =(23                                    , int             ),
              LEDC       =(500                                   , int             ),
-            #  REVERSE    =(False                                 , boolstr         ),
+             REVERSE    =(False                                 , boolstr         ),
              BIT_TIMING =([400,850,800,450]                     ,                 ),
              RGB_ORDER  =(parse_rgb_mode("GRB")                 ,                 ) )
 print(ℭ)
@@ -54,6 +54,7 @@ wifi_connect("TheWarp","WarpStorm2025")
 bruh = bytearray(2500)
 del bruh
 𝘞 = ws_client.connect(ℭ.WS_URL)
+# 𝘞 = ws_client.connect("wss://echo.websocket.org")
 
 """
 # controller(preset_normal)
