@@ -19,8 +19,8 @@ load_devices = 󱟱 ⥌𝐭↦{
     © 𝐋 = layout_from_tok(𝐭)
     ⎉ r;
     try{ r = 󱫬 api(𝐭,"Get_devs"); }catch(e){}
-    ¿(¬r ∨ r.status≠200) ↪𝖡(𝐋.devs);
-    𝐋.devs = { ⠤𝐋.devs, ⠤r.devs }
+    ¿(¬r₀ ∨ r.status≠200) ↪𝖡(𝐋.devs);
+    𝐋.devs = { ⠤𝐋.devs, ⠤r₁.devs }
     updateDB();
     ↪𝖦(𝐋.devs); }
 
@@ -31,7 +31,7 @@ mode = { effects: [𝔠.Brightness(1), 𝔠.Rotate({speed:2, offset:0})],
             { effects: [𝔠.Rotate({speed:-1, offset:0})],
               ⠤𝔠.Atom({leds: 50, ⠤𝔠.Rainbow({segs: 5.0, sat:255, val:255})})}) };
 
-load_devices("sweebddddd")
+☾(load_devices("testing"));
 
  api("sqaner", "Push_scenes", { uuid: "1234ab", 
                                 scenes: { myScene: { devs: ["1234ab","41241dc"],

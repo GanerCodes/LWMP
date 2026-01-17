@@ -2,4 +2,3 @@ lmdb
 aiohttp
 requests
 websockets
-sqlitedict

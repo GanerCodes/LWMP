@@ -8,9 +8,9 @@
 DEVICE="/dev/${1-ttyACM0}" # ttyUSB0
 WRITE_BAUD_RATE="2000000" # "460800"
 INTERACT_BAUD_RATE="115200"
-# BUILD_ROM="1"
+BUILD_ROM="1"
 # CLEAN_ROM="1"
-# DO_FLASH="1"
+DO_FLASH="1"
 
 [[ -e "$DEVICE" ]] || { echo "Could not find ${DEVICE}!"
                         exit 1; }
@@ -39,7 +39,7 @@ pushd ./Device
     done
     sudo mpremote connect "${DEVICE}" fs rm -r :/ || :
     sudo mpremote connect "${DEVICE}" fs cp *.mpy *.html :/
-    sudo mpremote connect "${DEVICE}" fs cp ./defaults/* :/
+    sudo mpremote connect "${DEVICE}" fs cp -r ./defaults/* :/
     sudo mpremote connect "${DEVICE}" fs cp main._py :/main.py
     rm *.mpy || :
     popd

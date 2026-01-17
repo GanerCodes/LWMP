@@ -47,8 +47,8 @@ def load_check_datafile(f,default,parse=str,log=print):
   return parse(default)
 
 is_file = lambda f: f in os.listdir()
-𝔍lf = lambda f  : 𝔍l(read_file(f,"b"))
-𝔍wf = lambda f,x: write_file(f,𝔍d(x),"wb")
+𝔍lf = lambda f  : 𝔍l(read_file(f))
+𝔍wf = lambda f,x: write_file(f,𝔍d(x))
 class Settings:
   def __init__(𝕊,**𝕂):
     super().__setattr__("X",{})
@@ -60,21 +60,27 @@ class Settings:
       except Exception as ε:
         print(f'Resorting to default value for "{k}": {ε}')
         v = v() if callable(v) else v
-      𝕊.X[k] = v,f
+      𝕊.X[k] = [v,f]
+  def __contains__(𝕊,k):
+    return k.upper() in 𝕊.X
   def __getattr__(𝕊,k  ):
     return 𝕊.X[k.upper()][0]
   def __setattr__(𝕊,k,v):
     k = k.upper()
-    𝔍wf(k, v:=𝕊.X[k][1](v))
+    v = 𝕊.X[k][0] = 𝕊.X[k][1](v)
+    𝔍wf(k,v)
     return v
   def __call__(𝕊,*𝔸):
-    assert 𝔸
+    if not 𝔸: raise Exception()
     if not isinstance(𝔸[0],dict):
       return tuple(𝕊.__getattr__(k) for k in 𝔸)
-    assert len(𝔸)==1
+    if not len(𝔸)==1: raise Exception()
     for k,v in 𝔸[0].items():
-      𝕊.__setattr__(k,v)
+      𝕊[k] = v
     return 𝕊
   __getitem__ = __getattr__
   __setitem__ = __setattr__
   __repr__ = lambda 𝕊: "Settings⟨%s⟩"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
+
+class 𝔠: __getattr__ = lambda 𝕊,x: lambda *𝔸: {"_":[x]+𝔸}
+𝔠,𝔪 = 𝔠(),lambda x: x["_"]

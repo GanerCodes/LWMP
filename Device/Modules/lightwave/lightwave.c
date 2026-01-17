@@ -71,8 +71,21 @@ static mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
                   for(i32 q=p; q>=0; q--) {
                       StackEntry e = stk[q];
                       n = mod(n+e.r,e.Σ) + e.σ; }
-                  RGB c1 = lightwave_atom_rainbow(o             , s.Σ, 3.0, 0xFF, 0x15);
-                  RGB c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, 3.0, 0xFF, 0x15);
+                  RGB c1;
+                  RGB c2;
+                  if(mode_id == 0) {
+                    c1 = lightwave_atom_rainbow(o             , s.Σ, 3.0, 0xFF, 0x15);
+                    c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, 3.0, 0xFF, 0x15);
+                  }else if(mode_id == 1) {
+                    c1 = (RGB){0x44,0x00,0x00}; // ...so whats the mode_id of the LED next to us lol
+                    c2 = (RGB){0x44,0x00,0x00};
+                  }else if(mode_id == 2) {
+                    c1 = (RGB){0x00,0x44,0x00};
+                    c2 = (RGB){0x00,0x44,0x00};
+                  }else{
+                    c1 = lightwave_atom_rainbow(o             , s.Σ, 3.0, 0xFF, 0x44);
+                    c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, 3.0, 0xFF, 0x44);
+                  }
                   u8 prop = 0xFF*(n - (u32)n);
                   leds[3*(u32)n+OFF_R] = ulerp(c1.r,c2.r,prop);
                   leds[3*(u32)n+OFF_G] = ulerp(c1.g,c2.g,prop);

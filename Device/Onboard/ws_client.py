@@ -35,20 +35,19 @@ class Websocket:
   def __init__(𝕊,sock):
     𝕊.sock,𝕊.open = sock,True
   def __call__(𝕊,buf=None,**𝕂):
-    if buf is None and not 𝕂:
-      return 𝕊.recv()
-    assert 𝕊.open
+    if not 𝕊.open: raise ConnectionClosed()
+    if buf is None and not 𝕂: return 𝕊.recv()
     if isinstance(buf,str):
       opcode = OP_TEXT
       buf = buf.encode('utf-8')
-      assert not 𝕂
+      if 𝕂: raise ValueError()
     else:
       opcode = OP_BYTES
       if buf is None: buf = {}
       if isinstance(buf,dict):
         buf = 𝔍d(buf|𝕂 if 𝕂 else buf).encode("utf-8")
       else:
-        assert not 𝕂
+        if 𝕂: raise ValueError()
     𝕊.write_frame(opcode,buf)
   def __enter__(𝕊):
     return 𝕊
@@ -58,7 +57,7 @@ class Websocket:
     𝕊.sock.settimeout(timeout)
   def read_frame(𝕊,max_size=None):
     two_bytes = 𝕊.sock.read(2)
-    if not two_bytes: raise NoDataException
+    if not two_bytes: raise NoDataException()
     b1,b2 = struct.unpack('!BB', two_bytes)
     opcode,length = b1 & 0x0f, b2 & 0x7f
     if   length==126: length, = struct.unpack('!H', 𝕊.sock.read(2))
@@ -86,7 +85,7 @@ class Websocket:
       data = bytes(b^mask_bits[i%4] for i,b in enumerate(data))
     𝕊.sock.write(data)
   def recv(𝕊):
-    assert 𝕊.open
+    if not 𝕊.open: raise ConnectionClosed()
     while 𝕊.open:
       try:
         fin,opcode,data = 𝕊.read_frame()
@@ -119,7 +118,7 @@ class WebsocketClient(Websocket):
 def connect(uri):
   uri = urlparse(uri)
   𝚂 = socket.socket()
-  𝚂.settimeout(5)
+  𝚂.settimeout(30)
   𝚂.connect(socket.getaddrinfo(uri.host,uri.port)[0][4])
   if uri.proto=='wss': 
     # mfw this doesn't even work when GC: total: 112000, used: 39520, free: 72480, max new split: 30720 ; No. of 1-blocks: 402, 2-blocks: 120, max blk sz: 157, max free sz: 3343 # "gc.collect()"; micropython.mem_info()
@@ -133,12 +132,11 @@ def connect(uri):
   send_header(f"Upgrade: websocket")
   send_header(f"Sec-WebSocket-Key: {binascii.b2a_base64(bytes(random.getrandbits(8) for _ in range(16)))[:-1].decode("utf-8")}")
   send_header(f"Sec-WebSocket-Version: 13")
-  # send_header(f"Origin: http://{uri.host}:{uri.port}")
-  send_header(f"Origin: http{'s'*(uri.proto=='wss')}://{uri.host}:{uri.port}")
   send_header(f"")
 
   header = 𝚂.readline()[:-2]
-  assert header.startswith(b'HTTP/1.1 101 '), header
+  if not header.startswith(b'HTTP/1.1 101 '):
+    raise Exception(f'Got invalid header: "{header}"')
   
   # We don't (currently) need these headers
   # FIXME: should we check the return key?

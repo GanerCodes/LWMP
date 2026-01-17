@@ -1,4 +1,4 @@
-TOKEN ─ ᔐ⁸􍦛⁶⁴
+TOKEN ─ ᔐ⁶􍦛⁶⁴
 UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
 NAME ─ ᔐ¹􍦛⁶⁴
 RGB ─ [U8,U8,U8]
@@ -25,6 +25,7 @@ USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE ┬ devs ─ *UUID
 
 COMMAND ┬ token ─ TOKEN
         └╥ Get_devs ─ □
+         ║          ↪ UUID ↦ DEV
          ╟ Set_scene ─ SCENE_ACTIVATION ┬ scene  ─ NAME
          ║                              └ timing ─ TIMING ┬ que ─ 𝔹
          ║                                                └ dur ─ ℝ⁰􍦛􋔛
@@ -34,9 +35,12 @@ COMMAND ┬ token ─ TOKEN
          ║             └ scenes ─ NAME ↦ SCENE
          ╟ Set_schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
          ╙ Pull_scenes ─ uuid ─ UUID
+                       ↪ NAME ↦ SCENE
 
-tok𝘋𝘉: token ↦ uuid
+tok𝘋𝘉: token ↦ devs ─ UUID*
 dev𝘋𝘉: uuid ↦ {token name ledc order reverse}
+
+󷹇 From server to device the `Set_scene` also includes a UTC timestamp in seconds to sync to.
 
 𝔠: encode a multi-choice value
 𝔪: decode said multi-choice value

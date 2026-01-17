@@ -1,3 +1,4 @@
+/Server/Data/
 .vscode
 *.db
 ./venv

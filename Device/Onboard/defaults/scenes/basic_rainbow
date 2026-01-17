@@ -1,0 +1,10 @@
+{ "effects": [
+    { "_": ["Rotate", {
+              "speed":-1,
+              "offset":0}]}],
+  "_": ["Atom", {
+          "leds":50,
+          "_": ["Rainbow",{
+                  "segs":5.0,
+                  "sat":255,
+                  "val":255 }]}]}
