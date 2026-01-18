@@ -1,3 +1,8 @@
+🟑
+󷹇 ⊢(􀃅􀊊􀃅􀊊tok𝘋𝘉􁏦): ≈ tok𝘋𝘉􁏦(<following function>)()()
+    trick to avoid hogging the DB
+🟑
+
 ⦃from websockets.sync.server import serve as ⦃websocket_serve⦄⦄
 ⦃from shutil import rmtree as ⦃rmtree⦄⦄
 ⦃import urllib⦄
@@ -6,6 +11,7 @@
 ⨡ j☾
 ⨡ 󰆼
 ⨡ util ⭸ *
+⨡ websockets
 
 WEBSOCKET_PORT = 2096
 WEBSITE_PORT   = 4004
@@ -26,17 +32,38 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
 transpile_dir(SITE_SOURCE,SITE_COMPILE)
 ‹Compiled!›􀊸
 
-⊢(dev𝘋𝘉􁏦)api(𝐭,𝐦,d=□):
-  ¿𝐦≡‹Get_devs›:
-    ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
-    ↪{⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,{online=⟞∈ws_clients, ⠶dev𝘋𝘉􍪴 􀝊 􀌌‹name LEDC RGB_ORDER REVERSE›}ᐸ} 𝖦 
-  ¿𝐦≡‹Change_dev›:
-    ¿‹uuid dev›􀌌􀒿d       : ↪‹Missing parameters!›𝖡
-    ¿d􋕨ᵤᵤᵢ􋕨􀯑𝐮􀒻tok𝘋𝘉􊳬ᵈᵉᵛˢ: ↪‹Cannot find device!›𝖡
-    𝐈,𝼥 = dev𝘋𝘉􊳭,ws_clients􊳭
-    d􋕨ₑᵥ􋕨 𝔠.Change_dev 𝼥
-     󰤱 update dev𝘋𝘉
-    ↪𝖦􀃅
+⊢api(𝐭,𝐦,d=□):
+  ⊢params(𝙿=ᐦ,𝚍=✓):  helper to get info
+    𝙿􀯿􀌌􀉻
+    ¿𝚍: 𝙿.append(‹uuid›)
+    ¿𝙿􀒿d: ↪‹Missing parameters!›𝖡
+    ¿𝚍: devs = tok𝘋𝘉􊳬ᵈᵉᵛˢ
+        ¿d􋕨ᵤᵤᵢ􋕨􀯑𝐮􀒻devs: ↪‹Cannot find device!›𝖡
+        ¿𝐮􀒻ws_clients  : ↪‹Device is offline󷺗!›𝖡
+        ↪dev𝘋𝘉􊳭􀍷ws_clients􊳭ᐒ󰲟⟞
+   APIs that don't need DB can go here
+  ⊢(􀃅􀊊tok𝘋𝘉􁏦)r:
+    ¿𝐦≡‹Get_devs󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
+                               v = {⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,{online=⟞∈ws_clients, ⠶dev𝘋𝘉􍪴 􀝊 􀌌‹name LEDC RGB_ORDER REVERSE›}ᐸ}
+                               ↪󰲟v 𝖦
+    ¿𝐦≡‹Change_dev󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿params(α􀯍‹dev›)􀯑P􀊞𝗙: ↪P
+                               𝐈,𝼥 = P􀃅
+                                󰤱 update dev𝘋𝘉 here
+                               ↪󰲟(   d󰃤 𝔠􊳥𝼥)𝖦
+    ¿𝐦􀕿􀌌‹Set_scene Del_scene›: ¿params(α􀯍‹scene›)􀯑P􀊞𝗙: ↪P
+                               𝐈,𝼥 = P􀃅
+                               ↪󰲟({α:d󰃤}𝔠􊳥𝼥)𝖦
+    ¿𝐦􀉞‹Push_scenes󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿params(α􀯍‹scenes›)􀯑P􀊞𝗙: ↪P
+                               𝐈,𝼥 = P􀃅
+                               ↪󰲟({α:d󰃤}𝔠􊳥𝼥)𝖦
+    ¿𝐦􀉞‹Pull_scenes󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿params()􀯑P􀊞𝗙: ↪P
+                               𝐈,𝼥 = P􀃅
+                               ↪󰲟({    }𝔠􊳥𝼥)𝖦
+    ¿𝐦􀉞‹Set_schedule󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿params(α􀯍‹schedule›)􀯑P􀊞𝗙: ↪P
+                               𝐈,𝼥 = P􀃅
+                               ↪󰲟({α:d󰃤}𝔠􊳥𝼥)𝖦
+    ↪󰲟‹Unknown method!›𝖡
+  ↪r􀃅
 
 ⊢(ƒ↦󷺹ƒ 𝔍󰄞􀝕200􀝕ℵ(𝙲𝚃=‹.json›)) POST(x):
   ¿(𝔍󰄟􀍝□)(x)􀯑d􇪫􀕢: ↪‹Unable to parse JSON!›𝖡
@@ -56,7 +83,7 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
   ⸘𝚖≡‹POST›: ↪𝙷."content-length" 𝑖 𝚎􋈷 POST
 
 ⊢negotiate_controller_props(𝐈,𝼥):  update newly connected lw w/ current data
-  ⊢(􀃅􀊊􀃅􀊊tok𝘋𝘉􁏦):  ≈ tok𝘋𝘉􁏦(ƒ)()(), so we avoid hogging the DB
+  ⊢(􀃅􀊊􀃅􀊊tok𝘋𝘉􁏦):
     𝐭,𝐮 = 𝐈ᵗᵒᵏᵉⁿ,𝐈ᵁᵁᴵᴰ
     ¿𝐭􀖁tok𝘋𝘉       : tok𝘋𝘉􊳬 = {devs=⍁}
     ¿𝐮􀖁tok𝘋𝘉􊳬ᵈᵉᵛˢ􀯑𝐃: tok𝘋𝘉􊳬 = {devs=𝐃􀊳􊳭}

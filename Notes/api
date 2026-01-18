@@ -26,16 +26,21 @@ USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE ┬ devs ─ *UUID
 COMMAND ┬ token ─ TOKEN
         └╥ Get_devs ─ □
          ║          ↪ UUID ↦ DEV
-         ╟ Set_scene ─ SCENE_ACTIVATION ┬ scene  ─ NAME
-         ║                              └ timing ─ TIMING ┬ que ─ 𝔹
-         ║                                                └ dur ─ ℝ⁰􍦛􋔛
          ╟ Change_dev ┬ uuid ─ UUID
          ║            └ dev ─ DEV  all fields optional, also "delete:true" to del, also allows for token,R_SSID,R_PASS
+         ╟ Set_scene ┬ uuid ─ UUID
+         ║           └ scene ─ SCENE_ACTIVATION ┬ scene  ─ NAME
+         ║                                      └ timing ─ TIMING ┬ que ─ 𝔹
+         ║                                                        └ dur ─ ℝ⁰􍦛􋔛
+         ╟ Del_scene ┬ uuid ─ UUID
+         ║           └ scene ─ NAME
          ╟ Push_scenes ┬ uuid ─ UUID
          ║             └ scenes ─ NAME ↦ SCENE
-         ╟ Set_schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
-         ╙ Pull_scenes ─ uuid ─ UUID
-                       ↪ NAME ↦ SCENE
+         ╟ Pull_scenes ─ uuid ─ UUID
+         ║             ↪ NAME ↦ SCENE
+         ╙ Set_schedule ┬ uuid ─ UUID
+                        └ schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
+
 
 tok𝘋𝘉: token ↦ devs ─ UUID*
 dev𝘋𝘉: uuid ↦ {token name ledc order reverse}

@@ -1,9 +1,10 @@
 import ws_client
-from util      import *
-from wifi      import *
-from timing    import *
-from lighting  import *
-from interface import *
+from util          import *
+from wifi          import *
+from timing        import *
+from lighting      import *
+from interface     import *
+from scene_manager import *
 
 _RESET_NO   = const(0)
 _RESET_WS   = const(1)
@@ -19,6 +20,7 @@ for i in range(10): # blinky at boots
 controller = LED_Controller(autoconf=False)
 thread(controller.loop)
 
+𝔐 = Scene_Manager()
 ℭ = Settings(WS_URL     =("ws://brynic_led_test.ganer.xyz:2095",        ),
              UUID       =(gen_id                               ,        ),
              TOKEN      =(                                              ),
@@ -66,15 +68,25 @@ def handle_API(𝐦,d=None):
     ICON = set("R_SSID R_PASS".split())
     RLED = set("LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     
-    ℭ({ k.upper():v for k,v in d.items() if k in ℭ }) # allows setting uuid, this bad?
+    ℭ({ k.upper():v for k,v in d.items() if k in ℭ }) # allows setting uuid, bad?
     if "delete" in d:
-      # regenerate uuid?
+      # 󰤱􊽨 regenerate uuid?
       ℭ.name = ℭ.uuid
     
     K = set(k.upper() for k in d)
     if K & RLED: update_LED_HW()(preset_normal)
     if K & ICON: return _RESET_WIFI,None
     if K & WCON: return _RESET_WS  ,None
+  elif 𝐦=="Set_scene":
+    log(f"󰤱 Set_scene ({d})") # 󰤱
+  elif 𝐦=="Del_scene":
+    return _RESET_NO,𝔐.__delitem__(d["scene"])
+  elif 𝐦=="Push_scenes":
+    return _RESET_NO,𝔐.bulk_save(d["scenes"])
+  elif 𝐦=="Pull_scenes":
+    return _RESET_NO,𝔐.bulk_dump()
+  elif 𝐦=="Set_schedule":
+    log(f"󰤱 Set_schedule ({d})") # 󰤱
   return _RESET_NO,None
 
 def lw_websocket_loop():
@@ -84,7 +96,7 @@ def lw_websocket_loop():
     cmd = 𝔍l(𝘞())
     print(f"WS Command: {cmd}")
     con,resp = handle_API(*𝔪(cmd))
-    if resp is not None: 𝘞(r)
+    if resp is not None: 𝘞(resp) # 󰤱 new WS stuff
     if con:
       try                  : 𝘞.close()
       except Exception as ε: print(f"Failed to close WS: {ε}")

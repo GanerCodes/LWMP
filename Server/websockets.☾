@@ -1,0 +1,44 @@
+⦃from threading import ⦃Event⦄⦄
+
+ 󰤱 add to general libs?
+⊢Awaitor(𝚍=□): E,𝑽 = Event􀃅,􊱃
+               𜳬 = ⥌t=□↦t E.wait 􀯗𝑽₀􀯘 𝚍
+               ⊢𜳪(x): 𝑽₀=x
+                      E.set􀃅
+               ↪𜳬,𜳪
+
+ 󰤱 close()
+ 󰤱 error detection stuff
+ 󰤱 implement protocol on micropython end
+ 󰤱 test
+ 󷹇 handle prob would start loop() in many cases, right?
+󱀘WS:
+  ⊢__init__(𝕊,ws,handle=󰻾):
+    𝕊._send,𝕊._recv = ws.send,ws.recv
+    𝕊.handle = handle
+    𝕊.locks = {}
+  ⊢pack_msg(𝕊,𝚒,𝙼):
+    ¿𝙼􀊞𝑦: 𝙼􀯏𝔍󰄞
+    𝚒.to_bytes(6)􀊩𝙼
+  ⊢unpack_msg(𝕊,𝙼):
+    𝚒,𝙼 = 𝙼􀋴6
+    ↪𝑖.from_bytes(𝚒),𝙼
+  ⊢send(𝕊,𝙼,timeout=10)
+    𝚒 = 6 os.urandom
+    𜳬,𜳪 = Awaitor􀃅
+    𝕊.locks􀲪 = 𜳪
+    𝕊._send(𝕊.pack_msg(𝚒,𝙼))
+    ↪𜳬
+  ⊢recv(𝕊):  like a million error handling issues here
+    𝙼 = 𝕊.unpack_msg(𝕊._recv􀃅)
+    𝚒,𝙼 = 𝙼
+    ¿𝚒􀉧𝕊.locks: 𝕊.locks􀲪(𝙼)
+                󰆴 𝕊.locks􀲪
+                ↪
+    𝚒􀌐􀒥‹WS message with unknown reply ID (⟦𝚒⟧): ⟦𝙼⟧›
+    ↪𝕊.handle(𝙼)
+  ⊢loop(𝕊):
+    ∀: 𝕊.recv􀃅
+  __call__ = send
+
+⭷ Awaitor,WS

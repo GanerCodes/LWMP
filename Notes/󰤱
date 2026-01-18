@@ -1,4 +1,3 @@
-
 Done
   Reworked WiFi/AP things
     Actual DNS trap, it now shows the popup when you connect to the AP
@@ -11,8 +10,15 @@ Done
   Device code cleanup
   NTP Time (hopefully the like ±30ms is precise enough!!1)
 
-Viz requested
-  Planned
+Planned
+  General
+    Finish bidirectional websocket protocol implementation
+    Add to API file the returns of various methods from LW
+    Finish API things
+  Bugs
+    https://ganer.xyz/s/43f776d9d071ec69
+  Features
+    Prob sync scene names with database?
     Offline AP mode (screen with buttons for the various stored modes)
     Simple Calibration Function (3 step menu, RGB confirmation)
     Settings Menu
@@ -20,10 +26,11 @@ Viz requested
     Mobile App Experience
     UI Design Update
     Timer Function (w/ calendar)
-  Maybe?
-    Create Bakkes Mod Plugin (cool, low priority)
-    Generate LED Preview (cool, low priority)
-  For like, comically large amount of time and money
-    HDMI Passthrough Capabilities
-  N/A
-    Fix LED Count Update Bug
+    <Conditional>
+      Maybe?
+        Create Bakkes Mod Plugin (cool, low priority)
+        Generate LED Preview (cool, low priority)
+      For like, comically large amount of time and money
+        HDMI Passthrough Capabilities
+    <N/A>
+      Fix LED Count Update Bug

@@ -2,12 +2,18 @@ import binascii,machine,network,struct,socket,select,random,time,sys,ssl,os,gc,r
 import _thread as Thread
 from json        import loads as 𝔍l, dumps as 𝔍d
 from time        import sleep
+from pathlib     import Path as 𝐩
 from collections import namedtuple
 
 LED_ONBOARD = machine.Pin(2)
 LED_ONBOARD.init(LED_ONBOARD.OUT)
 onboard_led = lambda s=1: LED_ONBOARD.value(int(bool(s)))
 
+log = print
+ls = lambda f=".",g="*": list(𝐩(f).glob(g))
+rm = lambda f: 𝐩(f).unlink()
+𝔍lf = lambda f  : 𝔍l(read_file(f))
+𝔍wf = lambda f,x: write_file(f,𝔍d(x))
 ID = lambda *𝔸,**𝕂: 𝔸[0] if 𝔸 else None
 thread = lambda f,*𝔸,**𝕂: Thread.start_new_thread(f,𝔸,𝕂)
 TRUE,FALSE = lambda *𝔸,**𝕂:True, lambda *𝔸,**𝕂:False
@@ -20,10 +26,10 @@ def dbg(*𝔸,**𝕂):
   if 𝔸: return 𝔸[0]
 
 def read_file(fn,m="r"):
-  with open(fn,m) as f:
+  with open(str(fn),m) as f:
     return f.read()
 def write_file(fn,content,m="w"):
-  with open(fn,m) as f:
+  with open(str(fn),m) as f:
     f.write(c := str(content))
     return c
 
@@ -36,7 +42,7 @@ def write_check_file(fn,content,parse=str,log=print):
   log(f'Writing "{content}" to file "{f}"')
   return write_file(fn,content)
 def load_check_datafile(f,default,parse=str,log=print):
-  if f in os.listdir():
+  if f in ls():
     try:
       return parse(read_file(f))
     except Exception as ε:
@@ -46,9 +52,6 @@ def load_check_datafile(f,default,parse=str,log=print):
   write_file(f,default)
   return parse(default)
 
-is_file = lambda f: f in os.listdir()
-𝔍lf = lambda f  : 𝔍l(read_file(f))
-𝔍wf = lambda f,x: write_file(f,𝔍d(x))
 class Settings:
   def __init__(𝕊,**𝕂):
     super().__setattr__("X",{})
