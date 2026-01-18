@@ -1,14 +1,36 @@
 Done
-  Reworked WiFi/AP things
-    Actual DNS trap, it now shows the popup when you connect to the AP
-      (at least on an iPhone 6 lol)
-    Got LED display working while HTTP and DNS servers run
-    Auto-restarts when in AP every 30 minutes when no connections/events
-      e.g. so now if your internet goes you don't need to unplug/replug lightwaves to get them to get out of setup mode
-  Fixed the dumb issues with flashing devices
-    (it also flashes faster and doesn't need fiddling with the button)
-  Device code cleanup
-  NTP Time (hopefully the like ±30ms is precise enough!!1)
+  𝟏
+    Reworked WiFi/AP things
+      Actual DNS trap, it now shows the popup when you connect to the AP
+        (at least on an iPhone 6 lol)
+      Got LED display working while HTTP and DNS servers run
+      Auto-restarts when in AP every 30 minutes when no connections/events
+        e.g. so now if your internet goes you don't need to unplug/replug lightwaves to get them to get out of setup mode
+    Fixed the dumb issues with flashing devices
+      (it also flashes faster and doesn't need fiddling with the button)
+    Device code cleanup
+    NTP Time (hopefully the like ±30ms is precise enough!!1)
+  𝟐
+    Database locks correctly now
+      We can do database things and talk w/ LW in the same request
+        (Important part is without freezing the database for the duration of the request)
+    Actual API flowthrough finished
+      LW scene storage, loading, deleting
+        Comes pre-equiped with some scenes
+        ✓ (tested ✓) API Pull_scenes (dumps all stored scenes)
+        ✓ (󰤱 test) API Push_scenes (bulk uploads scenes)
+        ✓ (󰤱 test) API Del_scene   (deletes a scene)  
+        󰤱 (dummy implementation used) Set_schedule
+        󰤱 (dummy implementation used) Set_scene (contingent on more work on the LED-mode side of things)
+      Change_dev API implemented :>
+    Change_dev API: Changing device parameters (working ✓, mostly tested)
+      Dynamic LED parameter changing (takes < ≈1 second to update any of the following)
+        LED count, RGB order, output PIN, timing
+      Change stuff about the device remotely now
+        Name, token, router credentials, websocket URL
+          Automatically restarts relevent services
+            router creds ⇒ resets internet entirely
+            websocket URL ⇒ resets only websocket
 
 Planned
   General
