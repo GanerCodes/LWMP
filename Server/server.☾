@@ -33,36 +33,28 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
 ‹Compiled!›􀊸
 
 ⊢api(𝐭,𝐦,d=□):
-  ⊢params(𝙿=ᐦ,𝚍=✓):  helper to get info
-    𝙿􀯿􀌌􀉻
-    ¿𝚍: 𝙿.append(‹uuid›)
-    ¿𝙿􀒿d: ↪‹Missing parameters!›𝖡
-    ¿𝚍: devs = tok𝘋𝘉􊳬ᵈᵉᵛˢ
-        ¿d􋕨ᵤᵤᵢ􋕨􀯑𝐮􀒻devs: ↪‹Cannot find device!›𝖡
-        ¿𝐮􀒻ws_clients  : ↪‹Device is offline󷺗!›𝖡
-        ↪dev𝘋𝘉􊳭􀍷ws_clients􊳭ᐒ󰲟⟞
-   APIs that don't need DB can go here
   ⊢(􀃅􀊊tok𝘋𝘉􁏦)r:
-    ¿𝐦≡‹Get_devs󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
-                               v = {⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,{online=⟞∈ws_clients, ⠶dev𝘋𝘉􍪴 􀝊 􀌌‹name LEDC RGB_ORDER REVERSE›}ᐸ}
-                               ↪󰲟v 𝖦
-    ¿𝐦≡‹Change_dev󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿params(α􀯍‹dev›)􀯑P􀊞𝗙: ↪P
-                               𝐈,𝼥 = P􀃅
-                                󰤱 update dev𝘋𝘉 here
-                               ↪󰲟(   d󰃤 𝔠􊳥𝼥)𝖦
-    ¿𝐦􀕿􀌌‹Set_scene Del_scene›: ¿params(α􀯍‹scene›)􀯑P􀊞𝗙: ↪P
-                               𝐈,𝼥 = P􀃅
-                               ↪󰲟({α:d󰃤}𝔠􊳥𝼥)𝖦
-    ¿𝐦􀉞‹Push_scenes󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿params(α􀯍‹scenes›)􀯑P􀊞𝗙: ↪P
-                               𝐈,𝼥 = P􀃅
-                               ↪󰲟({α:d󰃤}𝔠􊳥𝼥)𝖦
-    ¿𝐦􀉞‹Pull_scenes󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿params()􀯑P􀊞𝗙: ↪P
-                               𝐈,𝼥 = P􀃅
-                               ↪󰲟({    }𝔠􊳥𝼥)𝖦
-    ¿𝐦􀉞‹Set_schedule󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›: ¿params(α􀯍‹schedule›)􀯑P􀊞𝗙: ↪P
-                               𝐈,𝼥 = P􀃅
-                               ↪󰲟({α:d󰃤}𝔠􊳥𝼥)𝖦
-    ↪󰲟‹Unknown method!›𝖡
+    ¿𝐦≡‹Get_devs›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
+                   v = {⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,{online=⟞∈ws_clients, ⠶dev𝘋𝘉􍪴 􀝊 􀌌‹name LEDC RGB_ORDER REVERSE›}ᐸ}
+                   ↪󰲟v 𝖦
+    
+    reqs = { Change_dev   = ‹dev󷺗󷺗󷺗󷺗󷺗›,
+             Set_scene    = ‹scene󷺗󷺗󷺗›,
+             Del_scene    = ‹scene󷺗󷺗󷺗›,
+             Push_scenes  = ‹scenes󷺗󷺗›,
+             Set_schedule = ‹schedule› }
+    ¿𝐦􀉩reqs: ↪󰲟‹Unknown API method!›𝖡
+    ¿‹uuids›􀊱reqs􊳥􀔉(d ℵ)⁻ 􀰁 P: ↪󰲟‹Missing parameters: "⟦P􀋢␛,⟧"!›𝖡
+    
+    devs = tok𝘋𝘉􊳬ᵈᵉᵛˢ
+    
+     󰤱 database stuff here
+    
+    ⊢check_dev(ꭒ):
+      ¿ꭒ􀒻devs      : ↪‹Cannot find device!›𝖡
+      ¿ꭒ􀒻ws_clients: ↪‹Device is offline󷺗!›𝖡
+      ↪(󰲟d[reqs􊳥] 𝔠􊳥 ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
+    ↪󰲟d􋕨ᵤᵤᵢₛ􋕨􀉳check_dev􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
   ↪r􀃅
 
 ⊢(ƒ↦󷺹ƒ 𝔍󰄞􀝕200􀝕ℵ(𝙲𝚃=‹.json›)) POST(x):
@@ -82,7 +74,7 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
                        Cache-Control=‹public, max-age=0, must-revalidate› }ℵ
   ⸘𝚖≡‹POST›: ↪𝙷."content-length" 𝑖 𝚎􋈷 POST
 
-⊢negotiate_controller_props(𝐈,𝼥):  update newly connected lw w/ current data
+⊢negotiate_controller_props(𝐈,ꭐ):  update newly connected lw w/ current data
   ⊢(􀃅􀊊􀃅􀊊tok𝘋𝘉􁏦):
     𝐭,𝐮 = 𝐈ᵗᵒᵏᵉⁿ,𝐈ᵁᵁᴵᴰ
     ¿𝐭􀖁tok𝘋𝘉       : tok𝘋𝘉􊳬 = {devs=⍁}
@@ -93,28 +85,29 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
                        𝐂ᵗᵒᵏᵉⁿ = 𝐭
                        dev𝘋𝘉􊳭 = 𝐂
                        ¿𝐨𝐭􀉧tok𝘋𝘉: tok𝘋𝘉􊳧􊳬ᵈᵉᵛˢ􀯿􀊷􊳭  remove dev from old tok if present
-                     ¿conf􇂼‹LEDC RGB_ORDER REVERSE NAME›􀌌ᐖ𝐈􀉨⟞􀉧𝐂􀛾𝐈􍪴􀉟𝐂􍪴 􇂆􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑:
-                       ↪𝚲conf 𝔠.Change_dev 𝼥
+                     ¿conf􇂼‹LEDC RGB_ORDER REVERSE NAME›􀌌ᐖ𝐈􀉨⟞􀉧𝐂 􀛾 𝐈􍪴􀉟𝐂􍪴 􇂆􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑:
+                       ↪𝚲conf 𝔠.Change_dev ꭐ
                      ↪ⴳ
 
 ⊢WS_handle(ws):
-  𝼥 = ℜ𝔚(ws.recv,󷺹􀊚􋅂􁍵􋇦𝔍󰄞􀯖ws.send,ws=ws)
-  𝐈 = 𝼥􀃅 􀯖 𝔍󰄟 􀯖 ŧ_dev_init 􀯖 ℵ
+  ꭐ = WS_Client(ws)
+  init_msg = ꭐ.listener􀃅
+  ꭐ􀃅
+  𝐈 = init_msg􀃅 􀯖 𝔍󰄟 􀯖 ŧ_dev_init 􀯖 ℵ
   𝐈􀊸
-       ws_clients[𝐈ᵁᵁᴵᴰ] = 𝼥
-        negotiate_controller_props(𝐈,𝼥)
-        ∀: msg = 𝼥􀃅
-           ‹⟦𝐈ᵁᵁᴵᴰ⟧ sent: ⟦msg⟧›􀊸
+       ws_clients[𝐈ᵁᵁᴵᴰ] = ꭐ
+        negotiate_controller_props(𝐈,ꭐ)
+        ∀: ‹⟦𝐈ᵁᵁᴵᴰ⟧ message ⟦ꭐ􀃅ᐒ‹⟦⟞₀􀉳􀁭¹⁶􀋢⟧: ⟦⟞₁⟧›⟧›􀊸
   ¡ε=𝑒: ‹Disconnecting ⟦𝐈ᵁᵁᴵᴰ⟧: ε=⟦ε⟧›􀊸
         󰆴 ws_clients[𝐈ᵁᵁᴵᴰ]
 
-w = ₀
+w = Mutable􀃅
 𝚲ⓦ(websocket_serve(WS_handle, ‹0.0.0.0›, WEBSOCKET_PORT, server_header=□),
-   󷺹􀯑w₀􀯖.serve_forever􀃅)󰅂 PL_THREAD
+   󷺹w􀯖.serve_forever􀃅)󰅂 PL_THREAD
 
 ‹Running server›􀊸
     server(port=WEBSITE_PORT)
-¡𝑒𝑒: w₀􀍠󷺹.shutdown􀃅
+¡𝑒𝑒: w􀍠󷺹􀃅.shutdown􀃅
      ⦃import signal as ⦃signal⦄⦄
      os.kill(os.getpid􀃅,signal.SIGTERM)
      exit􀃅

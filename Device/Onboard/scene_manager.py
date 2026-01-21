@@ -25,9 +25,9 @@ class Scene_Manager:
     try:
       return 𝔍lf(loc)
     except Exception as ε:
-      log(f'Failed to load scene from "{loc}"!')
+      dbg(f'Failed to load scene from "{loc}"!')
       raise ε
-  def bulk_dump(𝕊,destroy_cripples=True,log=log):
+  def bulk_dump(𝕊,destroy_cripples=True):
     r = {}
     for f in 𝕊():
       try:
@@ -37,16 +37,16 @@ class Scene_Manager:
           loc = 𝕊(f)
           log(f'Removing broken scene from "{loc}"')
           rm(loc)
-        log(f'Broken scene found at "{loc}": {ε}')
+        dbg(f'Broken scene found at "{loc}":',ε)
     return r
-  def bulk_save(𝕊,X,log=log):
+  def bulk_save(𝕊,X):
     N = 0
     for k,v in X.items():
       try:
         𝕊[k] = v
         N += 1
       except Exception as ε:
-        log(f'Failed to save scene "{k}"!')
+        dbg(f'Failed to save scene "{k}":',ε)
     return N
 
 __all__ = "Scene_Manager",

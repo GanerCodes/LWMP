@@ -15,35 +15,45 @@ MODE ┬ effects ─ *EFFECT ╥ Reverse ─ □
               ╙ Fade ┬ clrs  ─ *RGB
                      ├ speed ─  ℝ⁰􍦛􋔛  transitions/s
                      └ sharp ─  ℝ⁰􍦛¹
-USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE ┬ devs ─ *UUID
-                      │                       └ mode ─  MODE
+SCENE ┬ offs ─ UUID ↦ ℕ⁺
+      └ mode ─ MODE
+SCENE_ACTIVATION ┬ scene   ─ NAME
+                 └ timing  ─ TIMING ┬ que ─ 𝔹
+                                    └ dur ─ ℝ⁰􍦛􋔛
+
+§ FRONTEND STORAGE
+USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE
                       └ devs   ─ UUID ↦ DEV ┬ name      ─ NAME
                                             ├ ledc      ─ ℕ⁺
                                             ├ rgb_order ─ U32
                                             ├ reverse   ─ 𝔹
                                             └ ws_url    ─ ᔐ¹􍦛²⁵⁶
+
+§ API
 COMMAND ┬ token ─ TOKEN
-        └╥ Get_devs ─ □
-         ║          ↪ UUID ↦ DEV
+        └╥ Get_devs ↪ UUID ↦ DEV
          ╟ Change_dev ┬ uuid ─ UUID
-         ║            └ dev ─ DEV  all fields optional, also "delete:true" to del, also allows for token,R_SSID,R_PASS
-         ╟ Set_scene ┬ uuid ─ UUID
-         ║           └ scene ─ SCENE_ACTIVATION ┬ scene  ─ NAME
-         ║                                      └ timing ─ TIMING ┬ que ─ 𝔹
-         ║                                                        └ dur ─ ℝ⁰􍦛􋔛
-         ╟ Del_scene ┬ uuid ─ UUID
+         ║            └ dev ─ DEV  all fields optional, also "delete:true" to del; also allows for token,R_SSID,R_PASS
+         ╟ Set_scene ┬ uuids ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
+         ║           └ scene ─ SCENE_ACTIVATION
+         ║           ↪ *𝔹
+         ╟ Del_scene ┬ uuids ─ *UUID
          ║           └ scene ─ NAME
-         ╟ Push_scenes ┬ uuid ─ UUID
+         ║           ↪ *𝔹  if the scene existed prior
+         ╟ Push_scenes ┬ uuids ─ *UUID
          ║             └ scenes ─ NAME ↦ SCENE
-         ╟ Pull_scenes ─ uuid ─ UUID
-         ║             ↪ NAME ↦ SCENE
-         ╙ Set_schedule ┬ uuid ─ UUID
+         ║             ↪ *ℕ  number of sucessfully saved scenes
+         ╟ Pull_scenes ─ uuids ─ *UUID
+         ║             ↪ *(NAME ↦ SCENE)
+         ╙ Set_schedule ┬ uuids ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
                         └ schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
+ 󷹇 WS msg to LW is very similar, same name and (at least currently) just sending the one relevent value 
 
-
+§ DATABASE
 tok𝘋𝘉: token ↦ devs ─ UUID*
 dev𝘋𝘉: uuid ↦ {token name ledc order reverse}
 
+§ MISC
 󷹇 From server to device the `Set_scene` also includes a UTC timestamp in seconds to sync to.
 
 𝔠: encode a multi-choice value

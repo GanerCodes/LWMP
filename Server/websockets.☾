@@ -1,44 +1,60 @@
 ⦃from threading import ⦃Event⦄⦄
 
- 󰤱 add to general libs?
-⊢Awaitor(𝚍=□): E,𝑽 = Event􀃅,􊱃
-               𜳬 = ⥌t=□↦t E.wait 􀯗𝑽₀􀯘 𝚍
-               ⊢𜳪(x): 𝑽₀=x
-                      E.set􀃅
-               ↪𜳬,𜳪
+ 󰤱 add these to general libs?
+󱀘Mutable:
+  __slots__ = ␛𝕩,␛𝚍
+  ⊢__init__(𝕊,⠤𝔸): 𝔸􀊹􀒸1 􀛷
+                   ¿𝔸: setattr(𝕊,␛𝚍,𝔸₀)
+  ⊢__call__(𝕊,⠤𝔸): 𝔸􀊹􀒸1 􀛷
+                   ¿𝔸: setattr(𝕊,␛𝕩,𝔸₀)
+                       ↪𝔸₀
+                   ¿hasattr(𝕊,␛𝕩): ↪getattr(𝕊,␛𝕩)
+                   ¿hasattr(𝕊,␛𝚍): ↪getattr(𝕊,␛𝚍)
+                   ‹Mutable unset and has no default!› ValueError 􀊗
+  __bool__ = 𝕊↦hasattr(𝕊,␛𝕩)
+  reset    = 𝕊↦delattr(𝕊,␛𝕩)
+⊢Awaitor(𝚍=␀):
+  E,𝑽 = Event􀃅,Mutable􀃅
+  ⊢𜳬(𝚝𝚘=□): ¿E.wait(𝚝𝚘)􀌐:
+              ¿𝚍􀋑␀: ‹Awaitor timed out!› TimeoutError
+              ↪𝚍  Mutable(default) isn't used b/c edge case of
+                    𝑽 getting set between E.wait and 𝑽􀃅
+            ↪𝑽􀃅
+  ⊢𜳪(x): x 𝑽
+         E.set􀃅
+  ↪𜳬,𜳪
 
- 󰤱 close()
- 󰤱 error detection stuff
- 󰤱 implement protocol on micropython end
- 󰤱 test
- 󷹇 handle prob would start loop() in many cases, right?
-󱀘WS:
-  ⊢__init__(𝕊,ws,handle=󰻾):
+󱀘WS_Client:  󰤱 test edgecases/failure cases?
+  ⊢__init__(𝕊,ws):
     𝕊._send,𝕊._recv = ws.send,ws.recv
-    𝕊.handle = handle
+    𝕊.close = ws.close
     𝕊.locks = {}
-  ⊢pack_msg(𝕊,𝚒,𝙼):
-    ¿𝙼􀊞𝑦: 𝙼􀯏𝔍󰄞
-    𝚒.to_bytes(6)􀊩𝙼
-  ⊢unpack_msg(𝕊,𝙼):
-    𝚒,𝙼 = 𝙼􀋴6
-    ↪𝑖.from_bytes(𝚒),𝙼
-  ⊢send(𝕊,𝙼,timeout=10)
-    𝚒 = 6 os.urandom
-    𜳬,𜳪 = Awaitor􀃅
+  ⊢__call__(𝕊,⠤𝔸,⠶𝕂):
+    ¿𝔸: ↪𝕊.send(⠤𝔸,⠶𝕂)
+    ↪𝕊.recv􀃅
+  ➰ = ⥌𝕊,⠤𝔸,𝚝𝚘=10↦𝕊(⠤𝔸,⠶𝕂)(𝚝𝚘)
+  ⊢pack_msg(𝕊,𝚒,𝙼): ¿𝙼􀊞𝑦: 𝙼􇀞𝔍󰄞􀯖𝑀
+                    ↪𝚒􀊩𝙼
+  ⊢unpack_msg(𝕊,𝙼): ↪𝙼􀋴6
+  
+  ⊢listener(𝕊,𝚒=0,𝚍=␀):
+    𜳬,𜳪 = 𝚍 Awaitor
+    ¿𝚒􀊜𝑖: 𝚒=𝑖.to_bytes(𝚒,6)
     𝕊.locks􀲪 = 𜳪
+    ↪𜳬
+  ⊢listen(𝕊,𝚒=0,𝚍=␀,𝚝𝚘=□):
+    ↪𝕊.listener(𝚒,𝚍)(𝚝𝚘)
+  ⊢send(𝕊,𝙼,⠶𝕂):
+    𜳬 = 𝕊.listener(6 SR_bytes􀯑𝚒,⠶𝕂)
     𝕊._send(𝕊.pack_msg(𝚒,𝙼))
     ↪𜳬
-  ⊢recv(𝕊):  like a million error handling issues here
-    𝙼 = 𝕊.unpack_msg(𝕊._recv􀃅)
-    𝚒,𝙼 = 𝙼
+  ⊢recv(𝕊):  󰤱 infinitely fills 𝕊.locks if we don't wait for reply!
+         𝚒,𝙼 = 𝕊.unpack_msg(𝕊._recv􀃅)
+    ¡ε=𝑒: 𝕊.close􀃅
+          􁁖 ε
     ¿𝚒􀉧𝕊.locks: 𝕊.locks􀲪(𝙼)
                 󰆴 𝕊.locks􀲪
-                ↪
-    𝚒􀌐􀒥‹WS message with unknown reply ID (⟦𝚒⟧): ⟦𝙼⟧›
-    ↪𝕊.handle(𝙼)
-  ⊢loop(𝕊):
-    ∀: 𝕊.recv􀃅
-  __call__ = send
+                ↪𝚒􀊱𝙼
+    ✗􀉓‹WS message with unknown reply ID (⟦𝚒⟧): ⟦𝙼⟧›
 
-⭷ Awaitor,WS
+⭷ Mutable,Awaitor,WS_Client

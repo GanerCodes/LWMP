@@ -44,8 +44,11 @@ def parse_rgb_mode(mode):
   if isinstance(mode,int):
     return mode
   if isinstance(mode,str):
-    mode = mode.upper()
-    mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
+    if mode.isdigit():
+      return int(mode)
+    else:
+      mode = mode.upper()
+      mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
   return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
 __all__ = "mode_to_bufs","parse_rgb_mode"

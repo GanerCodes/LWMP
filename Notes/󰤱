@@ -1,3 +1,6 @@
+ORDER BOARDS
+  same addr as last time
+
 Done
   𝟏
     Reworked WiFi/AP things
@@ -31,15 +34,17 @@ Done
           Automatically restarts relevent services
             router creds ⇒ resets internet entirely
             websocket URL ⇒ resets only websocket
+  𝟑
+    Finish bidirectional websocket protocol implementation
+    Add to API file the returns of various methods from LW
 
 Planned
   General
-    Finish bidirectional websocket protocol implementation
-    Add to API file the returns of various methods from LW
     Finish API things
   Bugs
     https://ganer.xyz/s/43f776d9d071ec69
   Features
+    Remote update ability
     Prob sync scene names with database?
     Offline AP mode (screen with buttons for the various stored modes)
     Simple Calibration Function (3 step menu, RGB confirmation)
@@ -49,10 +54,10 @@ Planned
     UI Design Update
     Timer Function (w/ calendar)
     <Conditional>
-      Maybe?
         Create Bakkes Mod Plugin (cool, low priority)
         Generate LED Preview (cool, low priority)
       For like, comically large amount of time and money
         HDMI Passthrough Capabilities
+      Maybe?
     <N/A>
       Fix LED Count Update Bug

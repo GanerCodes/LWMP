@@ -41,6 +41,7 @@ class LED_Controller:
   def loop(𝕊):
     𝕊.lstate = max(𝕊.lstate,_LOOP_NEW_MODE)
     ms = Tick.ms
+    Δm = 0.5
     while lstate := 𝕊.lstate:
       try:
         if lstate > _LOOP_TIGHT:
@@ -57,10 +58,10 @@ class LED_Controller:
         n+=1
         if t>next_t:
           gc.collect(); sleep(0)
-          print(f"{t:12.5f}: FPS: {n}")
-          next_t,n = t+1,0
+          print(f"{t:12.5f}: FPS: {n/Δm}")
+          next_t,n = t+Δm,0
       except Exception as ε:
-        print(f"Error in LED loop! Restarting in 3 seconds: {ε}")
+        dbg(f"Error in LED loop! Restarting in 3 seconds:",ε)
         gc.collect(); sleep(3)
 
 __all__ = "LED_Controller",

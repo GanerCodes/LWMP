@@ -1,8 +1,8 @@
-import ws_client
 from util          import *
 from wifi          import *
 from timing        import *
 from lighting      import *
+from ws_client     import *
 from interface     import *
 from scene_manager import *
 
@@ -44,10 +44,11 @@ def lw_WAN():
       raise Exception("Credentials not found.")
     controller(preset_normal)
     if not wifi_connect(*ℭ("r_ssid","r_pass")):
-      raise Exception(f'Could not connect to wifi!')
+      raise Exception(f'Could not connect to WiFi!')
     Time(); gc.collect()
   except Exception as ε:
-    print(f'Could not connect to wifi: {ε}\nStarting AP.')
+    dbg(f'Could not connect to WiFi:',ε)
+    log("Starting AP.")
     controller(preset_ap)
     def get(path):
       return 200,"text/html",read_file("index.html")
@@ -56,7 +57,7 @@ def lw_WAN():
         ℭ(𝔍l(body))
         machine.reset()
       except Exception as ε:
-        print(f"Error getting credentials from AP: {ε}")
+        dbg(f"Error getting credentials from AP:",ε)
         return 400,"application/json",𝔍d({"msg":"Cannot parse credentials!"})
     AP_with_DNS(get,post,timeout=60**2,timeout_f=machine.reset)
     machine.reset()
@@ -68,6 +69,7 @@ def handle_API(𝐦,d=None):
     ICON = set("R_SSID R_PASS".split())
     RLED = set("LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     
+    if "RGB_ORDER" in d: d['RGB_ORDER'] = parse_rgb_mode(d['RGB_ORDER'])
     ℭ({ k.upper():v for k,v in d.items() if k in ℭ }) # allows setting uuid, bad?
     if "delete" in d:
       # 󰤱􊽨 regenerate uuid?
@@ -75,34 +77,35 @@ def handle_API(𝐦,d=None):
     
     K = set(k.upper() for k in d)
     if K & RLED: update_LED_HW()(preset_normal)
-    if K & ICON: return _RESET_WIFI,None
-    if K & WCON: return _RESET_WS  ,None
+    if K & ICON: return _RESET_WIFI,_RESET_WIFI
+    if K & WCON: return _RESET_WS  ,_RESET_WS
   elif 𝐦=="Set_scene":
     log(f"󰤱 Set_scene ({d})") # 󰤱
   elif 𝐦=="Del_scene":
-    return _RESET_NO,𝔐.__delitem__(d["scene"])
+    return _RESET_NO,𝔐.__delitem__(d)
   elif 𝐦=="Push_scenes":
-    return _RESET_NO,𝔐.bulk_save(d["scenes"])
+    return _RESET_NO,𝔐.bulk_save(d)
   elif 𝐦=="Pull_scenes":
     return _RESET_NO,𝔐.bulk_dump()
   elif 𝐦=="Set_schedule":
     log(f"󰤱 Set_schedule ({d})") # 󰤱
-  return _RESET_NO,None
+  return _RESET_NO,_RESET_NO
 
 def lw_websocket_loop():
-  𝘞 = ws_client.connect(ℭ.WS_URL)
-  𝘞({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER".split()})
+  ꭐ = WS_Client(ℭ.WS_URL)
+  ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER".split()})
   while 1:
-    cmd = 𝔍l(𝘞())
-    print(f"WS Command: {cmd}")
+    i,cmd = ꭐ()
+    cmd = 𝔍l(cmd)
+    print(f"WS Command {i.hex()}: {cmd}")
     con,resp = handle_API(*𝔪(cmd))
-    if resp is not None: 𝘞(resp) # 󰤱 new WS stuff
+    if resp is not None: ꭐ(resp,i=i)
     if con:
-      try                  : 𝘞.close()
-      except Exception as ε: print(f"Failed to close WS: {ε}")
+      try                  : ꭐ.close()
+      except Exception as ε: dbg(f'Failed to close WS:',ε)
       if con == _RESET_WIFI: return con
       break
-    gc.collect(); sleep(0.1)
+    gc.collect() #; sleep(0.1)
 
 update_LED_HW()
 try:
@@ -113,10 +116,8 @@ try:
         if lw_websocket_loop() == _RESET_WIFI:
           print("Resetting WiFi")
           gc.collect(); break
-      except OSError as ε:
-        print(f"WebSocket connection failed! Restarting in 5 seconds: {ε}")
-      except Exception as ε:
-        print(f"Error in WebSocket loop! Restarting in 5 seconds: {ε}")
+      except OSError   as ε: dbg(f'WebSocket connection failed! Restarting in 5 seconds:',ε)
+      except Exception as ε: dbg(f'Error in WebSocket loop! Restarting in 5 seconds:',ε)
       sleep(5)
 except:
   controller.loop = 0

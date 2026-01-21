@@ -62,7 +62,7 @@ Content-Type: {t}\r
 Access-Control-Allow-Origin: *\r\n\r\n""".encode("utf-8")+B)
       conn.close()
     except Exception as ε:
-      log(f'Error processing request: {ε}')
+      dbg(f'Error processing request:',ε)
     finally:
       try             : conn.close()
       except Exception: pass

@@ -9,7 +9,6 @@ LED_ONBOARD = machine.Pin(2)
 LED_ONBOARD.init(LED_ONBOARD.OUT)
 onboard_led = lambda s=1: LED_ONBOARD.value(int(bool(s)))
 
-log = print
 ls = lambda f=".",g="*": list(𝐩(f).glob(g))
 rm = lambda f: 𝐩(f).unlink()
 𝔍lf = lambda f  : 𝔍l(read_file(f))
@@ -21,9 +20,17 @@ boolstr = lambda s: s.strip().lower() in ('true','1')
 gen_id = lambda: hex(int(''.join(str(random.random())[2:] for i in range(3))))[2:10]
 mem_info = lambda: f"{gc.mem_alloc()}/{gc.mem_free()} = {gc.mem_alloc()/gc.mem_free()}"
 
-def dbg(*𝔸,**𝕂):
-  print("DEBUG:",*𝔸,**𝕂)
+def log(*𝔸,**𝕂):
+  print(*𝔸,**𝕂)
   if 𝔸: return 𝔸[0]
+def dbg(*𝔸,**𝕂):
+  v = log(*𝔸,**𝕂)
+  for ε in 𝔸:
+    if not isinstance(ε,BaseException): continue
+    print(f'Printing exception ε={ε}\n>>>>>>>')
+    sys.print_exception(ε)
+    print("<<<<<<<")
+  return v
 
 def read_file(fn,m="r"):
   with open(str(fn),m) as f:
@@ -37,7 +44,7 @@ def write_check_file(fn,content,parse=str,log=print):
   try:
     content = parse(content)
   except Exception as ε:
-    log(f'Error parsing content to write: {ε}')
+    dbg(f'Error parsing content to write!')
     raise ε
   log(f'Writing "{content}" to file "{f}"')
   return write_file(fn,content)
@@ -46,7 +53,7 @@ def load_check_datafile(f,default,parse=str,log=print):
     try:
       return parse(read_file(f))
     except Exception as ε:
-      log(f'Error parsing config file: {ε}')
+      dbg(f'Error parsing config file:',ε)
   if callable(default): default = default()
   log(f'Writing "{default}" to file "{f}"')
   write_file(f,default)
@@ -58,11 +65,19 @@ class Settings:
     for k,v in 𝕂.items():
       k = k.upper()
       v,f = v if len(v)==2 else (v[0],str) if len(v) else (None,str)
-      try:
-        v = f(𝔍lf(k))
-      except Exception as ε:
-        print(f'Resorting to default value for "{k}": {ε}')
+      
+      default = False
+      if 𝐩(k).is_file():
+        try:
+          v = f(𝔍lf(k))
+          default = True
+        except Exception as ε:
+          dbg(f'Error parsing file "{k}":',ε)
+      else:
+        dbg(f'File "{k}" not found.')
+      if not default:
         v = v() if callable(v) else v
+        dbg(f'Using default value for "{k}"')
       𝕊.X[k] = [v,f]
   def __contains__(𝕊,k):
     return k.upper() in 𝕊.X
