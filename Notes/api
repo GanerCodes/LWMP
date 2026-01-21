@@ -10,8 +10,8 @@ MODE ┬ effects ─ *EFFECT ╥ Reverse ─ □
       ╙ Atom ┬ leds ─ ℕ⁺
              └╥ Static ─ clr ─ RGB
               ╟ Rainbow ┬ segs ─ ℝ
-              ║         ├ sat  ─ U8
-              ║         └ val  ─ U8
+              ║         ├ s    ─ U8
+              ║         └ v    ─ U8
               ╙ Fade ┬ clrs  ─ *RGB
                      ├ speed ─  ℝ⁰􍦛􋔛  transitions/s
                      └ sharp ─  ℝ⁰􍦛¹

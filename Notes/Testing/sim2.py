@@ -45,25 +45,21 @@ def optf(S):
 def f(S,t):
     p,d = 0,0
     i = 0
-    while i<len(S):
+    for i in range(len(S)):
         s = S[i]
         if s.d < d: p += s.d-d
-        stk[p] = (int(s.r0 + s.rΔ*t),s.σ,s.Σ)
-        p += 1
-        if s.m>0:
-            o = 0
-            while o<s.Σ:
-                n = o
-                q=p-1
-                while q>=0:
-                    e = stk[q]
-                    n = (e[0]+n) % e[2] + e[1]
-                    q-=1
-                leds[n] = s.m-1
-                o += 1
-            p -= 1
         d = s.d
-        i+=1
+        stk[p] = (int(s.r0 + s.rΔ*t),s.σ,s.Σ)
+        if not s.m:
+            p+=1
+            continue
+        for o in range(s.Σ):
+            n = o
+            for q in [*range(p+1)][::-1]:
+                e = stk[q]
+                n = (e[0]+n) % e[2] + e[1]
+            leds[n] = s.m-1 # mode_id
+            o += 1
 
 # N = (1,1, [(0,0,4), (0,0,3)])
 N = (0,1, [(0,-1, [(0,0,3),(0,0,4)]), (0,0,5), (0,0,2)])
@@ -72,12 +68,11 @@ scheme = optf(flat(pre(N)))
 leds = [0]*scheme[0].Σ
 stk = [0]*(max(s.d for s in scheme)+1)
 
-print(scheme)
-h = lambda t: print(''.join(map(str,leds)))
-for t in range(10):
+print(*scheme,'',sep='\n')
+h = lambda t: print(f"{t:06.3f}",''.join(map(str,leds)))
+for t in [t/3 for t in range(15+1)]:
     f(scheme,t)
     h(t)
-print(leds)
 
 # scheme = \
 # ((  (6,0,0),

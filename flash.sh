@@ -4,13 +4,14 @@
 # yay --noconfirm --needed -S esptool
 # sudo pip install mpy-cross mpremote
 # https://github.com/v923z/micropython-builder/releases/tag/latest
+# 󷹇 be part of group `uucp` so you can interface w/ microcontroller!
 
 DEVICE="/dev/${1-ttyACM0}" # ttyUSB0
 WRITE_BAUD_RATE="2000000" # "460800"
 INTERACT_BAUD_RATE="115200"
-# BUILD_ROM="1"
+BUILD_ROM="1"
 # CLEAN_ROM="1"
-# DO_FLASH="1"
+DO_FLASH="1"
 
 [[ -e "$DEVICE" ]] || { echo "Could not find ${DEVICE}!"
                         exit 1; }
@@ -37,15 +38,16 @@ pushd ./Device
     for f in *.py; do
       mpy-cross -o "./${f%.py}.mpy" -march=xtensawin "./$f"
     done
-    sudo mpremote connect "${DEVICE}" fs rm -r :/ || :
-    sudo mpremote connect "${DEVICE}" fs cp *.mpy *.html :/
-    sudo mpremote connect "${DEVICE}" fs cp -r ./defaults/* :/
-    sudo mpremote connect "${DEVICE}" fs cp main._py :/main.py
+    # mpremote connect "${DEVICE}" fs rm -r :/ || :
+    mpremote connect "${DEVICE}" fs cp -r :/defaults/* || :
+    mpremote connect "${DEVICE}" fs cp *.mpy *.html :/
+    mpremote connect "${DEVICE}" fs cp -r ./defaults/* :/
+    mpremote connect "${DEVICE}" fs cp main._py :/main.py
     rm *.mpy || :
     popd
   popd
 
 echo "Booting LightWave"
-sudo mpremote connect "${DEVICE}" run ./Device/Onboard/main._py
+mpremote connect "${DEVICE}" run ./Device/Onboard/main._py
 
 exit $?; }

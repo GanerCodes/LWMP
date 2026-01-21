@@ -14,23 +14,60 @@
 #define i8    int8_t
 
 #pragma push_macro("ret")
+#define el else
+#define ef el if
 #define ret return
 
 #define OFFSET_R ((RGB_OFFS >>  0) & 0xFF)
 #define OFFSET_G ((RGB_OFFS >>  8) & 0xFF)
 #define OFFSET_B ((RGB_OFFS >> 16) & 0xFF)
-typedef struct { i32 σ,Σ,d,m; f32 r0,rΔ; } Seg;
-typedef struct { f32 r; i32 σ,Σ; } StackEntry;
 typedef struct { u8 r,g,b; } RGB;
+typedef struct { i32 σ,Σ,d,m; f32 r0,rΔ; } Seg;
+  // r0: rotation start offset
+  // rΔ: rotation speed
+  // σ : 
+  // Σ : length in LED count
+  // d : 
+  // m : mode; 0 ⇒ has subchildren
+typedef struct { f32 r; i32 σ,Σ; } StackEntry;
+typedef struct { u8 r,g,b;                              } Static;
+typedef struct { f32 segs; u8 s,v;                      } Rainbow;
+typedef struct { u8 clrN; RGB *colors; f32 speed,sharp; } Fade;
+typedef struct { u8 brightness;
+                 u8 mode; // RxxxxMMM  R is for reversed, M determines which of the following union
+                 union { Static; Rainbow; Fade; } data; } Atom;
+
+/*
+
+// https://www.desmos.com/calculator/yli6q8tc25?nobranding=&nokeypad=
+compute_fades(t)
+
+Atom *atoms = (StackEntry *)mp_obj_get_uint(args[…]);
+for(let i = 0; i<atoms_len; i++) {
+  Atom atom = atoms[i];
+  if(atom.mode & 0b111 == 2) {
+    float p = atom.speed*t;
+    RGB clr = RGBlerp(
+      atom.colors[((u32)(p   )) % atom.clrN)],
+      atom.colors[((u32)(p+1f)) % atom.clrN)],
+      (u8)(255*powf(mod(p,1.0),1+255f*powf(sharp,5))));
+    atoms[i] = Static(clr.r,clr.g,clr.b);
+  }
+  
+}
+
+
+*/
 
 static inline f32 mod(f32 a, f32 b) { a = fmodf(a,b);
                                       ret a<0 ?a+b: a; }
-static inline f32    lerp(f32 a, f32 b, f32 x) { ret (1.0-x)*a + x*b; }
+
+// static inline f32    lerp(f32 a, f32 b, f32 x) { ret (1.0-x)*a + x*b; }
+static inline f32    lerp(f32 a, f32 b, f32 x) { ret a + x*(b-a); }
 static inline u8    ulerp( u8 a,  u8 b,  u8 x) { ret a+(x*(b-a+1)+1 >> 8); }
 static inline RGB RGBlerp(RGB a, RGB b,  u8 x) { ret (RGB) { ulerp(a.r,b.r,x),
                                                              ulerp(a.g,b.g,x),
                                                              ulerp(a.b,b.b,x) }; }
-
 static inline RGB lightwave_hsv_to_rgb(u8 h, u8 s, u8 v) {
     if(!s) ret (RGB){v,v,v};
     u8 reg = h/43;
@@ -61,41 +98,36 @@ static mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
     for(i32 i=0,p=0,d=0; i<S_len; i++) {
         Seg s = S[i];
         if(s.d<d) p += s.d - d;
-
+        d = s.d;
         stk[p] = (StackEntry){s.r0 + s.rΔ*t,s.σ,s.Σ};
 
-        if(!s.m) p++;
-        else{ i32 mode_id = s.m-1;
-              for(i32 o=0; o<s.Σ; o++) {
-                  f32 n=o;
-                  for(i32 q=p; q>=0; q--) {
-                      StackEntry e = stk[q];
-                      n = mod(n+e.r,e.Σ) + e.σ; }
-                  RGB c1;
-                  RGB c2;
-                  if(mode_id == 0) {
-                    c1 = lightwave_atom_rainbow(o             , s.Σ, 3.0, 0xFF, 0x15);
-                    c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, 3.0, 0xFF, 0x15);
-                  }else if(mode_id == 1) {
-                    c1 = (RGB){0x44,0x00,0x00}; // ...so whats the mode_id of the LED next to us lol
-                    c2 = (RGB){0x44,0x00,0x00};
-                  }else if(mode_id == 2) {
-                    c1 = (RGB){0x00,0x44,0x00};
-                    c2 = (RGB){0x00,0x44,0x00};
-                  }else{
-                    c1 = lightwave_atom_rainbow(o             , s.Σ, 3.0, 0xFF, 0x44);
-                    c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, 3.0, 0xFF, 0x44);
-                  }
-                  u8 prop = 0xFF*(n - (u32)n);
-                  leds[3*(u32)n+OFF_R] = ulerp(c1.r,c2.r,prop);
-                  leds[3*(u32)n+OFF_G] = ulerp(c1.g,c2.g,prop);
-                  leds[3*(u32)n+OFF_B] = ulerp(c1.b,c2.b,prop);
-                  // RGB out = RGBlerp(c1,c2,prop);
-                  // leds[3*(u32)y+OFFSET_R] = out.r;
-                  // leds[3*(u32)y+OFFSET_G] = out.g;
-                  // leds[3*(u32)y+OFFSET_B] = out.b;
-              } }
-        d = s.d; }
+        if(!s.m) { p++;
+                   continue; }
+        i32 mode_id = s.m-1;
+        for(i32 o=0; o<s.Σ; o++) {
+            f32 n=o;
+            for(i32 q=p; q>=0; q--) { // apply stack of transformation
+                StackEntry e = stk[q];
+                n = mod(n+e.r,e.Σ) + e.σ; }
+            RGB c1;
+            RGB c2;
+            if(mode_id == 0) {
+              c1 = lightwave_atom_rainbow(o             , s.Σ, 3.0, 0xFF, 0x15);
+              c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, 3.0, 0xFF, 0x15); }
+            ef(mode_id == 1) {
+              c1 = (RGB){0x44,0x00,0x00}; // ...so whats the mode_id of the LED next to us lol
+              c2 = (RGB){0x44,0x00,0x00}; }
+            ef(mode_id == 2) {
+              c1 = (RGB){0x00,0x44,0x00};
+              c2 = (RGB){0x00,0x44,0x00}; }
+            el{
+              c1 = lightwave_atom_rainbow(o             , s.Σ, 3.0, 0xFF, 0x44);
+              c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, 3.0, 0xFF, 0x44);
+            }
+            u8 prop = 0xFF*(n - (u32)n);
+            leds[3*(u32)n+OFF_R] = ulerp(c1.r,c2.r,prop);
+            leds[3*(u32)n+OFF_G] = ulerp(c1.g,c2.g,prop);
+            leds[3*(u32)n+OFF_B] = ulerp(c1.b,c2.b,prop); } }
     
     ret mp_const_none; }
 static MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(lightwave_assign_leds_obj,6,6,lightwave_assign_leds);
