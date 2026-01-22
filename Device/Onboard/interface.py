@@ -34,11 +34,22 @@ def optf(S):
 
 def mode_to_bufs(N):
   scheme = optf(flat(pre(N)))
-  S_buf = bytearray()
-  for s in scheme: S_buf += struct.pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ)
-  stk_buf = (max(s.d for s in scheme)+1)*struct.pack("iii",0,0,0)
-  LED_buf =                  scheme[0].Σ*struct.pack("BBB",0)
-  return S_buf,stk_buf,LED_buf
+  S = bytearray()
+  for s in scheme: S += struct.pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ)
+  stk  = (max(s.d for s in scheme)+1)*struct.pack("iii",0,0,0)
+  leds = scheme[0].Σ                 *struct.pack("BBB",0)
+  
+  atoms = bytearray([0xFF,0x00,
+                     0x00,0x00, # pad
+                     0xFF,0x00,0x00,
+                     0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+                     
+                     0xFF,0x01,
+                     0x00,0x00, # pad
+                     0x00,0x00,0xA0,0x40,
+                     0xFF,0x55,
+                     0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00])
+  return S,atoms,stk,leds
 
 def parse_rgb_mode(mode):
   if isinstance(mode,int):

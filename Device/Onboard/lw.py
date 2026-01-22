@@ -11,7 +11,8 @@ _RESET_WS   = const(1)
 _RESET_WIFI = const(2)
 
 preset_ap     = (0,0, [(0,0, [(0,0,50)]), (0,0.25, [(0,0,150)])])
-preset_normal = (0,0.05, [(0,-0.05, [(0,0.1,100),(0.5,0,100),(0.5,0,100)]), (0,0,100), (0,0,100)])
+preset_normal = (0.1,-0.2, [(-0.2,0.1, [(0,0,250)]), (-5,0.25, [(0,0,250)])])
+# preset_normal = (0,0.05, [(0,-0.05, [(0,0.1,100),(0.5,0,100),(0.5,0,100)]), (0,0,100), (0,0,100)])
 
 for i in range(10): # blinky at boots
   onboard_led(~i%2)
@@ -31,8 +32,9 @@ thread(controller.loop)
              LEDC       =(505                                  , int    ),
              REVERSE    =(False                                , boolstr),
              BIT_TIMING =([400,850,800,450]                    ,        ),
-             RGB_ORDER  =(parse_rgb_mode("GRB")                ,        ) )
+             RGB_ORDER  =("RGB"                                ,        ) )
 if not ℭ.name: ℭ.name = ℭ.UUID
+ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 print(ℭ)
 
 update_LED_HW = lambda: controller.configure(pin=ℭ.LEDP, order=ℭ.RGB_ORDER, timing=ℭ.BIT_TIMING)

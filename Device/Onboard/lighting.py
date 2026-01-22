@@ -9,8 +9,8 @@ _LOOP_NEW_MODE = const(2)
 _LOOP_NEW_HW   = const(3)
 
 @micropython.viper
-def test_assign_leds(S:ptr8,l:int,stk:ptr8,leds:ptr8,t,RGB_OFF:int):
-  assign_leds(S,l,stk,leds,t,RGB_OFF)
+def test_assign_leds(S:ptr8,S_len:int,atoms:ptr8,stk:ptr8,leds:ptr8,t,RGB_OFF:int):
+  assign_leds(S,S_len,atoms,stk,leds,t,RGB_OFF)
 
 class LED_Controller:
   __repr__ = lambda 𝕊: f"LED_Controller⟨pin={𝕊.pin} order={𝕊.order} timing={𝕊.timing}⟩"
@@ -47,14 +47,14 @@ class LED_Controller:
         if lstate > _LOOP_TIGHT:
           𝕊.update_wait_params_safe(lstate)
           t0,next_t,n = ms(),1,0
-          S_buf,stk_buf,LED_buf = mode_to_bufs(𝕊.mode)
+          S,atoms,stk,leds = mode_to_bufs(𝕊.mode)
           pinout,order,timing = 𝕊.pinout,𝕊.order,𝕊.timing
-          l = len(S_buf)//24
+          S_len = len(S)//24
           gc.collect()
         
         t = 0.001*float(ms()-t0)
-        test_assign_leds(S_buf,l,stk_buf,LED_buf,t,order)
-        machine.bitstream(pinout,0,timing,LED_buf)
+        test_assign_leds(S,S_len,atoms,stk,leds,t,order)
+        machine.bitstream(pinout,0,timing,leds)
         n+=1
         if t>next_t:
           gc.collect(); sleep(0)

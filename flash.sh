@@ -9,9 +9,9 @@
 DEVICE="/dev/${1-ttyACM0}" # ttyUSB0
 WRITE_BAUD_RATE="2000000" # "460800"
 INTERACT_BAUD_RATE="115200"
+DO_FLASH="1"
 BUILD_ROM="1"
 # CLEAN_ROM="1"
-DO_FLASH="1"
 
 [[ -e "$DEVICE" ]] || { echo "Could not find ${DEVICE}!"
                         exit 1; }

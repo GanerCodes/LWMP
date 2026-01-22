@@ -3,7 +3,7 @@ UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
 NAME ─ ᔐ¹􍦛⁶⁴
 RGB ─ [U8,U8,U8]
 MODE ┬ effects ─ *EFFECT ╥ Reverse ─ □
-     │                   ╟ Brightness ─ ℝ⁺
+     │                   ╟ Brightness ─ ℝ⁰􍦛¹
      │                   ╙ Rotate ┬ speed  ─ ℝ  led/s
      │                            └ offset ─ ℝ
      └╥ Modes ─ *MODE
