@@ -3,7 +3,7 @@ machine.freq(240_000_000)
 esp.osdebug(None)
 gc.disable()
 print("Starting LightWave")
-try:
-  import lw
-except:
-  lw.controller.lstate = 0
+# try:
+import lw
+# except:
+#   lw.controller.lstate = 0

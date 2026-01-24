@@ -97,6 +97,9 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
   u8 OFF_G = OFFSET_G;
   u8 OFF_B = OFFSET_B;
   
+  u32 LO = 5;
+  u32 HI = 25;
+  
   for(i32 i=0,p=0,d=0; i<S_len; i++) {
     Seg s = S[i];
     if(s.d<d) p += s.d - d;
@@ -115,6 +118,9 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
           if(e.Σ<0) n = AΣE-1.0-n; // negative length ⇒ reversed
           n += e.σ; }
       
+      u32 N = (u32)n;
+      // if(N<LO || N>=HI) continue;
+      
       RGB c;
       switch(atom.mode) {
         case 0: {
@@ -129,10 +135,10 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
         } break;
         default: __builtin_unreachable(); }
       c = RGBscale(c,atom.brightness);
-      u32 off = 3*(u32)n;
-      leds[off+OFF_R] = c.r;
-      leds[off+OFF_G] = c.g;
-      leds[off+OFF_B] = c.b;
+      N*=3;
+      leds[N+OFF_R] = c.r;
+      leds[N+OFF_G] = c.g;
+      leds[N+OFF_B] = c.b;
     } }
   
   ret mp_const_none; }

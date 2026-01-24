@@ -8,8 +8,37 @@ _LOOP_TIGHT    = const(1)
 _LOOP_NEW_MODE = const(2)
 _LOOP_NEW_HW   = const(3)
 
+# import esp32
+
+# @micropython.viper
+# def ws2812_pulses(buf:ptr8,buf_size:int,out:ptr8): # 400 850 800 450
+#   for i in range(buf_size):
+#     I = 16*i
+#     for o in range(8):
+#       if buf[i] & (1 << (7 - o)):
+#         out[I+o  ] = 32
+#         out[I+o+1] = 64
+#       else:
+#         out[I+o  ] = 68
+#         out[I+o+1] = 36
+
+# # r = esp32.RMT(pin=machine.Pin(23), resolution_hz=40000000, clock_div=1)
+# r = esp32.RMT(0, pin=machine.Pin(23), resolution_hz=80000000)
+# def output_leds(leds,pinout,timing):
+#   print("yeag")
+#   pulses = bytearray(16*len(leds))
+#   ws2812_pulses(bytearray(leds),len(leds),pulses)
+#   r.write_pulses(tuple(pulses),1)
+#   # esp32.RMT.wait_done(timeout=99)
+#   del pulses
+#   gc.collect()
+#   # machine.bitstream(pinout,0,timing,leds)
+
+def output_leds(leds,pinout,timing):
+  machine.bitstream(pinout,0,timing,leds)
+
 @micropython.viper
-def write_leds(S:ptr8,S_len:int,atoms:ptr8,stk:ptr8,leds:ptr8,t,RGB_OFF:int):
+def render_leds(S:ptr8,S_len:int,atoms:ptr8,stk:ptr8,leds:ptr8,t,RGB_OFF:int):
   assign_leds(S,S_len,atoms,stk,leds,t,RGB_OFF)
 
 class LED_Controller:
@@ -65,12 +94,14 @@ class LED_Controller:
           gc.collect()
           S,atoms,stk,leds = mode_to_bufs(𝕊.mode)
           pinout,order,timing = 𝕊.pinout,𝕊.order,𝕊.timing
+          print(f"{sum(timing)*len(leds)*8 / 1_000_000}ms to blit!!1????⸘‽¿¡")
           S_len = len(S)//24
           gc.collect()
         
         t = 0.001*float(ms()+Δ)
-        write_leds(S,S_len,atoms,stk,leds,t,order)
-        machine.bitstream(pinout,0,timing,leds)
+        render_leds(S,S_len,atoms,stk,leds,t,order)
+        output_leds(leds,pinout,timing)
+        
         n+=1
         if not n%M or t>track+ΔR:
           gc.collect(); sleep(0)
