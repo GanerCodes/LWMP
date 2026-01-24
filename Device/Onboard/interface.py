@@ -12,43 +12,65 @@ class Node:
     x.d,x.m = 𝕊.d,𝕊.m
   def __repr__(𝕊): return f"⟨{'T '*𝕊.m}{𝕊.σ}…{𝕊.σ+𝕊.Σ}@{𝕊.d} {𝕊.rΔ}↺+{𝕊.r0}⟩"
 def pre(N,ν=None,σ=0,d=0):
-  r,C = Node(None,σ,None,N[0],N[1],d),N[2]
+  add = lambda x,y: (abs(x)+abs(y))*(1-2*(x<0))
+  r,C = Node(None,σ,None,N[1],N[2],d),N[3]
   if type(C) is int:
-    r.ν,r.Σ,r.m = ν,C,True
+    r.ν,r.Σ,r.m = ν,C*(1-2*N[0]),True
   else:
     r.Σ = 0
     r.ν = h1 = Node()
     for i,n in enumerate(C):
       h2 = ν if i==len(C)-1 else Node(None)
-      pre(n,h2,r.Σ,d+1).to(h1)
-      r.Σ += h1.Σ
+      pre(n,h2,abs(r.Σ),d+1).to(h1)
+      r.Σ = add(r.Σ,h1.Σ)
       h1 = h2
+  r.Σ *= (1-2*N[0])
   return r
 def flat(S): return [S]+(flat(S.ν) if S.ν else [])
 def optf(S):
   H,m = [],0
   for x in S:
       m += x.m
-      H.append(Seg(x.σ,x.Σ,x.d,int(x.m and m),x.r0,x.rΔ*x.Σ))
+      H.append(Seg(x.σ,x.Σ,x.d,int(x.m and m),x.r0,x.rΔ))
   return H
 
-def mode_to_bufs(N):
-  scheme = optf(flat(pre(N)))
-  S = bytearray()
-  for s in scheme: S += struct.pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ)
-  stk  = (max(s.d for s in scheme)+1)*struct.pack("iii",0,0,0)
-  leds = scheme[0].Σ                 *struct.pack("BBB",0)
+def convert_atom(t,dat,brightness=1.0):
+  bright = int(min(255*brightness,255))
+  if t == "Static":
+    return struct.pack("BBxxBBBxxxxxxxxxxxxx",bright,0x00,*dat)
+  if t == "Rainbow":
+    return struct.pack("BBxxfBBxxxxxxxxxx"   ,bright,0x01,*dat)
+  if t == "Fade":
+    pass # 󰤱
+  raise Exception(f'Unknown atom type "{t}"!')
+def parse_mode(mode,brightness=1,atoms=None):
+  if atoms is None: atoms = []
   
-  atoms = bytearray([0xFF,0x00,
-                     0x00,0x00, # pad
-                     0xFF,0x00,0x00,
-                     0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
-                     
-                     0xFF,0x01,
-                     0x00,0x00, # pad
-                     0x00,0x00,0xA0,0x40,
-                     0xFF,0x55,
-                     0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00])
+  r0 = rΔ = reverse = 0
+  for t,v in mode["effects"]:
+    if   t == "Rotate"    : rΔ,r0 = v
+    elif t == "Reversed"  : reverse = True
+    elif t == "Brightness": brightness *= v
+  t,v = 𝔪(mode)
+  if   t=="atom":
+    s = v[0]
+    atoms.append(convert_atom(*v[1],brightness))
+  elif t=="modes":
+    s = tuple(parse_mode(m,brightness,atoms)[0] for m in v)
+  else:
+    raise ValueError(f'Unknown mode type "{t}"!')
+  return (reverse,r0,rΔ,s),atoms
+def mode_to_bufs(N):
+  N,atoms = parse_mode(N)
+  N = optf(flat(pre(N)))
+  
+  # 󰤱 cull irrelevent sections/excessive buffer sizes based on our device (here􊽨)
+  
+  S     = b''.join(struct.pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
+  atoms = b''.join(atoms)
+  stk   = (max(s.d for s in N)+1)*struct.pack("iii",0,0,0)
+  leds  = abs(N[0].Σ)            *struct.pack("BBB",0)
+  gc.collect()
   return S,atoms,stk,leds
 
 def parse_rgb_mode(mode):

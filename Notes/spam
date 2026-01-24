@@ -20,3 +20,15 @@ if safeboot:
   print("Safe mode enabled, will not run.")
 else:
   import main
+  
+  
+  
+// RGB c1 = lightwave_atom_rainbow(o             , AΣS, atom.R.segs, atom.R.s, atom.R.v);
+// RGB c2 = lightwave_atom_rainbow(o==0?AΣS-1:o-1, AΣS, atom.R.segs, atom.R.s, atom.R.v);
+// c = RGBlerp(c1,c2,0xFF*(n-(u32)n));
+
+// c = lightwave_hsv_to_rgb(
+//       ulerp((u8)(f*(o             )),
+//             (u8)(f*(o==0?AΣS-1:o-1)),
+//             0xFF*(n-(u32)n)),
+//       atom.R.s, atom.R.v);

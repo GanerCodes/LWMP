@@ -9,11 +9,13 @@ class Scene_Manager:
         return loc
     else:
       return [x.name for x in ls(𝕊.dir)]
+  def __contains__(𝕊,x):
+    return 𝕊(x) is not None
   def __setitem__(𝕊,name,mode,log=log):
     if not isinstance(mode,str):
       E = (loc:=𝕊.dir/name).is_file()
       𝔍wf(loc,mode)
-      log(f'{"Update" if E else "Wrote"} scene "{name}" ({loc})')
+      log(f'{"Updated" if E else "Wrote"} scene "{name}" at "{loc}"')
   def __delitem__(𝕊,name,log=log):
     if loc := 𝕊():
       rm(loc)

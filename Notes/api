@@ -1,25 +1,20 @@
 TOKEN ─ ᔐ⁶􍦛⁶⁴
 UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
 NAME ─ ᔐ¹􍦛⁶⁴
-RGB ─ [U8,U8,U8]
-MODE ┬ effects ─ *EFFECT ╥ Reverse ─ □
-     │                   ╟ Brightness ─ ℝ⁰􍦛¹
-     │                   ╙ Rotate ┬ speed  ─ ℝ  led/s
-     │                            └ offset ─ ℝ
-     └╥ Modes ─ *MODE
-      ╙ Atom ┬ leds ─ ℕ⁺
-             └╥ Static ─ clr ─ RGB
-              ╟ Rainbow ┬ segs ─ ℝ
-              ║         ├ s    ─ U8
-              ║         └ v    ─ U8
-              ╙ Fade ┬ clrs  ─ *RGB
-                     ├ speed ─  ℝ⁰􍦛􋔛  transitions/s
-                     └ sharp ─  ℝ⁰􍦛¹
+RGB ─ [r:U8, g:U8, b:U8]
+ATOM_PARAM ╥ Static ─ RGB
+           ╟ Rainbow ─ [segs:ℝ, s:U8, v:U8]
+           ╙ Fade ┬ clrs  ─ *RGB
+                  ├ speed ─  ℝ⁰􍦛􋔛  transitions/s
+                  └ sharp ─  ℝ⁰􍦛¹
+MODE ┬ effects ─ *EFFECT ╥ Rotate ─ [speed:ℝ, offset:ℝ]  led/s and leds
+     │                   ╟ Reverse ─ □
+     │                   ╙ Brightness ─ ℝ⁰􍦛¹
+     └╥ modes ─ *MODE
+      ╙ atom ─ [ℕ⁺:ledc, ATOM_PARAM]
 SCENE ┬ offs ─ UUID ↦ ℕ⁺
       └ mode ─ MODE
-SCENE_ACTIVATION ┬ scene   ─ NAME
-                 └ timing  ─ TIMING ┬ que ─ 𝔹
-                                    └ dur ─ ℝ⁰􍦛􋔛
+SCENE_ACTIVATION ─ [NAME, 𝔹:que, ℝ⁰􍦛􋔛:dur]
 
 § FRONTEND STORAGE
 USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE
@@ -54,7 +49,7 @@ tok𝘋𝘉: token ↦ devs ─ UUID*
 dev𝘋𝘉: uuid ↦ {token name ledc order reverse}
 
 § MISC
-󷹇 From server to device the `Set_scene` also includes a UTC timestamp in seconds to sync to.
+󷹇 From server to device the `Set_scene` also includes a UTC timestamp in ms to sync to.
 
 𝔠: encode a multi-choice value
 𝔪: decode said multi-choice value

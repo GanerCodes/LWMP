@@ -42,7 +42,7 @@ typedef struct { i32 σ,Σ,d,m; f32 r0,rΔ; } Seg;
   // r0: rotation start offset
   // rΔ: rotation speed
   // σ : LED offset
-  // Σ : length in LED count
+  // Σ : length in LED count, negative for reversed
   // d : 
   // m : mode; 0 ⇒ has subchildren
 typedef struct { f32 r; i32 σ,Σ; } StackEntry;
@@ -51,89 +51,91 @@ typedef struct { f32 segs; u8 s,v;                       } Rainbow;
 typedef struct { u8 clrN; RGB *colors; f32 speed,sharp;  } Fade;
 typedef struct { u8 brightness, mode;
                  union { Static S; Rainbow R; Fade F; }; } Atom;
-// mode: RxxxxMMM  R is for reversed, M determines which of the following union
+// mode: xxxxxMMM  M determines which of the following union
 
 fast inline RGB lightwave_hsv_to_rgb(u8 h, u8 s, u8 v) {
-    if(!s) ret (RGB){v,v,v};
-    u8 reg = h/43;
-    u8 r = (h - reg*43) * 6;
-    u8 p = ((u16)v * (255 - s)) >> 8;
-    u8 q = ((u16)v * (255 - (((u16)s*r) >> 8))) >> 8;
-    u8 t = ((u16)v * (255 - (((u16)s*(255-r)) >> 8))) >> 8;
-    switch(reg) { case  0: ret (RGB){v,t,p}; break;
-                  case  1: ret (RGB){q,v,p}; break;
-                  case  2: ret (RGB){p,v,t}; break;
-                  case  3: ret (RGB){p,q,v}; break;
-                  case  4: ret (RGB){t,p,v}; break;
-                  default: ret (RGB){v,p,q}; break; } }
+  if(!s) ret (RGB){v,v,v};
+  u8 reg = h/43;
+  u8 r = (h - reg*43) * 6;
+  u8 p = ((u16)v * (255 - s)) >> 8;
+  u8 q = ((u16)v * (255 - (((u16)s*r) >> 8))) >> 8;
+  u8 t = ((u16)v * (255 - (((u16)s*(255-r)) >> 8))) >> 8;
+  switch(reg) { case  0: ret (RGB){v,t,p}; break;
+                case  1: ret (RGB){q,v,p}; break;
+                case  2: ret (RGB){p,v,t}; break;
+                case  3: ret (RGB){p,q,v}; break;
+                case  4: ret (RGB){t,p,v}; break;
+                default: ret (RGB){v,p,q}; break; } }
+
+fast inline RGB lightwave_atom_rainbow(f32 i, f32 n, f32 segN, u8 s, u8 v) {
+    ret lightwave_hsv_to_rgb((u8)(i*segN/n*0xFF),s,v); }
 
 // https://www.desmos.com/calculator/yli6q8tc25?nobranding=&nokeypad=
 static void compute_fades(Atom *atoms, u32 atoms_len, f32 t) {
   for(u32 i=0; i<atoms_len; i++) {
     Atom atom = atoms[i];
-    if((atom.mode & 0b111) == 2) {
+    if(atom.mode == 2) {
       float p = atom.F.speed*t;
       RGB clr = RGBlerp(atom.F.colors[((u32)(p   )) % atom.F.clrN],
                         atom.F.colors[((u32)(p+1.)) % atom.F.clrN],
                         (u8)(255*powf(mod(p,1.),1+255.*powf(atom.F.sharp,5))));
-      atoms[i] = (Atom){ atom.mode & 0b1111000, atom.brightness,
+      atoms[i] = (Atom){ atom.mode, atom.brightness,
                          .S = {clr.r,clr.g,clr.b} };
     }
   }
 }
 
-fast inline RGB lightwave_atom_rainbow(f32 i, f32 n, f32 segN, u8 s, u8 v) {
-    ret lightwave_hsv_to_rgb((u8)(i*segN/n*0xFF), s, v); }
-
 fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
-    Seg        *S        = (Seg        *)mp_obj_get_uint (args[0]);
-    u32         S_len    =               mp_obj_get_int  (args[1]);
-    Atom       *atoms    = (Atom       *)mp_obj_get_int  (args[2]);
-    StackEntry *stk      = (StackEntry *)mp_obj_get_uint (args[3]);
-    u8         *leds     = (u8         *)mp_obj_get_uint (args[4]);
-    f32         t        =               mp_obj_get_float(args[5]);
-    u32         RGB_OFFS =               mp_obj_get_int  (args[6]);
-    u8 OFF_R = OFFSET_R;
-    u8 OFF_G = OFFSET_G;
-    u8 OFF_B = OFFSET_B;
+  Seg        *S        = (Seg        *)mp_obj_get_uint (args[0]);
+  u32         S_len    =               mp_obj_get_int  (args[1]);
+  Atom       *atoms    = (Atom       *)mp_obj_get_int  (args[2]);
+  StackEntry *stk      = (StackEntry *)mp_obj_get_uint (args[3]);
+  u8         *leds     = (u8         *)mp_obj_get_uint (args[4]);
+  f32         t        =               mp_obj_get_float(args[5]);
+  u32         RGB_OFFS =               mp_obj_get_int  (args[6]);
+  u8 OFF_R = OFFSET_R;
+  u8 OFF_G = OFFSET_G;
+  u8 OFF_B = OFFSET_B;
+  
+  for(i32 i=0,p=0,d=0; i<S_len; i++) {
+    Seg s = S[i];
+    if(s.d<d) p += s.d - d;
+    d = s.d;
+    stk[p] = (StackEntry){s.r0 + s.rΔ*t,s.σ,s.Σ};
+    if(!s.m) { p++; continue; }
     
-    for(i32 i=0,p=0,d=0; i<S_len; i++) {
-        Seg s = S[i];
-        if(s.d<d) p += s.d - d;
-        d = s.d;
-        stk[p] = (StackEntry){s.r0 + s.rΔ*t,s.σ,s.Σ};
-        if(!s.m) { p++; continue; }
-        
-        Atom atom = atoms[s.m-1>1 ?1: s.m-1]; // mode_id is s.m-1
-        for(i32 o=0; o<s.Σ; o++) {
-            f32 n=o;
-            for(i32 q=p; q>=0; q--) { // apply stack of transformation
-                StackEntry e = stk[q];
-                n = mod(n+e.r,e.Σ) + e.σ; } // 󰤱 negative Σ
-            
-            RGB c;
-            switch(atom.mode) {
-              case 0: {
-                // c = (RGB){atom.S.r, atom.S.g, atom.S.b};
-                c = *(RGB*)&atom.S;
-              } break;
-              case 1: {
-                RGB c1 = lightwave_atom_rainbow(o             , s.Σ, atom.R.segs, atom.R.s, atom.R.v);
-                RGB c2 = lightwave_atom_rainbow(o==0?s.Σ-1:o-1, s.Σ, atom.R.segs, atom.R.s, atom.R.v);
-                c = RGBlerp(c1,c2,0xFF*(n-(u32)n));
-              } break;
-              case 2: {
-                // 󰤱
-              } break;
-              default: __builtin_unreachable(); }
-            c = RGBscale(c,atom.brightness);
-            u32 off = 3*(u32)n;
-            leds[off+OFF_R] = c.r;
-            leds[off+OFF_G] = c.g;
-            leds[off+OFF_B] = c.b;
-          } }
-    
-    ret mp_const_none; }
+    Atom atom = atoms[s.m-1]; // mode_id is s.m-1
+    i32 AΣS = abs(s.Σ);
+    for(i32 o=0; o<AΣS; o++) {
+      f32 n=o;
+      for(i32 q=p; q>=0; q--) { // apply stack of transformation
+          StackEntry e = stk[q];
+          i32 AΣE = abs(e.Σ);
+          n = mod(n+e.r,AΣE);
+          if(e.Σ<0) n = AΣE-1.0-n; // negative length ⇒ reversed
+          n += e.σ; }
+      
+      RGB c;
+      switch(atom.mode) {
+        case 0: {
+          c = *(RGB*)&atom.S;
+        } break;
+        case 1: {
+          f32 f = atom.R.segs*255.0/AΣS;
+          c = lightwave_hsv_to_rgb(f*(o+1-(n-(u32)n)), atom.R.s, atom.R.v);
+        } break;
+        case 2: {
+          // 󰤱
+        } break;
+        default: __builtin_unreachable(); }
+      c = RGBscale(c,atom.brightness);
+      u32 off = 3*(u32)n;
+      leds[off+OFF_R] = c.r;
+      leds[off+OFF_G] = c.g;
+      leds[off+OFF_B] = c.b;
+    } }
+  
+  ret mp_const_none; }
 static MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(lightwave_assign_leds_obj,7,7,lightwave_assign_leds);
 
 static const mp_rom_map_elem_t lightwave_module_globals_table[] = {

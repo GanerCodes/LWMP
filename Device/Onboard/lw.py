@@ -10,9 +10,17 @@ _RESET_NO   = const(0)
 _RESET_WS   = const(1)
 _RESET_WIFI = const(2)
 
-preset_ap     = (0,0, [(0,0, [(0,0,50)]), (0,0.25, [(0,0,150)])])
-preset_normal = (0.1,-0.2, [(-0.2,0.1, [(0,0,250)]), (-5,0.25, [(0,0,250)])])
+ⴳ,ⴴ = True,False
+# preset_ap     = (ⴴ,0,0, [(ⴴ,0,0, [(ⴴ,0,0,50)]), (ⴴ,0,0.25, [(ⴴ,0,0,150)])])
+# preset_normal = (ⴴ,0.1,-0.2, [(ⴴ,-0.2,0.1, [(ⴴ,0,0,250)]), (ⴴ,-5,0.25, [(ⴴ,0,0,250)])])
+# preset_normal = (ⴴ,0,-2, [(ⴴ,0,3, [(ⴴ,0,0,250)]), (ⴴ,0,-1, [(ⴴ,0,0,250)])])
 # preset_normal = (0,0.05, [(0,-0.05, [(0,0.1,100),(0.5,0,100),(0.5,0,100)]), (0,0,100), (0,0,100)])
+# preset_normal = (ⴴ,0,0.05, [(ⴴ,0,-0.05, [(ⴴ,0,0.1,100),(ⴴ,0.5,0,100),(ⴴ,0.5,0,100)]), (ⴴ,0,0,100), (ⴴ,0,0,100)])
+# preset_normal = (ⴴ,0,15, [(ⴴ,0,-20, [(ⴴ,0,11,100),(ⴴ,15,0,100),(ⴴ,15,0,100)]), (ⴴ,0,0,100), (ⴴ,0,0,100)])
+# preset_normal = (ⴴ,0,10.223, [(ⴴ,0,12.5,20),(0,0,0,1),(ⴴ,0,-12.5,20),(0,0,0,1),(ⴳ,0,12.5,20),(0,0,0,1),(ⴳ,0,-12.5,20),(0,0,0,50)])
+# preset_normal = (ⴴ,0,10.223, [(ⴴ,0,12.5,20),(0,0,0,1),(ⴴ,0,-12.5,20),(0,0,0,1),(ⴳ,0,12.5,20),(0,0,0,1),(ⴳ,0,-12.5,20),(0,0,0,50)])
+preset_normal = { "effects": [["Rotate", [-1,0]]],
+                  "_"      : ["atom", [50, ["Rainbow",[5.0,255,255]]]]}
 
 for i in range(10): # blinky at boots
   onboard_led(~i%2)
@@ -78,11 +86,15 @@ def handle_API(𝐦,d=None):
       ℭ.name = ℭ.uuid
     
     K = set(k.upper() for k in d)
-    if K & RLED: update_LED_HW()(preset_normal)
+    if K & RLED: update_LED_HW()
     if K & ICON: return _RESET_WIFI,_RESET_WIFI
     if K & WCON: return _RESET_WS  ,_RESET_WS
   elif 𝐦=="Set_scene":
-    log(f"󰤱 Set_scene ({d})") # 󰤱
+    name,que,dur,t = d
+    if name not in 𝔐: return _RESET_NO,False
+    controller(𝔐[name],t)
+    print(f"{controller=} {𝔐[name]=} {t=}")
+    return _RESET_NO,True
   elif 𝐦=="Del_scene":
     return _RESET_NO,𝔐.__delitem__(d)
   elif 𝐦=="Push_scenes":

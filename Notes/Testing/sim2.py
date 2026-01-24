@@ -66,21 +66,46 @@ def f(S,t,atoms_len):
       if not s.m:
           p+=1
           continue
-      for o in range(s.Σ):
+      for o in range(abs(s.Σ)):
           n = o
           for q in [*range(p+1)][::-1]:
-              e = stk[q]
-              n = (e[0]+n) % abs(e[2])
-              if e[2]<0: n = abs(e[2])-1-n
-              n += e[1]
+              r,σ,Σ = stk[q]
+              n = (r+n) % abs(Σ)
+              # if Σ<0: n = abs(Σ)-1-n
+              if Σ<0: n = abs(Σ)-1-n
+              n += σ
+              if n<0: exit("NOOOO")
           leds[n] = clr('█',s.m-1,atoms_len+1) # clr(s.m-1,o,abs(s.Σ))
           # 󷹇 mode_id ≜ s.m-1
           o += 1
 
 ⴳ,ⴴ = True,False
+from random import randrange as F, randint as I
+r = lambda: bool(I(0,2))
+s = lambda: F(-5,5)
+# c = lambda: I(1,50)
+c = lambda: 1
+P = lambda: (r(),s(),s())
 
+import sys
+sys.setrecursionlimit(1_000_000)
+def mk(d): return (*P(),[mk(I(0,d)) for x in range(I(1,d+1))] if d else c())
+
+N = mk(8)
+
+# N = (*P(),[
+#   (*P(),[(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())])]),
+#   (*P(),[(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())])]),
+#   (*P(),[(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())])])
+# ])
 # N = (ⴴ,1,1, [(ⴴ,0,0,4), (ⴴ,0,0,3)])
-N = (ⴳ,0,1, [(ⴳ,0,1,[(ⴴ,0,0,[(ⴳ,0,1,[(ⴴ,0,0,5),(ⴴ,0,0,3)]), (ⴴ,0,0,10)]),(ⴴ,0,0,3)]), (ⴴ,0,0,10)])
+# N = (ⴳ,0,1, [(ⴳ,0,1,[(ⴴ,0,0,[(ⴳ,0,1,[(ⴴ,0,0,5),(ⴴ,0,0,3)]), (ⴴ,0,0,10)]),(ⴴ,0,0,3)]), (ⴴ,0,0,10)])
+# N = (ⴳ,s(),s(), [
+#       (ⴳ,s(),s(),[(ⴴ,s(),s(),[(ⴳ,s(),s(),[(ⴴ,s(),s(),5*4),(ⴴ,s(),s(),3*4)]), (ⴴ,s(),s(),10*4)]),(ⴴ,s(),s(),3*4)]),
+#       (ⴳ,s(),s(),[(ⴴ,s(),s(),[(ⴳ,s(),s(),[(ⴴ,s(),s(),5*4),(ⴴ,s(),s(),3*4)]), (ⴴ,s(),s(),10*4)]),(ⴴ,s(),s(),3*4)])
+#     ])
+
+
 # N = (ⴴ,0,1, [(ⴳ,0,-1, [(ⴳ,0,0,3),(ⴴ,0,0,4)]), (ⴴ,0,0,5), (ⴴ,0,0,2)])
 print(flat(pre(N)))
 
@@ -94,15 +119,17 @@ print(N,'\n')
 print(*scheme,'',sep='\n')
 h = lambda t: print(f"{t:06.3f}",''.join(map(str,leds)))
 
-# t0 = time()
-# while ⴳ:
-#   t = time()-t0
-#   f(scheme,3*t,atoms_len)
-#   h(t)
-
-for t in [t for t in range(2*len(leds)+1)]:
-    f(scheme,t,atoms_len)
+import sys
+if len(sys.argv)>1:
+  t0 = time()
+  while ⴳ:
+    t = time()-t0
+    f(scheme,3*t,atoms_len)
     h(t)
+else:
+  for t in [t for t in range(2*len(leds)+1)]:
+      f(scheme,t,atoms_len)
+      h(t)
 
 # scheme = \
 # ((  (6,0,0),

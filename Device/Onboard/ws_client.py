@@ -128,10 +128,10 @@ class WS_Client:
       raise ConnectionClosed()
     if 𝑿 is None and not 𝕂:
       return 𝕊.read()
-    if isinstance(𝑿,str) or isinstance(𝑿,bytes) or isinstance(𝑿,int) or isinstance(𝑿,float):
+    if type(𝑿) in (str,bytes,float,int,bool):
       if 𝕂:
         raise ValueError(f"Cannot create dict from {type(𝑿)} and kwargs")
-      if not (isinstance(𝑿,str) or isinstance(𝑿,bytes)):
+      if type(𝑿) not in (str,bytes):
         𝑿 = 𝔍d(𝑿)
     else:
       𝑿 = 𝔍d(({} if 𝑿 is None else 𝑿)|𝕂)
