@@ -11,23 +11,14 @@ _RESET_WS   = const(1)
 _RESET_WIFI = const(2)
 
 ⴳ,ⴴ = True,False
-# preset_ap     = (ⴴ,0,0, [(ⴴ,0,0, [(ⴴ,0,0,50)]), (ⴴ,0,0.25, [(ⴴ,0,0,150)])])
-# preset_normal = (ⴴ,0.1,-0.2, [(ⴴ,-0.2,0.1, [(ⴴ,0,0,250)]), (ⴴ,-5,0.25, [(ⴴ,0,0,250)])])
-# preset_normal = (ⴴ,0,-2, [(ⴴ,0,3, [(ⴴ,0,0,250)]), (ⴴ,0,-1, [(ⴴ,0,0,250)])])
-# preset_normal = (0,0.05, [(0,-0.05, [(0,0.1,100),(0.5,0,100),(0.5,0,100)]), (0,0,100), (0,0,100)])
-# preset_normal = (ⴴ,0,0.05, [(ⴴ,0,-0.05, [(ⴴ,0,0.1,100),(ⴴ,0.5,0,100),(ⴴ,0.5,0,100)]), (ⴴ,0,0,100), (ⴴ,0,0,100)])
-# preset_normal = (ⴴ,0,15, [(ⴴ,0,-20, [(ⴴ,0,11,100),(ⴴ,15,0,100),(ⴴ,15,0,100)]), (ⴴ,0,0,100), (ⴴ,0,0,100)])
-# preset_normal = (ⴴ,0,10.223, [(ⴴ,0,12.5,20),(0,0,0,1),(ⴴ,0,-12.5,20),(0,0,0,1),(ⴳ,0,12.5,20),(0,0,0,1),(ⴳ,0,-12.5,20),(0,0,0,50)])
-# preset_normal = (ⴴ,0,10.223, [(ⴴ,0,12.5,20),(0,0,0,1),(ⴴ,0,-12.5,20),(0,0,0,1),(ⴳ,0,12.5,20),(0,0,0,1),(ⴳ,0,-12.5,20),(0,0,0,50)])
-preset_normal = { "effects": [["Rotate", [-1,0]]],
-                  "_"      : ["atom", [50, ["Rainbow",[5.0,255,255]]]]}
+preset_normal = { "mode": { "effects": [["Rotate", [-1,0]]],
+                            "_"      : ["atom", [50, ["Rainbow",[5.0 ,0xFF,0xFF]]]]} }
+preset_ap     = { "mode": { "effects": [["Rotate", [-1,0]]],
+                            "_"      : ["atom", [50, ["Static" ,[0x00,0xFF,0x00]]]]} }
 
 for i in range(10): # blinky at boots
   onboard_led(~i%2)
   sleep(0.05)
-
-controller = LED_Controller(autoconf=False)
-thread(controller.loop)
 
 𝔐 = Scene_Manager()
 ℭ = Settings(WS_URL     =("ws://brynic_led_test.ganer.xyz:2095",        ),
@@ -37,13 +28,16 @@ thread(controller.loop)
              R_SSID     =(                                              ),
              R_PASS     =(                                              ),
              LEDP       =(23                                   , int    ),
-             LEDC       =(505                                  , int    ),
+             LEDC       =(500                                  , int    ),
              REVERSE    =(False                                , boolstr),
-             BIT_TIMING =([400,850,800,450]                    ,        ),
+             BIT_TIMING =("400 850 800 450"                    ,        ),
              RGB_ORDER  =("RGB"                                ,        ) )
 if not ℭ.name: ℭ.name = ℭ.UUID
 ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
-print(ℭ)
+log(ℭ)
+
+controller = LED_Controller(ℭ)
+thread(controller.loop)
 
 update_LED_HW = lambda: controller.configure(pin=ℭ.LEDP, order=ℭ.RGB_ORDER, timing=ℭ.BIT_TIMING)
 update_LED_HW()
@@ -73,27 +67,30 @@ def lw_WAN():
     machine.reset()
 
 def handle_API(𝐦,d=None):
-  print(f"handle_API({𝐦},{d})")
+  log(f'Handling API "{𝐦}"')
   if 𝐦=="Change_dev":
     WCON = set("WS_URL DELETE".split())
     ICON = set("R_SSID R_PASS".split())
     RLED = set("LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     
-    if "RGB_ORDER" in d: d['RGB_ORDER'] = parse_rgb_mode(d['RGB_ORDER'])
-    ℭ({ k.upper():v for k,v in d.items() if k in ℭ }) # allows setting uuid, bad?
-    if "delete" in d:
-      # 󰤱􊽨 regenerate uuid?
-      ℭ.name = ℭ.uuid
+    D = { k.upper():v for k,v in d.items() }
+    K = set(D)
     
-    K = set(k.upper() for k in d)
+    if "RGB_ORDER" in D:
+      D["RGB_ORDER"] = parse_rgb_mode(d['RGB_ORDER'])
+    if K & {"DELETE","UUID"}:
+      D["NAME"] = D["UUID"] = gen_id()
+    
+    ℭ({ k:v for k,v in D.items() if k in ℭ })
+    
     if K & RLED: update_LED_HW()
     if K & ICON: return _RESET_WIFI,_RESET_WIFI
     if K & WCON: return _RESET_WS  ,_RESET_WS
   elif 𝐦=="Set_scene":
     name,que,dur,t = d
     if name not in 𝔐: return _RESET_NO,False
+    log(f"Setting scene {name} on {controller} with {t=}")
     controller(𝔐[name],t)
-    print(f"{controller=} {𝔐[name]=} {t=}")
     return _RESET_NO,True
   elif 𝐦=="Del_scene":
     return _RESET_NO,𝔐.__delitem__(d)
@@ -103,15 +100,18 @@ def handle_API(𝐦,d=None):
     return _RESET_NO,𝔐.bulk_dump()
   elif 𝐦=="Set_schedule":
     log(f"󰤱 Set_schedule ({d})") # 󰤱
-  return _RESET_NO,_RESET_NO
+  elif 𝐦=="Pull_schedule":
+    log(f"󰤱 Pull_schedule") # 󰤱
+  return _RESET_NO,False
 
 def lw_websocket_loop():
   ꭐ = WS_Client(ℭ.WS_URL)
+  log("Connected to WS!")
   ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER".split()})
   while 1:
     i,cmd = ꭐ()
     cmd = 𝔍l(cmd)
-    print(f"WS Command {i.hex()}: {cmd}")
+    # log(f"Got WS Command {i.hex()}: {cmd}")
     con,resp = handle_API(*𝔪(cmd))
     if resp is not None: ꭐ(resp,i=i)
     if con:
@@ -128,10 +128,11 @@ try:
     while 1:
       try:
         if lw_websocket_loop() == _RESET_WIFI:
-          print("Resetting WiFi")
+          log("Resetting WiFi")
           gc.collect(); break
       except OSError   as ε: dbg(f'WebSocket connection failed! Restarting in 5 seconds:',ε)
       except Exception as ε: dbg(f'Error in WebSocket loop! Restarting in 5 seconds:',ε)
       sleep(5)
 except:
   controller.loop = 0
+  raise

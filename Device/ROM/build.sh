@@ -7,6 +7,7 @@ OUT_DIR="$(realpath ./Out)"
 NUM_CORES=15
 
 # /opt/esp-idf/install.sh esp32
+mkdir -p "$OUT_DIR"
 unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
 
 pushd ../Micropython
@@ -28,8 +29,8 @@ pushd ../Micropython
   
   make -C ports/esp32 BOARD=ESP32_GENERIC submodules
   make -C ports/esp32 EXTRA_CFLAGS="-Wno-error=parentheses -Wno-error=maybe-uninitialized" \
-                      USER_C_MODULES="$USERMODS" \
-                      BOARD=ESP32_GENERIC # deploy PORT=/dev/ttyACM0
+                      BOARD=ESP32_GENERIC
+                      # USER_C_MODULES="$USERMODS" \
   pushd ports/esp32/build-ESP32_GENERIC
     cp bootloader/bootloader.bin partition_table/partition-table.bin ota_data_initial.bin micropython.bin "$OUT_DIR"
     popd

@@ -1,34 +1,96 @@
-set_safe_mode() {
-  unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
-  
-  echo -en "key,type,encoding,value\nlightwave,namespace,,\nsafeboot,i,i32,${1-1}" > /tmp/safeboot_nvs.csv
-  pushd /opt/esp-idf/components/nvs_flash/nvs_partition_generator/
-    python nvs_partition_gen.py generate /tmp/safeboot_nvs.csv /tmp/safeboot_nvs.bin 0x4000
-  	popd
-  sudo esptool -p "${DEVICE}" -b "${WRITE_BAUD_RATE}" \
-       --before default-reset --after hard-reset write-flash \
-       --flash-mode dio --flash-size detect --flash-freq 80m \
-       0x9000 /tmp/safeboot_nvs.bin; }
+let S_timetest = D=>({
+  "mode": { "effects": [["Rotate",[10,0]]],
+            "_":["modes",[{ "effects":[], "_": ["atom",[10,["Static",[0x44,0x44,0x44]]]] },
+                          { "effects":[], "_": ["atom",[40,["Static",[0x00,0x00,0x00]]]] }]]},
+  "offsets": { [D[0]]:0, [D[1]]:0, [D[2]]:0 } });
+let S_snake = D=>({
+  "mode": { "effects": [["Rotate",[1,0]]],
+            "_":["modes",[{ "effects":[], "_": ["atom",[2 ,["Static",[0x00,0x00,0xFF]]]] },
+                          { "effects":[], "_": ["atom",[13 ,["Static",[0x00,0x00,0x00]]]] }]]},
+  "offsets": { [D[0]]:0, [D[1]]:5, [D[2]]:10 } });
+let S_stress = D=>({
+  "mode": { "effects": [
+              ["Rotate",[20.34,0]]],
+            "_":["modes",[
+              { "effects":[
+                  ["Brightness",0.5]],
+                "_":["atom",
+                  [250,["Static" ,[0xFF,0x00,0xFF]]]] },
+              { "effects":[],
+                "_": ["atom",
+                  [250,["Rainbow",[5.25,0xE9,0xFF]]]] },
+              { "effects":[
+                  ["Reverse",true],
+                  ["Brightness",0.5],
+                  ["Rotate",[-20.34,23.2]]],
+                "_":["modes",[
+                  { "effects":[
+                      ["Rotate",[ 20.34,23.2]]],
+                    "_": ["atom",
+                      [250,["Rainbow",[50.25,0xE9,0xFF]]]]},
+                  { "effects":[
+                      ["Rotate",[  0.00,23.2]]],
+                    "_": ["atom",
+                      [250,["Static",[0x00,0xFF,0x00]]]]}]] }]]},
+  "offsets": { [D[0]]:0, [D[1]]:0, [D[2]]:0 } });
+let S_balance = D=>({
+  "mode": { "effects":[
+              ["Rotate",[500000.0,0]]],
+            "_":["modes",[
+              { "effects":[
+                  ["Rotate",[-500000.0,0]]],
+                "_":["atom",
+                  [50,["Rainbow",[10.0,0xFF,0xFF]]]] }]]},
+  "offsets": { [D[0]]:0, [D[1]]:0, [D[2]]:0 } });
 
-safeboot = 0
-try:
-  import esp32
-  safeboot = esp32.NVS("lightwave").get_i32("safeboot")
-except Exception as ε:
-  pass
-if safeboot:
-  print("Safe mode enabled, will not run.")
-else:
-  import main
-  
-  
-  
-// RGB c1 = lightwave_atom_rainbow(o             , AΣS, atom.R.segs, atom.R.s, atom.R.v);
-// RGB c2 = lightwave_atom_rainbow(o==0?AΣS-1:o-1, AΣS, atom.R.segs, atom.R.s, atom.R.v);
-// c = RGBlerp(c1,c2,0xFF*(n-(u32)n));
+let S_rainbow_snake = D=>({
+  "mode": { "effects": [["Rotate",[25,0]]],
+            "_":["modes",[{ "effects":[], "_": ["atom",[25 ,["Rainbow",[2.  ,0xF5,0x55]]]] },
+                          { "effects":[], "_": ["atom",[125,["Static" ,[0x00,0x00,0x00]]]] }]]},
+  "offsets": { [D[0]]:0, [D[1]]:-50, [D[2]]:100 } });
 
-// c = lightwave_hsv_to_rgb(
-//       ulerp((u8)(f*(o             )),
-//             (u8)(f*(o==0?AΣS-1:o-1)),
-//             0xFF*(n-(u32)n)),
-//       atom.R.s, atom.R.v);
+let S_rainbow_snake_balance = D=>({
+  "mode": { "effects":[
+              ["Rotate",[500000.0,0]]],
+            "_":["modes",[
+              { "effects":[
+                  ["Rotate",[-500000.0,0]]],
+                "_":["modes",[
+                  { "effects": [
+                      ["Rotate",[25,0]]],
+                    "_":["modes",[
+                      { "effects":[], "_": ["atom",[25 ,["Rainbow",[2.  ,0xF5,0x55]]]] },
+                      { "effects":[], "_": ["atom",[125,["Static" ,[0x00,0x00,0x00]]]] }]]}]]}]]},
+  "offsets": { [D[0]]:0, [D[1]]:-50, [D[2]]:100 } });
+
+let S_reverse_test = D=>({
+  "mode": { "effects": [["Rotate",[1,0]]],
+            "_":["modes",[{ "effects":[], "_": ["atom",[50,["Rainbow",[10,0xF5,0x55]]]] }]]},
+  "offsets": { [D[0]]:0, [D[1]]:0, [D[2]]:0 } });
+let S_reverse_test_2 = D=>({
+  "mode": { "effects": [["Rotate",[1,0]]],
+            "_":["modes",[{ "effects":[], "_": ["atom",[3 ,["Static",[0xFF,0x00,0xFF]]]] },
+                          { "effects":[], "_": ["atom",[7 ,["Static",[0x00,0x00,0x00]]]] }]]},
+  "offsets": { [D[0]]:0, [D[1]]:0, [D[2]]:0 } });
+
+// S_timetest
+// S_snake
+// S_stress
+// S_balance
+// S_rainbow_snake
+// S_rainbow_snake_balance
+// S_reverse_test
+// S_reverse_test_2
+
+SCENE      = S_timetest(devs = "testdevice0 testdevice1 testdevice2".split(' '));
+LEDC       = 500;
+REVERSE    = false;
+RGB_ORDER  = "GBR";
+BIT_TIMING = "350 900 700 700";
+
+flip = Object.entries(SCENE.offsets).filter(([k,v])=>v<0).map(([k,v])=>(SCENE.offsets[k] = Math.abs(v), k))
+
+await api("testing","Change_dev" ,{uuids:devs, dev:{LEDC,REVERSE,RGB_ORDER,BIT_TIMING}})
+await api("testing","Change_dev" ,{uuids:flip, dev:{REVERSE:true}})
+await api("testing","Push_scenes",{uuids:devs, scenes:{"test":SCENE}})
+await api("testing","Set_scene"  ,{uuids:devs, scene :["test",false,Infinity]})

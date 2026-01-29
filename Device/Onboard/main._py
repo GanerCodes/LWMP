@@ -1,9 +1,7 @@
 import machine,esp,gc
+machine.mem32[0x3FF48044] = 0 # disable brownout detector
 machine.freq(240_000_000)
 esp.osdebug(None)
 gc.disable()
 print("Starting LightWave")
-# try:
 import lw
-# except:
-#   lw.controller.lstate = 0

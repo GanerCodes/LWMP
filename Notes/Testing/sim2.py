@@ -7,7 +7,6 @@ def clr(c, n, m):
     return f"\033[38;2;{r};{g};{b}m{c}\033[0m"
 # </chatgpt>
 
-# Seg = namedtuple("Seg", ["σ","Σ","d","m","r0","rΔ"])
 # σ,Σ,d,m: ints
 # r0,rΔ: floats
 
@@ -17,7 +16,22 @@ def clr(c, n, m):
 
 from time import time
 from collections import namedtuple
+import sys
+from random import randrange as F, randint as I
+sys.setrecursionlimit(1_000_000)
+
+# <>
+ⴳ,ⴴ = True,False
+r = lambda: bool(I(0,2))
+s = lambda: F(-5,5)
+# c = lambda: I(1,50)
+c = lambda: 1
+P = lambda: (r(),s(),s())
+def mk(d): return (*P(),[mk(I(0,d)) for x in range(I(1,d+1))] if d else c())
+# </>
+
 Seg = namedtuple("Seg", ["σ","Σ","d","m","r0","rΔ"])
+StackEntry = namedtuple("StackEntry", ["r","σ","Σ"])
 
 class Node:
   def __init__(𝕊,ν=None,σ=None,Σ=None,r0=None,rΔ=None,d=None,m=False):
@@ -57,41 +71,27 @@ def optf(S):
 
 def f(S,t,atoms_len):
   p,d = 0,0
-  i = 0
   for i in range(len(S)):
       s = S[i]
       if s.d < d: p += s.d-d
       d = s.d
-      stk[p] = (int(s.r0 + s.rΔ*t),s.σ,s.Σ)
+      stk[p] = StackEntry(int(s.r0 + s.rΔ*t),s.σ,s.Σ)
       if not s.m:
           p+=1
           continue
-      for o in range(abs(s.Σ)):
+      AΣS = abs(s.Σ)
+      for o in range(AΣS):
           n = o
           for q in [*range(p+1)][::-1]:
-              r,σ,Σ = stk[q]
-              n = (r+n) % abs(Σ)
-              # if Σ<0: n = abs(Σ)-1-n
-              if Σ<0: n = abs(Σ)-1-n
-              n += σ
+              e = stk[q]
+              AΣE = abs(e.Σ)
+              n = (n+e.r) % AΣE
+              # if Σ<0: n = AΣE-1-n
+              if e.Σ<0: n = AΣE-1-n # = abs(Σ)-1-n
+              n += e.σ
               if n<0: exit("NOOOO")
-          leds[n] = clr('█',s.m-1,atoms_len+1) # clr(s.m-1,o,abs(s.Σ))
+          leds[int(n)] = clr('█',s.m-1,atoms_len+1) # clr(s.m-1,o,AΣS)
           # 󷹇 mode_id ≜ s.m-1
-          o += 1
-
-ⴳ,ⴴ = True,False
-from random import randrange as F, randint as I
-r = lambda: bool(I(0,2))
-s = lambda: F(-5,5)
-# c = lambda: I(1,50)
-c = lambda: 1
-P = lambda: (r(),s(),s())
-
-import sys
-sys.setrecursionlimit(1_000_000)
-def mk(d): return (*P(),[mk(I(0,d)) for x in range(I(1,d+1))] if d else c())
-
-N = mk(8)
 
 # N = (*P(),[
 #   (*P(),[(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())])]),
@@ -99,14 +99,17 @@ N = mk(8)
 #   (*P(),[(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())]),(*P(),[(*P(),c()),(*P(),c())])])
 # ])
 # N = (ⴴ,1,1, [(ⴴ,0,0,4), (ⴴ,0,0,3)])
+# N = (ⴴ,1,1, [(ⴳ,0,0,4), (ⴴ,0,0,3)])
 # N = (ⴳ,0,1, [(ⴳ,0,1,[(ⴴ,0,0,[(ⴳ,0,1,[(ⴴ,0,0,5),(ⴴ,0,0,3)]), (ⴴ,0,0,10)]),(ⴴ,0,0,3)]), (ⴴ,0,0,10)])
 # N = (ⴳ,s(),s(), [
 #       (ⴳ,s(),s(),[(ⴴ,s(),s(),[(ⴳ,s(),s(),[(ⴴ,s(),s(),5*4),(ⴴ,s(),s(),3*4)]), (ⴴ,s(),s(),10*4)]),(ⴴ,s(),s(),3*4)]),
 #       (ⴳ,s(),s(),[(ⴴ,s(),s(),[(ⴳ,s(),s(),[(ⴴ,s(),s(),5*4),(ⴴ,s(),s(),3*4)]), (ⴴ,s(),s(),10*4)]),(ⴴ,s(),s(),3*4)])
 #     ])
-
-
-# N = (ⴴ,0,1, [(ⴳ,0,-1, [(ⴳ,0,0,3),(ⴴ,0,0,4)]), (ⴴ,0,0,5), (ⴴ,0,0,2)])
+# N = (ⴴ,0,1, [(ⴳ,0,-1, [(ⴳ,0,2,3),(ⴴ,0,-2,4)]), (ⴴ,0,1,5), (ⴳ,0,-2.2,2)])
+# N = (r(),0,1, [(r(),0,s(), [(r(),0,s(),3),(r(),0,s(),4)]), (r(),0,s(),5), (r(),0,s(),2)])
+# N = (ⴴ,0,1,[(ⴴ,0,0,3),(ⴴ,0,0,7)])
+# N = (ⴳ,0,1,[(ⴴ,0,0,3),(ⴴ,0,0,7)])
+N = mk(8)
 print(flat(pre(N)))
 
 scheme = optf(flat(pre(N)))
@@ -127,7 +130,8 @@ if len(sys.argv)>1:
     f(scheme,3*t,atoms_len)
     h(t)
 else:
-  for t in [t for t in range(2*len(leds)+1)]:
+  D = 3
+  for t in [t/D for t in range(2*D*len(leds)+1)]:
       f(scheme,t,atoms_len)
       h(t)
 

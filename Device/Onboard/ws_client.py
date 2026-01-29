@@ -100,7 +100,9 @@ class WebsocketClient:
         continue
       elif opcode==OP_PONG: continue
       elif opcode==OP_CONT: raise NotImplementedError(opcode)
-      raise ValueError(opcode)
+      else                :
+        log(f'UNKNOWN WS RECV! {opcode=} {data=}')
+        raise ValueError(opcode)
   def close(𝕊,code=CLOSE_OK,reason=''):
     if not 𝕊.open: return
     𝕊.write_frame(OP_CLOSE, struct.pack('!H',code)+reason.encode('utf-8'))

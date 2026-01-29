@@ -47,14 +47,16 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
     ¿‹uuids›􀊱reqs􊳥􀔉(d ℵ)⁻ 􀰁 P: ↪󰲟‹Missing parameters: "⟦P􀋢␛,⟧"!›𝖡
     
     devs = tok𝘋𝘉􊳬ᵈᵉᵛˢ
-    
+    ¿𝐦􀉞‹Set_scene›:
+      T = d[reqs􊳥]
+      ¿T􀊹􀉟3: ↪󰲟‹Scene activation should have length 3!›𝖡
+      d[reqs􊳥] = [⠤T,1000􀋈time􀃅􀯖𝑖]
      󰤱 database stuff here
-    
     ⊢check_dev(ꭒ):
       ¿ꭒ􀒻devs      : ↪‹Cannot find device!›𝖡
       ¿ꭒ􀒻ws_clients: ↪‹Device is offline󷺗!›𝖡
       ↪(󰲟d[reqs􊳥] 𝔠􊳥 ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
-    ↪󰲟d􋕨ᵤᵤᵢₛ􋕨􀉳check_dev􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
+    ↪󰲟􀉵´(d􋕨ᵤᵤᵢₛ􋕨,check_dev,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
   ↪r􀃅
 
 ⊢(ƒ↦󷺹ƒ 𝔍󰄞􀝕200􀝕ℵ(𝙲𝚃=‹.json›)) POST(x):

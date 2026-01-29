@@ -1,0 +1,40 @@
+WS2811 350 900 700 700  ??
+WS2812 400 850 800 450
+
+set_safe_mode() {
+  unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
+  
+  echo -en "key,type,encoding,value\nlightwave,namespace,,\nsafeboot,i,i32,${1-1}" > /tmp/safeboot_nvs.csv
+  pushd /opt/esp-idf/components/nvs_flash/nvs_partition_generator/
+    python nvs_partition_gen.py generate /tmp/safeboot_nvs.csv /tmp/safeboot_nvs.bin 0x4000
+  	popd
+  sudo esptool -p "${DEVICE}" -b "${WRITE_BAUD_RATE}" \
+       --before default-reset --after hard-reset write-flash \
+       --flash-mode dio --flash-size detect --flash-freq 80m \
+       0x9000 /tmp/safeboot_nvs.bin; }
+
+safeboot = 0
+try:
+  import esp32
+  safeboot = esp32.NVS("lightwave").get_i32("safeboot")
+except Exception as ε:
+  pass
+if safeboot:
+  print("Safe mode enabled, will not run.")
+else:
+  import main
+
+// RGB c1 = lightwave_atom_rainbow(o             , AΣS, atom.R.segs, atom.R.s, atom.R.v);
+// RGB c2 = lightwave_atom_rainbow(o==0?AΣS-1:o-1, AΣS, atom.R.segs, atom.R.s, atom.R.v);
+// c = RGBlerp(c1,c2,0xFF*(n-(u32)n));
+
+// c = lightwave_hsv_to_rgb(
+//       ulerp((u8)(f*(o             )),
+//             (u8)(f*(o==0?AΣS-1:o-1)),
+//             0xFF*(n-(u32)n)),
+//       atom.R.s, atom.R.v);
+
+
+// cd /home/ganer/Projects/Brynic/LWMP/Device/Micropython/ports/esp32/build-ESP32_GENERIC
+// unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
+// xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400f7571:0x3ffde600 0x4012b92a:0x3ffde620 0x4009d993:0x3ffde650 0x400f8f9f:0x3ffde710 0x40100195:0x3ffde730 0x4012b8d5:0x3ffde750 0x4009ddaf:0x3ffde770 0x4009dbc4:0x3ffde870 0x40100195:0x3ffde890 0x4012c423:0x3ffde8b0 0x4012c46d:0x3ffde8f0 0x40100195:0x3ffde910 0x40128fb8:0x3ffde930 0x4011aebd:0x3ffde9d0

@@ -38,16 +38,16 @@ def output_leds(leds,pinout,timing):
   machine.bitstream(pinout,0,timing,leds)
 
 @micropython.viper
-def render_leds(S:ptr8,S_len:int,atoms:ptr8,stk:ptr8,leds:ptr8,t,RGB_OFF:int):
-  assign_leds(S,S_len,atoms,stk,leds,t,RGB_OFF)
+def render_leds(S:ptr8,S_len:int,atoms:ptr8,stk:ptr8,leds:ptr8,RGB_OFF:int,l:int,h:int,t):
+  assign_leds(S,S_len,atoms,stk,leds,RGB_OFF,l,h,t)
 
 class LED_Controller:
   __repr__ = lambda 𝕊: f"LED_Controller⟨{𝕊.dmode} lstate={𝕊.lstate}⟩"
-  def __init__(𝕊,*𝔸,autoconf=False,**𝕂):
-    𝕊.lstate = _LOOP_NEW_HW
+  def __init__(𝕊,ℭ):
+    𝕊.ℭ,𝕊.lstate = ℭ,_LOOP_NEW_HW
     𝕊.mode = 𝕊.dmode = 𝕊.time_sync = None
-    if autoconf: 𝕊.configure(*𝔸,**𝕂)
   def configure(𝕊,pin=23,order=(0,1,2),timing=(400,850,800,450)):
+    if isinstance(timing,str): timing = tuple(map(int,timing.strip().split()))
     print(f"Configuring controller with {pin=} {order=} {timing=}")
     𝕊.dmode = pin,parse_rgb_mode(order),tuple(timing)
     𝕊.lstate = _LOOP_NEW_HW
@@ -55,10 +55,9 @@ class LED_Controller:
   def __call__(𝕊,N,time_sync=None):
     if time_sync is not None: 𝕊.time_sync = int(time_sync)
     𝕊.mode,𝕊.lstate = N,max(𝕊.lstate,_LOOP_NEW_MODE)
-  
   def update_wait_params_safe(𝕊,lstate):
     if lstate == _LOOP_NEW_HW:
-      while 𝕊.dmode is None: # we need HW params
+      while 𝕊.dmode is None: # we need the HW params
         gc.collect(); sleep(0.025)
       p,𝕊.order,𝕊.timing = 𝕊.dmode
       𝕊.pinout = machine.Pin(p)
@@ -67,47 +66,52 @@ class LED_Controller:
     while 𝕊.mode is None: # we need the mode
       gc.collect(); sleep(0.025)
     𝕊.lstate = 1
-  
+  def get_Δ(𝕊,ntp=False):
+    if 𝕊.time_sync is not None:
+      if ntp: Time()
+      m,T,S = Tick.ms(),Time.ms(),𝕊.time_sync
+      if abs(T-S) < 60**2 * 1000: 
+        return T-S-m # ✣ ms+Δ = 0 ⟺ T=S
+      else:
+        return -m # something is rlly bad if the request is an hour out of date
+    else:
+      return -Tick.ms()
   @micropython.native
   def loop(𝕊):
     𝕊.lstate = max(𝕊.lstate,_LOOP_NEW_MODE)
+    t,M,ΔR,ΔS = 0,120,1,120#45*60
     ms = Tick.ms
-    # ms = Time.ms
-    ms_accurate = Time.ms
-    # ms_accurate = lambda: (lambda x: x[-2] x[-1]//1000)(Time.now())
-    
-    t,M,ΔR = 0,120,0.25
-    while lstate := 𝕊.lstate:
+    while 𝕊.lstate:
       try:
-        if lstate > _LOOP_TIGHT:
-          𝕊.update_wait_params_safe(lstate)
-          if 𝕊.time_sync is not None:
-            Time()
-            m,T,S = ms(), ms_accurate(), 𝕊.time_sync
-            if abs(T-S) > 60**2 * 1000: # something is rlly bad if the request is an hour out of date
-              Δ = -m
-            else:
-              Δ = T-S-m # ✣ ms+Δ = 0 ⟺ T=S
-          else:
-            Δ = -ms()
-          track,n = 0.001*float(ms()+Δ),0
-          gc.collect()
-          S,atoms,stk,leds = mode_to_bufs(𝕊.mode)
-          pinout,order,timing = 𝕊.pinout,𝕊.order,𝕊.timing
-          print(f"{sum(timing)*len(leds)*8 / 1_000_000}ms to blit!!1????⸘‽¿¡")
-          S_len = len(S)//24
-          gc.collect()
-        
-        t = 0.001*float(ms()+Δ)
-        render_leds(S,S_len,atoms,stk,leds,t,order)
-        output_leds(leds,pinout,timing)
-        
-        n+=1
-        if not n%M or t>track+ΔR:
-          gc.collect(); sleep(0)
-          print(f"{t:12.5f}: FPS={n/(t-track or 0.001):6.2f} time={' '.join(map(str,Time.now()))}")
-          track,n = t,0
+        while lstate := 𝕊.lstate:
+          if lstate > _LOOP_TIGHT:
+            gc.collect()
+            𝕊.update_wait_params_safe(lstate)
+            S,atoms,stk,leds,(l,h) = mode_to_bufs(𝕊.ℭ,𝕊.mode)
+            pinout,order,timing = 𝕊.pinout,𝕊.order,𝕊.timing
+            Δ = 𝕊.get_Δ()
+            tq,tr = divmod(ms()+Δ,1000)
+            t_R,t_S,n = tq+ΔR,tq+ΔS,0
+            S_len = len(S)//24
+            log(f"{len(leds)=} {l=} {h=}; {sum(timing)*len(leds)*8 / 1_000_000_000}ms")
+            gc.collect()
           
+          tq,tr = divmod(ms()+Δ,1000)
+          t     = tq+0.001*float(tr)
+          render_leds(S,S_len,atoms,stk,leds,order,l,h,t)
+          # assign_leds(S,S_len,atoms,stk,leds,order,l,h,t)
+          output_leds(leds,pinout,timing)
+          
+          n+=1
+          if not n%M:
+            gc.collect(); sleep(0)
+          if tq>=t_R:
+            log(f"{t:12.5f}: FPS={n:6.2f} {n=} {tq=} {t_R=} {t_S=} [{' '.join(map(str,Time.now()))}]") # time={' '.join(map(str,Time.now()))}")
+            if tq>=t_S:
+              Δ = 𝕊.get_Δ(ntp=True)
+              tq,tr = divmod(ms()+Δ,1000)
+              t_S = tq+ΔS
+            t_R,n = tq+ΔR,n%M
       except Exception as ε:
         dbg(f"Error in LED loop! Restarting in 3 seconds:",ε)
         gc.collect(); sleep(3)

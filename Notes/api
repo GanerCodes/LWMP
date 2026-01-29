@@ -40,8 +40,10 @@ COMMAND ┬ token ─ TOKEN
          ║             ↪ *ℕ  number of sucessfully saved scenes
          ╟ Pull_scenes ─ uuids ─ *UUID
          ║             ↪ *(NAME ↦ SCENE)
-         ╙ Set_schedule ┬ uuids ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
-                        └ schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
+         ╟ Set_schedule ┬ uuids ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
+         ║              └ schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
+         ╙ Pull_schedule ┬ uuids ─ *UUID
+                         └ *(ℕ ↦ SCENE_ACTIVATION)
  󷹇 WS msg to LW is very similar, same name and (at least currently) just sending the one relevent value 
 
 § DATABASE

@@ -29,6 +29,8 @@ class Scene_Manager:
     except Exception as ε:
       dbg(f'Failed to load scene from "{loc}"!')
       raise ε
+  def get(𝕊,name,default=None):
+    return 𝕊[name] if name in 𝕊 else default
   def bulk_dump(𝕊,destroy_cripples=True):
     r = {}
     for f in 𝕊():

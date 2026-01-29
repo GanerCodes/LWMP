@@ -16,7 +16,7 @@ rm = lambda f: 𝐩(f).unlink()
 ID = lambda *𝔸,**𝕂: 𝔸[0] if 𝔸 else None
 thread = lambda f,*𝔸,**𝕂: Thread.start_new_thread(f,𝔸,𝕂)
 TRUE,FALSE = lambda *𝔸,**𝕂:True, lambda *𝔸,**𝕂:False
-boolstr = lambda s: s.strip().lower() in ('true','1')
+boolstr = lambda s: s.strip().lower() in ('true','1') if isinstance(s,str) else bool(s)
 gen_id = lambda: hex(int(''.join(str(random.random())[2:] for i in range(3))))[2:10]
 mem_info = lambda: f"{gc.mem_alloc()}/{gc.mem_free()} = {gc.mem_alloc()/gc.mem_free()}"
 
