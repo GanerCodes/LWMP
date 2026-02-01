@@ -1,8 +1,3 @@
-🟑
-󷹇 ⊢(􀃅􀊊􀃅􀊊tok𝘋𝘉􁏦): ≈ tok𝘋𝘉􁏦(<following function>)()()
-    trick to avoid hogging the DB
-🟑
-
 ⦃from websockets.sync.server import serve as ⦃websocket_serve⦄⦄
 ⦃from shutil import rmtree as ⦃rmtree⦄⦄
 ⦃import urllib⦄
@@ -33,36 +28,34 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
 ‹Compiled!›􀊸
 
 ⊢api(𝐭,𝐦,d=□):
-  ⊢(􀃅􀊊tok𝘋𝘉􁏦)r:
+  ⛯ tok𝘋𝘉
     ¿𝐦≡‹Get_devs›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
                    v = {⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,{online=⟞∈ws_clients, ⠶dev𝘋𝘉􍪴 􀝊 􀌌‹name LEDC RGB_ORDER REVERSE›}ᐸ}
-                   ↪󰲟v 𝖦
+                   ↪v 𝖦
     
     reqs = { Change_dev   = ‹dev󷺗󷺗󷺗󷺗󷺗›,
              Set_scene    = ‹scene󷺗󷺗󷺗›,
              Del_scene    = ‹scene󷺗󷺗󷺗›,
              Push_scenes  = ‹scenes󷺗󷺗›,
              Set_schedule = ‹schedule› }
-    ¿𝐦􀉩reqs: ↪󰲟‹Unknown API method!›𝖡
-    ¿‹uuids›􀊱reqs􊳥􀔉(d ℵ)⁻ 􀰁 P: ↪󰲟‹Missing parameters: "⟦P􀋢␛,⟧"!›𝖡
+    ¿𝐦􀉩reqs: ↪‹Unknown API method!›𝖡
+    ¿‹uuids›􀊱reqs􊳥􀔉(d ℵ)⁻ 􀰁 P: ↪‹Missing parameters: "⟦P􀋢␛,⟧"!›𝖡
     
     devs = tok𝘋𝘉􊳬ᵈᵉᵛˢ
     ¿𝐦􀉞‹Set_scene›:
       T = d[reqs􊳥]
-      ¿T􀊹􀉟3: ↪󰲟‹Scene activation should have length 3!›𝖡
+      ¿T􀊹􀉟3: ↪‹Scene activation should have length 3!›𝖡
       d[reqs􊳥] = [⠤T,1000􀋈time􀃅􀯖𝑖]
      󰤱 database stuff here
     ⊢check_dev(ꭒ):
       ¿ꭒ􀒻devs      : ↪‹Cannot find device!›𝖡
       ¿ꭒ􀒻ws_clients: ↪‹Device is offline󷺗!›𝖡
       ↪(󰲟d[reqs􊳥] 𝔠􊳥 ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
-    ↪󰲟􀉵´(d􋕨ᵤᵤᵢₛ􋕨,check_dev,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
-  ↪r􀃅
+  ↪􀉵´(d􋕨ᵤᵤᵢₛ􋕨,check_dev,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
 
-⊢(ƒ↦󷺹ƒ 𝔍󰄞􀝕200􀝕ℵ(𝙲𝚃=‹.json›)) POST(x):
-  ¿(𝔍󰄟􀍝□)(x)􀯑d􇪫􀕢: ↪‹Unable to parse JSON!›𝖡
-  ¿‹token›􀉩d    : ↪‹No token in request󷺗!›𝖡
-  ↪api(d􋕨ₜ󰂼ₖₑₙ􋕨,⠤d 𝔪)
+⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇖: ↪‹Unable to parse JSON!›𝖡
+          ¿‹token›􀉩d   : ↪‹No token in request󷺗!›𝖡
+          ↪api(d􋕨ₜ󰂼ₖₑₙ􋕨,⠤d 𝔪)􀯖𝔍󰄞 􀝕 200 􀝕 ℵ(𝙲𝚃=‹.json›)
 
  cors = { access-control-allow-origin=␛* }
 ⊢(HTTP_Server) server(𝚖,𝚙,𝙷,𝚎):
@@ -77,7 +70,8 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
   ⸘𝚖≡‹POST›: ↪𝙷."content-length" 𝑖 𝚎􋈷 POST
 
 ⊢negotiate_controller_props(𝐈,ꭐ):  update newly connected lw w/ current data
-  ⊢(􀃅􀊊􀃅􀊊tok𝘋𝘉􁏦):
+  conf = □
+  ⛯ tok𝘋𝘉
     𝐭,𝐮 = 𝐈ᵗᵒᵏᵉⁿ,𝐈ᵁᵁᴵᴰ
     ¿𝐭􀖁tok𝘋𝘉       : tok𝘋𝘉􊳬 = {devs=⍁}
     ¿𝐮􀖁tok𝘋𝘉􊳬ᵈᵉᵛˢ􀯑𝐃: tok𝘋𝘉􊳬 = {devs=𝐃􀊳􊳭}
@@ -87,9 +81,9 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
                        𝐂ᵗᵒᵏᵉⁿ = 𝐭
                        dev𝘋𝘉􊳭 = 𝐂
                        ¿𝐨𝐭􀉧tok𝘋𝘉: tok𝘋𝘉􊳧􊳬ᵈᵉᵛˢ􀯿􀊷􊳭  remove dev from old tok if present
-                     ¿conf􇂼‹LEDC RGB_ORDER REVERSE NAME›􀌌ᐖ𝐈􀉨⟞􀉧𝐂 􀛾 𝐈􍪴􀉟𝐂􍪴 􇂆􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑:
-                       ↪𝚲conf 𝔠.Change_dev ꭐ
-                     ↪ⴳ
+                     conf = ‹LEDC RGB_ORDER REVERSE NAME›􀌌ᐖ𝐈􀉨⟞􀉧𝐂 􀛾 𝐈􍪴􀉟𝐂􍪴 􇂆􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑
+  ¿conf􇪨: ↪conf 𝔠.Change_dev ꭐ
+  ↪✓
 
 ⊢WS_handle(ws):
   ꭐ = WS_Client(ws)
@@ -108,8 +102,9 @@ w = Mutable􀃅
    󷺹w􀯖.serve_forever􀃅)󰅂 PL_THREAD
 
 ‹Running server›􀊸
-    server(port=WEBSITE_PORT)
-¡𝑒𝑒: w􀍠󷺹􀃅.shutdown􀃅
-     ⦃import signal as ⦃signal⦄⦄
-     os.kill(os.getpid􀃅,signal.SIGTERM)
-     exit􀃅
+      server(port=WEBSITE_PORT)
+¡ε=𝑒𝑒: ε􀊸
+󰛕      w􀍠󷺹􀃅.shutdown􀃅
+       ⦃import signal as ⦃signal⦄⦄
+       os.kill(os.getpid􀃅,signal.SIGTERM)
+       exit􀃅

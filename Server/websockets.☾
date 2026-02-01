@@ -51,7 +51,7 @@
   ⊢recv(𝕊):  󰤱 infinitely fills 𝕊.locks if we don't wait for reply!
          𝚒,𝙼 = 𝕊.unpack_msg(𝕊._recv􀃅)
     ¡ε=𝑒: 𝕊.close􀃅
-          􁁖 ε
+          ε 􁀒 
     ¿𝚒􀉧𝕊.locks: 𝕊.locks􀲪(𝙼)
                 󰆴 𝕊.locks􀲪
                 ↪𝚒􀊱𝙼
