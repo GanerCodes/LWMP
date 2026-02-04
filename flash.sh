@@ -13,6 +13,7 @@ DEVS=($(find /dev -regextype posix-extended -regex '.*/tty(ACM|USB).*'))
   DEV="$2"
   UUID="$3"
   FLASH_ROM=$([[ $4 == 'y' ]] && echo -n y || echo -n)
+  echo "Flashing ${DEV} with UUID ${UUID}"
   pushd ./Device
     [[ -n "$FLASH_ROM" ]] && {
       pushd ./ROM/Out

@@ -95,14 +95,14 @@ def AP_with_DNS(*𝔸,timeout=None,timeout_f=print,**𝕂):
   poll.register(s1, select.POLLIN)
   poll.register(s2, select.POLLIN)
   
-  l_evt = Tick.ms()
+  l_evt = ms()
   while 1:
     for sock,ev in poll.poll(100):
       if   sock is s1: f1()
       elif sock is s2: f2()
       else           : continue
-      l_evt = Tick.ms()
-    if timeout is not None and Tick.dt(l_evt) > 1000*timeout:
+      l_evt = ms()
+    if timeout is not None and dt_ms(l_evt) > 1000*timeout:
       timeout_f()
 
 __all__ = "wifi_connect","AP_basic","DNS_trap","AP_with_DNS"

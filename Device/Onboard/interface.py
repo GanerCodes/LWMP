@@ -60,27 +60,21 @@ def parse_mode(mode,brightness=1,atoms=None,reverse=False):
   else:
     raise ValueError(f'Unknown mode type "{t}"!')
   return (reverse,r0,rΔ,s),atoms
-def mode_to_bufs(ℭ,N):
-  N,O = N["mode"],N.get("offsets",{})
-  # log(f'mode_to_bufs: got "{N}"')
-  N,atoms = parse_mode(N,reverse=ℭ.reverse)
+
+def encode_mode(N):
+  N,atoms = parse_mode(N)
   N = optf(flat(pre(N)))
-  # log(f'mode_to_bufs: converted to "{N}"')
-  
-  mode_ledc = abs(N[0].Σ)
-  l = O.get(ℭ.uuid,0)
-  h = min(l+ℭ.ledc,mode_ledc) # this min (ideally) never does anything􊽨
-  # log(f'Our section is {l}󷸹{h}')
-  
-  # 󰤱 cull irrelevent sections/excessive buffer sizes based on our device (here􊽨)
-  
   S     = b''.join(struct.pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
   atoms = b''.join(atoms)
   stk   = (max(s.d for s in N)+1)*struct.pack("iii",0,0,0)
-  leds  = (h-l                  )*struct.pack("BBB",0,0,0)
-  gc.collect()
-  
-  return S,atoms,stk,leds,(l,h)
+  free()
+  return S,len(S)//24,atoms,stk
+def specify_mode(mode,offsets,ℭ):
+  # Σ = mem32[addressof(mode[0])+4]
+  Σ = int.from_bytes(mode[0][4:8])
+  l = (offsets or {}).get(ℭ.UUID,0)
+  h = min(l+ℭ.LEDC,abs(Σ))
+  return mode,(l,h)
 
 def parse_rgb_mode(mode):
   if isinstance(mode,int):
@@ -93,4 +87,22 @@ def parse_rgb_mode(mode):
       mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
   return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
-__all__ = "mode_to_bufs","parse_rgb_mode"
+__all__ = "encode_mode","specify_mode","parse_rgb_mode"
+
+# def mode_to_bufs(ℭ,N):
+#   N,O = N["mode"],N.get("offsets",{})
+#   # log(f'mode_to_bufs: got "{N}"')
+#   N,atoms = parse_mode(N,reverse=ℭ.reverse)
+#   N = optf(flat(pre(N)))
+#   # log(f'mode_to_bufs: converted to "{N}"')
+#   mode_ledc = abs(N[0].Σ)
+#   l = O.get(ℭ.uuid,0)
+#   h = min(l+ℭ.ledc,mode_ledc) # this min (ideally) never does anything􊽨
+#   # log(f'Our section is {l}󷸹{h}')
+#   # 󰤱 cull irrelevent sections/excessive buffer sizes based on our device (here􊽨)
+#   S     = b''.join(struct.pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
+#   atoms = b''.join(atoms)
+#   stk   = (max(s.d for s in N)+1)*struct.pack("iii",0,0,0)
+#   leds  = (h-l                  )*struct.pack("BBB",0,0,0)
+#   free()
+#   return S,atoms,stk,leds,(l,h)

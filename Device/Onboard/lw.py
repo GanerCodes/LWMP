@@ -28,7 +28,7 @@ for i in range(10): # blinky at boots
              R_SSID     =(                                              ),
              R_PASS     =(                                              ),
              LEDP       =(23                                   , int    ),
-             LEDC       =(500                                  , int    ),
+             LEDC       =(300                                  , int    ),
              REVERSE    =(False                                , boolstr),
              BIT_TIMING =("400 850 800 450"                    ,        ),
              RGB_ORDER  =("RGB"                                ,        ) )
@@ -36,10 +36,10 @@ if not ℭ.name: ℭ.name = ℭ.UUID
 ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 log(ℭ)
 
-controller = LED_Controller(ℭ)
+controller = LED_Controller(ℭ,𝔐)
 thread(controller.loop)
 
-update_LED_HW = lambda: controller.configure(pin=ℭ.LEDP, order=ℭ.RGB_ORDER, timing=ℭ.BIT_TIMING)
+update_LED_HW = lambda: controller.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
 update_LED_HW()
 
 def lw_WAN():
@@ -49,7 +49,7 @@ def lw_WAN():
     controller(preset_normal)
     if not wifi_connect(*ℭ("r_ssid","r_pass")):
       raise Exception(f'Could not connect to WiFi!')
-    Time(); gc.collect()
+    Time(); free()
   except Exception as ε:
     dbg(f'Could not connect to WiFi:',ε)
     log("Starting AP.")
@@ -59,12 +59,12 @@ def lw_WAN():
     def post(path,body):
       try:
         ℭ(𝔍l(body))
-        machine.reset()
+        reset()
       except Exception as ε:
         dbg(f"Error getting credentials from AP:",ε)
         return 400,"application/json",𝔍d({"msg":"Cannot parse credentials!"})
-    AP_with_DNS(get,post,timeout=60**2,timeout_f=machine.reset)
-    machine.reset()
+    AP_with_DNS(get,post,timeout=60**2,timeout_f=reset)
+    reset()
 
 def handle_API(𝐦,d=None):
   log(f'Handling API "{𝐦}"')
@@ -88,9 +88,10 @@ def handle_API(𝐦,d=None):
     if K & WCON: return _RESET_WS  ,_RESET_WS
   elif 𝐦=="Set_scene":
     name,que,dur,t = d
+    if dur == -1: dur = None
     if name not in 𝔐: return _RESET_NO,False
     log(f"Setting scene {name} on {controller} with {t=}")
-    controller(𝔐[name],t)
+    controller(name,que,dur,None,t)
     return _RESET_NO,True
   elif 𝐦=="Del_scene":
     return _RESET_NO,𝔐.__delitem__(d)
@@ -108,6 +109,7 @@ def lw_websocket_loop():
   ꭐ = WS_Client(ℭ.WS_URL)
   log("Connected to WS!")
   ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER".split()})
+  free()
   while 1:
     i,cmd = ꭐ()
     cmd = 𝔍l(cmd)
@@ -119,7 +121,7 @@ def lw_websocket_loop():
       except Exception as ε: dbg(f'Failed to close WS:',ε)
       if con == _RESET_WIFI: return con
       break
-    gc.collect() #; sleep(0.1)
+    frees(0.01)
 
 update_LED_HW()
 try:
@@ -129,10 +131,10 @@ try:
       try:
         if lw_websocket_loop() == _RESET_WIFI:
           log("Resetting WiFi")
-          gc.collect(); break
+          free(); break
       except OSError   as ε: dbg(f'WebSocket connection failed! Restarting in 5 seconds:',ε)
       except Exception as ε: dbg(f'Error in WebSocket loop! Restarting in 5 seconds:',ε)
-      sleep(5)
+      frees(5)
 except:
   controller.loop = 0
   raise

@@ -94,9 +94,10 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
   StackEntry *stk      = (StackEntry *)mp_obj_get_int  (args[3]);
   u8         *leds     = (u8         *)mp_obj_get_int  (args[4]);
   u32         RGB_OFFS =               mp_obj_get_int  (args[5]);
-  u32         l        =               mp_obj_get_int  (args[6]);
-  u32         h        =               mp_obj_get_int  (args[7]);
-  f32         t        =               mp_obj_get_float(args[8]);
+  u32         REVERSE  =               mp_obj_get_int  (args[6]);
+  u32         l        =               mp_obj_get_int  (args[7]);
+  u32         h        =               mp_obj_get_int  (args[8]);
+  f32         t        =               mp_obj_get_float(args[9]);
   u8 OFF_R = OFFSET_R;
   u8 OFF_G = OFFSET_G;
   u8 OFF_B = OFFSET_B;
@@ -108,7 +109,8 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
     i32 AΣS = abs(s.Σ);
     // stk[p] = (StackEntry){s.r0 + s.rΔ*t,s.σ,s.Σ};
     // stk[p] = (StackEntry){mod(s.r0 + s.rΔ*t, s.Σ),s.σ,s.Σ};
-    stk[p] = (StackEntry){mod(s.r0 + s.rΔ*mod(t,1.0) + truncf(t)*mod(s.rΔ,1.0) + (((u32)t)*((u32)s.rΔ) % AΣS), AΣS), s.σ,s.Σ};
+    stk[p] = (StackEntry){mod(s.r0 + s.rΔ*mod(t,1.0) + truncf(t)*mod(s.rΔ,1.0) + (((u32)t)*((u32)s.rΔ) % AΣS), AΣS),
+                          s.σ, ((REVERSE && !i)?-1:1)*s.Σ};
     
     if(!s.m) { p++; continue; }
     
@@ -148,7 +150,7 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
       leds[N+OFF_B] = c.b; } }
   
   ret mp_const_none; }
-static MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(lightwave_assign_leds_obj,9,9,lightwave_assign_leds);
+static MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(lightwave_assign_leds_obj,10,10,lightwave_assign_leds);
 
 mp_obj_t mpy_init(mp_obj_fun_bc_t *self, size_t n_args, size_t n_kw, mp_obj_t *args) {
     // This must be first, it sets up the globals dict and other things

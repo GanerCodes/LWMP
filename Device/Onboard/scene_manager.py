@@ -1,4 +1,5 @@
-from util import *
+from util      import *
+from interface import *
 
 class Scene_Manager:
   def __init__(𝕊,dir="/scenes"):
@@ -20,7 +21,7 @@ class Scene_Manager:
     if loc := 𝕊():
       rm(loc)
       TRUE(log(f'Removed scene "{name}"'))
-    return FALSE(log(f'Scene "{name}" already does not exist'))
+    return FALSE(log(f'Scene "{name}" already nonexistant'))
   def __getitem__(𝕊,name,log=print):
     if (loc := 𝕊(name)) is None:
       raise FileNotFoundError(f'Could not find scene "{name}"!')
@@ -53,4 +54,20 @@ class Scene_Manager:
         dbg(f'Failed to save scene "{k}":',ε)
     return N
 
-__all__ = "Scene_Manager",
+class Scene_Cacher:
+  def __init__(𝕊,man):
+    𝕊.man,𝕊.cache = man,{}
+  def __call__(𝕊,scene):
+    if "mode" in scene:
+      scene,offsets = scene["mode"],scene.get("offsets")
+    else:
+      scene,offsets = scene,None
+    return encode_mode(scene),offsets
+  def __getitem__(𝕊,k):
+    if isinstance(k,dict): return 𝕊(k)
+    h = HASH(c := read_file(𝕊.man(k),"rb"))
+    if h in 𝕊.cache: return 𝕊.cache[h]
+    r = 𝕊.cache[h] = 𝕊(𝕊.man[k])
+    return r
+
+__all__ = "Scene_Manager","Scene_Cacher"

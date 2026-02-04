@@ -82,8 +82,8 @@ let S_reverse_test_2 = D=>({
 // S_reverse_test
 // S_reverse_test_2
 
-SCENE      = S_timetest(devs = "testdevice0 testdevice1 testdevice2".split(' '));
-LEDC       = 500;
+SCENE      = S_rainbow_snake(devs = "testdevice2 testdevice0 testdevice1".split(' '));
+LEDC       = 50;
 REVERSE    = false;
 RGB_ORDER  = "GBR";
 BIT_TIMING = "350 900 700 700";
@@ -93,4 +93,4 @@ flip = Object.entries(SCENE.offsets).filter(([k,v])=>v<0).map(([k,v])=>(SCENE.of
 await api("testing","Change_dev" ,{uuids:devs, dev:{LEDC,REVERSE,RGB_ORDER,BIT_TIMING}})
 await api("testing","Change_dev" ,{uuids:flip, dev:{REVERSE:true}})
 await api("testing","Push_scenes",{uuids:devs, scenes:{"test":SCENE}})
-await api("testing","Set_scene"  ,{uuids:devs, scene :["test",false,Infinity]})
+await api("testing","Set_scene"  ,{uuids:devs, scene :["test",false,-1]})

@@ -38,7 +38,7 @@ class WebsocketClient:
     𝕊.sock.settimeout(30)
     𝕊.sock.connect(socket.getaddrinfo(uri.host,uri.port)[0][4])
     if uri.proto=='wss': 
-      # mfw this doesn't even work when GC: total: 112000, used: 39520, free: 72480, max new split: 30720 ; No. of 1-blocks: 402, 2-blocks: 120, max blk sz: 157, max free sz: 3343 # "gc.collect()"; micropython.mem_info()
+      # mfw this doesn't even work when GC: total: 112000, used: 39520, free: 72480, max new split: 30720 ; No. of 1-blocks: 402, 2-blocks: 120, max blk sz: 157, max free sz: 3343 # "free()"; micropython.mem_info()
       # 𝕊.sock = ssl.wrap_socket(𝕊.sock,server_hostname=uri.host,server_side=False,cert_reqs=0)
       pass
 
@@ -47,7 +47,7 @@ class WebsocketClient:
     send_header(f"Host: {uri.host}:{uri.port}")
     send_header(f"Connection: Upgrade")
     send_header(f"Upgrade: websocket")
-    send_header(f"Sec-WebSocket-Key: {binascii.b2a_base64(bytes(random.getrandbits(8) for _ in range(16)))[:-1].decode("utf-8")}")
+    send_header(f"Sec-WebSocket-Key: {b2a_base64(bytes(getrandbits(8) for _ in range(16)))[:-1].decode("utf-8")}")
     send_header(f"Sec-WebSocket-Version: 13")
     send_header(f"")
     header = 𝕊.sock.readline()[:-2]
@@ -78,7 +78,7 @@ class WebsocketClient:
     elif l < 1<<16: 𝕊.sock.write(struct.pack('!BBH', b1, 0x80|126, l))
     elif l < 1<<64: 𝕊.sock.write(struct.pack('!BBQ', b1, 0x80|127, l))
     else          : raise ValueError()
-    mask_bits = struct.pack('!I', random.getrandbits(32))
+    mask_bits = struct.pack('!I', getrandbits(32))
     𝕊.sock.write(mask_bits)
     data = bytes(b^mask_bits[i%4] for i,b in enumerate(data))
     𝕊.sock.write(data)
