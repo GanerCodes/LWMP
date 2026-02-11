@@ -49,7 +49,18 @@ Planned
     Remote update ability
     Prob sync scene names with database?
     Offline AP mode (screen with buttons for the various stored modes)
-    Simple Calibration Function (3 step menu, RGB confirmation)
+    Simple Calibration Function
+      RGB : Screen #1: Choose the current strip color (R G B)
+            Screen #2: Choose the current strip color (R G B) ∖ {Choosen in screen 1} (include reset button)
+      LEDC: [works by having #0F0 followed by #F00]
+            [start at like idk 100]
+            The strip will transition from green to red at LED 100. Can you see any red?
+              Y → binary search right [so 200 for step 1]
+              N → binary search left  [so 50 for step 1]
+              Reset button
+            (Note: first streak of Y presses just doubles until 2000 LEDs)
+            [ᵉᵍ for 300 LEDS we have ⇒ YNNYYYYYYY
+                                       400 300 250 275 287 293 296 298 299 ⇒ 300]
     Settings Menu
     10 Preset Scenes
     Mobile App Experience
