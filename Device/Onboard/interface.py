@@ -34,17 +34,20 @@ def optf(S):
       H.append(Seg(x.σ,x.Σ,x.d,int(x.m and m),x.r0,x.rΔ))
   return H
 
-def convert_atom(t,dat,brightness=1.0):
+def convert_atom(t,dat,brightness,out):
   bright = int(min(255*brightness,255))
-  if t == "Static":
-    return struct.pack("BBxxBBBxxxxxxxxxxxxx",bright,0x00,*dat)
-  if t == "Rainbow":
-    return struct.pack("BBxxfBBxxxxxxxxxx"   ,bright,0x01,*dat)
-  if t == "Fade":
-    pass # 󰤱
-  raise Exception(f'Unknown atom type "{t}"!')
-def parse_mode(mode,brightness=1,atoms=None,reverse=False):
-  if atoms is None: atoms = []
+  if   t == "Static":
+    out["atoms"] += pack("BBxxBBBxxxxxxxxx",bright,0x00,*dat)
+  elif t == "Rainbow":
+    out["atoms"] += pack("BBxxfBBxxxxxx"   ,bright,0x01,*dat)
+  elif t == "Fade":
+    C,F = dat["clrs"],out["fades"]
+    out["atoms"] += pack("BBxxHHff"        ,bright,0x02,len(C),len(F),dat["speed"],dat["sharp"])
+    for c in C: out["fades"] += pack("BBB",*c)
+  else:
+    raise Exception(f'Unknown atom type "{t}"!')
+def parse_mode(mode,brightness=1,data=None,reverse=False):
+  if data is None: data = dict(atoms=b'',fades=b'')
   
   r0 = rΔ = 0
   for t,v in mode["effects"]:
@@ -52,26 +55,22 @@ def parse_mode(mode,brightness=1,atoms=None,reverse=False):
     elif t == "Reversed"  : reverse = True
     elif t == "Brightness": brightness *= v
   t,v = 𝔪(mode)
-  if   t=="atom":
-    s = v[0]
-    atoms.append(convert_atom(*v[1],brightness))
-  elif t=="modes":
-    s = tuple(parse_mode(m,brightness,atoms)[0] for m in v)
-  else:
-    raise ValueError(f'Unknown mode type "{t}"!')
-  return (reverse,r0,rΔ,s),atoms
+  if   t=="atom" :
+                   s = v[0]
+                   convert_atom(*v[1],brightness,data)
+  elif t=="modes": s = tuple(parse_mode(m,brightness,data)[0] for m in v)
+  else           : raise ValueError(f'Unknown mode type "{t}"!')
+  return (reverse,r0,rΔ,s),data
 
 def encode_mode(N):
-  N,atoms = parse_mode(N)
+  N,data = parse_mode(N)
   N = optf(flat(pre(N)))
-  S     = b''.join(struct.pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
-  atoms = b''.join(atoms)
-  stk   = (max(s.d for s in N)+1)*struct.pack("iii",0,0,0)
+  S     = b''.join(pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
+  stk   = (max(s.d for s in N)+1)*pack("iii",0,0,0)
   free()
-  return S,len(S)//24,atoms,stk
+  return S,len(S)//24,data["atoms"],bytes(data["fades"]),stk
 def specify_mode(mode,offsets,ℭ):
-  # Σ = mem32[addressof(mode[0])+4]
-  Σ = int.from_bytes(mode[0][4:8])
+  Σ = int.from_bytes(mode[0][4:8],"little")
   l = (offsets or {}).get(ℭ.UUID,0)
   h = min(l+ℭ.LEDC,abs(Σ))
   return mode,(l,h)
@@ -88,21 +87,3 @@ def parse_rgb_mode(mode):
   return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
 __all__ = "encode_mode","specify_mode","parse_rgb_mode"
-
-# def mode_to_bufs(ℭ,N):
-#   N,O = N["mode"],N.get("offsets",{})
-#   # log(f'mode_to_bufs: got "{N}"')
-#   N,atoms = parse_mode(N,reverse=ℭ.reverse)
-#   N = optf(flat(pre(N)))
-#   # log(f'mode_to_bufs: converted to "{N}"')
-#   mode_ledc = abs(N[0].Σ)
-#   l = O.get(ℭ.uuid,0)
-#   h = min(l+ℭ.ledc,mode_ledc) # this min (ideally) never does anything􊽨
-#   # log(f'Our section is {l}󷸹{h}')
-#   # 󰤱 cull irrelevent sections/excessive buffer sizes based on our device (here􊽨)
-#   S     = b''.join(struct.pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
-#   atoms = b''.join(atoms)
-#   stk   = (max(s.d for s in N)+1)*struct.pack("iii",0,0,0)
-#   leds  = (h-l                  )*struct.pack("BBB",0,0,0)
-#   free()
-#   return S,atoms,stk,leds,(l,h)

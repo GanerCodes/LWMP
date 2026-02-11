@@ -1,7 +1,6 @@
 from util          import *
 from wifi          import *
-from timing        import *
-from lighting      import *
+from controller    import *
 from ws_client     import *
 from interface     import *
 from scene_manager import *
@@ -36,7 +35,7 @@ if not ℭ.name: ℭ.name = ℭ.UUID
 ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 log(ℭ)
 
-controller = LED_Controller(ℭ,𝔐)
+controller = Controller(ℭ,𝔐)
 thread(controller.loop)
 
 update_LED_HW = lambda: controller.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
@@ -49,7 +48,9 @@ def lw_WAN():
     controller(preset_normal)
     if not wifi_connect(*ℭ("r_ssid","r_pass")):
       raise Exception(f'Could not connect to WiFi!')
-    Time(); free()
+    ntp()
+    controller(preset_normal)
+    free()
   except Exception as ε:
     dbg(f'Could not connect to WiFi:',ε)
     log("Starting AP.")
@@ -88,9 +89,11 @@ def handle_API(𝐦,d=None):
     if K & WCON: return _RESET_WS  ,_RESET_WS
   elif 𝐦=="Set_scene":
     name,que,dur,t = d
+    log(f"Setting scene on {controller}: {d}")
     if dur == -1: dur = None
-    if name not in 𝔐: return _RESET_NO,False
-    log(f"Setting scene {name} on {controller} with {t=}")
+    if name not in 𝔐:
+      log(f'Scene "{name}" not found!')
+      return _RESET_NO,False
     controller(name,que,dur,None,t)
     return _RESET_NO,True
   elif 𝐦=="Del_scene":
@@ -101,8 +104,22 @@ def handle_API(𝐦,d=None):
     return _RESET_NO,𝔐.bulk_dump()
   elif 𝐦=="Set_schedule":
     log(f"󰤱 Set_schedule ({d})") # 󰤱
+    write_file("schedule",𝔍d(d))
+    return _RESET_NO,controller.update_schedule(d)
   elif 𝐦=="Pull_schedule":
-    log(f"󰤱 Pull_schedule") # 󰤱
+    if "schedule" not in ls:
+      return _RESET_NO,False
+    return _RESET_NO,read_file("schedule",𝔍d(d))
+  elif 𝐦=="Sync":
+    try:
+      T,ΔΔ = ntp()
+      ΔΔ //= 1000
+      controller.Δ += ΔΔ
+      r = 𝔍d([T,ΔΔ])
+    except Exception as ε:
+      log("Sync failed!",ε)
+      r = False
+    return _RESET_NO,str(r)
   return _RESET_NO,False
 
 def lw_websocket_loop():

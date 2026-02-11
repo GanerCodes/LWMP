@@ -1,3 +1,5 @@
+int *__errno(void) { static int e; return &e; } // LOL
+
 #include "py/dynruntime.h"
 #include "py/obj.h"
 #include "py/runtime.h"
@@ -21,11 +23,22 @@
 #define ef el if
 #define ret return
 
-#define OFFSET_R ((RGB_OFFS >>  0) & 0xFF)
-#define OFFSET_G ((RGB_OFFS >>  8) & 0xFF)
-#define OFFSET_B ((RGB_OFFS >> 16) & 0xFF)
-
 typedef struct { u8 r,g,b; } RGB;
+typedef struct { i32 σ,Σ,d,m; f32 r0,rΔ; } Seg;
+  /*
+   * r0: rotation start offset
+   * rΔ: rotation speed
+   * σ : LED offset
+   * Σ : length in LED count, negative for reversed
+   * d : Move around the stack
+   * m : mode; 0 ⇒ has subchildren, >0 atom
+   */
+typedef struct { f32 r; i32 σ,Σ; } StackEntry;
+typedef struct { u8 r,g,b;                               } Static;
+typedef struct { f32 segs; u8 s,v;                       } Rainbow;
+typedef struct { u16 clrN; u16 idx; f32 speed,sharp;     } Fade;
+typedef struct { u8 brightness, mode;
+                 union { Static S; Rainbow R; Fade F; }; } Atom;
 
 fast inline f32      mod(f32 a, f32 b       ) { a = a - (f32)((i32)(a/b))*b;
                                                 ret a<0 ?a+b: a; }
@@ -39,21 +52,8 @@ fast inline RGB RGBscale(RGB x,  u8 y       ) { u32 z = y+1;
                                                 ret (RGB) { z*x.r >> 8,
                                                             z*x.g >> 8,
                                                             z*x.b >> 8 }; };
-
-typedef struct { i32 σ,Σ,d,m; f32 r0,rΔ; } Seg;
-  // r0: rotation start offset
-  // rΔ: rotation speed
-  // σ : LED offset
-  // Σ : length in LED count, negative for reversed
-  // d : Move around the stack
-  // m : mode; 0 ⇒ has subchildren, >0 atom
-typedef struct { f32 r; i32 σ,Σ; } StackEntry;
-typedef struct { u8 r,g,b;                               } Static;
-typedef struct { f32 segs; u8 s,v;                       } Rainbow;
-typedef struct { u8 clrN; RGB *colors; f32 speed,sharp;  } Fade;
-typedef struct { u8 brightness, mode;
-                 union { Static S; Rainbow R; Fade F; }; } Atom;
-// mode: xxxxxMMM  M determines which of the following union
+fast inline f32 fmulmodpartial(f32 x, f32 y, u32 m) {
+  ret x*mod(y,1.) + truncf(y)*mod(x,1.) + ((u32)y)*((u32)x)%m; }
 
 fast inline RGB lightwave_hsv_to_rgb(u8 h, u8 s, u8 v) {
   if(!s) ret (RGB){v,v,v};
@@ -73,34 +73,28 @@ fast inline RGB lightwave_atom_rainbow(f32 i, f32 n, f32 segN, u8 s, u8 v) {
     ret lightwave_hsv_to_rgb((u8)(i*segN/n*0xFF),s,v); }
 
 // https://www.desmos.com/calculator/yli6q8tc25?nobranding=&nokeypad=
-static void compute_fades(Atom *atoms, u32 atoms_len, f32 t) {
-  for(u32 i=0; i<atoms_len; i++) {
-    Atom atom = atoms[i];
-    if(atom.mode == 2) {
-      float p = atom.F.speed*t;
-      RGB clr = RGBlerp(atom.F.colors[((u32)(p   )) % atom.F.clrN],
-                        atom.F.colors[((u32)(p+1.)) % atom.F.clrN],
-                        (u8)(255*powf(mod(p,1.),1+255.*powf(atom.F.sharp,5))));
-      atoms[i] = (Atom){ atom.mode, atom.brightness,
-                         .S = {clr.r,clr.g,clr.b} };
-    }
-  }
-}
+fast inline RGB compute_fade(Atom atom, u8* fades, f32 t) {
+  f32 p = fmulmodpartial(atom.F.speed,t,1<<16);
+  return RGBlerp(*(RGB*)(fades + atom.F.idx + 3*(((u16)(p    )) % atom.F.clrN)),
+                 *(RGB*)(fades + atom.F.idx + 3*(((u16)(p+1.f)) % atom.F.clrN)),
+                 (u8)(255*powf(mod(p,1.),1+255.f*powf(atom.F.sharp,5.f)))); }
 
 fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
-  Seg        *S        = (Seg        *)mp_obj_get_int  (args[0]);
-  u32         S_len    =               mp_obj_get_int  (args[1]);
-  Atom       *atoms    = (Atom       *)mp_obj_get_int  (args[2]);
-  StackEntry *stk      = (StackEntry *)mp_obj_get_int  (args[3]);
-  u8         *leds     = (u8         *)mp_obj_get_int  (args[4]);
-  u32         RGB_OFFS =               mp_obj_get_int  (args[5]);
-  u32         REVERSE  =               mp_obj_get_int  (args[6]);
-  u32         l        =               mp_obj_get_int  (args[7]);
-  u32         h        =               mp_obj_get_int  (args[8]);
-  f32         t        =               mp_obj_get_float(args[9]);
-  u8 OFF_R = OFFSET_R;
-  u8 OFF_G = OFFSET_G;
-  u8 OFF_B = OFFSET_B;
+  u8 *𝔸 = (u8*)mp_obj_get_int(args[0]);
+  Seg        *S        = *(Seg        **)(𝔸+ 0);
+  u32         S_len    = *(u32         *)(𝔸+ 4);
+  Atom       *atoms    = *(Atom       **)(𝔸+ 8);
+  u8         *fades    = *(u8         **)(𝔸+12);
+  StackEntry *stk      = *(StackEntry **)(𝔸+16);
+  u8         *leds     = *(u8         **)(𝔸+20);
+  u32         RGB_OFFS = *(u32         *)(𝔸+24);
+  u32         REVERSE  = *(u32         *)(𝔸+28);
+  u32         l        = *(u32         *)(𝔸+32);
+  u32         h        = *(u32         *)(𝔸+36);
+  f32         t        = mp_obj_get_float(args[1]);
+  u8 OFF_R = ((RGB_OFFS >>  0) & 0xFF);
+  u8 OFF_G = ((RGB_OFFS >>  8) & 0xFF);
+  u8 OFF_B = ((RGB_OFFS >> 16) & 0xFF);
   // 500000
   for(i32 i=0,p=0,d=0; i<S_len; i++) {
     Seg s = S[i];
@@ -109,7 +103,8 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
     i32 AΣS = abs(s.Σ);
     // stk[p] = (StackEntry){s.r0 + s.rΔ*t,s.σ,s.Σ};
     // stk[p] = (StackEntry){mod(s.r0 + s.rΔ*t, s.Σ),s.σ,s.Σ};
-    stk[p] = (StackEntry){mod(s.r0 + s.rΔ*mod(t,1.0) + truncf(t)*mod(s.rΔ,1.0) + (((u32)t)*((u32)s.rΔ) % AΣS), AΣS),
+    
+    stk[p] = (StackEntry){mod(s.r0 + fmulmodpartial(s.rΔ,t,AΣS), AΣS),
                           s.σ, ((REVERSE && !i)?-1:1)*s.Σ};
     
     if(!s.m) { p++; continue; }
@@ -138,8 +133,8 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
           f32 f = atom.R.segs*255.0/AΣS;
           c = lightwave_hsv_to_rgb(f*(o+(reverse ?n-N+1: N-n+1.0)), atom.R.s, atom.R.v);
         } break;
-        case 2: {
-          // 󰤱
+        case 2: { // 󰤱
+          c = compute_fade(atom,fades,t);
         } break;
         default: __builtin_unreachable(); }
       c = RGBscale(c,atom.brightness);
@@ -150,7 +145,7 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
       leds[N+OFF_B] = c.b; } }
   
   ret mp_const_none; }
-static MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(lightwave_assign_leds_obj,10,10,lightwave_assign_leds);
+static MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(lightwave_assign_leds_obj,2,2,lightwave_assign_leds);
 
 mp_obj_t mpy_init(mp_obj_fun_bc_t *self, size_t n_args, size_t n_kw, mp_obj_t *args) {
     // This must be first, it sets up the globals dict and other things

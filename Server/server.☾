@@ -37,9 +37,10 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
              Set_scene    = ‹scene󷺗󷺗󷺗›,
              Del_scene    = ‹scene󷺗󷺗󷺗›,
              Push_scenes  = ‹scenes󷺗󷺗›,
-             Set_schedule = ‹schedule› }
+             Set_schedule = ‹schedule›,
+             Sync         = □ }
     ¿𝐦􀉩reqs: ↪‹Unknown API method!›𝖡
-    ¿‹uuids›􀊱reqs􊳥􀔉(d ℵ)⁻ 􀰁 P: ↪‹Missing parameters: "⟦P􀋢␛,⟧"!›𝖡
+    ¿[‹uuids›,¿􇪼reqs􊳥]􀔉(d ℵ)⁻ 􀰁 P: ↪‹Missing parameters: "⟦P􀋢␛,⟧"!›𝖡
     
     devs = tok𝘋𝘉􊳬ᵈᵉᵛˢ
     ¿𝐦􀉞‹Set_scene›:
@@ -50,7 +51,7 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
     ⊢check_dev(ꭒ):
       ¿ꭒ􀒻devs      : ↪‹Cannot find device!›𝖡
       ¿ꭒ􀒻ws_clients: ↪‹Device is offline󷺗!›𝖡
-      ↪(󰲟d[reqs􊳥] 𝔠􊳥 ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
+      ↪(󰲟d􇣒󰁸󰁹ᵣₑₛ􋩮ᑀ𝔠􊳥 ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
   ↪􀉵´(d􋕨ᵤᵤᵢₛ􋕨,check_dev,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
 
 ⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇖: ↪‹Unable to parse JSON!›𝖡

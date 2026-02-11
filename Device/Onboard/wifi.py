@@ -3,24 +3,25 @@ from timing import *
 
 def wifi_connect(router_ssid,router_pass,retries=30,log=print):
   log(f'Connecting to wifi:\nSSID: {router_ssid}\nPass: {router_pass}')
-  sta_if = network.WLAN(network.STA_IF)
-  sta_if.active(True)
+  wlan = WLAN(STA_IF)
+  wlan.active(True)
+  wlan.config(pm=0)
   try:
-    sta_if.connect(router_ssid,router_pass)
+    wlan.connect(router_ssid,router_pass)
   except Exception as ε:
-    sta_if.active(False)
+    wlan.active(False)
     return FALSE(log(f'Error connecting using above SSID and password: {ε}'))
   for i in range(r := retries):
     onboard_led(1)
-    if sta_if.isconnected():
+    if wlan.isconnected():
       onboard_led(0)
       break
     sleep(0.1)
     onboard_led(0)
     sleep(0.9)
-    log(f'Failed to connect to network [{i+1}/{r}] - "{sta_if.status()}"')
+    log(f'Failed to connect to network [{i+1}/{r}] - "{wlan.status()}"')
   else:
-    sta_if.active(False)
+    wlan.active(False)
     return FALSE(log("Could not connect to network."))
   return TRUE(log("Connected to Router!"))
 
@@ -30,7 +31,7 @@ def AP_basic(get=print,post=print,loop=True,log=print): # 󰤱
       buf += c
       if x in buf: break
     return buf
-  ap = network.WLAN(network.AP_IF)
+  ap = WLAN(AP_IF)
   ap.active(True)
   ap.config(essid="LightWave Controller",password="")
   while not ap.active(): sleep(0.01)

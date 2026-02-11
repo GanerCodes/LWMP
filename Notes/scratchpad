@@ -1,0 +1,10 @@
+main loop:
+  websocket read stuff
+  ntp stuff
+    sync
+      ⦢ set halftime rendering
+      t = ntp_sync()
+      controller.setΔ(t)
+      
+      
+    make controller use ticks_diff and stuff instead?

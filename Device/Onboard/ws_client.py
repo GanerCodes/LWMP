@@ -59,10 +59,10 @@ class WebsocketClient:
   def read_frame(𝕊,max_size=None):
     two_bytes = 𝕊.sock.read(2)
     if not two_bytes: raise NoDataException()
-    b1,b2 = struct.unpack('!BB', two_bytes)
+    b1,b2 = unpack('!BB', two_bytes)
     opcode,length = b1 & 0x0f, b2 & 0x7f
-    if   length==126: length, = struct.unpack('!H', 𝕊.sock.read(2))
-    elif length==127: length, = struct.unpack('!Q', 𝕊.sock.read(8))
+    if   length==126: length, = unpack('!H', 𝕊.sock.read(2))
+    elif length==127: length, = unpack('!Q', 𝕊.sock.read(8))
     fin,mask = bool(b1 & 0x80), bool(b2 & (1<<7))
     if mask: mask_bits = 𝕊.sock.read(4)
     try:
@@ -74,11 +74,11 @@ class WebsocketClient:
     return fin,opcode,data
   def write_frame(𝕊,opcode,data=b''):
     l,b1 = len(data), 0x80|opcode
-    if   l <  126 : 𝕊.sock.write(struct.pack('!BB' , b1, 0x80|l     ))
-    elif l < 1<<16: 𝕊.sock.write(struct.pack('!BBH', b1, 0x80|126, l))
-    elif l < 1<<64: 𝕊.sock.write(struct.pack('!BBQ', b1, 0x80|127, l))
+    if   l <  126 : 𝕊.sock.write(pack('!BB' , b1, 0x80|l     ))
+    elif l < 1<<16: 𝕊.sock.write(pack('!BBH', b1, 0x80|126, l))
+    elif l < 1<<64: 𝕊.sock.write(pack('!BBQ', b1, 0x80|127, l))
     else          : raise ValueError()
-    mask_bits = struct.pack('!I', getrandbits(32))
+    mask_bits = pack('!I', getrandbits(32))
     𝕊.sock.write(mask_bits)
     data = bytes(b^mask_bits[i%4] for i,b in enumerate(data))
     𝕊.sock.write(data)
@@ -105,7 +105,7 @@ class WebsocketClient:
         raise ValueError(opcode)
   def close(𝕊,code=CLOSE_OK,reason=''):
     if not 𝕊.open: return
-    𝕊.write_frame(OP_CLOSE, struct.pack('!H',code)+reason.encode('utf-8'))
+    𝕊.write_frame(OP_CLOSE, pack('!H',code)+reason.encode('utf-8'))
     𝕊._close()
   def _close(𝕊,E=None):
     𝕊.open = False

@@ -2,7 +2,7 @@
 { cd "${0%/*}"
 
 PARTITIONS="$(pwd)/partitions.csv"
-USERMODS="$(realpath ../Modules)"
+USERMODS="$(realpath ../Modules_Native)"
 OUT_DIR="$(realpath ./Out)"
 NUM_CORES=15
 
@@ -29,12 +29,15 @@ pushd ../Micropython
   
   make -C ports/esp32 BOARD=ESP32_GENERIC submodules
   make -C ports/esp32 EXTRA_CFLAGS="-Wno-error=parentheses -Wno-error=maybe-uninitialized" \
-                      BOARD=ESP32_GENERIC
-                      # USER_C_MODULES="$USERMODS" \
+                      BOARD=ESP32_GENERIC USER_C_MODULES="$USERMODS"
   pushd ports/esp32/build-ESP32_GENERIC
     cp bootloader/bootloader.bin partition_table/partition-table.bin ota_data_initial.bin micropython.bin "$OUT_DIR"
     popd
-  popd
+  
+  pushd mpy-cross
+    make
+    pushd build
+      sudo cp mpy-cross /usr/bin/mpy-cross # LOL
 
 #  -e 's/^CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=.*/CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=2048/' \
 #  -e 's/^CONFIG_MBEDTLS_MPI_MAX_SIZE=.*/CONFIG_MBEDTLS_MPI_MAX_SIZE=1024/' \

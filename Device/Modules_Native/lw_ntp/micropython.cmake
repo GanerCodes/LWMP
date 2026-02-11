@@ -1,0 +1,7 @@
+set(USERMOD_DIR ${CMAKE_CURRENT_LIST_DIR})
+add_library(usermod_lw_ntp INTERFACE)
+file(GLOB_RECURSE USERMOD_DIR ${CMAKE_CURRENT_LIST_DIR}/*.c)
+target_sources(usermod_lw_ntp INTERFACE ${USERMOD_DIR})
+target_include_directories(usermod_lw_ntp INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+target_compile_definitions(usermod_lw_ntp INTERFACE)
+target_link_libraries(usermod INTERFACE usermod_lw_ntp)

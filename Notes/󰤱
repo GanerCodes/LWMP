@@ -12,6 +12,7 @@ Done
       (it also flashes faster and doesn't need fiddling with the button)
     Device code cleanup
     NTP Time (hopefully the like ±30ms is precise enough!!1)
+      (LOL YOU THOUGHT YOU HAD NTP WORKING AT THIS POINT HAHAHA BROTHER ITS LIKE 4 WEEKS LATER AND IT ONLY NOW IS ACCURATE)
   𝟐
     Database locks correctly now
       We can do database things and talk w/ LW in the same request
@@ -36,6 +37,8 @@ Done
   𝟑
     Finish bidirectional websocket protocol implementation
     Add to API file the returns of various methods from LW
+  𝟒
+    I stopped keeping track lol
 
 Planned
   General

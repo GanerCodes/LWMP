@@ -7,8 +7,9 @@ DEVS=($(find /dev -regextype posix-extended -regex '.*/tty(ACM|USB).*'))
 [[ $1 == "--single" ]] && {
   
   until [ -f /tmp/flash_flag ]; do
-    sleep 0.1
+    sleep 0.05
     done
+  [[ -f /tmp/flash_bad_flag ]] && exit 0 || :
 
   DEV="$2"
   UUID="$3"
@@ -45,31 +46,43 @@ CLEAN_ROM=$([[ $3 == 'y' ]] && echo -n y || echo -n)
 
 killall mpremote && sleep 0.05 || :
 rm /tmp/flash_flag || :
+rm /tmp/flash_bad_flag || :
 
 for i in "${!DEVS[@]}"; do
   dev="${DEVS[i]}"
   echo 1
-  /c/Scripts/Path/term --option 'font.size=11' --command bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
+  /c/Scripts/Path/term -T "${dev} (${i})" --option 'font.size=11' --command bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
   done
 
 unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
 
+N=0
 pushd ./Device
-  pushd ./Onboard
-    mkdir -p compiled || :
-    for f in *.py; do
-      mpy-cross -o "./compiled/${f%.py}.mpy" -march=xtensawin "./$f" &
-      done
-    pushd ../Module
-      export CFLAGS="-Wno-error=unused-function -Wno-error=parentheses -Wno-error=maybe-uninitialized"
-      make
-      cp *.mpy ../Onboard/compiled
-      popd
-    popd
-
-  [[ -n "$BUILD_ROM" ]] && ./ROM/build.sh $([[ -n "$CLEAN_ROM" ]] && echo "-c")
+  [[ -n "$BUILD_ROM" ]] && {
+      ./ROM/build.sh $([[ -n "$CLEAN_ROM" ]] && echo "-c") || bad=1; }
+  
+  [[ -n "$bad" ]] || {
+    pushd ./Onboard
+      mkdir -p compiled || :
+      for f in *.py; do
+        mpy-cross -o "./compiled/${f%.py}.mpy" -march=xtensawin "./$f" &
+        N=`expr $N + 1`
+        done
+      pushd ../Module_Dynamic
+        export CFLAGS="-Wno-error=unused-variable -Wno-error=unused-function -Wno-error=parentheses -Wno-error=maybe-uninitialized"
+        make && {
+          cp *.mpy ../Onboard/compiled
+        } || { bad=1; }
+        
+        popd
+      popd; };
+  
   popd
 
+for ((n=0; n < $N; n++)); do
+  wait -n || bad=1
+done
+[[ -n "$bad" ]] && touch /tmp/flash_bad_flag || :
 touch /tmp/flash_flag
 
 exit $?; }
