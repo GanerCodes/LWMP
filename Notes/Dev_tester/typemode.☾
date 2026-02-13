@@ -18,9 +18,11 @@ FF = 0xFF
                     ↪x
               ↪{effects=fx􀋁,_=‹modes›􀊱x}ℵ
 
-🌈 = 󰲡{effects=⍁,_=[‹atom›,x􀝕‹Rainbow›􀊱𝔸         ]}ℵ󰅂 ℱ􊱑􋄒(✓)
-𝑺  = 󰲣{effects=⍁,_=[‹atom›,x􀝕‹Static󷺗›􀊱(y􀊀¹ᐵ􀉹􀊿¹⁶)]}ℵ󰅂 ℱ􊱑􋄒(✓)
-𝑭  = 󰲧{effects=⍁,_=[‹atom›,x􀝕‹Fade󷺗󷺗󷺗›􀊱{speed=y,sharp=z,clrs=w􀋦ᐵ􀊀¹ᐵ􀉹􀊿¹⁶}]}ℵ󰅂 ℱ􊱑􋄒(✓)
+s2c = 󷺹􀊀¹ᐵ􀉹􀊿¹⁶ᐸſ󷺹2⁸􀊩󷺽
+
+🌈 = 󰲡{effects=⍁,_=[‹atom›,x􀝕‹Rainbow›􀊱𝔸    ]}ℵ󰅂 ℱ􊱑􋄒(✓)
+𝑺  = 󰲣{effects=⍁,_=[‹atom›,x􀝕‹Static󷺗›􀊱y s2c]}ℵ󰅂 ℱ􊱑􋄒(✓)
+𝑭  = 󰲧{effects=⍁,_=[‹atom›,x􀝕‹Fade󷺗󷺗󷺗›􀊱{speed=y,sharp=z,clrs=w􀋦􀉳s2c}]}ℵ󰅂 ℱ􊱑􋄒(✓)
 𝖱  = 󰲣addfx(𝔸,‹Rotate󷺗󷺗›􀝕y􀊱x)󰅂 ℱ􊱐􋄒(✓)
 𝖥  = 󰲟addfx(𝔸,‹Reversed›􀝕⍁  )󰅂
 

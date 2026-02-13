@@ -7,7 +7,7 @@ from _thread     import start_new_thread
 from pathlib     import Path as 𝐩
 from hashlib     import sha1 as hash_
 from uctypes     import bytearray_at,addressof as Ѧ
-from random      import getrandbits,random,choice
+from random      import getrandbits,random,randrange,choice
 from struct      import pack,unpack
 from heapq       import heapify as h_from, heappush as h_add, heappop as h_pop
 from json        import loads as 𝔍l, dumps as 𝔍d
@@ -15,31 +15,43 @@ from math        import ceil,exp,inf
 from sys         import print_exception
 from gc          import mem_alloc,mem_free,collect as free
 
-from ntp         import *
-
+# mathy
+def sample(X,n):
+  I = list(range(len(X)))
+  return [X[I.pop(randrange(len(I)))] for _ in range(min(n,len(X)))]
 @micropython.native
-def frees(t=0,free=free,sleep=sleep): free();sleep(t)
+def clamp(x,a,b):
+  if x<=a: return a
+  if x>=b: return b
+  return x
 
 LED_ONBOARD = Pin(2)
 LED_ONBOARD.init(LED_ONBOARD.OUT)
 onboard_led = lambda s=1,_=LED_ONBOARD:_.value(int(bool(s)))
-
+ⴳ,ⴴ = True,False
 TRUE,FALSE = lambda *𝔸,**𝕂:True, lambda *𝔸,**𝕂:False
-HASH = lambda x: hash_(x).digest()
+HASH = lambda x,_=hash_: _(x).digest()
 ID = lambda *𝔸,**𝕂: 𝔸[0] if 𝔸 else None
 join = lambda x,sep=' ': ' '.join(map(str,x))
 boolstr = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
+thread = lambda f,*𝔸,_=start_new_thread,**𝕂: _(f,𝔸,𝕂)
+gen_id = lambda: hex(int(''.join(str(random())[2:] for i in range(3))))[2:10]
+mem_info = lambda a=mem_alloc,u=mem_free: (a(),u())
+def mem_perc():
+  u,f = mem_info()
+  return f"{int(u/(u+f)*100):02}%"
+
 𝔍lf = lambda f  : 𝔍l(read_file(f))
 𝔍wf = lambda f,x: write_file(f,𝔍d(x))
 ls = lambda f=".",g="*": list(𝐩(f).glob(g))
 rm = lambda f: 𝐩(f).unlink()
-thread = lambda f,*𝔸,_=start_new_thread,**𝕂: _(f,𝔸,𝕂)
-gen_id = lambda: hex(int(''.join(str(random())[2:] for i in range(3))))[2:10]
-mem_info = lambda a=mem_alloc,u=mem_free: (a(),u())
-del LED_ONBOARD,start_new_thread,mem_alloc,mem_free
-def mem_perc():
-  u,f = mem_info()
-  return f"{int(u/(u+f)*100):02}%"
+def read_file(fn,m="r"):
+  with open(str(fn),m) as f:
+    return f.read()
+def write_file(fn,content,m="w"):
+  with open(str(fn),m) as f:
+    f.write(c := str(content))
+    return c
 
 def log(*𝔸,_=print,**𝕂):
   _(*𝔸,**𝕂)
@@ -52,14 +64,6 @@ def dbg(*𝔸,_=log,**𝕂):
     print_exception(ε)
     _("<<<<<<<")
   return v
-
-def read_file(fn,m="r"):
-  with open(str(fn),m) as f:
-    return f.read()
-def write_file(fn,content,m="w"):
-  with open(str(fn),m) as f:
-    f.write(c := str(content))
-    return c
 
 class Settings:
   def __init__(𝕊,**𝕂):
@@ -104,3 +108,10 @@ class Settings:
 
 class 𝔠: __getattr__ = lambda 𝕊,x: lambda *𝔸: {"_":[x]+𝔸}
 𝔠,𝔪 = 𝔠(),lambda x: x["_"]
+
+from ntp import *
+
+@micropython.native
+def frees(t=0,free=free,sleep=sleep): free();sleep(t)
+
+del LED_ONBOARD,hash_,start_new_thread,mem_alloc,mem_free

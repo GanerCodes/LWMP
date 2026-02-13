@@ -75,26 +75,40 @@ fast inline RGB lightwave_atom_rainbow(f32 i, f32 n, f32 segN, u8 s, u8 v) {
 // https://www.desmos.com/calculator/yli6q8tc25?nobranding=&nokeypad=
 fast inline RGB compute_fade(Atom atom, u8* fades, f32 t) {
   f32 p = fmulmodpartial(atom.F.speed,t,1<<16);
-  return RGBlerp(*(RGB*)(fades + atom.F.idx + 3*(((u16)(p    )) % atom.F.clrN)),
-                 *(RGB*)(fades + atom.F.idx + 3*(((u16)(p+1.f)) % atom.F.clrN)),
+  return RGBlerp(*(RGB*)(fades + atom.F.idx + 3 + 3*(((u16)(p    ))%atom.F.clrN)),
+                 *(RGB*)(fades + atom.F.idx + 3 + 3*(((u16)(p+1.f))%atom.F.clrN)),
                  (u8)(255*powf(mod(p,1.),1+255.f*powf(atom.F.sharp,5.f)))); }
+
+fast void precompute_fades(Atom *atoms, u32 atoms_len, u8 *fades, f32 t) {
+  for(int i=0; i<atoms_len; i++) {
+    Atom atom = atoms[i];
+    if(atom.mode != 2) continue;
+    RGB c = compute_fade(atom,fades,t);
+    int j = atom.F.idx;
+    fades[j  ] = c.r;
+    fades[j+1] = c.g;
+    fades[j+2] = c.b; } }
 
 fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
   u8 *𝔸 = (u8*)mp_obj_get_int(args[0]);
-  Seg        *S        = *(Seg        **)(𝔸+ 0);
-  u32         S_len    = *(u32         *)(𝔸+ 4);
-  Atom       *atoms    = *(Atom       **)(𝔸+ 8);
-  u8         *fades    = *(u8         **)(𝔸+12);
-  StackEntry *stk      = *(StackEntry **)(𝔸+16);
-  u8         *leds     = *(u8         **)(𝔸+20);
-  u32         RGB_OFFS = *(u32         *)(𝔸+24);
-  u32         REVERSE  = *(u32         *)(𝔸+28);
-  u32         l        = *(u32         *)(𝔸+32);
-  u32         h        = *(u32         *)(𝔸+36);
-  f32         t        = mp_obj_get_float(args[1]);
+  Seg        *S           = *(Seg        **)(𝔸+ 0);
+  u32         S_len       = *(u32         *)(𝔸+ 4);
+  Atom       *atoms       = *(Atom       **)(𝔸+ 8);
+  u32         atoms_len   = *(u32         *)(𝔸+12);
+  u8         *fades       = *(u8         **)(𝔸+16);
+  StackEntry *stk         = *(StackEntry **)(𝔸+20);
+  u8         *leds        = *(u8         **)(𝔸+24);
+  u32         RGB_OFFS    = *(u32         *)(𝔸+28);
+  u32         REVERSE     = *(u32         *)(𝔸+32);
+  u32         l           = *(u32         *)(𝔸+36);
+  u32         h           = *(u32         *)(𝔸+40);
+  f32         t           = mp_obj_get_float(args[1]);
   u8 OFF_R = ((RGB_OFFS >>  0) & 0xFF);
   u8 OFF_G = ((RGB_OFFS >>  8) & 0xFF);
   u8 OFF_B = ((RGB_OFFS >> 16) & 0xFF);
+  
+  precompute_fades(atoms,atoms_len,fades,t);
+  
   // 500000
   for(i32 i=0,p=0,d=0; i<S_len; i++) {
     Seg s = S[i];
@@ -133,8 +147,8 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
           f32 f = atom.R.segs*255.0/AΣS;
           c = lightwave_hsv_to_rgb(f*(o+(reverse ?n-N+1: N-n+1.0)), atom.R.s, atom.R.v);
         } break;
-        case 2: { // 󰤱
-          c = compute_fade(atom,fades,t);
+        case 2: {
+          c = *(RGB*)(fades + atom.F.idx);
         } break;
         default: __builtin_unreachable(); }
       c = RGBscale(c,atom.brightness);

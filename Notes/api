@@ -1,7 +1,7 @@
 TOKEN ─ ᔐ⁶􍦛⁶⁴
 UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
 NAME ─ ᔐ¹􍦛⁶⁴
-RGB ─ [r:U8, g:U8, b:U8]
+RGB ─ ℕ⁰ˣ⁰⁰􍦛⁰ˣ󰀅󰀅󰀅󰀅󰀅󰀅 packed[BBB]
 ATOM_PARAM ╥ Static ─ RGB
            ╟ Rainbow ─ [segs:ℝ, s:U8, v:U8]
            ╙ Fade ┬ clrs  ─ *RGB

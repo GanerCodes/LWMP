@@ -1,6 +1,6 @@
 S_timetest = (D,s=10)=>({
   "mode": { "effects": [["Rotate",[s,0]]],
-            "_":["modes",[{ "effects":[], "_": ["atom",[10,["Static",[0x44,0x44,0x44]]]] },
+            "_":["modes",[{ "effects":[], "_": ["atom",[10,["Static",[0x06,0x06,0x06]]]] },
                           { "effects":[], "_": ["atom",[40,["Static",[0x00,0x00,0x00]]]] }]]},
   "offsets": { [D[0]]:0, [D[1]]:0, [D[2]]:0, [D[3]]:0 } });
 S_snake = D=>({

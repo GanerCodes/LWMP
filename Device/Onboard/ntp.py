@@ -1,31 +1,36 @@
 import socket
 from time   import ticks_diff,sleep,time_ns,ticks_ms as ms
-from random import choice,randrange
-from struct import unpack
-
+from util   import unpack,sample,choice,inf
 from lw_ntp import ntp_raw
 
 NTP_HOSTS = """time.cloudflare.com time.google.com time.apple.com time.aws.com""".split()
 
-def sample(X,n):
-  I = list(range(len(X)))
-  return [X[I.pop(randrange(len(I)))] for _ in range(min(n,len(X)))]
-
 last_ntp = [None]*2
-time_us = lambda *,time_ns=time_ns: time_ns()//1000
-def time_μ(*,last_ntp=last_ntp,time_us=time_us):
-  if last_ntp[0] is None: return time_us()
+@micropython.native
+def sys_time_μ(*,time_ns=time_ns): return time_ns()//1000
+@micropython.native
+def time_μ(*,last_ntp=last_ntp,sys_time_μ=sys_time_μ):
+  if last_ntp[0] is None: return sys_time_μ()
   o,T = last_ntp
-  return time_us()-o+T
-MS = lambda *,time_μ=time_μ: time_μ()//1000
-
-is_leap = lambda x: not x%4 and (x%100 or not x%400)
-def get_date(μ=None):
+  return sys_time_μ()-o+T
+@micropython.native
+def MS(*,time_μ=time_μ): return time_μ()//1000
+@micropython.native
+def week_start(μ=None):
   if μ is None: μ = time_μ()
-  s,μ = divmod(μ,1_000_000)
-  m,s = divmod(s,60)
-  h,m = divmod(m,60)
-  d,h = divmod(h,24)
+  DAY_μ = 86_400_000_000
+  d = μ // DAY_μ
+  wd = (d+4)%7
+  return (d-wd) * DAY_μ
+@micropython.native
+def is_leap(x): return not x%4 and (x%100 or not x%400)
+@micropython.native
+def get_date(μ=None,dm=divmod):
+  if μ is None: μ = time_μ()
+  s,μ = dm(μ,1_000_000)
+  m,s = dm(s,60)
+  h,m = dm(m,60)
+  d,h = dm(h,24)
   wd  = (d+4)%7
   y,mo = 1970,0
   while 1:
@@ -38,16 +43,25 @@ def get_date(μ=None):
     d -= month_days[mo]
     mo += 1
   return y,mo,d,wd,h,m,s,μ
+@micropython.native
 def fmt_date(d=None):
-  if d is None: d = get_date()
+  if d is None          : d = get_date( )
+  elif isinstance(d,int): d = get_date(d)
   return f"{d[0]:04}/{d[1]+1:02}/{d[2]+1:02} [Sun+{d[3]}] {d[4]:02}:{d[5]:02}:{d[6]:02}.{d[7]:06}"
-def week_start(μ=None):
-  if μ is None: μ = time_μ()
-  DAY_μ = 86_400_000_000
-  d = μ // DAY_μ
-  wd = (d+4)%7
-  return (d-wd) * DAY_μ
-
+@micropython.native
+def fmt_dur(μ):
+  if μ == inf: return "∞"
+  s,μ = divmod(μ,1_000_000)
+  m,s = divmod(s,60)
+  h,m = divmod(m,60)
+  d,h = divmod(h,24)
+  R  =   f"{s:02}.{μ:06}"
+  if not (m or h or d): return R
+  R  =   f"{m:02}:{R}"
+  if not (     h or d): return R
+  R  =   f"{h:02}:{R}"
+  if not (          d): return R
+  return f"{d   }:{R}"
 @micropython.native
 def ntp_single(host=None,timeout=10):
   if host is None: host=choice(NTP_HOSTS)
@@ -67,7 +81,6 @@ def ntp_single(host=None,timeout=10):
   return T3, T3+θ, δ
   # δ = (RTT := T3-T0) - (T2-T1)
   # return T3, T2 - (2_208_988_800_000_000 + δ//2), RTT
-
 @micropython.native
 def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   if isinstance(hosts,int): hosts = sample(NTP_HOSTS,hosts)
@@ -85,7 +98,7 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
     for i,v in enumerate(V):
       if not (e := isinstance(v,BaseException)):
         t,RTT = v[1]-v[0],v[2]
-      s = f"Failed to sync: {v}" if e else f"{fmt_date(get_date(t+time_us()))} (RTT={RTT/1_000_000})"
+      s = f"Failed to sync: {v}" if e else f"{fmt_date(get_date(t+sys_time_μ()))} (RTT={RTT/1_000_000})"
       print(f"\tNTP[{h}] Trial #{i}: {s}")
       if e: continue
       Δ.append((RTT,t))
@@ -109,20 +122,21 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
     show_Δ("Avg Cull")
   
   off = sum(t for _,t in Δ)//len(Δ)
-  r = (t := time_us()) + off
+  r = (t := sys_time_μ()) + off
   ΔΔ = 0
   if last_ntp[0] is not None:
     ΔΔ = off - (last_ntp[1]-last_ntp[0])
   last_ntp[:] = [t,r]
-  print(f"NTP Time: {fmt_date(get_date(r))}")
+  print(f"NTP Time: {r} ⟨{fmt_date(get_date(r))}⟩")
   return r,ΔΔ
 
 s_per_w = (s_per_d := 60*60*24)*7
-dt_ms = lambda x,y=None: ticks_diff(*(ms(),x) if y is None else (x,y))
+@micropython.native
+def dt_ms(x,y=None): return ticks_diff(*(ms(),x) if y is None else (x,y))
 
-__all__ = "s_per_d","s_per_w","get_date","week_start","fmt_date", \
-          "sleep","ms","dt_ms","MS","time_μ",                     \
-          "last_ntp","ntp_single","ntp"
+__all__ = "s_per_d","s_per_w","fmt_date","fmt_dur","week_start", \
+          "sys_time_μ","time_μ","get_date","MS","last_ntp","ntp_single","ntp",\
+          "sleep","ms","dt_ms"
 
 if __name__ == "__main__":
   T = get_date(t := ntp())

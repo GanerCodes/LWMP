@@ -34,16 +34,18 @@ def optf(S):
       H.append(Seg(x.σ,x.Σ,x.d,int(x.m and m),x.r0,x.rΔ))
   return H
 
+rgb_i2b = lambda x:(x>>16 & 0xFF, x>>8 & 0xFF, x & 0xFF)
 def convert_atom(t,dat,brightness,out):
   bright = int(min(255*brightness,255))
   if   t == "Static":
-    out["atoms"] += pack("BBxxBBBxxxxxxxxx",bright,0x00,*dat)
+    out["atoms"] += pack("BBxxBBBxxxxxxxxx",bright,0x00,*rgb_i2b(dat))
   elif t == "Rainbow":
     out["atoms"] += pack("BBxxfBBxxxxxx"   ,bright,0x01,*dat)
   elif t == "Fade":
     C,F = dat["clrs"],out["fades"]
     out["atoms"] += pack("BBxxHHff"        ,bright,0x02,len(C),len(F),dat["speed"],dat["sharp"])
-    for c in C: out["fades"] += pack("BBB",*c)
+    out["fades"] += 3*b"\00"
+    for c in C: out["fades"] += pack("BBB",*rgb_i2b(c))
   else:
     raise Exception(f'Unknown atom type "{t}"!')
 def parse_mode(mode,brightness=1,data=None,reverse=False):
@@ -68,7 +70,7 @@ def encode_mode(N):
   S     = b''.join(pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
   stk   = (max(s.d for s in N)+1)*pack("iii",0,0,0)
   free()
-  return S,len(S)//24,data["atoms"],bytes(data["fades"]),stk
+  return S,len(S)//24,data["atoms"],len(data["atoms"])//16,bytes(data["fades"]),stk
 def specify_mode(mode,offsets,ℭ):
   Σ = int.from_bytes(mode[0][4:8],"little")
   l = (offsets or {}).get(ℭ.UUID,0)

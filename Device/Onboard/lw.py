@@ -9,11 +9,12 @@ _RESET_NO   = const(0)
 _RESET_WS   = const(1)
 _RESET_WIFI = const(2)
 
-ⴳ,ⴴ = True,False
+_NTP_REFRESH_TIME = const(15*60*1_000_000)
+
 preset_normal = { "mode": { "effects": [["Rotate", [-1,0]]],
                             "_"      : ["atom", [50, ["Rainbow",[5.0 ,0xFF,0xFF]]]]} }
 preset_ap     = { "mode": { "effects": [["Rotate", [-1,0]]],
-                            "_"      : ["atom", [50, ["Static" ,[0x00,0xFF,0x00]]]]} }
+                            "_"      : ["atom", [50, ["Static" ,0x00FF00]]]} }
 
 for i in range(10): # blinky at boots
   onboard_led(~i%2)
@@ -40,6 +41,12 @@ thread(controller.loop)
 
 update_LED_HW = lambda: controller.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
 update_LED_HW()
+
+def ntp_update_controller():
+  T,ΔΔ = ntp()
+  ΔΔ //= 1000
+  controller.Δ += ΔΔ
+  return T,ΔΔ
 
 def lw_WAN():
   try:
@@ -112,10 +119,7 @@ def handle_API(𝐦,d=None):
     return _RESET_NO,read_file("schedule",𝔍d(d))
   elif 𝐦=="Sync":
     try:
-      T,ΔΔ = ntp()
-      ΔΔ //= 1000
-      controller.Δ += ΔΔ
-      r = 𝔍d([T,ΔΔ])
+      r = 𝔍d(ntp_update_controller())
     except Exception as ε:
       log("Sync failed!",ε)
       r = False
@@ -128,7 +132,12 @@ def lw_websocket_loop():
   ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER".split()})
   free()
   while 1:
-    i,cmd = ꭐ()
+    if (w:=ꭐ()) is None:
+      if sys_time_μ() >= last_ntp[0] + _NTP_REFRESH_TIME: # every 15 minutes
+        ntp_update_controller()
+      frees(0.05)
+      continue
+    i,cmd = w
     cmd = 𝔍l(cmd)
     # log(f"Got WS Command {i.hex()}: {cmd}")
     con,resp = handle_API(*𝔪(cmd))
@@ -138,7 +147,7 @@ def lw_websocket_loop():
       except Exception as ε: dbg(f'Failed to close WS:',ε)
       if con == _RESET_WIFI: return con
       break
-    frees(0.01)
+    frees()
 
 update_LED_HW()
 try:

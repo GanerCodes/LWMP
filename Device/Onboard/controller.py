@@ -11,7 +11,7 @@ Activation = namedtuple("Activation",["Ta","Ts","s","d"])
 inf0       = lambda x,inf=inf: 0 if x==inf else x
 
 leds  = b'\0'*3*2048
-𝕒_ptr = Ѧ(𝕒_static := bytearray(4*10))
+𝕒_ptr = Ѧ(𝕒_static := bytearray(4*11))
 class Controller:
   __repr__ = lambda 𝕊: f"LED_Controller⟨{𝕊.dmode} lstate={𝕊.lstate}⟩"
   def __init__(𝕊,ℭ,𝔐):
@@ -78,44 +78,50 @@ class Controller:
       𝕊.update_to_que()
     return specify_mode(*𝕊.mode.s,𝕊.ℭ),𝕊.Δ
   
-  @micropython.native
+  # @micropython.native
   def loop(𝕊,leds=leds,𝕒_static=𝕒_static,𝕒_ptr=𝕒_ptr):
+    _log_intrv_ms = const(5_000)
+    _free_intrv_frame = const(30)
     while 𝕊.lstate:
       try:
         pin,order,reverse,timing = 𝕊.get_wait_hwconf()
-        ((S_,S_len,atoms,fades,stk),(l,h)),targΔ = 𝕊.get_wait_mode()
-        𝕒_static[:] = pack(len(𝕒_static)//4*'i',Ѧ(S_),S_len,Ѧ(atoms),Ѧ(fades),Ѧ(stk),Ѧ(leds),order,reverse,l,h)
+        ((S_,S_len,atoms,atoms_len,fades,stk),(l,h)),targΔ = 𝕊.get_wait_mode()
+        𝕒_static[:] = pack(len(𝕒_static)//4*'i',
+          Ѧ(S_),S_len,Ѧ(atoms),atoms_len,Ѧ(fades),Ѧ(stk),Ѧ(leds),order,reverse,l,h)
         ledv = memoryview(leds)[:3*(h-l)]
         𝕊.lstate = _LOOP_TIGHT
         log(f"Starting with {l}󷸻{h} ({targΔ=})")
         
         Δ = prevΔ = targΔ
-        n = tsΔ = 0
-        m_o = start = ms()
+        log_n = n = tsΔ = 0
+        log_ts = free_ts = ms()
+        
         while 𝕊.lstate == _LOOP_TIGHT:
-          δ = (m:=ms())-m_o
-          if ΔΔ := targΔ-Δ:
-            if -10_000 <= ΔΔ < 10000 and m-tsΔ<1000: # https://www.desmos.com/calculator/hexqqffwi9?nobranding=&nokeypad=
-              l = min(1,max((m-tsΔ) * 0.001,0))
+          m = ms()
+          if ΔΔ := targΔ-Δ: # experp Δ from prevΔ to targΔ over m-tsΔ ms (assuming nondrastic change)
+            if -10_000<=ΔΔ<10000 and (δ_Δ:=dt_ms(m,tsΔ))<1000: # https://www.desmos.com/calculator/hexqqffwi9?nobranding=&nokeypad=
+              l = clamp(δ_Δ*0.001,0,1)
               Δ = prevΔ+ceil((targΔ-prevΔ)*((exp(2*l)-1)/(exp(2)-1)))
             else:
               Δ = targΔ
-            # log(f"{m=}/{tsΔ+1000} {ΔΔ=} {prevΔ}≤{Δ=}≤{targΔ} ({int(100*l):03}%)")
-          tq,tr = divmod(m+Δ,1000)
+          t = m+Δ # 󰤱 this wraps
+          tq,tr = divmod(t,1000)
           assign_leds(𝕒_ptr,tq+tr*0.001)
           bitstream(pin,0,timing,ledv)
-          if not (n:=n+1)%30:
-            # log(tq+tr*0.001)
-            m_o,m = m,ms()
-            if not n%1200:
-              log(f"{tq:06}.{tr:03} ⟨{fmt_date()}⟩ {1200*1000/(m-start):6.2f}FPS {mem_perc()} Que🃌={len(𝕊.𝔔)} {Δ=}")
-              log(f"{𝕊.mode.Ta=} {𝕊.mode.Ts=} {𝕊.mode.d=}")
-              # log(f"{fmt_date(𝕊.mode.Ts)}")
-              start = m
-            if targΔ != 𝕊.Δ:
-              targΔ,prevΔ,tsΔ = 𝕊.Δ,Δ,m
-            frees()
-            if 𝕊.update_to_que(): break
+          
+          if (n:=n+1)%_free_intrv_frame and dt_ms(m,free_ts)<1000: continue
+          δ_log = dt_ms(free_ts:=ms(),log_ts)
+          if δ_log >= _log_intrv_ms:
+            FPS = (n-log_n)/(δ_log or 10**-5)*1000
+            log(f"{tq:06}.{tr:03} ⟨{fmt_date()}⟩ {FPS=:6.2f} {mem_perc()} Que🃌={len(𝕊.𝔔)} {Δ=}\n"
+                f"Last Ntp: ⟨{fmt_date(last_ntp[1] or 0)}⟩ peformed at ⟨{fmt_dur(last_ntp[0] or 0)}⟩\n"
+                f"Activated=⟨{fmt_date(1000*𝕊.mode.Ta)}⟩ Sync=⟨{fmt_date(1000*𝕊.mode.Ts)}⟩ Duration=⟨{fmt_dur(1000*𝕊.mode.d)}⟩")
+            log_n,log_ts = n,free_ts
+          if targΔ != 𝕊.Δ:
+            targΔ,prevΔ,tsΔ = 𝕊.Δ,Δ,free_ts
+            log(f"Moving Δ: {prevΔ}→{targΔ}")
+          frees()
+          if 𝕊.update_to_que(): break
       except Exception as ε:
         dbg(f"Error in LED loop! Restarting in 3 seconds:",ε)
         frees(3)
