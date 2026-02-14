@@ -7,46 +7,44 @@ BASE_CHARSET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 [𝒪,𝒟,𝒪k,𝒪v] = [𝑜.entries,𝑜.fromEntries,𝑜.keys,𝑜.values];
 𝒪ℳ = x=>x.ſ((x,y)=>({...x,...y}))
 ζ  = (...𝔸)=>𝔸.s(x=>x.length).at(-1).ᴍ((_,i)=>𝔸.ᴍ(x=>x[i]));
-ꟿ  = (x,y,...𝔸)=>[...x].ᴍ((x,...𝔸)=>y(...x)); // 󰤱 we throw out 𝔸's, fix that but make sure it doesn't break anything
+ᴍv = (x,y,...𝔸) => 𝒟(𝒪(x).ᴍ(([k,v]) => [k,y(v)]));
+ᴍk = (x,y,...𝔸) => 𝒟(𝒪(x).ᴍ(([k,v]) => [y(k),v]));
+𝑙  = (x, ...𝔸) => [...x];
 ᔐ𝑙 = x=>[...x].length;
 pairs = (v) => v.toSpliced(-1,1).ᴍ((x,i)=>[x,v[i+1]]);
 rmat = f=>fs.readFileSync(f, {encoding:'utf8', flag:'r'}).split('\n').ᴍ(x=>[...x]);
 print = log = (...𝔸) => console.log(...𝔸) || 𝔸[0];
 const 𝔓 = x=>x.prototype;
-𝔓(Number).mod  = function(   n) { return (this%n + n)%n; };
-𝔓(Array).pairs = function(...𝔸) { return pairs(this,...𝔸); };
-𝔓(Array).min   = function(    ) { return Math.min(...this); };
-𝔓(Array).max   = function(    ) { return Math.max(...this); };
-𝔓(Array).f     = function(...𝔸) { return this.filter(...𝔸); };
-𝔓(Array).s     = function(   ƒ) { ƒ ??= x=>x;
-                                  return this.toSorted((a,b)=>ƒ(a)-ƒ(b)); };
-𝔓(Array).ᴍ     = function(...𝔸) { return this.map(...𝔸); };
-𝔓(Array).ꟿ     = function(...𝔸) { return ꟿ(this,...𝔸); };
-𝔓(Array).ζ     = function(    ) { return ζ(...this); };
-𝔓(Array).ſ     = function(...𝔸) { return this.reduce(...𝔸); };
-𝔓(Array).Ϝ     = function(   ƒ) { let R=[], i=0;
-                                  if(arguments.length == 2)
-                                    R.push(arguments[1])
-                                  else{ R.push(this[0]);
-                                        i++; }
-                                  for(; i<this.length; i++) R.push(ƒ(R.at(-1),this[i]));
-                                  return R; }
-𝔓(Array).G     = function(   ƒ) { O = {};
-                                  this.forEach((x,...𝔸)=>(y=>y in O ?O[y].push(x): (O[y]=[x]))
-                                                         (ƒ(x,...𝔸)));
-                                  return O; };
+𝔓(Number).mod  = function(n     ) { return (this%n + n)%n; };
+𝔓(Array).pairs = function(  ...𝔸) { return pairs(this,...𝔸); };
+𝔓(Array).min   = function(      ) { return Math.min(...this); };
+𝔓(Array).max   = function(      ) { return Math.max(...this); };
+𝔓(Array).f     = function(  ...𝔸) { return this.filter(...𝔸); };
+𝔓(Array).s     = function(ƒ     ) { ƒ ??= x=>x;
+                                    return this.toSorted((a,b)=>ƒ(a)-ƒ(b)); };
+𝔓(Array).ᴍ     = function(  ...𝔸) { return this.map(...𝔸); };
+𝔓(Array).ꟿ     = function(ƒ     ) { return this.ᴍ((x,...𝔸)=>ƒ(...x,...𝔸)) };
+𝔓(Array).ζ     = function(      ) { return ζ(...this); };
+𝔓(Array).ſ     = function(  ...𝔸) { return this.reduce(...𝔸); };
+𝔓(Array).Ϝ     = function(ƒ     ) { let R=[], i=0;
+                                    if(arguments.length == 2)
+                                      R.push(arguments[1])
+                                    else{ R.push(this[0]);
+                                          i++; }
+                                    for(; i<this.length; i++) R.push(ƒ(R.at(-1),this[i]));
+                                    return R; }
+𝔓(Array).G     = function(ƒ     ) { O = {};
+                                    this.forEach((x,...𝔸)=>(y=>y in O ?O[y].push(x): (O[y]=[x]))
+                                                           (ƒ(x,...𝔸)));
+                                    return O; };
 
 𝔍 = { þ02191: JSON.stringify, þ02193: JSON.parse };
 þF7E5D = String.fromCharCode;
-𝑜 = Object;
 𝗙 = (x, ...𝔸) => x instanceof Function;
 þ1F0CC = (x, ...𝔸) => x.length;
-𝑙 = (x, ...𝔸) => [...x];
 þF0EFE = (x, ...𝔸) => x;
 þ022C0 = (x, ...𝔸) => x.every(þF0EFE);
 þF147C = (x, y, ...𝔸) => 𝑙(x).ᴍ((k, i) => [k, y[i]]);
-ᴍv = (x, y, ...𝔸) => 𝒟(𝒪(x).ᴍ(([k, v]) => [k, y(v)]));
-ᴍk = (x, y, ...𝔸) => 𝒟(𝒪(x).ᴍ(([k, v]) => [y(k), v]));
 𝒮 = (d, k, v) => (!(k in d) || d[k] === null ? (d[k] = v) : d[k]);
 [þF114F, þ02B13] = [Math.random, Math.floor];
 table = (...x) => (console.table(...x), x[0]);

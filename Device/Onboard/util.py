@@ -10,6 +10,7 @@ from uctypes     import bytearray_at,addressof as Ѧ
 from random      import getrandbits,random,randrange,choice
 from struct      import pack,unpack
 from heapq       import heapify as h_from, heappush as h_add, heappop as h_pop
+from errno       import EAGAIN
 from json        import loads as 𝔍l, dumps as 𝔍d
 from math        import ceil,exp,inf
 from sys         import print_exception

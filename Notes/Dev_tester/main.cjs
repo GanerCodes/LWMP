@@ -43,7 +43,6 @@ REVERSE    = false;
 RGB_ORDER  = "GBR";
 BIT_TIMING = "350 900 700 700";
 
-now = new Date();
 offs = 𝒟(devs.ᴍ(x=>[x,LEDC]));
 make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs).Ϝ((x,y)=>x+y,0)).slice(0,-1)) });
 
@@ -53,26 +52,32 @@ make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs).Ϝ((
 // await scheg(devs, [d, ["test",false,null]])
 
 // SCENE = S_rainbow_snake(devs);
-// flip = 𝒪 Object.entries(SCENE.offsets).f(([k,v])=>v<0).map(([k,v])=>(SCENE.offsets[k] = Math.abs(v), k));
-// await config(flip, {REVERSE:true});
-
-scenes = {}
-// scenes.test_time = S_timetest(devs,80);
-// scenes.rainbowstatics = make_mode(offs, {"effects":[["Rotate",[0,0]]],"_":["modes",[{"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[25,["Static",[68,0,0]]]]}]]},{"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[25,["Static",[0,68,0]]]]}]]},{"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,68]]]]}]]},{"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[25,["Static",[68,0,68]]]]}]]}]]});
-// scenes.test1 = make_mode(offs, {"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[175,["Static",[0,0,0]]]]}]]});
-// scenes.test1 = make_mode(offs, {"effects":[["Rotate",[0,0]]],"_":["modes",[{"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[25,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Rainbow",[1,245,50]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]}]]});
-// scenes.test2 = make_mode(offs, {"effects":[["Rotate",[0,0]]],"_":["modes",[{"effects":[["Rotate",[45,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Static",[34,34,34]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[45,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Static",[34,34,34]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[45,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Static",[34,34,34]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[45,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Static",[34,34,34]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]}]]});
-// scenes.test3 = make_mode(offs, {"effects":[["Rotate",[0,0]]],"_":["modes",[{"effects":[["Rotate",[45,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Static",[255,0,0]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[45,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Static",[0,255,0]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[45,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Static",[0,0,255]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]},{"effects":[["Rotate",[45,0]]],"_":["modes",[{"effects":[],"_":["atom",[25,["Static",[255,0,255]]]]},{"effects":[],"_":["atom",[25,["Static",[0,0,0]]]]}]]}]]});
-scenes.test_fade = make_mode(offs, {"effects":[["Rotate",[0,0]]],"_":["modes",[{"effects":[],"_":["atom",[50,["Fade",{"speed":0.1,"sharp":0,"clrs":[16711680,65280,255]}]]]},{"effects":[],"_":["atom",[50,["Fade",{"speed":0.1,"sharp":0.5,"clrs":[16711680,65280,255]}]]]},{"effects":[],"_":["atom",[50,["Fade",{"speed":0.1,"sharp":0.75,"clrs":[16711680,65280,255]}]]]},{"effects":[],"_":["atom",[50,["Fade",{"speed":0.1,"sharp":0.875,"clrs":[16711680,65280,255]}]]]}]]});
-await scene(devs, scenes);
+// await config(𝒪(SCENE.offsets).f(([k,v])=>v<0).ꟿ((k,v)=>(SCENE.offsets[k] = Math.abs(v), k)), {REVERSE:true});
 
 // await sync(devs);
-await config(devs, {LEDC,REVERSE,RGB_ORDER,BIT_TIMING});
-await scene(devs,"test_fade",false,-1);
 
-// await scene(devs,"test1",true,3*1000);
-// await scene(devs,"test2",true,3*1000);
-// await scene(devs,"test1",true,3*1000);
-// await scene(devs,"test2",true,3*1000);
+scenes = ᴍv(require("./scenes.json"),x=>make_mode(offs,x));
+scenes.synctest = S_timetest(devs,120);
+await scene(devs,scenes);
+await config(devs,{LEDC,REVERSE,RGB_ORDER,BIT_TIMING});
+
+now = new Date();
+let d1 = [now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+5 ]
+let d2 = [now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+10]
+let d3 = [now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+15]
+await scheg(devs, [d1, ["red" ,false,-1]],
+                  [d2, ["blue",false,-1]],
+                  [d3, ["red" ,false,-1]]);
+
+// await scene(devs,"synctest",false,-1);
+
+// await scene(devs,"blue"   ,true,2.5*1000);
+// await scene(devs,"rainbow",true,2.5*1000);
+// await scene(devs,"red"    ,true,2.5*1000);
+// await scene(devs,"rainbow",true,2.5*1000);
+// await scene(devs,"red"    ,true,2.5*1000);
+// await scene(devs,"rainbow",true,2.5*1000);
+// await scene(devs,"red"    ,true,2.5*1000);
+// await scene(devs,"blue"   ,true,2.5*1000);
 
 })();

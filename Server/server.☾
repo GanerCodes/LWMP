@@ -46,7 +46,8 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
     ¿𝐦􀉞‹Set_scene›:
       T = d[reqs􊳥]
       ¿T􀊹􀉟3: ↪‹Scene activation should have length 3!›𝖡
-      d[reqs􊳥] = [⠤T,1000􀋈time􀃅􀯖𝑖]
+      atime = 𝑖(time􀃅􀝍T₁􀯗⁰3 􁂇 1000)
+      d[reqs􊳥] = [⠤T,atime]
      󰤱 database stuff here
     ⊢check_dev(ꭒ):
       ¿ꭒ􀒻devs      : ↪‹Cannot find device!›𝖡

@@ -11,10 +11,8 @@ _RESET_WIFI = const(2)
 
 _NTP_REFRESH_TIME = const(15*60*1_000_000)
 
-preset_normal = { "mode": { "effects": [["Rotate", [-1,0]]],
-                            "_"      : ["atom", [50, ["Rainbow",[5.0 ,0xFF,0xFF]]]]} }
-preset_ap     = { "mode": { "effects": [["Rotate", [-1,0]]],
-                            "_"      : ["atom", [50, ["Static" ,0x00FF00]]]} }
+preset_normal = { "fx": [[1,-1,0]], "1": [50, 1, 5.0,0xFF,0xFF]}
+preset_ap     = { "fx": [[1,-1,0]], "1": [50, 0 ,0x00FF00]}
 
 for i in range(10): # blinky at boots
   onboard_led(~i%2)
@@ -95,13 +93,11 @@ def handle_API(𝐦,d=None):
     if K & ICON: return _RESET_WIFI,_RESET_WIFI
     if K & WCON: return _RESET_WS  ,_RESET_WS
   elif 𝐦=="Set_scene":
-    name,que,dur,t = d
-    log(f"Setting scene on {controller}: {d}")
-    if dur == -1: dur = None
-    if name not in 𝔐:
-      log(f'Scene "{name}" not found!')
+    s,q,dur,Ts = d
+    if s not in 𝔐:
+      log(f'Scene "{s}" not found!')
       return _RESET_NO,False
-    controller(name,que,dur,None,t)
+    controller(s,q,dur,None,Ts)
     return _RESET_NO,True
   elif 𝐦=="Del_scene":
     return _RESET_NO,𝔐.__delitem__(d)

@@ -2,16 +2,15 @@ TOKEN ─ ᔐ⁶􍦛⁶⁴
 UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
 NAME ─ ᔐ¹􍦛⁶⁴
 RGB ─ ℕ⁰ˣ⁰⁰􍦛⁰ˣ󰀅󰀅󰀅󰀅󰀅󰀅 packed[BBB]
-ATOM_PARAM ╥ Static ─ RGB
-           ╟ Rainbow ─ [segs:ℝ, s:U8, v:U8]
-           ╙ Fade ┬ clrs  ─ *RGB
-                  ├ speed ─  ℝ⁰􍦛􋔛  transitions/s
-                  └ sharp ─  ℝ⁰􍦛¹
-MODE ┬ effects ─ *EFFECT ╥ Rotate ─ [speed:ℝ, offset:ℝ]  led/s and leds
-     │                   ╟ Reverse ─ □
-     │                   ╙ Brightness ─ ℝ⁰􍦛¹
-     └╥ modes ─ *MODE
-      ╙ atom ─ [ℕ⁺:ledc, ATOM_PARAM]
+ATOM_PARAM ╥ [0,RGB]  Static
+           ╟ [1,segs:ℝ,s:U8, v:U8]  Rainbow
+           ╙ [2,speed:ℝ⁰􍦛􋔛,sharp:ℝ⁰􍦛¹,⠤*RGB]  Fade ; speed: transitions/s
+EFFECT ╥ [0]  Rev
+       ╟ [1,speed:ℝ,offset:ℝ]  Rot ; led/s and leds
+       ╙ [2,ℝ⁰􍦛¹]  Lum
+MODE ┬ fx ─ *EFFECT
+     └╥ 1: [ℕ⁺:ledc, ⠤ATOM_PARAM]
+      ╙ *: ["*",⠤*MODE]
 SCENE ┬ offs ─ UUID ↦ ℕ⁺
       └ mode ─ MODE
 SCENE_ACTIVATION ─ [NAME, 𝔹:que, ℝ⁰􍦛􋔛:dur]

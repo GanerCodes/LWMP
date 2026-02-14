@@ -55,16 +55,19 @@ class WebsocketClient:
     𝕊.sock.setblocking(False)
     𝕊.poller = select.poll()
     𝕊.poller.register(𝕊.sock,select.POLLIN)
-  def settimeout(𝕊,to):
-    𝕊.sock.settimeout(to)
   def read_frame(𝕊,max_size=None):
     buf = 𝕊.rxbuf
     try:
-      while c := 𝕊.sock.read(512):
+      while True:
+        c = 𝕊.sock.read(512)
+        if c is None: break
+        if c == b"" : raise OSError("TCP Connection closed.")
         buf.extend(c)
         free()
       # log(f"WS Message: {c.hex()}")
-    except OSError: pass # EAGAIN
+    except OSError as ε:
+      if ε.args[0] != EAGAIN:
+        raise 𝕊._close(f"Socket error: {ε}")
     
     p = 0
     def read_n(n,l=len(buf)):
@@ -130,8 +133,7 @@ class WebsocketClient:
       try:
         return 𝕊.recv()
       except NoDataException:
-        if dt_ms(s)>=t:
-          return None
+        if dt_ms(s)>=t: return None
         frees()
   
   def close(𝕊,code=CLOSE_OK,reason=''):
@@ -141,8 +143,7 @@ class WebsocketClient:
   def _close(𝕊,E=None):
     𝕊.open = False
     𝕊.sock.close()
-    if E is not None:
-      raise ConnectionClosed(E)
+    if E is not None: raise ConnectionClosed(E)
 
 class WS_Client:
   def __init__(𝕊,uri,t=None):
@@ -154,8 +155,7 @@ class WS_Client:
     r = 𝕊.ws.recv_timeout(𝕊.recv_timeout)
     if r is not None: return r[:6],r[6:]
   def write(𝕊,i,b):
-    if isinstance(i,int):
-      i = int.to_bytes(i,6,"big")
+    if isinstance(i,int): i = int.to_bytes(i,6,"big")
     𝕊.ws.write_frame(OP_BYTES,i+b)
   
   def __call__(𝕊,𝑿=None,i=0,**𝕂):

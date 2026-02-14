@@ -35,33 +35,35 @@ def optf(S):
   return H
 
 rgb_i2b = lambda x:(x>>16 & 0xFF, x>>8 & 0xFF, x & 0xFF)
-def convert_atom(t,dat,brightness,out):
-  bright = int(min(255*brightness,255))
-  if   t == "Static":
-    out["atoms"] += pack("BBxxBBBxxxxxxxxx",bright,0x00,*rgb_i2b(dat))
-  elif t == "Rainbow":
-    out["atoms"] += pack("BBxxfBBxxxxxx"   ,bright,0x01,*dat)
-  elif t == "Fade":
-    C,F = dat["clrs"],out["fades"]
-    out["atoms"] += pack("BBxxHHff"        ,bright,0x02,len(C),len(F),dat["speed"],dat["sharp"])
-    out["fades"] += 3*b"\00"
-    for c in C: out["fades"] += pack("BBB",*rgb_i2b(c))
+def convert_atom(dat,bright,out):
+  t,*dat = dat
+  out["atoms"] += pack("BBxx",int(min(255*bright,255)),t)
+  if   t==0: # Static
+    out["atoms"] += pack("BBBxxxxxxxxx",*rgb_i2b(dat[0]))
+  elif t==1: # Rainbow
+    out["atoms"] += pack("fBBxxxxxx"   ,*dat) # seg,sat,val
+  elif t==2: # Fade
+    speed,sharp,*dat = dat
+    out["atoms"] += pack("HHff"        ,len(dat),len(out["fades"]),speed,sharp)
+    out["fades"] += 3*b"\00" + b''.join(pack("BBB",*rgb_i2b(c)))
   else:
     raise Exception(f'Unknown atom type "{t}"!')
 def parse_mode(mode,brightness=1,data=None,reverse=False):
   if data is None: data = dict(atoms=b'',fades=b'')
   
   r0 = rΔ = 0
-  for t,v in mode["effects"]:
-    if   t == "Rotate"    : rΔ,r0 = v
-    elif t == "Reversed"  : reverse = True
-    elif t == "Brightness": brightness *= v
-  t,v = 𝔪(mode)
-  if   t=="atom" :
-                   s = v[0]
-                   convert_atom(*v[1],brightness,data)
-  elif t=="modes": s = tuple(parse_mode(m,brightness,data)[0] for m in v)
-  else           : raise ValueError(f'Unknown mode type "{t}"!')
+  for t,(*v) in mode.get("fx",[]):
+    if   t==0: reverse     = True # Rev
+    elif t==1: rΔ,r0       = v    # Rot
+    elif t==2: brightness *= v[0] # Lum
+    else     : raise Exception(f'Unknown effect type "{t}"!')
+  if '*' in mode:
+    s = tuple(parse_mode(m,brightness,data)[0] for m in mode["*"])
+  elif "1" in mode:
+    s,*v = mode["1"]
+    convert_atom(v,brightness,data)
+  else:
+    raise Exception(f'Invalid mode "{mode}"!')
   return (reverse,r0,rΔ,s),data
 
 def encode_mode(N):
