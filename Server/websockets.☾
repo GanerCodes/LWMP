@@ -17,44 +17,37 @@
   E,𝑽 = Event􀃅,Mutable􀃅
   ⊢𜳬(𝚝𝚘=□): ¿E.wait(𝚝𝚘)􀌐:
               ¿𝚍􀋑␀: ‹Awaitor timed out!› TimeoutError
-              ↪𝚍  Mutable(default) isn't used b/c edge case of
-                    𝑽 getting set between E.wait and 𝑽􀃅
+              ↪𝚍  Mutable(default) isn't used b/c edge case of 𝑽 getting set between E.wait and 𝑽􀃅
             ↪𝑽􀃅
   ⊢𜳪(x): x 𝑽
          E.set􀃅
   ↪𜳬,𜳪
 
 󱀘WS_Client:  󰤱 test edgecases/failure cases?
-  ⊢__init__(𝕊,ws):
-    𝕊._send,𝕊._recv = ws.send,ws.recv
-    𝕊.close = ws.close
-    𝕊.locks = {}
-  ⊢__call__(𝕊,⠤𝔸,⠶𝕂):
-    ¿𝔸: ↪𝕊.send(⠤𝔸,⠶𝕂)
-    ↪𝕊.recv􀃅
+  ⊢__init__(𝕊,ws): 𝕊._send,𝕊._recv = ws.send,ws.recv
+                   𝕊.close = ws.close
+                   𝕊.locks = {}
+  ⊢__call__(𝕊,⠤𝔸,⠶𝕂): ¿𝔸: ↪𝕊.send(⠤𝔸,⠶𝕂)
+                      ↪𝕊.recv􀃅
   ➰ = ⥌𝕊,⠤𝔸,𝚝𝚘=10↦𝕊(⠤𝔸,⠶𝕂)(𝚝𝚘)
   ⊢pack_msg(𝕊,𝚒,𝙼): ¿𝙼􀊞𝑦: 𝙼􇀞𝔍󰄞􀯖𝑀
                     ↪𝚒􀊩𝙼
   ⊢unpack_msg(𝕊,𝙼): ↪𝙼􀋴6
-  
-  ⊢listener(𝕊,𝚒=0,𝚍=␀):
-    𜳬,𜳪 = 𝚍 Awaitor
-    ¿𝚒􀊜𝑖: 𝚒=𝑖.to_bytes(𝚒,6)
-    𝕊.locks􀲪 = 𜳪
-    ↪𜳬
-  ⊢listen(𝕊,𝚒=0,𝚍=␀,𝚝𝚘=□):
-    ↪𝕊.listener(𝚒,𝚍)(𝚝𝚘)
-  ⊢send(𝕊,𝙼,⠶𝕂):
-    𜳬 = 𝕊.listener(6 SR_bytes􀯑𝚒,⠶𝕂)
-    𝕊._send(𝕊.pack_msg(𝚒,𝙼))
-    ↪𜳬
+  ⊢listener(𝕊,𝚒=0,𝚍=␀): 𜳬,𜳪 = 𝚍 Awaitor
+                        ¿𝚒􀊜𝑖: 𝚒=𝑖.to_bytes(𝚒,6)
+                        𝕊.locks􀲪 = 𜳪
+                        ↪𜳬
+  ⊢listen(𝕊,𝚒=0,𝚍=␀,𝚝𝚘=□): ↪𝕊.listener(𝚒,𝚍)(𝚝𝚘)
+  ⊢send(𝕊,𝙼,⠶𝕂): 𜳬 = 𝕊.listener(6 SR_bytes􀯑𝚒,⠶𝕂)
+                 𝕊._send(𝕊.pack_msg(𝚒,𝙼))
+                 ↪𜳬
   ⊢recv(𝕊):  󰤱 infinitely fills 𝕊.locks if we don't wait for reply!
-         𝚒,𝙼 = 𝕊.unpack_msg(𝕊._recv􀃅)
-    ¡ε=𝑒: 𝕊.close􀃅
-          ε 􁀒 
-    ¿𝚒􀉧𝕊.locks: 𝕊.locks􀲪(𝙼)
-                󰆴 𝕊.locks􀲪
-                ↪𝚒􀊱𝙼
-    ✗􀉓‹WS message with unknown reply ID (⟦𝚒⟧): ⟦𝙼⟧›
+                 𝚒,𝙼 = 𝕊.unpack_msg(𝕊._recv􀃅)
+            ¡ε=𝑒: 𝕊.close􀃅
+                  ε 􁀒 
+            ¿𝚒􀉧𝕊.locks: 𝕊.locks􀲪(𝙼)
+                        󰆴 𝕊.locks􀲪
+                        ↪𝚒􀊱𝙼
+            ✗􀉓‹WS message with unknown reply ID (⟦𝚒⟧): ⟦𝙼⟧›
 
 ⭷ Mutable,Awaitor,WS_Client

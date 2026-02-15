@@ -1,7 +1,7 @@
 TOKEN ─ ᔐ⁶􍦛⁶⁴
 UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
 NAME ─ ᔐ¹􍦛⁶⁴
-RGB ─ ℕ⁰ˣ⁰⁰􍦛⁰ˣ󰀅󰀅󰀅󰀅󰀅󰀅 packed[BBB]
+RGB ─ ℕ⁰ˣ⁰⁰⁰⁰⁰⁰􍦛⁰ˣ󰀅󰀅󰀅󰀅󰀅󰀅  0xRRGGBB
 ATOM_PARAM ╥ [0,RGB]  Static
            ╟ [1,segs:ℝ,s:U8, v:U8]  Rainbow
            ╙ [2,speed:ℝ⁰􍦛􋔛,sharp:ℝ⁰􍦛¹,⠤*RGB]  Fade ; speed: transitions/s
@@ -13,7 +13,7 @@ MODE ┬ fx ─ *EFFECT
       ╙ *: ["*",⠤*MODE]
 SCENE ┬ offs ─ UUID ↦ ℕ⁺
       └ mode ─ MODE
-SCENE_ACTIVATION ─ [NAME, 𝔹:que, ℝ⁰􍦛􋔛:dur]
+SCENE_ACTIVATION ─ [NAME, 𝔹:que, ℕ⁺:dur]
 
 § FRONTEND STORAGE
 USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE

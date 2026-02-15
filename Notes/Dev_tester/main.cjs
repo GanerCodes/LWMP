@@ -33,7 +33,9 @@ scene = async (uuids,...𝔸) => {
   if(𝔸.length != 3)        await api(TOK,"Push_scenes", {uuids, scenes:{[n]:s}});
   else              return await api(TOK,"Set_scene"  , {uuids, scene :[n,s,q]});
   if(𝔸.length == 4) return await api(TOK,"Set_scene"  , {uuids, scene :[n,q,d]}); };
-scheg = async (uuids,...𝔸) => await api(TOK,"Set_schedule", {uuids, schedule:𝒟(𝔸.ꟿ((x,y) => [s_to_utc(dhms2utcWs(...x)),y]))});
+scheg = async (uuids,S) => {
+  if(S === undefined) return api(TOK,"Pull_schedule", {uuids});
+  await api(TOK,"Set_schedule", {uuids, schedule:𝒟(S.ꟿ((x,y) => [s_to_utc(dhms2utcWs(...x)),y]))}); }
 config = async (uuids,dev) => await api(TOK,"Change_dev", {uuids, dev});
 
 // timetest snake stress balance rainbow_snake rainbow_snake_balance reverse_test reverse_test_2
@@ -49,7 +51,6 @@ make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs).Ϝ((
 (async _ => {
 
 // let d = [now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+5]
-// await scheg(devs, [d, ["test",false,null]])
 
 // SCENE = S_rainbow_snake(devs);
 // await config(𝒪(SCENE.offsets).f(([k,v])=>v<0).ꟿ((k,v)=>(SCENE.offsets[k] = Math.abs(v), k)), {REVERSE:true});
@@ -60,24 +61,15 @@ scenes = ᴍv(require("./scenes.json"),x=>make_mode(offs,x));
 scenes.synctest = S_timetest(devs,120);
 await scene(devs,scenes);
 await config(devs,{LEDC,REVERSE,RGB_ORDER,BIT_TIMING});
+// await scene(devs,"red",false,-1);
 
 now = new Date();
-let d1 = [now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+5 ]
-let d2 = [now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+10]
-let d3 = [now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+15]
-await scheg(devs, [d1, ["red" ,false,-1]],
-                  [d2, ["blue",false,-1]],
-                  [d3, ["red" ,false,-1]]);
+let S = [];
+for(let i=0; i<15; i++) {
+  S.push([[now.getDay(),now.getHours(),now.getMinutes(),i+55],
+          [i%2?"blue":"red",false,-1]]); }
+await scheg(devs,S);
 
 // await scene(devs,"synctest",false,-1);
-
-// await scene(devs,"blue"   ,true,2.5*1000);
-// await scene(devs,"rainbow",true,2.5*1000);
-// await scene(devs,"red"    ,true,2.5*1000);
-// await scene(devs,"rainbow",true,2.5*1000);
-// await scene(devs,"red"    ,true,2.5*1000);
-// await scene(devs,"rainbow",true,2.5*1000);
-// await scene(devs,"red"    ,true,2.5*1000);
-// await scene(devs,"blue"   ,true,2.5*1000);
 
 })();

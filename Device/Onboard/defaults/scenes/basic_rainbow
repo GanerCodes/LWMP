@@ -1,3 +1,0 @@
-{ "effects": [["Rotate"    , [-10,0]],
-              ["Brightness", 0.25]],
-  "_"      : ["atom",[50, ["Rainbow",[5.0,255,255]]]]}

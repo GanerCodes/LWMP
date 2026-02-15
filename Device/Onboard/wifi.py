@@ -2,7 +2,7 @@ from util   import *
 from timing import *
 
 def wifi_connect(router_ssid,router_pass,retries=30,log=print):
-  log(f'Connecting to wifi:\nSSID: {router_ssid}\nPass: {router_pass}')
+  log(f'[WiFi] Connecting to wifi: SSID="{router_ssid}" Pass="{router_pass}"')
   wlan = WLAN(STA_IF)
   wlan.active(True)
   wlan.config(pm=0)
@@ -10,7 +10,7 @@ def wifi_connect(router_ssid,router_pass,retries=30,log=print):
     wlan.connect(router_ssid,router_pass)
   except Exception as ε:
     wlan.active(False)
-    return FALSE(log(f'Error connecting using above SSID and password: {ε}'))
+    return FALSE(dbg(f'[WiFi] Error connecting using above SSID and password',ε))
   for i in range(r := retries):
     onboard_led(1)
     if wlan.isconnected():
@@ -19,11 +19,11 @@ def wifi_connect(router_ssid,router_pass,retries=30,log=print):
     sleep(0.1)
     onboard_led(0)
     sleep(0.9)
-    log(f'Failed to connect to network [{i+1}/{r}] - "{wlan.status()}"')
+    log(f'[WiFi] Failed to connect to network [{i+1}/{r}] - "{wlan.status()}"')
   else:
     wlan.active(False)
-    return FALSE(log("Could not connect to network."))
-  return TRUE(log("Connected to Router!"))
+    return FALSE(log("[WiFi] Could not connect to network."))
+  return TRUE(log("[WiFi] Connected."))
 
 def AP_basic(get=print,post=print,loop=True,log=print): # 󰤱
   def recv_until(G,x=b"\r\n\r\n",buf=b""):
@@ -41,7 +41,7 @@ def AP_basic(get=print,post=print,loop=True,log=print): # 󰤱
   s.listen(5)
   def handle():
     conn,addr = s.accept()
-    log(f'Got connection from {addr}')
+    log(f'[AP] Got connection from {addr}')
     try:
       header,_,body = recv_until(conn.recv).partition(b"\r\n\r\n")
       req_l,*headers = header.decode().split("\r\n")
@@ -63,7 +63,7 @@ Content-Type: {t}\r
 Access-Control-Allow-Origin: *\r\n\r\n""".encode("utf-8")+B)
       conn.close()
     except Exception as ε:
-      dbg(f'Error processing request:',ε)
+      dbg(f'[AP] Error processing request:',ε)
     finally:
       try             : conn.close()
       except Exception: pass

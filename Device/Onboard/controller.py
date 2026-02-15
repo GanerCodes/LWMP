@@ -18,22 +18,30 @@ def set_𝕒(hw,mode,arg_fmt=len(𝕒_static)//4*'i'):
   𝕒_static[:] = pack(arg_fmt,Ѧ(S),S_len,Ѧ(atoms),atoms_len,Ѧ(fades),Ѧ(stk),leds_ptr,order,reverse,l,h)
   ledv = memoryview(leds)[:3*(h-l)]
   ref_hold[:] = S,atoms,fades,stk
-  log(f"Configured mode with {l}󷸻{h} ({targΔ=})")
+  log(f"[Controller] Configured mode with {l}󷸻{h} ({targΔ=})")
   return pin,timing,ledv,targΔ
 @micropython.native
 def inf0(x,inf=inf): return 0 if x==inf else x
 
 class Controller:
-  __repr__ = lambda 𝕊: f"LED_Controller⟨{𝕊.dmode} lstate={𝕊.lstate}⟩"
+  __repr__ = lambda 𝕊: f"Controller⟨{𝕊.dmode} lstate={𝕊.lstate}⟩"
   def __init__(𝕊,ℭ,𝔐):
     𝕊.ℭ,𝕊.lstate = ℭ,_LOOP_UPDATE
     𝕊.scenes = Scene_Cacher(𝔐)
     𝕊.mode = 𝕊.dmode = None
     𝕊.𝔖,𝕊.𝔔 = [],[]
   
+  def load_def_scene(𝕊):
+    if 𝕊.ℭ.DEF_SCENE not in 𝕊.scenes.man:
+      return FALSE(log("[Controller] No default scene found."))
+    s = 𝕊.ℭ.DEF_SCENE
+    W = week_start(1000*MS())//1000
+    log(f'[Controller] Loading default scene "{s}"')
+    return Activation(W,W,𝕊.scenes[s],inf)
+    
   def configure(𝕊,pin=23,order=(0,1,2),reverse=False,timing=(400,850,800,450)):
     if isinstance(timing,str): timing = tuple(map(int,timing.strip().split()))
-    log(f"Configuring controller with {pin=} {order=} {reverse=} {timing=}")
+    log(f"[Controller] Configuring HW: {pin=} {order=} {reverse=} {timing=}")
     (pin := Pin(pin)).init(pin.OUT)
     𝕊.dmode = pin,parse_rgb_mode(order),bool(reverse),tuple(timing)
     𝕊.lstate = _LOOP_UPDATE
@@ -41,54 +49,61 @@ class Controller:
 
   def get_Δ(𝕊,ν):
     M,m = MS(),ms()
-    log(f"get_Δ({ν.Ts=}) ⟨{m} {M}⟩")
-    return M-ν.Ts-m
+    Δ = M-ν.Ts-m
+    log(f"[Controller] get_Δ: {M=} - Ts={ν.Ts} - {m=} = {Δ}")
+    return Δ
   
-  def __call__(𝕊,s,q=False,d=inf,Ta=None,Ts=None):
-    log(f'controller("{s}",{q},{d},{Ta},{Ts})')
-    𝔖_,𝔔,s = 𝕊.𝔖,𝕊.𝔔,𝕊.scenes[s]
-    if d in (None,-1): d = inf
-    M = MS()
-    if q:
-      assert Ts is not None, "󰤱"
-      assert Ta is None, "󰤱"
-      assert d<inf, "󰤱"
-      if   𝔔     : Ta = max(𝔔).Ta + max(𝔔).d
-      elif 𝕊.mode: Ta = (lambda x:x if x>M else Ts)(𝕊.mode.Ta + inf0(𝕊.mode.d))
-      else       : Ta = Ts
-      h_add(𝔔,Activation(Ta,Ta,s,d))
+  def __call__(𝕊,s=None,q=False,d=inf,Ta=None,Ts=None):
+    log(f'[Controller] ({s!r},{q},{d},{Ta},{Ts})')
+    if s is not None:
+      𝔖_,𝔔,s = 𝕊.𝔖,𝕊.𝔔,𝕊.scenes[s]
+      if d in (None,-1): d = inf
+      M = MS()
+      if q:
+        assert Ts is not None, "󰤱"
+        assert Ta is None, "󰤱"
+        assert d<inf, "󰤱"
+        if   𝔔     : Ta = max(𝔔).Ta + max(𝔔).d
+        elif 𝕊.mode: Ta = (lambda x:x if x>M else Ts)(𝕊.mode.Ta + inf0(𝕊.mode.d))
+        else       : Ta = Ts
+        h_add(𝔔,Activation(Ta,Ta,s,d))
+      else:
+        assert Ta is None, "󰤱"
+        if Ts is None: Ts = week_start(M*1000) // 1_000 # 󷹇 if ntp not ran then its just some ancient date
+        ν = Activation(Ts,Ts,s,d)
+        𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
     else:
-      assert Ta is None, "󰤱"
-      assert d==inf, "󰤱"
-      if Ts is None: Ts = week_start(M*1000) // 1_000 # 󷹇 if ntp not ran then its just some ancient date
-      ν = Activation(Ts,Ts,s,d)
-      𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
+      𝕊.mode = None
+      𝕊.update_to_que()
     𝕊.lstate = _LOOP_UPDATE
   
   def update_schedule(𝕊,schedule,reset=False,cache=set()):
     # https://www.desmos.com/calculator/0w2tpi3lci
     # also theoretically this has offset bugs with extremely specific conditions (submitting schedule like within seconds of it activating)
     𝔛 = 𝕊.𝔖
+    𝔊 = sorted((int(k),v) for k,v in schedule.items())
     
     if reset:
       cache.clear()
       𝔛[:] = [] # 󰤱
+      frees()
     
     now = time_μ()
-    d = get_date(now)
-    W = week_start(now)//1_000_000
+    d,W = get_date(now),week_start(now)//1_000_000
     now //= 1_000_000
+    # log(f"Now={fmt_date(1_000_000*now)} Week={fmt_date(1_000_000*W)}")
     
     T = now-W
-    for Δ,(name,que,dur) in schedule.items():
-      Δ = int(Δ)
+    for i,(Δ,(s,q,d)) in enumerate(𝔊):
+      assert not q, "󰤱"
       if (Δ-T)%s_per_w > s_per_d: continue
-      A = W + Δ + (Δ<T)*s_per_w
+      A = 1000*(W + Δ + (Δ<T)*s_per_w)
       if A in cache: continue
       cache.add(A)
-      A*=1000
-      print(f"{name} is scheduled to activate at {A} ({W=})")
-      h_add(𝔛,Activation(A,A,𝕊.scenes[name],3)) # 󰤱 duration
+      d = min(ms_per_w if d in (None,-1,0) else d,
+              ((1000*(𝔊[(i+1)%len(𝔊)][0] - Δ)) - 1)%ms_per_w + 1)
+      log(f'[Controller] Scheduled: "{s}" @ ⟨{fmt_date(1000*A)}⟩ (W=⟨{fmt_date(1000*W)}⟩) for ⟨{fmt_dur(1000*d)}⟩')
+      h_add(𝔛,Activation(A,A,𝕊.scenes[s],d))
     return True
   
   def update_to_que(𝕊):
@@ -99,8 +114,13 @@ class Controller:
         if M<ν.Ta: break
         h_pop(𝚇)
         if M>=ν.Ta+ν.d: continue
-        𝕊.mode,𝕊.ν = ν,𝕊.get_Δ(ν)
-        log(f"Setting from {"𝔖𝔔"[i]} at ⟨{fmt_date(1000*M)}⟩: ({fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s)")
+        𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
+        log(f"[Controller] Setting from {"𝔖𝔔"[i]} at ⟨{fmt_date(1000*M)}⟩: ({fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s)")
+        return True
+    if 𝕊.mode is None or M>=𝕊.mode.Ta+𝕊.mode.d:
+      if ν := 𝕊.load_def_scene():
+        𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
+        log("are we good",𝕊.Δ,𝕊.mode)
         return True
   
   def get_wait_hwconf(𝕊):
@@ -144,16 +164,16 @@ class Controller:
           if (n:=n+1)%_free_intrv_frame and dt_ms(m,free_ts)<1000: continue
           if (δ_log := dt_ms(free_ts:=ms(),log_ts)) >= _log_intrv_ms:
             FPS = (n-log_n)/(δ_log or 10**-5)*1000
-            log(f"{tq:06}.{tr:03} {FPS=:6.2f} {mem_perc()} Que🃌={len(𝕊.𝔔)} {Δ=}\n"
-                f"{fmt_date()} (Ntp=⟨{fmt_date(last_ntp[1] or 0)}⟩ @ ⟨{fmt_dur(last_ntp[0] or 0)}⟩)\n"
-                f"Ta=⟨{fmt_date(1000*𝕊.mode.Ta)}⟩ Ts=⟨{fmt_date(1000*𝕊.mode.Ts)}⟩ d=⟨{fmt_dur(1000*𝕊.mode.d)}⟩")
+            log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"
+                f"  {fmt_date()} (Ntp=⟨{fmt_date(last_ntp[1] or 0)}⟩ @ ⟨{fmt_dur(last_ntp[0] or 0)}⟩)\n"
+                f"  Ta=⟨{fmt_date(1000*𝕊.mode.Ta)}⟩ Ts=⟨{fmt_date(1000*𝕊.mode.Ts)}⟩ d=⟨{fmt_dur(1000*𝕊.mode.d)}⟩")
             log_n,log_ts = n,free_ts
           if targΔ != 𝕊.Δ:
             targΔ,prevΔ,tsΔ = 𝕊.Δ,Δ,free_ts
-            log(f"Moving Δ: {prevΔ}→{targΔ}")
+            log(f"[Controller] Moving Δ: {prevΔ}→{targΔ}")
           frees()
       except Exception as ε:
-        dbg(f"Error in LED loop! Restarting in 3 seconds:",ε)
+        dbg(f"[Controller] Error in LED loop! Restarting in 3 seconds:",ε)
         frees(3)
 
 __all__ = "Controller",

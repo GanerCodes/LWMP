@@ -1,6 +1,22 @@
 from util      import *
 from interface import *
 
+scene_check = [None]
+def get_schedule(fp="/schedule"):
+  return 𝔍lf(fp) if (fp:=𝐩(fp)).is_file() else None
+def check_schedule(𝔏,fp="/schedule"):
+  if not (S:=get_schedule(fp)): return False
+  s = scene_check[0]
+  t = time_μ()
+  if s is None or t>=scene_check[0]+μs_per_d:
+    𝔏.update_schedule(S,reset=True)
+    scene_check[0] = t
+    return True
+def update_schedule(𝔏,scheg,fp="/schedule"):
+  𝔍wf(fp:=𝐩(fp),scheg)
+  scene_check[0] = None
+  return check_schedule(𝔏,fp)
+
 class Scene_Manager:
   def __init__(𝕊,dir="/scenes"):
     𝕊.dir = 𝐩(dir)
@@ -70,4 +86,4 @@ class Scene_Cacher:
     r = 𝕊.cache[h] = 𝕊(𝕊.man[k])
     return r
 
-__all__ = "Scene_Manager","Scene_Cacher"
+__all__ = "get_schedule","check_schedule","update_schedule","Scene_Manager","Scene_Cacher"

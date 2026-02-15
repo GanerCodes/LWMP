@@ -11,9 +11,6 @@ _RESET_WIFI = const(2)
 
 _NTP_REFRESH_TIME = const(15*60*1_000_000)
 
-preset_normal = { "fx": [[1,-1,0]], "1": [50, 1, 5.0,0xFF,0xFF]}
-preset_ap     = { "fx": [[1,-1,0]], "1": [50, 0 ,0x00FF00]}
-
 for i in range(10): # blinky at boots
   onboard_led(~i%2)
   sleep(0.05)
@@ -29,37 +26,38 @@ for i in range(10): # blinky at boots
              LEDC       =(300                                  , int    ),
              REVERSE    =(False                                , boolstr),
              BIT_TIMING =("400 850 800 450"                    ,        ),
-             RGB_ORDER  =("RGB"                                ,        ) )
+             RGB_ORDER  =("RGB"                                ,        ),
+             DEF_SCENE  =("_default"                           ,        ))
 if not ℭ.name: ℭ.name = ℭ.UUID
 ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 log(ℭ)
 
-controller = Controller(ℭ,𝔐)
-thread(controller.loop)
+𝔏 = Controller(ℭ,𝔐)
+thread(𝔏.loop)
 
-update_LED_HW = lambda: controller.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
+update_LED_HW = lambda: 𝔏.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
 update_LED_HW()
 
 def ntp_update_controller():
   T,ΔΔ = ntp()
   ΔΔ //= 1000
-  controller.Δ += ΔΔ
+  𝔏.Δ += ΔΔ
   return T,ΔΔ
 
 def lw_WAN():
   try:
     if not all(ℭ("token","r_ssid","r_pass")):
       raise Exception("Credentials not found.")
-    controller(preset_normal)
     if not wifi_connect(*ℭ("r_ssid","r_pass")):
       raise Exception(f'Could not connect to WiFi!')
     ntp()
-    controller(preset_normal)
+    𝔏()
+    check_schedule(𝔏)
     free()
   except Exception as ε:
     dbg(f'Could not connect to WiFi:',ε)
     log("Starting AP.")
-    controller(preset_ap)
+    𝔏("_ap")
     def get(path):
       return 200,"text/html",read_file("index.html")
     def post(path,body):
@@ -73,7 +71,7 @@ def lw_WAN():
     reset()
 
 def handle_API(𝐦,d=None):
-  log(f'Handling API "{𝐦}"')
+  log(f'[API] Handling "{𝐦}"')
   if 𝐦=="Change_dev":
     WCON = set("WS_URL DELETE".split())
     ICON = set("R_SSID R_PASS".split())
@@ -95,48 +93,46 @@ def handle_API(𝐦,d=None):
   elif 𝐦=="Set_scene":
     s,q,dur,Ts = d
     if s not in 𝔐:
-      log(f'Scene "{s}" not found!')
+      log(f'[API] Scene "{s}" not found!')
       return _RESET_NO,False
-    controller(s,q,dur,None,Ts)
+    𝔏(s,q,dur,None,Ts)
+    if not q and dur in (-1,inf,None): ℭ.DEF_SCENE = s
     return _RESET_NO,True
-  elif 𝐦=="Del_scene":
-    return _RESET_NO,𝔐.__delitem__(d)
-  elif 𝐦=="Push_scenes":
-    return _RESET_NO,𝔐.bulk_save(d)
-  elif 𝐦=="Pull_scenes":
-    return _RESET_NO,𝔐.bulk_dump()
-  elif 𝐦=="Set_schedule":
-    log(f"󰤱 Set_schedule ({d})") # 󰤱
-    write_file("schedule",𝔍d(d))
-    return _RESET_NO,controller.update_schedule(d)
-  elif 𝐦=="Pull_schedule":
-    if "schedule" not in ls:
-      return _RESET_NO,False
-    return _RESET_NO,read_file("schedule",𝔍d(d))
+  elif 𝐦=="Del_scene"    : return _RESET_NO,𝔐.__delitem__(d)
+  elif 𝐦=="Push_scenes"  : return _RESET_NO,𝔐.bulk_save(d)
+  elif 𝐦=="Pull_scenes"  : return _RESET_NO,𝔐.bulk_dump()
+  elif 𝐦=="Set_schedule" : return _RESET_NO,update_schedule(𝔏,d)
+  elif 𝐦=="Pull_schedule": return _RESET_NO,get_schedule()
   elif 𝐦=="Sync":
     try:
       r = 𝔍d(ntp_update_controller())
     except Exception as ε:
-      log("Sync failed!",ε)
+      log("[API] NTP Sync failed!",ε)
       r = False
     return _RESET_NO,str(r)
   return _RESET_NO,False
 
 def lw_websocket_loop():
   ꭐ = WS_Client(ℭ.WS_URL)
-  log("Connected to WS!")
+  log("[WS] Connected.")
   ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER".split()})
   free()
   while 1:
     if (w:=ꭐ()) is None:
-      if sys_time_μ() >= last_ntp[0] + _NTP_REFRESH_TIME: # every 15 minutes
+      t = sys_time_μ()
+      if t >= last_ntp[0] + _NTP_REFRESH_TIME: # every 15 minutes
         ntp_update_controller()
+      check_schedule(𝔏)
       frees(0.05)
       continue
     i,cmd = w
     cmd = 𝔍l(cmd)
     # log(f"Got WS Command {i.hex()}: {cmd}")
-    con,resp = handle_API(*𝔪(cmd))
+    try:
+      con,resp = handle_API(*𝔪(cmd))
+    except Exception as ε:
+      dbg("[API] Error!",ε)
+      con,resp = _RESET_WS,"ERROR"
     if resp is not None: ꭐ(resp,i=i)
     if con:
       try                  : ꭐ.close()
@@ -152,11 +148,11 @@ try:
     while 1:
       try:
         if lw_websocket_loop() == _RESET_WIFI:
-          log("Resetting WiFi")
+          log("[WS] Resetting WiFi")
           free(); break
-      except OSError   as ε: dbg(f'WebSocket connection failed! Restarting in 5 seconds:',ε)
-      except Exception as ε: dbg(f'Error in WebSocket loop! Restarting in 5 seconds:',ε)
+      except OSError   as ε: dbg(f'[WS] Connection failed! Restarting in 5 seconds:',ε)
+      except Exception as ε: dbg(f'[WS] Error in loop! Restarting in 5 seconds:',ε)
       frees(5)
 except:
-  controller.loop = 0
+  𝔏.loop = 0
   raise

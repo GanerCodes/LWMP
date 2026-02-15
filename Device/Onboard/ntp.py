@@ -67,13 +67,13 @@ def ntp_single(host=None,timeout=10):
   if host is None: host=choice(NTP_HOSTS)
   
   T0,T3,DAT = ntp_raw(host,timeout or -1)
-  if T0 == -1: raise Exception(f"NTP [{host}]: ntp_raw failed")
+  if T0 == -1: raise Exception(f"[NTP] ⟨{host}⟩: ntp_raw failed")
 
   T1_s,T1_μ,T2_s,T2_μ = unpack('!IIII', DAT[32:48])
-  if  DAT[0]     & 0b00000111 != 4: raise Exception(f"NTP [{host}]: Invalid packet due to bad mode")
-  if (DAT[0]>>6) & 0b00000011  > 2: raise Exception(f"NTP [{host}]: Invalid packet due to bad leap")
-  if not (1 <= DAT[1] <= 15)      : raise Exception(f"NTP [{host}]: Invalid packet due to bad stratum")
-  if not (T2_s and T1_s)          : raise Exception(f"NTP [{host}]: Invalid packet")
+  if  DAT[0]     & 0b00000111 != 4: raise Exception(f"[NTP] ⟨{host}⟩: Invalid packet due to bad mode")
+  if (DAT[0]>>6) & 0b00000011  > 2: raise Exception(f"[NTP] ⟨{host}⟩: Invalid packet due to bad leap")
+  if not (1 <= DAT[1] <= 15)      : raise Exception(f"[NTP] ⟨{host}⟩: Invalid packet due to bad stratum")
+  if not (T2_s and T1_s)          : raise Exception(f"[NTP] ⟨{host}⟩: Invalid packet")
   T1 = 1_000_000*T1_s + (1_000_000*T1_μ >> 32)
   T2 = 1_000_000*T2_s + (1_000_000*T2_μ >> 32)
   θ = ((T1-T0)+(T2-T3))//2 - 2_208_988_800_000_000
@@ -84,7 +84,7 @@ def ntp_single(host=None,timeout=10):
 @micropython.native
 def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   if isinstance(hosts,int): hosts = sample(NTP_HOSTS,hosts)
-  print(f"NTP Average: using {dup*len(hosts)} trials")
+  print(f"[NTP] Average: using {dup*len(hosts)} trials")
   X,Δ = { h:[] for h in hosts },[]
   for h in hosts:
     for d in range(dup):
@@ -93,13 +93,13 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
       except Exception as ε:
         X[h].append(ε)
   
-  print(f"NTP Times:")
+  print(f"[NTP] Times:")
   for h,V in X.items():
     for i,v in enumerate(V):
       if not (e := isinstance(v,BaseException)):
         t,RTT = v[1]-v[0],v[2]
       s = f"Failed to sync: {v}" if e else f"{fmt_date(get_date(t+sys_time_μ()))} (RTT={RTT/1_000_000})"
-      print(f"\tNTP[{h}] Trial #{i}: {s}")
+      print(f"\t⟨{h}⟩ Trial #{i}: {s}")
       if e: continue
       Δ.append((RTT,t))
   
@@ -107,7 +107,7 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   
   def show_Δ(v):
     X,Y = [x[0] for x in Δ],[x[1] for x in Δ]
-    print(f"NTP [n={len(Δ)}] Statistics - {v}")
+    print(f"[NTP] [n={len(Δ)}] Statistics - {v}")
     print(f"\tMid range: {(max(Y)-min(Y)) / 1_000_000}")
     print(f"\tRTT range: {(max(X)-min(X)) / 1_000_000}")
   
@@ -127,14 +127,17 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   if last_ntp[0] is not None:
     ΔΔ = off - (last_ntp[1]-last_ntp[0])
   last_ntp[:] = [t,r]
-  print(f"NTP Time: {r} ⟨{fmt_date(get_date(r))}⟩")
+  print(f"[NTP] Got time: ⟨{fmt_date(get_date(r))}⟩ ({r})")
   return r,ΔΔ
 
 s_per_w = (s_per_d := 60*60*24)*7
+ms_per_w = s_per_w*1000
+μs_per_d = s_per_d*1000000
+
 @micropython.native
 def dt_ms(x,y=None): return ticks_diff(*(ms(),x) if y is None else (x,y))
 
-__all__ = "s_per_d","s_per_w","fmt_date","fmt_dur","week_start", \
+__all__ = "s_per_d","s_per_w","ms_per_w","μs_per_d","fmt_date","fmt_dur","week_start", \
           "sys_time_μ","time_μ","get_date","MS","last_ntp","ntp_single","ntp",\
           "sleep","ms","dt_ms"
 
