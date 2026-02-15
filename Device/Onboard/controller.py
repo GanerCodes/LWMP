@@ -120,7 +120,6 @@ class Controller:
     if 𝕊.mode is None or M>=𝕊.mode.Ta+𝕊.mode.d:
       if ν := 𝕊.load_def_scene():
         𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
-        log("are we good",𝕊.Δ,𝕊.mode)
         return True
   
   def get_wait_hwconf(𝕊):
@@ -128,6 +127,7 @@ class Controller:
       frees(0.1)
     return 𝕊.dmode
   def get_wait_mode(𝕊):
+    frees()
     𝕊.update_to_que()
     while 𝕊.lstate and 𝕊.mode is None:
       frees(0.1)
@@ -136,7 +136,8 @@ class Controller:
   
   # @micropython.native
   def loop(𝕊,leds=leds,set_𝕒=set_𝕒,𝕒_ptr=𝕒_ptr):
-    _log_intrv_ms = const(5_000)
+    _log_intrv_ms     = const(30_000)
+    _free_intrv_ms    = const(250)
     _free_intrv_frame = const(30)
     while 𝕊.lstate:
       try:
@@ -159,9 +160,10 @@ class Controller:
           tq,tr = divmod(t,1000)
           assign_leds(𝕒_ptr,tq+tr*0.001)
           bitstream(pin,0,timing,ledv)
+          # if n%10: print(1,end='')
           
           if 𝕊.update_to_que(): break
-          if (n:=n+1)%_free_intrv_frame and dt_ms(m,free_ts)<1000: continue
+          if (n:=n+1)%_free_intrv_frame and dt_ms(m,free_ts)<_free_intrv_ms: continue
           if (δ_log := dt_ms(free_ts:=ms(),log_ts)) >= _log_intrv_ms:
             FPS = (n-log_n)/(δ_log or 10**-5)*1000
             log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"

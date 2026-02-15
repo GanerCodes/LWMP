@@ -3,7 +3,7 @@ from collections import namedtuple
 from binascii    import b2a_base64
 from machine     import bitstream,Pin,mem8,mem32,reset,RTC
 from network     import WLAN,STA_IF,AP_IF
-from _thread     import start_new_thread
+from _thread     import start_new_thread,stack_size
 from pathlib     import Path as 𝐩
 from hashlib     import sha1 as hash_
 from uctypes     import bytearray_at,addressof as Ѧ
@@ -15,6 +15,8 @@ from json        import loads as 𝔍l, dumps as 𝔍d
 from math        import ceil,exp,inf
 from sys         import print_exception
 from gc          import mem_alloc,mem_free,collect as free
+
+stack_size(10*1024)
 
 # mathy
 def sample(X,n):
@@ -115,4 +117,4 @@ from ntp import *
 @micropython.native
 def frees(t=0,free=free,sleep=sleep): free();sleep(t)
 
-del LED_ONBOARD,hash_,start_new_thread,mem_alloc,mem_free
+del LED_ONBOARD,stack_size,hash_,start_new_thread,mem_alloc,mem_free

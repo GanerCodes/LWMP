@@ -40,7 +40,7 @@ config = async (uuids,dev) => await api(TOK,"Change_dev", {uuids, dev});
 
 // timetest snake stress balance rainbow_snake rainbow_snake_balance reverse_test reverse_test_2
 devs       = "testdevice0 testdevice2 testdevice1 testdevice3".split(' ');
-LEDC       = 50;
+LEDC       = 1000;
 REVERSE    = false;
 RGB_ORDER  = "GBR";
 BIT_TIMING = "350 900 700 700";
@@ -61,15 +61,14 @@ scenes = ᴍv(require("./scenes.json"),x=>make_mode(offs,x));
 scenes.synctest = S_timetest(devs,120);
 await scene(devs,scenes);
 await config(devs,{LEDC,REVERSE,RGB_ORDER,BIT_TIMING});
-// await scene(devs,"red",false,-1);
 
-now = new Date();
-let S = [];
-for(let i=0; i<15; i++) {
-  S.push([[now.getDay(),now.getHours(),now.getMinutes(),i+55],
-          [i%2?"blue":"red",false,-1]]); }
-await scheg(devs,S);
+await scene(devs,"synctest",false,-1);
 
-// await scene(devs,"synctest",false,-1);
+// now = new Date();
+// let S = [];
+// for(let i=0; i<15; i++) {
+//   S.push([[now.getDay(),now.getHours(),now.getMinutes(),i+55],
+//           [i%2?"blue":"red",false,-1]]); }
+// await scheg(devs,S);
 
 })();

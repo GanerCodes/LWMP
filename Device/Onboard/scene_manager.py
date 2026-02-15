@@ -83,7 +83,8 @@ class Scene_Cacher:
     if isinstance(k,dict): return 𝕊(k)
     h = HASH(c := read_file(𝕊.man(k),"rb"))
     if h in 𝕊.cache: return 𝕊.cache[h]
-    r = 𝕊.cache[h] = 𝕊(𝕊.man[k])
+    r = 𝕊(𝕊.man[k])
+    𝕊.cache[h] = r # 󰤱 CHECK FOR MEMORY STUFF BRO
     return r
 
 __all__ = "get_schedule","check_schedule","update_schedule","Scene_Manager","Scene_Cacher"

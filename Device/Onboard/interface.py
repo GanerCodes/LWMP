@@ -26,13 +26,29 @@ def pre(N,ν=None,σ=0,d=0):
       h1 = h2
   r.Σ *= (1-2*N[0])
   return r
-def flat(S): return [S]+(flat(S.ν) if S.ν else [])
-def optf(S):
-  H,m = [],0
-  for x in S:
-      m += x.m
-      H.append(Seg(x.σ,x.Σ,x.d,int(x.m and m),x.r0,x.rΔ))
-  return H
+
+# def flat(S): return [S]+(flat(S.ν) if S.ν else []) 
+# def optf(S):
+#   H,m = [],0
+#   for x in S:
+#     m += x.m
+#     H.append(Seg(x.σ,x.Σ,x.d,int(x.m and m),x.r0,x.rΔ))
+#   return H
+
+def flab(S):
+  p,m,mx = S,0,0
+  R = b''
+  while p:
+    m += p.m
+    mx = max(mx,p.d)
+    R += pack("iiiiff",p.σ,p.Σ,p.d,int(p.m and m),p.r0,p.rΔ)
+    
+    # we are graverobbing for memory at this point 😭
+    tmp = p.ν
+    p.ν = None
+    del p; free()
+    p = tmp
+  return R,mx+1
 
 rgb_i2b = lambda x:(x>>16 & 0xFF, x>>8 & 0xFF, x & 0xFF)
 def convert_atom(dat,bright,out):
@@ -49,6 +65,7 @@ def convert_atom(dat,bright,out):
   else:
     raise Exception(f'Unknown atom type "{t}"!')
 def parse_mode(mode,brightness=1,data=None,reverse=False):
+  free()
   if data is None: data = dict(atoms=b'',fades=b'')
   
   r0 = rΔ = 0
@@ -67,11 +84,19 @@ def parse_mode(mode,brightness=1,data=None,reverse=False):
   return (reverse,r0,rΔ,s),data
 
 def encode_mode(N):
+  # N   = optf(flat(pre(N)))
+  # S   = b''.join(pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
+  # mx  = max(s.d for s in N)+1
   N,data = parse_mode(N)
-  N = optf(flat(pre(N)))
-  S     = b''.join(pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
-  stk   = (max(s.d for s in N)+1)*pack("iii",0,0,0)
-  free()
+  
+  tmp = pre(N)
+  del N; free()
+  N = tmp
+  
+  S,mx = flab(N)
+  del N; free()
+  stk = mx*pack("iii",0,0,0)
+  log(f"[Interface] (Mem:{mem_perc()}) Encoded mode size: {len(S)+len(data["atoms"])+len(data["fades"])+len(stk)}")
   return S,len(S)//24,data["atoms"],len(data["atoms"])//16,bytes(data["fades"]),stk
 def specify_mode(mode,offsets,ℭ):
   Σ = int.from_bytes(mode[0][4:8],"little")
