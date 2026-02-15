@@ -134,7 +134,7 @@ class Controller:
       𝕊.update_to_que()
     return specify_mode(*𝕊.mode.s,𝕊.ℭ),𝕊.Δ
   
-  # @micropython.native
+  @micropython.native
   def loop(𝕊,leds=leds,set_𝕒=set_𝕒,𝕒_ptr=𝕒_ptr):
     _log_intrv_ms     = const(30_000)
     _free_intrv_ms    = const(250)

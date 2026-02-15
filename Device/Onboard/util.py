@@ -16,7 +16,7 @@ from math        import ceil,exp,inf
 from sys         import print_exception
 from gc          import mem_alloc,mem_free,collect as free
 
-stack_size(10*1024)
+stack_size(9*1024)
 
 # mathy
 def sample(X,n):

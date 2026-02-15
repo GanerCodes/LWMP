@@ -55,10 +55,10 @@ make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs).Ϝ((
 // SCENE = S_rainbow_snake(devs);
 // await config(𝒪(SCENE.offsets).f(([k,v])=>v<0).ꟿ((k,v)=>(SCENE.offsets[k] = Math.abs(v), k)), {REVERSE:true});
 
-// await sync(devs);
+await sync(devs);
 
 scenes = ᴍv(require("./scenes.json"),x=>make_mode(offs,x));
-scenes.synctest = S_timetest(devs,120);
+scenes.synctest = S_timetest(devs,10);
 await scene(devs,scenes);
 await config(devs,{LEDC,REVERSE,RGB_ORDER,BIT_TIMING});
 
