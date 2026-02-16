@@ -11,8 +11,9 @@ class Node:
     x.r0,x.rΔ = 𝕊.r0,𝕊.rΔ
     x.d,x.m = 𝕊.d,𝕊.m
   def __repr__(𝕊): return f"⟨{'T '*𝕊.m}{𝕊.σ}…{𝕊.σ+𝕊.Σ}@{𝕊.d} {𝕊.rΔ}↺+{𝕊.r0}⟩"
+@micropython.native
+def add_mag(x,y): return (abs(x)+abs(y))*(1-2*(x<0))
 def pre(N,ν=None,σ=0,d=0):
-  add = lambda x,y: (abs(x)+abs(y))*(1-2*(x<0))
   r,C = Node(None,σ,None,N[1],N[2],d),N[3]
   if type(C) is int:
     r.ν,r.Σ,r.m = ν,C*(1-2*N[0]),True
@@ -22,7 +23,7 @@ def pre(N,ν=None,σ=0,d=0):
     for i,n in enumerate(C):
       h2 = ν if i==len(C)-1 else Node(None)
       pre(n,h2,abs(r.Σ),d+1).to(h1)
-      r.Σ = add(r.Σ,h1.Σ)
+      r.Σ = add_mag(r.Σ,h1.Σ)
       h1 = h2
   r.Σ *= (1-2*N[0])
   return r
@@ -40,7 +41,8 @@ def flab(S):
   R = b''
   while p:
     m += p.m
-    mx = max(mx,p.d)
+    if p.d>mx: mx = p.d
+    # R += pack("iihhff",p.σ,p.Σ,p.d,int(p.m and m),p.r0,p.rΔ)
     R += pack("iiiiff",p.σ,p.Σ,p.d,int(p.m and m),p.r0,p.rΔ)
     
     # we are graverobbing for memory at this point 😭
@@ -61,7 +63,7 @@ def convert_atom(dat,bright,out):
   elif t==2: # Fade
     speed,sharp,*dat = dat
     out["atoms"] += pack("HHff"        ,len(dat),len(out["fades"]),speed,sharp)
-    out["fades"] += 3*b"\00" + b''.join(pack("BBB",*rgb_i2b(c)))
+    out["fades"] += 3*b"\00" + b''.join(pack("BBB",*rgb_i2b(c)) for c in dat)
   else:
     raise Exception(f'Unknown atom type "{t}"!')
 def parse_mode(mode,brightness=1,data=None,reverse=False):
@@ -96,23 +98,18 @@ def encode_mode(N):
   S,mx = flab(N)
   del N; free()
   stk = mx*pack("iii",0,0,0)
-  log(f"[Interface] (Mem:{mem_perc()}) Encoded mode size: {len(S)+len(data["atoms"])+len(data["fades"])+len(stk)}")
+  
+  lens = len(S), len(data["atoms"]), len(data["fades"]), len(stk)
+  log(f"[Interface] (Mem:{mem_perc()}) Size = {join(lens,'+')} = {sum(lens)}")
+  
   return S,len(S)//24,data["atoms"],len(data["atoms"])//16,bytes(data["fades"]),stk
 def specify_mode(mode,offsets,ℭ):
   Σ = int.from_bytes(mode[0][4:8],"little")
   l = (offsets or {}).get(ℭ.UUID,0)
   h = min(l+ℭ.LEDC,abs(Σ))
+  if l>=h:
+    print("[Interface] Device has no LEDs to display for mode.")
+    return None
   return mode,(l,h)
 
-def parse_rgb_mode(mode):
-  if isinstance(mode,int):
-    return mode
-  if isinstance(mode,str):
-    if mode.isdigit():
-      return int(mode)
-    else:
-      mode = mode.upper()
-      mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
-  return (mode[0]<<16)|(mode[1]<<8)|mode[2]
-
-__all__ = "encode_mode","specify_mode","parse_rgb_mode"
+__all__ = "encode_mode","specify_mode"

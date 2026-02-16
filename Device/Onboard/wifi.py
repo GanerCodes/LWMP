@@ -1,7 +1,6 @@
 from util   import *
-from timing import *
 
-def wifi_connect(router_ssid,router_pass,retries=30,log=print):
+def wifi_connect(router_ssid,router_pass,retries=30):
   log(f'[WiFi] Connecting to wifi: SSID="{router_ssid}" Pass="{router_pass}"')
   wlan = WLAN(STA_IF)
   wlan.active(True)
@@ -25,7 +24,7 @@ def wifi_connect(router_ssid,router_pass,retries=30,log=print):
     return FALSE(log("[WiFi] Could not connect to network."))
   return TRUE(log("[WiFi] Connected."))
 
-def AP_basic(get=print,post=print,loop=True,log=print): # 󰤱
+def AP_basic(get=print,post=print,loop=True): # 󰤱
   def recv_until(G,x=b"\r\n\r\n",buf=b""):
     while c := G(4096):
       buf += c
@@ -67,6 +66,7 @@ Access-Control-Allow-Origin: *\r\n\r\n""".encode("utf-8")+B)
     finally:
       try             : conn.close()
       except Exception: pass
+      free()
   if not loop:
     s.setblocking(False)
     return handle,s
@@ -89,7 +89,7 @@ def DNS_trap(log=print,loop=True): # this is half AI lol
     return handle,s
   while 1: handle()
 
-def AP_with_DNS(*𝔸,timeout=None,timeout_f=print,**𝕂):
+def AP_with_DNS(*𝔸,timeout=None,timeout_f=log,**𝕂):
   (f1,s1),(f2,s2) = AP_basic(*𝔸,loop=False,**𝕂),DNS_trap(loop=False)
   
   poll = select.poll()

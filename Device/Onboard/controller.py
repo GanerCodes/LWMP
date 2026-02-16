@@ -30,6 +30,7 @@ class Controller:
     𝕊.scenes = Scene_Cacher(𝔐)
     𝕊.mode = 𝕊.dmode = None
     𝕊.𝔖,𝕊.𝔔 = [],[]
+    𝕊.Δ = 0
   
   def load_def_scene(𝕊):
     if 𝕊.ℭ.DEF_SCENE not in 𝕊.scenes.man:
@@ -54,7 +55,7 @@ class Controller:
     return Δ
   
   def __call__(𝕊,s=None,q=False,d=inf,Ta=None,Ts=None):
-    log(f'[Controller] ({s!r},{q},{d},{Ta},{Ts})')
+    log(f'[Controller] Calling with ({s!r}, {q}, {d}, {Ta}, {Ts})')
     if s is not None:
       𝔖_,𝔔,s = 𝕊.𝔖,𝕊.𝔔,𝕊.scenes[s]
       if d in (None,-1): d = inf
@@ -74,7 +75,7 @@ class Controller:
         𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
     else:
       𝕊.mode = None
-      𝕊.update_to_que()
+      # 𝕊.update_to_que()
     𝕊.lstate = _LOOP_UPDATE
   
   def update_schedule(𝕊,schedule,reset=False,cache=set()):
@@ -129,10 +130,13 @@ class Controller:
   def get_wait_mode(𝕊):
     frees()
     𝕊.update_to_que()
-    while 𝕊.lstate and 𝕊.mode is None:
+    while 𝕊.lstate:
       frees(0.1)
       𝕊.update_to_que()
-    return specify_mode(*𝕊.mode.s,𝕊.ℭ),𝕊.Δ
+      if 𝕊.mode is None:
+        continue
+      if r := specify_mode(*𝕊.mode.s,𝕊.ℭ):
+        return r,𝕊.Δ
   
   @micropython.native
   def loop(𝕊,leds=leds,set_𝕒=set_𝕒,𝕒_ptr=𝕒_ptr):

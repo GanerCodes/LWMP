@@ -1,13 +1,15 @@
 from util          import *
 from wifi          import *
-from controller    import *
+from settings      import *
 from ws_client     import *
 from interface     import *
+from controller    import *
 from scene_manager import *
 
 _RESET_NO   = const(0)
 _RESET_WS   = const(1)
 _RESET_WIFI = const(2)
+_RESET_BOOT = const(3)
 
 _NTP_REFRESH_TIME = const(15*60*1_000_000)
 
@@ -15,48 +17,32 @@ for i in range(10): # blinky at boots
   onboard_led(~i%2)
   sleep(0.05)
 
+log(f"[LW] Starting with Settings={ℭ}")
 𝔐 = Scene_Manager()
-ℭ = Settings(WS_URL     =("ws://brynic_led_test.ganer.xyz:2095",        ),
-             UUID       =(gen_id                               ,        ),
-             TOKEN      =(                                              ),
-             NAME       =(                                              ),
-             R_SSID     =(                                              ),
-             R_PASS     =(                                              ),
-             LEDP       =(23                                   , int    ),
-             LEDC       =(300                                  , int    ),
-             REVERSE    =(False                                , boolstr),
-             BIT_TIMING =("400 850 800 450"                    ,        ),
-             RGB_ORDER  =("RGB"                                ,        ),
-             DEF_SCENE  =("_default"                           ,        ))
-if not ℭ.name: ℭ.name = ℭ.UUID
-ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
-log(ℭ)
-
 𝔏 = Controller(ℭ,𝔐)
 thread(𝔏.loop)
 
 update_LED_HW = lambda: 𝔏.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
 update_LED_HW()
 
-def ntp_update_controller():
+def lw_NTP():
   T,ΔΔ = ntp()
   ΔΔ //= 1000
+  prevΔ = 𝔏.Δ
   𝔏.Δ += ΔΔ
+  log(f"[LW] Updating controller Δ {prevΔ}→{𝔏.Δ}")
   return T,ΔΔ
 
 def lw_WAN():
   try:
-    if not all(ℭ("token","r_ssid","r_pass")):
-      raise Exception("Credentials not found.")
-    if not wifi_connect(*ℭ("r_ssid","r_pass")):
-      raise Exception(f'Could not connect to WiFi!')
-    ntp()
+    wifi_from_ℭ(ℭ)
+    lw_NTP()
     𝔏()
     check_schedule(𝔏)
     free()
   except Exception as ε:
-    dbg(f'Could not connect to WiFi:',ε)
-    log("Starting AP.")
+    dbg(f'[LW] Could not connect to WiFi:',ε)
+    log(f"[LW] Starting AP.")
     𝔏("_ap")
     def get(path):
       return 200,"text/html",read_file("index.html")
@@ -65,7 +51,7 @@ def lw_WAN():
         ℭ(𝔍l(body))
         reset()
       except Exception as ε:
-        dbg(f"Error getting credentials from AP:",ε)
+        dbg(f"[LW] Error getting credentials from AP:",ε)
         return 400,"application/json",𝔍d({"msg":"Cannot parse credentials!"})
     AP_with_DNS(get,post,timeout=60**2,timeout_f=reset)
     reset()
@@ -80,10 +66,12 @@ def handle_API(𝐦,d=None):
     D = { k.upper():v for k,v in d.items() }
     K = set(D)
     
-    if "RGB_ORDER" in D:
-      D["RGB_ORDER"] = parse_rgb_mode(d['RGB_ORDER'])
-    if K & {"DELETE","UUID"}:
-      D["NAME"] = D["UUID"] = gen_id()
+    if "VER" in D and D["VER"] != ℭ.VER:
+      write_file("UPDATE_FLAG",str(D["VER"]).strip())
+      return _RESET_BOOT,_RESET_BOOT
+    
+    if "RGB_ORDER" in D     : D["RGB_ORDER"] = parse_rgb_mode(d['RGB_ORDER'])
+    if K & {"DELETE","UUID"}: D["NAME"] = D["UUID"] = gen_id()
     
     ℭ({ k:v for k,v in D.items() if k in ℭ })
     
@@ -105,7 +93,7 @@ def handle_API(𝐦,d=None):
   elif 𝐦=="Pull_schedule": return _RESET_NO,get_schedule()
   elif 𝐦=="Sync":
     try:
-      r = 𝔍d(ntp_update_controller())
+      r = 𝔍d(lw_NTP())
     except Exception as ε:
       log("[API] NTP Sync failed!",ε)
       r = False
@@ -115,13 +103,13 @@ def handle_API(𝐦,d=None):
 def lw_websocket_loop():
   ꭐ = WS_Client(ℭ.WS_URL)
   log("[WS] Connected.")
-  ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER".split()})
+  ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER VER".split()})
   free()
   while 1:
     if (w:=ꭐ()) is None:
       t = sys_time_μ()
       if t >= last_ntp[0] + _NTP_REFRESH_TIME: # every 15 minutes
-        ntp_update_controller()
+        lw_NTP()
       check_schedule(𝔏)
       frees(0.05)
       continue
@@ -129,15 +117,15 @@ def lw_websocket_loop():
     cmd = 𝔍l(cmd)
     # log(f"Got WS Command {i.hex()}: {cmd}")
     try:
-      con,resp = handle_API(*𝔪(cmd))
+      con,resp = handle_API(*cmd['_'])
     except Exception as ε:
       dbg("[API] Error!",ε)
       con,resp = _RESET_WS,"ERROR"
     if resp is not None: ꭐ(resp,i=i)
-    if con:
+    if con > _RESET_NO:
       try                  : ꭐ.close()
       except Exception as ε: dbg(f'Failed to close WS:',ε)
-      if con == _RESET_WIFI: return con
+      if con > _RESET_WS   : return con
       break
     frees()
 
@@ -147,9 +135,15 @@ try:
     lw_WAN()
     while 1:
       try:
-        if lw_websocket_loop() == _RESET_WIFI:
+        r = lw_websocket_loop()
+        if   r == _RESET_BOOT:
+          log("[WS] Resetting machine")
+          reset()
+        elif r == _RESET_WIFI:
           log("[WS] Resetting WiFi")
           free(); break
+        else:
+          raise Exception("Websocket loop exited for an unknown reason!")
       except OSError   as ε: dbg(f'[WS] Connection failed! Restarting in 5 seconds:',ε)
       except Exception as ε: dbg(f'[WS] Error in loop! Restarting in 5 seconds:',ε)
       frees(5)

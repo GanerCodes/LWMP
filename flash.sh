@@ -2,6 +2,7 @@
 { cd "${0%/*}"
 
 WRITE_BAUD_RATE="2000000"
+DEV_FS="$(realpath ./Device/ROM/Out)/onboard"
 DEVS=($(find /dev -regextype posix-extended -regex '.*/tty(ACM|USB).*'))
 
 [[ $1 == "--single" ]] && {
@@ -26,19 +27,15 @@ DEVS=($(find /dev -regextype posix-extended -regex '.*/tty(ACM|USB).*'))
                 0xD000 ota_data_initial.bin 0x10000 micropython.bin
         popd; };
     pushd ./Onboard
-      mpremote connect "${DEV}" fs rm       -r :/defaults/* || :
-      mpremote connect "${DEV}" fs rm       -r :/defaults/* || : # 1st mpremote command fails sometimes ∵ weird thread stuff happening on esp32
-      mpremote connect "${DEV}" fs cp compiled/*.mpy *.html :/
-      mpremote connect "${DEV}" fs cp       -r ./defaults/* :/
-      
+      mpremote connect "${DEV}" fs rm -r :/defaults/* || :
+      mpremote connect "${DEV}" fs rm -r :/defaults/* || : # 1st mpremote command fails sometimes ∵ weird thread stuff happening on esp32
+      mpremote connect "${DEV}" fs cp -r ${DEV_FS}/* :/
       [[ -n "$UUID" ]] && {
         tmp=$(mktemp)
-        echo "\"$UUID\"" >"$tmp"
-        mpremote connect "${DEV}" fs cp "$tmp" :/UUID
-        rm -f "$tmp"; }
-      mpremote connect "${DEV}" fs cp main._py :/main.py
+        echo "\"${UUID}\"" >"${tmp}"
+        mpremote connect "${DEV}" fs cp "${tmp}" :/UUID
+        rm -f "${tmp}"; }
       exec mpremote connect "${DEV}" run ./main._py; }
-
 
 FLASH_ROM=$([[ $1 == 'y' ]] && echo -n y || echo -n)
 BUILD_ROM=$([[ $2 == 'y' ]] && echo -n y || echo -n)
@@ -58,22 +55,23 @@ unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/expo
 
 N=0
 pushd ./Device
-  [[ -n "$BUILD_ROM" ]] && {
-      ./ROM/build.sh $([[ -n "$CLEAN_ROM" ]] && echo "-c") || bad=1; }
+  [[ -n "$BUILD_ROM" ]] && { ./ROM/build.sh $([[ -n "$CLEAN_ROM" ]] && echo "-c") || bad=1; }
   
   [[ -n "$bad" ]] || {
+    mkdir -p ${DEV_FS} || :
+    rm -r ${DEV_FS}/* || :
+    
+    cp "../VERSION" "${DEV_FS}/VER"
     pushd ./Onboard
-      mkdir -p compiled || :
+      cp -r Defaults/. "${DEV_FS}/"
+      cp main._py "${DEV_FS}/main.py"
       for f in *.py; do
-        mpy-cross -o "./compiled/${f%.py}.mpy" -march=xtensawin "./$f" &
+        mpy-cross -o "${DEV_FS}/${f%.py}.mpy" -march=xtensawin "./$f" &
         N=`expr $N + 1`
         done
       pushd ../Module_Dynamic
         export CFLAGS="-Wno-error=unused-variable -Wno-error=unused-function -Wno-error=parentheses -Wno-error=maybe-uninitialized"
-        make && {
-          cp *.mpy ../Onboard/compiled
-        } || { bad=1; }
-        
+        make && { cp *.mpy "${DEV_FS}/"; } || { bad=1; }
         popd
       popd; };
   

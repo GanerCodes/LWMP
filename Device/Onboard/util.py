@@ -31,23 +31,21 @@ def clamp(x,a,b):
 LED_ONBOARD = Pin(2)
 LED_ONBOARD.init(LED_ONBOARD.OUT)
 onboard_led = lambda s=1,_=LED_ONBOARD:_.value(int(bool(s)))
-ⴳ,ⴴ = True,False
-TRUE,FALSE = lambda *𝔸,**𝕂:True, lambda *𝔸,**𝕂:False
-HASH = lambda x,_=hash_: _(x).digest()
-ID = lambda *𝔸,**𝕂: 𝔸[0] if 𝔸 else None
-join = lambda x,sep=' ': ' '.join(map(str,x))
-boolstr = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
-thread = lambda f,*𝔸,_=start_new_thread,**𝕂: _(f,𝔸,𝕂)
-gen_id = lambda: hex(int(''.join(str(random())[2:] for i in range(3))))[2:10]
-mem_info = lambda a=mem_alloc,u=mem_free: (a(),u())
+TRUE,FALSE  = lambda *𝔸,**𝕂:True, lambda *𝔸,**𝕂:False
+HASH        = lambda x,_=hash_: _(x).digest()
+ID          = lambda *𝔸,**𝕂: 𝔸[0] if 𝔸 else None
+join        = lambda x,sep=' ': sep.join(map(str,x))
+boolstr     = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
+thread      = lambda f,*𝔸,_=start_new_thread,**𝕂: _(f,𝔸,𝕂)
+gen_id      = lambda: hex(int(''.join(str(random())[2:] for i in range(3))))[2:10]
+𝔍lf         = lambda f  : 𝔍l(read_file(f))
+𝔍wf         = lambda f,x: write_file(f,𝔍d(x))
+ls          = lambda f=".",g="*": list(𝐩(f).glob(g))
+rm          = lambda f: 𝐩(f).unlink()
+mem_info    = lambda a=mem_alloc,u=mem_free: (a(),u())
 def mem_perc():
   u,f = mem_info()
   return f"{int(u/(u+f)*100):02}%"
-
-𝔍lf = lambda f  : 𝔍l(read_file(f))
-𝔍wf = lambda f,x: write_file(f,𝔍d(x))
-ls = lambda f=".",g="*": list(𝐩(f).glob(g))
-rm = lambda f: 𝐩(f).unlink()
 def read_file(fn,m="r"):
   with open(str(fn),m) as f:
     return f.read()
@@ -68,53 +66,20 @@ def dbg(*𝔸,_=log,**𝕂):
     _("<<<<<<<")
   return v
 
-class Settings:
-  def __init__(𝕊,**𝕂):
-    super().__setattr__("X",{})
-    for k,v in 𝕂.items():
-      k = k.upper()
-      v,f = v if len(v)==2 else (v[0],str) if len(v) else (None,str)
-      
-      default = False
-      if 𝐩(k).is_file():
-        try:
-          v = f(𝔍lf(k))
-          default = True
-        except Exception as ε:
-          dbg(f'Error parsing file "{k}":',ε)
-      else:
-        dbg(f'File "{k}" not found.')
-      if not default:
-        v = v() if callable(v) else v
-        dbg(f'Using default value for "{k}"')
-      𝕊.X[k] = [v,f]
-  def __contains__(𝕊,k):
-    return k.upper() in 𝕊.X
-  def __getattr__(𝕊,k  ):
-    return 𝕊.X[k.upper()][0]
-  def __setattr__(𝕊,k,v):
-    k = k.upper()
-    v = 𝕊.X[k][0] = 𝕊.X[k][1](v)
-    𝔍wf(k,v)
-    return v
-  def __call__(𝕊,*𝔸):
-    if not 𝔸: raise Exception()
-    if not isinstance(𝔸[0],dict):
-      return tuple(𝕊.__getattr__(k) for k in 𝔸)
-    if not len(𝔸)==1: raise Exception()
-    for k,v in 𝔸[0].items():
-      𝕊[k] = v
-    return 𝕊
-  __getitem__ = __getattr__
-  __setitem__ = __setattr__
-  __repr__ = lambda 𝕊: "Settings⟨%s⟩"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
-
-class 𝔠: __getattr__ = lambda 𝕊,x: lambda *𝔸: {"_":[x]+𝔸}
-𝔠,𝔪 = 𝔠(),lambda x: x["_"]
-
 from ntp import *
 
 @micropython.native
 def frees(t=0,free=free,sleep=sleep): free();sleep(t)
+
+def parse_rgb_mode(mode):
+  if isinstance(mode,int):
+    return mode
+  if isinstance(mode,str):
+    if mode.isdigit():
+      return int(mode)
+    else:
+      mode = mode.upper()
+      mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
+  return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
 del LED_ONBOARD,stack_size,hash_,start_new_thread,mem_alloc,mem_free

@@ -18,7 +18,7 @@ def update_schedule(𝔏,scheg,fp="/schedule"):
   return check_schedule(𝔏,fp)
 
 class Scene_Manager:
-  def __init__(𝕊,dir="/scenes"):
+  def __init__(𝕊,dir="/Scenes"):
     𝕊.dir = 𝐩(dir)
   def __call__(𝕊,name=None):
     if name is not None:

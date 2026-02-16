@@ -99,7 +99,7 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
       if not (e := isinstance(v,BaseException)):
         t,RTT = v[1]-v[0],v[2]
       s = f"Failed to sync: {v}" if e else f"{fmt_date(get_date(t+sys_time_μ()))} (RTT={RTT/1_000_000})"
-      print(f"\t⟨{h}⟩ Trial #{i}: {s}")
+      print(f"  ⟨{h}⟩ Trial #{i}: {s}")
       if e: continue
       Δ.append((RTT,t))
   
@@ -108,8 +108,8 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   def show_Δ(v):
     X,Y = [x[0] for x in Δ],[x[1] for x in Δ]
     print(f"[NTP] [n={len(Δ)}] Statistics - {v}")
-    print(f"\tMid range: {(max(Y)-min(Y)) / 1_000_000}")
-    print(f"\tRTT range: {(max(X)-min(X)) / 1_000_000}")
+    print(f"  Mid range: {(max(Y)-min(Y)) / 1_000_000}")
+    print(f"  RTT range: {(max(X)-min(X)) / 1_000_000}")
   
   show_Δ("Initial")
   if cull_rtt := max(0, min(cull_rtt, len(Δ)   -1)):
@@ -123,9 +123,7 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   
   off = sum(t for _,t in Δ)//len(Δ)
   r = (t := sys_time_μ()) + off
-  ΔΔ = 0
-  if last_ntp[0] is not None:
-    ΔΔ = off - (last_ntp[1]-last_ntp[0])
+  ΔΔ = off-(last_ntp[1]-last_ntp[0]) if (last_ntp[0] is not None) else 0
   last_ntp[:] = [t,r]
   print(f"[NTP] Got time: ⟨{fmt_date(get_date(r))}⟩ ({r})")
   return r,ΔΔ
