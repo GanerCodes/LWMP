@@ -1,5 +1,5 @@
 from util   import *
-from consts import *
+from consts import leds,lstk
 
 Seg = namedtuple("Seg", ["σ","Σ","d","m","r0","rΔ"])
 class Node:

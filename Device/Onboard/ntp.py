@@ -1,7 +1,7 @@
 from machine import RTC
 
-from consts  import *
 from util    import *
+from consts  import last_ntp
 from lw_ntp  import ntp_raw,micros as μs
 
 S_PER_D  = const(60*60*24          )
@@ -70,7 +70,6 @@ def ntp_single(host=None,timeout=10):
   if host is None: host=choice(NTP_HOSTS)
   
   T0,T3,DAT = ntp_raw(host,timeout or -1)
-  log(T0,T3,DAT)
   if T0 == -1: raise Exception(f"[NTP] ⟨{host}⟩: ntp_raw failed")
 
   T1_s,T1_μ,T2_s,T2_μ = unpack('!IIII',DAT[32:48])

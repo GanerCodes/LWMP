@@ -3,11 +3,11 @@ from machine       import bitstream
 from heapq         import heappush as h_add,heappop as h_pop
 from math          import exp,ceil
 
-from consts        import *
 from util          import *
-from interface     import *
-from lightwave     import *
-from scene_manager import *
+from consts        import ref_hold,lstk_ptr,leds_ptr,last_ntp,𝕒_ptr
+from interface     import specify_mode
+from lightwave     import assign_leds
+from scene_manager import Scene_Cacher
 
 _LOOP_NONE   = const(0)
 _LOOP_TIGHT  = const(1)

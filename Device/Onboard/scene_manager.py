@@ -1,8 +1,9 @@
-from util      import *
-from interface import *
 from os        import stat
 
-scene_check = [None]
+from util      import *
+from interface import encode_mode
+from consts    import scene_check
+
 def get_scheg(fp="/schedule"):
   return 𝔍lf(fp) if path_exists(fp) else None
 def check_scheg(𝔏,fp="/schedule"):

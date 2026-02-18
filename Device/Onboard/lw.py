@@ -1,11 +1,9 @@
-from consts        import *
+from wifi          import AP_with_DNS
+from settings      import ℭ,wifi_from_ℭ
+from ws_client     import WS_Client
+from controller    import Controller,controller_check_ntp
+from scene_manager import get_scheg,check_scheg,update_scheg,Scene_Manager
 from util          import *
-from wifi          import *
-from settings      import *
-from ws_client     import *
-from interface     import *
-from controller    import *
-from scene_manager import *
 
 _RESET_NO   = const(0)
 _RESET_WS   = const(1)
