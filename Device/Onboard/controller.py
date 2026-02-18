@@ -1,3 +1,9 @@
+from uctypes       import addressof as Ѧ
+from machine       import bitstream
+from heapq         import heappush as h_add,heappop as h_pop
+from math          import exp,ceil
+
+from consts        import *
 from util          import *
 from interface     import *
 from lightwave     import *
@@ -6,18 +12,19 @@ from scene_manager import *
 _LOOP_NONE   = const(0)
 _LOOP_TIGHT  = const(1)
 _LOOP_UPDATE = const(2)
+_LOG_INTRV_MS     = const(30_000)
+_FREE_INTRV_MS    = const(250)
+_FREE_INTRV_FRAME = const(30)
+_NTP_REFRESH_TIME_μs = const(15*60*1_000_000)
 
 Activation = namedtuple("Activation",["Ta","Ts","s","d"])
 
-leds_ptr = Ѧ(leds     := b'\0'*3*2048   )
-𝕒_ptr    = Ѧ(𝕒_static := bytearray(4*11))
-ref_hold = []
 @micropython.native
 def set_𝕒(hw,mode,arg_fmt=len(𝕒_static)//4*'i'):
-  (pin,order,reverse,timing),(((S,S_len,atoms,atoms_len,fades,stk),(l,h)),targΔ) = hw,mode
-  𝕒_static[:] = pack(arg_fmt,Ѧ(S),S_len,Ѧ(atoms),atoms_len,Ѧ(fades),Ѧ(stk),leds_ptr,order,reverse,l,h)
+  (pin,order,reverse,timing),(((S,S_len,atoms,atoms_len,fades),(l,h)),targΔ) = hw,mode
+  𝕒_static[:] = pack(arg_fmt,Ѧ(S),S_len,Ѧ(atoms),atoms_len,Ѧ(fades),lstk_ptr,leds_ptr,order,reverse,l,h)
   ledv = memoryview(leds)[:3*(h-l)]
-  ref_hold[:] = S,atoms,fades,stk
+  ref_hold[:] = S,atoms,fades
   log(f"[Controller] Configured mode with {l}󷸻{h} ({targΔ=})")
   return pin,timing,ledv,targΔ
 @micropython.native
@@ -39,7 +46,7 @@ class Controller:
     W = week_start(1000*MS())//1000
     log(f'[Controller] Loading default scene "{s}"')
     return Activation(W,W,𝕊.scenes[s],inf)
-    
+  
   def configure(𝕊,pin=23,order=(0,1,2),reverse=False,timing=(400,850,800,450)):
     if isinstance(timing,str): timing = tuple(map(int,timing.strip().split()))
     log(f"[Controller] Configuring HW: {pin=} {order=} {reverse=} {timing=}")
@@ -47,7 +54,7 @@ class Controller:
     𝕊.dmode = pin,parse_rgb_mode(order),bool(reverse),tuple(timing)
     𝕊.lstate = _LOOP_UPDATE
     return 𝕊
-
+  
   def get_Δ(𝕊,ν):
     M,m = MS(),ms()
     Δ = M-ν.Ts-m
@@ -78,7 +85,7 @@ class Controller:
       # 𝕊.update_to_que()
     𝕊.lstate = _LOOP_UPDATE
   
-  def update_schedule(𝕊,schedule,reset=False,cache=set()):
+  def update_scheg(𝕊,schedule,reset=False,cache=set()):
     # https://www.desmos.com/calculator/0w2tpi3lci
     # also theoretically this has offset bugs with extremely specific conditions (submitting schedule like within seconds of it activating)
     𝔛 = 𝕊.𝔖
@@ -89,7 +96,7 @@ class Controller:
       𝔛[:] = [] # 󰤱
       frees()
     
-    now = time_μ()
+    now = μS()
     d,W = get_date(now),week_start(now)//1_000_000
     now //= 1_000_000
     # log(f"Now={fmt_date(1_000_000*now)} Week={fmt_date(1_000_000*W)}")
@@ -97,16 +104,17 @@ class Controller:
     T = now-W
     for i,(Δ,(s,q,d)) in enumerate(𝔊):
       assert not q, "󰤱"
-      if (Δ-T)%s_per_w > s_per_d: continue
-      A = 1000*(W + Δ + (Δ<T)*s_per_w)
+      if (Δ-T)%S_PER_W > S_PER_D: continue
+      A = 1000*(W + Δ + (Δ<T)*S_PER_W)
       if A in cache: continue
       cache.add(A)
-      d = min(ms_per_w if d in (None,-1,0) else d,
-              ((1000*(𝔊[(i+1)%len(𝔊)][0] - Δ)) - 1)%ms_per_w + 1)
+      d = min(MS_PER_W if d in (None,-1,0) else d,
+              ((1000*(𝔊[(i+1)%len(𝔊)][0] - Δ)) - 1)%MS_PER_W + 1)
       log(f'[Controller] Scheduled: "{s}" @ ⟨{fmt_date(1000*A)}⟩ (W=⟨{fmt_date(1000*W)}⟩) for ⟨{fmt_dur(1000*d)}⟩')
       h_add(𝔛,Activation(A,A,𝕊.scenes[s],d))
     return True
   
+  # @micropython.native
   def update_to_que(𝕊):
     M = MS()
     for i,𝚇 in enumerate((𝕊.𝔖,𝕊.𝔔)):
@@ -117,10 +125,12 @@ class Controller:
         if M>=ν.Ta+ν.d: continue
         𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
         log(f"[Controller] Setting from {"𝔖𝔔"[i]} at ⟨{fmt_date(1000*M)}⟩: ({fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s)")
+        frees()
         return True
     if 𝕊.mode is None or M>=𝕊.mode.Ta+𝕊.mode.d:
       if ν := 𝕊.load_def_scene():
         𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
+        free()
         return True
   
   def get_wait_hwconf(𝕊):
@@ -138,11 +148,8 @@ class Controller:
       if r := specify_mode(*𝕊.mode.s,𝕊.ℭ):
         return r,𝕊.Δ
   
-  @micropython.native
+  # @micropython.native
   def loop(𝕊,leds=leds,set_𝕒=set_𝕒,𝕒_ptr=𝕒_ptr):
-    _log_intrv_ms     = const(30_000)
-    _free_intrv_ms    = const(250)
-    _free_intrv_frame = const(30)
     while 𝕊.lstate:
       try:
         𝕊.lstate = _LOOP_TIGHT
@@ -164,13 +171,12 @@ class Controller:
           tq,tr = divmod(t,1000)
           assign_leds(𝕒_ptr,tq+tr*0.001)
           bitstream(pin,0,timing,ledv)
-          # if n%10: print(1,end='')
           
           if 𝕊.update_to_que(): break
-          if (n:=n+1)%_free_intrv_frame and dt_ms(m,free_ts)<_free_intrv_ms: continue
-          if (δ_log := dt_ms(free_ts:=ms(),log_ts)) >= _log_intrv_ms:
+          if (n:=n+1)%_FREE_INTRV_FRAME and dt_ms(m,free_ts)<_FREE_INTRV_MS: continue
+          if (δ_log := dt_ms(free_ts:=ms(),log_ts)) >= _LOG_INTRV_MS:
             FPS = (n-log_n)/(δ_log or 10**-5)*1000
-            log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"
+            log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {fs_perc()} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"
                 f"  {fmt_date()} (Ntp=⟨{fmt_date(last_ntp[1] or 0)}⟩ @ ⟨{fmt_dur(last_ntp[0] or 0)}⟩)\n"
                 f"  Ta=⟨{fmt_date(1000*𝕊.mode.Ta)}⟩ Ts=⟨{fmt_date(1000*𝕊.mode.Ts)}⟩ d=⟨{fmt_dur(1000*𝕊.mode.d)}⟩")
             log_n,log_ts = n,free_ts
@@ -182,4 +188,15 @@ class Controller:
         dbg(f"[Controller] Error in LED loop! Restarting in 3 seconds:",ε)
         frees(3)
 
-__all__ = "Controller",
+def controller_check_ntp(𝔏,force=False):
+  t = μs()
+  if not force and last_ntp[0] is not None and t <= last_ntp[0] + _NTP_REFRESH_TIME_μs: return
+  log(f"[Controller] Starting NTP sync")
+  T,ΔΔ = ntp()
+  ΔΔ //= 1000
+  prevΔ = 𝔏.Δ
+  𝔏.Δ += ΔΔ
+  log(f"[Controller] Updating Δ from NTP drift {prevΔ}→{𝔏.Δ}")
+  return T,ΔΔ
+
+__all__ = "Controller","controller_check_ntp"

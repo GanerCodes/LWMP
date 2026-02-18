@@ -1,7 +1,7 @@
 󰈙.body􍪙(
     itemGridEditable(
         ⥌gen↦gen(‹joe›),
-        ⥌x,rem↦[󱀝 {𝑆 ⦅𝚠; 𝚏TB⦆} [
+        ⥌x,rem↦[󱀝 {𝑆 ⦅𝚠;𝚏↓⦆} [
                   󱀝 txt ‹⟦x⟧›],
                 barButton(‹/Assets/trash.svg›, {onclick: rem})],
         󰲡☾(‹Removing ⟦x⟧›),

@@ -1,3 +1,4 @@
+from consts        import *
 from util          import *
 from wifi          import *
 from settings      import *
@@ -11,34 +12,31 @@ _RESET_WS   = const(1)
 _RESET_WIFI = const(2)
 _RESET_BOOT = const(3)
 
-_NTP_REFRESH_TIME = const(15*60*1_000_000)
-
 for i in range(10): # blinky at boots
   onboard_led(~i%2)
   sleep(0.05)
+del i
 
-log(f"[LW] Starting with Settings={ℭ}")
+log(f"[LW] Starting with Settings={ℭ}");
 𝔐 = Scene_Manager()
 𝔏 = Controller(ℭ,𝔐)
 thread(𝔏.loop)
 
+# @micropython.native
+# def bruh():
+#   while 1:
+#     frees(0.05)
+# thread(bruh)
+
 update_LED_HW = lambda: 𝔏.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
 update_LED_HW()
-
-def lw_NTP():
-  T,ΔΔ = ntp()
-  ΔΔ //= 1000
-  prevΔ = 𝔏.Δ
-  𝔏.Δ += ΔΔ
-  log(f"[LW] Updating controller Δ {prevΔ}→{𝔏.Δ}")
-  return T,ΔΔ
 
 def lw_WAN():
   try:
     wifi_from_ℭ(ℭ)
-    lw_NTP()
+    controller_check_ntp(𝔏,True)
     𝔏()
-    check_schedule(𝔏)
+    check_scheg(𝔏)
     free()
   except Exception as ε:
     dbg(f'[LW] Could not connect to WiFi:',ε)
@@ -89,33 +87,34 @@ def handle_API(𝐦,d=None):
   elif 𝐦=="Del_scene"    : return _RESET_NO,𝔐.__delitem__(d)
   elif 𝐦=="Push_scenes"  : return _RESET_NO,𝔐.bulk_save(d)
   elif 𝐦=="Pull_scenes"  : return _RESET_NO,𝔐.bulk_dump()
-  elif 𝐦=="Set_schedule" : return _RESET_NO,update_schedule(𝔏,d)
-  elif 𝐦=="Pull_schedule": return _RESET_NO,get_schedule()
+  elif 𝐦=="Set_schedule" : return _RESET_NO,update_scheg(𝔏,d)
+  elif 𝐦=="Pull_schedule": return _RESET_NO,get_scheg()
   elif 𝐦=="Sync":
     try:
-      r = 𝔍d(lw_NTP())
+      r = 𝔍d(controller_check_ntp(𝔏,True))
     except Exception as ε:
       log("[API] NTP Sync failed!",ε)
       r = False
     return _RESET_NO,str(r)
   return _RESET_NO,False
 
+def lw_check_periodics():
+  controller_check_ntp(𝔏)
+  check_scheg(𝔏)
+  frees(0.05)
+
 def lw_websocket_loop():
+  lw_check_periodics()
   ꭐ = WS_Client(ℭ.WS_URL)
   log("[WS] Connected.")
   ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER VER".split()})
   free()
   while 1:
     if (w:=ꭐ()) is None:
-      t = sys_time_μ()
-      if t >= last_ntp[0] + _NTP_REFRESH_TIME: # every 15 minutes
-        lw_NTP()
-      check_schedule(𝔏)
-      frees(0.05)
+      lw_check_periodics()
       continue
     i,cmd = w
     cmd = 𝔍l(cmd)
-    # log(f"Got WS Command {i.hex()}: {cmd}")
     try:
       con,resp = handle_API(*cmd['_'])
     except Exception as ε:

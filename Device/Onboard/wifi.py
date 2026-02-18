@@ -1,4 +1,6 @@
-from util   import *
+import socket,select
+from network import WLAN,STA_IF,AP_IF
+from util    import *
 
 def wifi_connect(router_ssid,router_pass,retries=30):
   log(f'[WiFi] Connecting to wifi: SSID="{router_ssid}" Pass="{router_pass}"')

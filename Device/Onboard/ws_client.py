@@ -1,27 +1,30 @@
 # https://github.com/danni/uwebsockets
 
-from util import *
+import micropython
 
-OP_CONT  = const(0x0)
-OP_TEXT  = const(0x1)
-OP_BYTES = const(0x2)
-OP_CLOSE = const(0x8)
-OP_PING  = const(0x9)
-OP_PONG  = const(0xa)
-CLOSE_OK                 = const(1000)
-CLOSE_GOING_AWAY         = const(1001)
-CLOSE_PROTOCOL_ERROR     = const(1002)
-CLOSE_DATA_NOT_SUPPORTED = const(1003)
-CLOSE_BAD_DATA           = const(1007)
-CLOSE_POLICY_VIOLATION   = const(1008)
-CLOSE_TOO_BIG            = const(1009)
-CLOSE_MISSING_EXTN       = const(1010)
-CLOSE_BAD_CONDITION      = const(1011)
+import socket,select,errno,sys,ssl,re
+from binascii import b2a_base64
+from consts   import *
+from util     import *
+
+_OP_CONT  = const(0x0)
+_OP_TEXT  = const(0x1)
+_OP_BYTES = const(0x2)
+_OP_CLOSE = const(0x8)
+_OP_PING  = const(0x9)
+_OP_PONG  = const(0xa)
+_CLOSE_OK                 = const(1000)
+_CLOSE_GOING_AWAY         = const(1001)
+_CLOSE_PROTOCOL_ERROR     = const(1002)
+_CLOSE_DATA_NOT_SUPPORTED = const(1003)
+_CLOSE_BAD_DATA           = const(1007)
+_CLOSE_POLICY_VIOLATION   = const(1008)
+_CLOSE_TOO_BIG            = const(1009)
+_CLOSE_MISSING_EXTN       = const(1010)
+_CLOSE_BAD_CONDITION      = const(1011)
 
 URI = namedtuple('URI',('proto','host','port','path'))
-URL_RE = re.compile(r'(wss|ws)://([A-Za-z0-9-\._]+)(?:\:([0-9]+))?(/.+)?')
-
-def urlparse(uri):
+def urlparse(uri,URL_RE=re.compile(r'(wss|ws)://([A-Za-z0-9-\._]+)(?:\:([0-9]+))?(/.+)?')):
   P = (M := URL_RE.match(uri)).group(1)
   return URI(P, M.group(2), int(M.group(3) or ((80,433)[P=='wss'])), M.group(4))
 
@@ -29,15 +32,29 @@ class NoDataException (Exception): pass
 class ConnectionClosed(Exception): pass
 class WebsocketClient:
   def __init__(𝕊,uri):
-    𝕊.open,𝕊.rxbuf = True,bytearray()
+    𝕊.open = True
     uri = urlparse(uri)
     𝕊.sock = socket.socket()
     𝕊.sock.connect(socket.getaddrinfo(uri.host,uri.port)[0][4])
     𝕊.sock.setblocking(True)
-    if uri.proto=='wss': 
-      # mfw this doesn't even work when GC: total: 112000, used: 39520, free: 72480, max new split: 30720 ; No. of 1-blocks: 402, 2-blocks: 120, max blk sz: 157, max free sz: 3343 # "free()"; micropython.mem_info()
-      # 𝕊.sock = ssl.wrap_socket(𝕊.sock,server_hostname=uri.host,server_side=False,cert_reqs=0)
-      pass
+    if uri.proto=='wss':
+      # from time import localtime
+      # from machine import RTC
+      # log(f"the {localtime()=} {RTC().datetime()=} {μs()=}")
+      # del localtime,RTC
+      # micropython.mem_info(1)
+      # cln=':'; log(f'[WS] >> SSL ({join(mem_info(),cln)}) {mem_perc()}'); del cln; free()
+      free()
+      ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+      ctx.check_hostname = True
+      ctx.verify_mode    = ssl.CERT_REQUIRED
+      ctx.load_verify_locations(cafile="CERT")
+      𝕊.sock = ctx.wrap_socket(𝕊.sock, server_hostname=uri.host)
+      free()
+      # cln=':'; log(f'[WS] << SSL ({join(mem_info(),cln)}) {mem_perc()}'); del cln; free()
+      # micropython.mem_info(1)
+    
+    𝕊.buf = bytearray()
 
     def send_header(h):
       dat = h.encode("utf-8")+b"\r\n"
@@ -56,7 +73,7 @@ class WebsocketClient:
     𝕊.poller = select.poll()
     𝕊.poller.register(𝕊.sock,select.POLLIN)
   def read_frame(𝕊,max_size=None):
-    buf = 𝕊.rxbuf
+    buf = 𝕊.buf
     try:
       while True:
         c = 𝕊.sock.read(512)
@@ -66,7 +83,7 @@ class WebsocketClient:
         free()
       # log(f"WS Message: {c.hex()}")
     except OSError as ε:
-      if ε.args[0] != EAGAIN:
+      if ε.args[0] != errno.EAGAIN:
         raise 𝕊._close(f"Socket error: {ε}")
     
     p = 0
@@ -104,14 +121,14 @@ class WebsocketClient:
       except ValueError:
         raise 𝕊._close("WS Connection closed unexpectedly")
       if not fin: raise NotImplementedError()
-      if   opcode==OP_TEXT : return data # .decode('utf-8')
-      elif opcode==OP_BYTES: return data
-      elif opcode==OP_CLOSE: raise 𝕊._close("WS Connection closed.")
-      elif opcode==OP_PING :
-        𝕊.write_frame(OP_PONG,data)
+      if   opcode==_OP_TEXT : return data # .decode('utf-8')
+      elif opcode==_OP_BYTES: return data
+      elif opcode==_OP_CLOSE: raise 𝕊._close("WS Connection closed.")
+      elif opcode==_OP_PING :
+        𝕊.write_frame(_OP_PONG,data)
         continue
-      elif opcode==OP_PONG: continue
-      elif opcode==OP_CONT: raise NotImplementedError(opcode)
+      elif opcode==_OP_PONG: continue
+      elif opcode==_OP_CONT: raise NotImplementedError(opcode)
       else                :
         log(f'UNKNOWN WS RECV! {opcode=} {data=}')
         raise ValueError(opcode)
@@ -136,9 +153,9 @@ class WebsocketClient:
         if dt_ms(s)>=t: return None
         frees()
   
-  def close(𝕊,code=CLOSE_OK,reason=''):
+  def close(𝕊,code=_CLOSE_OK,reason=''):
     if not 𝕊.open: return
-    𝕊.write_frame(OP_CLOSE, pack('!H',code)+reason.encode('utf-8'))
+    𝕊.write_frame(_OP_CLOSE, pack('!H',code)+reason.encode('utf-8'))
     𝕊._close()
   def _close(𝕊,E=None):
     𝕊.open = False
@@ -147,17 +164,15 @@ class WebsocketClient:
 
 class WS_Client:
   def __init__(𝕊,uri,t=None):
-    𝕊.ws = WebsocketClient(uri)
-    𝕊.recv_timeout = t
-  close = lambda 𝕊: 𝕊.ws.close()
-  
+    𝕊.ws,𝕊.recv_timeout = WebsocketClient(uri),t
   def read(𝕊):
     r = 𝕊.ws.recv_timeout(𝕊.recv_timeout)
     if r is not None: return r[:6],r[6:]
   def write(𝕊,i,b):
     if isinstance(i,int): i = int.to_bytes(i,6,"big")
-    𝕊.ws.write_frame(OP_BYTES,i+b)
-  
+    𝕊.ws.write_frame(_OP_BYTES,i+b)
+  def close(𝕊):
+    return 𝕊.ws.close()
   def __call__(𝕊,𝑿=None,i=0,**𝕂):
     if not 𝕊.ws.open:
       raise ConnectionClosed()

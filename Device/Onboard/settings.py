@@ -9,7 +9,7 @@ class Settings:
       v,f = v if len(v)==2 else (v[0],str) if len(v) else (None,str)
       
       default = False
-      if 𝐩(k).is_file():
+      if path_exists(k):
         try:
           v = f(𝔍lf(k))
           default = True
@@ -21,6 +21,7 @@ class Settings:
         v = v() if callable(v) else v
         dbg(f'[Settings] Using default value for "{k}"')
       𝕊.X[k] = [v,f]
+      free()
   def __contains__(𝕊,k):
     return k.upper() in 𝕊.X
   def __getattr__(𝕊,k  ):
@@ -28,6 +29,7 @@ class Settings:
   def __setattr__(𝕊,k,v):
     k = k.upper()
     v = 𝕊.X[k][0] = 𝕊.X[k][1](v)
+    free()
     𝔍wf(k,v)
     return v
   def __call__(𝕊,*𝔸):
@@ -40,20 +42,20 @@ class Settings:
   __setitem__ = __setattr__
   __repr__ = lambda 𝕊: "⟨%s⟩"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
 
-ℭ = Settings(WS_URL     =("ws://brynic_led_test.ganer.xyz:2095"    ,        ),
-             UPDATE_URL =("http://brynic_led_test.ganer.xyz/update",        ),
-             UUID       =(gen_id                                   ,        ),
-             TOKEN      =(                                                  ),
-             NAME       =(                                                  ),
-             R_SSID     =(                                                  ),
-             R_PASS     =(                                                  ),
-             LEDP       =(23                                       , int    ),
-             LEDC       =(300                                      , int    ),
-             REVERSE    =(False                                    , boolstr),
-             BIT_TIMING =("400 850 800 450"                        ,        ),
-             RGB_ORDER  =("RGB"                                    ,        ),
-             DEF_SCENE  =("_default"                               ,        ),
-             VER        =("1"                                      ,        ))
+ℭ = Settings(WS_URL     =("wss://brynic_led_test.ganer.xyz:2096"    ,        ),
+             UPDATE_URL =("https://brynic_led_test.ganer.xyz/update",        ),
+             UUID       =(gen_id                                    ,        ),
+             TOKEN      =(                                                   ),
+             NAME       =(                                                   ),
+             R_SSID     =(                                                   ),
+             R_PASS     =(                                                   ),
+             LEDP       =(23                                        , int    ),
+             LEDC       =(300                                       , int    ),
+             REVERSE    =(False                                     , boolstr),
+             BIT_TIMING =("400 850 800 450"                         ,        ),
+             RGB_ORDER  =("RGB"                                     ,        ),
+             DEF_SCENE  =("_default"                                ,        ),
+             VER        =("1"                                       ,        ))
 if not ℭ.name: ℭ.name = ℭ.UUID
 ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 

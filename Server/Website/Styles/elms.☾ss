@@ -1,21 +1,21 @@
 * ∣ 𝚃 background-color 0.2s ease
 
-body ∣ 𝚝𝚊c
+body ∣ 𝚝𝚊󷷣
 
-.«hbar bigButton» ∣ 𝚏; 𝚠; 𝚖0; 𝚊𝙿c; 𝚊𝚜c
-.«hbar bigButton»:hover  ∣ 𝚌𝚋 #111; 𝚖𝚙 pointer
-.«hbar bigButton»:active ∣ 𝚌𝚋 #222
+.«hbar bigButton» ∣ 𝚠;𝚖0;𝚊𝙿󷷣;𝚊𝚂󷷣
+.«hbar bigButton»:hover  ∣ 𝚋 #111; 𝚖𝚙 pointer
+.«hbar bigButton»:active ∣ 𝚋 #222
 
-.hbar ∣ 𝚑 50px; 𝚖𝚝a
-        𝚋𝚝 2px solid #EEE
-.hbar>img ∣ 𝚊𝚛 1; 𝚑34
+.hbar ∣ 𝚑 50px; 𝚖↑a
+        𝚋↑ 2px solid #EEE
+.hbar>img ∣ 𝚊𝚛 1; 𝚑¾
 
-.bigButton     ∣ 𝚑; 𝚏TB
-.bigButton>img ∣ 𝚠34; 𝚑34
+.bigButton     ∣ 𝚑; 𝚏↓
+.bigButton>img ∣ 𝚠¾; 𝚑¾
 
-.itemGrid ∣ 𝚍 grid; 𝚊𝙿c; 𝚐 20px
+.itemGrid ∣ 𝚍 grid; 𝚊𝙿󷷣; 𝚐 20px
             grid-template-columns repeat(auto-fill,300px)
-.itemGridItem ∣ 𝚏TB
+.itemGridItem ∣ 𝚏↓
                 𝚠≤ 300px; 𝚠 300px; 𝚠≥ 300px
                 𝚑≤ 300px; 𝚠 300px; 𝚑≥ 300px
                 𝚋 2px solid #EEE; 𝚋𝚛 10px

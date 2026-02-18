@@ -5,10 +5,11 @@ body {
     text-align: center;
 }
 .hbar, .bigButton {
-    display: flex;
     width: 100%;
     margin: 0px;
+    display: flex;
     justify-content: center;
+    display: flex;
     align-items: center;
 }
 .hbar:hover, .bigButton:hover {
@@ -38,6 +39,7 @@ body {
 }
 .itemGrid {
     display: grid;
+    display: flex;
     justify-content: center;
     gap: 20px;
     grid-template-columns: repeat(auto-fill,300px);

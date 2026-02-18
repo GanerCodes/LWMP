@@ -1,32 +1,35 @@
-import socket
-from time   import ticks_diff,sleep,time_ns,ticks_ms as ms
-from util   import unpack,sample,choice,inf
-from lw_ntp import ntp_raw
+from machine import RTC
 
-NTP_HOSTS = """time.cloudflare.com time.google.com time.apple.com time.aws.com""".split()
+from consts  import *
+from util    import *
+from lw_ntp  import ntp_raw,micros as μs
 
-last_ntp = [None]*2
+S_PER_D  = const(60*60*24          )
+S_PER_W  = const(60*60*24*7        )
+ΜS_PER_D = const(60*60*24  *1000   )
+MS_PER_W = const(60*60*24*7*1000   )
+μS_PER_D = const(60*60*24  *1000000)
+_μS_70Y = const(2_208_988_800_000_000)
+
 @micropython.native
-def sys_time_μ(*,time_ns=time_ns): return time_ns()//1000
+def ms(*,μs=μs): return μs()//1000
 @micropython.native
-def time_μ(*,last_ntp=last_ntp,sys_time_μ=sys_time_μ):
-  if last_ntp[0] is None: return sys_time_μ()
-  o,T = last_ntp
-  return sys_time_μ()-o+T
+def μS(*,S=last_ntp,μs=μs):
+  if S[0] is None: return μs()
+  o,T = S
+  return μs()-o+T
 @micropython.native
-def MS(*,time_μ=time_μ): return time_μ()//1000
+def MS(*,μS=μS): return μS()//1000
 @micropython.native
 def week_start(μ=None):
-  if μ is None: μ = time_μ()
-  DAY_μ = 86_400_000_000
-  d = μ // DAY_μ
-  wd = (d+4)%7
-  return (d-wd) * DAY_μ
+  if μ is None: μ = μS()
+  μ //= μS_PER_D
+  return (μ-((μ+4)%7)) * μS_PER_D
 @micropython.native
-def is_leap(x): return not x%4 and (x%100 or not x%400)
+def is_leap(x): return x%4==0 and (x%100 or not x%400)
 @micropython.native
 def get_date(μ=None,dm=divmod):
-  if μ is None: μ = time_μ()
+  if μ is None: μ = μS()
   s,μ = dm(μ,1_000_000)
   m,s = dm(s,60)
   h,m = dm(m,60)
@@ -67,20 +70,19 @@ def ntp_single(host=None,timeout=10):
   if host is None: host=choice(NTP_HOSTS)
   
   T0,T3,DAT = ntp_raw(host,timeout or -1)
+  log(T0,T3,DAT)
   if T0 == -1: raise Exception(f"[NTP] ⟨{host}⟩: ntp_raw failed")
 
-  T1_s,T1_μ,T2_s,T2_μ = unpack('!IIII', DAT[32:48])
+  T1_s,T1_μ,T2_s,T2_μ = unpack('!IIII',DAT[32:48])
   if  DAT[0]     & 0b00000111 != 4: raise Exception(f"[NTP] ⟨{host}⟩: Invalid packet due to bad mode")
   if (DAT[0]>>6) & 0b00000011  > 2: raise Exception(f"[NTP] ⟨{host}⟩: Invalid packet due to bad leap")
   if not (1 <= DAT[1] <= 15)      : raise Exception(f"[NTP] ⟨{host}⟩: Invalid packet due to bad stratum")
   if not (T2_s and T1_s)          : raise Exception(f"[NTP] ⟨{host}⟩: Invalid packet")
   T1 = 1_000_000*T1_s + (1_000_000*T1_μ >> 32)
   T2 = 1_000_000*T2_s + (1_000_000*T2_μ >> 32)
-  θ = ((T1-T0)+(T2-T3))//2 - 2_208_988_800_000_000
-  δ = (T3-T0) - (T2-T1)
-  return T3, T3+θ, δ
-  # δ = (RTT := T3-T0) - (T2-T1)
-  # return T3, T2 - (2_208_988_800_000_000 + δ//2), RTT
+  θ = ((T1-T0)+(T2-T3))//2 - _μS_70Y
+  δ =  (T3-T0)-(T2-T1)
+  return T3, T3+θ, δ # subtract δ//2 from ret[0]?
 @micropython.native
 def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   if isinstance(hosts,int): hosts = sample(NTP_HOSTS,hosts)
@@ -98,7 +100,7 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
     for i,v in enumerate(V):
       if not (e := isinstance(v,BaseException)):
         t,RTT = v[1]-v[0],v[2]
-      s = f"Failed to sync: {v}" if e else f"{fmt_date(get_date(t+sys_time_μ()))} (RTT={RTT/1_000_000})"
+      s = f"Failed to sync: {v}" if e else f"{fmt_date(get_date(t+μs()))} (RTT={RTT/1_000_000})"
       print(f"  ⟨{h}⟩ Trial #{i}: {s}")
       if e: continue
       Δ.append((RTT,t))
@@ -122,28 +124,21 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
     show_Δ("Avg Cull")
   
   off = sum(t for _,t in Δ)//len(Δ)
-  r = (t := sys_time_μ()) + off
+  r = (t := μs()) + off
   ΔΔ = off-(last_ntp[1]-last_ntp[0]) if (last_ntp[0] is not None) else 0
   last_ntp[:] = [t,r]
-  print(f"[NTP] Got time: ⟨{fmt_date(get_date(r))}⟩ ({r})")
+  print(f"[NTP] Got time: {r}⟨{fmt_date(get_date(r))}⟩ @ {t}⟨{fmt_dur(t)}⟩")
+  # d = get_date(r); RTC().init((d[0],d[1],d[2],d[4],d[5],d[6],d[7],0))
   return r,ΔΔ
 
-s_per_w = (s_per_d := 60*60*24)*7
-ms_per_w = s_per_w*1000
-μs_per_d = s_per_d*1000000
+__all__ = "S_PER_D","S_PER_W","MS_PER_W","ΜS_PER_D","fmt_date","fmt_dur","week_start", \
+          "get_date","μs","ms","μS","MS","last_ntp","ntp"
 
-@micropython.native
-def dt_ms(x,y=None): return ticks_diff(*(ms(),x) if y is None else (x,y))
-
-__all__ = "s_per_d","s_per_w","ms_per_w","μs_per_d","fmt_date","fmt_dur","week_start", \
-          "sys_time_μ","time_μ","get_date","MS","last_ntp","ntp_single","ntp",\
-          "sleep","ms","dt_ms"
-
-if __name__ == "__main__":
-  T = get_date(t := ntp())
-  W = get_date(w := week_start(t))
-  print(f"{t} ⇒ {fmt_date(T)}")
-  print(f"{w} ⇒ {fmt_date(W)}")
-  while 1:
-    print(fmt_date())
-    sleep(1)
+# if __name__ == "__main__":
+#   T = get_date(t := ntp())
+#   W = get_date(w := week_start(t))
+#   print(f"{t} ⇒ {fmt_date(T)}")
+#   print(f"{w} ⇒ {fmt_date(W)}")
+#   while 1:
+#     print(fmt_date())
+#     sleep(1)

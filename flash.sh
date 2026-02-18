@@ -64,6 +64,7 @@ pushd ./Device
     cp "../VERSION" "${DEV_FS}/VER"
     pushd ./Onboard
       cp -r Defaults/. "${DEV_FS}/"
+      cp *.html "${DEV_FS}/"
       cp main._py "${DEV_FS}/main.py"
       for f in *.py; do
         mpy-cross -o "${DEV_FS}/${f%.py}.mpy" -march=xtensawin "./$f" &

@@ -20,6 +20,11 @@ pushd ../Micropython
     { cat "$B"; echo "";
       echo "CONFIG_PARTITION_TABLE_CUSTOM=y"
       echo "CONFIG_PARTITION_TABLE_CUSTOM_FILENAME=\"${PARTITIONS}\""
+      echo "CONFIG_MBEDTLS_MPI_MAX_SIZE=256"
+      echo "CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=4096"
+      echo "CONFIG_MBEDTLS_SSL_IN_CONTENT_LEN=4096"
+      echo "CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=4096"
+      echo "CONFIG_MBEDTLS_SSL_SESSION_CACHE_SIZE=1"
     } > "$T"
     
     { echo '#define MICROPY_HW_BOARD_NAME "ESP32 LightWave"'
@@ -28,7 +33,7 @@ pushd ../Micropython
     popd
   
   make -C ports/esp32 BOARD=ESP32_GENERIC submodules
-  make -C ports/esp32 EXTRA_CFLAGS="-Wno-error=parentheses -Wno-error=maybe-uninitialized" \
+  make -C ports/esp32 EXTRA_CFLAGS="-DMICROPY_GC_INITIAL_HEAP_SIZE=53248 -Wno-error=parentheses -Wno-error=maybe-uninitialized" \
                       BOARD=ESP32_GENERIC USER_C_MODULES="$USERMODS"
   pushd ports/esp32/build-ESP32_GENERIC
     cp bootloader/bootloader.bin partition_table/partition-table.bin ota_data_initial.bin micropython.bin "$OUT_DIR"
@@ -38,16 +43,5 @@ pushd ../Micropython
     make
     pushd build
       sudo cp mpy-cross /usr/bin/mpy-cross # LOL
-
-#  -e 's/^CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=.*/CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=2048/' \
-#  -e 's/^CONFIG_MBEDTLS_MPI_MAX_SIZE=.*/CONFIG_MBEDTLS_MPI_MAX_SIZE=1024/' \
-#  -e 's/^CONFIG_MBEDTLS_SSL_IN_CONTENT_LEN=.*/CONFIG_MBEDTLS_SSL_IN_CONTENT_LEN=2048/' \
-#  -e 's/^CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=.*/CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=2048/' \
-#  -e 's/^CONFIG_MBEDTLS_DEBUG=.*/# CONFIG_MBEDTLS_DEBUG is not set/' \
-#  -e 's/^CONFIG_MBEDTLS_PSK_MODES=.*/# CONFIG_MBEDTLS_PSK_MODES is not set/' \
-#  -e 's/^CONFIG_MBEDTLS_ECP_DP_SECP384R1_ENABLED=.*/# CONFIG_MBEDTLS_ECP_DP_SECP384R1_ENABLED is not set/' \
-#  -e 's/^CONFIG_MBEDTLS_ECP_DP_SECP521R1_ENABLED=.*/# CONFIG_MBEDTLS_ECP_DP_SECP521R1_ENABLED is not set/' \
-#  -e 's/^CONFIG_MBEDTLS_SSL_KEEP_PEER_CERTIFICATE=.*/# CONFIG_MBEDTLS_SSL_KEEP_PEER_CERTIFICATE is not set/' \
-#  -e 's/^CONFIG_MBEDTLS_CERTIFICATE_BUNDLE=.*/# CONFIG_MBEDTLS_CERTIFICATE_BUNDLE is not set/' \
 
 exit $?; }

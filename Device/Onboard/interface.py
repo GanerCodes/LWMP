@@ -1,4 +1,5 @@
-from util import *
+from util   import *
+from consts import *
 
 Seg = namedtuple("Seg", ["σ","Σ","d","m","r0","rΔ"])
 class Node:
@@ -11,8 +12,6 @@ class Node:
     x.r0,x.rΔ = 𝕊.r0,𝕊.rΔ
     x.d,x.m = 𝕊.d,𝕊.m
   def __repr__(𝕊): return f"⟨{'T '*𝕊.m}{𝕊.σ}…{𝕊.σ+𝕊.Σ}@{𝕊.d} {𝕊.rΔ}↺+{𝕊.r0}⟩"
-@micropython.native
-def add_mag(x,y): return (abs(x)+abs(y))*(1-2*(x<0))
 def pre(N,ν=None,σ=0,d=0):
   r,C = Node(None,σ,None,N[1],N[2],d),N[3]
   if type(C) is int:
@@ -91,18 +90,15 @@ def encode_mode(N):
   # mx  = max(s.d for s in N)+1
   N,data = parse_mode(N)
   
-  tmp = pre(N)
-  del N; free()
-  N = tmp
+  tmp  = pre (N); del N; free(); N=tmp
+  S,mx = flab(N); del N; free()
   
-  S,mx = flab(N)
-  del N; free()
-  stk = mx*pack("iii",0,0,0)
+  if 3*4*mx > len(lstk): raise Exception(f"Stk too large for lstk! {mx=}")
   
-  lens = len(S), len(data["atoms"]), len(data["fades"]), len(stk)
+  lens = len(S),len(data["atoms"]),len(data["fades"])
   log(f"[Interface] (Mem:{mem_perc()}) Size = {join(lens,'+')} = {sum(lens)}")
   
-  return S,len(S)//24,data["atoms"],len(data["atoms"])//16,bytes(data["fades"]),stk
+  return S,len(S)//24,data["atoms"],len(data["atoms"])//16,bytes(data["fades"])
 def specify_mode(mode,offsets,ℭ):
   Σ = int.from_bytes(mode[0][4:8],"little")
   l = (offsets or {}).get(ℭ.UUID,0)
