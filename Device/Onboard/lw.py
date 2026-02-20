@@ -1,9 +1,9 @@
+from util          import *
 from wifi          import AP_with_DNS
 from settings      import ℭ,wifi_from_ℭ
 from ws_client     import WS_Client
-from controller    import Controller,controller_check_ntp
+from controller    import Controller
 from scene_manager import get_scheg,check_scheg,update_scheg,Scene_Manager
-from util          import *
 
 _RESET_NO   = const(0)
 _RESET_WS   = const(1)
@@ -20,37 +20,8 @@ log(f"[LW] Starting with Settings={ℭ}");
 𝔏 = Controller(ℭ,𝔐)
 thread(𝔏.loop)
 
-# @micropython.native
-# def bruh():
-#   while 1:
-#     frees(0.05)
-# thread(bruh)
-
 update_LED_HW = lambda: 𝔏.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
 update_LED_HW()
-
-def lw_WAN():
-  try:
-    wifi_from_ℭ(ℭ)
-    controller_check_ntp(𝔏,True)
-    𝔏()
-    check_scheg(𝔏)
-    free()
-  except Exception as ε:
-    dbg(f'[LW] Could not connect to WiFi:',ε)
-    log(f"[LW] Starting AP.")
-    𝔏("_ap")
-    def get(path):
-      return 200,"text/html",read_file("index.html")
-    def post(path,body):
-      try:
-        ℭ(𝔍l(body))
-        reset()
-      except Exception as ε:
-        dbg(f"[LW] Error getting credentials from AP:",ε)
-        return 400,"application/json",𝔍d({"msg":"Cannot parse credentials!"})
-    AP_with_DNS(get,post,timeout=60**2,timeout_f=reset)
-    reset()
 
 def handle_API(𝐦,d=None):
   log(f'[API] Handling "{𝐦}"')
@@ -89,7 +60,7 @@ def handle_API(𝐦,d=None):
   elif 𝐦=="Pull_schedule": return _RESET_NO,get_scheg()
   elif 𝐦=="Sync":
     try:
-      r = 𝔍d(controller_check_ntp(𝔏,True))
+      r = 𝔍d(𝔏.check_ntp(True))
     except Exception as ε:
       log("[API] NTP Sync failed!",ε)
       r = False
@@ -97,7 +68,7 @@ def handle_API(𝐦,d=None):
   return _RESET_NO,False
 
 def lw_check_periodics():
-  controller_check_ntp(𝔏)
+  𝔏.check_ntp()
   check_scheg(𝔏)
   frees(0.05)
 
@@ -126,24 +97,83 @@ def lw_websocket_loop():
       break
     frees()
 
+def lw_AP(setup=False):
+  log(f"[LW] Starting AP.")
+  def get(path):
+    return 200,"text/html",read_file("index.html.gzip","rb")
+  def post(path,body):
+    try:
+      body = 𝔍l(body) if body else ""
+      if path=="/getConfig":
+        return 200,"application/json",𝔍d({
+          "modes" : join(𝔐()),
+          "R_SSID": ℭ.R_SSID,"R_PASS": ℭ.R_PASS,
+          "TOKEN" : ℭ.TOKEN ,"setup" : False })
+      if   path=="/config":
+        ℭ(body)
+        if "TOKEN" in body: return 200,"text/plain","Exiting AP",True
+      elif path=="/mode":
+        𝔏(m := body["mode"])
+        ℭ.DEF_SCENE = m
+    except Exception as ε:
+      dbg(f"[LW] Error in AP:",ε)
+      return 400,"text/plain","Error!"
+    return 200,"text/plain","Success!"
+    
+  dottrim = lambda x,l=10,d="...": x[:l-len(d)]+d if len(x)>l else x
+  AP_with_DNS(get,post,timeout=60**2 if setup else None,
+              ssid=f"LightWave Controller {dottrim(ℭ.uuid,10)}")
+
+def lw_net():
+  if ℭ.AP_MODE:
+    𝔏()
+    lw_AP()
+    return
+  
+  try:
+    close_wifi = wifi_from_ℭ(ℭ)
+  except Exception as ε:
+    dbg(f'[LW] Could not connect to WiFi:',ε)
+    𝔏("_ap")
+    lw_AP(True)
+    return
+  
+  try:
+    𝔏.check_ntp(True)
+    𝔏()
+    check_scheg(𝔏)
+  except Exception as ε:
+    dbg("[LW] Unhandled Exception!",ε)
+  
+  free()
+  while 1:
+    try:
+      r = lw_websocket_loop()
+      if r == _RESET_BOOT:
+        log("[LW-WS] Resetting machine")
+        return r
+      if r == _RESET_WIFI:
+        log("[LW-WS] Resetting WiFi")
+        close_wifi()
+        break
+      if r == _RESET_WS:
+        log("[LW-WS] Resetting WS")
+        continue
+      else:
+        raise Exception("Websocket loop exited for an unknown reason!")
+    except OSError   as ε:
+      dbg(f'[LW-WS] Connection failed! Resetting net:',ε)
+      return
+    except Exception as ε:
+      dbg(f'[LW-WS] Error in loop! Restarting in 5 seconds:',ε)
+    frees(5)
+
 update_LED_HW()
 try:
-  while 1:
-    lw_WAN()
-    while 1:
-      try:
-        r = lw_websocket_loop()
-        if   r == _RESET_BOOT:
-          log("[WS] Resetting machine")
-          reset()
-        elif r == _RESET_WIFI:
-          log("[WS] Resetting WiFi")
-          free(); break
-        else:
-          raise Exception("Websocket loop exited for an unknown reason!")
-      except OSError   as ε: dbg(f'[WS] Connection failed! Restarting in 5 seconds:',ε)
-      except Exception as ε: dbg(f'[WS] Error in loop! Restarting in 5 seconds:',ε)
-      frees(5)
-except:
-  𝔏.loop = 0
-  raise
+  while lw_net() != _RESET_BOOT: pass
+except BaseException as ε:
+  𝔏.lstate = 0
+  dbg("[LW] Top level exception in network loop",ε)
+  if isinstance(ε,KeyboardInterrupt):
+    raise ε
+reset()

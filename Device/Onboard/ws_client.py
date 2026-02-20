@@ -1,10 +1,8 @@
 # https://github.com/danni/uwebsockets
 
-import micropython
-
-import socket,select,errno,sys,ssl,re
+import socket,select,errno,sys,ssl # ,micropython
 from binascii import b2a_base64
-from consts   import *
+
 from util     import *
 
 _OP_CONT  = const(0x0)
@@ -24,9 +22,20 @@ _CLOSE_MISSING_EXTN       = const(1010)
 _CLOSE_BAD_CONDITION      = const(1011)
 
 URI = namedtuple('URI',('proto','host','port','path'))
-def urlparse(uri,URL_RE=re.compile(r'(wss|ws)://([A-Za-z0-9-\._]+)(?:\:([0-9]+))?(/.+)?')):
-  P = (M := URL_RE.match(uri)).group(1)
-  return URI(P, M.group(2), int(M.group(3) or ((80,433)[P=='wss'])), M.group(4))
+# def urlparse(uri,URL_RE=re.compile(r'(wss|ws)://([A-Za-z0-9-\._]+)(?:\:([0-9]+))?(/.+)?')):
+#   P = (M := URL_RE.match(uri)).group(1)
+#   return URI(P, M.group(2), int(M.group(3) or ((80,433)[P=='wss'])), M.group(4))
+
+# @micropython.native
+def urlparse(url): # wildly not complete but whatever lol
+  if "://" in url : prot,host = url.split("://",1)
+  else            : prot,host = "wss",host
+  if '/'   in host: host,path = host.split('/',1)
+  else            : host,path = host,""
+  if ':'   in host: host,port = host.split(':',1)
+  else            : host,port = host,(80,433)[prot=="wss"]
+  free()
+  return URI(prot,host,int(port),path)
 
 class NoDataException (Exception): pass
 class ConnectionClosed(Exception): pass

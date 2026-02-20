@@ -27,7 +27,7 @@ class Scene_Manager:
       if path_exists(loc := f"{𝕊.dir}/{name}"):
         return loc
     else:
-      return [x.lstrip(𝕊.dir) for x in ls(𝕊.dir)]
+      return ls(𝕊.dir)
   def __contains__(𝕊,x):
     return 𝕊(x) is not None
   def __setitem__(𝕊,name,mode):
@@ -87,6 +87,7 @@ class Scene_Cacher:
     log(f'[Scene Cache] Getting "{k}"')
     if isinstance(k,dict): return 𝕊(k)
     fp = 𝕊.man(k)
+    if fp is None: raise Exception("No scene found!")
     h = (fp,stat(fp)[8])
     if h in 𝕊.cache: return 𝕊.cache[h]
     log(f'[Scene Cache] Not in cache.')

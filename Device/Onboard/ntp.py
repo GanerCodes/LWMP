@@ -1,18 +1,23 @@
 from machine import RTC
 
 from util    import *
-from consts  import last_ntp
+from time    import ticks_diff
+from consts  import NTP_HOSTS,last_ntp
 from lw_ntp  import ntp_raw,micros as μs
 
-S_PER_D  = const(60*60*24          )
-S_PER_W  = const(60*60*24*7        )
-ΜS_PER_D = const(60*60*24  *1000   )
-MS_PER_W = const(60*60*24*7*1000   )
-μS_PER_D = const(60*60*24  *1000000)
+S_PER_D   = const(60*60*24          )
+S_PER_W   = const(60*60*24*7        )
+ΜS_PER_D  = const(60*60*24  *1000   )
+MS_PER_W  = const(60*60*24*7*1000   )
+_μS_PER_D = const(60*60*24  *1000000)
 _μS_70Y = const(2_208_988_800_000_000)
 
 @micropython.native
 def ms(*,μs=μs): return μs()//1000
+@micropython.native
+def dt_ms(x,y=None,*,ms=ms): return ms()-x if y is None else x-y
+# def dt_ms(x,y=None,td=ticks_diff,ms=ms): return td(*(ms(),x) if y is None else (x,y))
+
 @micropython.native
 def μS(*,S=last_ntp,μs=μs):
   if S[0] is None: return μs()
@@ -23,12 +28,12 @@ def MS(*,μS=μS): return μS()//1000
 @micropython.native
 def week_start(μ=None):
   if μ is None: μ = μS()
-  μ //= μS_PER_D
-  return (μ-((μ+4)%7)) * μS_PER_D
+  μ //= _μS_PER_D
+  return (μ-((μ+4)%7)) * _μS_PER_D
 @micropython.native
 def is_leap(x): return x%4==0 and (x%100 or not x%400)
 @micropython.native
-def get_date(μ=None,dm=divmod):
+def get_date(μ=None,*,dm=divmod):
   if μ is None: μ = μS()
   s,μ = dm(μ,1_000_000)
   m,s = dm(s,60)
@@ -131,7 +136,7 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   return r,ΔΔ
 
 __all__ = "S_PER_D","S_PER_W","MS_PER_W","ΜS_PER_D","fmt_date","fmt_dur","week_start", \
-          "get_date","μs","ms","μS","MS","last_ntp","ntp"
+          "get_date","μs","ms","dt_ms","μS","MS","last_ntp","ntp"
 
 # if __name__ == "__main__":
 #   T = get_date(t := ntp())

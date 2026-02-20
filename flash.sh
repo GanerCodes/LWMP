@@ -35,6 +35,7 @@ DEVS=($(find /dev -regextype posix-extended -regex '.*/tty(ACM|USB).*'))
         echo "\"${UUID}\"" >"${tmp}"
         mpremote connect "${DEV}" fs cp "${tmp}" :/UUID
         rm -f "${tmp}"; }
+      # exec mpremote connect "${DEV}" reset
       exec mpremote connect "${DEV}" run ./main._py; }
 
 FLASH_ROM=$([[ $1 == 'y' ]] && echo -n y || echo -n)
@@ -48,7 +49,7 @@ rm /tmp/flash_bad_flag || :
 for i in "${!DEVS[@]}"; do
   dev="${DEVS[i]}"
   echo 1
-  /c/Scripts/Path/term -T "${dev} (${i})" --option 'font.size=11' --command bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
+  /c/Scripts/Path/term -T "(${i}) ${dev}" --option 'font.size=11' --command bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
   done
 
 unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
@@ -64,7 +65,12 @@ pushd ./Device
     cp "../VERSION" "${DEV_FS}/VER"
     pushd ./Onboard
       cp -r Defaults/. "${DEV_FS}/"
-      cp *.html "${DEV_FS}/"
+      
+      export PATH="$PATH:$HOME/.local/share/npm/bin"
+      html-minifier-terser ./index.html --collapse-whitespace --remove-comments --minify-css true --minify-js true -o /tmp/index.min.html
+      gzip -c /tmp/index.min.html > "${DEV_FS}/index.html.gzip"
+      
+      # cp *.html "${DEV_FS}/"
       cp main._py "${DEV_FS}/main.py"
       for f in *.py; do
         mpy-cross -o "${DEV_FS}/${f%.py}.mpy" -march=xtensawin "./$f" &

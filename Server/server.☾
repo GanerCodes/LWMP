@@ -66,8 +66,8 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
   ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›􀊸
   𝚙􆿾􀌎␛/
   ¿𝚖≡‹GET󷺗›: 𝚙􀯿􀌎􀉖‹index.html›
-             ¿𝚙.startswith(𝓁􀯍‹󷺗󷺗call/›): ↪POST(urllib.parse.unquote(𝚙.lstrip(𝓁)))
-             ⸘𝚙.startswith(𝓁􀯍‹update/›): p = safej(UPDATE_DIR,𝚙.lstrip(𝓁))
+             ¿𝚙.startswith(𝓁􀯍‹󷺗󷺗call/›): ↪POST(urllib.parse.unquote(𝚙.removeprefix(𝓁)))
+             ⸘𝚙.startswith(𝓁􀯍‹update/›): p = safej(UPDATE_DIR,𝚙.removeprefix(𝓁))
              ¡                         : p = safej(SITE_COMPILE,𝚙)
              ¿p.exists􀃅􀂾: ↪400
              ↪ p ᵇ, { 𝙲𝚃=p.suffix, Cache-Control=‹public, max-age=0, must-revalidate› }ℵ

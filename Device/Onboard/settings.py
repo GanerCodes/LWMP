@@ -1,5 +1,5 @@
 from util import *
-from wifi import *
+from wifi import wifi_connect
 
 class Settings:
   def __init__(𝕊,**𝕂):
@@ -42,25 +42,27 @@ class Settings:
   __setitem__ = __setattr__
   __repr__ = lambda 𝕊: "⟨%s⟩"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
 
-ℭ = Settings(WS_URL     =("wss://brynic_led_test.ganer.xyz:2096"    ,        ),
-             UPDATE_URL =("https://brynic_led_test.ganer.xyz/update",        ),
-             UUID       =(gen_id                                    ,        ),
-             TOKEN      =(                                                   ),
-             NAME       =(                                                   ),
-             R_SSID     =(                                                   ),
-             R_PASS     =(                                                   ),
-             LEDP       =(23                                        , int    ),
-             LEDC       =(300                                       , int    ),
-             REVERSE    =(False                                     , boolstr),
-             BIT_TIMING =("400 850 800 450"                         ,        ),
-             RGB_ORDER  =("RGB"                                     ,        ),
-             DEF_SCENE  =("_default"                                ,        ),
-             VER        =("1"                                       ,        ))
+ℭ = Settings(WS_URL     =("wss://brynic_led_test.ganer.xyz:2096"    ,       ),
+             UPDATE_URL =("https://brynic_led_test.ganer.xyz/update",       ),
+             UUID       =(gen_id                                    ,       ),
+             TOKEN      =(                                                  ),
+             NAME       =(                                                  ),
+             R_SSID     =(                                                  ),
+             R_PASS     =(                                                  ),
+             LEDP       =(23                                        ,int    ),
+             LEDC       =(300                                       ,int    ),
+             REVERSE    =(False                                     ,boolstr),
+             BIT_TIMING =("400 850 800 450"                         ,       ),
+             RGB_ORDER  =("RGB"                                     ,       ),
+             DEF_SCENE  =("_default"                                ,       ),
+             VER        =("1"                                       ,       ),
+             AP_MODE    =(False                                     ,boolstr))
 if not ℭ.name: ℭ.name = ℭ.UUID
 ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 
 def wifi_from_ℭ(ℭ):
-  if not all(  ℭ("token","r_ssid","r_pass")): raise Exception(f"WiFi credentials not found.")
-  if not wifi_connect(*ℭ("r_ssid","r_pass")): raise Exception(f'Could not connect to WiFi!')
+  if not     all(  ℭ("token","r_ssid","r_pass")) : raise Exception(f"WiFi credentials not found.")
+  if not (R:=wifi_connect(*ℭ("r_ssid","r_pass"))): raise Exception(f'Could not connect to WiFi!')
+  return R
 
 __all__ = "ℭ","wifi_from_ℭ"

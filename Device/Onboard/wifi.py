@@ -2,84 +2,112 @@ import socket,select
 from network import WLAN,STA_IF,AP_IF
 from util    import *
 
+class CloseConnection(Exception): None
+
 def wifi_connect(router_ssid,router_pass,retries=30):
   log(f'[WiFi] Connecting to wifi: SSID="{router_ssid}" Pass="{router_pass}"')
-  wlan = WLAN(STA_IF)
-  wlan.active(True)
-  wlan.config(pm=0)
+  net = WLAN(STA_IF)
+  net.active(True)
+  net.config(pm=0)
   try:
-    wlan.connect(router_ssid,router_pass)
+    net.connect(router_ssid,router_pass)
   except Exception as ε:
-    wlan.active(False)
+    net.active(False)
     return FALSE(dbg(f'[WiFi] Error connecting using above SSID and password',ε))
   for i in range(r := retries):
     onboard_led(1)
-    if wlan.isconnected():
+    if net.isconnected():
       onboard_led(0)
       break
     sleep(0.1)
     onboard_led(0)
     sleep(0.9)
-    log(f'[WiFi] Failed to connect to network [{i+1}/{r}] - "{wlan.status()}"')
+    log(f'[WiFi] Failed to connect to network [{i+1}/{r}] - "{net.status()}"')
   else:
-    wlan.active(False)
+    net.disconnect()
     return FALSE(log("[WiFi] Could not connect to network."))
-  return TRUE(log("[WiFi] Connected."))
+  log("[WiFi] Connected.")
+  return net.disconnect
 
-def AP_basic(get=print,post=print,loop=True): # 󰤱
+def AP_basic(get=print,post=print,loop=True,ssid="AP",password=""):
   def recv_until(G,x=b"\r\n\r\n",buf=b""):
-    while c := G(4096):
+    while c := G(512):
       buf += c
       if x in buf: break
+      frees(0)
     return buf
-  ap = WLAN(AP_IF)
-  ap.active(True)
-  ap.config(essid="LightWave Controller",password="")
-  while not ap.active(): sleep(0.01)
-  log(f'Created AP: {ap.ifconfig()}')
+  net = WLAN(AP_IF)
+  net.active(True)
+  net.config(pm=0,essid=ssid,password=password)
+  while not net.active(): frees(0.025)
+  log(f'[AP] Created "{ssid}" {net.ifconfig()}')
   s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
   s.bind(("",80))
   s.listen(5)
+  # @micropython.native
   def handle():
     conn,addr = s.accept()
-    log(f'[AP] Got connection from {addr}')
     try:
       header,_,body = recv_until(conn.recv).partition(b"\r\n\r\n")
-      req_l,*headers = header.decode().split("\r\n")
-      method,path,_ = req_l.split(' ',2)
-      headers = dict((x.lower().split(':',1) for x in headers))
-      if blen := int(headers.get("content-length",0)):
-        while blen>0 and (c:=conn.recv(4096)):
+      method,*header = header.decode().split("\r\n")
+      method,path,_ = method.split(' ',2)
+      log(f'[AP] ⟨{join(addr)}⟩ {method} {path}')
+      headers = {}
+      for h in header:
+        k,v = h.split(':',1)
+        del h
+        headers[k.lower().strip()] = v.strip()
+        del k,v
+      del _,header
+      # log('[AP] Headers:\n  '+join((f"{k}: {v}" for k,v in headers.items()),'\n  '))
+      if blen := int(headers.get("content-length",0))-len(body):
+        while blen>0 and (c:=conn.recv(512)):
           body += c
           blen -= len(c)
-      # log(f"{method=}\n{path=}\n{headers=}\n{body=}")
-      c,t,B = post(path,body) if method == "POST" else get(path)
-      if isinstance(B,str): B = B.encode("utf-8")
-      conn.sendall(f"""\
-HTTP/1.1 200 OK\r
-Connection: close\r
-Cache-Control: no-store\r
-Content-Length: {len(B)}\r
-Content-Type: {t}\r
-Access-Control-Allow-Origin: *\r\n\r\n""".encode("utf-8")+B)
+          frees(0)
+      del blen
+      
+      c,t,B,*𝔸 = post(path,body) if method == "POST" else get(path)
+      del body,path,headers
+      headers = { "Connection"                 : "close",
+                  "Cache-Control"              : "no-store",
+                  "Content-Length"             : len(B),
+                  "Content-Type"               : t,
+                  "Access-Control-Allow-Origin": "*" }
+      if isinstance(B,str): B = B.encode()
+      else                : headers["Content-Encoding"] = "gzip"
+      
+      lines = [f"HTTP/1.1 {c} {'OK' if c==200 else 'Bad Request'}"]
+      lines.extend([f"{k}:{v}" for k,v in headers.items()])
+      del headers
+      lines.extend(["",""])
+      resp = memoryview(join(lines,"\r\n").encode()+B)
+      del lines
+      w = 0
+      while w<len(resp): w += conn.write(resp[w:])
       conn.close()
+      del c,t,B,resp,w
+      if 𝔸 and 𝔸[0] == True:
+        raise CloseConnection("Closed Intentionally") 
     except Exception as ε:
+      if isinstance(ε,CloseConnection): raise ε
       dbg(f'[AP] Error processing request:',ε)
     finally:
       try             : conn.close()
       except Exception: pass
-      free()
+      frees()
   if not loop:
     s.setblocking(False)
-    return handle,s
+    return handle,s,lambda:(s.close(),net.disconnect())
   while 1: handle()
 
-def DNS_trap(log=print,loop=True): # this is half AI lol
+def DNS_trap(log=print,loop=True):
   s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
   s.bind(("",53))
-  def handle():
+  # @micropython.native
+  def handle(): # this is half AI lol
     dat,addr = s.recvfrom(512)
-    print(f'Got DNS message from {addr}')
+    print(f'[DNS] ⟨{join(addr)}⟩ Got DNS query')
     if len(dat)<12: return
     i = 12
     while dat[i]: i += dat[i]+1
@@ -88,11 +116,11 @@ def DNS_trap(log=print,loop=True): # this is half AI lol
              addr)
   if not loop:
     s.setblocking(False)
-    return handle,s
+    return handle,s,s.close
   while 1: handle()
 
-def AP_with_DNS(*𝔸,timeout=None,timeout_f=log,**𝕂):
-  (f1,s1),(f2,s2) = AP_basic(*𝔸,loop=False,**𝕂),DNS_trap(loop=False)
+def AP_with_DNS(*𝔸,timeout=None,timeout_f=None,**𝕂):
+  (f1,s1,c1),(f2,s2,c2) = AP_basic(*𝔸,loop=False,**𝕂),DNS_trap(loop=False)
   
   poll = select.poll()
   poll.register(s1, select.POLLIN)
@@ -100,12 +128,23 @@ def AP_with_DNS(*𝔸,timeout=None,timeout_f=log,**𝕂):
   
   l_evt = ms()
   while 1:
-    for sock,ev in poll.poll(100):
-      if   sock is s1: f1()
-      elif sock is s2: f2()
-      else           : continue
-      l_evt = ms()
-    if timeout is not None and dt_ms(l_evt) > 1000*timeout:
-      timeout_f()
+    close = False
+    try:
+      for sock,ev in poll.poll(100):
+        free()
+        if   sock is s1: f1()
+        elif sock is s2: f2()
+        else           : continue
+        l_evt = ms()
+    except CloseConnection: close = True
+    except Exception      : dbg("[NET] Unhandled exception",ε)
+    finally:
+      if close or timeout is not None and dt_ms(l_evt) > 1000*timeout:
+        if timeout_f is not None: timeout_f()
+        try                  : c1()
+        except Exception as ε: dbg("[NET] Failed to close AP" ,ε)
+        try                  : c2()
+        except Exception as ε: dbg("[NET] Failed to close DNS",ε)
+        return
 
 __all__ = "wifi_connect","AP_basic","DNS_trap","AP_with_DNS"

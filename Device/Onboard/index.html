@@ -1,64 +1,96 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Lightwave Setup</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      body {
-        background-color: #000;
-        color: #FFF;
-        font-family: Sans-serif;
-        margin: auto;
-      }
-      .content {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-      }
-      .item { margin: 8px; }
-      .text { text-align: center; }
-      input[type="text"], button {
-        background-color: #555;
-        border: 1px #BBB solid;
-        border-radius: 2px;
-        color: #FFF;
-      }
-      input[type="text"]::placeholder { color: #AAA; }
-      input[type="text"]:focus{
-        outline: none;
-        border: 1px #FFF solid;
-        background-color: grey;
-        color: #FFF;
-      }
-      button:hover {
-        transform: scale(1.04);
-        background-color: grey;
-        cursor: hand;
-      }
-      button:active { background: #444; }
-    </style>
-    <script>
-      function press() {
-        [SSID,PASS,TOKE] = ["SSID","PASS","TOKE"].map(x => document.getElementById(x).value);
-        if(!SSID.length || !PASS.length || !TOKE.length) return;
-        fetch("/submit", { method : "POST",
-                           headers: { "Content-Type": "application/json" },
-                           body   : JSON.stringify({R_SSID:SSID,R_PASS:PASS,TOKEN:TOKE}) })
-        document.getElementById("content").innerHTML = `<p class="text">Sent login info and restarted controller!<br><br>AP Connection will re-open in ~30s if connection to router fails.</p>`;
-        setTimeout(_=>location.reload(),250);
-      }
-    </script>
-  </head>
-  <body>
-    <div class="content" id="content">
-      <h2 style="font-size:28px;margin-bottom:0px">LightWave Setup</h2>
-      <h5 style="font-size:12px;color:#AAA">All Fields Case Sensitive</h5>
-      <input type="text" class="item" id="SSID" placeholder="Router SSID">
-      <input type="text" class="item" id="PASS" placeholder="Router Password">
-      <input type="text" class="item" id="TOKE" placeholder="Account Token">
-      <button class="item" style="border-color:#888" onclick="press()">Submit</button>
-    </div>
-  </body>
+<head>
+  <title>Lightwave Setup</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root { font-size:20px; }
+    button,input,dialog { font-size:unset; }
+    button,input { transition: all 0.1s ease-in-out; }
+    #confBar { margin: 1em;
+               margin-bottom:1.7em; }
+    ::backdrop { background:#000 ; }
+    dialog     { background:#0000;
+                 border:0; }
+    @keyframes popin { 0%   { transform:scale(0  ); }
+                       90%  { transform:scale(1.1); }
+                       100% { transform:scale(1  ); } }
+    @keyframes fade { from{ opacity:0; } to{ opacity:1; } }
+    dialog:open,::backdrop { animation: fade 0.15s ease-in-out normal; }
+    .entry { animation: popin 0.15s cubic-bezier(0.2,0.8,0.2,1) normal; }
+    
+    body { background:#000; padding: 1em; }
+    body,#lw_setup:open {
+      display:flex; flex-direction:column;
+      justify-content:center; align-items:center;
+      font-family:sans-serif; text-align:center;
+      color:#FFF; }
+    #modes { display:grid; grid-template-columns:repeat(auto-fill,110px);
+             grid-gap:10px; justify-content:center; width:100%; }
+    #lw_setup:open :nth-child(-n+2) { margin-bottom:5%; }
+    .item { margin:8px; }
+    .text { text-align:center; }
+    input::placeholder { color:#AAA; }
+    button { border-radius:4px; }
+    input,button { background:#111; color:#EEE;
+                   border:1px solid #AAA; }
+    input:focus, button:is(:hover,:focus-visible) {
+      background:#222; color:#FFF;
+      border:1px solid #FFF; outline:none; }
+    button:is(:hover,:focus-visible) { cursor:pointer;
+                                       transform:scale(1.03); }
+    button:active                    { background:#333; }
+    .entry { aspect-ratio:1; border-radius:10px;
+             overflow:hidden; text-wrap:wrap;
+             font-size: 0.9em; text-overflow:ellipsis; line-break:anywhere; }
+    .entry:is(:hover,:focus-visible) { transform:scale(1.02) translateY(-3px); }
+  </style>
+</head>
+<body>
+  <t style="font-size:2em">LightWave</t>
+  <dialog id="lw_setup">
+    <t style="font-size:2em">WiFi Setup</t>
+    <t style="font-size:0.75em;color:#AAA">All Fields Case Sensitive</t>
+    <input type="text" class="item" id="SSID" placeholder="Router SSID">
+    <input type="text" class="item" id="PASS" placeholder="Router Password">
+    <input type="text" class="item" id="TOKE" placeholder="Account Token"
+           title="Anyone with this token can control your LightWave">
+    <span>
+     <button id="setup_cancel" class="item">Cancel</button>
+     <button id="setup_submit" class="item">Submit</button>
+    </span>
+  </dialog>
+  
+  <span id="confBar">
+    <button id="setup_wifi">Setup WiFi</button>
+  </span>
+  <div id="modes"></div>
+  
+  <script type="module">
+    window.𝔚 = window;
+    𝔚.𝔇 = document;
+    𝔚.api = (m,j) => fetch(m, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(j)});
+    
+    setup_wifi  .onclick = _=>lw_setup.showModal();
+    setup_submit.onclick = _=>{
+      let C = [𝔚.R_SSID,𝔚.R_PASS,𝔚.TOKEN] = [SSID,PASS,TOKE].map(x=>x.value);
+      if(!C.every(x=>x)) return;
+      api("/config", {R_SSID,R_PASS,TOKEN,AP_MODE:false});
+      lw_setup.innerHTML = `<p class="text">Sent login info and restarted controller!<br><br>AP will be recreated in ≈30s if router connection fails.</p>`; };
+    setup_cancel.onclick = _=>lw_setup.close();
+    
+    const populate = x => x.split(' ').forEach(m => {
+      const ə = 𝔇.createElement("button");
+      ə.innerText = m; ə.className = "entry";
+      ə.onclick = _ => {api("/mode",{mode:m})};
+      modes.append(ə); });
+    // setTimeout(_=>populate("_ap _default fade_test synctest thousand"),500);
+    const ℭ = await (await api("/getConfig")).json();
+    SSID.value = ℭ.R_SSID;
+    PASS.value = ℭ.R_PASS;
+    TOKE.value = ℭ.TOKEN ;
+    populate(ℭ.modes);
+  </script>
+</body>
 </html>

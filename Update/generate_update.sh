@@ -9,7 +9,7 @@ mkdir "${VERSION}" || {
   echo 'Version "${VERSION}" already exists!'
   exit 1; }
 
-files=(../Device/ROM/Out/onboard/{*.mpy,*.py,*.html})
+files=(../Device/ROM/Out/onboard/{*.mpy,*.py,*.gzip})
 for f in "${files[@]}"; do cp "${f}" "${VERSION}/"; done
 files=("${files[@]##*/}")
 printf "%s" "$(printf "%s\n" "${files[@]}")" | jq -Rs 'split("\n")' > "${VERSION}/index.json"

@@ -5,7 +5,7 @@ from _thread     import start_new_thread,stack_size
 from hashlib     import sha1 as hash_
 from random      import getrandbits,random,randrange,choice
 from struct      import pack,unpack
-from time        import sleep,ticks_diff # time_ns as ns,ticks_us as μs,ticks_ms as ms
+from time        import sleep # time_ns as ns,ticks_us as μs,ticks_ms as ms
 from json        import loads as 𝔍l,dumps as 𝔍d
 from math        import inf
 from sys         import print_exception
@@ -96,8 +96,3 @@ def parse_rgb_mode(mode):
 del LED_ONBOARD,os,stack_size,hash_,start_new_thread,mem_alloc,mem_free,print_exception
 
 from ntp import *
-
-# @micropython.native
-# def dt_ms(x,y=None,td=ticks_diff,ms=ms): return td(*(ms(),x) if y is None else (x,y))
-@micropython.native
-def dt_ms(x,y=None,ms=ms): return ms()-x if y is None else x-y

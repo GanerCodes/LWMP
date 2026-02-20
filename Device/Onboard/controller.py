@@ -4,7 +4,7 @@ from heapq         import heappush as h_add,heappop as h_pop
 from math          import exp,ceil
 
 from util          import *
-from consts        import ref_hold,lstk_ptr,leds_ptr,last_ntp,𝕒_ptr
+from consts        import ref_hold,lstk_ptr,leds,leds_ptr,last_ntp,𝕒_static,𝕒_ptr
 from interface     import specify_mode
 from lightwave     import assign_leds
 from scene_manager import Scene_Cacher
@@ -38,6 +38,29 @@ class Controller:
     𝕊.mode = 𝕊.dmode = None
     𝕊.𝔖,𝕊.𝔔 = [],[]
     𝕊.Δ = 0
+  def __call__(𝕊,s=None,q=False,d=inf,Ta=None,Ts=None):
+    log(f'[Controller] Calling with ({s!r}, {q}, {d}, {Ta}, {Ts})')
+    if s is not None:
+      𝔖_,𝔔,s = 𝕊.𝔖,𝕊.𝔔,𝕊.scenes[s]
+      if d in (None,-1): d = inf
+      M = MS()
+      if q:
+        assert Ts is not None, "󰤱"
+        assert Ta is None, "󰤱"
+        assert d<inf, "󰤱"
+        if   𝔔     : Ta = max(𝔔).Ta + max(𝔔).d
+        elif 𝕊.mode: Ta = (lambda x:x if x>M else Ts)(𝕊.mode.Ta + inf0(𝕊.mode.d))
+        else       : Ta = Ts
+        h_add(𝔔,Activation(Ta,Ta,s,d))
+      else:
+        assert Ta is None, "󰤱"
+        if Ts is None: Ts = week_start(M*1000) // 1_000 # 󷹇 if ntp not ran then its just some ancient date
+        ν = Activation(Ts,Ts,s,d)
+        𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
+    else:
+      𝕊.mode = None
+      𝕊.load_def_scene() # this is for cache ∵ our thread has small stack. 󰤱 fix this behavior in general
+    𝕊.lstate = _LOOP_UPDATE
   
   def load_def_scene(𝕊):
     if 𝕊.ℭ.DEF_SCENE not in 𝕊.scenes.man:
@@ -61,29 +84,16 @@ class Controller:
     log(f"[Controller] get_Δ: {M=} - Ts={ν.Ts} - {m=} = {Δ}")
     return Δ
   
-  def __call__(𝕊,s=None,q=False,d=inf,Ta=None,Ts=None):
-    log(f'[Controller] Calling with ({s!r}, {q}, {d}, {Ta}, {Ts})')
-    if s is not None:
-      𝔖_,𝔔,s = 𝕊.𝔖,𝕊.𝔔,𝕊.scenes[s]
-      if d in (None,-1): d = inf
-      M = MS()
-      if q:
-        assert Ts is not None, "󰤱"
-        assert Ta is None, "󰤱"
-        assert d<inf, "󰤱"
-        if   𝔔     : Ta = max(𝔔).Ta + max(𝔔).d
-        elif 𝕊.mode: Ta = (lambda x:x if x>M else Ts)(𝕊.mode.Ta + inf0(𝕊.mode.d))
-        else       : Ta = Ts
-        h_add(𝔔,Activation(Ta,Ta,s,d))
-      else:
-        assert Ta is None, "󰤱"
-        if Ts is None: Ts = week_start(M*1000) // 1_000 # 󷹇 if ntp not ran then its just some ancient date
-        ν = Activation(Ts,Ts,s,d)
-        𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
-    else:
-      𝕊.mode = None
-      # 𝕊.update_to_que()
-    𝕊.lstate = _LOOP_UPDATE
+  def check_ntp(𝕊,force=False):
+    t = μs()
+    if not force and last_ntp[0] is not None and t <= last_ntp[0] + _NTP_REFRESH_TIME_μs: return
+    log(f"[Controller] Starting NTP sync")
+    T,ΔΔ = ntp()
+    ΔΔ //= 1000
+    prevΔ = 𝕊.Δ
+    𝕊.Δ += ΔΔ
+    log(f"[Controller] Updating Δ from NTP drift {prevΔ}→{𝕊.Δ}")
+    return T,ΔΔ
   
   def update_scheg(𝕊,schedule,reset=False,cache=set()):
     # https://www.desmos.com/calculator/0w2tpi3lci
@@ -187,16 +197,5 @@ class Controller:
       except Exception as ε:
         dbg(f"[Controller] Error in LED loop! Restarting in 3 seconds:",ε)
         frees(3)
-
-def controller_check_ntp(𝔏,force=False):
-  t = μs()
-  if not force and last_ntp[0] is not None and t <= last_ntp[0] + _NTP_REFRESH_TIME_μs: return
-  log(f"[Controller] Starting NTP sync")
-  T,ΔΔ = ntp()
-  ΔΔ //= 1000
-  prevΔ = 𝔏.Δ
-  𝔏.Δ += ΔΔ
-  log(f"[Controller] Updating Δ from NTP drift {prevΔ}→{𝔏.Δ}")
-  return T,ΔΔ
-
-__all__ = "Controller","controller_check_ntp"
+  
+__all__ = "Controller",

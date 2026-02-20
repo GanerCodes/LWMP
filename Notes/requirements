@@ -1,6 +1,8 @@
 (Only supports Linux for now)
 
 # yay --noconfirm --needed -S esptool
+# sudo npm install html-minifier-terser -g
 # sudo pip install mpy-cross mpremote
 # https://github.com/v923z/micropython-builder/releases/tag/latest
 # 󷹇 be part of group `uucp` so you can interface w/ microcontroller!
+# 󷹇 we assume `npm -g` installs to ~/.local/share/npm/bin
