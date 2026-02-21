@@ -164,16 +164,16 @@ def ssl_cond(s,uri,sec=("https","wss")):
   if uri.prot not in sec: return s
   host = uri.host
   del uri,sec
-  log(f">> SSL {mem_perc()}")
   # micropython.mem_info(1)
   free()
+  log(f"[SSL] >> Mem: {mem_perc()}")
   ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
   ctx.check_hostname = True
   ctx.verify_mode    = ssl.CERT_REQUIRED
   ctx.load_verify_locations(cafile="CERT.pem")
   s = ctx.wrap_socket(s, server_hostname=host)
+  log(f"[SSL] << Mem: {mem_perc()}")
   free()
-  log(f"<< SSL {mem_perc()}")
   return s
 
 def http_connect(uri,impl="https"):

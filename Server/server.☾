@@ -101,6 +101,8 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
         negotiate_controller_props(𝐈,ꭐ)
         ∀: ‹⟦𝐈ᵁᵁᴵᴰ⟧ message ⟦ꭐ􀃅ᐒ‹⟦⟞₀􀉳􀁭¹⁶􀋢⟧: ⟦⟞₁⟧›⟧›􀊸
   ¡ε=𝑒: ‹Disconnecting ⟦𝐈ᵁᵁᴵᴰ⟧: ε=⟦ε⟧›􀊸
+        ⦃import traceback⦄
+        traceback.print_exception(ε)
         󰆴 ws_clients[𝐈ᵁᵁᴵᴰ]
 
 w = Mutable􀃅

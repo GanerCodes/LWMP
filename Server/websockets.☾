@@ -1,4 +1,4 @@
-⦃from threading import ⦃Event⦄⦄
+⦃from threading import ⦃Event,RLock⦄⦄
 
  󰤱 add these to general libs?
 󱀘Mutable:
@@ -23,10 +23,22 @@
          E.set􀃅
   ↪𜳬,𜳪
 
+⦃import socket⦄
+⦃from struct import pack⦄
+⊢ws_send(sock,dat,c=512):
+  chunk = 󷺹􁁁􍭓0􀝕⟝􈇊􀝕󷺽
+  dat = chunk(dat,c)􀉳𝑦
+  ∀i,m⬠dat􀋳:
+    α,β = (ᐦ􀊱⍁􀝕␛H􀊱₁₂₆􀝕␛Q􀊱₁₂₇)[m􀊹ᑀ􀉤125􀝍⟞􀉤0xFFFF]
+    sock.sendall(pack(‹!BB⟦α⟧›,dat􀊹􈇊􀉞i􀝬0x80􁁣i􀉞0􀝬0x2,⠤β,m􀊹) 􀊩 m)
+    sleep(0.001)  I LOVE TCP COALESCING BEFORE SSL FORCING THE RECORD TO BE > 4KB AAAAAAAAAAAAAAA
+
 󱀘WS_Client:  󰤱 test edgecases/failure cases?
-  ⊢__init__(𝕊,ws,chunk_size=2048):
-    𝕊._send,𝕊._recv = ws.send,ws.recv
+  ⊢__init__(𝕊,ws,chunk_size=1500):
+    𝕊._recv,𝕊._sock = ws.recv,ws.socket
+    𝕊._sock.setsockopt(socket.IPPROTO_TCP,socket.TCP_NODELAY,1)
     𝕊.close = ws.close
+    𝕊.send_lock = RLock􀃅
     𝕊.chunk_size,𝕊.locks = chunk_size,{}
   ⊢__call__(𝕊,⠤𝔸,⠶𝕂): ¿𝔸: ↪𝕊.send(⠤𝔸,⠶𝕂)
                       ↪𝕊.recv􀃅
@@ -40,8 +52,10 @@
                         ↪𜳬
   ⊢listen(𝕊,𝚒=0,𝚍=␀,𝚝𝚘=□): ↪𝕊.listener(𝚒,𝚍)(𝚝𝚘)
   ⊢send(𝕊,𝙼,⠶𝕂): 𜳬 = 𝕊.listener(6 SR_bytes􀯑𝚒,⠶𝕂)
-                 chunk = 󷺹􁁁􍭓0􀝕⟝􈇊􀝕󷺽
-                 𝕊._send(𝕊.pack_msg(𝚒,𝙼) 􀊄ᶜʰᵘⁿᵏ 𝕊.chunk_size 􀉳 𝑦 ᐵ􀊹􀊸􀝔⟞)
+                  chunk = 󷺹􁁁􍭓0􀝕⟝􈇊􀝕󷺽
+                  𝕊._send(𝕊.pack_msg(𝚒,𝙼) 􀊄ᶜʰᵘⁿᵏ 𝕊.chunk_size 􀉳 𝑦 ᐵ􀊹􀊸􀝔⟞)
+                 ⛯ 𝕊.send_lock
+                   ws_send(𝕊._sock,𝕊.pack_msg(𝚒,𝙼),𝕊.chunk_size)
                  ↪𜳬
   ⊢recv(𝕊):  󰤱 infinitely fills 𝕊.locks if we don't wait for reply!
                  𝚒,𝙼 = 𝕊.unpack_msg(𝕊._recv􀃅)

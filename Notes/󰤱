@@ -46,9 +46,9 @@ Planned
   Bugs
     https://ganer.xyz/s/43f776d9d071ec69
   Features
-    Remote update ability
+    ✓ Remote update ability
     Prob sync scene names with database?
-    Offline AP mode (screen with buttons for the various stored modes)
+    ✓ Offline AP mode (screen with buttons for the various stored modes)
     Simple Calibration Function
       RGB : Screen #1: Choose the current strip color (R G B)
             Screen #2: Choose the current strip color (R G B) ∖ {Choosen in screen 1} (include reset button)
@@ -65,7 +65,7 @@ Planned
     10 Preset Scenes
     Mobile App Experience
     UI Design Update
-    Timer Function (w/ calendar)
+    ✓ Timer Function (w/ calendar)
     <Conditional>
         Create Bakkes Mod Plugin (cool, low priority)
         Generate LED Preview (cool, low priority)

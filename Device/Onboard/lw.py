@@ -84,6 +84,7 @@ def lw_websocket_loop():
       continue
     i,cmd = w
     cmd = 𝔍l(cmd)
+    free()
     try:
       con,resp = handle_API(*cmd['_'])
     except Exception as ε:

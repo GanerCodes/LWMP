@@ -18,4 +18,8 @@ for x in list(globals().keys()):
   del globals()[x]
 del x
 
-import lw
+from machine import reset
+try:
+  import lw
+except MemoryError:
+  reset()

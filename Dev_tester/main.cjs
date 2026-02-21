@@ -60,17 +60,17 @@ make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs).Ϝ((
 
 scenes = ᴍv(require("./scenes.json"),x=>make_mode(offs,x));
 scenes.synctest = S_timetest(devs,120);
-// await config(devs,{LEDC,REVERSE,RGB_ORDER,BIT_TIMING});
+await config(devs,{LEDC,REVERSE,RGB_ORDER,BIT_TIMING});
 await scene(devs,scenes);
 
 // await scene(devs,"synctest",false,-1);
 // await scene(devs,"fade_test",false,-1);
 // await scene(devs,"thousand",false,-1);
 
-// let [now,S] = [new Date(),[]];
-// for(let i=0; i<15; i++) {
-//   S.push([[now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+i],
-//           [i%2?"blue":"red",false,-1]]); }
-// await scheg(devs,S);
+let [now,S] = [new Date(),[]];
+for(let i=0; i<15; i++) {
+  S.push([[now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+i],
+          [i%2?"blue":"red",false,-1]]); }
+await scheg(devs,S);
 
 })();
