@@ -72,7 +72,7 @@ class WebsocketClient:
     op,l = b1&0x0F, b2&0x7F
     if   l==126: l, = unpack("!H",read(2))
     elif l==127: l, = unpack("!Q",read(8))
-    log(f"[WS] Recv frame length: {l}")
+    # log(f"[WS] Recv frame length: {l}")
     if mask: mask_bits = read(4)
     dat = read(l)
     dat = bytearray(dat)
