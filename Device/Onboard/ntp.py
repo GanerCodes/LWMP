@@ -1,16 +1,25 @@
 from machine import RTC
+from random  import randrange,choice
 
 from util    import *
 from time    import ticks_diff
 from consts  import NTP_HOSTS,last_ntp
 from lw_ntp  import ntp_raw,micros as μs
 
-S_PER_D   = const(60*60*24          )
-S_PER_W   = const(60*60*24*7        )
-ΜS_PER_D  = const(60*60*24  *1000   )
-MS_PER_W  = const(60*60*24*7*1000   )
-_μS_PER_D = const(60*60*24  *1000000)
-_μS_70Y = const(2_208_988_800_000_000)
+S_PER_D   = const(60*60*24             )
+S_PER_W   = const(60*60*24*7           )
+ΜS_PER_D  = const(60*60*24  *1000      )
+MS_PER_W  = const(60*60*24*7*1000      )
+_μS_PER_D = const(60*60*24  *1000000   )
+_μS_70Y   = const(2_208_988_800_000_000)
+
+@micropython.native
+def sample(X,n):
+  I = list(range(len(X)))
+  r = [X[I.pop(randrange(len(I)))] for _ in range(min(n,len(X)))]
+  del X,n,I,_
+  free()
+  return r
 
 @micropython.native
 def ms(*,μs=μs): return μs()//1000

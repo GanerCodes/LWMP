@@ -1,9 +1,8 @@
 # https://github.com/danni/uwebsockets
 
-import socket,select,errno,sys,ssl # ,micropython
-from binascii import b2a_base64
-
-from util     import *
+import select
+from util import *
+from net  import http_connect
 
 _OP_CONT  = const(0x0)
 _OP_TEXT  = const(0x1)
@@ -21,79 +20,42 @@ _CLOSE_TOO_BIG            = const(1009)
 _CLOSE_MISSING_EXTN       = const(1010)
 _CLOSE_BAD_CONDITION      = const(1011)
 
-URI = namedtuple('URI',('proto','host','port','path'))
-# def urlparse(uri,URL_RE=re.compile(r'(wss|ws)://([A-Za-z0-9-\._]+)(?:\:([0-9]+))?(/.+)?')):
-#   P = (M := URL_RE.match(uri)).group(1)
-#   return URI(P, M.group(2), int(M.group(3) or ((80,433)[P=='wss'])), M.group(4))
-
-# @micropython.native
-def urlparse(url): # wildly not complete but whatever lol
-  if "://" in url : prot,host = url.split("://",1)
-  else            : prot,host = "wss",host
-  if '/'   in host: host,path = host.split('/',1)
-  else            : host,path = host,""
-  if ':'   in host: host,port = host.split(':',1)
-  else            : host,port = host,(80,433)[prot=="wss"]
-  free()
-  return URI(prot,host,int(port),path)
-
 class NoDataException (Exception): pass
 class ConnectionClosed(Exception): pass
 class WebsocketClient:
   def __init__(𝕊,uri):
-    𝕊.open = True
-    uri = urlparse(uri)
-    𝕊.sock = socket.socket()
-    𝕊.sock.connect(socket.getaddrinfo(uri.host,uri.port)[0][4])
-    𝕊.sock.setblocking(True)
-    if uri.proto=='wss':
-      # from time import localtime
-      # from machine import RTC
-      # log(f"the {localtime()=} {RTC().datetime()=} {μs()=}")
-      # del localtime,RTC
-      # micropython.mem_info(1)
-      # cln=':'; log(f'[WS] >> SSL ({join(mem_info(),cln)}) {mem_perc()}'); del cln; free()
-      free()
-      ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-      ctx.check_hostname = True
-      ctx.verify_mode    = ssl.CERT_REQUIRED
-      ctx.load_verify_locations(cafile="CERT")
-      𝕊.sock = ctx.wrap_socket(𝕊.sock, server_hostname=uri.host)
-      free()
-      # cln=':'; log(f'[WS] << SSL ({join(mem_info(),cln)}) {mem_perc()}'); del cln; free()
-      # micropython.mem_info(1)
+    s,uri = http_connect(uri,"wss")
+    𝕊.open,𝕊.buf = True,bytearray()
+    𝕊.sock = s
     
-    𝕊.buf = bytearray()
-
-    def send_header(h):
-      dat = h.encode("utf-8")+b"\r\n"
-      while dat: dat = dat[𝕊.sock.write(dat):]
-    send_header(f"GET {uri.path or '/'} HTTP/1.1")
-    send_header(f"Host: {uri.host}:{uri.port}")
-    send_header(f"Connection: Upgrade")
-    send_header(f"Upgrade: websocket")
-    send_header(f"Sec-WebSocket-Key: {b2a_base64(bytes(getrandbits(8) for _ in range(16)))[:-1].decode("utf-8")}")
-    send_header(f"Sec-WebSocket-Version: 13")
-    send_header(f"")
-    header = 𝕊.sock.readline()[:-2]
+    def send(h): s.write(h.encode()+b"\r\n")
+    send(f"GET {uri.path} HTTP/1.1")
+    send(f"Host: {uri.host}:{uri.port}")
+    send("Connection: Upgrade")
+    send("Upgrade: websocket")
+    send("Sec-WebSocket-Key: TFdNUFdlYnNvY2tldEtleQ==")
+    send("Sec-WebSocket-Version: 13")
+    send("")
+    del send
+    header = s.readline()[:-2]
     if not header.startswith(b'HTTP/1.1 101 '): raise Exception(f'Invalid header: "{header}"')
-    while header: header = 𝕊.sock.readline()[:-2] # We don't need these headers
-    𝕊.sock.setblocking(False)
+    while header: header = s.readline()[:-2]
+    s.setblocking(False)
     𝕊.poller = select.poll()
-    𝕊.poller.register(𝕊.sock,select.POLLIN)
-  def read_frame(𝕊,max_size=None):
+    𝕊.poller.register(s,select.POLLIN)
+  def read_frame(𝕊):
     buf = 𝕊.buf
+    import esp32; log("heap:",esp32.idf_heap_info(esp32.HEAP_DATA))
+    # 󰤱󰤱󰤱󰤱󰤱󰤱󰤱
     try:
-      while True:
+      while 1:
         c = 𝕊.sock.read(512)
         if c is None: break
-        if c == b"" : raise OSError("TCP Connection closed.")
+        if c ==  b"": raise OSError("TCP closed.")
         buf.extend(c)
         free()
-      # log(f"WS Message: {c.hex()}")
     except OSError as ε:
-      if ε.args[0] != errno.EAGAIN:
-        raise 𝕊._close(f"Socket error: {ε}")
+      if ε.args[0] != 11: raise 𝕊._close(f"Socket error: {ε}")
     
     p = 0
     def read_n(n,l=len(buf)):
@@ -114,53 +76,50 @@ class WebsocketClient:
     return fin,opcode,data
   def write_frame(𝕊,opcode,data=b''):
     l,b1 = len(data), 0x80|opcode
-    if   l <  126 : 𝕊.sock.write(pack('!BB' , b1, 0x80|l     ))
-    elif l < 1<<16: 𝕊.sock.write(pack('!BBH', b1, 0x80|126, l))
-    elif l < 1<<64: 𝕊.sock.write(pack('!BBQ', b1, 0x80|127, l))
+    if   l <  126 : 𝕊.sock.write(pack('!BB' , b1, l  |0x80  ))
+    elif l < 1<<16: 𝕊.sock.write(pack('!BBH', b1, 126|0x80, l))
+    elif l < 1<<64: 𝕊.sock.write(pack('!BBQ', b1, 127|0x80, l))
     else          : raise ValueError()
-    mask_bits = pack('!I', getrandbits(32))
+    mask_bits = b"\01\23\45\67" # pack('!I', getrandbits(32))
     𝕊.sock.write(mask_bits)
     data = bytes(b^mask_bits[i%4] for i,b in enumerate(data))
     𝕊.sock.write(data)
   def recv(𝕊):
     if not 𝕊.open: raise ConnectionClosed("Already closed")
     while 𝕊.open:
-      try:
-        fin,opcode,data = 𝕊.read_frame()
-      except ValueError:
-        raise 𝕊._close("WS Connection closed unexpectedly")
-      if not fin: raise NotImplementedError()
-      if   opcode==_OP_TEXT : return data # .decode('utf-8')
-      elif opcode==_OP_BYTES: return data
-      elif opcode==_OP_CLOSE: raise 𝕊._close("WS Connection closed.")
-      elif opcode==_OP_PING :
-        𝕊.write_frame(_OP_PONG,data)
-        continue
-      elif opcode==_OP_PONG: continue
-      elif opcode==_OP_CONT: raise NotImplementedError(opcode)
-      else                :
-        log(f'UNKNOWN WS RECV! {opcode=} {data=}')
-        raise ValueError(opcode)
-  
+      try              : fin,op,dat = 𝕊.read_frame()
+      except ValueError: raise 𝕊._close("WS Connection closed unexpectedly")
+      if op in (_OP_TEXT,_OP_BYTES):
+        buf = bytearray()
+        buf.extend(dat)
+        while not fin:
+          fin,op,dat = 𝕊.read_frame()
+          free()
+          if op != _OP_CONT: raise ValueError(f'Expected CONT frame, got "{op}"')
+          buf.extend(dat)
+        log(f"[WS] buf🃌={len(buf)} mem={mem_perc()}")
+        return bytes(buf)
+      elif op==_OP_PONG : pass
+      elif op==_OP_PING : 𝕊.write_frame(_OP_PONG,dat)
+      elif op==_OP_CLOSE: raise 𝕊._close("WS Connection closed.")
+      elif op==_OP_CONT : raise ValueError("Unexpected CONT frame")
+      else              : raise ValueError(f'[WS] Unknown op "{op}" ({dat=} {fin=})')
   def recv_instant(𝕊):
-    if not 𝕊.open: raise ConnectionClosed("Already closed")
+    if not 𝕊.open          : raise ConnectionClosed("Already closed")
     if not 𝕊.poller.poll(0): raise NoDataException()
     return 𝕊.recv()
   def recv_timeout(𝕊,t=5):
     if not 𝕊.open: raise ConnectionClosed("Already closed")
     if t is None: 
-      try:
-        return 𝕊.recv()
-      except NoDataException:
-        return None
+      try                   : return 𝕊.recv()
+      except NoDataException: return None
         
     s,t = ms(),1000*t
     while 1:
-      try:
-        return 𝕊.recv()
-      except NoDataException:
-        if dt_ms(s)>=t: return None
-        frees()
+      try                   : return 𝕊.recv()
+      except NoDataException: pass
+      if dt_ms(s)>=t: return None
+      frees()
   
   def close(𝕊,code=_CLOSE_OK,reason=''):
     if not 𝕊.open: return
@@ -173,7 +132,8 @@ class WebsocketClient:
 
 class WS_Client:
   def __init__(𝕊,uri,t=None):
-    𝕊.ws,𝕊.recv_timeout = WebsocketClient(uri),t
+    𝕊.ws = WebsocketClient(uri)
+    𝕊.recv_timeout = t
   def read(𝕊):
     r = 𝕊.ws.recv_timeout(𝕊.recv_timeout)
     if r is not None: return r[:6],r[6:]
@@ -196,4 +156,4 @@ class WS_Client:
       𝑿 = 𝔍d(({} if 𝑿 is None else 𝑿)|𝕂)
     𝕊.write(i,𝑿.encode("utf-8") if isinstance(𝑿,str) else X)
 
-__all__ = "WS_Client",
+#  WS_Client

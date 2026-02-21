@@ -92,7 +92,7 @@ class Scene_Cacher:
     if h in 𝕊.cache: return 𝕊.cache[h]
     log(f'[Scene Cache] Not in cache.')
     r = 𝕊(𝕊.man[k])
-    𝕊.cache[h] = r # 󰤱 CHECK FOR MEMORY STUFF BRO
+    # 𝕊.cache[h] = r # 󰤱 CHECK FOR MEMORY STUFF BRO
     return r
 
-__all__ = "get_scheg","check_scheg","update_scheg","Scene_Manager","Scene_Cacher"
+# get_scheg check_scheg update_scheg Scene_Manager Scene_Cacher

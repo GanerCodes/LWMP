@@ -1,5 +1,5 @@
 from util          import *
-from wifi          import AP_with_DNS
+from net           import AP_with_DNS
 from settings      import ℭ,wifi_from_ℭ
 from ws_client     import WS_Client
 from controller    import Controller
@@ -27,7 +27,7 @@ def handle_API(𝐦,d=None):
   log(f'[API] Handling "{𝐦}"')
   if 𝐦=="Change_dev":
     WCON = set("WS_URL DELETE".split())
-    ICON = set("R_SSID R_PASS".split())
+    ICON = set("R_SSID R_PASS AP_MODE".split())
     RLED = set("LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     
     D = { k.upper():v for k,v in d.items() }
@@ -145,8 +145,8 @@ def lw_net():
   except Exception as ε:
     dbg("[LW] Unhandled Exception!",ε)
   
-  free()
   while 1:
+    free()
     try:
       r = lw_websocket_loop()
       if r == _RESET_BOOT:

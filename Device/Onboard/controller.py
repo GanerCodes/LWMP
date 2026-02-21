@@ -28,6 +28,8 @@ def set_𝕒(hw,mode,arg_fmt=len(𝕒_static)//4*'i'):
   log(f"[Controller] Configured mode with {l}󷸻{h} ({targΔ=})")
   return pin,timing,ledv,targΔ
 @micropython.native
+def clamp(x,a,b): return a if x<=a else b if x>=b else x
+@micropython.native
 def inf0(x,inf=inf): return 0 if x==inf else x
 
 class Controller:
@@ -198,4 +200,4 @@ class Controller:
         dbg(f"[Controller] Error in LED loop! Restarting in 3 seconds:",ε)
         frees(3)
   
-__all__ = "Controller",
+# Controller

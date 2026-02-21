@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@swc/core": "^1.15.11",
+    "html-minifier-next": "^5.1.1"
+  }
+}

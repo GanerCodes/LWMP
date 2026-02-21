@@ -24,9 +24,10 @@
   ↪𜳬,𜳪
 
 󱀘WS_Client:  󰤱 test edgecases/failure cases?
-  ⊢__init__(𝕊,ws): 𝕊._send,𝕊._recv = ws.send,ws.recv
-                   𝕊.close = ws.close
-                   𝕊.locks = {}
+  ⊢__init__(𝕊,ws,chunk_size=2048):
+    𝕊._send,𝕊._recv = ws.send,ws.recv
+    𝕊.close = ws.close
+    𝕊.chunk_size,𝕊.locks = chunk_size,{}
   ⊢__call__(𝕊,⠤𝔸,⠶𝕂): ¿𝔸: ↪𝕊.send(⠤𝔸,⠶𝕂)
                       ↪𝕊.recv􀃅
   ➰ = ⥌𝕊,⠤𝔸,𝚝𝚘=10↦𝕊(⠤𝔸,⠶𝕂)(𝚝𝚘)
@@ -39,7 +40,8 @@
                         ↪𜳬
   ⊢listen(𝕊,𝚒=0,𝚍=␀,𝚝𝚘=□): ↪𝕊.listener(𝚒,𝚍)(𝚝𝚘)
   ⊢send(𝕊,𝙼,⠶𝕂): 𜳬 = 𝕊.listener(6 SR_bytes􀯑𝚒,⠶𝕂)
-                 𝕊._send(𝕊.pack_msg(𝚒,𝙼))
+                 chunk = 󷺹􁁁􍭓0􀝕⟝􈇊􀝕󷺽
+                 𝕊._send(𝕊.pack_msg(𝚒,𝙼) 􀊄ᶜʰᵘⁿᵏ 𝕊.chunk_size 􀉳 𝑦 ᐵ􀊹􀊸􀝔⟞)
                  ↪𜳬
   ⊢recv(𝕊):  󰤱 infinitely fills 𝕊.locks if we don't wait for reply!
                  𝚒,𝙼 = 𝕊.unpack_msg(𝕊._recv􀃅)

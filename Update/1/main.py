@@ -4,7 +4,7 @@ machine.freq(240_000_000)
 esp.osdebug(None)
 gc.disable()
 
-from updater import *
+from updater import check_perform_update
 check_perform_update()
 del check_perform_update
 del sys.modules["updater"]

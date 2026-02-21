@@ -27,8 +27,9 @@ DEVS=($(find /dev -regextype posix-extended -regex '.*/tty(ACM|USB).*'))
                 0xD000 ota_data_initial.bin 0x10000 micropython.bin
         popd; };
     pushd ./Onboard
+      stty -F "${DEV}" 115200 raw -echo
+      for _ in {1..20}; do { printf '\x03'; sleep 0.05; } done > "${DEV}"
       mpremote connect "${DEV}" fs rm -r :/defaults/* || :
-      mpremote connect "${DEV}" fs rm -r :/defaults/* || : # 1st mpremote command fails sometimes ∵ weird thread stuff happening on esp32
       mpremote connect "${DEV}" fs cp -r ${DEV_FS}/* :/
       [[ -n "$UUID" ]] && {
         tmp=$(mktemp)
@@ -65,9 +66,11 @@ pushd ./Device
     cp "../VERSION" "${DEV_FS}/VER"
     pushd ./Onboard
       cp -r Defaults/. "${DEV_FS}/"
+      cp -r *.pem "${DEV_FS}/"
       
       export PATH="$PATH:$HOME/.local/share/npm/bin"
       html-minifier-terser ./index.html --collapse-whitespace --remove-comments --minify-css true --minify-js true -o /tmp/index.min.html
+      cat index.html | node ../../Tools/HTML_Minifier/main.js > /tmp/index.min.html
       gzip -c /tmp/index.min.html > "${DEV_FS}/index.html.gzip"
       
       # cp *.html "${DEV_FS}/"

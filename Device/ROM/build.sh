@@ -24,11 +24,12 @@ pushd ../Micropython
       echo "CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=4096"
       echo "CONFIG_MBEDTLS_SSL_IN_CONTENT_LEN=4096"
       echo "CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=4096"
-      echo "CONFIG_MBEDTLS_SSL_SESSION_CACHE_SIZE=1"
+      # echo "CONFIG_MBEDTLS_SSL_MAX_FRAGMENT_LENGTH=y"
+      # echo "CONFIG_MBEDTLS_DYNAMIC_BUFFER=y"
     } > "$T"
     
-    { echo '#define MICROPY_HW_BOARD_NAME "ESP32 LightWave"'
-      echo '#define MICROPY_HW_MCU_NAME   "ESP32LW"        '
+    { echo '#define MICROPY_HW_BOARD_NAME        "ESP32 LightWave"'
+      echo '#define MICROPY_HW_MCU_NAME          "ESP32LW"        '
     } > "./boards/ESP32_GENERIC/mpconfigboard.h"
     popd
   

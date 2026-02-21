@@ -1,5 +1,5 @@
 from util import *
-from wifi import wifi_connect
+from net  import wifi_connect
 
 class Settings:
   def __init__(𝕊,**𝕂):

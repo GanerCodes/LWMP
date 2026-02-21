@@ -1,6 +1,9 @@
 from util   import *
 from consts import leds,lstk
 
+@micropython.native
+def add_mag(x,y): return (abs(x)+abs(y))*(1-2*(x<0))
+
 Seg = namedtuple("Seg", ["σ","Σ","d","m","r0","rΔ"])
 class Node:
   def __init__(𝕊,ν=None,σ=None,Σ=None,r0=None,rΔ=None,d=None,m=False):
@@ -108,4 +111,4 @@ def specify_mode(mode,offsets,ℭ):
     return None
   return mode,(l,h)
 
-__all__ = "encode_mode","specify_mode"
+# encode_mode specify_mode
