@@ -52,8 +52,6 @@
                         ↪𜳬
   ⊢listen(𝕊,𝚒=0,𝚍=␀,𝚝𝚘=□): ↪𝕊.listener(𝚒,𝚍)(𝚝𝚘)
   ⊢send(𝕊,𝙼,⠶𝕂): 𜳬 = 𝕊.listener(6 SR_bytes􀯑𝚒,⠶𝕂)
-                  chunk = 󷺹􁁁􍭓0􀝕⟝􈇊􀝕󷺽
-                  𝕊._send(𝕊.pack_msg(𝚒,𝙼) 􀊄ᶜʰᵘⁿᵏ 𝕊.chunk_size 􀉳 𝑦 ᐵ􀊹􀊸􀝔⟞)
                  ⛯ 𝕊.send_lock
                    ws_send(𝕊._sock,𝕊.pack_msg(𝚒,𝙼),𝕊.chunk_size)
                  ↪𜳬

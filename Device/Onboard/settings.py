@@ -45,6 +45,7 @@ class Settings:
 ℭ = Settings(WS_URL     =("wss://brynic_led_test.ganer.xyz:2096"    ,       ),
              UPDATE_URL =("https://brynic_led_test.ganer.xyz/update",       ),
              UUID       =(gen_id                                    ,       ),
+             AP_MODE    =(False                                     ,boolstr),
              TOKEN      =(                                                  ),
              NAME       =(                                                  ),
              R_SSID     =(                                                  ),
@@ -56,7 +57,7 @@ class Settings:
              RGB_ORDER  =("RGB"                                     ,       ),
              DEF_SCENE  =("_default"                                ,       ),
              VER        =("1"                                       ,       ),
-             AP_MODE    =(False                                     ,boolstr))
+             RECALB_T   =(0                                         ,int    ))
 if not ℭ.name: ℭ.name = ℭ.UUID
 ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 

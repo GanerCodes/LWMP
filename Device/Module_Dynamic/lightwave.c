@@ -117,7 +117,6 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
     i32 AΣS = abs(s.Σ);
     // stk[p] = (StackEntry){s.r0 + s.rΔ*t,s.σ,s.Σ};
     // stk[p] = (StackEntry){mod(s.r0 + s.rΔ*t, s.Σ),s.σ,s.Σ};
-    
     stk[p] = (StackEntry){mod(s.r0 + fmulmodpartial(s.rΔ,t,AΣS), AΣS),
                           s.σ, ((REVERSE && !i)?-1:1)*s.Σ};
     

@@ -34,11 +34,17 @@ def μS(*,S=last_ntp,μs=μs):
   return μs()-o+T
 @micropython.native
 def MS(*,μS=μS): return μS()//1000
+
+@micropython.native
+def day_start(μ=None):
+  if μ is None: μ = μS()
+  return (μ//_μS_PER_D) * _μS_PER_D
 @micropython.native
 def week_start(μ=None):
   if μ is None: μ = μS()
   μ //= _μS_PER_D
   return (μ-((μ+4)%7)) * _μS_PER_D
+
 @micropython.native
 def is_leap(x): return x%4==0 and (x%100 or not x%400)
 @micropython.native
@@ -144,7 +150,8 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   # d = get_date(r); RTC().init((d[0],d[1],d[2],d[4],d[5],d[6],d[7],0))
   return r,ΔΔ
 
-__all__ = "S_PER_D","S_PER_W","MS_PER_W","ΜS_PER_D","fmt_date","fmt_dur","week_start", \
+__all__ = "S_PER_D","S_PER_W","MS_PER_W","ΜS_PER_D", \
+          "fmt_date","fmt_dur","day_start","week_start", \
           "get_date","μs","ms","dt_ms","μS","MS","last_ntp","ntp"
 
 # if __name__ == "__main__":

@@ -20,29 +20,25 @@ log(f"[LW] Starting with Settings={ℭ}");
 𝔏 = Controller(ℭ,𝔐)
 thread(𝔏.loop)
 
-update_LED_HW = lambda: 𝔏.configure(ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE,ℭ.BIT_TIMING)
-update_LED_HW()
-
 def handle_API(𝐦,d=None):
   log(f'[API] Handling "{𝐦}"')
   if 𝐦=="Change_dev":
     WCON = set("WS_URL DELETE".split())
     ICON = set("R_SSID R_PASS AP_MODE".split())
-    RLED = set("LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
+    RLED = set("LEDP LEDC REVERSE BIT_TIMING RGB_ORDER RECALB_T".split())
     
-    D = { k.upper():v for k,v in d.items() }
-    K = set(D)
+    K = set(D := { k.upper():v for k,v in d.items() })
     
     if "VER" in D and D["VER"] != ℭ.VER:
       write_file("UPDATE_FLAG",str(D["VER"]).strip())
       return _RESET_BOOT,_RESET_BOOT
     
-    if "RGB_ORDER" in D     : D["RGB_ORDER"] = parse_rgb_mode(d['RGB_ORDER'])
+    if "RGB_ORDER" in K     : D["RGB_ORDER"] = parse_rgb_mode(d['RGB_ORDER'])
     if K & {"DELETE","UUID"}: D["NAME"] = D["UUID"] = gen_id()
     
     ℭ({ k:v for k,v in D.items() if k in ℭ })
     
-    if K & RLED: update_LED_HW()
+    if K & RLED: 𝔏.configure()
     if K & ICON: return _RESET_WIFI,_RESET_WIFI
     if K & WCON: return _RESET_WS  ,_RESET_WS
   elif 𝐦=="Set_scene":
@@ -169,7 +165,7 @@ def lw_net():
       dbg(f'[LW-WS] Error in loop! Restarting in 5 seconds:',ε)
     frees(5)
 
-update_LED_HW()
+𝔏.configure()
 try:
   while lw_net() != _RESET_BOOT: pass
 except BaseException as ε:

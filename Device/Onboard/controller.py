@@ -33,13 +33,25 @@ def clamp(x,a,b): return a if x<=a else b if x>=b else x
 def inf0(x,inf=inf): return 0 if x==inf else x
 
 class Controller:
-  __repr__ = lambda 𝕊: f"Controller⟨{𝕊.dmode} lstate={𝕊.lstate}⟩"
+  __repr__ = lambda 𝕊: f"Controller⟨{𝕊.dmode} recalb_t={𝕊.recalb_t} lstate={𝕊.lstate}⟩"
   def __init__(𝕊,ℭ,𝔐):
-    𝕊.ℭ,𝕊.lstate = ℭ,_LOOP_UPDATE
-    𝕊.scenes = Scene_Cacher(𝔐)
-    𝕊.mode = 𝕊.dmode = None
+    𝕊.ℭ,𝕊.scenes = ℭ,Scene_Cacher(𝔐)
     𝕊.𝔖,𝕊.𝔔 = [],[]
-    𝕊.Δ = 0
+    𝕊.mode = 𝕊.dmode = None
+    𝕊.recalb_t,𝕊.recalb_t_ts = 0,0
+    𝕊.Δ,𝕊.lstate = 0,_LOOP_UPDATE
+    𝕊.configure()
+  def configure(𝕊):
+    log(f"[Controller] Configuring")
+    ℭ = 𝕊.ℭ
+    timing = ℭ.BIT_TIMING
+    if isinstance(timing,str): timing = tuple(map(int,timing.strip().split()))
+    (pin := Pin(ℭ.LEDP)).init(pin.OUT)
+    𝕊.dmode = pin,parse_rgb_mode(ℭ.RGB_ORDER),bool(ℭ.REVERSE),tuple(timing)
+    𝕊.recalb_t = ℭ.RECALB_T
+    𝕊.lstate = _LOOP_UPDATE
+    log(f"[Controller] Configured to {𝕊}")
+    return 𝕊
   def __call__(𝕊,s=None,q=False,d=inf,Ta=None,Ts=None):
     log(f'[Controller] Calling with ({s!r}, {q}, {d}, {Ta}, {Ts})')
     if s is not None:
@@ -56,7 +68,7 @@ class Controller:
         h_add(𝔔,Activation(Ta,Ta,s,d))
       else:
         assert Ta is None, "󰤱"
-        if Ts is None: Ts = week_start(M*1000) // 1_000 # 󷹇 if ntp not ran then its just some ancient date
+        if Ts is None: Ts = day_start(M*1000) // 1_000 # 󷹇 if ntp not ran then its just some ancient date
         ν = Activation(Ts,Ts,s,d)
         𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
     else:
@@ -68,17 +80,9 @@ class Controller:
     if 𝕊.ℭ.DEF_SCENE not in 𝕊.scenes.man:
       return FALSE(log("[Controller] No default scene found."))
     s = 𝕊.ℭ.DEF_SCENE
-    W = week_start(1000*MS())//1000
+    W = day_start(1000*MS())//1000
     log(f'[Controller] Loading default scene "{s}"')
     return Activation(W,W,𝕊.scenes[s],inf)
-  
-  def configure(𝕊,pin=23,order=(0,1,2),reverse=False,timing=(400,850,800,450)):
-    if isinstance(timing,str): timing = tuple(map(int,timing.strip().split()))
-    log(f"[Controller] Configuring HW: {pin=} {order=} {reverse=} {timing=}")
-    (pin := Pin(pin)).init(pin.OUT)
-    𝕊.dmode = pin,parse_rgb_mode(order),bool(reverse),tuple(timing)
-    𝕊.lstate = _LOOP_UPDATE
-    return 𝕊
   
   def get_Δ(𝕊,ν):
     M,m = MS(),ms()
@@ -105,11 +109,11 @@ class Controller:
     
     if reset:
       cache.clear()
-      𝔛[:] = [] # 󰤱
+      𝔛[:] = [] # 󰤱􊽨
       frees()
     
     now = μS()
-    d,W = get_date(now),week_start(now)//1_000_000
+    d,W = get_date(now),day_start(now)//1_000_000
     now //= 1_000_000
     # log(f"Now={fmt_date(1_000_000*now)} Week={fmt_date(1_000_000*W)}")
     
@@ -129,6 +133,7 @@ class Controller:
   # @micropython.native
   def update_to_que(𝕊):
     M = MS()
+    
     for i,𝚇 in enumerate((𝕊.𝔖,𝕊.𝔔)):
       while 𝚇:
         ν = 𝚇[0]
@@ -138,17 +143,26 @@ class Controller:
         𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
         log(f"[Controller] Setting from {"𝔖𝔔"[i]} at ⟨{fmt_date(1000*M)}⟩: ({fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s)")
         frees()
-        return True
+        return 2
     if 𝕊.mode is None or M>=𝕊.mode.Ta+𝕊.mode.d:
       if ν := 𝕊.load_def_scene():
         𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
         free()
-        return True
+        return 2
+    m = ms()
+    
+    _MS_PER_6H = const(6*60*60*1000)
+    s_day = M//1000 - day_start(1000*M)//1_000_000
+    if M > 𝕊.recalb_t_ts+123456 and s_day >= 𝕊.recalb_t:
+      pΔ = 𝕊.Δ
+      while m+𝕊.Δ > _MS_PER_6H: # 𝕊.Δ = -m would prob be fine but eeeh
+        𝕊.Δ -= _MS_PER_6H
+      𝕊.recalb_t_ts = M
+      log(f"[Controller] ⟨{fmt_date(1000*M)}⟩ Recalibrated Δ {pΔ}→{𝕊.Δ} to avoid rounding issues.")
+      if 𝕊.Δ != pΔ: return 1
+      # 𝕊.Δ = (𝕊.Δ+m)%(_MS_PER_12H) - m
+    return 0
   
-  def get_wait_hwconf(𝕊):
-    while 𝕊.lstate and 𝕊.dmode is None:
-      frees(0.1)
-    return 𝕊.dmode
   def get_wait_mode(𝕊):
     frees()
     𝕊.update_to_que()
@@ -165,7 +179,7 @@ class Controller:
     while 𝕊.lstate:
       try:
         𝕊.lstate = _LOOP_TIGHT
-        pin,timing,ledv,targΔ = set_𝕒(𝕊.get_wait_hwconf(),𝕊.get_wait_mode())
+        pin,timing,ledv,targΔ = set_𝕒(𝕊.dmode,𝕊.get_wait_mode())
         
         Δ = prevΔ = targΔ
         log_n = n = tsΔ = 0
@@ -184,13 +198,20 @@ class Controller:
           assign_leds(𝕒_ptr,tq+tr*0.001)
           bitstream(pin,0,timing,ledv)
           
-          if 𝕊.update_to_que(): break
+          if u:=𝕊.update_to_que():
+            if u==2: break
+            if u==1: Δ = targΔ = prevΔ = 𝕊.Δ
           if (n:=n+1)%_FREE_INTRV_FRAME and dt_ms(m,free_ts)<_FREE_INTRV_MS: continue
           if (δ_log := dt_ms(free_ts:=ms(),log_ts)) >= _LOG_INTRV_MS:
             FPS = (n-log_n)/(δ_log or 10**-5)*1000
+            
+            M = MS()
+            cur_s = M//1000 - day_start(1000*M)//10**6
             log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {fs_perc()} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"
                 f"  {fmt_date()} (Ntp=⟨{fmt_date(last_ntp[1] or 0)}⟩ @ ⟨{fmt_dur(last_ntp[0] or 0)}⟩)\n"
+                f"  Sec=⟨{fmt_dur(10**6*cur_s)}⟩ recalb_t=⟨{fmt_dur(10**6*𝕊.recalb_t)}⟩ recalb_t_ts=⟨{fmt_date(1000*𝕊.recalb_t_ts)}⟩\n"
                 f"  Ta=⟨{fmt_date(1000*𝕊.mode.Ta)}⟩ Ts=⟨{fmt_date(1000*𝕊.mode.Ts)}⟩ d=⟨{fmt_dur(1000*𝕊.mode.d)}⟩")
+                
             log_n,log_ts = n,free_ts
           if targΔ != 𝕊.Δ:
             targΔ,prevΔ,tsΔ = 𝕊.Δ,Δ,free_ts

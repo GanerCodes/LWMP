@@ -20,8 +20,7 @@ USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE
                       └ devs   ─ UUID ↦ DEV ┬ name      ─ NAME
                                             ├ ledc      ─ ℕ⁺
                                             ├ rgb_order ─ U32
-                                            ├ reverse   ─ 𝔹
-                                            └ ws_url    ─ ᔐ¹􍦛²⁵⁶
+                                            └ reverse   ─ 𝔹
 
 § API
 COMMAND ┬ token ─ TOKEN
