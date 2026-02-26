@@ -1,10 +1,11 @@
+from collections   import namedtuple
 from uctypes       import addressof as Ѧ
-from machine       import bitstream
+from machine       import bitstream,Pin
 from heapq         import heappush as h_add,heappop as h_pop
-from math          import exp,ceil
-
+from math          import inf,exp,ceil
 from util          import *
 from consts        import ref_hold,lstk_ptr,leds,leds_ptr,last_ntp,𝕒_static,𝕒_ptr
+from settings      import parse_rgb_mode
 from interface     import specify_mode
 from lightwave     import assign_leds
 from scene_manager import Scene_Cacher
@@ -17,20 +18,26 @@ _FREE_INTRV_MS    = const(250)
 _FREE_INTRV_FRAME = const(30)
 _NTP_REFRESH_TIME_μs = const(15*60*1_000_000)
 
+_MS_PER_6H = const(   6*60*60*1000)
+_S_PER_D   = const(  24*60*60     )
+_MS_PER_D  = const(  24*60*60*1000)
+_S_PER_W   = const(7*24*60*60     )
+_MS_PER_W  = const(7*24*60*60*1000)
+
 Activation = namedtuple("Activation",["Ta","Ts","s","d"])
 
+@micropython.native
+def clamp(x,a,b): return a if x<=a else b if x>=b else x
+@micropython.native
+def inf0(x,inf=inf): return 0 if x==inf else x
 @micropython.native
 def set_𝕒(hw,mode,arg_fmt=len(𝕒_static)//4*'i'):
   (pin,order,reverse,timing),(((S,S_len,atoms,atoms_len,fades),(l,h)),targΔ) = hw,mode
   𝕒_static[:] = pack(arg_fmt,Ѧ(S),S_len,Ѧ(atoms),atoms_len,Ѧ(fades),lstk_ptr,leds_ptr,order,reverse,l,h)
   ledv = memoryview(leds)[:3*(h-l)]
   ref_hold[:] = S,atoms,fades
-  log(f"[Controller] Configured mode with {l}󷸻{h} ({targΔ=})")
+  log(f"[Controller] Specialized mode with {l}󷸻{h} ({targΔ=})")
   return pin,timing,ledv,targΔ
-@micropython.native
-def clamp(x,a,b): return a if x<=a else b if x>=b else x
-@micropython.native
-def inf0(x,inf=inf): return 0 if x==inf else x
 
 class Controller:
   __repr__ = lambda 𝕊: f"Controller⟨{𝕊.dmode} recalb_t={𝕊.recalb_t} lstate={𝕊.lstate}⟩"
@@ -38,11 +45,10 @@ class Controller:
     𝕊.ℭ,𝕊.scenes = ℭ,Scene_Cacher(𝔐)
     𝕊.𝔖,𝕊.𝔔 = [],[]
     𝕊.mode = 𝕊.dmode = None
-    𝕊.recalb_t,𝕊.recalb_t_ts = 0,0
+    𝕊.recalb_t,𝕊.recalb_t_day = 0,0
     𝕊.Δ,𝕊.lstate = 0,_LOOP_UPDATE
     𝕊.configure()
   def configure(𝕊):
-    log(f"[Controller] Configuring")
     ℭ = 𝕊.ℭ
     timing = ℭ.BIT_TIMING
     if isinstance(timing,str): timing = tuple(map(int,timing.strip().split()))
@@ -51,13 +57,14 @@ class Controller:
     𝕊.recalb_t = ℭ.RECALB_T
     𝕊.lstate = _LOOP_UPDATE
     log(f"[Controller] Configured to {𝕊}")
+    free()
     return 𝕊
   def __call__(𝕊,s=None,q=False,d=inf,Ta=None,Ts=None):
     log(f'[Controller] Calling with ({s!r}, {q}, {d}, {Ta}, {Ts})')
     if s is not None:
       𝔖_,𝔔,s = 𝕊.𝔖,𝕊.𝔔,𝕊.scenes[s]
       if d in (None,-1): d = inf
-      M = MS()
+      M,m = MS(),ms()
       if q:
         assert Ts is not None, "󰤱"
         assert Ta is None, "󰤱"
@@ -68,27 +75,23 @@ class Controller:
         h_add(𝔔,Activation(Ta,Ta,s,d))
       else:
         assert Ta is None, "󰤱"
-        if Ts is None: Ts = day_start(M*1000) // 1_000 # 󷹇 if ntp not ran then its just some ancient date
+        if Ts is None: Ts = day_start(M*1000)//1_000 # 󷹇 if ntp not ran then its just some ancient date
         ν = Activation(Ts,Ts,s,d)
-        𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
+        𝕊.set(ν,M,m)
     else:
       𝕊.mode = None
       𝕊.load_def_scene() # this is for cache ∵ our thread has small stack. 󰤱 fix this behavior in general
+    free()
     𝕊.lstate = _LOOP_UPDATE
   
   def load_def_scene(𝕊):
     if 𝕊.ℭ.DEF_SCENE not in 𝕊.scenes.man:
-      return FALSE(log("[Controller] No default scene found."))
+      log("[Controller] No default scene found.")
+      return False
     s = 𝕊.ℭ.DEF_SCENE
-    W = day_start(1000*MS())//1000
+    D = day_start(1000*MS())//1000
     log(f'[Controller] Loading default scene "{s}"')
-    return Activation(W,W,𝕊.scenes[s],inf)
-  
-  def get_Δ(𝕊,ν):
-    M,m = MS(),ms()
-    Δ = M-ν.Ts-m
-    log(f"[Controller] get_Δ: {M=} - Ts={ν.Ts} - {m=} = {Δ}")
-    return Δ
+    return Activation(D,D,𝕊.scenes[s],inf)
   
   def check_ntp(𝕊,force=False):
     t = μs()
@@ -96,9 +99,10 @@ class Controller:
     log(f"[Controller] Starting NTP sync")
     T,ΔΔ = ntp()
     ΔΔ //= 1000
-    prevΔ = 𝕊.Δ
-    𝕊.Δ += ΔΔ
-    log(f"[Controller] Updating Δ from NTP drift {prevΔ}→{𝕊.Δ}")
+    if ΔΔ:
+      prevΔ = 𝕊.Δ
+      𝕊.Δ += ΔΔ
+      log(f"[Controller] Updating Δ from NTP drift {prevΔ}→{𝕊.Δ}")
     return T,ΔΔ
   
   def update_scheg(𝕊,schedule,reset=False,cache=set()):
@@ -113,26 +117,39 @@ class Controller:
       frees()
     
     now = μS()
-    d,W = get_date(now),day_start(now)//1_000_000
+    d,W = get_date(now),week_start(now)//1_000_000
     now //= 1_000_000
     # log(f"Now={fmt_date(1_000_000*now)} Week={fmt_date(1_000_000*W)}")
     
     T = now-W
     for i,(Δ,(s,q,d)) in enumerate(𝔊):
       assert not q, "󰤱"
-      if (Δ-T)%S_PER_W > S_PER_D: continue
-      A = 1000*(W + Δ + (Δ<T)*S_PER_W)
+      if (Δ-T)%_S_PER_W > _S_PER_D: continue
+      A = 1000*(W + Δ + (Δ<T)*_S_PER_W)
       if A in cache: continue
       cache.add(A)
-      d = min(MS_PER_W if d in (None,-1,0) else d,
-              ((1000*(𝔊[(i+1)%len(𝔊)][0] - Δ)) - 1)%MS_PER_W + 1)
+      d = min(_MS_PER_W if d in (None,-1,0) else d,
+              ((1000*(𝔊[(i+1)%len(𝔊)][0] - Δ)) - 1)%_MS_PER_W + 1)
       log(f'[Controller] Scheduled: "{s}" @ ⟨{fmt_date(1000*A)}⟩ (W=⟨{fmt_date(1000*W)}⟩) for ⟨{fmt_dur(1000*d)}⟩')
       h_add(𝔛,Activation(A,A,𝕊.scenes[s],d))
     return True
   
   # @micropython.native
+  def update_recalb_day(𝕊,M):
+    day = M//_MS_PER_D
+    s_day = M//1000 - day_start(1000*M)//1_000_000
+    𝕊.recalb_t_day = day - (s_day < 𝕊.recalb_t-60) # prevent ᵉᵍ mode at 12am w/ 1159pm recalb_t taking ≈48hr
+  
+  # @micropython.native
+  def set(𝕊,ν,M,m):
+    𝕊.mode,𝕊.Δ = ν,M-ν.Ts-m
+    # log(f"[Controller] get_Δ: M={M} - Ts={ν.Ts} - m={m} = Δ={𝕊.Δ}")
+    𝕊.update_recalb_day(M)
+    free()
+  
+  # @micropython.native
   def update_to_que(𝕊):
-    M = MS()
+    M,m = MS(),ms()
     
     for i,𝚇 in enumerate((𝕊.𝔖,𝕊.𝔔)):
       while 𝚇:
@@ -140,41 +157,34 @@ class Controller:
         if M<ν.Ta: break
         h_pop(𝚇)
         if M>=ν.Ta+ν.d: continue
-        𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
+        𝕊.set(ν,M,m)
         log(f"[Controller] Setting from {"𝔖𝔔"[i]} at ⟨{fmt_date(1000*M)}⟩: ({fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s)")
-        frees()
         return 2
     if 𝕊.mode is None or M>=𝕊.mode.Ta+𝕊.mode.d:
       if ν := 𝕊.load_def_scene():
-        𝕊.mode,𝕊.Δ = ν,𝕊.get_Δ(ν)
-        free()
+        𝕊.set(ν,M,m)
         return 2
-    m = ms()
     
-    _MS_PER_6H = const(6*60*60*1000)
+    day = M//_MS_PER_D
+    if day <= 𝕊.recalb_t_day: return 0
     s_day = M//1000 - day_start(1000*M)//1_000_000
-    if M > 𝕊.recalb_t_ts+123456 and s_day >= 𝕊.recalb_t:
-      pΔ = 𝕊.Δ
-      while m+𝕊.Δ > _MS_PER_6H: # 𝕊.Δ = -m would prob be fine but eeeh
-        𝕊.Δ -= _MS_PER_6H
-      𝕊.recalb_t_ts = M
-      log(f"[Controller] ⟨{fmt_date(1000*M)}⟩ Recalibrated Δ {pΔ}→{𝕊.Δ} to avoid rounding issues.")
-      if 𝕊.Δ != pΔ: return 1
-      # 𝕊.Δ = (𝕊.Δ+m)%(_MS_PER_12H) - m
-    return 0
+    if s_day < 𝕊.recalb_t: return 0
+    pΔ = 𝕊.Δ
+    while m+𝕊.Δ > _MS_PER_6H: 𝕊.Δ -= _MS_PER_6H # 𝕊.Δ = -m would prob be fine but eeeh
+    𝕊.update_recalb_day(M)
+    log(f"[Controller] ⟨{fmt_date(1000*M)}⟩ Recalibrated Δ {pΔ}→{𝕊.Δ} to avoid rounding issues.")
+    return 1 if pΔ!=𝕊.Δ else 0
   
   def get_wait_mode(𝕊):
-    frees()
-    𝕊.update_to_que()
     while 𝕊.lstate:
-      frees(0.1)
       𝕊.update_to_que()
       if 𝕊.mode is None:
+        frees(0.1)
         continue
       if r := specify_mode(*𝕊.mode.s,𝕊.ℭ):
         return r,𝕊.Δ
   
-  # @micropython.native
+  @micropython.native
   def loop(𝕊,leds=leds,set_𝕒=set_𝕒,𝕒_ptr=𝕒_ptr):
     while 𝕊.lstate:
       try:
@@ -203,15 +213,13 @@ class Controller:
             if u==1: Δ = targΔ = prevΔ = 𝕊.Δ
           if (n:=n+1)%_FREE_INTRV_FRAME and dt_ms(m,free_ts)<_FREE_INTRV_MS: continue
           if (δ_log := dt_ms(free_ts:=ms(),log_ts)) >= _LOG_INTRV_MS:
-            FPS = (n-log_n)/(δ_log or 10**-5)*1000
-            
             M = MS()
             cur_s = M//1000 - day_start(1000*M)//10**6
+            FPS = (n-log_n)/(δ_log or 10**-5)*1000
             log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {fs_perc()} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"
                 f"  {fmt_date()} (Ntp=⟨{fmt_date(last_ntp[1] or 0)}⟩ @ ⟨{fmt_dur(last_ntp[0] or 0)}⟩)\n"
-                f"  Sec=⟨{fmt_dur(10**6*cur_s)}⟩ recalb_t=⟨{fmt_dur(10**6*𝕊.recalb_t)}⟩ recalb_t_ts=⟨{fmt_date(1000*𝕊.recalb_t_ts)}⟩\n"
+                f"  Sec=⟨{fmt_dur(10**6*cur_s)}⟩ recalb_t=⟨{fmt_dur(10**6*𝕊.recalb_t)}⟩ recalb_t_day=⟨{fmt_date(1000*𝕊.recalb_t_day)}⟩\n"
                 f"  Ta=⟨{fmt_date(1000*𝕊.mode.Ta)}⟩ Ts=⟨{fmt_date(1000*𝕊.mode.Ts)}⟩ d=⟨{fmt_dur(1000*𝕊.mode.d)}⟩")
-                
             log_n,log_ts = n,free_ts
           if targΔ != 𝕊.Δ:
             targΔ,prevΔ,tsΔ = 𝕊.Δ,Δ,free_ts

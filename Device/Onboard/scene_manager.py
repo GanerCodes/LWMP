@@ -4,13 +4,15 @@ from util      import *
 from interface import encode_mode
 from consts    import scene_check
 
+_MS_PER_D = const(24*60*60*1000)
+
 def get_scheg(fp="/schedule"):
   return 𝔍lf(fp) if path_exists(fp) else None
 def check_scheg(𝔏,fp="/schedule"):
   if not (S:=get_scheg(fp)): return False
   s = scene_check[0]
   t = μS()
-  if s is None or t>=scene_check[0]+ΜS_PER_D:
+  if s is None or t>=scene_check[0]+_MS_PER_D:
     𝔏.update_scheg(S,reset=True)
     scene_check[0] = t
     return True
@@ -39,8 +41,10 @@ class Scene_Manager:
   def __delitem__(𝕊,name):
     if loc := 𝕊():
       rm(loc)
-      TRUE(log(f'[Scenes] Removed scene "{name}"'))
-    return FALSE(log(f'[Scenes] Scene "{name}" already nonexistant'))
+      log(f'[Scenes] Removed scene "{name}"')
+      return True
+    log(f'[Scenes] Scene "{name}" already nonexistant')
+    return False
   def __getitem__(𝕊,name):
     if (loc := 𝕊(name)) is None:
       raise FileNotFoundError(f'Could not find scene "{name}"!')

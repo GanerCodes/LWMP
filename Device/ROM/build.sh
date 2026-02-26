@@ -24,6 +24,7 @@ pushd ../Micropython
       echo "CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=4096"
       echo "CONFIG_MBEDTLS_SSL_IN_CONTENT_LEN=4096"
       echo "CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=4096"
+      echo "CONFIG_MBEDTLS_HAVE_TIME_DATE=n"
       # echo "CONFIG_MBEDTLS_SSL_MAX_FRAGMENT_LENGTH=y"
       # echo "CONFIG_MBEDTLS_DYNAMIC_BUFFER=y"
     } > "$T"
@@ -34,7 +35,12 @@ pushd ../Micropython
     popd
   
   make -C ports/esp32 BOARD=ESP32_GENERIC submodules
-  make -C ports/esp32 EXTRA_CFLAGS="-DMICROPY_GC_INITIAL_HEAP_SIZE=53248 -Wno-error=parentheses -Wno-error=maybe-uninitialized" \
+  make -C ports/esp32 EXTRA_CFLAGS="-DMICROPY_GC_INITIAL_HEAP_SIZE=53248 \
+                                    -Wno-error=misleading-indentation \
+                                    -Wno-error=maybe-uninitialized \
+                                    -Wno-error=uninitialized \
+                                    -Wno-error=unused-value" \
+                                    -Wno-error=parentheses \
                       BOARD=ESP32_GENERIC USER_C_MODULES="$USERMODS"
   pushd ports/esp32/build-ESP32_GENERIC
     cp bootloader/bootloader.bin partition_table/partition-table.bin ota_data_initial.bin micropython.bin "$OUT_DIR"

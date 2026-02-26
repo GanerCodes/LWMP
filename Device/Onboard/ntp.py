@@ -1,23 +1,18 @@
 from machine import RTC
 from random  import randrange,choice
-
+from math    import inf
 from util    import *
 from time    import ticks_diff
 from consts  import NTP_HOSTS,last_ntp
 from lw_ntp  import ntp_raw,micros as μs
 
-S_PER_D   = const(60*60*24             )
-S_PER_W   = const(60*60*24*7           )
-ΜS_PER_D  = const(60*60*24  *1000      )
-MS_PER_W  = const(60*60*24*7*1000      )
-_μS_PER_D = const(60*60*24  *1000000   )
+_μS_PER_D = const(24*60*60*1000000)
 _μS_70Y   = const(2_208_988_800_000_000)
 
-@micropython.native
 def sample(X,n):
   I = list(range(len(X)))
   r = [X[I.pop(randrange(len(I)))] for _ in range(min(n,len(X)))]
-  del X,n,I,_
+  del X,n,I # 󰤱 mp bug report, i had _ in this list in native mode and it silently didnt do anything.
   free()
   return r
 
@@ -25,7 +20,6 @@ def sample(X,n):
 def ms(*,μs=μs): return μs()//1000
 @micropython.native
 def dt_ms(x,y=None,*,ms=ms): return ms()-x if y is None else x-y
-# def dt_ms(x,y=None,td=ticks_diff,ms=ms): return td(*(ms(),x) if y is None else (x,y))
 
 @micropython.native
 def μS(*,S=last_ntp,μs=μs):
@@ -34,7 +28,6 @@ def μS(*,S=last_ntp,μs=μs):
   return μs()-o+T
 @micropython.native
 def MS(*,μS=μS): return μS()//1000
-
 @micropython.native
 def day_start(μ=None):
   if μ is None: μ = μS()
@@ -45,8 +38,9 @@ def week_start(μ=None):
   μ //= _μS_PER_D
   return (μ-((μ+4)%7)) * _μS_PER_D
 
-@micropython.native
-def is_leap(x): return x%4==0 and (x%100 or not x%400)
+# @micropython.native
+def is_leap(x):
+  return x%4==0 and (x%100 or not x%400)
 @micropython.native
 def get_date(μ=None,*,dm=divmod):
   if μ is None: μ = μS()
@@ -66,12 +60,12 @@ def get_date(μ=None,*,dm=divmod):
     d -= month_days[mo]
     mo += 1
   return y,mo,d,wd,h,m,s,μ
-@micropython.native
+# @micropython.native
 def fmt_date(d=None):
   if d is None          : d = get_date( )
   elif isinstance(d,int): d = get_date(d)
   return f"{d[0]:04}/{d[1]+1:02}/{d[2]+1:02} [Sun+{d[3]}] {d[4]:02}:{d[5]:02}:{d[6]:02}.{d[7]:06}"
-@micropython.native
+# @micropython.native
 def fmt_dur(μ):
   if μ == inf: return "∞"
   s,μ = divmod(μ,1_000_000)
@@ -114,7 +108,7 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
       except Exception as ε:
         X[h].append(ε)
   
-  print(f"[NTP] Times:")
+  print(f"[NTP] Probes")
   for h,V in X.items():
     for i,v in enumerate(V):
       if not (e := isinstance(v,BaseException)):
@@ -148,10 +142,10 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   last_ntp[:] = [t,r]
   print(f"[NTP] Got time: {r}⟨{fmt_date(get_date(r))}⟩ @ {t}⟨{fmt_dur(t)}⟩")
   # d = get_date(r); RTC().init((d[0],d[1],d[2],d[4],d[5],d[6],d[7],0))
+  free()
   return r,ΔΔ
 
-__all__ = "S_PER_D","S_PER_W","MS_PER_W","ΜS_PER_D", \
-          "fmt_date","fmt_dur","day_start","week_start", \
+__all__ = "fmt_date","fmt_dur","day_start","week_start", \
           "get_date","μs","ms","dt_ms","μS","MS","last_ntp","ntp"
 
 # if __name__ == "__main__":

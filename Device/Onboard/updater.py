@@ -1,21 +1,32 @@
+from machine  import reset
+from time     import sleep
 from util     import *
 from net      import http_get
 from settings import ℭ,wifi_from_ℭ
 
 def check_perform_update(force=None,fp="UPDATE_FLAG"):
   if isinstance(force,str): write_file("UPDATE_FLAG",force)
-  if not path_exists(fp): return NONE(log("[Updater] Update flag not set."))
+  if not path_exists(fp):
+    log("[Updater] Update flag not set.")
+    return
   old_v,status = ℭ.ver.strip(),0
   try:
     if old_v == (new_v := read_file(fp).strip()) and not force:
-      return NONE(log("[Updater] Already up to date."))
+      log("[Updater] Already up to date.")
+      return
     
     status = -1
     
-    try                  : wifi_from_ℭ(ℭ)
-    except Exception as ε: return FALSE(dbg("[Updater] Could not connect to WiFi.",ε))
-    try                  : ntp()
-    except Exception as ε: dbg("[Updater] NTP failed! SSL might have issues.",ε)
+    try:
+      wifi_from_ℭ(ℭ)
+    except Exception as ε:
+      dbg("[Updater] Could not connect to WiFi.",ε)
+      return False
+    try:
+      ntp()
+    except Exception as ε:
+      dbg("[Updater] NTP failed! SSL might have issues.",ε)
+      return False
     
     need = 150*1024
     u,f = fs_info()
@@ -29,14 +40,17 @@ def check_perform_update(force=None,fp="UPDATE_FLAG"):
         log(f'  Removing "{s}"')
         rm(s)
       u,f = fs_info()
-      if f<need: return FALSE(log(f"[Updater] Unable to clear enough space! This is really bad! ({f}<{need})"))
+      if f<need:
+        log(f"[Updater] Unable to clear enough space! This is really bad! ({f}<{need})")
+        return False
     
     base = f"{ℭ.UPDATE_URL}/{new_v}"
     try:
       r = http_get(f"{base}/index.json")
       file_list = 𝔍l(r.decode())
     except Exception as ε:
-      return FALSE(dbg("[Updater] failed to get index.",ε))
+      dbg("[Updater] failed to get index.",ε)
+      return False
     log(f"[Updater] Got file list: {file_list}")
     
     try:
@@ -56,11 +70,13 @@ def check_perform_update(force=None,fp="UPDATE_FLAG"):
       for f in file_list:
         try             : rm(f"{f}.new")
         except Exception: pass
-      return FALSE(log(f"[Updater] Cleaned partially downloaded update."))
+      log(f"[Updater] Cleaned partially downloaded update.")
+      return False
     for f in file_list: mv(f"{f}.new",f)
     status = 1
   except Exception as ε:
-    return FALSE(dbg(f"[Updater] Unhandled error",ε))
+    dbg(f"[Updater] Unhandled error",ε)
+    return False
   finally:
     rm(fp)
     if   status < 0:

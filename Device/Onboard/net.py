@@ -1,11 +1,12 @@
 import micropython,socket,select,ssl
-from network import WLAN,STA_IF,AP_IF
-from util    import *
+from collections import namedtuple
+from network     import WLAN,STA_IF,AP_IF
+from time        import sleep
+from util        import *
 
 class CloseConnection(Exception): None
 
 URI = namedtuple('URI',('prot','host','port','path'))
-@micropython.native
 def uriparse(uri,no_p="https",sec=("https","wss")): # wildly not complete but whatever lol
   if "://" in uri : prot,host = uri.split("://",1)
   else            : prot,host = no_p,host
@@ -13,8 +14,9 @@ def uriparse(uri,no_p="https",sec=("https","wss")): # wildly not complete but wh
   else            : host,path = host,""
   if ':'   in host: host,port = host.split(':',1)
   else            : host,port = host,(80,443)[prot in sec]
+  path,port = '/'+path,int(port)
   free()
-  return URI(prot,host,int(port),'/'+path)
+  return URI(prot,host,port,path)
 
 def wlan(m,**𝕂):
   net = WLAN(m)
@@ -29,7 +31,8 @@ def wifi_connect(router_ssid,router_pass,retries=30):
     net.connect(router_ssid,router_pass)
   except Exception as ε:
     net.active(False)
-    return FALSE(dbg(f'[WiFi] Error connecting using above SSID and password',ε))
+    dbg(f'[WiFi] Error connecting using above SSID and password',ε)
+    return False
   for i in range(r := retries):
     onboard_led(1)
     if net.isconnected():
@@ -41,7 +44,8 @@ def wifi_connect(router_ssid,router_pass,retries=30):
     log(f'[WiFi] Failed to connect to network [{i+1}/{r}] - "{net.status()}"')
   else:
     net.active(False)
-    return FALSE(log("[WiFi] Could not connect to network."))
+    log("[WiFi] Could not connect to network.")
+    return False
   log("[WiFi] Connected.")
   return lambda: net.active(False)
 
@@ -159,13 +163,14 @@ def AP_with_DNS(*𝔸,timeout=None,timeout_f=None,**𝕂):
         except Exception as ε: dbg("[NET] Failed to close DNS",ε)
         return
 
-@micropython.native
+# @micropython.native
 def ssl_cond(s,uri,sec=("https","wss")):
   if uri.prot not in sec: return s
   host = uri.host
   del uri,sec
-  # micropython.mem_info(1)
+  # micropython.mem_info(0)
   free()
+  # import time; print(time.localtime()); del time
   log(f"[SSL] >> Mem: {mem_perc()}")
   ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
   ctx.check_hostname = True

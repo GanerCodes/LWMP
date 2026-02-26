@@ -16,10 +16,10 @@ class Settings:
         except Exception as ε:
           dbg(f'[Settings] Error parsing file "{k}":',ε)
       else:
-        dbg(f'[Settings] File "{k}" not found.')
+        pass # dbg(f'[Settings] File "{k}" not found.')
       if not default:
         v = v() if callable(v) else v
-        dbg(f'[Settings] Using default value for "{k}"')
+        pass # dbg(f'[Settings] Using default value for "{k}"')
       𝕊.X[k] = [v,f]
       free()
   def __contains__(𝕊,k):
@@ -41,6 +41,18 @@ class Settings:
   __getitem__ = __getattr__
   __setitem__ = __setattr__
   __repr__ = lambda 𝕊: "⟨%s⟩"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
+
+boolstr = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
+def parse_rgb_mode(mode):
+  if isinstance(mode,int):
+    return mode
+  if isinstance(mode,str):
+    if mode.isdigit():
+      return int(mode)
+    else:
+      mode = mode.upper()
+      mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
+  return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
 ℭ = Settings(WS_URL     =("wss://brynic_led_test.ganer.xyz:2096"    ,       ),
              UPDATE_URL =("https://brynic_led_test.ganer.xyz/update",       ),
@@ -66,4 +78,4 @@ def wifi_from_ℭ(ℭ):
   if not (R:=wifi_connect(*ℭ("r_ssid","r_pass"))): raise Exception(f'Could not connect to WiFi!')
   return R
 
-__all__ = "ℭ","wifi_from_ℭ"
+# parse_rgb_mode ℭ wifi_from_ℭ

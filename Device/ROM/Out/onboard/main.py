@@ -1,11 +1,11 @@
 import micropython,machine,esp,sys,gc
-gc.disable()
+gc.disable(); gc.collect()
 
 # machine.mem32[0x3FF48044] = 0 # brownout detector
 machine.freq(240_000_000)
-machine.RTC().init((2026,1,1,0,0,0,0,0))
-# esp.osdebug(None)
-esp.osdebug(True,esp.LOG_INFO)
+machine.RTC().init((2026,2,25,0,0,0,0,0))
+esp.osdebug(None)
+# esp.osdebug(True,esp.LOG_INFO)
 
 import consts,lightwave,net,ws_client,settings,scene_manager,interface,updater
 

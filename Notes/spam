@@ -14,3 +14,7 @@ server {
                            proxy_set_header Connection $http_connection;
                            proxy_read_timeout 3600s;
                            tcp_nodelay on; } }
+
+bruh
+https://ganer.xyz/s/4be9634d9fb4f369?e
+https://ganer.xyz/s/f67ad4c77d025723?e

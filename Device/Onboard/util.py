@@ -1,18 +1,9 @@
-import os
-from collections import namedtuple
-from machine     import Pin,reset
-from _thread     import start_new_thread,stack_size
-from hashlib     import sha1 as hash_
-from random      import random
-from struct      import pack,unpack
-from time        import sleep # time_ns as ns,ticks_us as μs,ticks_ms as ms
-from json        import loads as 𝔍l,dumps as 𝔍d
-from math        import inf
-from sys         import print_exception
-from gc          import mem_alloc,mem_free,collect as free
-from os          import listdir as ls,remove as rm,rename as mv
+import machine,random,time,sys,os
+from struct  import pack,unpack
+from json    import loads as 𝔍l,dumps as 𝔍d
+from gc      import mem_alloc,mem_free,collect as free
 
-stack_size(5*1024) # 󰤱 was 9*1024
+def frees(t=0,f=free,s=time.sleep): f();s(t)
 
 def path_exists(p,_=os.stat):
   try:
@@ -21,21 +12,27 @@ def path_exists(p,_=os.stat):
   except OSError:
     return False
 
-@micropython.native
-def frees(t=0,free=free,sleep=sleep): free();sleep(t)
-
-LED_ONBOARD = Pin(2)
-LED_ONBOARD.init(LED_ONBOARD.OUT)
-onboard_led     = lambda s=1,_=LED_ONBOARD:_.value(int(bool(s)))
-FALSE,TRUE,NONE = lambda *𝔸,**𝕂:False, lambda *𝔸,**𝕂:True, lambda *𝔸,**𝕂:None
-HASH            = lambda x,_=hash_: _(x).digest()
-join            = lambda x,sep=' ': sep.join(map(str,x))
-boolstr         = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
-thread          = lambda f,*𝔸,_=start_new_thread,**𝕂: _(f,𝔸,𝕂)
-gen_id          = lambda: hex(int(''.join(str(random())[2:] for i in range(3))))[2:10]
+ls,rm,mv = os.listdir,os.remove,os.rename
+(LED_ONBOARD := machine.Pin(2)).init(LED_ONBOARD.OUT)
+onboard_led     = lambda s=1,_=LED_ONBOARD:_.value(s)
 𝔍lf             = lambda f  : 𝔍l(read_file(f))
 𝔍wf             = lambda f,x: write_file(f,𝔍d(x))
-mem_info        = lambda a=mem_alloc,u=mem_free: (a(),u())
+join            = lambda x,s=' ': s.join(map(str,x))
+gen_id          = lambda _=random.getrandbits: _(32).to_bytes(4)+_(32).to_bytes(4)
+
+log = print
+# log = lambda *𝔸,_=print,**𝕂: _(*𝔸,**𝕂) and (𝔸[0] if 𝔸 else None)
+def dbg(*𝔸,_=print,pe=sys.print_exception,**𝕂):
+  v = _(*𝔸,**𝕂)
+  for ε in 𝔸:
+    if not isinstance(ε,BaseException): continue
+    _(f'Printing exception ε={ε}\n>>>>>>>')
+    pe(ε)
+    _("<<<<<<<")
+  return v
+
+def mem_info(a=mem_alloc,u=mem_free):
+  return a(),u()
 def fs_info(_=os.statvfs):
   S = _("/")
   T,F = S[1]*S[2],S[0]*S[3]
@@ -55,29 +52,6 @@ def write_file(fn,content,m="w"):
     f.write(c := str(content))
     return c
 
-def log(*𝔸,_=print,**𝕂):
-  _(*𝔸,**𝕂)
-  if 𝔸: return 𝔸[0]
-def dbg(*𝔸,_=log,pe=print_exception,**𝕂):
-  v = _(*𝔸,**𝕂)
-  for ε in 𝔸:
-    if not isinstance(ε,BaseException): continue
-    _(f'Printing exception ε={ε}\n>>>>>>>')
-    pe(ε)
-    _("<<<<<<<")
-  return v
-
-def parse_rgb_mode(mode):
-  if isinstance(mode,int):
-    return mode
-  if isinstance(mode,str):
-    if mode.isdigit():
-      return int(mode)
-    else:
-      mode = mode.upper()
-      mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
-  return (mode[0]<<16)|(mode[1]<<8)|mode[2]
-
-del LED_ONBOARD,os,stack_size,hash_,start_new_thread,mem_alloc,mem_free,print_exception
+del machine,random,time,sys,os,LED_ONBOARD,mem_alloc,mem_free
 
 from ntp import *

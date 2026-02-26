@@ -1,5 +1,6 @@
-from util   import *
-from consts import leds,lstk
+from collections import namedtuple
+from util        import *
+from consts      import leds,lstk
 
 @micropython.native
 def add_mag(x,y): return (abs(x)+abs(y))*(1-2*(x<0))

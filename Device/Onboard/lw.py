@@ -1,6 +1,10 @@
+from machine       import reset
+from _thread       import start_new_thread,stack_size
+from time          import sleep
+from math          import inf
 from util          import *
 from net           import AP_with_DNS
-from settings      import ℭ,wifi_from_ℭ
+from settings      import ℭ,wifi_from_ℭ,parse_rgb_mode
 from ws_client     import WS_Client
 from controller    import Controller
 from scene_manager import get_scheg,check_scheg,update_scheg,Scene_Manager
@@ -13,12 +17,14 @@ _RESET_BOOT = const(3)
 for i in range(10): # blinky at boots
   onboard_led(~i%2)
   sleep(0.05)
-del i
+free()
 
 log(f"[LW] Starting with Settings={ℭ}");
 𝔐 = Scene_Manager()
 𝔏 = Controller(ℭ,𝔐)
-thread(𝔏.loop)
+stack_size(6*1024); start_new_thread(𝔏.loop,()) # 󰤱 was 9*1024 before SSL stuff
+
+del stack_size,start_new_thread,i
 
 def handle_API(𝐦,d=None):
   log(f'[API] Handling "{𝐦}"')
@@ -26,15 +32,16 @@ def handle_API(𝐦,d=None):
     WCON = set("WS_URL DELETE".split())
     ICON = set("R_SSID R_PASS AP_MODE".split())
     RLED = set("LEDP LEDC REVERSE BIT_TIMING RGB_ORDER RECALB_T".split())
-    
     K = set(D := { k.upper():v for k,v in d.items() })
     
     if "VER" in D and D["VER"] != ℭ.VER:
       write_file("UPDATE_FLAG",str(D["VER"]).strip())
       return _RESET_BOOT,_RESET_BOOT
     
-    if "RGB_ORDER" in K     : D["RGB_ORDER"] = parse_rgb_mode(d['RGB_ORDER'])
-    if K & {"DELETE","UUID"}: D["NAME"] = D["UUID"] = gen_id()
+    if "RGB_ORDER" in K:
+      D["RGB_ORDER"] = parse_rgb_mode(d['RGB_ORDER'])
+    if K & {"DELETE","UUID"}:
+      D["UUID"],D["NAME"] = gen_id(),""
     
     ℭ({ k:v for k,v in D.items() if k in ℭ })
     
@@ -72,7 +79,7 @@ def lw_websocket_loop():
   lw_check_periodics()
   ꭐ = WS_Client(ℭ.WS_URL)
   log("[WS] Connected.")
-  ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER VER".split()})
+  ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER VER".split()}) # 󰤱
   free()
   while 1:
     if (w:=ꭐ()) is None:
@@ -165,12 +172,11 @@ def lw_net():
       dbg(f'[LW-WS] Error in loop! Restarting in 5 seconds:',ε)
     frees(5)
 
-𝔏.configure()
 try:
   while lw_net() != _RESET_BOOT: pass
 except BaseException as ε:
   𝔏.lstate = 0
   dbg("[LW] Top level exception in network loop",ε)
   if isinstance(ε,KeyboardInterrupt):
-    raise ε
+    raise ε # avoid reset()
 reset()
