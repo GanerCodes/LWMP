@@ -3,7 +3,7 @@ UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
 NAME ─ ᔐ¹􍦛⁶⁴
 RGB ─ ℕ⁰ˣ⁰⁰⁰⁰⁰⁰􍦛⁰ˣ󰀅󰀅󰀅󰀅󰀅󰀅  0xRRGGBB
 ATOM_PARAM ╥ [0,RGB]  Static
-           ╟ [1,segs:ℝ,s:U8, v:U8]  Rainbow
+           ╟ [1,segs:ℝ,s:U8,v:U8]  Rainbow
            ╙ [2,speed:ℝ⁰􍦛􋔛,sharp:ℝ⁰􍦛¹,⠤*RGB]  Fade ; speed: transitions/s
 EFFECT ╥ [0]  Rev
        ╟ [1,speed:ℝ,offset:ℝ]  Rot ; led/s and leds

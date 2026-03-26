@@ -4,6 +4,7 @@
 ⨡ verifiers
 ⨡ http
 ⨡ j☾
+⨡ j☾/Custom_elements
 ⨡ 󰆼
 ⨡ util ⭸ *
 ⨡ websockets
@@ -24,10 +25,10 @@ tok𝘋𝘉,dev𝘋𝘉 = 󰆼(__dir__􀋋‹Data›,
 ‹DBs:›􀊸
 dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
 
-‹Compiling Site...›􀊸
-¿SITE_COMPILE.is_dir􀃅: SITE_COMPILE rmtree
-transpile_dir(SITE_SOURCE,SITE_COMPILE)
-‹Compiled!›􀊸
+⊢transpile: ‹Compiling Site...›􀊸
+            ¿SITE_COMPILE.is_dir􀃅: SITE_COMPILE rmtree
+            transpile_dir(SITE_SOURCE,SITE_COMPILE,JOON_CUSTOM_ELEMENTS)
+            ‹Compiled!›􀊸
 
 ⊢api(𝐭,𝐦,d=□):
   ⛯ tok𝘋𝘉
@@ -106,12 +107,19 @@ transpile_dir(SITE_SOURCE,SITE_COMPILE)
         traceback.print_exception(ε)
         󰆴 ws_clients[𝐈ᵁᵁᴵᴰ]
 
+transpile􀃅
+
+‹Starting Websocket server›􀊸
 w = Mutable􀃅
 𝚲ⓦ(websocket_serve(WS_handle, ‹0.0.0.0›, WEBSOCKET_PORT, server_header=□),
    󷺹w􀯖.serve_forever􀃅)󰅂 PL_THREAD
 
-‹Running server›􀊸
-      server(port=WEBSITE_PORT)
+‹Starting HTTP server›􀊸
+      PL_THREAD(𝚲server(port=WEBSITE_PORT))
+       ∀: input􀃅
+                ‹Clients: ⟦ws_clients⟧›􀊸
+                 transpile􀃅
+          ¡ε=𝑒𝑒: ‹Transpile failed: ⟦ε⟧›􀊸
 ¡ε=𝑒𝑒: ε􀊸
 󰛕      w􀍠󷺹􀃅.shutdown􀃅
        ⦃import signal as ⦃signal⦄⦄

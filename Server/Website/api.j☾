@@ -1,9 +1,5 @@
-𝔠 = 🆕 Proxy({}, { get(𝕊,x) { ↪𝚲({_:[x,⠤𝔸]}); } });
-𝖦 = 𝚲[✓,⠤𝔸]  Good
-𝖡 = 𝚲[✗,⠤𝔸]  Bad
-
 api_body = ⥌token,method,⠤dat↦𝔍􋀫({ token, ⠤𝔠[method](⠤dat) });
-
+api_URL = 𝚲‹⟦location.origin⟧/call/⟦encodeURIComponent(api_body(⠤𝔸))⟧›
 api = 󱟱 ⥌token,method,⠤dat↦{
     © body = api_body(token,method,⠤dat);
     © req = 󱫬 fetch("/api", {
@@ -14,4 +10,18 @@ api = 󱟱 ⥌token,method,⠤dat↦{
     r.status = req.status;
     ☾(‹API with "⟦𝔍􋀫(𝔍􋀭(body),␀,"  ")⟧" → "⟦𝔍􋀫(r,␀,"  ")⟧"›);
     ↪r; }
-apiURL = 𝚲‹⟦location.origin⟧/call/⟦encodeURIComponent(api_body(⠤𝔸))⟧›
+
+layout_from_tok = ⥌𝐭↦{
+  ¿(¬(𝐭∈𝘋𝘉)) { 𝘋𝘉􊳬={ scenes:{}, devs:{} };
+               updateDB(); }
+  ↪𝘋𝘉􊳬; }
+load_devices = 󱟱 ⥌𝐭↦{
+  © 𝐋 = layout_from_tok(𝐭)
+  ⎉ r;
+  try{ r = 󱫬 api(𝐭,"Get_devs"); }catch(e){}
+  ¿(¬r₀ ∨ r.status≠200) ↪𝖡(𝐋.devs);
+  𝐋.devs = { ⠤𝐋.devs, ⠤r₁ }
+  updateDB();
+  ↪𝖦(𝐋.devs); }
+
+n2rgb = 󰲡[x>>0&7,x>>8&7,x>>16&7]􊾡(󰲡"RGB"ₓ).join(ᐦ)

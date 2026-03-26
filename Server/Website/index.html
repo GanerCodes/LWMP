@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Lightwave</title>
-        <link rel="icon" type="image/x-icon" href="./Assets/favicon.ico">
-        <link rel="stylesheet" href="./Styles/base.css">
-        <link rel="stylesheet" href="./Styles/elms.css">
-    </head>
-    <body>
-        <script type="module">
-            (1,eval)(await (await fetch("./header.js")).text());
-            (1,eval)(await (await fetch("./elements.js")).text());
-            (1,eval)(await (await fetch("./api.js")).text());
-            (1,eval)(await (await fetch("./main.js")).text());
-            // 󰤱 prob precompile some of this stuff into bigger files
-        </script>
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Lightwave</title>
+    <link rel="icon" type="image/x-icon" href="./Assets/favicon.ico">
+    <link rel="stylesheet" href="./custom_elements.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <script defer src="/header.js"         ></script>
+    <script defer src="/custom_elements.js"></script>
+    <script defer src="/general.js"        ></script>
+    <script defer src="/api.js"            ></script>
+    <script defer src="/elements.js"       ></script>
+    <script defer src="/calibration.js"    ></script>
+    <script defer src="/index.js"          ></script>
+  </body>
 </html>

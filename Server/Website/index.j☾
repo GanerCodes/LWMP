@@ -1,0 +1,51 @@
+© ətokenButton = ⥌𝐭↦
+  󱀝 div { 𝐶 bigButton⍮ onclick ⟦𝚲populate_devs(𝐭)⟧ } [
+    󱀝 h1 [⟦𝐭⟧]]
+
+© prompt_token = ⥌cb↦{
+  © fld = textField({id:‹tokenField›,𝑃𝐻:‹Token›,:✓});
+  © ə = popup({:✓,󰅙:✓},
+          󱀝 div ⦅𝚏↓⦆ ⟦[
+            fld,
+            textButton(‹Submit›,𝚲{ə.close(); cb(fld􀲫.value)})]⟧);};
+
+⎉ tokenListing = əitemGridEditable(
+                   ⥌  gen↦prompt_token(󰲡gen(ətokenButton(x))),
+                   ⥌x,rem↦[x,əbuttonBar([𝐴􊯛􊽆, rem])],
+                   󰲡☾(‹Removing ⟦x⟧›))
+tokenListing􋛟.maxHeight = ‹80vh›;
+© tokenListing = ətitledItemGrid(‹Tokens›, tokenListing)
+
+⎉ devListing = əitemGridEditable(
+                 󱣩,
+                 ⥌x,rem↦[x,əbuttonBar([𝐴􊯛􊽆, rem],
+                                      [𝐴􊯛􇧒, 𝚲☾("hi")])],
+                 󰲡☾(‹Removing ⟦x⟧›),
+                 [],{show_plus:✗,
+                     placeholder:󰲟󱀝 h3 ‹No devices found for this token.›})
+devListing􋛟.maxHeight = ‹80vh›;
+© devListing = ətitledItemGrid(‹Devices›, devListing);
+
+© populate_devs = 󱟱 ⥌𝐭↦{
+  ⎉ devs = 󱫬 load_devices(𝐭);
+  ☾(‹Devs from token "⟦𝐭⟧:"›, devs);
+  devs = devs₁;
+  devListing.clear_items();
+  𝒪(devs)􋅝(󰲣devListing.add_item(
+    󱀝 [󱀝 h2 ‹⟦x⟧ ⟦[‹🔴›,‹🟢›]₊􊫺􊬢􊫂􊬖􊬢􊫶⟧›
+       󱀝 h3 ‹⟦n2rgb(y.RGB_ORDER)⟧ - ⟦y.LEDC⟧ LEDs (⟦"→←"[+y.REVERSE]⟧)›]
+  )); };
+
+󰈙.body􍪙(tokenListing,devListing);
+
+⎉ tokens = ["testing"];
+
+tokens􋁃(⥌𝐭↦tokenListing.add_item(ətokenButton(𝐭)));
+
+
+ api("sqaner", "Push_scenes", { uuid: "1234ab", 
+                                scenes: { myScene: { devs: ["1234ab","41241dc"],
+                                                     mode: mode                 }}});
+ api("sqaner", "Set_scene", { scene: "myScene",
+                              timing: { que: false,
+                                        dur: 0      }});

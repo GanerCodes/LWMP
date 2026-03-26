@@ -68,7 +68,8 @@ const make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs
       await config(conf);
       await recalb_t(); //set to custom time for debugging w/ dhms2s(0,4,53,0);
       await scene(scenes);
-      await scene("synctest",false,-1);
+      await scene("rainbow",false,-1);
+      // await scene("synctest",false,-1);
       // await scene("fade_test",false,-1);
       // await scene("thousand",false,-1);
 
