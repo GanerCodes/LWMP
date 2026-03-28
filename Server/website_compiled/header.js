@@ -4,6 +4,7 @@ BASE_CHARSET  =  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 þF0219  =  document ; 
 [𝐴 , 𝐸 , 𝑜]  =  [Array , Element , Object] ; 
 [𝒪 , 𝒟 , 𝒪k , 𝒪v]  =  [𝑜 . entries , 𝑜 . fromEntries , 𝑜 . keys , 𝑜 . values] ; 
+𝒪ℳ  =   (x,...𝔸)=> x .  ſ ( (x,y,...𝔸)=> ({ ... x ,  ... y})) ; 
 𝔓  =   (x,...𝔸)=> x . prototype ; 
 𝔍  =  {þ02191 : JSON . stringify ,  þ02193 : JSON . parse} ; 
  þF7E5D   =  String . fromCharCode ; 
@@ -22,11 +23,12 @@ BASE_CHARSET  =  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 ᴍk  =   (x,y,...𝔸)=> 𝒟(𝒪(x) . ᴍ(([k , v]) => [y(k) , v])) ; 
 𝒮  =  (d , k , v) => ( ! (k in d)  ||  d[k] === null)  ? (d[k] = v) :  d[k] ; 
  print       =  ( ... x) => (console . log  ( ... x) , x[0]) ; 
+pairs  =   (x,...𝔸)=> x . toSpliced( - 1 , 1) . ᴍ((x , i) => [x , v[i + 1]]) ; 
 table  =  ( ... x) => (console . table( ... x) , x[0]) ; 
 ends   =  (l) => l . map((𝑥 , i) => [i == 0 , 𝑥 , i ==  þ1F0CC (l) - 1]) ; 
 merge  =   (...𝔸)=> 𝑜 . assign({} ,  ... 𝔸) ; 
 sleep  =  (s) =>  new Promise((r) => setTimeout(r , 1000 * s)) ; 
-mk_id  =  (l , chars = BASE_CHARSET) =>  þ02B65     (l) . ᴍ( (...𝔸)=> chars . at(Number( þF114F () *  þ1F0CC (chars)))) . ſ( (x,y,...𝔸)=> x + y ,   "" ) ; 
+mk_id  =  (l , chars = BASE_CHARSET) =>  þ02B65 (l) . ᴍ( (...𝔸)=> chars . at(Number( þF114F () *  þ1F0CC (chars)))) . ſ( (x,y,...𝔸)=> x + y ,   "" ) ; 
 
 𝔓(Number) . mod  =  function(n){  return (this % n + n) % n ;  } ; 
 

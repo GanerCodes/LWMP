@@ -38,8 +38,6 @@ def handle_API(𝐦,d=None):
       write_file("UPDATE_FLAG",str(D["VER"]).strip())
       return _RESET_BOOT,_RESET_BOOT
     
-    if "RGB_ORDER" in K:
-      D["RGB_ORDER"] = parse_rgb_mode(d['RGB_ORDER'])
     if K & {"DELETE","UUID"}:
       D["UUID"],D["NAME"] = gen_id(),""
     
@@ -48,6 +46,7 @@ def handle_API(𝐦,d=None):
     if K & RLED: 𝔏.configure()
     if K & ICON: return _RESET_WIFI,_RESET_WIFI
     if K & WCON: return _RESET_WS  ,_RESET_WS
+    return              _RESET_NO  ,True
   elif 𝐦=="Set_scene":
     s,q,dur,Ts = d
     if s not in 𝔐:
@@ -79,7 +78,7 @@ def lw_websocket_loop():
   lw_check_periodics()
   ꭐ = WS_Client(ℭ.WS_URL)
   log("[WS] Connected.")
-  ꭐ({k:ℭ[k] for k in "token UUID LEDC REVERSE RGB_ORDER VER".split()}) # 󰤱
+  ꭐ({k:ℭ[k] for k in "VER TOKEN UUID NAME LEDC REVERSE RGB_ORDER".split()})
   free()
   while 1:
     if (w:=ꭐ()) is None:

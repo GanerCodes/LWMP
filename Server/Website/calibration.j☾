@@ -1,13 +1,15 @@
-© RGB_calibrate = 󱟱 ⥌𝐝,cb↦{
+RGB_calibrate = 󱟱 ⥌𝐝↦{
   󱫬 𝐝.scene({ _singlecolor0: {"fx":[[2,0.25]],"1":[300,0,16711680]},
               _singlecolor1: {"fx":[[2,0.25]],"1":[300,0,   65280]}});
   © conf = 󱟱󰲡{ 󱫬 𝐝.config({RGB_ORDER:"RGB"});
                󱫬 𝐝.scene(‹_singlecolor⟦x⟧›,false,-1); };
   ⎉ C = [⠤"RGB"];
   󱫬 conf(0);
-  ↪[C,󱟱⥌α↦{ C = C􋐉(󰲡x≠α)
+  ↪[C,󱟱⥌α↦{ C = C􋐉(󰲡x≠α);
             󱫬 conf(1);
-            ↪[C,⥌β↦α+β+C􋐉(󰲡x≠β)₀]; }]; };
+            ↪[C,󱟱⥌β↦{ C = C􋐉(󰲡x≠β)₀+β+α;
+                      󱫬 𝐝.config({RGB_ORDER:C});
+                      ↪C }]; }]; };
 
  [C,ƒ] = 󱫬 RGB_calibrate(𝐝)
   user chooses from C

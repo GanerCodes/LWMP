@@ -1,6 +1,18 @@
-𝔠 = 🆕 Proxy({}, { get(𝕊,x) { ↪𝚲({_:[x,⠤𝔸]}); } });
-𝖦 = 𝚲[✓,⠤𝔸]  Good
-𝖡 = 𝚲[✗,⠤𝔸]  Bad
-
 𝘋𝘉 = 𝔏𝔖􋀭("tokens",{})
 updateDB = 𝚲𝔏𝔖􋀫("tokens",𝘋𝘉)
+layout_from_tok = ⥌𝐭↦{
+  ¿(¬(𝐭∈𝘋𝘉)) { 𝘋𝘉􊳬={ scenes:{}, devs:{} };
+               updateDB(); }
+  ↪𝘋𝘉􊳬; }
+load_devices = 󱟱 ⥌𝐭↦{
+  © 𝐋 = layout_from_tok(𝐭)
+  ⎉ r;
+  
+  try{ r = 󱫬 𝐀(𝐭).Get_devs(); }catch(e){}
+  ☾(r);
+  ¿(¬r ∨ ¬r₀ ∨ r.status≠200) ↪𝖡(𝐋.devs);
+  𝐋.devs = { ⠤𝐋.devs, ⠤r₁ }
+  updateDB();
+  ↪𝖦(𝐋.devs); }
+
+n2rgb = 󰲡[x>>0&7,x>>8&7,x>>16&7]􊾡(󰲡"RGB"ₓ).join(ᐦ)

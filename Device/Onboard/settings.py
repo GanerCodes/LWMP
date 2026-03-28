@@ -59,7 +59,7 @@ def parse_rgb_mode(mode):
              UUID       =(gen_id                                    ,       ),
              AP_MODE    =(False                                     ,boolstr),
              TOKEN      =(                                                  ),
-             NAME       =(                                                  ),
+             NAME       =(""                                        ,       ),
              R_SSID     =(                                                  ),
              R_PASS     =(                                                  ),
              LEDP       =(23                                        ,int    ),
@@ -70,8 +70,7 @@ def parse_rgb_mode(mode):
              DEF_SCENE  =("_default"                                ,       ),
              VER        =("1"                                       ,       ),
              RECALB_T   =(0                                         ,int    ))
-if not ℭ.name: ℭ.name = ℭ.UUID
-ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
+# ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 
 def wifi_from_ℭ(ℭ):
   if not     all(  ℭ("token","r_ssid","r_pass")) : raise Exception(f"WiFi credentials not found.")

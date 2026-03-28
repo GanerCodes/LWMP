@@ -1,13 +1,13 @@
 ⨡ verify
 
-lineable = Ɱ(󷺹􀌎􇀵􀜠𝗻􀿛)  no newlines and no pre/post whitespace
+lineable = Ɱ(󷺹􀌎􀉼𝗻􀋢)  no newlines and no pre/post whitespace
 ŧ_TOKEN = Ғ(󰲡6􀜊x􀊹􀜊64)
-ŧ_UUID  = Ғ(󰲡8􀜊x􀊹􀜊64 􀥐 x 𝑠􀜏abcABC123)
-ŧ_NAME  = Ғ(󰲡1􀜊x􀊹􀜊64)
-ŧ_DEV = { name     =ⴲ(lineable+ŧ_NAME),
+ŧ_UUID  = Ғ(󰲡8􀜊x􀊹􀜊64 􁀙 x 𝑠􀜏abcABC123)
+ŧ_NAME  = Ғ(󰲡0􀜊x􀊹􀜊64)
+ŧ_DEV = { NAME     =ⴲ(lineable+ŧ_NAME),
           LEDC     =ⴲ(Ғ(⬤􀁊􋁜𝑖)+Ғ(󰲡1≤x≤10⁵)),
-          RGB_ORDER=ⴲ(Ɱ(𝑖)+Ғ(󰲡0≤x<2³²)),  󰤱
-          REVERSE  =ⴲ(Ғ(⬤􀁊􋁜𝑏)+Ɱ(𝑏)) } Ѵ
-ŧ_dev_init = { token=ŧ_TOKEN, UUID=ŧ_UUID }Ѵ | ŧ_DEV
+          RGB_ORDER=ⴲ(Ғ(󷺹􀊜􋁜ᔐ􀛾􀉧ᑅ("RGB"􀊵³􀉳􀂐􀉻󷺹􀋵􀊹􀉞3))),
+          REVERSE  =ⴲ(Ɱ(𝑏)) } Ѵ
+ŧ_dev_init = { TOKEN=ŧ_TOKEN, UUID=ŧ_UUID }Ѵ | ŧ_DEV
 
-⭷ ŧ_DEV,ŧ_dev_init
+⭷ ŧ_TOKEN,ŧ_UUID,ŧ_NAME,ŧ_DEV,ŧ_dev_init

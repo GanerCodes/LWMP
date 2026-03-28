@@ -22,7 +22,7 @@ tokenListing􋛟.maxHeight = ‹80vh›;
                                       [𝐴􊯛􇧒, 𝚲☾("hi")])],
                  󰲡☾(‹Removing ⟦x⟧›),
                  [],{show_plus:✗,
-                     placeholder:󰲟󱀝 h3 ‹No devices found for this token.›})
+                     placeholder:󰲟󱀝 h3 ‹No devices found for this token...›})
 devListing􋛟.maxHeight = ‹80vh›;
 © devListing = ətitledItemGrid(‹Devices›, devListing);
 

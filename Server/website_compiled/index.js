@@ -22,7 +22,7 @@ tokenListing . style . maxHeight  =  `80vh` ;
                                       [𝐴[``] ,   (...𝔸)=>  print ("hi")])] , 
                   (x,...𝔸)=>  print (`Removing ${x}`) , 
                  [] , {show_plus :  false  , 
-                     placeholder : (...𝔸)=>mkə(`h3` ,  false  , `No devices found for this token.`)})
+                     placeholder : (...𝔸)=>mkə(`h3` ,  false  , `No devices found for this token...`)})
 devListing . style . maxHeight  =  `80vh` ; 
  const  þ0E27FdevListing  =  ətitledItemGrid(`Devices` ,  devListing) ; 
 
