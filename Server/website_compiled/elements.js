@@ -3,7 +3,8 @@
 
 𝐴  =  { "󰆴" :  `/Assets/trash.svg` , 
       "" :  `/Assets/gear.svg` , 
-      "+" :  `/Assets/plus.svg`  }
+      "+" :  `/Assets/plus.svg` , 
+      "󰐥" :  `/Assets/offButton.svg` }
 
 əbigButton  =  (src , 𝔸) => mkə(`div` , {[`𝐶`] : `bigButton` ,  ... (𝔸 )} , [(mkə(`img` , {[`src`] : src} ,  false ))])
 əbarButton  =  (src , 𝔸) => mkə(`span` , {[`𝐶`] : `hbar     ` ,  ... (𝔸 )} , [(mkə(`img` , {[`src`] : src} ,  false ))])
@@ -15,6 +16,7 @@
                    if (y) { newElm . classList  . add(`itemGridPlaceholder`) ; 
                          chainIntoElements(x ,  newElm) ;  }
                    else     { chainIntoElements(gen(x ,  (...𝔸)=> (rem(x) , newElm . remove())) ,  newElm) ;  }
+                  newElm . ə  =  newElm . children[0]
                   ε . insertBefore(newElm , ε_adder) ;  } ; 
    if (Ѧ . placeholder !==  undefined ) ε . add_item(Ѧ . placeholder() ,  true ) ; 
   ε . clear_items  =   (...𝔸)=> QSA(`:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))` , ε) . ᴍ( (x,...𝔸)=> x . remove())
@@ -25,5 +27,5 @@
 
 əbuttonBar  =   (...𝔸)=> 
   mkə(`span` , {[`𝐶`] : `multiButtonBar`} , 𝔸 . ꟿ( (x,y,...𝔸)=> mkə(`button` , {[`onclick`] : y} , [(mkə(`img` , {[`src`] : x} ,  false ))]))) ; 
-ətitledItemGrid  =  (𝚝 , ə) => 
+ətitledBox  =  (𝚝 , ə) => 
   mkə(`div` , {[`𝑆`] : `width: 80%; display: flex; flex-direction: column;`} , [(mkə(`h1` ,  false  , [(𝚝)])) , (mkə( false  , {[`𝐶`] : `box` , [`𝑆`] : `overflow-x: hidden; overflow-y: auto; padding-bottom: 10px;`} , [(ə)]))])

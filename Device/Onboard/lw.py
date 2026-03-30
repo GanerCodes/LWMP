@@ -31,7 +31,7 @@ def handle_API(𝐦,d=None):
   if 𝐦=="Change_dev":
     WCON = set("WS_URL DELETE".split())
     ICON = set("R_SSID R_PASS AP_MODE".split())
-    RLED = set("LEDP LEDC REVERSE BIT_TIMING RGB_ORDER RECALB_T".split())
+    RLED = set("RECALB_T LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     K = set(D := { k.upper():v for k,v in d.items() })
     
     if "VER" in D and D["VER"] != ℭ.VER:
@@ -55,6 +55,7 @@ def handle_API(𝐦,d=None):
     𝔏(s,q,dur,None,Ts)
     if not q and dur in (-1,inf,None): ℭ.DEF_SCENE = s
     return _RESET_NO,True
+  elif 𝐦=="Off"          : return _RESET_NO,𝔏.off() or True
   elif 𝐦=="Del_scene"    : return _RESET_NO,𝔐.__delitem__(d)
   elif 𝐦=="Push_scenes"  : return _RESET_NO,𝔐.bulk_save(d)
   elif 𝐦=="Pull_scenes"  : return _RESET_NO,𝔐.bulk_dump()
@@ -78,7 +79,7 @@ def lw_websocket_loop():
   lw_check_periodics()
   ꭐ = WS_Client(ℭ.WS_URL)
   log("[WS] Connected.")
-  ꭐ({k:ℭ[k] for k in "VER TOKEN UUID NAME LEDC REVERSE RGB_ORDER".split()})
+  ꭐ({k:ℭ[k] for k in "VER TOKEN UUID NAME RECALB_T LEDC REVERSE RGB_ORDER".split()})
   free()
   while 1:
     if (w:=ꭐ()) is None:

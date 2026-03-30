@@ -1,13 +1,22 @@
 ⨡ verify
 
-lineable = Ɱ(󷺹􀌎􀉼𝗻􀋢)  no newlines and no pre/post whitespace
-ŧ_TOKEN = Ғ(󰲡6􀜊x􀊹􀜊64)
-ŧ_UUID  = Ғ(󰲡8􀜊x􀊹􀜊64 􁀙 x 𝑠􀜏abcABC123)
-ŧ_NAME  = Ғ(󰲡0􀜊x􀊹􀜊64)
-ŧ_DEV = { NAME     =ⴲ(lineable+ŧ_NAME),
-          LEDC     =ⴲ(Ғ(⬤􀁊􋁜𝑖)+Ғ(󰲡1≤x≤10⁵)),
-          RGB_ORDER=ⴲ(Ғ(󷺹􀊜􋁜ᔐ􀛾􀉧ᑅ("RGB"􀊵³􀉳􀂐􀉻󷺹􀋵􀊹􀉞3))),
-          REVERSE  =ⴲ(Ɱ(𝑏)) } Ѵ
-ŧ_dev_init = { TOKEN=ŧ_TOKEN, UUID=ŧ_UUID }Ѵ | ŧ_DEV
+lineable = Ғ(󰲡x􀝀􋁜ᔐ)􀊩Ɱ(󷺹􀌎􀉼𝗻􀋢)  no newlines and no pre/post whitespace
+ŧ_VER       = Ғ(󷺹􀊜􋁜ᔐ 􁀙 0􀜊⟞􀊹􀜊64)
+ŧ_TOKEN     = Ғ(󷺹􀊜􋁜ᔐ 􁀙 6􀜊⟞􀊹􀜊64)
+ŧ_UUID      = Ғ(󷺹􀊜􋁜ᔐ 􁀙 8􀜊⟞􀊹􀜊64 􁀙 ⦉⠤⟞⦊􀜏abcABC123)
+ŧ_NAME      = lineable+Ғ(󷺻0􀜊⟞􀊹􀜊64)
+ŧ_LEDC      = Ғ(󷺹􀊜􋁜𝑖 􁀙 1≤⟞≤10⁵)
+ŧ_RGB_ORDER = Ғ(􁀦 "RGB"􀊵³􀉳􀂐􀉻󷺹􀋵􀊹􀉞3)
+ŧ_REVERSE   = Ɱ(𝑏)
+ŧ_RECALB_T  = Ғ(󷺹􀊜􋁜𝑖 􁀙 0􀜊⟞􀜊24􀋈60²)
+ŧ_DEV       = { NAME     =ⴲ(ŧ_NAME     ),
+                RECALB_T =ⴲ(ŧ_RECALB_T ),
+                LEDC     =ⴲ(ŧ_LEDC     ),
+                RGB_ORDER=ⴲ(ŧ_RGB_ORDER),
+                REVERSE  =ⴲ(ŧ_REVERSE  ) }Ѵ
+ŧ_DEV_OPT,ŧ_DEV_REQ = { VER  =ŧ_VER  ,
+                        TOKEN=ŧ_TOKEN,
+                        UUID =ŧ_UUID  }ᑀ􀜘􁎀ⴲ􀊊􀁞􁁰⟞ᐵѴ􀊤ŧ_DEV
 
-⭷ ŧ_TOKEN,ŧ_UUID,ŧ_NAME,ŧ_DEV,ŧ_dev_init
+⭷ ŧ_VER,ŧ_TOKEN,ŧ_UUID,ŧ_NAME,ŧ_LEDC,ŧ_RGB_ORDER,␛
+  ŧ_REVERSE,ŧ_DEV,ŧ_DEV_OPT,ŧ_DEV_REQ

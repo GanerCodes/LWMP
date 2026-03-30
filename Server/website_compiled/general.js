@@ -9,11 +9,9 @@ load_devices  =   async  (𝐭) => {
    const  𝐋  =  layout_from_tok(𝐭)
    let  r ; 
   
-  try{ r  =   await  𝐀(𝐭) . Get_devs() ;  }catch(e){}
+  try{ r  =   await  𝐀(𝐭) . get_devs() ;  }catch(e){}
    print (r) ; 
    if ( ! r  ||   ! r[0]  ||  r . status != 200)  return 𝖡(𝐋 . devs) ; 
   𝐋 . devs  =  {  ... 𝐋 . devs ,   ... r[1] }
   updateDB() ; 
    return 𝖦(𝐋 . devs) ;  }
-
-n2rgb  =   (x,...𝔸)=> [x >> 0 & 7 , x >> 8 & 7 , x >> 16 & 7] . ᴍ( (x,...𝔸)=> "RGB"[x]) . join( "" )

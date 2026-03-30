@@ -30,6 +30,7 @@ COMMAND ┬ token ─ TOKEN
          ╟ Set_scene ┬ uuids ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
          ║           └ scene ─ SCENE_ACTIVATION
          ║           ↪ *𝔹
+         ╟ Off  output a max buffer size (≥ LEDC) number of black pixels
          ╟ Del_scene ┬ uuids ─ *UUID
          ║           └ scene ─ NAME
          ║           ↪ *𝔹  if the scene existed prior
@@ -42,11 +43,7 @@ COMMAND ┬ token ─ TOKEN
          ║              └ schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
          ╙ Pull_schedule ┬ uuids ─ *UUID
                          └ *(ℕ ↦ SCENE_ACTIVATION)
- 󷹇 WS msg to LW is very similar, same name and (at least currently) just sending the one relevent value 
-
-§ DATABASE
-tok𝘋𝘉: token ↦ devs ─ UUID*
-dev𝘋𝘉: uuid ↦ {token name ledc order reverse}
+ 󷹇 WS msg to LW is very similar, same name and (at least currently) just sending the one relevant value 
 
 § MISC
 󷹇 From server to device the `Set_scene` also includes a UTC timestamp in ms to sync to.

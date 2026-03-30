@@ -1,12 +1,11 @@
 RGB_calibrate = 󱟱 ⥌𝐝↦{
-  󱫬 𝐝.scene({ _singlecolor0: {"fx":[[2,0.25]],"1":[300,0,16711680]},
-              _singlecolor1: {"fx":[[2,0.25]],"1":[300,0,   65280]}});
-  © conf = 󱟱󰲡{ 󱫬 𝐝.config({RGB_ORDER:"RGB"});
-               󱫬 𝐝.scene(‹_singlecolor⟦x⟧›,false,-1); };
   ⎉ C = [⠤"RGB"];
-  󱫬 conf(0);
+  󱫬 𝐝.config({RGB_ORDER:"RGB"});
+  󱫬 𝐝.scene({ _singlecolor0: {"fx":[[2,0.25]],"1":[300,0,0xFF<<16]},
+              _singlecolor1: {"fx":[[2,0.25]],"1":[300,0,0xFF<< 8]} });
+  󱫬 𝐝.scene(‹_singlecolor0›,✗,󷰾);
   ↪[C,󱟱⥌α↦{ C = C􋐉(󰲡x≠α);
-            󱫬 conf(1);
+            󱫬 𝐝.scene(‹_singlecolor1›,✗,󷰾);
             ↪[C,󱟱⥌β↦{ C = C􋐉(󰲡x≠β)₀+β+α;
                       󱫬 𝐝.config({RGB_ORDER:C});
                       ↪C }]; }]; };

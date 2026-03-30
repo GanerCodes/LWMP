@@ -6,7 +6,7 @@
 ::-webkit-scrollbar-thumb􀴗 ∣ 𝚋 #B59
 ::-webkit-scrollbar        ∣ 𝚠 1vw 
 
-body ∣ 𝚝𝚊󷷣
+body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
 
 .box ∣ 𝚋𝚛 .5vw
 
@@ -33,3 +33,21 @@ body ∣ 𝚝𝚊󷷣
               >.itemGridPlaceholder ∣ «𝚠≤ 𝚠 𝚠≥» 100%; 𝚍 unset; 𝚋 􋄅
 .itemGridItem ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥ 𝚑≤ 𝚑 𝚑≥» 300px
                 𝚋 2px solid #EEE; 𝚋𝚛 10px
+
+.rgbButtons
+  >* ∣ «𝚠 𝚑» 10vw
+        𝚖 1vw
+        𝚋 2px solid #EEE; 𝚋𝚛 100px
+        󰊄𝚜 8vw; font-weight bold
+        [c="R"] ∣ 𝚋 6px solid #F00
+                     ∣  #DD2222; 𝚋 #100000
+                   􎁎 ∣  #EE2222; 𝚋 #200000
+                   􀴗 ∣  #FF3333; 𝚋 #300000
+        [c="G"] ∣ 𝚋 6px solid #0F0
+                     ∣  #22DD22; 𝚋 #001100
+                   􎁎 ∣  #22EE22; 𝚋 #002000
+                   􀴗 ∣  #33FF33; 𝚋 #003000
+        [c="B"] ∣ 𝚋 6px solid #00F
+                     ∣  #2222DD; 𝚋 #000010
+                   􎁎 ∣  #2222EE; 𝚋 #000020
+                   􀴗 ∣  #3333FF; 𝚋 #000030

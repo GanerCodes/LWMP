@@ -2,7 +2,8 @@
 
 𝐴 = { "󰆴": ‹/Assets/trash.svg›,
       "": ‹/Assets/gear.svg›,
-      "+": ‹/Assets/plus.svg›  }
+      "+": ‹/Assets/plus.svg›,
+      "󰐥": ‹/Assets/offButton.svg› }
 
 əbigButton = ⥌src,𝔸↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } [
                       󱀝 img {src:⟦src⟧} ]
@@ -18,6 +19,7 @@
                   ¿(y) { newElm􋒅 ⁺(‹itemGridPlaceholder›);
                          chainIntoElements(x, newElm); }
                   ¡    { chainIntoElements(gen(x,𝚲(rem(x),newElm.remove())), newElm); }
+                  newElm􌿱 = newElm􋑱₀
                   ε.insertBefore(newElm,ε_adder); };
   ¿(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ≇󱣩) ε.add_item(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ(),✓);
   ε.clear_items = 𝚲QSA(‹:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))›,ε)􊾡(󰲡x.remove())
@@ -28,6 +30,6 @@
 
 əbuttonBar = 𝚲
   󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {onclick ⟦y⟧} [󱀝 img {src ⟦x⟧}])⟧;
-ətitledItemGrid = ⥌𝚝,ə↦
+ətitledBox = ⥌𝚝,ə↦
   󱀝 div ⦅𝚠⅘;𝚏↓⦆ [󱀝 h1 [⟦𝚝⟧]
                  󱀝 {𝐶 box⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto; 𝚙↓ 10px⦆} [⟦ə⟧]]

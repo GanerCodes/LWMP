@@ -1,6 +1,6 @@
 from collections   import namedtuple
 from uctypes       import addressof as Ѧ
-from machine       import bitstream,Pin
+from machine       import bitstream,Pin,mem8
 from heapq         import heappush as h_add,heappop as h_pop
 from math          import inf,exp,ceil
 from util          import *
@@ -48,6 +48,12 @@ class Controller:
     𝕊.recalb_t,𝕊.recalb_t_day = 0,0
     𝕊.Δ,𝕊.lstate = 0,_LOOP_UPDATE
     𝕊.configure()
+  @micropython.native
+  def off(𝕊):
+    𝕊({"1":[2048,0,0],"fx":[[2,0.25]]})
+    frees(0.05)
+    for i in range(3*2048): mem8[leds_ptr+i] = 0
+    if 𝕊.dmode: bitstream(𝕊.dmode[0],0,𝕊.dmode[3],leds)
   def configure(𝕊):
     ℭ = 𝕊.ℭ
     timing = ℭ.BIT_TIMING
@@ -138,7 +144,7 @@ class Controller:
   def update_recalb_day(𝕊,M):
     day = M//_MS_PER_D
     s_day = M//1000 - day_start(1000*M)//1_000_000
-    𝕊.recalb_t_day = day - (s_day < 𝕊.recalb_t-60) # prevent ᵉᵍ mode at 12am w/ 1159pm recalb_t taking ≈48hr
+    𝕊.recalb_t_day = day - (s_day < 𝕊.recalb_t-60) # prevents ᵉᵍ mode at 12am w/ 1159pm recalb_t taking ≈48hr
   
   # @micropython.native
   def set(𝕊,ν,M,m):
