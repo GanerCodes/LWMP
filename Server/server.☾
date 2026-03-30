@@ -79,14 +79,16 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
       ¿𝐦􀉞‹Change_dev›:
           ↪𝐫 􀝊 conf_p􀋶 􇀥 ŧ_DEV_OPT 􇀥 ℵ
         ¡: ↪‹Invalid config!›𝖡
-      ↪𝐫ₖ
+      ↪𝐫􇣒􋀙ₖ
     
+    ‹here1›􀊸
      󰤱 "*" mode on device side
     ¿𝐦􀉞␛*: ¿𝐫􇣒􊬏ᵣₑₛ􊬐􀯑𝐑􈇇: ↪‹Invalid "reqs" field!›𝖡
     ¡    : 𝐑 = req􀋁
     ¿𝐑􀊜𝑙􀛾𝐑􀋃⬤􀁊𝑑􁃏: ↪‹Malformed request!›𝖡
     𝐌 = 𝐑􀉳𝔪􀉴󷺹􀊱check(⟞,⟝)󷺿
     ¿𝐌ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
+    ‹here2›􀊸
     ¿𝐌􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
       ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in * request!›𝖡
       𝐫 = C₀ ₁
@@ -95,6 +97,7 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
   ⊢send_devs(ꭒ):
     ¿ꭒ􀉩tok𝘋𝘉􊳬ᵈᵉᵛˢ: ↪‹Cannot find device!›𝖡
     ¿ꭒ􀉩ws_clients: ↪‹Device is offline󷺗!›𝖡
+    ‹here3›􀊸
     m = 𝐌ᐵ􇣒󰁸󰁹₁􀯖𝔠􍪴􊬣ᐸᑀ􀊹􀉤1􇀦􍪵􊿥⟞ 𝔠􊯛
     ‹ꭒ=⟦ꭒ⟧ 𝐌=⟦𝐌⟧𝗻  → ⟦m⟧›􀊸
     ↪(󰲟m ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅

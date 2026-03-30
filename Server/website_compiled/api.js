@@ -55,8 +55,8 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
                k,
                async (...𝔸)=>
                  (async v =>
-                   await 𝔄𝔘(...log(v.length>1 ? ["*",{reqs: v.map(([x,...𝔸])=>𝔠[x](...𝔸))}]
-                                              : v[0]))
+                   await 𝔄𝔘(...v.length>1 ? ["*",{reqs: v.map(([x,...𝔸])=>𝔠[x](...𝔸))}]
+                                          : v[0])
                  )(ƒ(...𝔸))]))};
     
     // const 𝔐 = (...𝐑)=>𝔄("*",{uuids,reqs:𝐑.map((m,...𝔸)=>M[m](...𝔸))𝔠["*"]()});
