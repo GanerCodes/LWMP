@@ -12,7 +12,9 @@ unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/expo
 
 pushd ../Micropython
   pushd ports/esp32
-    [[ " $* " == *" -c "* ]] && rm -rf build-ESP32_GENERIC || :
+    [[ " $* " == *" -c "* ]] && {
+      rm -rf build-ESP32_GENERIC || :
+      idf.py fullclean; }
     
     B="./boards/sdkconfig.base.original"
     T="./boards/sdkconfig.base"
@@ -39,8 +41,8 @@ pushd ../Micropython
                                     -Wno-error=misleading-indentation \
                                     -Wno-error=maybe-uninitialized \
                                     -Wno-error=uninitialized \
-                                    -Wno-error=unused-value" \
-                                    -Wno-error=parentheses \
+                                    -Wno-error=unused-value \
+                                    -Wno-error=parentheses" \
                       BOARD=ESP32_GENERIC USER_C_MODULES="$USERMODS"
   pushd ports/esp32/build-ESP32_GENERIC
     cp bootloader/bootloader.bin partition_table/partition-table.bin ota_data_initial.bin micropython.bin "$OUT_DIR"

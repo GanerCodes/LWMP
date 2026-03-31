@@ -155,7 +155,8 @@ class WS_Client:
       if type(𝑿) not in (str,bytes):
         𝑿 = 𝔍d(𝑿)
     else:
-      𝑿 = 𝔍d(({} if 𝑿 is None else 𝑿)|𝕂)
+      𝑿 = {} if 𝑿 is None else 𝑿
+      𝑿 = 𝔍d(𝑿|𝕂 if 𝕂 else 𝑿)
     𝕊.write(i,𝑿.encode("utf-8") if isinstance(𝑿,str) else 𝑿)
 
 #  WS_Client

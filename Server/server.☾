@@ -46,67 +46,65 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
     ‹Removed "⟦𝐮⟧" from "⟦𝐨𝐭⟧": ⟨⟦tok𝘋𝘉􊳧􊳬ᵈᵉᵛˢ⟧⟩›􀊸
      󰤱􊽨 delete token from db if no devs
   ¿dev􇪨 􀛾 overwrite: α = dev𝘋𝘉􊳭 ᔐ
-                     dev𝘋𝘉􊳭􆿾􀊤dev
+                     dev𝘋𝘉􊳭 = dev𝘋𝘉􊳭􀊤dev
                      ‹Device change: ⟦α⟧ → ⟦dev𝘋𝘉􊳭⟧›􀊸
   ↪dev𝘋𝘉􊳭
 
-⊢api(𝐭,req):
-  methods = { Change_dev   = ‹dev󷺗󷺗󷺗󷺗󷺗›,
-              Set_scene    = ‹scene󷺗󷺗󷺗›,
-              Del_scene    = ‹scene󷺗󷺗󷺗›,
-              Push_scenes  = ‹scenes󷺗󷺗›,
-              Set_schedule = ‹schedule›,
-              Off          = □,
-              Sync         = □ }ℵ
+
+⊢api:
+  methods = { Change_dev   = 1, dev
+              Set_schedule = 1, schedule
+              Set_scene    = 3, scene q dur
+              Del_scene    = 1, scene
+              Push_scenes  = 1, scenes
+              Pull_scenes  = 0,
+              Off          = 0,
+              Sync         = 0 }ℵ
   conf_p = ‹WS_URL UPDATE_URL AP_MODE R_SSID R_PASS LEDP BIT_TIMING
             NAME LEDC REVERSE RGB_ORDER RECALB_T
             TOKEN›􀋦𝗻􀉳􀂺
-  
-  𝐦,𝐫 = req 𝔪ᑀ₀􀝕⟞􇣒􋀙₁􀯖ℵ
-  ⛯ tok𝘋𝘉
-    ¿𝐦≡‹Get_devs›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
-                   ↪{⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,{online=⟞∈ws_clients,
-                                   ⠶dev𝘋𝘉􍪴 􀝊 􀌌‹NAME RECALB_T LEDC REVERSE RGB_ORDER›}ᐸ} 𝖦
-    
-    ¿𝐫􇣒􊬏ᵤᵤᵢₛ􊬐􀯑𝐔􀌐: ↪‹Invalid "uuids" field!›𝖡
-    
-    ⊢check(𝐦,𝐫):
-      k,𝐫 = methods􊳥,𝐫 ℵ
-      ¿k􇪨 􀛾 k􀉩𝐫: ↪‹Missing "⟦k⟧" field!›𝖡
-      ¿𝐦􀉞‹Set_scene›:
-        ¿𝐫ₖ􀊹􀉟3: ↪‹Scene activation should have length 3!›𝖡
-        ↪[⠤𝐫ₖ,𝑖(time􀃅􀝍𝐫ₖ ₁􀯗⁰3 􁂇 1000)]
-      ¿𝐦􀉞‹Change_dev›:
-          ↪𝐫 􀝊 conf_p􀋶 􇀥 ŧ_DEV_OPT 􇀥 ℵ
-        ¡: ↪‹Invalid config!›𝖡
-      ↪𝐫􇣒􋀙ₖ
-    
-    ‹here1›􀊸
-     󰤱 "*" mode on device side
-    ¿𝐦􀉞␛*: ¿𝐫􇣒􊬏ᵣₑₛ􊬐􀯑𝐑􈇇: ↪‹Invalid "reqs" field!›𝖡
-    ¡    : 𝐑 = req􀋁
-    ¿𝐑􀊜𝑙􀛾𝐑􀋃⬤􀁊𝑑􁃏: ↪‹Malformed request!›𝖡
-    𝐌 = 𝐑􀉳𝔪􀉴󷺹􀊱check(⟞,⟝)󷺿
-    ¿𝐌ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
-    ‹here2›􀊸
-    ¿𝐌􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
-      ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in * request!›𝖡
-      𝐫 = C₀ ₁
-      ∀𝐮⬠𝐔: get_dev_update_db(⠤[𝐫􇣒􋆮􊬏󰂦󰂡󰂝󰂗󰂠􊬐􀯑nt,𝐮,¿􁌶ⁿᵗ𝐭],dev=𝐫􀊦conf_p₁,overwrite=✓)
-  
-  ⊢send_devs(ꭒ):
-    ¿ꭒ􀉩tok𝘋𝘉􊳬ᵈᵉᵛˢ: ↪‹Cannot find device!›𝖡
-    ¿ꭒ􀉩ws_clients: ↪‹Device is offline󷺗!›𝖡
-    ‹here3›􀊸
-    m = 𝐌ᐵ􇣒󰁸󰁹₁􀯖𝔠􍪴􊬣ᐸᑀ􀊹􀉤1􇀦􍪵􊿥⟞ 𝔠􊯛
-    ‹ꭒ=⟦ꭒ⟧ 𝐌=⟦𝐌⟧𝗻  → ⟦m⟧›􀊸
-    ↪(󰲟m ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
-  ↪􀉵´(𝐔,send_devs,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
+  ⊢api(𝘳):
+    𝘳 􀯏 ℵ􋄅
+    ¿𝘳􊯛􊳬􀯑𝐭ᑀ􈇇    ᐸ: ↪‹No token in request!›𝖡
+    ¿𝘳􊯛􋕞􀯑𝐛ᑀ􀌐􀛺⟞􀊞𝑙ᐸ: ↪‹No request contents!›𝖡
+    𝐦,⠤𝐁 = 𝐛  ᵉᵍ "Change_dev",{RGB_ORDER="GRB"}
+    ⛯ tok𝘋𝘉
+      ¿𝐦≡‹Get_devs›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
+                     ↪{⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,{online=⟞∈ws_clients,
+                                     ⠶dev𝘋𝘉􍪴 􀝊 􀌌‹NAME RECALB_T LEDC REVERSE RGB_ORDER›}ᐸ} 𝖦
+      ¿𝘳􊯛􊳓􀯑𝐔􀌐: ↪‹Invalid "𝐔" field!›𝖡
+      
+      ⊢mod(𝐦,⠤𝐁):
+        ¿𝐁􀊹􀜃methods􊳥􀯑p: ↪‹⟦𝐦⟧ expected ⟦p⟧ (≠⟦𝐁􀊹⟧) parameters!›𝖡
+        ¿𝐦􀉞‹Set_scene󷺗›: 𝐁 = [⠤𝐁,𝑖(time􀃅􀝍𝐁₁􀯗⁰3 􁂇 1000)]
+        ⸘𝐦􀉞‹Change_dev›: ¿𝐁₀􀊞𝑑: ↪‹Config is not a dict!›𝖡
+                           𝐁 = [𝐁₀ ℵ 􀝊 conf_p􀋶 􇀥 ŧ_DEV_OPT 􇀥 ℵ]
+                         ¡: ↪‹Invalid config!›𝖡
+        ↪[𝐦,⠤𝐁]
+      
+       󰤱 "*" mode on device side
+      ¿𝐦􀉞␛*: 𝘙 = 𝐁
+             ¿𝘙􀊜𝑙􀛾𝘙􀋃⬤􀁊𝑙􁃏: ↪‹Malformed * request!›𝖡
+      ¡    : 𝘙 = 𝐛􀋁
+      𝘙 􇀞􀉴 mod
+      ¿𝘙􀉼󷺹₀ᐸ􀯑bad: ↪bad􀋢𝗻􀯖𝖡
+      ¿𝘙ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
+      ¿𝘙􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
+        ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in a * request!›𝖡
+        dev = C₀ ₁
+        ∀𝐮⬠𝐔: get_dev_update_db(⠤[dev􇣒􋆮􊬏󰂦󰂡󰂝󰂗󰂠􊬐􀯑nt,𝐮,¿􁌶ⁿᵗ𝐭],dev=dev􀊦conf_p₁,overwrite=✓)
+    ⊢send_devs(ꭒ):
+      ¿ꭒ􀉩tok𝘋𝘉􊳬ᵈᵉᵛˢ: ↪‹Cannot find device!›𝖡
+      ¿ꭒ􀉩ws_clients: ↪‹Device is offline󷺗!›𝖡
+      m = 𝘙􀊹􀉤1 􇂖[␛*,⠤𝘙]􇂗 𝘙₀
+      ‹⟨⟦m⟧⟩ → ⟦ꭒ⟧›􀊸
+      ↪(󰲟m ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
+    ↪􀉵´(𝐔,send_devs,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
+  ↪api
+api = api􀌗
 
-⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇇: ↪‹Unable to parse JSON!›𝖡
-          d􀊸
-          ¿d􇣒􊬏ₜ󰂼ₖₑₙ􊬐􀯑𝐭􈇇: ↪‹No token in request󷺗!›𝖡
-          ↪api(𝐭,d) 𝔍󰄞 􀝕 200 􀝕 ℵ(𝙲𝚃=‹.json›)
+⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇇: ↪‹Invalid JSON!›𝖡
+          ↪api(d) 𝔍󰄞 􀝕 200 􀝕 ℵ(𝙲𝚃=‹.json›)
 
  cors = { access-control-allow-origin=␛* }
 ⊢(HTTP_Server) server(𝚖,𝚙,𝙷,𝚎):
@@ -128,7 +126,7 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
     𝐂 = dev𝘋𝘉􇣒󰁸󰁹􊳭
     𝐝 = get_dev_update_db(𝐭,𝐮,dev=𝐈)
   c = ‹NAME RECALB_T LEDC REVERSE RGB_ORDER›􀌌ᐖ𝐈􀉨⟞􀉧𝐂 􀛾 𝐈􍪴􀉟𝐂􍪴 􇂖􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑
-  ¿c: c 𝔠.Change_dev ꭐ
+  ¿c: [‹Change_dev›,c] ꭐ
   ↪✓
 
  󰤱 rn negotication of controller props and stuff is broken so its not actually regestering the token (or dev?) in the db

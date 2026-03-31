@@ -51,7 +51,6 @@
   þ0E27FdevListing . style . maxHeight  =  `80vh` ; 
   þ0E27F . populate  =   async  (𝐭) => { 𝔖 . 𝐭  =  𝐭 ; 
                       let  devs  =   await  load_devices(𝔖 . 𝐭) ; 
-                      print (`Devs from token "${𝔖 . 𝐭}":` ,  devs) ; 
                      devs  =  devs[1] ; 
                      þ0E27FdevListing . clear_items() ; 
                      𝒪(devs) . forEach( (x,...𝔸)=> þ0E27FdevListing . add_item(x)) ;  } ; 

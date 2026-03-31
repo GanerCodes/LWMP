@@ -5,34 +5,6 @@
             fld,
             textButton(‹Submit›,󰲟{.close(); cb(fld􀲫.value)})]⟧);};
 
-© prompt_rgb_calibrate = 󱟱⥌𝐭,𝐮,cb↦{
-  © 𝐚 = 𝐀(𝐭);
-  © 𝐝 = 𝐚.dev(𝐮);
-  
-  ⎉ α,β;
-  ©  = popup({:✓,󰅙:✓},
-              󱀝 div ⦅𝚏↓⦆ [
-                󱀝 h1 ‹RGB Calibration›
-                󱀝 □ ⦅𝚑 40px⦆ ‹›
-                󱀝:α □ ‹›
-                󱀝:β □ ‹›]);
-  
-  © Ғ = 󱟱󰲡{
-    α.replaceWith(α=󱀝 h2 ‹Loading...›)
-    β.replaceWith(β=󱀝 □  ‹›)
-    © V = 󱫬 x();
-    ¿(isStr(V)) { .close();
-                  ↪cb(V); }
-    © [C,ƒ] = V;
-    α.replaceWith(α=󱀝 h2 ‹Choose the color that is visible on your LED strip.›)
-    β.replaceWith(β=󱀝 span {𝐶 rgbButtons} 
-                      ⟦C􊾡(󰲡{© =textButton(x,󰲟Ғ(󱟱󰲟ƒ(x))); SAT(,‹c›,x); ↪})⟧);
-  };
-  Ғ(󱟱󰲟󱫬RGB_calibrate(𝐝));
-   󱫬 𝐝.scene({"red":{"fx":[[2,0.25]],"1":[200,0,16711680]}});
-   󱫬 𝐝.scene("red",false,-1);
-}
-
 ⎉ ədevListing = 󰲟{
   © 𝔖 = {};
   © ədevTile = ⥌𝐮,𝐝↦{
@@ -47,7 +19,7 @@
                          ⥌x,rem↦[ədevTile(⠤x),
                                  əbuttonBar(
                                    [𝐴􊯛􊽆,rem],
-                                   [𝐴􊯛􇧒,󰲟prompt_rgb_calibrate(𝔖􋆮,x₀,󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
+                                   [𝐴􊯛􇧒,󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
                                    [𝐴[␛󰐥],󰲟𝐀(𝔖􋆮).dev(x₀).off()])],
                          󰲡☾(‹Removing ⟦x⟧›),
                          [],
@@ -56,7 +28,6 @@
   devListing􋛟.maxHeight = ‹80vh›;
   ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱 ⥌𝐭↦{ 𝔖􋆮 = 𝐭;
                      ⎉ devs = 󱫬 load_devices(𝔖􋆮);
-                     ☾(‹Devs from token "⟦𝔖􋆮⟧":›, devs);
                      devs = devs₁;
                      devListing.clear_items();
                      𝒪(devs)􋁃(󰲡devListing.add_item(x)); };

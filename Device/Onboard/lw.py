@@ -26,13 +26,20 @@ stack_size(6*1024); start_new_thread(𝔏.loop,()) # 󰤱 was 9*1024 before SSL 
 
 del stack_size,start_new_thread,i
 
-def handle_API(𝐦,d=None):
+def handle_API(𝐦,*𝔸):
   log(f'[API] Handling "{𝐦}"')
+  if 𝐦=='*':
+    rst,𝚁 = _RESET_NO,[]
+    for 𝕒 in 𝔸:
+      s,e = handle_API(*𝕒)
+      𝚁.append(e)
+      rst = max(rst,s)
+    return rst,𝚁
   if 𝐦=="Change_dev":
     WCON = set("WS_URL DELETE".split())
     ICON = set("R_SSID R_PASS AP_MODE".split())
     RLED = set("RECALB_T LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
-    K = set(D := { k.upper():v for k,v in d.items() })
+    K = set(D := { k.upper():v for k,v in 𝔸[0].items() })
     
     if "VER" in D and D["VER"] != ℭ.VER:
       write_file("UPDATE_FLAG",str(D["VER"]).strip())
@@ -48,18 +55,18 @@ def handle_API(𝐦,d=None):
     if K & WCON: return _RESET_WS  ,_RESET_WS
     return              _RESET_NO  ,True
   elif 𝐦=="Set_scene":
-    s,q,dur,Ts = d
+    s,q,dur,Ts = 𝔸
     if s not in 𝔐:
       log(f'[API] Scene "{s}" not found!')
       return _RESET_NO,False
     𝔏(s,q,dur,None,Ts)
     if not q and dur in (-1,inf,None): ℭ.DEF_SCENE = s
     return _RESET_NO,True
-  elif 𝐦=="Off"          : return _RESET_NO,𝔏.off() or True
-  elif 𝐦=="Del_scene"    : return _RESET_NO,𝔐.__delitem__(d)
-  elif 𝐦=="Push_scenes"  : return _RESET_NO,𝔐.bulk_save(d)
+  elif 𝐦=="Off"          : return _RESET_NO,𝔏.off() or True # 󰤱 make this become default scene
+  elif 𝐦=="Del_scene"    : return _RESET_NO,𝔐.__delitem__(𝔸[0])
+  elif 𝐦=="Push_scenes"  : return _RESET_NO,𝔐.bulk_save(𝔸[0])
   elif 𝐦=="Pull_scenes"  : return _RESET_NO,𝔐.bulk_dump()
-  elif 𝐦=="Set_schedule" : return _RESET_NO,update_scheg(𝔏,d)
+  elif 𝐦=="Set_schedule" : return _RESET_NO,update_scheg(𝔏,𝔸[0])
   elif 𝐦=="Pull_schedule": return _RESET_NO,get_scheg()
   elif 𝐦=="Sync":
     try:
@@ -89,7 +96,7 @@ def lw_websocket_loop():
     cmd = 𝔍l(cmd)
     free()
     try:
-      con,resp = handle_API(*cmd['_'])
+      con,resp = handle_API(*cmd)
     except Exception as ε:
       dbg("[API] Error!",ε)
       con,resp = _RESET_WS,"ERROR"

@@ -10,7 +10,7 @@ load_devices = 󱟱 ⥌𝐭↦{
   
   try{ r = 󱫬 𝐀(𝐭).get_devs(); }catch(e){}
   ☾(r);
-  ¿(¬r ∨ ¬r₀ ∨ r.status≠200) ↪𝖡(𝐋.devs);
-  𝐋.devs = { ⠤𝐋.devs, ⠤r₁ }
+  ¿(¬r ∨ ¬r₀ ∨ r.status≠200) ↪𝖡(𝐋ᵈᵉᵛˢ);
+  𝐋ᵈᵉᵛˢ = { ⠤ᴍv(𝐋ᵈᵉᵛˢ,󰲣[x,{⠤y,offline:✗}]), ⠤r₁ }
   updateDB();
-  ↪𝖦(𝐋.devs); }
+  ↪𝖦(𝐋ᵈᵉᵛˢ); }

@@ -103,9 +103,9 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
   u32         l           = *(u32         *)(𝔸+36);
   u32         h           = *(u32         *)(𝔸+40);
   f32         t           = mp_obj_get_float(args[1]);
-  u8 OFF_R = ((RGB_OFFS >>  0) & 0xFF);
+  u8 OFF_R = ((RGB_OFFS >> 16) & 0xFF);
   u8 OFF_G = ((RGB_OFFS >>  8) & 0xFF);
-  u8 OFF_B = ((RGB_OFFS >> 16) & 0xFF);
+  u8 OFF_B = ((RGB_OFFS >>  0) & 0xFF);
   
   precompute_fades(atoms,atoms_len,fades,t);
   

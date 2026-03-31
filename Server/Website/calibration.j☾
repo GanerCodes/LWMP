@@ -1,14 +1,36 @@
 RGB_calibrate = 󱟱 ⥌𝐝↦{
   ⎉ C = [⠤"RGB"];
-  󱫬 𝐝.config({RGB_ORDER:"RGB"});
-  󱫬 𝐝.scene({ _singlecolor0: {"fx":[[2,0.25]],"1":[300,0,0xFF<<16]},
-              _singlecolor1: {"fx":[[2,0.25]],"1":[300,0,0xFF<< 8]} });
-  󱫬 𝐝.scene(‹_singlecolor0›,✗,󷰾);
+  󱫬 𝐝.bulk(["config", { RGB_ORDER:"RGB" }],
+           ["scene" , { _singlecolor0: {fx:[[2,0.25]],1:[300,0,255<<16]},
+                        _singlecolor1: {fx:[[2,0.25]],1:[300,0,255<< 8]} }],
+           ["scene" , ‹_singlecolor0›,✗,󷰾]);
   ↪[C,󱟱⥌α↦{ C = C􋐉(󰲡x≠α);
             󱫬 𝐝.scene(‹_singlecolor1›,✗,󷰾);
             ↪[C,󱟱⥌β↦{ C = C􋐉(󰲡x≠β)₀+β+α;
                       󱫬 𝐝.config({RGB_ORDER:C});
                       ↪C }]; }]; };
+
+prompt_rgb_calibrate = 󱟱⥌𝐝,cb↦{
+  ⎉ α,β;
+  ©  = popup({:✓,󰅙:✓},
+              󱀝 div ⦅𝚏↓⦆ [
+                󱀝 h1 ‹RGB Calibration›
+                󱀝 □ ⦅𝚑 40px⦆ ‹›
+                󱀝:α □ ‹›
+                󱀝:β □ ‹›]);
+  
+  © Ғ = 󱟱󰲡{
+    α.replaceWith(α=󱀝 h2 ‹Loading...›)
+    β.replaceWith(β=󱀝 □  ‹›)
+    © V = 󱫬 x();
+    ¿(isStr(V)) { .close();
+                  ↪cb(V); }
+    © [C,ƒ] = V;
+    α.replaceWith(α=󱀝 h2 ‹Choose the color that is visible on your LED strip.›)
+    β.replaceWith(β=󱀝 span {𝐶 rgbButtons} 
+                      ⟦C􊾡(󰲡{© =textButton(x,󰲟Ғ(󱟱󰲟ƒ(x))); SAT(,‹c›,x); ↪})⟧);
+  };
+  Ғ(󱟱󰲟󱫬RGB_calibrate(𝐝)); }
 
  [C,ƒ] = 󱫬 RGB_calibrate(𝐝)
   user chooses from C
