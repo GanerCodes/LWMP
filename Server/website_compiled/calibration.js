@@ -28,15 +28,29 @@ prompt_rgb_calibrate  =   async (𝐝 , cb) => {
   } ; 
   Ғ( async  (...𝔸)=>  await RGB_calibrate(𝐝)) ;  }
 
-LED_calibrate  =  þF01EE((𝘴 , 𝘳) =>  async (𝐝) => {
-   let  hist  =  [100] ; 
-  𝘴(100 , ["Yes" , "No"])
-   let  C ; 
-   while (C =  await 𝘳()) {
-     print (`got ${C}`) ; 
-    𝘴(125 , ["Yes" , "No"])
-  }
-}) ; 
+LED_calibrate  =  þF01EE((𝘴 , 𝘳) =>  async (𝐝 , cb) => {
+   const  SCENE_CALIB  =   (x,...𝔸)=> ({"fx" : [[2 , 1]] , "*" : [{"fx" : [] , "1" : [x , 0 , 65280]} , {"fx" : [] , "1" : [1001 - x , 0 , 16711680]}]}) ; 
+   const  MSG  =  `Is red visible at the end of the LED strip?` ; 
+  
+   await  𝐝 . config({LEDC : 1000}) ; 
+   const  show  =   (x,...𝔸)=> 𝐝 . scene(`calib` , SCENE_CALIB(x) ,  false  , -1) ; 
+  
+   let  𝔖  =  [[1 , 100 , 1000]] ; 
+   while ( true ) {  let  [l , m , h]  =  𝔖 . at(-1) ; 
+          await  show(m)
+         𝘴(m , MSG , [ ... [ þ1F0CC (𝔖) > 1 ? `↺` :  "" ] , `No` , `Yes`]) ; 
+          let  r  =   await  𝘳() ; 
+          print (`𝔖=${𝔍 . þ02191(𝔖)} r=${r}`) ; 
+          if (r == `↺`) { 𝔖 . pop() ;   continue  ;  }
+         search : {  if (r == `No`) { [l , m , h]  =  [l ,  ~  ~ (0.5 * (l + m  )) , m] ; 
+                               if (m == h)  break  search ;  }
+                   else          { [l , m , h]  =  [m ,  ~  ~ (0.5 * (  m + h)) , h] ; 
+                               if (l == m)  break  search ;  }
+                   print (`${l}≤${m}≤${h}`) ; 
+                  𝔖 . push([l , m , h]) ; 
+                   continue  ;  }
+          await  𝐝 . config({LEDC : m}) ; 
+          return cb(m) ;  } }) ; 
 
 prompt_ledc_calibrate  =   async (𝐝 , cb) => {
    let  α , β ; 
@@ -47,15 +61,17 @@ prompt_ledc_calibrate  =   async (𝐝 , cb) => {
               β . replaceWith(β = mkə(`□` ,  false  , ``)) ;  }
   
   load() ; 
-   const  [𝘴 , 𝘳]  =  LED_calibrate(𝐝) ; 
+   const  [𝘴 , 𝘳]  =  LED_calibrate(𝐝 ,  print ) ; 
    let  v ; 
    while (v =  await  𝘳()) {
-     const  [n , C]  =  v ; 
+     print (`Got v=${v}`)
+     const  [n , m , C]  =  v ; 
      const  U  =  [] ; 
-    α . replaceWith(α = mkə(`h2` ,  false  , `Is any red visible?`))
-    β . replaceWith(β = mkə(`span` , {[`𝐶`] : `button`} , C . ᴍ( (x,...𝔸)=> textButton(x , ((p) => (U . push(p) , p . r(x)))(𝗉()))))) ; 
+    α . replaceWith(α = mkə(`h2` ,  false  , `Trying ${n} LEDs - ${m}`))
+    β . replaceWith(β = mkə(`span` , {[`𝐶`] : `button`} , C . ᴍ( (x,...𝔸)=> textButton(x , ((p) => (U . push(p) ,  (...𝔸)=> p . r(x)))(𝗉()))))) ; 
      const  dec  =   await  Promise . any(U) ; 
+     print (`dec=${dec}`)
     load() ; 
-    𝘴(dec)
+    𝘴(dec) ; 
   }
 } ; 

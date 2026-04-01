@@ -32,15 +32,29 @@ prompt_rgb_calibrate = 󱟱⥌𝐝,cb↦{
   };
   Ғ(󱟱󰲟󱫬RGB_calibrate(𝐝)); }
 
-LED_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝↦{
-  ⎉ hist = [100];
-  𝘴(100,["Yes","No"])
-  ⎉ C;
-  ➰(C=󱫬𝘳()) {
-    ☾(‹got ⟦C⟧›);
-    𝘴(125,["Yes","No"])
-  }
-});
+LED_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{  󰤱
+  © SCENE_CALIB = 󰲡({"fx":[[2,1]],"*":[{"fx":[],"1":[x,0,65280]},{"fx":[],"1":[1001-x,0,16711680]}]});
+  © MSG = ‹Is red visible at the end of the LED strip?›;
+  
+  󱫬 𝐝.config({LEDC:1000});
+  © show = 󰲡𝐝.scene(‹calib›,SCENE_CALIB(x),✗,󷰾);
+  
+  ⎉ 𝔖 = [[1,100,1000]];
+  ➰(✓) { ⎉ [l,m,h] = 𝔖􋕛(󷰾);
+         󱫬 show(m)
+         𝘴(m,MSG,[⠤[🃌(𝔖)>1⭜␛↺⭝ᐦ],‹No›,‹Yes›]);
+         ⎉ r = 󱫬 𝘳();
+         ☾(‹𝔖=⟦𝔍􋀫(𝔖)⟧ r=⟦r⟧›);
+         ¿(r≡‹↺›) { 𝔖.pop(); ↺; }
+         search:{ ¿(r≡‹No›) { [l,m,h] = [l,~~(0.5⋅(l+m  )),m];
+                              ¿(m≡h) ⇥ search; }
+                  ¡         { [l,m,h] = [m,~~(0.5⋅(  m+h)),h];
+                              ¿(l≡m) ⇥ search; }
+                  ☾(‹⟦l⟧≤⟦m⟧≤⟦h⟧›);
+                  𝔖.push([l,m,h]);
+                  ↺; }
+         󱫬 𝐝.config({LEDC:m});
+         ↪cb(m); } });
 
 prompt_ledc_calibrate = 󱟱⥌𝐝,cb↦{
   ⎉ α,β;
@@ -55,16 +69,18 @@ prompt_ledc_calibrate = 󱟱⥌𝐝,cb↦{
               β.replaceWith(β=󱀝 □  ‹›); }
   
   load();
-  © [𝘴,𝘳] = LED_calibrate(𝐝);
+  © [𝘴,𝘳] = LED_calibrate(𝐝,☾);
   ⎉ v;
   ➰(v=󱫬 𝘳()) {
-    © [n,C] = v;
+    ☾(‹Got v=⟦v⟧›)
+    © [n,m,C] = v;
     © U = [];
-    α.replaceWith(α=󱀝 h2 ‹Is any red visible?›)
+    α.replaceWith(α=󱀝 h2 ‹Trying ⟦n⟧ LEDs - ⟦m⟧›)
     β.replaceWith(β=󱀝 span {𝐶 button}
-                      ⟦C􊾡(󰲡textButton(x,(⥌p↦(U.push(p),pʳ(x)))(𝗉())))⟧);
+                      ⟦C􊾡(󰲡textButton(x,(⥌p↦(U.push(p),󰲟pʳ(x)))(𝗉())))⟧);
     © dec = 󱫬 Promise.any(U);
+    ☾(‹dec=⟦dec⟧›)
     load();
-    𝘴(dec)
+    𝘴(dec);
   }
 };
