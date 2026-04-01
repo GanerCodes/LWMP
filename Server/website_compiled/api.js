@@ -11,7 +11,7 @@ api = async (𝐭,P,...𝔸) => {
     headers: { "Content-type": "application/json; charset=UTF-8" } });
   const r = await req.json();
   r.status = req.status;
-  print(`API with "${JSON.stringify(JSON.parse(body))}" → "${JSON.stringify(r, null, 2)}"`);
+  print(`API with "${JSON.stringify(JSON.parse(body))}" → "${JSON.stringify(r,null,2)}"`);
   return r; };
 apiURL = (...𝔸) => `${location.origin}/api/${encodeURIComponent(api_body(...𝔸))}`;
 
@@ -22,7 +22,7 @@ const s2utcW = s => ((s + utc_Δ_s())%s_per_w + s_per_w) % s_per_w;
 const s2utcD = s => ((s + utc_Δ_s())%s_per_d + s_per_d) % s_per_d;
 const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
 
-𝐀 = 𝐭 => {
+𝐀 = (𝐭,...𝐔) => {
   const 𝔄 = (...𝔸)=>api(𝐭,...𝔸);
   const get_devs = _ => 𝔄({},"Get_devs");
   const dev = (...𝐔) => {
@@ -57,6 +57,7 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
     
     // const 𝔐 = (...𝐑)=>𝔄("*",{uuids,reqs:𝐑.map((m,...𝔸)=>M[m](...𝔸))𝔠["*"]()});
     return R; };
+  if(𝐔.length) return dev(...𝐔);
   return {get_devs,dev}; };
 
 // const make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs).Ϝ((x,y)=>x+y,0)).slice(0,-1)) });

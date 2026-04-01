@@ -8,7 +8,7 @@ NUM_CORES=15
 
 # /opt/esp-idf/install.sh esp32
 mkdir -p "$OUT_DIR"
-unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
+unalias . || :; export PATH="$PATH:$PWD/../esp-idf"; source ../esp-idf/export.sh
 
 pushd ../Micropython
   pushd ports/esp32

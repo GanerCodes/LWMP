@@ -6,29 +6,6 @@
             fld , 
             textButton(`Submit` ,  (...𝔸)=> {þ0E27F . close() ;  cb(fld . 𝚒 . value)})])) ; } ; 
 
- const  prompt_rgb_calibrate  =   async (𝐭 , 𝐮 , cb) => {
-   const  𝐚  =  𝐀(𝐭) ; 
-   const  𝐝  =  𝐚 . dev(𝐮) ; 
-  
-   let  α , β ; 
-   const  þ0E27F  =  popup({þ0F2D4 :  true  , þF0159 :  true } , 
-              mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: column;`} , [(mkə(`h1` ,  false  , `RGB Calibration`)) , (mkə(`□` , {[`𝑆`] : `height: 40px;`} , ``)) , ((α = mkə(`□` ,  false  , ``))) , ((β = mkə(`□` ,  false  , ``)))])) ; 
-  
-   const  Ғ  =   async  (x,...𝔸)=> {
-    α . replaceWith(α = mkə(`h2` ,  false  , `Loading...`))
-    β . replaceWith(β = mkə(`□` ,  false  , ``))
-     const  V  =   await  x() ; 
-     if (isStr(V)) { þ0E27F . close() ; 
-                   return cb(V) ;  }
-     const  [C , ƒ]  =  V ; 
-    α . replaceWith(α = mkə(`h2` ,  false  , `Choose the color that is visible on your LED strip.`))
-    β . replaceWith(β = mkə(`span` , {[`𝐶`] : `rgbButtons`} , C . ᴍ( (x,...𝔸)=> { const  þ0E27F = textButton(x ,  (...𝔸)=> Ғ( async  (...𝔸)=> ƒ(x))) ;  SAT(þ0E27F , `c` , x) ;   return þ0E27F}))) ; 
-  } ; 
-  Ғ( async  (...𝔸)=>  await RGB_calibrate(𝐝)) ; 
-  
-  
-}
-
  let  ədevListing  =   (...𝔸)=> {
    const  𝔖  =  {} ; 
    const  ədevTile  =  (𝐮 , 𝐝) => {
@@ -42,7 +19,7 @@
                          (x , rem) => [ədevTile( ... x) , 
                                  əbuttonBar(
                                    [𝐴[`󰆴`] , rem] , 
-                                   [𝐴[``] ,  (...𝔸)=> prompt_rgb_calibrate(𝔖 . 𝐭 , x[0] ,  (x,...𝔸)=> (x , þ0E27F . populate(𝔖 . 𝐭)))] , 
+                                   [𝐴[``] ,  (...𝔸)=> prompt_rgb_calibrate(𝐀(𝔖 . 𝐭 , x[0]) ,  (x,...𝔸)=> (x , þ0E27F . populate(𝔖 . 𝐭)))] , 
                                    [𝐴[`󰐥`] ,  (...𝔸)=> 𝐀(𝔖 . 𝐭) . dev(x[0]) . off()])] , 
                           (x,...𝔸)=>  print (`Removing ${x}`) , 
                          [] , 

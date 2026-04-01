@@ -53,7 +53,7 @@ for i in "${!DEVS[@]}"; do
   /c/Scripts/Path/term -T "(${i}) ${dev}" --option 'font.size=11' --command bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
   done
 
-unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
+unalias . || :; export PATH="$PATH:$PWD/Device/esp-idf"; source ./Device/esp-idf/export.sh
 
 N=0
 pushd ./Device
