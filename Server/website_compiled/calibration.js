@@ -28,11 +28,34 @@ prompt_rgb_calibrate  =   async (𝐝 , cb) => {
   } ; 
   Ғ( async  (...𝔸)=>  await RGB_calibrate(𝐝)) ;  }
 
-LED_calibrate  =   async  (𝐝) => {
+LED_calibrate  =  þF01EE((𝘴 , 𝘳) =>  async (𝐝) => {
+   let  hist  =  [100] ; 
+  𝘴(100 , ["Yes" , "No"])
+   let  C ; 
+   while (C =  await 𝘳()) {
+     print (`got ${C}`) ; 
+    𝘴(125 , ["Yes" , "No"])
+  }
+}) ; 
+
+prompt_ledc_calibrate  =   async (𝐝 , cb) => {
+   let  α , β ; 
+   const  þ0E27F  =  popup({þ0F2D4 :  true  , þF0159 :  true } , 
+              mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: column;`} , [(mkə(`h1` ,  false  , `LED Count Calibration`)) , (mkə(`□` , {[`𝑆`] : `height: 40px;`} , ``)) , ((α = mkə(`□` ,  false  , ``))) , ((β = mkə(`□` ,  false  , ``)))])) ; 
   
-}
-
-
-
-
-
+   const  load  =   (...𝔸)=> { α . replaceWith(α = mkə(`h2` ,  false  , `Loading...`))
+              β . replaceWith(β = mkə(`□` ,  false  , ``)) ;  }
+  
+  load() ; 
+   const  [𝘴 , 𝘳]  =  LED_calibrate(𝐝) ; 
+   let  v ; 
+   while (v =  await  𝘳()) {
+     const  [n , C]  =  v ; 
+     const  U  =  [] ; 
+    α . replaceWith(α = mkə(`h2` ,  false  , `Is any red visible?`))
+    β . replaceWith(β = mkə(`span` , {[`𝐶`] : `button`} , C . ᴍ( (x,...𝔸)=> textButton(x , ((p) => (U . push(p) , p . r(x)))(𝗉()))))) ; 
+     const  dec  =   await  Promise . any(U) ; 
+    load() ; 
+    𝘴(dec)
+  }
+} ; 
