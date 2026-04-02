@@ -32,30 +32,30 @@ prompt_rgb_calibrate = 󱟱⥌𝐝,cb↦{
   };
   Ғ(󱟱󰲟󱫬RGB_calibrate(𝐝)); }
 
-led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{  󰤱
-  © SCENE_CALIB = 󰲡({"fx":[[2,1]],"*":[{"fx":[],"1":[x,0,65280]},{"fx":[],"1":[1001-x,0,16711680]}]});
+led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{
+  © SCENE_CALIB = 󰲡({"*":[{1:[x,0,0xFF00]},{1:[1001-x,0,0xFF0000]}                 ]});
+  © SCENE_FINAL = 󰲡({"*":[{1:[1,0,0xFF00]},{1:[   x-2,0,0       ]},{1:[1,0,0xFF00]}]});
   © MSG = ‹Is red visible at the end of the LED strip?›;
   
   󱫬 𝐝.config({LEDC:1000});
-  © show = 󰲡𝐝.scene(‹calib›,SCENE_CALIB(x),✗,󷰾);
-  
   ⎉ 𝔖 = [[1,100,1000]];
   ➰(✓) { ⎉ [l,m,h] = 𝔖􋕛(󷰾);
-         󱫬 show(m)
+         󱫬 𝐝.scene(‹_calib›,SCENE_CALIB(m),✗,󷰾)
          𝘴(m,MSG,[⠤🃌(𝔖)>1⭜[␛󷹁]⭝[],‹No›,‹Yes›]);
          ⎉ r = 󱫬 𝘳();
-         ☾(‹𝔖=⟦𝔍􋀫(𝔖)⟧ r=⟦r⟧›);
          ¿(r≡‹󷹁›) { 𝔖.pop(); ↺; }
          ¿(l<h  ) { ¿(r≡‹No›) h = m;
                     ¡         l = m+1;
                     m = ~~((l+h)/2); }
-         ¿(l≡h  ) { 󱫬 𝐝.config({LEDC:m});
+         ¿(l≡h  ) { 󱫬 𝐝.bulk(["config", {LEDC:m}                   ],
+                             ["scene" , ‹_calib›,SCENE_FINAL(m),✗,󷰾]);
                     𝘴();
                     ↪cb(l); }
-         ☾(‹⟦l⟧≤⟦m⟧≤⟦h⟧›);
          𝔖.push([l,m,h]); } });
 
 prompt_led_calibrate = 󱟱⥌𝐝,cb↦{
+  © 𝗉set = 𝚲󱑼(⠤𝔸􊾡(󰲡[𝗉(),x])􋅝(󰲣[x,󰲟xʳ(y)]));
+  
   ⎉ α,β;
   ©  = popup({:✓,󰅙:✓},
               󱀝 div ⦅𝚏↓⦆ [
@@ -63,24 +63,16 @@ prompt_led_calibrate = 󱟱⥌𝐝,cb↦{
                 󱀝 □ ⦅𝚑 40px⦆ ‹›
                 󱀝:α □ ‹›
                 󱀝:β □ ‹›]);
-  
   © load = 󰲟{ α.replaceWith(α=󱀝 h2 ‹Loading...›)
               β.replaceWith(β=󱀝 □  ‹›); }
-  
   load();
   © [𝘴,𝘳] = led_calibrate(𝐝,󰲡(.close(),cb(x)));
-  ⎉ v;
-  ➰(v=󱫬 𝘳()) {
-    ☾(‹Got v=⟦v⟧›)
-    © [n,m,C] = v;
-    © U = [];
-    α.replaceWith(α=󱀝 h2 ‹Testing ⟦n⟧ LEDs - ⟦m⟧›)
-    β.replaceWith(β=əbuttonBar(
-      ⠤C􊾡(󰲡[☾(𝐴ₓ,x)∨x,(⥌p↦(U.push(p),󰲟pʳ(x)))(𝗉()),¬(x∈𝐴)])
-    ));
-    © dec = 󱫬 Promise.any(U);
-    ☾(‹dec=⟦dec⟧›)
-    load();
-    𝘴(dec);
-  }
-};
+  ➰(✓) { ⎉ v = 󱫬 𝘳();
+         ¿(¬v) ⇥;
+         © [n,m,C] = v;
+         © P = 𝗉();
+         α.replaceWith(α=󱀝 h2 ‹Testing ⟦n⟧ LEDs - ⟦m⟧›)
+         β.replaceWith(β=əbuttonBar(⠤C􊾡(󰲡[𝔄ₓ∨x,󰲟Pʳ(x),¬(x∈𝔄)]) ));
+         © dec = 󱫬 P;
+         load();
+         𝘴(dec); } };

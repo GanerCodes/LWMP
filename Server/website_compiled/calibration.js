@@ -28,51 +28,43 @@ prompt_rgb_calibrate  =   async (𝐝 , cb) => {
   } ; 
   Ғ( async  (...𝔸)=>  await RGB_calibrate(𝐝)) ;  }
 
-led_calibrate  =  þF01EE((𝘴 , 𝘳) =>  async (𝐝 , cb) => { 
-   const  SCENE_CALIB  =   (x,...𝔸)=> ({"fx" : [[2 , 1]] , "*" : [{"fx" : [] , "1" : [x , 0 , 65280]} , {"fx" : [] , "1" : [1001 - x , 0 , 16711680]}]}) ; 
+led_calibrate  =  þF01EE((𝘴 , 𝘳) =>  async (𝐝 , cb) => {
+   const  SCENE_CALIB  =   (x,...𝔸)=> ({"*" : [{1 : [x , 0 , 0xFF00]} , {1 : [1001 - x , 0 , 0xFF0000]}                 ]}) ; 
+   const  SCENE_FINAL  =   (x,...𝔸)=> ({"*" : [{1 : [1 , 0 , 0xFF00]} , {1 : [   x - 2 , 0 , 0       ]} , {1 : [1 , 0 , 0xFF00]}]}) ; 
    const  MSG  =  `Is red visible at the end of the LED strip?` ; 
   
    await  𝐝 . config({LEDC : 1000}) ; 
-   const  show  =   (x,...𝔸)=> 𝐝 . scene(`calib` , SCENE_CALIB(x) ,  false  , -1) ; 
-  
    let  𝔖  =  [[1 , 100 , 1000]] ; 
    while ( true ) {  let  [l , m , h]  =  𝔖 . at(-1) ; 
-          await  show(m)
+          await  𝐝 . scene(`_calib` , SCENE_CALIB(m) ,  false  , -1)
          𝘴(m , MSG , [ ...  þ1F0CC (𝔖) > 1 ? [`󷹁`] : [] , `No` , `Yes`]) ; 
           let  r  =   await  𝘳() ; 
-          print (`𝔖=${𝔍 . þ02191(𝔖)} r=${r}`) ; 
           if (r == `󷹁`) { 𝔖 . pop() ;   continue  ;  }
           if (l < h  ) {  if (r == `No`) h  =  m ; 
                      else          l  =  m + 1 ; 
                     m  =   ~  ~ ((l + h) / 2) ;  }
-          if (l == h  ) {  await  𝐝 . config({LEDC : m}) ; 
+          if (l == h  ) {  await  𝐝 . bulk(["config" ,  {LEDC : m}                   ] , 
+                             ["scene"  ,  `_calib` , SCENE_FINAL(m) ,  false  , -1]) ; 
                     𝘴() ; 
                      return cb(l) ;  }
-          print (`${l}≤${m}≤${h}`) ; 
          𝔖 . push([l , m , h]) ;  } }) ; 
 
 prompt_led_calibrate  =   async (𝐝 , cb) => {
+   const  𝗉set  =   (...𝔸)=>  þF147C ( ... 𝔸 . ᴍ( (x,...𝔸)=> [𝗉() , x]) . ꟿ( (x,y,...𝔸)=> [x ,  (...𝔸)=> x . r(y)])) ; 
+  
    let  α , β ; 
    const  þ0E27F  =  popup({þ0F2D4 :  true  , þF0159 :  true } , 
               mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: column;`} , [(mkə(`h1` ,  false  , `LED Count Calibration`)) , (mkə(`□` , {[`𝑆`] : `height: 40px;`} , ``)) , ((α = mkə(`□` ,  false  , ``))) , ((β = mkə(`□` ,  false  , ``)))])) ; 
-  
    const  load  =   (...𝔸)=> { α . replaceWith(α = mkə(`h2` ,  false  , `Loading...`))
               β . replaceWith(β = mkə(`□` ,  false  , ``)) ;  }
-  
   load() ; 
    const  [𝘴 , 𝘳]  =  led_calibrate(𝐝 ,  (x,...𝔸)=> (þ0E27F . close() , cb(x))) ; 
-   let  v ; 
-   while (v =  await  𝘳()) {
-     print (`Got v=${v}`)
-     const  [n , m , C]  =  v ; 
-     const  U  =  [] ; 
-    α . replaceWith(α = mkə(`h2` ,  false  , `Testing ${n} LEDs - ${m}`))
-    β . replaceWith(β = əbuttonBar(
-       ... C . ᴍ( (x,...𝔸)=> [ print (𝐴[x] , x) || x , ((p) => (U . push(p) ,  (...𝔸)=> p . r(x)))(𝗉()) ,  ! (x in 𝐴)])
-    )) ; 
-     const  dec  =   await  Promise . any(U) ; 
-     print (`dec=${dec}`)
-    load() ; 
-    𝘴(dec) ; 
-  }
-} ; 
+   while ( true ) {  let  v  =   await  𝘳() ; 
+          if ( ! v)  break  ; 
+          const  [n , m , C]  =  v ; 
+          const  P  =  𝗉() ; 
+         α . replaceWith(α = mkə(`h2` ,  false  , `Testing ${n} LEDs - ${m}`))
+         β . replaceWith(β = əbuttonBar( ... C . ᴍ( (x,...𝔸)=> [𝔄[x] || x ,  (...𝔸)=> P . r(x) ,  ! (x in 𝔄)]) )) ; 
+          const  dec  =   await  P ; 
+         load() ; 
+         𝘴(dec) ;  } } ; 

@@ -1,6 +1,6 @@
  radioBar = ⥌names,cb,sel=0↦{ ↪ 󱀝 {𝐶 navbar} ⟦⟧ };
 
-𝐴 = 𝒟([⠤‹󰆴+󰐥󷹁›]􊾡( 󰲡[x,‹/Assets/⟦x⟧.svg›]));
+𝔄 = 𝒟([⠤‹󰆴+󰐥󷹁›]􊾡( 󰲡[x,‹/Assets/⟦x⟧.svg›]));
 
 əti = ⥌s,󰊄=✗↦󰊄⭜(󱀝 T ‹⟦s⟧›)⭝(󱀝 img {src:⟦s⟧})
 əbigButton = ⥌src,𝔸,󰊄=✗↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } [⟦əti(src,󰊄)⟧]
@@ -13,7 +13,7 @@
   ⎉ ε,ε_adder;
   󱀝:ε {𝐶 itemGrid} [
       󱀝:ε_adder {𝐶 itemGridItem itemGridAdder} [
-          ⟦əbigButton(𝐴􊯛₊, {onclick: 𝚲plus(ε.add_item)})⟧ ] ];
+          ⟦əbigButton(𝔄[␛+], {onclick: 𝚲plus(ε.add_item)})⟧ ] ];
   ε.add_item = 󰲣{ ⎉ newElm = 󱀝 div {𝐶 itemGridItem};
                   ¿(y) { newElm􋒅 ⁺(‹itemGridPlaceholder›);
                          chainIntoElements(x, newElm); }

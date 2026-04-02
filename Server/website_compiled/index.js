@@ -18,10 +18,10 @@
                           undefined  , 
                          (x , rem) => [ədevTile( ... x) , 
                                  əbuttonBar(
-                                   [𝐴[`󰆴`] , rem] , 
-                                   [𝐴[``] ,  (...𝔸)=> prompt_rgb_calibrate(𝐀(𝔖 . 𝐭 , x[0]) ,  (x,...𝔸)=> (x , þ0E27F . populate(𝔖 . 𝐭)))] , 
-                                   [𝐴[``] ,  (...𝔸)=> prompt_led_calibrate(𝐀(𝔖 . 𝐭 , x[0]) ,  (x,...𝔸)=> (x , þ0E27F . populate(𝔖 . 𝐭)))] , 
-                                   [𝐴[`󰐥`] ,  (...𝔸)=> 𝐀(𝔖 . 𝐭) . dev(x[0]) . off()])] , 
+                                   [𝔄[`󰆴`] , rem] , 
+                                   [𝔄[``] ,  (...𝔸)=> prompt_rgb_calibrate(𝐀(𝔖 . 𝐭 , x[0]) ,  (x,...𝔸)=> (x , þ0E27F . populate(𝔖 . 𝐭)))] , 
+                                   [𝔄[``] ,  (...𝔸)=> prompt_led_calibrate(𝐀(𝔖 . 𝐭 , x[0]) ,  (x,...𝔸)=> (x , þ0E27F . populate(𝔖 . 𝐭)))] , 
+                                   [𝔄[`󰐥`] ,  (...𝔸)=> 𝐀(𝔖 . 𝐭) . dev(x[0]) . off()])] , 
                           (x,...𝔸)=>  print (`Removing ${x}`) , 
                          [] , 
                          { show_plus   :   false  , 
@@ -43,7 +43,7 @@
           þ0E27FtokenListing
              =  əitemGridEditable(
                 (  gen) => prompt_token(gen) , 
-                (x , rem) => [ətokenTile(x) , əbuttonBar([𝐴[`󰆴`] , rem])] , 
+                (x , rem) => [ətokenTile(x) , əbuttonBar([𝔄[`󰆴`] , rem])] , 
                  (x,...𝔸)=>  print (`Removing ${x}`))) ; 
   þ0E27FtokenListing . style . maxHeight  =  `80vh` ; 
   þ0E27F . populate  =  (𝐓) => { þ0E27FtokenListing . clear_items() ; 

@@ -18,10 +18,10 @@
                          󱣩,
                          ⥌x,rem↦[ədevTile(⠤x),
                                  əbuttonBar(
-                                   [𝐴[␛󰆴],rem],
-                                   [𝐴[␛],󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
-                                   [𝐴[␛],󰲟prompt_led_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
-                                   [𝐴[␛󰐥],󰲟𝐀(𝔖􋆮).dev(x₀).off()])],
+                                   [𝔄[␛󰆴],rem],
+                                   [𝔄[␛],󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
+                                   [𝔄[␛],󰲟prompt_led_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
+                                   [𝔄[␛󰐥],󰲟𝐀(𝔖􋆮).dev(x₀).off()])],
                          󰲡☾(‹Removing ⟦x⟧›),
                          [],
                          { show_plus  : ✗,
@@ -44,7 +44,7 @@
           tokenListing
             = əitemGridEditable(
                 ⥌  gen↦prompt_token(gen),
-                ⥌x,rem↦[ətokenTile(x),əbuttonBar([𝐴􊯛􊽆,rem])],
+                ⥌x,rem↦[ətokenTile(x),əbuttonBar([𝔄[␛󰆴],rem])],
                 󰲡☾(‹Removing ⟦x⟧›)));
   tokenListing􋛟.maxHeight = ‹80vh›;
   ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐓↦{ tokenListing.clear_items();
