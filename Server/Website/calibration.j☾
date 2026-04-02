@@ -32,7 +32,7 @@ prompt_rgb_calibrate = 󱟱⥌𝐝,cb↦{
   };
   Ғ(󱟱󰲟󱫬RGB_calibrate(𝐝)); }
 
-LED_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{  󰤱
+led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{  󰤱
   © SCENE_CALIB = 󰲡({"fx":[[2,1]],"*":[{"fx":[],"1":[x,0,65280]},{"fx":[],"1":[1001-x,0,16711680]}]});
   © MSG = ‹Is red visible at the end of the LED strip?›;
   
@@ -42,21 +42,20 @@ LED_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{  󰤱
   ⎉ 𝔖 = [[1,100,1000]];
   ➰(✓) { ⎉ [l,m,h] = 𝔖􋕛(󷰾);
          󱫬 show(m)
-         𝘴(m,MSG,[⠤[🃌(𝔖)>1⭜␛↺⭝ᐦ],‹No›,‹Yes›]);
+         𝘴(m,MSG,[⠤🃌(𝔖)>1⭜[␛󷹁]⭝[],‹No›,‹Yes›]);
          ⎉ r = 󱫬 𝘳();
          ☾(‹𝔖=⟦𝔍􋀫(𝔖)⟧ r=⟦r⟧›);
-         ¿(r≡‹↺›) { 𝔖.pop(); ↺; }
-         search:{ ¿(r≡‹No›) { [l,m,h] = [l,~~(0.5⋅(l+m  )),m];
-                              ¿(m≡h) ⇥ search; }
-                  ¡         { [l,m,h] = [m,~~(0.5⋅(  m+h)),h];
-                              ¿(l≡m) ⇥ search; }
-                  ☾(‹⟦l⟧≤⟦m⟧≤⟦h⟧›);
-                  𝔖.push([l,m,h]);
-                  ↺; }
-         󱫬 𝐝.config({LEDC:m});
-         ↪cb(m); } });
+         ¿(r≡‹󷹁›) { 𝔖.pop(); ↺; }
+         ¿(l<h  ) { ¿(r≡‹No›) h = m;
+                    ¡         l = m+1;
+                    m = ~~((l+h)/2); }
+         ¿(l≡h  ) { 󱫬 𝐝.config({LEDC:m});
+                    𝘴();
+                    ↪cb(l); }
+         ☾(‹⟦l⟧≤⟦m⟧≤⟦h⟧›);
+         𝔖.push([l,m,h]); } });
 
-prompt_ledc_calibrate = 󱟱⥌𝐝,cb↦{
+prompt_led_calibrate = 󱟱⥌𝐝,cb↦{
   ⎉ α,β;
   ©  = popup({:✓,󰅙:✓},
               󱀝 div ⦅𝚏↓⦆ [
@@ -69,15 +68,16 @@ prompt_ledc_calibrate = 󱟱⥌𝐝,cb↦{
               β.replaceWith(β=󱀝 □  ‹›); }
   
   load();
-  © [𝘴,𝘳] = LED_calibrate(𝐝,☾);
+  © [𝘴,𝘳] = led_calibrate(𝐝,󰲡(.close(),cb(x)));
   ⎉ v;
   ➰(v=󱫬 𝘳()) {
     ☾(‹Got v=⟦v⟧›)
     © [n,m,C] = v;
     © U = [];
-    α.replaceWith(α=󱀝 h2 ‹Trying ⟦n⟧ LEDs - ⟦m⟧›)
-    β.replaceWith(β=󱀝 span {𝐶 button}
-                      ⟦C􊾡(󰲡textButton(x,(⥌p↦(U.push(p),󰲟pʳ(x)))(𝗉())))⟧);
+    α.replaceWith(α=󱀝 h2 ‹Testing ⟦n⟧ LEDs - ⟦m⟧›)
+    β.replaceWith(β=əbuttonBar(
+      ⠤C􊾡(󰲡[☾(𝐴ₓ,x)∨x,(⥌p↦(U.push(p),󰲟pʳ(x)))(𝗉()),¬(x∈𝐴)])
+    ));
     © dec = 󱫬 Promise.any(U);
     ☾(‹dec=⟦dec⟧›)
     load();

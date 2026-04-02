@@ -47,22 +47,28 @@ body {
   align-items: center;
   margin-top: auto;
   border-top: 2px solid #EEE;
+}
+.barButton {
+  width: 100%;
+  height: 100%;
   &>* {
-    width: 100%;
-    height: 100%;
-    &>img {
-      aspect-ratio: 1;
-      height: 75%;
-    }
+    aspect-ratio: 1;
+    height: 75%;
+  }
+  &>T {
+    font-size: 40px;
   }
 }
 .bigButton {
   height: 100%;
   display: flex;
   flex-direction: column;
-  &>img {
+  &>* {
     width: 75%;
     height: 75%;
+  }
+  &>T {
+    font-size: 40px;
   }
 }
 .itemGrid {
@@ -152,4 +158,13 @@ body {
       }
     }
   }
+}
+.ledCalbButtons {
+  &>* {
+    width: 7vw;
+    height: 7vw;
+  }
+  border: 2px solid #EEE;
+  border-radius: 5px;
+  font-size: 3vw;
 }

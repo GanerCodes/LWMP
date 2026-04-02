@@ -18,8 +18,9 @@
                          󱣩,
                          ⥌x,rem↦[ədevTile(⠤x),
                                  əbuttonBar(
-                                   [𝐴􊯛􊽆,rem],
-                                   [𝐴􊯛􇧒,󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
+                                   [𝐴[␛󰆴],rem],
+                                   [𝐴[␛],󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
+                                   [𝐴[␛],󰲟prompt_led_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
                                    [𝐴[␛󰐥],󰲟𝐀(𝔖􋆮).dev(x₀).off()])],
                          󰲡☾(‹Removing ⟦x⟧›),
                          [],

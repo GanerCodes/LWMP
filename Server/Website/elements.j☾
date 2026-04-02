@@ -1,14 +1,13 @@
  radioBar = ⥌names,cb,sel=0↦{ ↪ 󱀝 {𝐶 navbar} ⟦⟧ };
 
-𝐴 = { "󰆴": ‹/Assets/trash.svg›,
-      "": ‹/Assets/gear.svg›,
-      "+": ‹/Assets/plus.svg›,
-      "󰐥": ‹/Assets/offButton.svg› }
+𝐴 = 𝒟([⠤‹󰆴+󰐥󷹁›]􊾡( 󰲡[x,‹/Assets/⟦x⟧.svg›]));
 
-əbigButton = ⥌src,𝔸↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } [
-                      󱀝 img {src:⟦src⟧} ]
-əbarButton = ⥌src,𝔸↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } [
-                      󱀝 img {src:⟦src⟧} ]
+əti = ⥌s,󰊄=✗↦󰊄⭜(󱀝 T ‹⟦s⟧›)⭝(󱀝 img {src:⟦s⟧})
+əbigButton = ⥌src,𝔸,󰊄=✗↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } [⟦əti(src,󰊄)⟧]
+əbarButton = ⥌src,𝔸,󰊄=✗↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } [⟦əti(src,󰊄)⟧]
+əbuttonBar = 𝚲
+  󱀝 span {𝐶 multiButtonBar} ⟦
+    𝔸􋅝(󰲥󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} [⟦əti(x,z)⟧])⟧;
 
 əitemGridEditable = ⥌plus,gen,rem,items=[],Ѧ={show_plus:✓,placeholder:󱣩}↦{
   ⎉ ε,ε_adder;
@@ -28,8 +27,6 @@
   items􋁃(ε.add_item);
   ↪ε; };
 
-əbuttonBar = 𝚲
-  󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {onclick ⟦y⟧} [󱀝 img {src ⟦x⟧}])⟧;
 ətitledBox = ⥌𝚝,ə↦
   󱀝 div ⦅𝚠⅘;𝚏↓⦆ [󱀝 h1 [⟦𝚝⟧]
                  󱀝 {𝐶 box⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto; 𝚙↓ 10px⦆} [⟦ə⟧]]

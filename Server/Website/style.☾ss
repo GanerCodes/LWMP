@@ -17,13 +17,13 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
 .multiButtonBar
   𝚏→;𝚠;𝚑 50px;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
   𝚋↑ 2px solid #EEE
-  >* ∣ 𝚠;𝚑
-        >img ∣ 𝚊𝚛 1; 𝚑¾
- .hbar ∣ 𝚏→; 𝚑 50px; 𝚖↑a
-         𝚋↑ 2px solid #EEE
-         >img ∣ 𝚊𝚛 1; 𝚑¾
-.bigButton ∣ 𝚑; 𝚏↓
-             >img ∣ 𝚠¾; 𝚑¾
+
+.barButton ∣ 𝚠;𝚑
+             >* ∣ 𝚊𝚛 1; 𝚑¾
+             >T ∣ 󰊄𝚜 40px
+.bigButton ∣ 𝚑;𝚏↓
+             >* ∣ 𝚠¾; 𝚑¾
+             >T ∣ 󰊄𝚜 40px
 .itemGrid ∣ 𝚠; 𝚍 grid; 𝚊𝙿󷷣; 𝚐 20px
             grid-template-columns repeat(auto-fit,300px)
             >.itemGridPlaceholder
@@ -51,3 +51,8 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
                      ∣  #2222DD; 𝚋 #000010
                    􎁎 ∣  #2222EE; 𝚋 #000020
                    􀴗 ∣  #3333FF; 𝚋 #000030
+
+.ledCalbButtons
+  >* ∣ «𝚠 𝚑» 7vw
+  𝚋 2px solid #EEE; 𝚋𝚛 5px 
+  󰊄𝚜 3vw
