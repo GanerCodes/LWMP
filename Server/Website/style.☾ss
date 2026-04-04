@@ -1,13 +1,23 @@
+@font-face ∣ 󰊄𝚏 "Avenir";
+             src url("/Assets/Avenir.woff2")
+@font-face ∣ 󰊄𝚏 "Symbols"
+             src url("/Assets/Symbols.woff2")
+ format("woff2")
+
+:root ∣ 󰊄𝚏 "Symbols","Avenir"
+
 * ∣ 𝚃 background-color 0.2s ease
 
-::-webkit-scrollbar-thumb  ∣  𝚋 #847
-                              𝚋𝚛 100px
+::-webkit-scrollbar-thumb  ∣ 𝚋 #847
+                             𝚋𝚛 100px
 ::-webkit-scrollbar-thumb􍳵 ∣ 𝚋 #A58
 ::-webkit-scrollbar-thumb􀴗 ∣ 𝚋 #B59
 ::-webkit-scrollbar        ∣ 𝚠 1vw 
 
 body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
 
+.icon ∣ 𝚑 0.75em
+        vertical-align center
 .box ∣ 𝚋𝚛 .5vw
 
 .«hbar bigButton»
@@ -15,15 +25,14 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
   􎁎 ∣ 𝚋 #111; 𝚖𝚙 pointer
   􀴗 ∣ 𝚋 #222
 .multiButtonBar
-  𝚏→;𝚠;𝚑 50px;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
-  𝚋↑ 2px solid #EEE
+  𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
 
-.barButton ∣ 𝚠;𝚑
+.«barButton bigButton»
+  𝚠;𝚑; 󰊄𝚊 center
+.barButton ∣ 𝚠
              >* ∣ 𝚊𝚛 1; 𝚑¾
-             >T ∣ 󰊄𝚜 40px
-.bigButton ∣ 𝚑;𝚏↓
-             >* ∣ 𝚠¾; 𝚑¾
-             >T ∣ 󰊄𝚜 40px
+             󰊄𝚜 40px
+.bigButton ∣ 𝚏↓; 𝚊𝙿󷷣; 𝚊𝚜󷷣; 󰊄𝚜 290px
 .itemGrid ∣ 𝚠; 𝚍 grid; 𝚊𝙿󷷣; 𝚐 20px
             grid-template-columns repeat(auto-fit,300px)
             >.itemGridPlaceholder
@@ -33,11 +42,15 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
               >.itemGridPlaceholder ∣ «𝚠≤ 𝚠 𝚠≥» 100%; 𝚍 unset; 𝚋 􋄅
 .itemGridItem ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥ 𝚑≤ 𝚑 𝚑≥» 300px
                 𝚋 2px solid #EEE; 𝚋𝚛 10px
+                >.multiButtonBar ∣ 𝚋↑ 2px solid #EEE
 
 .rgbButtons
   >* ∣ «𝚠 𝚑» 10vw
+        line-height 0
+        𝚍 inline-flex;𝚊𝙿󷷣;𝚊𝚂󷷣
         𝚖 1vw
-        𝚋 2px solid #EEE; 𝚋𝚛 100px
+        𝚙 20px
+        𝚋 2px solid #EEE; 𝚋𝚛 1000px
         󰊄𝚜 8vw; font-weight bold
         [c="R"] ∣ 𝚋 6px solid #F00
                      ∣  #DD2222; 𝚋 #100000
@@ -56,3 +69,18 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
   >* ∣ «𝚠 𝚑» 7vw
   𝚋 2px solid #EEE; 𝚋𝚛 5px 
   󰊄𝚜 3vw
+
+.titledBox ∣ 𝚠≥ 80%;𝚏↓;𝚊𝚂󷷣
+.tokenAddBox
+  𝚊𝚂󷷣
+  >h1 ∣ 󰊄𝚜 50px
+  >.boxInput
+    𝚖↓ 40px
+    >input ∣ 󰊄𝚜 30px
+  >button ∣ 𝚠 150px
+             𝚋 2px solid #999; 𝚋𝚛 5px
+             󰊄𝚜 40px
+
+.navContainer  ∣ 𝚠
+.navBodyHolder ∣ 𝚠
+                 𝚖↑ 30px

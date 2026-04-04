@@ -11,18 +11,25 @@
   ƒ(𝚂𝘴 , 𝚂𝘳)( ... 𝔸) ; 
    return [𝙲𝘴 , 𝙲𝘳] ;  } ; 
 
+fit_size  =  (𝐭 , w , sz = 100 , st =  ""  , Δ = 5) => {
+   while (measureText(𝐭 , sz ,  "" ) . width >= w) sz  -=  Δ ; 
+   return `font-size:${sz}px;` ;  } ; 
+
 𝘋𝘉  =  𝔏𝔖 . þ02193("tokens" , {})
 updateDB  =   (...𝔸)=> 𝔏𝔖 . þ02191("tokens" , 𝘋𝘉)
+get_toks  =   (...𝔸)=> 𝒪k(𝘋𝘉)
 layout_from_tok  =  (𝐭) => {
    if ( ! (𝐭 in 𝘋𝘉)) { 𝘋𝘉[𝐭] = { scenes : {} ,  devs : {} } ; 
                updateDB() ;  }
    return 𝘋𝘉[𝐭] ;  }
+remove_tok  =  (𝐭) => {  print (`Deleting token "${𝐭}"`) ; 
+                   delete  𝘋𝘉[𝐭] ; 
+                  updateDB() ;  } ; 
 load_devices  =   async  (𝐭) => {
    const  𝐋  =  layout_from_tok(𝐭)
    let  r ; 
   
   try{ r  =   await  𝐀(𝐭) . get_devs() ;  }catch(e){}
-   print (r) ; 
    if ( ! r  ||   ! r[0]  ||  r . status != 200)  return 𝖡(𝐋 . devs) ; 
   𝐋 . devs  =  {  ... ᴍv(𝐋 . devs ,  (x,y,...𝔸)=> [x , { ... y , offline :  false }]) ,   ... r[1] }
   updateDB() ; 

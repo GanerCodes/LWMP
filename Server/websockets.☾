@@ -35,14 +35,16 @@
 
 󱀘WS_Client:  󰤱 test edgecases/failure cases?
   ⊢__init__(𝕊,ws,chunk_size=1500):
+    𝕊._ws = ws
     𝕊._recv,𝕊._sock = ws.recv,ws.socket
     𝕊._sock.setsockopt(socket.IPPROTO_TCP,socket.TCP_NODELAY,1)
     𝕊.close = ws.close
     𝕊.send_lock = RLock􀃅
     𝕊.chunk_size,𝕊.locks = chunk_size,{}
+  __repr__ = 󷺹􋕟ʷˢ.__repr__􀃅
+  ➰ = ⥌𝕊,⠤𝔸,𝚝𝚘=10↦𝕊(⠤𝔸,⠶𝕂)(𝚝𝚘)
   ⊢__call__(𝕊,⠤𝔸,⠶𝕂): ¿𝔸: ↪𝕊.send(⠤𝔸,⠶𝕂)
                       ↪𝕊.recv􀃅
-  ➰ = ⥌𝕊,⠤𝔸,𝚝𝚘=10↦𝕊(⠤𝔸,⠶𝕂)(𝚝𝚘)
   ⊢pack_msg(𝕊,𝚒,𝙼): ¿𝙼􀊞𝑦: 𝙼􇀞𝔍󰄞􀯖𝑀
                     ↪𝚒􀊩𝙼
   ⊢unpack_msg(𝕊,𝙼): ↪𝙼􀋴6

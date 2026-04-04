@@ -90,8 +90,11 @@ def lw_websocket_loop():
   free()
   while 1:
     if (w:=ꭐ()) is None:
+      print('✗',end='')
       lw_check_periodics()
       continue
+    else:
+      print('✓',end='')
     i,cmd = w
     cmd = 𝔍l(cmd)
     free()

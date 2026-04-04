@@ -10,18 +10,25 @@
   ƒ(𝚂𝘴,𝚂𝘳)(⠤𝔸);
   ↪[𝙲𝘴,𝙲𝘳]; };
 
+fit_size = ⥌𝐭,w,sz=100,st=ᐦ,Δ=5↦{
+  ➰(measureText(𝐭,sz,ᐦ)ʷⁱᵈᵗʰ≥w) sz -= Δ;
+  ↪‹font-size:⟦sz⟧px;›; };
+
 𝘋𝘉 = 𝔏𝔖􋀭("tokens",{})
 updateDB = 𝚲𝔏𝔖􋀫("tokens",𝘋𝘉)
+get_toks = 󰲟𝒪k(𝘋𝘉)
 layout_from_tok = ⥌𝐭↦{
   ¿(¬(𝐭∈𝘋𝘉)) { 𝘋𝘉􊳬={ scenes:{}, devs:{} };
                updateDB(); }
   ↪𝘋𝘉􊳬; }
+remove_tok = ⥌𝐭↦{ ☾(‹Deleting token "⟦𝐭⟧"›);
+                  󰆴 𝘋𝘉􊳬;
+                  updateDB(); };
 load_devices = 󱟱 ⥌𝐭↦{
   © 𝐋 = layout_from_tok(𝐭)
   ⎉ r;
   
   try{ r = 󱫬 𝐀(𝐭).get_devs(); }catch(e){}
-  ☾(r);
   ¿(¬r ∨ ¬r₀ ∨ r.status≠200) ↪𝖡(𝐋ᵈᵉᵛˢ);
   𝐋ᵈᵉᵛˢ = { ⠤ᴍv(𝐋ᵈᵉᵛˢ,󰲣[x,{⠤y,offline:✗}]), ⠤r₁ }
   updateDB();

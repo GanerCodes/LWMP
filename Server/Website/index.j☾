@@ -1,63 +1,21 @@
-© prompt_token = ⥌cb↦{
-  © fld = textField({id:‹tokenField›,𝑃𝐻:‹Token›,:✓});
-  ©  = popup({:✓,󰅙:✓},
-          󱀝 div ⦅𝚏↓⦆ ⟦[
-            fld,
-            textButton(‹Submit›,󰲟{.close(); cb(fld􀲫.value)})]⟧);};
-
-⎉ ədevListing = 󰲟{
-  © 𝔖 = {};
-  © ədevTile = ⥌𝐮,𝐝↦{
-    ©  = 󱀝 [󱀝 h2 ‹⟦𝐮⟧ ⟦[‹🔴›,‹🟢›]₊􊳜􊫺􊬢􊫂􊬖􊬢􊫶⟧›
-             󱀝 h3 ‹⟦𝐝ᴿᴳᴮ􋕟ᴼᴿᴰᴱᴿ⟧ - ⟦𝐝ᴸᴱᴰ󰀂⟧ LEDs (⟦"→←"[+𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ]⟧)›]
-    ↪ };
-  ⎉ devListing;
-  ©  = ətitledBox(‹Devices›,
-                   devListing
-                     = əitemGridEditable(
-                         󱣩,
-                         ⥌x,rem↦[ədevTile(⠤x),
-                                 əbuttonBar(
-                                   [𝔄[␛󰆴],rem],
-                                   [𝔄[␛],󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
-                                   [𝔄[␛],󰲟prompt_led_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
-                                   [𝔄[␛󰐥],󰲟𝐀(𝔖􋆮).dev(x₀).off()])],
-                         󰲡☾(‹Removing ⟦x⟧›),
-                         [],
-                         { show_plus  : ✗,
-                           placeholder: 󰲟󱀝 h3 ‹No devices found for this token...› }));
-  devListing􋛟.maxHeight = ‹80vh›;
-  ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱 ⥌𝐭↦{ 𝔖􋆮 = 𝐭;
-                     ⎉ devs = 󱫬 load_devices(𝔖􋆮);
-                     devs = devs₁;
-                     devListing.clear_items();
-                     𝒪(devs)􋁃(󰲡devListing.add_item(x)); };
-  ↪; };
-
-⎉ ətokenListing = ⥌devListing↦{
-  © ətokenTile = ⥌𝐭↦
-      󱀝 div { 𝐶 bigButton⍮ onclick ⟦󰲟devListing.populate(𝐭)⟧ } [
-        󱀝 h1 [⟦𝐭⟧]]
-  ⎉ tokenListing;
-  ⎉  = ətitledBox(
-          ‹Tokens›,
-          tokenListing
-            = əitemGridEditable(
-                ⥌  gen↦prompt_token(gen),
-                ⥌x,rem↦[ətokenTile(x),əbuttonBar([𝔄[␛󰆴],rem])],
-                󰲡☾(‹Removing ⟦x⟧›)));
-  tokenListing􋛟.maxHeight = ‹80vh›;
-  ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐓↦{ tokenListing.clear_items();
-                   𝐓􋁃(⥌𝐭↦tokenListing.add_item(𝐭)); }
+© ənavBar = ⥌Ѧ,C↦{
+  ⎉ holder = 󱀝 div {𝐶 navBodyHolder} [󱀝 T ‹›];
+  ©  = 󱀝 div {𝐶 navContainer} ⟦[
+          əbuttonBar(⠤C􋅝(󰲣[x,󰲟.set(x)])),
+          holder]⟧
+  © D = 𝒟(C);
+   ⎉ swap;
+  ˢᵉᵗ = 󰲡holder􋑱₀.replaceWith(Dₓ);
+  ˢᵉᵗ(C₀ ₀);
   ↪; }
 
-© ətokenDevListing = ⥌𝐓↦{
-  © devListing = ədevListing();
-  © tokenListing = ətokenListing(devListing);
-  tokenListing.populate(𝐓);
-  ↪󱀝 div ⦅𝚠;𝚏↓;𝚊𝚂󷷣⦆ ⟦[tokenListing,devListing]⟧};
-
-󰈙.body􍪙(ətokenDevListing(["testing","notrealtoken"]));
+© tokenListing = ətokenListing(󱟱󰲡(󱫬 devListing.populate(x),nav.set("Devices")));
+© devListing = ədevListing();
+© nav = ənavBar({},[["Tokens" , tokenListing],
+                     ["Devices", devListing  ],
+                     ["Scenes" , 󱀝 div ‹󰤱›    ]])
+tokenListing.populate(get_toks());
+󰈙.body􍪙(nav);
 
  api("sqaner", "Push_scenes", { uuid: "1234ab", 
                                 scenes: { myScene: { devs: ["1234ab","41241dc"],

@@ -1,19 +1,13 @@
- radioBar = ⥌names,cb,sel=0↦{ ↪ 󱀝 {𝐶 navbar} ⟦⟧ };
-
-𝔄 = 𝒟([⠤‹󰆴+󰐥󷹁›]􊾡( 󰲡[x,‹/Assets/⟦x⟧.svg›]));
-
-əti = ⥌s,󰊄=✗↦󰊄⭜(󱀝 T ‹⟦s⟧›)⭝(󱀝 img {src:⟦s⟧})
-əbigButton = ⥌src,𝔸,󰊄=✗↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } [⟦əti(src,󰊄)⟧]
-əbarButton = ⥌src,𝔸,󰊄=✗↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } [⟦əti(src,󰊄)⟧]
-əbuttonBar = 𝚲
-  󱀝 span {𝐶 multiButtonBar} ⟦
-    𝔸􋅝(󰲥󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} [⟦əti(x,z)⟧])⟧;
+əbigButton = ⥌c,𝔸↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } ⟦c⟧
+əbarButton = ⥌c,𝔸↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } ⟦c⟧
+əbuttonBar = 𝚲󱀝 span {𝐶 multiButtonBar} ⟦
+                𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 
 əitemGridEditable = ⥌plus,gen,rem,items=[],Ѧ={show_plus:✓,placeholder:󱣩}↦{
   ⎉ ε,ε_adder;
   󱀝:ε {𝐶 itemGrid} [
       󱀝:ε_adder {𝐶 itemGridItem itemGridAdder} [
-          ⟦əbigButton(𝔄[␛+], {onclick: 𝚲plus(ε.add_item)})⟧ ] ];
+          ⟦əbigButton(␛+, {onclick:𝚲plus(ε.add_item)})⟧ ] ];
   ε.add_item = 󰲣{ ⎉ newElm = 󱀝 div {𝐶 itemGridItem};
                   ¿(y) { newElm􋒅 ⁺(‹itemGridPlaceholder›);
                          chainIntoElements(x, newElm); }
@@ -27,6 +21,6 @@
   items􋁃(ε.add_item);
   ↪ε; };
 
-ətitledBox = ⥌𝚝,ə↦
-  󱀝 div ⦅𝚠⅘;𝚏↓⦆ [󱀝 h1 [⟦𝚝⟧]
-                 󱀝 {𝐶 box⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto; 𝚙↓ 10px⦆} [⟦ə⟧]]
+ətitledBox = ⥌𝚝,ə,Ѧ={outline:✓}↦
+  󱀝 div {𝐶 titledBox} [󱀝 h1 [⟦𝚝⟧]
+                       󱀝 {𝐶 ‹box⟦¬Ѧᵒᵘᵗˡⁱⁿᵉ⭜‹ noOutline›⭝ᐦ⟧›⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto⦆} [⟦ə⟧]]

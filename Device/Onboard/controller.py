@@ -108,7 +108,7 @@ class Controller:
     if ΔΔ:
       prevΔ = 𝕊.Δ
       𝕊.Δ += ΔΔ
-      log(f"[Controller] Updating Δ from NTP drift {prevΔ}→{𝕊.Δ}")
+      log(f"[Controller] Updating Δ from NTP drift {prevΔ}+{ΔΔ}={𝕊.Δ}")
     return T,ΔΔ
   
   def update_scheg(𝕊,schedule,reset=False,cache=set()):

@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+# part chatGPT
+import fontforge,psMat,sys
+
+def subset_font(input_font,output_font,chars):
+  codepoints = sorted({*(ord(c) for c in chars)})
+
+  font = fontforge.open(input_font)
+  font.selection.none()
+  font.selection.select(*codepoints)
+  
+  ascent,descent = font.ascent,font.descent
+  em,em_center = font.em,(ascent-descent)/2
+  # print(f"{ascent=} {descent=} {em=} {em_center=}")
+  for g in font.selection.byGlyphs:
+    # g.left_side_bearing = g.right_side_bearing = 0
+    xmin,ymin,xmax,ymax = g.boundingBox()
+    # print(g,f"{xmin=} {ymin=} {xmax=} {ymax=}")
+    center = (ymin+ymax)/2
+    # g.transform(psMat.translate(0,em_center-(ymin+ymax))/2)
+    g.transform(psMat.translate(0,(ascent-descent/2)/2-center)) # not right in theory or for my purpose but is close-ish
+
+  font.selection.invert()
+  for g in font.selection.byGlyphs:
+    font.removeGlyph(g)
+  for g in font.glyphs():
+    if g.unicode == -1:
+      font.remove(g)
+    else:
+      g.glyphname = f"uni{g.unicode:04X}" if g.unicode != -1 else ""
+      g.comment = ""
+
+  font.sfnt_names = [("English (US)", "Family"        , "Minimal"),
+                     ("English (US)", "SubFamily"     , "Regular"),
+                     ("English (US)", "Fullname"      , "Minimal"),
+                     ("English (US)", "PostScriptName", "Minimal")]
+  font.familyname            = "Subset Font"
+  font.fullname              = "Subset Font"
+  font.fontname              = "Subset Font"
+  font.fondname              = "Subset Font"
+  font.version               = "1.0"
+  font.comment               = ""
+  font.copyright             = ""
+  font.woffMetadata          = ""
+  font.default_base_filename = ""
+  font.generate(output_font, flags=("no-FFTM-table","omit-instructions"))
+
+if __name__=="__main__":
+  subset_font(*sys.argv[1:])

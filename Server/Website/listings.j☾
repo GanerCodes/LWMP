@@ -1,0 +1,46 @@
+⎉ ətokenListing = ⥌cb↦{
+  © prompt_token = ⥌cb↦{
+    © fld = textField({id:‹tokenField›,𝑃𝐻:‹Token›,:✓});
+    ©  = popup({:✓,󰅙:✓},
+                ətitledBox(
+                  ‹Enter token to add›,
+                  󱀝 div {𝐶 tokenAddBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
+                    fld,
+                    textButton(‹Submit›,󰲟{.close();cb(fld􀲫.value)})]⟧,
+                  {outline:✗})); };
+  © ətokenTile = ⥌𝐭↦󱀝 div {𝐶 bigButton⍮ 𝑆 ⟦fit_size(𝐭,250)⟧⍮ onclick ⟦󰲟cb(𝐭)⟧} ⟦𝐭⟧
+  ©  = əitemGridEditable(
+          ⥌  gen↦prompt_token(󰲡(layout_from_tok(x),gen(x))),
+          ⥌x,rem↦[ətokenTile(x),əbuttonBar([␛󰆴,rem])],
+          remove_tok);
+  􋛟.maxHeight = ‹80vh›;
+  ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐓↦{ .clear_items();
+                   𝐓􋁃(⥌𝐭↦.add_item(𝐭)); }
+  ↪; }
+
+⎉ ədevListing = 󰲟{
+  © 𝔖 = {};
+  © ədevTile = ⥌𝐮,𝐝↦{
+    ©  = 󱀝 div ⦅𝚏↓;󰊄𝚜 30px⦆ [
+            󱀝 T ⦅󰊄𝚜 40px⦆ ‹⟦𝐮⟧ ⟦[‹🔴›,‹🟢›]₊􊳜􊫺􊬢􊫂􊬖􊬢􊫶⟧›
+            󱀝 T ‹⟦𝐝ᴿᴳᴮ􋕟ᴼᴿᴰᴱᴿ⟧ - ⟦𝐝ᴸᴱᴰ󰀂⟧ LEDs (⟦"→←"₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧)›]
+    ↪ };
+  ©  = əitemGridEditable(
+          󱣩,
+          ⥌x,rem↦[ədevTile(⠤x),
+                  əbuttonBar(
+                    [␛󰆴,rem],
+                    [␛,󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
+                    [␛,󰲟prompt_led_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
+                    [␛󰐥,󰲟𝐀(𝔖􋆮).dev(x₀).off()])],
+          󰲡☾(‹Removing ⟦x⟧›),
+          [],
+          { show_plus  : ✗,
+            placeholder: 󰲟󱀝 h2 ‹No devices found for this token...› })
+  􋛟.maxHeight = ‹80vh›;
+  ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱 ⥌𝐭↦{ 𝔖􋆮 = 𝐭;
+                     ⎉ devs = 󱫬 load_devices(𝔖􋆮);
+                     devs = devs₁;
+                     .clear_items();
+                     𝒪(devs)􋁃(󰲡.add_item(x)); };
+  ↪; };
