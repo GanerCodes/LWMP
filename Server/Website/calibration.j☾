@@ -1,8 +1,8 @@
 RGB_calibrate = 󱟱 ⥌𝐝↦{
   ⎉ C = [⠤"RGB"];
   󱫬 𝐝.bulk([‹config›, { RGB_ORDER:‹RGB› }],
-           [‹scene› , { _singlecolor0: {fx:[[2,0.25]],1:[300,0,255<<16]},
-                        _singlecolor1: {fx:[[2,0.25]],1:[300,0,255<< 8]} }],
+           [‹scene› , { _singlecolor0: {fx:[[2,0.25]],1:[500,0,255<<16]},
+                        _singlecolor1: {fx:[[2,0.25]],1:[500,0,255<< 8]} }],
            [‹scene› , ‹_singlecolor0›,✗,󷰾]);
   ↪[C,󱟱⥌α↦{ C = C􋐉(󰲡x≠α);
             󱫬 𝐝.scene(‹_singlecolor1›,✗,󷰾);
@@ -27,14 +27,14 @@ prompt_rgb_calibrate = 󱟱⥌𝐝,cb↦{
                   ↪cb(V); }
     © [C,ƒ] = V;
     α.replaceWith(α=󱀝 h2 ‹Choose the color that is visible on your LED strip.›)
-    β.replaceWith(β=󱀝 span {𝐶 rgbButtons} 
+    β.replaceWith(β=󱀝 span {𝐶 rgbButtons}
                       ⟦C􊾡(󰲡{© =textButton(x,󰲟Ғ(󱟱󰲟ƒ(x))); SAT(,‹c›,x); ↪})⟧);
   };
   Ғ(󱟱󰲟󱫬RGB_calibrate(𝐝)); }
 
 led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{
-  © SCENE_CALIB = 󰲡({␛*:[{1:[x,0,0xFF00]},{1:[1001-x,0,0xFF0000]}                 ]});
-  © SCENE_FINAL = 󰲡({␛*:[{1:[1,0,0xFF00]},{1:[   x-2,0,0       ]},{1:[1,0,0xFF00]}]});
+  © SCENE_CALIB = 󰲡({'*':[{1:[x,0,0xFF00]},{1:[1001-x,0,0xFF0000]}                 ]});
+  © SCENE_FINAL = 󰲡({'*':[{1:[1,0,0xFF00]},{1:[   x-2,0,0       ]},{1:[1,0,0xFF00]}]});
   © MSG = ‹Is red visible at the end of the LED strip?›;
   ⎉ 𝔖 = [[1,100,1000]];
   ⎉ first=✓;
@@ -42,7 +42,7 @@ led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{
          󱫬 𝐝.bulk(⠤first⭜[[‹config›, {LEDC:1000}]]⭝[],
                   [‹scene›, ‹_calib›,SCENE_CALIB(m),✗,󷰾]);
          first=✗;
-         𝘴(m,MSG,[⠤🃌(𝔖)>1⭜[␛←]⭝[],‹No›,‹Yes›]);
+         𝘴(m,MSG,[⠤𝔖􋌵>1⭜[␛←]⭝[],‹No›,‹Yes›]);
          ⎉ r = 󱫬 𝘳();
          ¿(r≡‹←›) { 𝔖.pop(); ↺; }
          ¿(l<h  ) { ¿(r≡‹No›) h = m;

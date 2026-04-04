@@ -1,3 +1,5 @@
+⎉ ətileButton = ⥌t,cb↦󱀝 div {𝐶 bigButton⍮ 𝑆 ⟦fit_size(t,250)⟧⍮ onclick ⟦󰲟cb(t)⟧} ⟦t⟧
+
 ⎉ ətokenListing = ⥌cb↦{
   © prompt_token = ⥌cb↦{
     © fld = textField({id:‹tokenField›,𝑃𝐻:‹Token›,:✓});
@@ -8,14 +10,12 @@
                     fld,
                     textButton(‹Submit›,󰲟{.close();cb(fld􀲫.value)})]⟧,
                   {outline:✗})); };
-  © ətokenTile = ⥌𝐭↦󱀝 div {𝐶 bigButton⍮ 𝑆 ⟦fit_size(𝐭,250)⟧⍮ onclick ⟦󰲟cb(𝐭)⟧} ⟦𝐭⟧
   ©  = əitemGridEditable(
-          ⥌  gen↦prompt_token(󰲡(layout_from_tok(x),gen(x))),
-          ⥌x,rem↦[ətokenTile(x),əbuttonBar([␛󰆴,rem])],
-          remove_tok);
-  􋛟.maxHeight = ‹80vh›;
+          ⥌  gen↦prompt_token(󰲡(add_check_tok(x),gen(x))),
+          ⥌x,rem↦[ətileButton(x,cb),əbuttonBar([␛󰆴,rem])],
+          del_tok);
   ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐓↦{ .clear_items();
-                   𝐓􋁃(⥌𝐭↦.add_item(𝐭)); }
+                   𝐓􋁃(󰲡ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x)); }
   ↪; }
 
 ⎉ ədevListing = 󰲟{
@@ -29,18 +29,48 @@
           󱣩,
           ⥌x,rem↦[ədevTile(⠤x),
                   əbuttonBar(
-                    [␛󰆴,rem],
+                    [␛󰆴,rem                                               ],
                     [␛,󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
                     [␛,󰲟prompt_led_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
-                    [␛󰐥,󰲟𝐀(𝔖􋆮).dev(x₀).off()])],
+                    [␛󰐥,󰲟𝐀(𝔖􋆮).dev(x₀).off()                              ])],
           󰲡☾(‹Removing ⟦x⟧›),
           [],
           { show_plus  : ✗,
             placeholder: 󰲟󱀝 h2 ‹No devices found for this token...› })
-  􋛟.maxHeight = ‹80vh›;
   ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱 ⥌𝐭↦{ 𝔖􋆮 = 𝐭;
                      ⎉ devs = 󱫬 load_devices(𝔖􋆮);
                      devs = devs₁;
                      .clear_items();
-                     𝒪(devs)􋁃(󰲡.add_item(x)); };
+                     𝒪(devs)􋁃(󰲡ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x)); };
   ↪; };
+
+⎉ əsceneListing = ⥌cb↦{
+  © 𝔖 = {};
+  © prompt_scene = ⥌cb,Ѧ={name:ᐦ,𝐔:[],dat:{}}↦{
+    © fld = textField({𝑃𝐻:‹Scene Name›,value:Ѧⁿᵃᵐᵉ});
+    © get = 󰲟({⠤Ѧ,name:fld􀲫.value});
+    ©  = popup({:✓,󰅙:✓},
+                ətitledBox(
+                  ‹Scene details›,
+                  󱀝 div {𝐶 tokenAddBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
+                    fld,
+                    textButton(‹Submit›,󰲟{.close();cb(get())})]⟧,
+                  {outline:✗})); };
+  ©  = əitemGridEditable(
+          ⥌  gen↦prompt_scene(
+                   ⥌𝐬↦{ ¿(¬add_scene(𝔖􋆮,𝐬))
+                         ↪☾(‹Scene already exists ⟦x⟧‽›);
+                        gen(𝐬); }),
+          ⥌𝐬,rem↦[ətileButton(𝐬ⁿᵃᵐᵉ,cb),
+                  əbuttonBar(
+                    [␛󰆴,rem],
+                    [␛,󰲟prompt_scene(
+                      ⥌𝚗↦{ rem(𝐬);
+                           add_scene(𝔖􋆮,𝚗,✓);
+                           ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); },
+                      𝐬)])],
+          ⥌𝐬    ↦move_scene(𝔖􋆮,𝐬ⁿᵃᵐᵉ));
+  ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐭↦{ [𝔖􋆮,𝔖􋆄] = [𝐭,get_devs(𝐭)];
+                   .clear_items();
+                   𝒪(get_scenes(𝐭))􋅝(⥌name,y↦ᵃᵈᵈ􋕟ⁱᵗᵉᵐ({name,⠤y})); };
+  ↪; }

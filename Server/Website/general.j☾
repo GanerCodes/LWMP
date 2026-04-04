@@ -1,35 +1,59 @@
-𝗉 = 󰲡{ ⎉ r,p = 🆕 Promise(󰲣r=x);
-       ↪pʳ=r,p; };
+𝗉 = 󰲟{ ⎉ r,b,p = 🆕 Promise(𝚲[r,b]=𝔸);
+       ↪pʳ=r,pᵇ=b,p; }
 𝘔 = 󰲟{  messenger and awaitor
   © M = [𝗉()];
   © 𝘴 = 𝚲(M􋕛(󷰾)ʳ(𝔸),M.push(𝗉()));
   © 𝘳 = 󱟱󰲟(󰲡(M.shift(),x))(󱫬 M₀)
-  ↪[𝘴,𝘳]; };
+  ↪[𝘴,𝘳]; }
 󰇮 = ⥌ƒ↦𝚲{  bidirectional messages
   © [[𝚂𝘴,𝙲𝘳],[𝙲𝘴,𝚂𝘳]] = [𝘔(),𝘔()]
   ƒ(𝚂𝘴,𝚂𝘳)(⠤𝔸);
-  ↪[𝙲𝘴,𝙲𝘳]; };
+  ↪[𝙲𝘴,𝙲𝘳]; }
 
 fit_size = ⥌𝐭,w,sz=100,st=ᐦ,Δ=5↦{
   ➰(measureText(𝐭,sz,ᐦ)ʷⁱᵈᵗʰ≥w) sz -= Δ;
-  ↪‹font-size:⟦sz⟧px;›; };
+  ↪‹font-size:⟦sz⟧px;›; }
 
-𝘋𝘉 = 𝔏𝔖􋀭("tokens",{})
-updateDB = 𝚲𝔏𝔖􋀫("tokens",𝘋𝘉)
-get_toks = 󰲟𝒪k(𝘋𝘉)
-layout_from_tok = ⥌𝐭↦{
+𝘋𝘉 = 𝔏𝔖􋀭("tokens",{});
+updateDB = 𝚲𝔏𝔖􋀫("tokens",𝘋𝘉);
+
+add_check_tok = ⥌𝐭↦{
   ¿(¬(𝐭∈𝘋𝘉)) { 𝘋𝘉􊳬={ scenes:{}, devs:{} };
                updateDB(); }
   ↪𝘋𝘉􊳬; }
-remove_tok = ⥌𝐭↦{ ☾(‹Deleting token "⟦𝐭⟧"›);
+del_tok = ⥌𝐭↦{ ☾(‹Deleting token "⟦𝐭⟧"›);
                   󰆴 𝘋𝘉􊳬;
-                  updateDB(); };
+                  updateDB(); }
+get_toks     = 󰲟𝒪k(𝘋𝘉)
+get_devs     = ⥌𝐭↦add_check_tok(𝐭).devs
+get_scenes   = ⥌𝐭↦add_check_tok(𝐭).scenes
+copy_scene = ⥌𝐭,o,n↦{
+  © 𝐒 = add_check_tok(𝐭).scenes;
+  ¿(¬(o∈𝐒) ∨ (n∈𝐒)) ↪✗;
+  𝐒ₙ = 𝐒󰂼;
+  updateDB();
+  ↪✓; }
+move_scene = ⥌𝐭,o,n=󱣩↦{  blank n for deletion
+  © 𝐒 = add_check_tok(𝐭).scenes;
+  ¿(¬(o∈𝐒)) ↪✗;
+  ¿(n≇󱣩) ¿(¬copy_scene(𝐭,o,n)) ↪✗;
+  󰆴 𝐒󰂼;
+  updateDB();
+  ↪✓; }
+add_scene = ⥌𝐭,𝐬,override↦{  name,𝐔,dat
+  name = 𝐬ⁿᵃᵐᵉ; 𝐬 = {⠤𝐬}; 󰆴 𝐬ⁿᵃᵐᵉ;
+  © 𝐒 = add_check_tok(𝐭).scenes;
+  ¿(¬override ∧ name∈𝐒) ↪✗
+  𝐒ₙₐₘₑ = 𝐬;
+  updateDB();
+  ↪𝐬; }
+
 load_devices = 󱟱 ⥌𝐭↦{
-  © 𝐋 = layout_from_tok(𝐭)
+  © 𝐋 = add_check_tok(𝐭)
   ⎉ r;
   
   try{ r = 󱫬 𝐀(𝐭).get_devs(); }catch(e){}
-  ¿(¬r ∨ ¬r₀ ∨ r.status≠200) ↪𝖡(𝐋ᵈᵉᵛˢ);
+  ¿(¬r ∨ ¬r₀ ∨ rˢᵗᵃᵗᵘˢ≠200) ↪𝖡(𝐋ᵈᵉᵛˢ);
   𝐋ᵈᵉᵛˢ = { ⠤ᴍv(𝐋ᵈᵉᵛˢ,󰲣[x,{⠤y,offline:✗}]), ⠤r₁ }
   updateDB();
   ↪𝖦(𝐋ᵈᵉᵛˢ); }

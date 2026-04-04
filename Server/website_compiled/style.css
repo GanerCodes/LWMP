@@ -31,6 +31,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin: 0px;
 }
 .icon {
   height: 0.75em;
@@ -82,8 +83,9 @@ body {
   font-size: 290px;
 }
 .itemGrid {
-  width: 100%;
   display: grid;
+  width: 100%;
+  max-height: 90vh;
   justify-content: center;
   gap: 20px;
   grid-template-columns: repeat(auto-fit,300px);
@@ -199,7 +201,7 @@ body {
   }
   &>.boxInput {
     margin-bottom: 40px;
-    &>input {
+    &>* {
       font-size: 30px;
     }
   }
@@ -212,8 +214,19 @@ body {
 }
 .navContainer {
   width: 100%;
+  &>.multiButtonBar {
+    max-height: 10vh;
+  }
 }
 .navBodyHolder {
   width: 100%;
+  max-height: calc(90vh - 30px);
   margin-top: 30px;
+  overflow-y: scroll;
+}
+*[dragId] {
+  transition: all 0.1s ease-in-out;
+}
+.dragging {
+  transform: scale(0.5);
 }

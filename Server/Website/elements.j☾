@@ -1,26 +1,35 @@
 əbigButton = ⥌c,𝔸↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } ⟦c⟧
 əbarButton = ⥌c,𝔸↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } ⟦c⟧
-əbuttonBar = 𝚲󱀝 span {𝐶 multiButtonBar} ⟦
-                𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
+əbuttonBar = 𝚲󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 
 əitemGridEditable = ⥌plus,gen,rem,items=[],Ѧ={show_plus:✓,placeholder:󱣩}↦{
-  ⎉ ε,ε_adder;
-  󱀝:ε {𝐶 itemGrid} [
-      󱀝:ε_adder {𝐶 itemGridItem itemGridAdder} [
-          ⟦əbigButton(␛+, {onclick:𝚲plus(ε.add_item)})⟧ ] ];
-  ε.add_item = 󰲣{ ⎉ newElm = 󱀝 div {𝐶 itemGridItem};
-                  ¿(y) { newElm􋒅 ⁺(‹itemGridPlaceholder›);
-                         chainIntoElements(x, newElm); }
-                  ¡    { chainIntoElements(gen(x,𝚲(rem(x),newElm.remove())), newElm); }
-                  newElm􌿱 = newElm􋑱₀
-                  ε.insertBefore(newElm,ε_adder); };
-  ¿(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ≇󱣩) ε.add_item(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ(),✓);
-  ε.clear_items = 𝚲QSA(‹:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))›,ε)􊾡(󰲡x.remove())
-  ε.set_plus = 󰲡ε_adder􋛟.display = x⭜‹unset›⭝‹none›;
-  ε.set_plus(Ѧˢʰᵒʷ􋕟ᵖˡᵘˢ);
-  items􋁃(ε.add_item);
-  ↪ε; };
+  ⎉ ,_adder;
+  󱀝: {𝐶 itemGrid} [
+      󱀝:_adder {𝐶 itemGridItem itemGridAdder} [
+          ⟦əbigButton(␛+, {onclick:𝚲plus(ᵃᵈᵈ􋕟ⁱᵗᵉᵐ)})⟧ ] ];
+  ᵃᵈᵈ􋕟ⁱᵗᵉᵐ = 󰲣{ ⎉ newElm = 󱀝 div {𝐶 itemGridItem};
+                 ¿(y) { newElm􋒅 ⁺(‹itemGridPlaceholder›);
+                        chainIntoElements(x, newElm); }
+                 ¡    { chainIntoElements(gen(x,𝚲(rem(x),newElm.remove())), newElm); }
+                 newElm􌿱 = newElm􋑱₀
+                 .insertBefore(newElm,_adder); };
+  ¿(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ≇󱣩) ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ(),✓);
+  ᶜˡᵉᵃʳ􋕟ⁱᵗᵉᵐˢ = 𝚲QSA(‹:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))›,)􊾡(󰲡x.remove())
+  ˢᵉᵗ􋕟ᵖˡᵘˢ = 󰲡_adder􋛟.display = x⭜‹unset›⭝‹none›;
+  ˢᵉᵗ􋕟ᵖˡᵘˢ(Ѧˢʰᵒʷ􋕟ᵖˡᵘˢ);
+  items􋁃(ᵃᵈᵈ􋕟ⁱᵗᵉᵐ);
+  ↪; };
 
 ətitledBox = ⥌𝚝,ə,Ѧ={outline:✓}↦
   󱀝 div {𝐶 titledBox} [󱀝 h1 [⟦𝚝⟧]
                        󱀝 {𝐶 ‹box⟦¬Ѧᵒᵘᵗˡⁱⁿᵉ⭜‹ noOutline›⭝ᐦ⟧›⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto⦆} [⟦ə⟧]]
+
+ənavBar = ⥌Ѧ,C↦{
+  ⎉ holder = 󱀝 div {𝐶 navBodyHolder} [󱀝 T ‹›];
+  ©  = 󱀝 div {𝐶 navContainer} ⟦[
+          əbuttonBar(⠤C􋅝(󰲣[x,󰲟.set(x)])),
+          holder]⟧
+  © D = 𝒟(C);
+  ˢᵉᵗ = 󰲡holder􋑱₀.replaceWith(Dₓ);
+  ˢᵉᵗ(C₀ ₀);
+  ↪; }

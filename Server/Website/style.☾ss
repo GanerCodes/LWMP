@@ -14,7 +14,7 @@
 ::-webkit-scrollbar-thumb􀴗 ∣ 𝚋 #B59
 ::-webkit-scrollbar        ∣ 𝚠 1vw 
 
-body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
+body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
 
 .icon ∣ 𝚑 0.75em
         vertical-align center
@@ -33,7 +33,8 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
              >* ∣ 𝚊𝚛 1; 𝚑¾
              󰊄𝚜 40px
 .bigButton ∣ 𝚏↓; 𝚊𝙿󷷣; 𝚊𝚜󷷣; 󰊄𝚜 290px
-.itemGrid ∣ 𝚠; 𝚍 grid; 𝚊𝙿󷷣; 𝚐 20px
+.itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 90vh
+            𝚊𝙿󷷣; 𝚐 20px
             grid-template-columns repeat(auto-fit,300px)
             >.itemGridPlaceholder
               𝚍 􋄅
@@ -76,11 +77,17 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣
   >h1 ∣ 󰊄𝚜 50px
   >.boxInput
     𝚖↓ 40px
-    >input ∣ 󰊄𝚜 30px
+    >* ∣ 󰊄𝚜 30px
   >button ∣ 𝚠 150px
              𝚋 2px solid #999; 𝚋𝚛 5px
              󰊄𝚜 40px
 
 .navContainer  ∣ 𝚠
-.navBodyHolder ∣ 𝚠
-                 𝚖↑ 30px
+                 >.multiButtonBar
+                    𝚑≤ 10vh
+
+.navBodyHolder ∣ 𝚠; 𝚑≤ calc(90vh - 30px)
+                 𝚖↑ 30px; 𝚘𝚏y scroll
+
+*[dragId] ∣ 𝚃 all 0.1s ease-in-out
+.dragging ∣ 𝚃𝚏 scale(0.5)

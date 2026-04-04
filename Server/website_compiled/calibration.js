@@ -2,8 +2,8 @@
 RGB_calibrate  =   async  (𝐝) => {
    let  C  =  [ ... "RGB"] ; 
    await  𝐝 . bulk([`config` ,  { RGB_ORDER : `RGB` }] , 
-           [`scene`  ,  { _singlecolor0 :  {fx : [[2 , 0.25]] , 1 : [300 , 0 , 255 << 16]} , 
-                        _singlecolor1 :  {fx : [[2 , 0.25]] , 1 : [300 , 0 , 255 <<  8]} }] , 
+           [`scene`  ,  { _singlecolor0 :  {fx : [[2 , 0.25]] , 1 : [500 , 0 , 255 << 16]} , 
+                        _singlecolor1 :  {fx : [[2 , 0.25]] , 1 : [500 , 0 , 255 <<  8]} }] , 
            [`scene`  ,  `_singlecolor0` ,  false  , -1]) ; 
    return [C ,  async (α) => { C  =  C . þF0232( (x,...𝔸)=> x != α) ; 
              await  𝐝 . scene(`_singlecolor1` ,  false  , -1) ; 
@@ -29,8 +29,8 @@ prompt_rgb_calibrate  =   async (𝐝 , cb) => {
   Ғ( async  (...𝔸)=>  await RGB_calibrate(𝐝)) ;  }
 
 led_calibrate  =  þF01EE((𝘴 , 𝘳) =>  async (𝐝 , cb) => {
-   const  SCENE_CALIB  =   (x,...𝔸)=> ({"*" : [{1 : [x , 0 , 0xFF00]} , {1 : [1001 - x , 0 , 0xFF0000]}                 ]}) ; 
-   const  SCENE_FINAL  =   (x,...𝔸)=> ({"*" : [{1 : [1 , 0 , 0xFF00]} , {1 : [   x - 2 , 0 , 0       ]} , {1 : [1 , 0 , 0xFF00]}]}) ; 
+   const  SCENE_CALIB  =   (x,...𝔸)=> ({'*' : [{1 : [x , 0 , 0xFF00]} , {1 : [1001 - x , 0 , 0xFF0000]}                 ]}) ; 
+   const  SCENE_FINAL  =   (x,...𝔸)=> ({'*' : [{1 : [1 , 0 , 0xFF00]} , {1 : [   x - 2 , 0 , 0       ]} , {1 : [1 , 0 , 0xFF00]}]}) ; 
    const  MSG  =  `Is red visible at the end of the LED strip?` ; 
    let  𝔖  =  [[1 , 100 , 1000]] ; 
    let  first =  true  ; 
@@ -38,7 +38,7 @@ led_calibrate  =  þF01EE((𝘴 , 𝘳) =>  async (𝐝 , cb) => {
           await  𝐝 . bulk( ... first ? [[`config` ,  {LEDC : 1000}]] : [] , 
                   [`scene` ,  `_calib` , SCENE_CALIB(m) ,  false  , -1]) ; 
          first =  false  ; 
-         𝘴(m , MSG , [ ...  þ1F0CC (𝔖) > 1 ? [`←`] : [] , `No` , `Yes`]) ; 
+         𝘴(m , MSG , [ ... 𝔖 . length > 1 ? [`←`] : [] , `No` , `Yes`]) ; 
           let  r  =   await  𝘳() ; 
           if (r == `←`) { 𝔖 . pop() ;   continue  ;  }
           if (l < h  ) {  if (r == `No`) h  =  m ; 
