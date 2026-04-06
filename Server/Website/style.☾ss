@@ -76,7 +76,7 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
                  >.multiButtonBar
                     𝚑≤ 10vh
 
-.navBodyHolder ∣ 𝚠; 𝚑≤ calc(90vh - 30px)
+.navBodyHolder ∣ 𝚠; 𝚑≥ 80vh; 𝚑≤ calc(90vh - 30px)
                  𝚖↑ 30px; 𝚘𝚏y scroll
 .devDraggableHolder ∣ 𝚏↓;𝚠;𝚑;󰊄𝚜 22px
                       𝚋 1px solid #555
@@ -95,3 +95,5 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
   >button ∣ 𝚠 150px
              𝚋 2px solid #999; 𝚋𝚛 5px
              󰊄𝚜 40px
+
+dialog:open ∣ 𝚠 90vw; 𝚑 90vh

@@ -197,6 +197,7 @@ body {
 }
 .navBodyHolder {
   width: 100%;
+  min-height: 80vh;
   max-height: calc(90vh - 30px);
   margin-top: 30px;
   overflow-y: scroll;
@@ -251,4 +252,8 @@ body {
     border-radius: 5px;
     font-size: 40px;
   }
+}
+dialog:open {
+  width: 90vw;
+  height: 90vh;
 }
