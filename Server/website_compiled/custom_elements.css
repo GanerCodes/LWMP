@@ -2,7 +2,7 @@
 * {
   box-sizing: border-box;
 }
-button,input,span,select,textarea {
+button,input,span,select,textarea,.dragItem,.dragHold {
   transition: all 0.1s ease-in-out;
   font-family: inherit;
   font-size: inherit;
@@ -90,9 +90,7 @@ dialog:open {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
   min-width: 400px;
-  height: 66.665%;
   min-height: 650px;
   padding: 30px;
   color: #FFFFFF;
@@ -159,4 +157,18 @@ dialog:open {
 }
 .pageNumPrev:disabled, .pageNumNext:disabled {
   background-color: #222222;
+}
+*[draggable] {
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+*[dragging] {
+  transform: scale(0.5);
+  cursor: grabbing;
+}
+*:is([dragItem],[dragHold]) {
+  border: 2px dashed #0000;
+}
+*[maydrop] {
+  border: 2px dashed #FF0;
 }

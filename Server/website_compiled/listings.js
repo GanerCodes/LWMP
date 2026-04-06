@@ -7,7 +7,7 @@
      const  þ0E27F  =  popup({þ0F2D4 :  true  , þF0159 :  true } , 
                 ətitledBox(
                   `Enter token to add` , 
-                  mkə(`div` , {[`𝐶`] : `tokenAddBox` , [`𝑆`] : `max-width: ⅘; display: flex; flex-direction: column;`} , [
+                  mkə(`div` , {[`𝐶`] : `promptBox` , [`𝑆`] : `max-width: ⅘; display: flex; flex-direction: column;`} , [
                     fld , 
                     textButton(`Submit` ,  (...𝔸)=> {þ0E27F . close() ; cb(fld . 𝚒 . value)})]) , 
                   {outline :  false })) ;  } ; 
@@ -46,13 +46,24 @@
  let  əsceneListing  =  (cb) => {
    const  𝔖  =  {} ; 
    const  prompt_scene  =  (cb , Ѧ = {name :  ""  , 𝐔 : [] , dat : {}}) => {
-     const  fld  =  textField({𝑃𝐻 : `Scene Name` , value : Ѧ . name}) ; 
-     const  get  =   (...𝔸)=> ({ ... Ѧ , name : fld . 𝚒 . value}) ; 
+     const  ədevItem  =   (x,...𝔸)=> dragItem(mkə(`span` , {[`𝐶`] : `devDraggable`} , [`󰍜` , mkə(`div` ,  false  , ``) , mkə(`T` , {[`𝑆`] : `pointer-events: none;`} , x)])) ; 
+    
+     const  þ0E27Fname  =  textField({𝑃𝐻 : `Scene Name` , value : Ѧ . name}) ; 
+     let  þ0E27FdevsL , þ0E27FdevsR ; 
+     const  þ0E27Fdevcols  = 
+      mkə(`span` , {[`𝑆`] : `display: flex; flex-direction: row; width: 90%; height: 325px; margin-bottom: 10px;`} , [
+        mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: column; width: 50%; font-size: 26px;`} , [`Unused` , dragHold((þ0E27FdevsL = mkə(`div` , {[`𝐶`] : `devDraggableHolder`} , ``)))]) , 
+        mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: column; width: 50%; font-size: 26px;`} , [`Used`   , dragHold((þ0E27FdevsR = mkə(`div` , {[`𝐶`] : `devDraggableHolder`} , ``)))])]) ; 
+    𝒪k(𝔖 . 𝐃) . ᴍ( (x,...𝔸)=> Ѧ . 𝐔 . includes(x)  ||  þ0E27FdevsL . append(ədevItem(x))) ; 
+    Ѧ    . 𝐔  . ᴍ( (x,...𝔸)=> þ0E27FdevsR . append(ədevItem(x))) ; 
+     const  get  =   (...𝔸)=> ({ ... Ѧ , name :  þ0E27Fname . 𝚒 . value , 
+                  𝐔    :  QSA(`T` , þ0E27FdevsR) . ᴍ( (x,...𝔸)=> x . innerText)}) ; 
      const  þ0E27F  =  popup({þ0F2D4 :  true  , þF0159 :  true } , 
                 ətitledBox(
                   `Scene details` , 
-                  mkə(`div` , {[`𝐶`] : `tokenAddBox` , [`𝑆`] : `max-width: ⅘; display: flex; flex-direction: column;`} , [
-                    fld , 
+                  mkə(`div` , {[`𝐶`] : `promptBox` , [`𝑆`] : `max-width: ⅘; display: flex; flex-direction: column;`} , [
+                    þ0E27Fname , 
+                    þ0E27Fdevcols , 
                     textButton(`Submit` ,  (...𝔸)=> {þ0E27F . close() ; cb(get())})]) , 
                   {outline :  false })) ;  } ; 
    const  þ0E27F  =  əitemGridEditable(
@@ -60,14 +71,14 @@
                    (𝐬) => {  if ( ! add_scene(𝔖 . 𝐭 , 𝐬))
                           return  print (`Scene already exists ${x}‽`) ; 
                         gen(𝐬) ;  }) , 
-          (𝐬 , rem) => [ətileButton(𝐬 . name , cb) , 
-                  əbuttonBar(
-                    [`󰆴` , rem] , 
-                    [`` ,  (...𝔸)=> prompt_scene(
-                      (𝚗) => { rem(𝐬) ; 
-                           add_scene(𝔖 . 𝐭 , 𝚗 ,  true ) ; 
-                           þ0E27F . add_item(𝚗) ;  } , 
-                      𝐬)])] , 
+          (𝐬 , rem) => {  const  update  =  (𝚗) => { rem(𝐬) ; 
+                                   add_scene(𝔖 . 𝐭 , 𝚗 ,  true ) ; 
+                                   þ0E27F . add_item(𝚗) ;  } ; 
+                    return [ətileButton(𝐬 . name , cb) , 
+                     əbuttonBar(
+                       [`󰆴` , rem] , 
+                       [`` ,  (...𝔸)=> prompt_editor(update , 𝔖 , 𝐬)] , 
+                       [`` ,  (...𝔸)=> prompt_scene (update ,   𝐬)])] ;  } , 
           (𝐬    ) => move_scene(𝔖 . 𝐭 , 𝐬 . name)) ; 
   þ0E27F . populate  =  (𝐭) => { [𝔖 . 𝐭 , 𝔖 . 𝐃]  =  [𝐭 , get_devs(𝐭)] ; 
                    þ0E27F . clear_items() ; 

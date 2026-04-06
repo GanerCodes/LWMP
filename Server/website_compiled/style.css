@@ -188,32 +188,9 @@ body {
   border-radius: 5px;
   font-size: 3vw;
 }
-.titledBox {
-  min-width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.tokenAddBox {
-  align-items: center;
-  &>h1 {
-    font-size: 50px;
-  }
-  &>.boxInput {
-    margin-bottom: 40px;
-    &>* {
-      font-size: 30px;
-    }
-  }
-  &>button {
-    width: 150px;
-    border: 2px solid #999;
-    border-radius: 5px;
-    font-size: 40px;
-  }
-}
 .navContainer {
   width: 100%;
+  overflow-x: hidden;
   &>.multiButtonBar {
     max-height: 10vh;
   }
@@ -224,9 +201,54 @@ body {
   margin-top: 30px;
   overflow-y: scroll;
 }
-*[dragId] {
-  transition: all 0.1s ease-in-out;
+.devDraggableHolder {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  font-size: 22px;
+  border: 1px solid #555;
+  &[maydrop] {
+    border: 1px dashed #FF0;
+  }
 }
-.dragging {
-  transform: scale(0.5);
+.devDraggable {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  border: 1px solid #555;
+  &[maydrop] {
+    border: 1px dashed #FF0;
+  }
+  &[dragging] {
+    transform: scale(0.75);
+  }
+}
+.titledBox {
+  min-width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.promptBox {
+  align-items: center;
+  &>h1 {
+    font-size: 50px;
+  }
+  &>.boxInput {
+    margin-bottom: 30px;
+    &>* {
+      font-size: 30px;
+    }
+  }
+  &>button {
+    width: 150px;
+    border: 2px solid #999;
+    border-radius: 5px;
+    font-size: 40px;
+  }
 }

@@ -8,43 +8,4 @@
                      [‹Devices›, devListing  ],
                      [‹Scenes› , sceneListing]])
 tokenListing.populate(get_toks());
- 󰈙.body􍪙(nav);
-
-
-
-🟑
-attr dragId <identifier>
-attr dragHold <bool>
-  can accept dragItem with equal dragId ⇒ append
-attr dragItem <bool> 
-  can accept dragItem with equal dragId ⇒ swap
-🟑
-
-⎉ ε1,ε11,ε12,ε2,ε21,ε22;
-© ε = 󱀝 div ⦅𝚏→⦆ [
-        󱀝:ε1 div ⦅𝚖 5px; 𝚏↓; 𝚠 27px; 𝚑 150px⦆ [
-          󱀝:ε11 div ⦅«𝚠 𝚑» 25px; 𝚖󷷤 5px⦆ ‹›
-          󱀝:ε12 div ⦅«𝚠 𝚑» 25px; 𝚖󷷤 5px⦆ ‹›]
-        󱀝:ε2 div ⦅𝚖 5px; 𝚏↓; 𝚠 27px; 𝚑 150px⦆ [
-          󱀝:ε21 div ⦅«𝚠 𝚑» 25px; 𝚖󷷤 5px⦆ ‹›
-          󱀝:ε22 div ⦅«𝚠 𝚑» 25px; 𝚖󷷤 5px⦆ ‹›] ];
-[ε11,ε12,ε21,ε22]􋁃(󰲡SAT(x,‹draggable›,‹true›));
-[ε11,ε12,ε21,ε22]􋁃(󰲣((x􋛟.backgroundColor=‹#A⟦9-2⋅y⟧⟦2⋅y⟧›), SAT(x,‹dragItem›,✓)));
-[ε1,ε2]􋁃(󰲡((x􋛟.border=‹1px solid #FFF›), SAT(x,‹dragHold›,✓)));
-[ε1,ε11,ε12,ε2,ε21,ε22]􋁃(󰲡SAT(x,‹dragId›,‹1›));
-
-[ε11,ε12,ε21,ε22]􋁃(󰲡{
-  © AEL = 𝚲x.addEventListener(⠤𝔸);
-   AEL(‹drag›     ,󰲟☾(‹drag›     ));
-  AEL(‹dragstart›,󰲟x􋒅 ⁺(‹dragging›));
-  AEL(‹dragend›  ,󰲟x􋒅 ⁻(‹dragging›));
-  AEL(‹dragover› ,󰲟☾(‹dragover› ));
-  AEL(‹dragenter›,󰲟☾(‹dragenter›));
-  AEL(‹dragleave›,󰲟☾(‹dragleave›));
-  AEL(‹dragdrop› ,󰲟☾(‹dragdrop› ));
-
-})
-
-
-
-󰈙.body􍪙(ε);
+󰈙.body􍪙(nav);

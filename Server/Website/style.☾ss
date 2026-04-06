@@ -71,23 +71,27 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
   𝚋 2px solid #EEE; 𝚋𝚛 5px 
   󰊄𝚜 3vw
 
-.titledBox ∣ 𝚠≥ 80%;𝚏↓;𝚊𝚂󷷣
-.tokenAddBox
-  𝚊𝚂󷷣
-  >h1 ∣ 󰊄𝚜 50px
-  >.boxInput
-    𝚖↓ 40px
-    >* ∣ 󰊄𝚜 30px
-  >button ∣ 𝚠 150px
-             𝚋 2px solid #999; 𝚋𝚛 5px
-             󰊄𝚜 40px
-
 .navContainer  ∣ 𝚠
+                 𝚘𝚏x hidden
                  >.multiButtonBar
                     𝚑≤ 10vh
 
 .navBodyHolder ∣ 𝚠; 𝚑≤ calc(90vh - 30px)
                  𝚖↑ 30px; 𝚘𝚏y scroll
-
-*[dragId] ∣ 𝚃 all 0.1s ease-in-out
-.dragging ∣ 𝚃𝚏 scale(0.5)
+.devDraggableHolder ∣ 𝚏↓;𝚠;𝚑;󰊄𝚜 22px
+                      𝚋 1px solid #555
+                      [maydrop]  ∣ 𝚋 1px dashed #FF0
+.devDraggable       ∣ 𝚠;𝚏→;𝚊𝙿b;𝚊𝚂󷷣;𝚙󷷢 5%
+                      𝚋 1px solid #555
+                      [maydrop]  ∣ 𝚋 1px dashed #FF0
+                      [dragging] ∣ 𝚃𝚏 scale(0.75)
+.titledBox ∣ 𝚠≥ 80%;𝚏↓;𝚊𝚂󷷣
+.promptBox
+  𝚊𝚂󷷣
+  >h1 ∣ 󰊄𝚜 50px
+  >.boxInput
+    𝚖↓ 30px
+    >* ∣ 󰊄𝚜 30px
+  >button ∣ 𝚠 150px
+             𝚋 2px solid #999; 𝚋𝚛 5px
+             󰊄𝚜 40px

@@ -6,7 +6,7 @@
     ©  = popup({:✓,󰅙:✓},
                 ətitledBox(
                   ‹Enter token to add›,
-                  󱀝 div {𝐶 tokenAddBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
+                  󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
                     fld,
                     textButton(‹Submit›,󰲟{.close();cb(fld􀲫.value)})]⟧,
                   {outline:✗})); };
@@ -47,13 +47,24 @@
 ⎉ əsceneListing = ⥌cb↦{
   © 𝔖 = {};
   © prompt_scene = ⥌cb,Ѧ={name:ᐦ,𝐔:[],dat:{}}↦{
-    © fld = textField({𝑃𝐻:‹Scene Name›,value:Ѧⁿᵃᵐᵉ});
-    © get = 󰲟({⠤Ѧ,name:fld􀲫.value});
+    © ədevItem = 󰲡dragItem(󱀝 span {𝐶 devDraggable} ⟦[‹󰍜›,󱀝 div ‹›,󱀝 T ⦅pointer-events 􋄅⦆ ⟦x⟧]⟧);
+    
+    © name = textField({𝑃𝐻:‹Scene Name›,value:Ѧⁿᵃᵐᵉ});
+    ⎉ devsL,devsR;
+    © devcols =
+      󱀝 span ⦅𝚏→;𝚠󷷈;𝚑 325px;𝚖↓ 10px⦆ ⟦[
+        󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Unused›,dragHold(󱀝:devsL div {𝐶 devDraggableHolder} ‹›)]⟧,
+        󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Used›  ,dragHold(󱀝:devsR div {𝐶 devDraggableHolder} ‹›)]⟧]⟧;
+    𝒪k(𝔖􋆄)􊾡(󰲡Ѧ􋆕.includes(x) ∨ devsL􍪙(ədevItem(x)));
+    Ѧ   􋆕 􊾡(󰲡devsR􍪙(ədevItem(x)));
+    © get = 󰲟({⠤Ѧ,name: name􀲫.value,
+                  𝐔   : QSA(‹T›,devsR)􊾡(󰲡x􋒷)});
     ©  = popup({:✓,󰅙:✓},
                 ətitledBox(
                   ‹Scene details›,
-                  󱀝 div {𝐶 tokenAddBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
-                    fld,
+                  󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
+                    name,
+                    devcols,
                     textButton(‹Submit›,󰲟{.close();cb(get())})]⟧,
                   {outline:✗})); };
   ©  = əitemGridEditable(
@@ -61,14 +72,14 @@
                    ⥌𝐬↦{ ¿(¬add_scene(𝔖􋆮,𝐬))
                          ↪☾(‹Scene already exists ⟦x⟧‽›);
                         gen(𝐬); }),
-          ⥌𝐬,rem↦[ətileButton(𝐬ⁿᵃᵐᵉ,cb),
-                  əbuttonBar(
-                    [␛󰆴,rem],
-                    [␛,󰲟prompt_scene(
-                      ⥌𝚗↦{ rem(𝐬);
-                           add_scene(𝔖􋆮,𝚗,✓);
-                           ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); },
-                      𝐬)])],
+          ⥌𝐬,rem↦{ © update = ⥌𝚗↦{ rem(𝐬);
+                                   add_scene(𝔖􋆮,𝚗,✓);
+                                   ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); };
+                   ↪[ətileButton(𝐬ⁿᵃᵐᵉ,cb),
+                     əbuttonBar(
+                       [␛󰆴,rem],
+                       [␛,󰲟prompt_editor(update,𝔖,𝐬)],
+                       [␛,󰲟prompt_scene (update,  𝐬)])]; },
           ⥌𝐬    ↦move_scene(𝔖􋆮,𝐬ⁿᵃᵐᵉ));
   ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐭↦{ [𝔖􋆮,𝔖􋆄] = [𝐭,get_devs(𝐭)];
                    .clear_items();
