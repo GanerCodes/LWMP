@@ -21,7 +21,7 @@
    return ə ;  } ; 
 Ϣ . textField  =  (Ѧ) => { 
    let  ə ; 
-   let  fld  =  mkə(`input` , {[`𝑆`] : `min-width: 0; padding: 2px; flex-grow: 1; height: 100%; border: none;` ,  ... (Ѧ)} ,  false ) ; 
+   let  fld  =  mkə(`input` , {[`𝑆`] : `flex-grow: 2; min-width: 0; padding: 2px; height: 100%; border: none;` ,  ... (Ѧ)} ,  false ) ; 
    if (Ѧ . þ0F070 || Ѧ . þ0F06E) { ə  =  mkə(`span` , {[`𝐶`] : `boxInput` , [`𝑆`] : `width: 100%;`} , [(fld) , (notab(toggleButton( (x,...𝔸)=> (fld . type  =  ["password" , "text"][ + x]) , "" , "")))]) ;  }
    else { ə  =  mkə(`span` , {[`𝐶`] : `boxInput` , [`𝑆`] : `width: 100%;`} , fld) ;  }
   ə . 𝚒  =  fld ; 
@@ -78,9 +78,6 @@
   Ѧ . setN() ; 
   ə . Ѧ  =  Ѧ ; 
    return ə ;  } ; 
-
- const  AEL  =   (x,...𝔸)=> x . addEventListener( ... 𝔸) ; 
- const  RAT  =   (x,...𝔸)=> x . removeAttribute ( ... 𝔸) ; 
 
  let  [𝘥 , 𝘵]  =  [null , null] ; 
  const  αoverβ  =  (α , β , s) => {

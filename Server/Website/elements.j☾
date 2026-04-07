@@ -1,6 +1,5 @@
 əbigButton = ⥌c,𝔸↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } ⟦c⟧
 əbarButton = ⥌c,𝔸↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } ⟦c⟧
-əbuttonBar = 𝚲󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 
 əitemGridEditable = ⥌plus,gen,rem,items=[],Ѧ={show_plus:✓,placeholder:󱣩}↦{
   ⎉ ,_adder;
@@ -24,12 +23,25 @@
   󱀝 div {𝐶 titledBox} [󱀝 h1 [⟦𝚝⟧]
                        󱀝 {𝐶 ‹box⟦¬Ѧᵒᵘᵗˡⁱⁿᵉ⭜‹ noOutline›⭝ᐦ⟧›⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto⦆} [⟦ə⟧]]
 
-ənavBar = ⥌Ѧ,C↦{
-  ⎉ holder = 󱀝 div {𝐶 navBodyHolder} [󱀝 T ‹›];
+əbuttonBar = 𝚲
+  󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
+ənavBar = ⥌Ѧ,⠤𝙴↦{
+  Ѧ􀳕 = {};
+  © bar = [];
+  ∀(⎉[k,e,ɒ={}] ⎔ 𝙴)
+    ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮ onclick ⟦󰲟.set(k)⟧⍮ ⠤ɒ} ⟦k⟧
+           Ѧ􀳕ₖ = {:e,𝚋};
+           bar.push(𝚋); }
+    ¡    { bar.push(e); }
+  
+  ⎉ holder;
   ©  = 󱀝 div {𝐶 navContainer} ⟦[
-          əbuttonBar(⠤C􋅝(󰲣[x,󰲟.set(x)])),
-          holder]⟧
-  © D = 𝒟(C);
-  ˢᵉᵗ = 󰲡holder􋑱₀.replaceWith(Dₓ);
-  ˢᵉᵗ(C₀ ₀);
+          󱀝         span {𝐶 multiButtonBar} ⟦bar⟧,
+          󱀝:holder div  {𝐶  navBodyHolder} [󱀝 T ‹›]]⟧
+  ˢᵉᵗ = ⥌k=Ѧ􎁎↦{ RAT(Ѧ􀳕􀴖􎎵􀲝,‹choosen›,‹disabled›);
+                 Ѧ􎁎=k;
+                 [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
+                 holder􋑱₀.replaceWith(Ѧ􀳕􀴖􎎵􋑵); };
+  ˢᵉᵗ();
+  􀴗 = Ѧ;
   ↪; }

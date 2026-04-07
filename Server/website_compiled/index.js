@@ -2,11 +2,17 @@
  const  þ0E27FtokenListing  =  ətokenListing( async  (x,...𝔸)=> {
    await  þ0E27FdevListing . populate(x) ; 
   þ0E27FsceneListing . populate(x) ; 
+  
+  [`Devices` , `Scenes` , `Schedule`] . forEach( (x,...𝔸)=> þ0E27Fnav . Ѧ  . 𝙳[x] . 𝚋  . disabled =  false )
+  
   þ0E27Fnav . set(`Devices`) ;  }) ; 
  const  þ0E27FdevListing    =  ədevListing() ; 
  const  þ0E27FsceneListing  =  əsceneListing( (x,...𝔸)=>  print (`Scene called ${x}`)) ; 
- const  þ0E27Fnav  =  ənavBar({} , [[`Tokens`  ,  þ0E27FtokenListing] , 
-                     [`Devices` ,  þ0E27FdevListing  ] , 
-                     [`Scenes`  ,  þ0E27FsceneListing]])
+ const  þ0E27Fnav  =  ənavBar({ Ⴝ : `Tokens` } , 
+                 [ ""           ,  mkə(`div` ,  false  , `󰤱 logo`)               ] , 
+                 [`Tokens`   ,  þ0E27FtokenListing                ] , 
+                 [`Devices`  ,  þ0E27FdevListing   ,  { disabled :  true  }] , 
+                 [`Scenes`   ,  þ0E27FsceneListing ,  { disabled :  true  }] , 
+                 [`Schedule` ,  mkə(`div` ,  false  , `󰤱`)     ,  { disabled :  true  }]) ; 
 þ0E27FtokenListing . populate(get_toks()) ; 
 þF0219 . body . append(þ0E27Fnav) ; 

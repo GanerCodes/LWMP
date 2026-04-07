@@ -69,7 +69,7 @@ prompt_led_calibrate = 󱟱⥌𝐝,cb↦{
          ¿(¬(v∧v􋌵)) ⇥;
          © [n,m,C] = v;
          © P = 𝗉();
-         α.replaceWith(α=󱀝 h2 ‹Testing ⟦n⟧ LEDs - ⟦m⟧›)
+         α.replaceWith(α=󱀝 h2 ‹Testing ⟦n⟧ Pixels - ⟦m⟧›)
          β.replaceWith(β=əbuttonBar(⠤C􊾡(󰲡[x,󰲟Pʳ(x)]) ));
          © dec = 󱫬 P;
          load();

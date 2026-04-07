@@ -1,11 +1,17 @@
 © tokenListing = ətokenListing(󱟱󰲡{
   󱫬 devListing.populate(x);
   sceneListing.populate(x);
+  
+  [‹Devices›,‹Scenes›,‹Schedule›]􋁃(󰲡nav􀴗 􀳕ₓ􀲝 􋒗=✗)
+  
   nav.set(‹Devices›); });
 © devListing   = ədevListing();
 © sceneListing = əsceneListing(󰲡☾(‹Scene called ⟦x⟧›));
-© nav = ənavBar({},[[‹Tokens› , tokenListing],
-                     [‹Devices›, devListing  ],
-                     [‹Scenes› , sceneListing]])
+© nav = ənavBar({ Ⴝ:‹Tokens› },
+                 [ᐦ         , 󱀝 div ‹󰤱 logo›               ],
+                 [‹Tokens›  , tokenListing                ],
+                 [‹Devices› , devListing  , { disabled:✓ }],
+                 [‹Scenes›  , sceneListing, { disabled:✓ }],
+                 [‹Schedule›, 󱀝 div ‹󰤱›    , { disabled:✓ }]);
 tokenListing.populate(get_toks());
 󰈙.body􍪙(nav);

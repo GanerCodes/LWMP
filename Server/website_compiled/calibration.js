@@ -61,7 +61,7 @@ prompt_led_calibrate  =   async (𝐝 , cb) => {
           if ( ! (v && v . length))  break  ; 
           const  [n , m , C]  =  v ; 
           const  P  =  𝗉() ; 
-         α . replaceWith(α = mkə(`h2` ,  false  , `Testing ${n} LEDs - ${m}`))
+         α . replaceWith(α = mkə(`h2` ,  false  , `Testing ${n} Pixels - ${m}`))
          β . replaceWith(β = əbuttonBar( ... C . ᴍ( (x,...𝔸)=> [x ,  (...𝔸)=> P . r(x)]) )) ; 
           const  dec  =   await  P ; 
          load() ; 

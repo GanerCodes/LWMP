@@ -1,38 +1,56 @@
 @font-face ∣ 󰊄𝚏 "Avenir";
-             src url("/Assets/Avenir.woff2")
+             src url("/Assets/Tomkin-Regular.woff2")
+              src url("/Assets/Avenir.woff2")
 @font-face ∣ 󰊄𝚏 "Symbols"
              src url("/Assets/Symbols.woff2")
- format("woff2")
+
+© fg0 #ffffff
+© fg1 #dddddd
+© fg2 #a5a5a5
+© bg0 #2b2b2b
+© bg1 #3d3d3d
+© bg2 #545454
 
 :root ∣ 󰊄𝚏 "Symbols","Avenir"
 
 * ∣ 𝚃 background-color 0.2s ease
 
-::-webkit-scrollbar-thumb  ∣ 𝚋 #847
-                             𝚋𝚛 100px
+::-webkit-scrollbar-thumb  ∣ 𝚋 #847; 𝚋𝚛 100px
 ::-webkit-scrollbar-thumb􍳵 ∣ 𝚋 #A58
 ::-webkit-scrollbar-thumb􀴗 ∣ 𝚋 #B59
 ::-webkit-scrollbar        ∣ 𝚠 1vw 
 
-body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
+body              ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
+body,html         ∣ 𝚋 ⦑bg0⦒
 
 .icon ∣ 𝚑 0.75em
         vertical-align center
 .box ∣ 𝚋𝚛 .5vw
 
-.«hbar bigButton»
-  𝚠;𝚖0;𝚊𝙿󷷣;𝚊𝚂󷷣
-  􎁎 ∣ 𝚋 #111; 𝚖𝚙 pointer
-  􀴗 ∣ 𝚋 #222
-.multiButtonBar
-  𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
-
-.«barButton bigButton»
-  𝚠;𝚑; 󰊄𝚊 center
-.barButton ∣ 𝚠
+input,.boxInput   ∣ 𝚋 ⦑bg1⦒
+.dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
+  𝚋 #0000
+.boxInput􍴍 ∣ 𝚋 􍍝
+button,.bigButton ∣  𝚃 all 0.2s ease
+                    𝚋 􍍝
+                     ⦑fg1⦒EE; 𝚋 #0000
+                    􎁎 ∣ 𝚃𝚏 􍍝
+                          ⦑fg0⦒; 𝚋 #0002
+                         𝚖𝚙 pointer
+                    􀴗 ∣ 𝚃𝚏 􍍝
+                          ⦑fg0⦒; 𝚋 #0004
+.«hbar bigButton»      ∣ 𝚠;𝚖0;𝚊𝙿󷷣;𝚊𝚂󷷣
+.«barButton bigButton» ∣ 𝚠;𝚑;󰊄𝚊 center
+.bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
+.barButton ∣ 𝚠;󰊄𝚜 40px
              >* ∣ 𝚊𝚛 1; 𝚑¾
-             󰊄𝚜 40px
-.bigButton ∣ 𝚏↓; 𝚊𝙿󷷣; 𝚊𝚜󷷣; 󰊄𝚜 290px
+             􋒗  ∣  ⦑fg2⦒; 𝚋 ⦑bg0⦒
+             𝚙↑ 5px
+             𝚋↓ 5px solid
+             [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
+                             border-image linear-gradient(90deg,rgba(33, 168, 198, 1) 0%, rgba(252, 36, 98, 1) 100%) 1
+             􊽬⁽󰁺choosen󰁻⁾ ∣ border-color #0000;
+.multiButtonBar ∣ 𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
 .itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 90vh
             𝚊𝙿󷷣; 𝚐 20px
             grid-template-columns repeat(auto-fit,300px)
@@ -41,9 +59,17 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
             􊽬⁽􋁋⁽󰂁􊽬⁽􋁕⁽.itemGridAdder󰁱.itemGridPlaceholder⁾⁾⁾⁾
               𝚏
               >.itemGridPlaceholder ∣ «𝚠≤ 𝚠 𝚠≥» 100%; 𝚍 unset; 𝚋 􋄅
-.itemGridItem ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥ 𝚑≤ 𝚑 𝚑≥» 300px
-                𝚋 2px solid #EEE; 𝚋𝚛 10px
-                >.multiButtonBar ∣ 𝚋↑ 2px solid #EEE
+.itemGridItem ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥» 300px; «𝚑≤ 𝚑 𝚑≥» 200px
+                􋁋⁽.multiButtonBar⁾
+                  >⁰
+                    𝚋«↑ ← →» 4px solid ⦑bg2⦒; 𝚋𝚛↑ 12px
+                  >.multiButtonBar
+                    𝚖0
+                    𝚋𝚛↓ 12px
+                    𝚋 ⦑bg2⦒
+                    «𝚋󷷢 𝚋↓» 0px solid ⦑bg2⦒
+                􊽬⁽􋁋⁽.multiButtonBar⁾⁾
+                  𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 12px
 
 .rgbButtons
   >* ∣ «𝚠 𝚑» 10vw
@@ -71,9 +97,9 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
   𝚋 2px solid #EEE; 𝚋𝚛 5px 
   󰊄𝚜 3vw
 
-.navContainer  ∣ 𝚠
-                 𝚘𝚏x hidden
+.navContainer  ∣ 𝚠;𝚘𝚏x hidden
                  >.multiButtonBar
+                    𝚋 ⦑bg1⦒
                     𝚑≤ 10vh
 
 .navBodyHolder ∣ 𝚠; 𝚑≥ 80vh; 𝚑≤ calc(90vh - 30px)
@@ -97,3 +123,6 @@ body ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
              󰊄𝚜 40px
 
 dialog:open ∣ 𝚠 90vw; 𝚑 90vh
+               ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
+              𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
+              𝚜 ⦑fg0⦒33 0px 0px 20px 0px

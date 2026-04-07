@@ -46,9 +46,11 @@ mk_id  =  (l , chars = BASE_CHARSET) =>  þ02B65 (l) . ᴍ( (...𝔸)=> chars . 
   𝔓(𝐴)[s]  =  function( ... 𝔸){  return ƒ(       this  ,  ... 𝔸) ; } ; 
   𝔓(𝐸)[s]  =  function( ... 𝔸){  return ƒ(𝐴 . from(this) ,  ... 𝔸) ; } ;  }) ; 
 
+AEL  =   (x,...𝔸)=> x . addEventListener( ... 𝔸) ; 
+SAT  =  (x , y , z =  "" ) => x . setAttribute(y , z) ; 
+RAT  =   (x,...𝔸)=> 𝔸 . forEach((a) => x . removeAttribute(a)) ; 
 GID  =   (x,...𝔸)=> document . getElementById(x) ; 
 VAL  =   (x,...𝔸)=> GID(x) . value ; 
-SAT  =   (x,y,z,...𝔸)=> x . setAttribute(y , z) ; 
 QS   =  (x , ε = document) => ε . querySelector(x) ; 
 QSA  =  (x , ε = document) => [ ... ε . querySelectorAll(x)] ; 
 𝔏𝔖  =  { þ02191 :   (x,y,...𝔸)=> localStorage[x]  =  𝔍 . þ02191(y) , 
