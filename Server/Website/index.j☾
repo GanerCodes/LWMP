@@ -15,3 +15,7 @@
                  [‹Schedule›, 󱀝 div ‹󰤱›    , { disabled:✓ }]);
 tokenListing.populate(get_toks());
 󰈙.body􍪙(nav);
+
+QS(‹.bigButton›).click();
+setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 200);
+setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 300);

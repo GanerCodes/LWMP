@@ -1,4 +1,32 @@
 prompt_editor = ⥌cb,𝔖,𝐬↦{
-  ☾("leds:", 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓᴸᴱᴰ󰀂))
-  cb(𝐬);
+  © names  = 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓ⸮NAME??x);
+  © counts = 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓᴸᴱᴰ󰀂);
+  © ctot   = counts􋔩(󰲣x+y,0);
+  ⎉ α,β;
+  ©  = popup({󰅙:✓, noAppend:✓},
+              󱀝 div ⦅𝚠;𝚏↓;𝚊𝚂󷷣⦆ [
+                󱀝 h1 ‹Scene Editor - ⟦ctot⟧ Pixels›
+                󱀝 □ ⦅𝚑 40px⦆ ‹›
+                󱀝 div ⦅𝚏↓;𝚠 90%⦆ [
+                  󱀝:α □ ‹›
+                  󱀝:β □ ‹›
+                  󱀝:γ □ ‹›]]);
+  􋒅 ⁺(‹editorDialog›);
+  
+  © render = 󰲟{
+    © 𝚠 = 0.9⋅(󰈙ᵇᵒᵈʸ ᶜˡⁱᵉⁿᵗᵂⁱᵈᵗʰ⋅0.95 - 2⋅30 - 4);
+    α.replaceWith(α = 
+      󱀝 div ⦅𝚠;𝚏↓;𝚊𝙿←;󰊄𝚊 left⦆ ⟦
+        ↨(󱑼(names,counts))􋅝(⥌i,[n,c]↦󱀝 T ‹⟦i⟧ - ⟦n⟧ (⟦c⟧)›)⟧);
+    β.replaceWith(β = 
+      󱀝 div ⦅𝚠;𝚏→;𝚊𝙿←⦆ ⟦
+        ↨(counts)􋅝(⥌i,n↦󱀝 span 
+          ⦅«𝚋󷷢 𝚋↑» 1px solid #FFF; 𝚠 ⟦n/ctot⋅𝚠⟧px⦆ [󱀝 T ⦅𝚠 0px⦆ ‹⟦i⟧›])
+      ⟧);
+    γ.replaceWith(󱀝 div ⦅𝚑 20px; 𝚋 #F00⦆ ‹›);
+  };
+  render();
+  
+  󰈙.body􍪙(); .showModal();
+   cb(𝐬);
 };

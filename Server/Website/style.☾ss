@@ -49,7 +49,7 @@ button,.bigButton ∣  𝚃 all 0.2s ease
              𝚋↓ 5px solid
              [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
                              border-image linear-gradient(90deg,rgba(33, 168, 198, 1) 0%, rgba(252, 36, 98, 1) 100%) 1
-             􊽬⁽󰁺choosen󰁻⁾ ∣ border-color #0000;
+             􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90deg,#0000 0%, #0000 100%) 1;
 .multiButtonBar ∣ 𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
 .itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 90vh
             𝚊𝙿󷷣; 𝚐 20px
@@ -59,17 +59,18 @@ button,.bigButton ∣  𝚃 all 0.2s ease
             􊽬⁽􋁋⁽󰂁􊽬⁽􋁕⁽.itemGridAdder󰁱.itemGridPlaceholder⁾⁾⁾⁾
               𝚏
               >.itemGridPlaceholder ∣ «𝚠≤ 𝚠 𝚠≥» 100%; 𝚍 unset; 𝚋 􋄅
-.itemGridItem ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥» 300px; «𝚑≤ 𝚑 𝚑≥» 200px
-                􋁋⁽.multiButtonBar⁾
-                  >⁰
-                    𝚋«↑ ← →» 4px solid ⦑bg2⦒; 𝚋𝚛↑ 12px
-                  >.multiButtonBar
-                    𝚖0
-                    𝚋𝚛↓ 12px
-                    𝚋 ⦑bg2⦒
-                    «𝚋󷷢 𝚋↓» 0px solid ⦑bg2⦒
-                􊽬⁽􋁋⁽.multiButtonBar⁾⁾
-                  𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 12px
+.itemGridAdder ∣ 𝚘𝚏 clip
+.itemGridItem  ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥» 300px; «𝚑≤ 𝚑 𝚑≥» 200px
+                 􋁋⁽.multiButtonBar⁾
+                   >⁰
+                     𝚋«↑ ← →» 4px solid ⦑bg2⦒; 𝚋𝚛↑ 12px
+                   >.multiButtonBar
+                     𝚖0
+                     𝚋𝚛↓ 12px
+                     𝚋 ⦑bg2⦒
+                     «𝚋󷷢 𝚋↓» 0px solid ⦑bg2⦒
+                 􊽬⁽􋁋⁽.multiButtonBar⁾⁾
+                   𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 12px
 
 .rgbButtons
   >* ∣ «𝚠 𝚑» 10vw
@@ -126,3 +127,6 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
                ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
               𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
               𝚜 ⦑fg0⦒33 0px 0px 20px 0px
+              .editorDialog
+                𝚋 ⦑bg0⦒F5
+                𝚠 95vw; 𝚑 95vh

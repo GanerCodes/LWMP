@@ -52,7 +52,7 @@ led_calibrate  =  þF01EE((𝘴 , 𝘳) =>  async (𝐝 , cb) => {
 prompt_led_calibrate  =   async (𝐝 , cb) => {
    let  α , β ; 
    const  þ0E27F  =  popup({þ0F2D4 :  true  , þF0159 :  true } , 
-              mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: column;`} , [(mkə(`h1` ,  false  , `LED Count Calibration`)) , (mkə(`□` , {[`𝑆`] : `height: 40px;`} , ``)) , ((α = mkə(`□` ,  false  , ``))) , ((β = mkə(`□` ,  false  , ``)))])) ; 
+              mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: column;`} , [(mkə(`h1` ,  false  , `Pixel Count Calibration`)) , (mkə(`□` , {[`𝑆`] : `height: 40px;`} , ``)) , ((α = mkə(`□` ,  false  , ``))) , ((β = mkə(`□` ,  false  , ``)))])) ; 
    const  load  =   (...𝔸)=> { α . replaceWith(α = mkə(`h2` ,  false  , `Loading...`))
               β . replaceWith(β = mkə(`□` ,  false  , ``)) ;  }
   load() ; 

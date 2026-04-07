@@ -57,7 +57,7 @@ prompt_led_calibrate = 󱟱⥌𝐝,cb↦{
   ⎉ α,β;
   ©  = popup({:✓,󰅙:✓},
               󱀝 div ⦅𝚏↓⦆ [
-                󱀝 h1 ‹LED Count Calibration›
+                󱀝 h1 ‹Pixel Count Calibration›
                 󱀝 □ ⦅𝚑 40px⦆ ‹›
                 󱀝:α □ ‹›
                 󱀝:β □ ‹›]);
