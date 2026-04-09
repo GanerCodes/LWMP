@@ -13,6 +13,8 @@
 
 
 
+ const  grp_fx  =   (x,...𝔸)=> x . fx  ?  ᴍv(x . fx  . þ0EB86( (x,...𝔸)=> x[0]) ,   (x,...𝔸)=> x . þF7E3B(1)) :  {} ; 
+
  const  dat  = 
 {
   "fx" :  [
@@ -205,8 +207,21 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
                x . at(-1) . style . borderBottomRightRadius  =  `10px` ;  }
        return þ0E27F ;  } ; 
     
+     let  þ0E27Finspect  =  mkə(`□` ,  false  ,  false )
      const  set_inspector  =  (þ0E27F) => {
-       print (þ0E27F , þ0E27F . idx)
+       print (þ0E27F , þ0E27F . idx) ; 
+      
+      
+      
+      
+       if (isArr(dat))  return  print (`󰤱`) ; 
+      
+       print (dat)
+       const  fx  =  grp_fx(dat) ; 
+      
+      þ0E27Finspect . replaceWith(þ0E27Finspect  =  
+        mkə(`div` , {[`𝐶`] : `𝘌inspector`} , [(mkə(`span` ,  false  , [(mkə(`T` ,  false  , `Direction`)) , (toggleButton( (x,...𝔸)=> x ? (fx[0] = []) : ( delete  fx[0]) , `` , ``))]))])
+      ) ; 
     } ; 
     
      const  datþ0E27F  =  render_𝖬(dat) ; 
@@ -217,7 +232,7 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
      const  þ0E27Flabels  =  outer  ?   þ021A8 ( þF147C (names , counts)) . ꟿ((i , [𝐧 , n]) => ətriLabel(n ,  mkə(`T` ,  false  , `${𝐧}`) ,  mkə(`T` ,  false  , `${n} Pixels`)))
                        :  ətriLabel(stot ,  mkə(`T` ,  false  , `${stot} Pixels`)) ; 
     α . replaceWith(α  =  
-      mkə(`div` , {[`𝐶`] : `𝘌inner`} , [(mkə(`div` , {[`𝐶`] : `𝘌preview`} , [(mkə(`div` ,  false  , [(mkə(`div` ,  false  , [(mkə(`div` , {[`𝐶`] : `𝘌alignedLabels`} , þ0E27Flabels)) , (mkə(`div` , {[`𝐶`] : `𝘌pixels`} , datþ0E27F))]))]))])) , (mkə(`div` , {[`𝐶`] : `vertBar` , [`𝑆`] : `width: 10px;`} , ``)) , ((þ0E27Finspect = mkə(`div` , {[`𝐶`] : `𝘌inspector`} ,  false )))])) ; 
+      mkə(`div` , {[`𝐶`] : `𝘌inner`} , [(mkə(`div` , {[`𝐶`] : `𝘌preview`} , [(mkə(`div` ,  false  , [(mkə(`div` ,  false  , [(mkə(`div` , {[`𝐶`] : `𝘌alignedLabels`} , þ0E27Flabels)) , (mkə(`div` , {[`𝐶`] : `𝘌pixels`} , datþ0E27F))]))]))])) , (mkə(`div` , {[`𝐶`] : `vertBar` , [`𝑆`] : `width: 10px;`} , ``)) , (þ0E27Finspect)])) ; 
   } ; 
   render(dat) ; 
   

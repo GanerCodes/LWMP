@@ -208,6 +208,7 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
                x􋕛(󷰾)􋛟.borderBottomRightRadius = ‹10px›; }
       ↪; };
     
+    ⎉ inspect = 󱀝 □
     © set_inspector = ⥌↦{
       ☾(,ⁱᵈˣ);
       
@@ -215,12 +216,18 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
        󱦙  󰳲
       
       ¿(isArr(dat)) ↪☾(␛󰤱);
-      grp_fx(dat)
-      div {𝐶 𝘌effects}
-      ¿(¬(‹fx›∈dat)) datᶠˣ = {};
       
-      datᶠˣ⸮
-      [󱀝 T ‹Direction›] ⟦toggleButton(󰲡datᶠˣ,␛,␛)⟧
+      ☾(dat)
+      © fx = grp_fx(dat);
+      
+      inspect.replaceWith(inspect = 
+        󱀝 div {𝐶 𝘌inspector} [
+          󱀝 span [
+            󱀝 T ‹Direction›
+            ⟦toggleButton(󰲡x⭜(fx₀=[])⭝(󰆴 fx₀),␛,␛)⟧]
+        
+        ]
+      );
     };
     
     © dat = render_𝖬(dat);
@@ -241,7 +248,7 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
               󱀝 div {𝐶 𝘌alignedLabels} ⟦labels⟧
               󱀝 div {𝐶 𝘌pixels} ⟦dat⟧]]]
         󱀝 div {𝐶 vertBar⍮ ⦅𝚠 10px⦆} ‹›
-        󱀝:inspect div {𝐶 𝘌inspector}]);
+        ⟦inspect⟧]);
   };
   render(dat);
   

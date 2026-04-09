@@ -322,7 +322,6 @@ dialog:open {
   border: 2px solid #ffffff;
   border-radius: 10px;
   box-shadow: #ffffff33 0px 0px 20px 0px;
-  overflow-y: scroll;
   &.editorDialog {
     width: min(97.5vw,1000px);
     height: 97.5vh;
