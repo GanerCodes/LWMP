@@ -93,7 +93,7 @@
   AEL(þ0E27F , `dragleave` , (𝜺) => αoverβ(𝘥 , 𝜺 . target ,  false )) ; 
   AEL(þ0E27F , `dragover`  , (𝜺) => 𝜺 . preventDefault()) ; 
    return þ0E27F ;  } ; 
-Ϣ . dragItem  =  (þ0E27F , 𝚒 = 0) => {
+Ϣ . dragItem  =  (þ0E27F , 𝚒 = 0 , ƒ = swapə) => {
   𝚒  =   ""  + 𝚒 ; 
   SAT(þ0E27F , `dragItem`  , 𝚒     ) ; 
   SAT(þ0E27F , `draggable` , `true`) ; 
@@ -101,10 +101,11 @@
   AEL(þ0E27F , `dragend`   , (𝜺) => { RAT(þ0E27F , `dragging`  ) ; 
                          αoverβ(𝘥 , 𝘵 ,  false ) ;  𝘥 = null ;  }) ; 
   AEL(þ0E27F , `drop`      , (𝜺) => { 𝜺 . preventDefault() ; 
-                         þ0E27F === 𝘵  &&  swapə(𝘥 , 𝘵) ;  }) ; 
+                          if (þ0E27F !== 𝘵)  return  ; 
+                         ƒ(𝘥 , 𝘵) ;  }) ; 
    return confDrag(þ0E27F , 𝚒) ;  } ; 
-Ϣ . dragHold  =  (þ0E27F , 𝚒 = 0) => {
+Ϣ . dragHold  =  (þ0E27F , 𝚒 = 0 , ƒ =  (x,y,...𝔸)=> x . append(y)) => {
   𝚒  =   ""  + 𝚒 ; 
-  SAT(þ0E27F , `dragHold` ,  𝚒    ) ; 
-  AEL(þ0E27F , `drop`     ,  (...𝔸)=> þ0E27F === 𝘵  &&  þ0E27F . append(𝘥)) ; 
+  SAT(þ0E27F , `dragHold` ,  𝚒) ; 
+  AEL(þ0E27F , `drop`     ,  (...𝔸)=> þ0E27F === 𝘵  &&  ƒ(þ0E27F , 𝘥)) ; 
    return confDrag(þ0E27F , 𝚒) ;  } ; 

@@ -13,7 +13,135 @@
 
 
 
- const  scene_count  =  (M) => `1` in M ? M[`1`] [0] : M[`*`] . ᴍ(scene_count) . ſ( (x,y,...𝔸)=> x + y) ;  
+ const  dat  = 
+{
+  "fx" :  [
+    [
+      1 , 
+      0 , 
+      0
+    ]
+  ] , 
+  "*" :  [
+    { "*" :  [{"1" :  [50 , 0 , 0xFF0000]} , 
+            {"1" :  [50 , 0 , 0x00FF00]} , 
+            {"1" :  [50 , 0 , 0x0000FF]}] } , 
+    {
+      "fx" :  [
+        [
+          1 , 
+          25 , 
+          0
+        ]
+      ] , 
+      "*" :  [
+        {
+          "1" :  [
+            5 , 
+            1 , 
+            3 , 
+            245 , 
+            50
+          ]
+        } , 
+        {
+          "1" :  [
+            45 , 
+            0 , 
+            4456448
+          ]
+        }
+      ]
+    } , 
+    {
+      "fx" :  [
+        [
+          1 , 
+          25 , 
+          0
+        ]
+      ] , 
+      "*" :  [
+        {
+          "1" :  [
+            22 , 
+            1 , 
+            1 , 
+            245 , 
+            50
+          ]
+        } , 
+        {
+          "1" :  [
+            15 , 
+            0 , 
+            17408
+          ]
+        }
+      ]
+    } , 
+    {
+      "fx" :  [
+        [
+          1 , 
+          25 , 
+          0
+        ]
+      ] , 
+      "*" :  [
+        {
+          "1" :  [
+            33 , 
+            1 , 
+            1 , 
+            245 , 
+            50
+          ]
+        } , 
+        {
+          "1" :  [
+            25 , 
+            0 , 
+            68
+          ]
+        }
+      ]
+    } , 
+    {
+      "fx" :  [
+        [
+          1 , 
+          25 , 
+          0
+        ]
+      ] , 
+      "*" :  [
+        {
+          "1" :  [
+            2 , 
+            1 , 
+            1 , 
+            245 , 
+            50
+          ]
+        } , 
+        {
+          "1" :  [
+            120 , 
+            0 , 
+            4456516
+          ]
+        }
+      ]
+    }
+  ]
+} ; 
+
+ const  scene_count  =  (M) => isArr(M)  ? M[1]    : 
+                      `1` in M   ? M[`1`] [0] : 
+                      M[`*`] . ᴍ( (x,...𝔸)=> scene_count(x)) . ſ( (x,y,...𝔸)=> x + y) ;  
+ const  þ0E22B  =   (x,...𝔸)=> `rgb(${x >> 16 & 0xFF},${x >> 8 & 0xFF},${x >> 0 & 0xFF})` ; 
+
 prompt_editor  =  (cb , 𝔖 , 𝐬) => {
    const  names   =  𝐬 . 𝐔  . ᴍ( (x,...𝔸)=> 𝔖 . 𝐃[x] ?. NAME ?? x) ; 
    const  counts  =  𝐬 . 𝐔  . ᴍ( (x,...𝔸)=> 𝔖 . 𝐃[x] . LEDC) ; 
@@ -21,42 +149,77 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
   
    let  α , β ; 
    const  þ0E27F  =  popup({þF0159 :  true  ,  noAppend :  true } , 
-              mkə(`div` , {[`𝑆`] : `width: 100%; display: flex; flex-direction: column; align-items: center;`} , [(mkə(`h1` ,  false  , `Scene Editor - ${ctot} Pixels`)) , (mkə(`□` , {[`𝑆`] : `height: 40px;`} , ``)) , (mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: column; width: 90%;`} , [((α = mkə(`□` ,  false  , ``))) , ((β = mkə(`□` ,  false  , ``))) , ((γ = mkə(`□` ,  false  , ``)))]))])) ; 
+              mkə(`div` , {[`𝐶`] : `𝘌outer`} , [(mkə(`h2` ,  false  , `Scene Editor - ${ctot} Pixels`)) , ((α = mkə(`□` ,  false  , ``)))])) ; 
+   let  þ0E27Finspect ; 
   þ0E27F . classList  . add(`editorDialog`) ; 
-   const  render  =   (...𝔸)=> {
-     const  dat  =  {"fx" : [[1 , 0 , 0]] , "*" : [{"fx" : [[1 , 25 , 0]] , "*" : [{"fx" : [] , "1" : [25 , 1 , 3 , 245 , 50]} , {"fx" : [] , "1" : [25 , 0 , 4456448]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"fx" : [] , "1" : [25 , 1 , 1 , 245 , 50]} , {"fx" : [] , "1" : [25 , 0 , 17408]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"fx" : [] , "1" : [25 , 1 , 1 , 245 , 50]} , {"fx" : [] , "1" : [25 , 0 , 68]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"fx" : [] , "1" : [25 , 1 , 1 , 245 , 50]} , {"fx" : [] , "1" : [25 , 0 , 4456516]}]}]} ; 
+   const  render  =  (dat , outer =  true ) => {
+     print (`render(${𝔍 . þ02191(dat)}, ${outer})`) ; 
+     const  stot   =  scene_count(dat) ; 
+     const  scale  =   (x,...𝔸)=>  (Math.max) (2 , 400 / stot) * x ; 
     
-     const  stot  =  scene_count(dat) ; 
-     const  𝚠  =  0.9 * (þF0219 . body  . clientWidth * 0.95  -  2 * 30  -  4) ; 
-     const  scale  =   (x,...𝔸)=> x /  (Math.max) (ctot , stot) * 𝚠 ; 
-    
-     const  þ0E22B  =   (x,...𝔸)=> `rgb(${x >> 16 & 0xFF},${x >> 8 & 0xFF},${x >> 0 & 0xFF})` ; 
      const  render_atom  =  ([n , i ,  ... M]) => {
+       const  𝗆  =   (x,...𝔸)=> mkə(`div` , {[`𝐶`] : `𝘌atom` , [`𝑆`] : `height: ${scale(n)}px;` + `;` + x} , ``) 
        if (i == 0) {
          const  [𝚌]  =  M ; 
-         return mkə(`div` , {[`𝐶`] : `𝘌atom` , [`𝑆`] : `width: ${scale(n)}px; height: 10px; background-color: ${þ0E22B(𝚌)};`} , ``) }
+         return 𝗆(`background-color: ${þ0E22B(𝚌)};`) ;  }
        else if (i == 1) {
          const  [seg , sat , val]  =  M ; 
-         const  þ1F308  =  `linear-gradient(90deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ${100 / seg}% 100% repeat-x` ; 
-         return mkə(`div` , {[`𝐶`] : `𝘌atom` , [`𝑆`] : `width: ${scale(n)}px; height: 10px; background: ${þ1F308};`} , ``) }
+         const  þ1F308  =  `linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ${100 / seg}% 100% repeat-x` ; 
+         return 𝗆(`background: ${þ1F308};`) ;  } ; 
        return `󰤱` ; 
     } ; 
     
-     const  render_𝖬  =  (M) => {
-       const  modebar  =  mkə(`div` , {[`𝑆`] : `border: 1px solid #FFF;`} , [(mkə(`T` ,  false  , ``))]) ; 
-       const  C  =  `1` in M  ? render_atom(M[`1`]) :  mkə(`div` , {[`𝑆`] : `display: flex; flex-direction: row;`} , M[`*`] . ᴍ( (x,...𝔸)=> render_𝖬(x))) ; 
-       return mkə(`div` , {[`𝐶`] : `𝘌mode` , [`𝑆`] : `display: flex; flex-direction: column; width: ${scale(scene_count(M))}px;`} , [modebar , C]) ;  } ; 
+     const  render_tick  =  (𝚒 , m = 40 , b = 20) => {
+       const  [p , s]  =  [ (Math.max) (1 , 3 / 𝚒)     ,  b + m / 𝚒] ; 
+       const  [l , α]  =  [255 - 40 * (𝚒 - 1) ,  100  ] ; 
+       const  clr  =  `rgba(${l},${l},${l},${α}%)` ; 
+       const  cnd  =  𝚒 > 1 ? `;pointer-events:none` :  ""  ; 
+       return mkə(`div` , {[`𝐶`] : `𝘌tickmark` , [`𝑆`] : `background-color: ${clr}; width: ${s}px; height: ${p}px; min-height: ${p}px; margin-bottom: ${ - p}px;` + cnd} , ``)
+    } ; 
     
+     const  render_𝖬  =  (M , n = 0) => {
+       const  isAtom  =  isArr(M) ; 
+       let  C  =  isAtom  ? [render_atom(M  )] : 
+             `1` in M   ? [render_atom(M[`1`])] : 
+                    M[`*`] . ᴍ( (x,y,...𝔸)=> render_𝖬(x , n + 1)) ; 
+      C  =  C . ᴍ( (x,y,...𝔸)=> (x . idx = y , x)) ; 
+       if (C . length > 1) C  =  C . þ02A1D𝑙( (...𝔸)=> render_tick(n + 1)) ; 
+       let  þ0E27F  =  mkə(`div` , {[`𝐶`] : `𝘌modes`} , C) ; 
+      
+       if ( ! isAtom  &&  (n == 0  &&  C . length > 1  ||  C[0] . length > 1)) {
+        C . forEach((cþ0E27F) => {
+          cþ0E27F  =  dragItem(cþ0E27F , n ,  (x,y,...𝔸)=> {
+            swapə(x , y) ; 
+             const  d  =  dat[`*`] ; 
+            [d[x . idx] , d[y . idx]]  =  [d[y . idx] , d[x . idx]] ; 
+            render(dat , outer) ;  }) ; 
+          cþ0E27F . onclick  =   (...𝔸)=> {
+             print (dat , cþ0E27F . idx) ; 
+            render(dat[`*`] [cþ0E27F . idx] ,   false ) ;  }
+        }) ;  }
+       else if (n > 1) þ0E27F . style  . pointerEvents  =  `none` ; 
+       if (n == 0) { þ0E27F . idx  =  0 ; 
+                const  x  =  ((𝚚 , þ0E27F = þF0219) => [ ... þ0E27F . matches(𝚚) ? [þ0E27F] : [] ,  ... QSA(𝚚 , þ0E27F)])(`.𝘌atom` , þ0E27F) ; 
+                print (þ0E27F , x) ; 
+               x[0]    . style . borderTopRightRadius     =  `10px` ; 
+               x . at(-1) . style . borderBottomRightRadius  =  `10px` ;  }
+       return þ0E27F ;  } ; 
+    
+     const  set_inspector  =  (þ0E27F) => {
+       print (þ0E27F , þ0E27F . idx)
+    } ; 
+    
+     const  datþ0E27F  =  render_𝖬(dat) ; 
+    set_inspector(datþ0E27F) ; 
+    
+     const  ətriLabel  =  (n ,  ... 𝔸) => 
+      mkə(`div` , {[`𝑆`] : `min-height: ${scale(n)}px;`} , [(mkə(`div` ,  false  , 𝔸)) , (mkə(`svg` , {[`viewBox`] : `-1.05 -1 2 2` , [`preserveAspectRatio`] : `none`} , [(mkə(`path` , {[`d`] : `M1 -1 L-1 0 L1 1` , [`style`] : `fill:#0000;stroke:#FFF;stroke-width:0.05`} , ``))]))])
+     const  þ0E27Flabels  =  outer  ?   þ021A8 ( þF147C (names , counts)) . ꟿ((i , [𝐧 , n]) => ətriLabel(n ,  mkə(`T` ,  false  , `${𝐧}`) ,  mkə(`T` ,  false  , `${n}`)))
+                       :  ətriLabel(stot ,  mkə(`T` ,  false  , `${stot}`) ,  mkə(`T` ,  false  , `Pixels`)) ; 
     α . replaceWith(α  =  
-      mkə(`div` , {[`𝑆`] : `width: 100%; display: flex; flex-direction: column; justify-content: flex-start; text-align: left;`} , 
-         þ021A8 ( þF147C (names , counts)) . ꟿ((i , [n , c]) => mkə(`T` ,  false  , `${i} - ${n} (${c})`)))) ; 
-    β . replaceWith(β  =  
-      mkə(`div` , {[`𝑆`] : `width: 100%; display: flex; flex-direction: row; justify-content: flex-start;`} , 
-         þ021A8 (counts) . ꟿ((i , n) => mkə(`span` , {[`𝑆`] : `border-left: 1px solid #FFF; border-right: 1px solid #FFF; border-top: 1px solid #FFF; width: ${scale(n)}px;`} , [(mkə(`T` , {[`𝑆`] : `width: 0px;`} , `${i}`))]))
-      )) ; 
-    γ . replaceWith(render_𝖬(dat)) ; 
+      mkə(`div` , {[`𝐶`] : `𝘌inner`} , [(mkə(`div` , {[`𝐶`] : `𝘌preview`} , [(mkə(`div` ,  false  , [(mkə(`div` ,  false  , [(mkə(`div` , {[`𝐶`] : `𝘌alignedLabels`} , þ0E27Flabels)) , (mkə(`div` , {[`𝐶`] : `𝘌pixels`} , datþ0E27F))]))]))])) , (mkə(`div` , {[`𝐶`] : `vertBar` , [`𝑆`] : `margin-left: 20px; margin-right: 20px; width: 10px;`} , ``)) , ((þ0E27Finspect = mkə(`div` , {[`𝐶`] : `𝘌inspector`} ,  false )))])) ; 
   } ; 
-  render() ; 
+  render(dat) ; 
   
   þF0219 . body . append(þ0E27F) ;  þ0E27F . showModal() ; 
   

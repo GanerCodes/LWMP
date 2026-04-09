@@ -4,6 +4,11 @@
 @font-face ∣ 󰊄𝚏 "Symbols"
              src url("/Assets/Symbols.woff2")
 
+© ꬶrb0_→ linear-gradient( 90deg,#21A8C6 0%, #FC2462 100%)
+© ꬶrb0_↓ linear-gradient(180deg,#21A8C6 0%, #FC2462 100%)
+© ꬶrb1_↓ linear-gradient(180deg,#30B2D5 0%, #FF3068 100%)
+© ꬶrb2_↓ linear-gradient(180deg,#35C0F0 0%, #FF4075 100%)
+
 © fg0 #ffffff
 © fg1 #dddddd
 © fg2 #a5a5a5
@@ -12,13 +17,15 @@
 © bg2 #545454
 
 :root ∣ 󰊄𝚏 "Symbols","Avenir"
+        @supports selector(::-webkit-scrollbar)
+          ::-webkit-scrollbar-thumb  ∣ 𝚋𝚐 ⦑ꬶrb0_↓⦒; 𝚋𝚛 100px
+          ::-webkit-scrollbar-thumb􍳵 ∣ 𝚋𝚐 ⦑ꬶrb1_↓⦒
+          ::-webkit-scrollbar-thumb􀴗 ∣ 𝚋𝚐 ⦑ꬶrb2_↓⦒
+          ::-webkit-scrollbar        ∣ 𝚠 1vw
+        @supports not selector(::-webkit-scrollbar)
+          scrollbar-color #E62 #38C4
 
 * ∣ 𝚃 background-color 0.2s ease
-
-::-webkit-scrollbar-thumb  ∣ 𝚋 #847; 𝚋𝚛 100px
-::-webkit-scrollbar-thumb􍳵 ∣ 𝚋 #A58
-::-webkit-scrollbar-thumb􀴗 ∣ 𝚋 #B59
-::-webkit-scrollbar        ∣ 𝚠 1vw 
 
 body              ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
 body,html         ∣ 𝚋 ⦑bg0⦒
@@ -48,8 +55,8 @@ button,.bigButton ∣  𝚃 all 0.2s ease
              𝚙↑ 5px
              𝚋↓ 5px solid
              [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
-                             border-image linear-gradient(90deg,rgba(33, 168, 198, 1) 0%, rgba(252, 36, 98, 1) 100%) 1
-             􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90deg,#0000 0%, #0000 100%) 1;
+                             border-image ⦑ꬶrb0_→⦒ 1
+             􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90deg,#0000   0%, #0000   100%) 1;
 .multiButtonBar ∣ 𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
 .itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 90vh
             𝚊𝙿󷷣; 𝚐 20px
@@ -76,8 +83,7 @@ button,.bigButton ∣  𝚃 all 0.2s ease
   >* ∣ «𝚠 𝚑» 10vw
         line-height 0
         𝚍 inline-flex;𝚊𝙿󷷣;𝚊𝚂󷷣
-        𝚖 1vw
-        𝚙 20px
+        𝚖 1vw; 𝚙 20px
         𝚋 2px solid #EEE; 𝚋𝚛 1000px
         󰊄𝚜 8vw; font-weight bold
         [c="R"] ∣ 𝚋 6px solid #F00
@@ -128,5 +134,54 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
               𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
               𝚜 ⦑fg0⦒33 0px 0px 20px 0px
               .editorDialog
+                𝚠 97.5vw; 𝚑 97.5vh
+                𝚖 5px; 𝚙 10px
                 𝚋 ⦑bg0⦒F5
-                𝚠 95vw; 𝚑 95vh
+
+
+.𝘌«modes atom»
+  [dragitem]􍳵
+    filter contrast(0.5) brightness(2)
+    𝚖𝚙 pointer
+  [maydrop]  ∣ 𝚘𝚕 2px dashed #FF0
+  [dragging] ∣ 𝚃𝚏 􍍝; opacity 0.25
+  >* * ∣ pointer-events 􋄅
+
+.𝘌modes
+  𝚏↓
+  >.𝘌atom
+    𝚘𝚏 clip; 𝚠 20px
+  >.𝘌tickmark
+    z-index 10
+
+.𝘌outer
+  𝚠;𝚑;𝚏↓
+  .𝘌«preview inspector»
+    𝚋 ⦑bg1⦒
+    𝚋 2px solid ⦑fg2⦒; 𝚋𝚛 10px
+  >.𝘌inner
+    𝚏→; 𝚑 85%
+    >.𝘌preview
+      >⁰ ∣ direction rtl; 𝚘𝚏y scroll
+            𝚑 calc(100% - 6px); «𝚖󷷤 𝚖←» 3px
+            >⁰ ∣ 𝚏→;direction ltr
+                  >.𝘌alignedLabels
+                    𝚏↓;𝚊𝙿←
+                    >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 180px
+                          z-index 10; 󰊄𝚜 24px
+                          >⁰ ∣ 𝚊𝙿󷷣; 𝚏↓; 𝚠 140px
+                                >⁰ ∣ 𝚏↓
+                          >􍨅 ∣ 𝚠 37.5px
+                                𝚋→ 1px dashed #FFF
+                  >.𝘌pixels
+                    𝚍 grid; place-items start start
+                    𝚑 max-content
+                    >.𝘌modes
+                      >.𝘌tickmark
+                        𝚋𝚛→ 10px
+                        􍳵 ∣ 𝚖𝚙 pointer
+    >.𝘌inspector
+      𝚏↓; 𝚏𝚐 1
+
+.vertBar ∣ 𝚋 ⦑bg2⦒
+           𝚋𝚛 100px

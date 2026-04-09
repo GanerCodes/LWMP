@@ -12,7 +12,135 @@
    rot: [1,speed,offset]
    lum: [2,ℝ⁰􍦛¹]
 
-© scene_count = ⥌M↦␛1∈M⭜M􊯛₁ ₀⭝M􊯛􊾡(scene_count)􋔩(󰲣x+y);  󰤱􊽨 make this cache
+© dat =
+{
+  "fx": [
+    [
+      1,
+      0,
+      0
+    ]
+  ],
+  "*": [
+    { "*": [{"1": [50,0,0xFF0000]},
+            {"1": [50,0,0x00FF00]},
+            {"1": [50,0,0x0000FF]}] },
+    {
+      "fx": [
+        [
+          1,
+          25,
+          0
+        ]
+      ],
+      "*": [
+        {
+          "1": [
+            5,
+            1,
+            3,
+            245,
+            50
+          ]
+        },
+        {
+          "1": [
+            45,
+            0,
+            4456448
+          ]
+        }
+      ]
+    },
+    {
+      "fx": [
+        [
+          1,
+          25,
+          0
+        ]
+      ],
+      "*": [
+        {
+          "1": [
+            22,
+            1,
+            1,
+            245,
+            50
+          ]
+        },
+        {
+          "1": [
+            15,
+            0,
+            17408
+          ]
+        }
+      ]
+    },
+    {
+      "fx": [
+        [
+          1,
+          25,
+          0
+        ]
+      ],
+      "*": [
+        {
+          "1": [
+            33,
+            1,
+            1,
+            245,
+            50
+          ]
+        },
+        {
+          "1": [
+            25,
+            0,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "fx": [
+        [
+          1,
+          25,
+          0
+        ]
+      ],
+      "*": [
+        {
+          "1": [
+            2,
+            1,
+            1,
+            245,
+            50
+          ]
+        },
+        {
+          "1": [
+            120,
+            0,
+            4456516
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+© scene_count = ⥌M↦isArr(M) ⭜M₁   ⭝
+                      ␛1∈M  ⭜M􊯛₁ ₀⭝
+                      M􊯛􊾡(󰲡scene_count(x))􋔩(󰲣x+y);  󰤱􊽨 make this cache
+©  = 󰲡‹rgb(⟦x>>16&0xFF⟧,⟦x>>8&0xFF⟧,⟦x>>0&0xFF⟧)›;
+
 prompt_editor = ⥌cb,𝔖,𝐬↦{
   © names  = 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓ⸮NAME??x);
   © counts = 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓᴸᴱᴰ󰀂);
@@ -20,49 +148,89 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
   
   ⎉ α,β;
   ©  = popup({󰅙:✓, noAppend:✓},
-              󱀝 div ⦅𝚠;𝚏↓;𝚊𝚂󷷣⦆ [
-                󱀝 h1 ‹Scene Editor - ⟦ctot⟧ Pixels›
-                󱀝 □ ⦅𝚑 40px⦆ ‹›
-                󱀝 div ⦅𝚏↓;𝚠 90%⦆ [
-                  󱀝:α □ ‹›
-                  󱀝:β □ ‹›
-                  󱀝:γ □ ‹›]]);
+              󱀝 div {𝐶 𝘌outer} [
+                󱀝 h2 ‹Scene Editor - ⟦ctot⟧ Pixels›
+                󱀝:α □ ‹›]);
+  ⎉ inspect;
   􋒅 ⁺(‹editorDialog›);
-  © render = 󰲟{
-    © dat = {"fx":[[1,0,0]],"*":[{"fx":[[1,25,0]],"*":[{"fx":[],"1":[25,1,3,245,50]},{"fx":[],"1":[25,0,4456448]}]},{"fx":[[1,25,0]],"*":[{"fx":[],"1":[25,1,1,245,50]},{"fx":[],"1":[25,0,17408]}]},{"fx":[[1,25,0]],"*":[{"fx":[],"1":[25,1,1,245,50]},{"fx":[],"1":[25,0,68]}]},{"fx":[[1,25,0]],"*":[{"fx":[],"1":[25,1,1,245,50]},{"fx":[],"1":[25,0,4456516]}]}]};
+  © render = ⥌dat,outer=✓↦{
+    ☾(‹render(⟦𝔍􋀫(dat)⟧, ⟦outer⟧)›);
+    © stot  = scene_count(dat);
+    © scale = 󰲡⤉(2,400/stot)⋅x;
     
-    © stot = scene_count(dat);
-    © 𝚠 = 0.9⋅(󰈙ᵇᵒᵈʸ ᶜˡⁱᵉⁿᵗᵂⁱᵈᵗʰ⋅0.95 - 2⋅30 - 4);
-    © scale = 󰲡x/⤉(ctot,stot)⋅𝚠;
-    
-    ©  = 󰲡‹rgb(⟦x>>16&0xFF⟧,⟦x>>8&0xFF⟧,⟦x>>0&0xFF⟧)›;
     © render_atom = ⥌[n,i,⠤M]↦{
+      © 𝗆 = 󰲡󱀝 div {𝐶 𝘌atom⍮ 𝑆 ⟦⦅𝚑 ⟦scale(n)⟧px⦆+␛;+x⟧} ‹› 
       ¿(i≡0) {
         © [𝚌] = M;
-        ↪󱀝 div {𝐶 𝘌atom⍮ ⦅𝚠 ⟦scale(n)⟧px; 𝚑 10px; 𝚋 ⟦(𝚌)⟧⦆} ‹› }
+        ↪𝗆(⦅𝚋 ⟦(𝚌)⟧⦆); }
       ⸘(i≡1) {
         © [seg,sat,val] = M;
-        © 🌈 = ‹linear-gradient(90deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ⟦100/seg⟧% 100% repeat-x›;
-        ↪󱀝 div {𝐶 𝘌atom⍮ ⦅𝚠 ⟦scale(n)⟧px; 𝚑 10px; background ⟦🌈⟧⦆} ‹› }
+        © 🌈 = ‹linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ⟦100/seg⟧% 100% repeat-x›;
+        ↪𝗆(⦅background ⟦🌈⟧⦆); };
       ↪‹󰤱›;
     };
     
-    © render_𝖬 = ⥌M↦{
-      © modebar = 󱀝 div ⦅𝚋 1px solid #FFF⦆  [󱀝 T ‹›];
-      © C = ␛1∈M ⭜render_atom(M􊯛₁)⭝ 󱀝 div ⦅𝚏→⦆ ⟦M􊯛􊾡(󰲡render_𝖬(x))⟧;
-      ↪󱀝 div {𝐶 𝘌mode⍮ ⦅𝚏↓;𝚠 ⟦scale(scene_count(M))⟧px⦆} ⟦[modebar,C]⟧; };
+    © render_tick = ⥌𝚒,m=40,b=20↦{
+      © [p,s] = [⤉(1,3÷𝚒)    , b+m÷𝚒];
+      © [l,α] = [255-40⋅(𝚒-1), 100  ];
+      © clr = ‹rgba(⟦l⟧,⟦l⟧,⟦l⟧,⟦α⟧%)›;
+      © cnd = 𝚒>1⭜‹;pointer-events:none›⭝ᐦ;
+      ↪󱀝 div {𝐶 𝘌tickmark⍮ 𝑆 ⟦⦅𝚋 ⟦clr⟧; 𝚠 ⟦s⟧px; «𝚑 𝚑≥» ⟦p⟧px; 𝚖↓ ⟦-p⟧px⦆+cnd⟧} ‹›
+    };
     
+    © render_𝖬 = ⥌M,n=0↦{
+      © isAtom = isArr(M);
+      ⎉ C = isAtom ⭜[render_atom(M  )]⭝
+             ␛1∈M  ⭜[render_atom(M􊯛₁)]⭝
+                    M􊯛􊾡(󰲣render_𝖬(x,n+1));
+      C = C􊾡(󰲣(xⁱᵈˣ=y,x));
+      ¿(C􋌵>1) C = C􌿑􋇙(󰲟render_tick(n+1));
+      ⎉  = 󱀝 div {𝐶 𝘌modes} ⟦C⟧;
+      
+      ¿(¬isAtom ∧ (n≡0 ∧ C􋌵>1 ∨ C₀􋌵>1)) {
+        C􋁃(⥌c↦{
+          c = dragItem(c,n,󰲣{
+            swapə(x,y);
+            © d = dat􊯛;
+            [dₓ􊬖􊫵􊫄,d􊬖􊫵􊫄] = [d􊬖􊫵􊫄,dₓ􊬖􊫵􊫄];
+            render(dat,outer); });
+          c.onclick = 󰲟{
+            ☾(dat,cⁱᵈˣ);
+            render(dat􊯛 􋑴􊬖􊫵􊫄, ✗); }
+        }); }
+      ⸘(n>1) 􋛟 ᵖᵒⁱⁿᵗᵉʳᴱᵛᵉⁿᵗˢ = ‹none›;
+      ¿(n≡0) { ⁱᵈˣ = 0;
+               © x = (⥌𝚚,=󰈙↦[⠤.matches(𝚚)⭜[]⭝[],⠤QSA(𝚚,)])(‹.𝘌atom›,);
+               ☾(,x);
+               x₀   􋛟.borderTopRightRadius    = ‹10px›;
+               x􋕛(󷰾)􋛟.borderBottomRightRadius = ‹10px›; }
+      ↪; };
+    
+    © set_inspector = ⥌↦{
+      ☾(,ⁱᵈˣ)
+    };
+    
+    © dat = render_𝖬(dat);
+    set_inspector(dat);
+    
+    © ətriLabel = ⥌n,⠤𝔸↦
+      󱀝 div ⦅𝚑≥ ⟦scale(n)⟧px⦆ [
+        󱀝 div ⟦𝔸⟧
+        󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
+          󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
+    © labels = outer ⭜ ↨(󱑼(names,counts))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧›))
+                      ⭝ ətriLabel(stot, 󱀝 T ‹⟦stot⟧›, 󱀝 T ‹Pixels›);
     α.replaceWith(α = 
-      󱀝 div ⦅𝚠;𝚏↓;𝚊𝙿←;󰊄𝚊 left⦆ ⟦
-        ↨(󱑼(names,counts))􋅝(⥌i,[n,c]↦󱀝 T ‹⟦i⟧ - ⟦n⟧ (⟦c⟧)›)⟧);
-    β.replaceWith(β = 
-      󱀝 div ⦅𝚠;𝚏→;𝚊𝙿←⦆ ⟦
-        ↨(counts)􋅝(⥌i,n↦󱀝 span 
-          ⦅«𝚋󷷢 𝚋↑» 1px solid #FFF; 𝚠 ⟦scale(n)⟧px⦆ [󱀝 T ⦅𝚠 0px⦆ ‹⟦i⟧›])
-      ⟧);
-    γ.replaceWith(render_𝖬(dat));
+      󱀝 div {𝐶 𝘌inner} [
+        󱀝 div {𝐶 𝘌preview} [
+          󱀝 div [
+            󱀝 div [
+              󱀝 div {𝐶 𝘌alignedLabels} ⟦labels⟧
+              󱀝 div {𝐶 𝘌pixels} ⟦dat⟧]]]
+        󱀝 div {𝐶 vertBar⍮ ⦅𝚖󷷢 20px; 𝚠 10px⦆} ‹›
+        󱀝:inspect div {𝐶 𝘌inspector}]);
   };
-  render();
+  render(dat);
   
   󰈙.body􍪙(); .showModal();
    cb(𝐬);
