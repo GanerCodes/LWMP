@@ -12,6 +12,8 @@
    rot: [1,speed,offset]
    lum: [2,ℝ⁰􍦛¹]
 
+© grp_fx = 󰲡xᶠˣ ⭜ ᴍv(xᶠˣ 􋕁(󰲡x₀), 󰲡x􍦛(1))⭝ {};
+
 © dat =
 {
   "fx": [
@@ -207,7 +209,18 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
       ↪; };
     
     © set_inspector = ⥌↦{
-      ☾(,ⁱᵈˣ)
+      ☾(,ⁱᵈˣ);
+      
+        󷸾 
+       󱦙  󰳲
+      
+      ¿(isArr(dat)) ↪☾(␛󰤱);
+      grp_fx(dat)
+      div {𝐶 𝘌effects}
+      ¿(¬(‹fx›∈dat)) datᶠˣ = {};
+      
+      datᶠˣ⸮
+      [󱀝 T ‹Direction›] ⟦toggleButton(󰲡datᶠˣ,␛,␛)⟧
     };
     
     © dat = render_𝖬(dat);
@@ -218,8 +231,8 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
         󱀝 div ⟦𝔸⟧
         󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
           󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
-    © labels = outer ⭜ ↨(󱑼(names,counts))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧›))
-                      ⭝ ətriLabel(stot, 󱀝 T ‹⟦stot⟧›, 󱀝 T ‹Pixels›);
+    © labels = outer ⭜ ↨(󱑼(names,counts))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pixels›))
+                      ⭝ ətriLabel(stot, 󱀝 T ‹⟦stot⟧ Pixels›);
     α.replaceWith(α = 
       󱀝 div {𝐶 𝘌inner} [
         󱀝 div {𝐶 𝘌preview} [
@@ -227,7 +240,7 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
             󱀝 div [
               󱀝 div {𝐶 𝘌alignedLabels} ⟦labels⟧
               󱀝 div {𝐶 𝘌pixels} ⟦dat⟧]]]
-        󱀝 div {𝐶 vertBar⍮ ⦅𝚖󷷢 20px; 𝚠 10px⦆} ‹›
+        󱀝 div {𝐶 vertBar⍮ ⦅𝚠 10px⦆} ‹›
         󱀝:inspect div {𝐶 𝘌inspector}]);
   };
   render(dat);

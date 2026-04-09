@@ -322,10 +322,11 @@ dialog:open {
   border: 2px solid #ffffff;
   border-radius: 10px;
   box-shadow: #ffffff33 0px 0px 20px 0px;
+  overflow-y: scroll;
   &.editorDialog {
-    width: 97.5vw;
+    width: min(97.5vw,1000px);
     height: 97.5vh;
-    margin: 5px;
+    margin: auto;
     padding: 10px;
     background-color: #2b2b2bF5;
   }
@@ -362,23 +363,33 @@ dialog:open {
   height: 100%;
   display: flex;
   flex-direction: column;
+  .𝘌preview {
+    min-width: min(45%, 300px);
+    max-width: 45%;
+  }
+  .𝘌inspector {
+    max-width: 45%;
+  }
   .𝘌preview, .𝘌inspector {
     background-color: #3d3d3d;
-    border: 2px solid #a5a5a5;
+    border: 3px solid #545454;
     border-radius: 10px;
   }
   &>.𝘌inner {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     height: 85%;
     &>.𝘌preview {
       &>:first-child {
-        direction: rtl;
+        display: grid;
+        align-content: space-around;
         overflow-y: scroll;
         height: calc(100% - 6px);
         margin-top: 3px;
         margin-bottom: 3px;
         margin-left: 3px;
+        direction: rtl;
         &>:first-child {
           display: flex;
           flex-direction: row;
@@ -411,9 +422,9 @@ dialog:open {
             }
           }
           &>.𝘌pixels {
+            margin-left: -1px;
             display: grid;
             place-items: start start;
-            height: max-content;
             &>.𝘌modes {
               &>.𝘌tickmark {
                 border-top-right-radius: 10px;
@@ -435,6 +446,6 @@ dialog:open {
   }
 }
 .vertBar {
-  background-color: #545454;
+  background-color: #3d3d3d;
   border-radius: 100px;
 }

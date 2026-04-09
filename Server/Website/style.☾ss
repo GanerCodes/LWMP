@@ -134,8 +134,8 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
               𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
               𝚜 ⦑fg0⦒33 0px 0px 20px 0px
               .editorDialog
-                𝚠 97.5vw; 𝚑 97.5vh
-                𝚖 5px; 𝚙 10px
+                𝚠 min(97.5vw,1000px); 𝚑 97.5vh
+                𝚖a; 𝚙 10px
                 𝚋 ⦑bg0⦒F5
 
 
@@ -156,14 +156,17 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
 
 .𝘌outer
   𝚠;𝚑;𝚏↓
+  .𝘌preview ∣ 𝚠≥ min(45%, 300px); 𝚠≤ 45%
+  .𝘌inspector ∣ 𝚠≤ 45%
   .𝘌«preview inspector»
     𝚋 ⦑bg1⦒
-    𝚋 2px solid ⦑fg2⦒; 𝚋𝚛 10px
+    𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 10px
   >.𝘌inner
-    𝚏→; 𝚑 85%
+    𝚏→; 𝚊𝙿e; 𝚑 85%
     >.𝘌preview
-      >⁰ ∣ direction rtl; 𝚘𝚏y scroll
+      >⁰ ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
             𝚑 calc(100% - 6px); «𝚖󷷤 𝚖←» 3px
+            direction rtl
             >⁰ ∣ 𝚏→;direction ltr
                   >.𝘌alignedLabels
                     𝚏↓;𝚊𝙿←
@@ -174,8 +177,8 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
                           >􍨅 ∣ 𝚠 37.5px
                                 𝚋→ 1px dashed #FFF
                   >.𝘌pixels
+                    𝚖← -1px
                     𝚍 grid; place-items start start
-                    𝚑 max-content
                     >.𝘌modes
                       >.𝘌tickmark
                         𝚋𝚛→ 10px
@@ -183,5 +186,5 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
     >.𝘌inspector
       𝚏↓; 𝚏𝚐 1
 
-.vertBar ∣ 𝚋 ⦑bg2⦒
+.vertBar ∣ 𝚋 ⦑bg1⦒
            𝚋𝚛 100px
