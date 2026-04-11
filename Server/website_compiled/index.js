@@ -18,5 +18,5 @@
 þF0219 . body . append(þ0E27Fnav) ; 
 
 QS(`.bigButton`) . click() ; 
-setTimeout( (...𝔸)=> QSA(`              .barButton`)[2] . click() ,  200) ; 
-setTimeout( (...𝔸)=> QSA(`.itemGridItem .barButton`)[1] . click() ,  300) ; 
+setTimeout( (...𝔸)=> QSA(`              .barButton`)[2] . click() ,  300) ; 
+setTimeout( (...𝔸)=> QSA(`.itemGridItem .barButton`)[1] . click() ,  500) ; 

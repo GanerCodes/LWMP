@@ -7,18 +7,20 @@
 Ϣ . textButton  =  (x , ƒ , 𝕂) => {  const  ə  =  mkə(`button` , { ... (𝕂 || {})} , `${x}`)
                         ə . onclick  =  ƒ ; 
                          return ə ;  } ; 
-Ϣ . toggleButton  =  (ƒ , N , Y , S =  false  , set_init =  true ) => {
+Ϣ . toggleButton  =  (ƒ , N , Y , S =  false  , Ѧ = {}) => {
+  Ѧ  =  {init :  true  , polar :  true  ,  ... Ѧ} ; 
   S  =   +  !  ! S ; 
-   if (isStr(N)) [N , Y]  =  [N , Y] . ᴍ( (x,...𝔸)=>  mkə(`button` , {[`𝑆`] : `height: 100%; 𝚙𝚕: 6px; 𝚙𝚛: 6px; border: none;`} , `${x}`)) ; 
-   let  n  =  mkə( false  , {} ,  false ) ; 
-   let  ə  =  S ? Y : N ; 
-  n . replaceWith(ə) ; 
-   const  ꬶ  =  ə . onclick  =   (...𝔸)=> { n . replaceWith(ə) ; 
-                       ə . replaceWith(n  =  (S =  ! S) ? Y : N) ; 
-                       n . onclick  =  ꬶ ; 
-                        return ƒ(S) ;  }
-   if (set_init) ƒ(S) ; 
-   return ə ;  } ; 
+   if (isStr(N)) [N , Y]  =  [N , Y] . ᴍ( (x,...𝔸)=>  mkə(`button` ,  false  , `${x}`)) ; 
+  
+  Ѧ  =  {  ... Ѧ , S , Y , N , þ0E27F : S ? Y : N , 
+           set :  (s =  undefined ) => { Ѧ . S  =  s ===  undefined   ?  ! Ѧ . S :   + s ; 
+                       swapə(Ѧ . þ0E27F , Ѧ . þ0E27F = Ѧ . S ? Ѧ . Y : Ѧ . N) ; 
+                        return ƒ(Ѧ . S) ;  } } ; 
+  Ѧ . polar  &&  SAT(N , `off`) ;  N . onclick  =   (...𝔸)=> Ѧ . set( true ) ; 
+  Ѧ . polar  &&  SAT(Y , `on`) ;  Y . onclick  =   (...𝔸)=> Ѧ . set( false ) ; 
+  
+   if (Ѧ . init) Ѧ . set(Ѧ . S) ; 
+   return Ѧ ;  } ; 
 Ϣ . textField  =  (Ѧ) => { 
    let  ə ; 
    let  fld  =  mkə(`input` , {[`𝑆`] : `flex-grow: 2; min-width: 0; padding: 2px; height: 100%; border: none;` ,  ... (Ѧ)} ,  false ) ; 

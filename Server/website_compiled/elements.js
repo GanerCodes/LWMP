@@ -43,3 +43,17 @@
   þ0E27F . set() ; 
   þ0E27F . Ѧ  =  Ѧ ; 
    return þ0E27F ;  }
+
+əslider  =  (Ѧ = {}) => {
+  Ѧ  =  {init :  true  , l : 0 , h : 100 , s : 0 , ƒ :  þF0EFE  ,  ... Ѧ} ; 
+   if ( ! (`v` in Ѧ)) Ѧ . v  =  Ѧ . l ; 
+   const  þ0E27F  =  Ѧ . þ0E27F  =  mkə(`input` , {[`type`] : `range` , [`min`] : Ѧ . l , [`defaultValue`] : Ѧ . v , [`max`] : Ѧ . h , [`step`] : Ѧ . s} , ``) ; 
+  þ0E27F . value  =  Ѧ . v ; 
+  Ѧ . set  =  (v =  undefined ) => {  if (v ===  undefined ) v  =   + þ0E27F . value ; 
+                 else       þ0E27F . value  =  v ; 
+                Ѧ . ƒ(Ѧ . v  =  v) ; 
+                 return Ѧ . v ;               } ; 
+  AEL(þ0E27F , `input` ,  (...𝔸)=> Ѧ . set()) ; 
+  þ0E27F . Ѧ  =  Ѧ ; 
+   if (Ѧ . init) Ѧ . set() ; 
+   return þ0E27F ;  }

@@ -15,6 +15,7 @@
 © bg0 #2b2b2b
 © bg1 #3d3d3d
 © bg2 #545454
+© bg3 #606060
 
 :root ∣ 󰊄𝚏 "Symbols","Avenir"
         @supports selector(::-webkit-scrollbar)
@@ -25,10 +26,31 @@
         @supports not selector(::-webkit-scrollbar)
           scrollbar-color #E62 #38C4
 
+
+
+⎊ 𝐑𝐠𝐞𝐧 ∣ 𝚠𝚔𝚊□; 𝚖𝚙 pointer
+⎊ 𝐑𝐭𝐫𝐚𝐜𝐤 ∣ 𝐑𝐠𝐞𝐧; 𝚑
+           𝚋 ⦑bg0⦒; 𝚋 􋄅; 𝚋𝚛 25px
+⎊ 𝐑𝐭𝐡𝐮𝐦𝐛 ∣ 𝐑𝐠𝐞𝐧; «𝚠 𝚑» 20px; 𝚖↑ -5px
+           box-sizing border-box
+           𝚋 #0000; 𝚋𝚛 50px
+input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 10px; 𝚖󷷤 8px
+                    𝚋 #0000
+                    􎁎 ∣ 𝚘𝚕 􋄅
+⦑𝚝𝚛𝚊𝚌𝚔wk⦒  ∣ 𝐑𝐭𝐫𝐚𝐜𝐤
+⦑𝚝𝚛𝚊𝚌𝚔mz⦒  ∣ 𝐑𝐭𝐫𝐚𝐜𝐤
+⦑𝚝𝚑𝚞𝚖𝚋wk⦒  ∣ 𝐑𝐭𝐡𝐮𝐦𝐛; 𝚋 5px solid ⦑fg2⦒
+⦑𝚝𝚑𝚞𝚖𝚋mz⦒  ∣ 𝐑𝐭𝐡𝐮𝐦𝐛; 𝚋 5px solid ⦑fg2⦒
+⦑𝚝𝚑𝚞𝚖𝚋wk⦒􍳵 ∣         𝚋 5px solid ⦑fg1⦒
+⦑𝚝𝚑𝚞𝚖𝚋mz⦒􍳵 ∣         𝚋 5px solid ⦑fg1⦒
+⦑𝚝𝚑𝚞𝚖𝚋wk⦒􍳫 ∣         𝚋 5px solid ⦑fg0⦒
+⦑𝚝𝚑𝚞𝚖𝚋mz⦒􍳫 ∣         𝚋 5px solid ⦑fg0⦒
+
 * ∣ 𝚃 background-color 0.2s ease
 
 body              ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
 body,html         ∣ 𝚋 ⦑bg0⦒
+button            ∣ 𝚃 all 0.2s ease
 
 .icon ∣ 𝚑 0.75em
         vertical-align center
@@ -38,8 +60,7 @@ input,.boxInput   ∣ 𝚋 ⦑bg1⦒
 .dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
   𝚋 #0000
 .boxInput􍴍 ∣ 𝚋 􍍝
-button,.bigButton ∣  𝚃 all 0.2s ease
-                    𝚋 􍍝
+button,.bigButton ∣ 𝚋 􍍝
                      ⦑fg1⦒EE; 𝚋 #0000
                     􎁎 ∣ 𝚃𝚏 􍍝
                           ⦑fg0⦒; 𝚋 #0002
@@ -184,7 +205,28 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
                         𝚋𝚛→ 10px
                         􍳵 ∣ 𝚖𝚙 pointer
     >.𝘌inspector
-      𝚏↓; 𝚏𝚐 1
+      𝚏↓;𝚏𝚐 1;𝚙↑ 8px;󰊄𝚜 20px
+       div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
+       label       ∣ 󰊄𝚜 1.3em; 𝚖󷷤 0.1em
+      
+      >􋁕⁽span󰁱div⁾ ∣ 𝚖󷷤 10px
+      >.𝘌toggleSection
+        𝚏→;𝚊«𝙿 𝚂»󷷣
+        𝚋 ⦑bg2⦒
+        >* ∣ 𝚏↓;𝚊𝙿󷷣
+              𝚖 10px; 𝚙 5px; 𝚋𝚛 0.2em
+              «𝚠 𝚠≤ 𝚠≥ 𝚑 𝚑≤ 𝚑≥» 1em
+              󰊄𝚜 2em
+              𝚋 2px solid ⦑fg2⦒
+              [off] ∣ 𝚋 ⦑bg2⦒
+                    ∣ 𝚋 ⦑bg1⦒
+              [on ] ∣ 𝚋 ⦑bg0⦒
+      >.𝘌fxSection, >.𝘌fxSection div
+        𝚏↓;𝚊𝚂󷷣;𝚖󷷤 5px;𝚙 0.5em
+       .𝘌fxSection
+        𝚠 ;𝚋 ⦑bg2⦒
+       .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
+        𝚠󷷈;𝚋 #FFF1;𝚋𝚛 0.5em
 
 .vertBar ∣ 𝚋 ⦑bg1⦒
            𝚋𝚛 100px

@@ -17,5 +17,5 @@
 󰈙.body􍪙(nav);
 
 QS(‹.bigButton›).click();
-setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 200);
-setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 300);
+setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 300);
+setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 500);

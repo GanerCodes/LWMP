@@ -2,7 +2,7 @@
 BASE_CHARSET  =  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' ; 
 
 þF0219  =  document ; 
-[𝐴 , 𝐸 , 𝑜]  =  [Array , Element , Object] ; 
+[𝐴 , 𝐸 , 𝑜 ,  þ0221E ]  =  [Array , Element , Object , Infinity] ; 
 [𝒪 , 𝒟 , 𝒪k , 𝒪v]  =  [𝑜 . entries , 𝑜 . fromEntries , 𝑜 . keys , 𝑜 . values] ; 
 𝒪ℳ  =   (x,...𝔸)=> x .  ſ ( (x,y,...𝔸)=> ({ ... x ,  ... y})) ; 
 𝔓  =   (x,...𝔸)=> x . prototype ; 
@@ -42,8 +42,8 @@ mk_id  =  (l , chars = BASE_CHARSET) =>  þ02B65 (l) . ᴍ( (...𝔸)=> chars . 
                 þF0232  :   (x,...𝔸)=> x . filter (        ... 𝔸) , 
                 þF7E3B  :   (x,...𝔸)=> x . slice  (        ... 𝔸) , 
                 ꟿ  :   (x,y,...𝔸)=> x . map    ( (x,...𝔸)=> y( ... x) ,  ... 𝔸) , 
-                þ022C0  :   (x,...𝔸)=> x . every  (x ,  þF0EFE       ) , 
-                þ022C1  :   (x,...𝔸)=> x . some   (x ,  þF0EFE       ) } ; 
+                þ022C0  :   (x,...𝔸)=> x . every  ( þF0EFE         ) , 
+                þ022C1  :   (x,...𝔸)=> x . some   ( þF0EFE         ) } ; 
 arrayLike . þ02A1D𝑙  =   (x,y,...𝔸)=> [x[0] ,  ... x . þF7E3B(0 , -1) . ᴍþF01A9((c , i) => [y(c , x[i + 1]) , x[i + 1]])] ; 
 𝒪(arrayLike) . forEach(([s , ƒ]) => {
   window[s]  =   (x,...𝔸)=> ƒ(isElement(x) ? 𝐴 . from(x) : x ,  ... 𝔸) ; 
@@ -52,6 +52,7 @@ arrayLike . þ02A1D𝑙  =   (x,y,...𝔸)=> [x[0] ,  ... x . þF7E3B(0 , -1) . 
 
 AEL  =   (x,...𝔸)=> x . addEventListener( ... 𝔸) ; 
 SAT  =  (x , y , z =  "" ) => x . setAttribute(y , z) ; 
+HAT  =   (x,...𝔸)=> 𝔸 . ᴍ((a) => x . hasAttribute(a)) . þ022C0() ; 
 RAT  =   (x,...𝔸)=> 𝔸 . forEach((a) => x . removeAttribute(a)) ; 
 GID  =   (x,...𝔸)=> document . getElementById(x) ; 
 VAL  =   (x,...𝔸)=> GID(x) . value ; 
@@ -69,24 +70,23 @@ isElm  =   (x,...𝔸)=> x instanceof Element  ||  x instanceof HTMLDocument ;
 
 
 chainIntoElements  =  (x , P) => {
-     if ( ! (isArray(x)  ||  isStr(x)  ||  isElement(x)))
+     if ( ! (isArr(x)  ||  isStr(x)  ||  isElm(x)))
         x  =  [] ; 
-     else     if ( ! isArray(x)) x  =  [x] ; 
-        x  =  x . ᴍ((𝚎) => isStr(𝚎)  ? þF0219 . createTextNode(𝚎) :  𝚎) ; 
+     else    x  =  (isArr(x) ? x . þF01A9( þ0221E ) : [x])
+               . ᴍ((𝚎) => isStr(𝚎)  ? þF0219 . createTextNode(𝚎) :  𝚎) ; 
      if (P ===  undefined )  return x
     P . append( ... x) ; 
      return P ;  }
 
+ const  NSElmNames  =   new  Set(`svg g defs symbol use path rect circle ellipse line polyline polygon text tspan textPath linearGradient radialGradient stop pattern clipPath mask animate animateMotion animateTransform set metadata title desc view image foreignObject marker switch style` . split(` `)) ; 
 mkə  =  (name , attrs , kids) => {
      const  remaps  =  { onclick : "onclick" ,  closedby : "closedBy" ,  NAME : "T" ,  𝑇𝐼 : "tabIndex" ,  𝑃𝐻 : "placeholder" ,  𝑇 : "type" ,  𝐼 : "id" ,  𝐶 : "className" } ; 
     kids  =  chainIntoElements(kids) ; 
-     if (𝗙(name))  return name(attrs ,  ... kids)
+     if (𝗙(name))  return name(attrs ,  ... kids) ; 
      if (name ===  false ) name  =  "div" ; 
-     let  þ0E27F  =  `svg g defs symbol use path rect circle ellipse line polyline polygon text tspan textPath linearGradient radialGradient stop pattern clipPath mask animate animateMotion animateTransform set metadata title desc view image foreignObject marker switch style`
-             . split(` `) . includes(name)
-               ? þF0219 . createElementNS(`http://www.w3.org/2000/svg` , name)
-               : þF0219 . createElement(name) ; 
-    þ0E27F . append( ... kids)
+     let  þ0E27F  =  NSElmNames . has(name)  ?  þF0219 . createElementNS(`http://www.w3.org/2000/svg` , name)
+                                :  þF0219 . createElement(name) ; 
+    þ0E27F . append( ... kids) ; 
      if (attrs)
       𝒪(attrs) . forEach(([k , v]) => {
          if (k == `𝑆`    ) þ0E27F . style . cssText  =  v ; 
@@ -95,8 +95,12 @@ mkə  =  (name , attrs , kids) => {
     
      return þ0E27F ;  } ; 
 
-swapə  =   (x,y,...𝔸)=> {  let  χ  =  mkə(`div;` ,  false  ,  false )
-           x . parentNode . insertBefore(χ , x) ; 
-           y . parentNode . insertBefore(x , y) ; 
-           χ . parentNode . insertBefore(y , χ) ; 
-           χ . remove() ;  } ; 
+swapə  =   (x,y,...𝔸)=> {  if (x === y)  return  ; 
+            const  p  =  [x . parentNode , y . parentNode] ; 
+            if (p . þ022C0()) {  let  χ  =  mkə(`div;` ,  false  ,  false )
+                     p[0] . insertBefore(χ , x) ; 
+                     y[1] . insertBefore(x , y) ; 
+                     χ . parentNode . insertBefore(y , χ) ; 
+                     χ . remove() ;  }
+            else if (p[0]) p[0] . replaceChild(y , x) ; 
+            else if (p[1]) p[0] . replaceChild(x , y) ;  } ; 
