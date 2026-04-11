@@ -1,62 +1,72 @@
-@font-face ∣ 󰊄𝚏 "Avenir";
-             src url("/Assets/Tomkin-Regular.woff2")
-              src url("/Assets/Avenir.woff2")
-@font-face ∣ 󰊄𝚏 "Symbols"
-             src url("/Assets/Symbols.woff2")
-
-© ꬶrb0_→ linear-gradient( 90deg,#21A8C6 0%, #FC2462 100%)
-© ꬶrb0_↓ linear-gradient(180deg,#21A8C6 0%, #FC2462 100%)
-© ꬶrb1_↓ linear-gradient(180deg,#30B2D5 0%, #FF3068 100%)
-© ꬶrb2_↓ linear-gradient(180deg,#35C0F0 0%, #FF4075 100%)
-
 © fg0 #ffffff
 © fg1 #dddddd
 © fg2 #a5a5a5
+© fg3 #808080
 © bg0 #2b2b2b
 © bg1 #3d3d3d
 © bg2 #545454
 © bg3 #606060
+⊖ ꬶrb0_→ linear-gradient( 90􋠏,#21A8C6 0%, #FC2462 100%)
+⊖ ꬶrb0_↓ linear-gradient(180􋠏,#21A8C6 0%, #FC2462 100%)
+⊖ ꬶrb1_↓ linear-gradient(180􋠏,#30B2D5 0%, #FF3068 100%)
+⊖ ꬶrb2_↓ linear-gradient(180􋠏,#35C0F0 0%, #FF4075 100%)
 
-:root ∣ 󰊄𝚏 "Symbols","Avenir"
-        @supports selector(::-webkit-scrollbar)
+ idiot hack for scaling bc px aren't pixels
+⊖ 𝗐 vw * 󰁘(--zvw)
+⊖ 𝗁 vh * 󰁘(--zvh)
+:root ∣ --zoom 1
+        --zvw 􊽺(1vw * 󰁘(--zoom))
+        --zvh 􊽺(1vh * 󰁘(--zoom))
+        𝚣𝚘𝚘𝚖 󰁘(--zoom)
+        󰊄𝚜 1.5em
+@media (max-width:768px), (max-height:600px)
+  :root ∣ --zoom 0.6
+
+ idiot hack for scrollbars bc it's still somehow not standardized 
+:root ∣ @supports selector(::-webkit-scrollbar)
           ::-webkit-scrollbar-thumb  ∣ 𝚋𝚐 ⦑ꬶrb0_↓⦒; 𝚋𝚛 100px
           ::-webkit-scrollbar-thumb􍳵 ∣ 𝚋𝚐 ⦑ꬶrb1_↓⦒
           ::-webkit-scrollbar-thumb􀴗 ∣ 𝚋𝚐 ⦑ꬶrb2_↓⦒
-          ::-webkit-scrollbar        ∣ 𝚠 1vw
+          ::-webkit-scrollbar        ∣ 𝚠 0.15em
         @supports not selector(::-webkit-scrollbar)
           scrollbar-color #E62 #38C4
-
-
-
 ⎊ 𝐑𝐠𝐞𝐧 ∣ 𝚠𝚔𝚊□; 𝚖𝚙 pointer
 ⎊ 𝐑𝐭𝐫𝐚𝐜𝐤 ∣ 𝐑𝐠𝐞𝐧; 𝚑
            𝚋 ⦑bg0⦒; 𝚋 􋄅; 𝚋𝚛 25px
-⎊ 𝐑𝐭𝐡𝐮𝐦𝐛 ∣ 𝐑𝐠𝐞𝐧; «𝚠 𝚑» 20px; 𝚖↑ -5px
-           box-sizing border-box
-           𝚋 #0000; 𝚋𝚛 50px
-input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 10px; 𝚖󷷤 8px
+⎊ 𝐑𝐭𝐡𝐮𝐦𝐛 ∣ 𝐑𝐠𝐞𝐧; 𝚋𝚘𝚡𝚜b
+           «𝚠 𝚑» 1em; 𝚖↑ -0.25em
+           𝚋 #0000; 𝚋𝚛 9999px
+input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
                     𝚋 #0000
                     􎁎 ∣ 𝚘𝚕 􋄅
 ⦑𝚝𝚛𝚊𝚌𝚔wk⦒  ∣ 𝐑𝐭𝐫𝐚𝐜𝐤
 ⦑𝚝𝚛𝚊𝚌𝚔mz⦒  ∣ 𝐑𝐭𝐫𝐚𝐜𝐤
-⦑𝚝𝚑𝚞𝚖𝚋wk⦒  ∣ 𝐑𝐭𝐡𝐮𝐦𝐛; 𝚋 5px solid ⦑fg2⦒
-⦑𝚝𝚑𝚞𝚖𝚋mz⦒  ∣ 𝐑𝐭𝐡𝐮𝐦𝐛; 𝚋 5px solid ⦑fg2⦒
-⦑𝚝𝚑𝚞𝚖𝚋wk⦒􍳵 ∣         𝚋 5px solid ⦑fg1⦒
-⦑𝚝𝚑𝚞𝚖𝚋mz⦒􍳵 ∣         𝚋 5px solid ⦑fg1⦒
-⦑𝚝𝚑𝚞𝚖𝚋wk⦒􍳫 ∣         𝚋 5px solid ⦑fg0⦒
-⦑𝚝𝚑𝚞𝚖𝚋mz⦒􍳫 ∣         𝚋 5px solid ⦑fg0⦒
+⦑𝚝𝚑𝚞𝚖𝚋wk⦒  ∣ 𝐑𝐭𝐡𝐮𝐦𝐛; 𝚋 0.33em solid ⦑fg2⦒
+⦑𝚝𝚑𝚞𝚖𝚋mz⦒  ∣ 𝐑𝐭𝐡𝐮𝐦𝐛; 𝚋 0.33em solid ⦑fg2⦒
+⦑𝚝𝚑𝚞𝚖𝚋wk⦒􍳵 ∣         𝚋 0.33em solid ⦑fg1⦒
+⦑𝚝𝚑𝚞𝚖𝚋mz⦒􍳵 ∣         𝚋 0.33em solid ⦑fg1⦒
+⦑𝚝𝚑𝚞𝚖𝚋wk⦒􍳫 ∣         𝚋 0.33em solid ⦑fg0⦒
+⦑𝚝𝚑𝚞𝚖𝚋mz⦒􍳫 ∣         𝚋 0.33em solid ⦑fg0⦒
 
-* ∣ 𝚃 background-color 0.2s ease
+ unironic styling
+@font-face ∣ 󰊄𝚏 "Avenir" ; src url("/Assets/Tomkin-Regular.woff2")
+@font-face ∣ 󰊄𝚏 "Symbols"; src url("/Assets/Symbols.woff2"       )
+:root ∣ 󰊄𝚏 "Symbols","Avenir"
 
-body              ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
-body,html         ∣ 𝚋 ⦑bg0⦒
-button            ∣ 𝚃 all 0.2s ease
+*         ∣ 𝚃 background-color 0.2s ease
+body      ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
+body,html ∣ 𝚋 ⦑bg0⦒
+button    ∣ 𝚙𝚘𝚜r
+            𝚃 all 0.2s ease
+            𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣
+            􋒗 ∣  ⦑fg3⦒
+                 opacity 0.5
+            𝚋𝚐󰈲 brightness(1.1)
 
-.icon ∣ 𝚑 0.75em
-        vertical-align center
-.box ∣ 𝚋𝚛 .5vw
+.icon ∣ 𝚑 0.75em; 𝚟𝚊 center
+.box ∣ 𝚋𝚛 10px
 
-input,.boxInput   ∣ 𝚋 ⦑bg1⦒
+input,.boxInput ∣ 𝚋 ⦑bg1⦒
 .dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
   𝚋 #0000
 .boxInput􍴍 ∣ 𝚋 􍍝
@@ -67,19 +77,19 @@ button,.bigButton ∣ 𝚋 􍍝
                          𝚖𝚙 pointer
                     􀴗 ∣ 𝚃𝚏 􍍝
                           ⦑fg0⦒; 𝚋 #0004
-.«hbar bigButton»      ∣ 𝚠;𝚖0;𝚊𝙿󷷣;𝚊𝚂󷷣
+.«hbar bigButton»      ∣ 𝚠;𝚖0
 .«barButton bigButton» ∣ 𝚠;𝚑;󰊄𝚊 center
 .bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
-.barButton ∣ 𝚠;󰊄𝚜 40px
+.barButton ∣ 𝚠;𝚑;󰊄𝚜 1.25em
              >* ∣ 𝚊𝚛 1; 𝚑¾
              􋒗  ∣  ⦑fg2⦒; 𝚋 ⦑bg0⦒
              𝚙↑ 5px
              𝚋↓ 5px solid
              [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
                              border-image ⦑ꬶrb0_→⦒ 1
-             􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90deg,#0000   0%, #0000   100%) 1;
+             􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90􋠏,#0000 0%, #0000 100%) 1;
 .multiButtonBar ∣ 𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
-.itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 90vh
+.itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 􊽺(90􍽺)
             𝚊𝙿󷷣; 𝚐 20px
             grid-template-columns repeat(auto-fit,300px)
             >.itemGridPlaceholder
@@ -101,12 +111,12 @@ button,.bigButton ∣ 𝚋 􍍝
                    𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 12px
 
 .rgbButtons
-  >* ∣ «𝚠 𝚑» 10vw
+  >* ∣ «𝚠 𝚑» 2em
         line-height 0
         𝚍 inline-flex;𝚊𝙿󷷣;𝚊𝚂󷷣
-        𝚖 1vw; 𝚙 20px
+        𝚖 0.25em; 𝚙 20px
         𝚋 2px solid #EEE; 𝚋𝚛 1000px
-        󰊄𝚜 8vw; font-weight bold
+        󰊄𝚜 7em; font-weight bold
         [c="R"] ∣ 𝚋 6px solid #F00
                      ∣  #DD2222; 𝚋 #100000
                    􎁎 ∣  #EE2222; 𝚋 #200000
@@ -120,17 +130,12 @@ button,.bigButton ∣ 𝚋 􍍝
                    􎁎 ∣  #2222EE; 𝚋 #000020
                    􀴗 ∣  #3333FF; 𝚋 #000030
 
-.ledCalbButtons
-  >* ∣ «𝚠 𝚑» 7vw
-  𝚋 2px solid #EEE; 𝚋𝚛 5px 
-  󰊄𝚜 3vw
-
 .navContainer  ∣ 𝚠;𝚘𝚏x hidden
                  >.multiButtonBar
                     𝚋 ⦑bg1⦒
-                    𝚑≤ 10vh
+                    𝚑≤ 􊽺(10􍽺)
 
-.navBodyHolder ∣ 𝚠; 𝚑≥ 80vh; 𝚑≤ calc(90vh - 30px)
+.navBodyHolder ∣ 𝚠; 𝚑≥ 􊽺(80􍽺); 𝚑≤ 􊽺(90􍽺 - 30px)
                  𝚖↑ 30px; 𝚘𝚏y scroll
 .devDraggableHolder ∣ 𝚏↓;𝚠;𝚑;󰊄𝚜 22px
                       𝚋 1px solid #555
@@ -150,49 +155,53 @@ button,.bigButton ∣ 𝚋 􍍝
              𝚋 2px solid #999; 𝚋𝚛 5px
              󰊄𝚜 40px
 
-dialog:open ∣ 𝚠 90vw; 𝚑 90vh
-               ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
-              𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
-              𝚜 ⦑fg0⦒33 0px 0px 20px 0px
-              .editorDialog
-                𝚠 min(97.5vw,1000px); 𝚑 97.5vh
-                𝚖a; 𝚙 10px
-                𝚋 ⦑bg0⦒F5
-
+dialog[open]
+  𝚠 􊽺(90􍾘); 𝚑 􊽺(90􍽺)
+   ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
+  𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
+  𝚜 ⦑fg0⦒33 0px 0px 20px 0px
+  .editorDialog
+    𝚠 min(􊽺(97.5􍾘),1000px); 𝙷 􊽺(97.5􍽺)
+    𝚖a; 𝚙 10px
+    𝚋 ⦑bg0⦒F5
 
 .𝘌«modes atom»
   [dragitem]􍳵
-    filter contrast(0.5) brightness(2)
+    󰈲 saturate(0.6) contrast(0.6) brightness(2)
     𝚖𝚙 pointer
   [maydrop]  ∣ 𝚘𝚕 2px dashed #FF0
   [dragging] ∣ 𝚃𝚏 􍍝; opacity 0.25
   >* * ∣ pointer-events 􋄅
-
-.𝘌modes
-  𝚏↓
-  >.𝘌atom
-    𝚘𝚏 clip; 𝚠 20px
-  >.𝘌tickmark
-    z-index 10
+.𝘌modes    ∣ 𝚏↓
+.𝘌atom     ∣ 𝚘𝚏 clip; 𝚠 20px
+.𝘌tickmark ∣ 𝚋𝚛→ 10px; 𝚣 10
+             􍳵 ∣ 𝚖𝚙 pointer
 
 .𝘌outer
-  𝚠;𝚑;𝚏↓
-  .𝘌preview ∣ 𝚠≥ min(45%, 300px); 𝚠≤ 45%
-  .𝘌inspector ∣ 𝚠≤ 45%
+  𝚏↓;𝚠;𝙷 􊽺(95􍽺)
+  .𝘌preview   ∣ 𝚆 47.5%
+  .𝘌inspector ∣ 𝚆 47.5%
   .𝘌«preview inspector»
     𝚋 ⦑bg1⦒
     𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 10px
+  
+  >⁰ ∣ 𝙷 1em; 𝚖󷷤 0.5em
   >.𝘌inner
-    𝚏→; 𝚊𝙿e; 𝚑 85%
+    𝚏→;𝚊𝙿e
     >.𝘌preview
-      >⁰ ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
-            𝚑 calc(100% - 6px); «𝚖󷷤 𝚖←» 3px
-            direction rtl
-            >⁰ ∣ 𝚏→;direction ltr
+      𝚙𝚘𝚜r
+      >button
+        𝚙𝚘𝚜a; ← 0px; ↑ -27.5px; «𝚠 𝚑» 20px
+        𝚋𝚛 5px
+        𝚋 ⦑bg2⦒
+      >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
+            𝙷 􊽺(95􍽺 - 2em);
+            𝚖 3px; 𝚍𝚒𝚛 rtl
+            >⁰ ∣ 𝚏→;𝚖→ auto;𝚍𝚒𝚛 ltr
                   >.𝘌alignedLabels
                     𝚏↓;𝚊𝙿←
                     >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 180px
-                          z-index 10; 󰊄𝚜 24px
+                          𝚣 10; 󰊄𝚜 24px
                           >⁰ ∣ 𝚊𝙿󷷣; 𝚏↓; 𝚠 140px
                                 >⁰ ∣ 𝚏↓
                           >􍨅 ∣ 𝚠 37.5px
@@ -200,12 +209,8 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
                   >.𝘌pixels
                     𝚖← -1px
                     𝚍 grid; place-items start start
-                    >.𝘌modes
-                      >.𝘌tickmark
-                        𝚋𝚛→ 10px
-                        􍳵 ∣ 𝚖𝚙 pointer
     >.𝘌inspector
-      𝚏↓;𝚏𝚐 1;𝚙↑ 8px;󰊄𝚜 20px
+      𝚏↓;𝚏𝚐 1;𝚙↑ 8px;󰊄𝚜 1.2em
        div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
        label       ∣ 󰊄𝚜 1.3em; 𝚖󷷤 0.1em
       
@@ -226,7 +231,7 @@ dialog:open ∣ 𝚠 90vw; 𝚑 90vh
        .𝘌fxSection
         𝚠 ;𝚋 ⦑bg2⦒
        .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
-        𝚠󷷈;𝚋 #FFF1;𝚋𝚛 0.5em
+        𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
 
 .vertBar ∣ 𝚋 ⦑bg1⦒
            𝚋𝚛 100px

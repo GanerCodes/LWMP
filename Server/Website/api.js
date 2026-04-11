@@ -5,7 +5,7 @@
 api_body = (𝐭,P,...𝔸) => JSON.stringify({ 𝐭, _:[...𝔸], ...P });
 api = async (𝐭,P,...𝔸) => {
   const body = api_body(𝐭,P,...𝔸);
-  const req = await fetch("http://localhost:4004/api", {
+  const req = await fetch("/api", {
     method: "POST",
     body,
     headers: { "Content-type": "application/json; charset=UTF-8" } });

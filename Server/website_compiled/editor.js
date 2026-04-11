@@ -150,17 +150,22 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
    const  ctot    =  counts . ſ( (x,y,...𝔸)=> x + y , 0) ; 
   
    const  dat𝘏  =  [] ; 
-  
-   let  labelsþ0E27F , datþ0E27F , inspectþ0E27F ; 
+   let  prevBackþ0E27F , labelsþ0E27F , datþ0E27F , inspectþ0E27F ; 
    const  þ0E27F  =  popup({þF0159 :  true  ,  noAppend :  true } , 
-              mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`h2` ,  false  , `Scene Editor - ${ctot} Pixels`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {} , [(mkə( false  , {} , [((labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , (mkə( false  , {[`𝐶`] : `𝘌pixels       `} , [((datþ0E27F = mkə( false  , {} ,  false )))]))]))]))])) , (mkə( false  , {[`𝐶`] : `vertBar` , [`𝑆`] : `width: 10px;`} , ``)) , ((inspectþ0E27F = mkə( false  , {} ,  false )))]))])) ; 
+              mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`h2` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [((prevBackþ0E27F = mkə(`button` ,  false  , `←`))) , (mkə( false  , {} , [(mkə( false  , {} , [((labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , (mkə( false  , {[`𝐶`] : `𝘌pixels       `} , [((datþ0E27F = mkə( false  , {} ,  false )))]))]))]))])) , (mkə( false  , {[`𝐶`] : `vertBar` , [`𝑆`] : `width: 10px;`} , ``)) , ((inspectþ0E27F = mkə( false  , {} ,  false )))]))])) ; 
   þ0E27F . classList  . add(`editorDialog`) ; 
+  
+  prevBackþ0E27F . onclick  =   (...𝔸)=> render((dat𝘏 . pop() , dat𝘏 . pop()) ,  ! dat𝘏 . length) ; 
+  
    const  render  =  (dat , outer =  true ) => {
      print (`render(${𝔍 . þ02191(dat)}, ${outer})`) ; 
-    dat𝘏 . push(dat) ; 
+     if ( ! dat𝘏 . length  ||  dat𝘏 . at(-1) !== dat) dat𝘏 . push(dat) ; 
+    prevBackþ0E27F . disabled  =  outer ; 
     
      const  stot   =  scene_count(dat) ; 
-     const  scale  =   (x,...𝔸)=>  (Math.max) (2 , 400 / stot) * x ; 
+     const  ar  =  window . outerHeight / window . outerWidth ; 
+     const  scale  =   (x,...𝔸)=>  (Math.max) (2 , 2.5 * ar , 400 / stot) * x ; 
+    
     
      const  render_𝖬  =  (M , n = 0) => {
        const  render_atom  =  ([n , i ,  ... M]) => {
@@ -210,29 +215,29 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
        const  fx_og  =  grp_fx(dat) ; 
        const  fx  =  {0 : [] ,  1 : [1 , 0] ,  2 : [1] ,   ... fx_og} ; 
       
+       let  has_init  =   false  ; 
+       const  check  =   (x,y,...𝔸)=> fx_togs[x] [1] . style  . display != `none` ? [[y ,  ... fx[y]]] : []
+       const  update  =   (...𝔸)=> has_init  &&   print (dat . fx  =  [
+         ... fx_togs . rev[0] . S ? [[0]] : [] , 
+         ... check(`rot` , 1) , 
+         ... check(`lum` , 2)]) ; 
+      
        const  show  =   (x,y,...𝔸)=> x . style . display = y ?  ""  : `none` ; 
-       const  fx_togs  =  {
-        rev :  [toggleButton( þF0EFE                     , `` , `` ,  false  , {init :  false  , polar :  false })] , 
-        rot :  [toggleButton( (x,...𝔸)=> show(fx_togs . rot[1] , x) , `󱦙` , `󱦙` ,  false  , {init :  false }) , 
-              ( (...𝔸)=> {  let  [speedlþ0E27F , offstlþ0E27F]  =  [mkə(`T` ,  false  , ``) , mkə(`T` ,  false  , ``)] ; 
-                   const  speedþ0F1DEþ0E27F  =  əslider({l : -200  , v : fx[`1`] [0] , h : 200  , s : 0.1 , 
-                                       ƒ :  (x,...𝔸)=> speedlþ0E27F . innerText = `${fx[`1`] [0] = x} Pixels/s`}) ; 
-                   const  offstþ0F1DEþ0E27F  =  əslider({l : -1000 , v : fx[`1`] [1] , h : 1000 , s : 1   , 
-                                       ƒ :  (x,...𝔸)=> offstlþ0E27F . innerText = `${fx[`1`] [1] = x} Pixels`  }) ; 
-                   return mkə( false  , {[`𝐶`] : `𝘌fxSection`} , [(mkə(`label` ,  false  , `Rotation`)) , (mkə( false  ,  false  , [(mkə(`label` ,  false  , `Speed`)) , (speedlþ0E27F) , (speedþ0F1DEþ0E27F)])) , (mkə( false  ,  false  , [(mkə(`label` ,  false  , `Offset`)) , (offstlþ0E27F) , (offstþ0F1DEþ0E27F)]))]) ;  })()] , 
-        lum :  [toggleButton( (x,...𝔸)=> show(fx_togs . lum[1] , x) , `󰳲` , `󰳲` ,  false  , {init :  false }) , 
-              ( (...𝔸)=> {  let  lumlþ0E27F  =  mkə(`T` ,  false  , ``) ; 
-                   const  lumþ0F1DEþ0E27F  =  əslider({l : 0 , v : fx[`2`] [0] * 255 , h : 255 , s : 1 , 
-                                     ƒ :  (x,...𝔸)=> lumlþ0E27F . innerText = `${ þ02B13 ((fx[`2`] [0] = x / 255) * 100)}%`}) ; 
-                   return mkə( false  , {[`𝐶`] : `𝘌fxSection`} , [(mkə(`label` ,  false  , `Brightness`)) , (lumlþ0E27F) , (lumþ0F1DEþ0E27F)]) ;  })()] } ; 
-      
-       const  fx_names  =  [`rev` , `rot` , `lum`] ; 
-      fx_names . forEach( (x,y,...𝔸)=> fx_togs[x] [0] . set(y in fx_og)) ; 
-      
-       const  update_fx_dat  =   (...𝔸)=> {
-        
-      }
-      
+       const  fx_togs  =  { rev :  [toggleButton( (x,...𝔸)=> update()                       , `` , `` ,  false  , {init :  false  , polar :  false })] , 
+                    rot :  [toggleButton( (x,...𝔸)=> (show(fx_togs . rot[1] , x) , update()) , `󱦙` , `󱦙` ,  false  , {init :  false }) , 
+                          ( (...𝔸)=> {  let  [speedlþ0E27F , offstlþ0E27F]  =  [mkə(`T` ,  false  , ``) , mkə(`T` ,  false  , ``)] ; 
+                               const  speedþ0F1DEþ0E27F  =  əslider({l : -200  , v : fx[`1`] [0] , h : 200  , s : 0.1 , 
+                                                   ƒ :  (x,...𝔸)=> (speedlþ0E27F . innerText = `${fx[`1`] [0] = x} Pixels/s` , update())}) ; 
+                               const  offstþ0F1DEþ0E27F  =  əslider({l : -1000 , v : fx[`1`] [1] , h : 1000 , s : 1   , 
+                                                   ƒ :  (x,...𝔸)=> (offstlþ0E27F . innerText = `${fx[`1`] [1] = x} Pixels`   , update())}) ; 
+                               return mkə( false  , {[`𝐶`] : `𝘌fxSection`} , [(mkə(`label` ,  false  , `Rotation`)) , (mkə( false  ,  false  , [(mkə(`label` ,  false  , `Speed`)) , (speedlþ0E27F) , (speedþ0F1DEþ0E27F)])) , (mkə( false  ,  false  , [(mkə(`label` ,  false  , `Offset`)) , (offstlþ0E27F) , (offstþ0F1DEþ0E27F)]))]) ;  })()] , 
+                    lum :  [toggleButton( (x,...𝔸)=> (show(fx_togs . lum[1] , x) , update()) , `󰳲` , `󰳲` ,  false  , {init :  false }) , 
+                          ( (...𝔸)=> {  let  lumlþ0E27F  =  mkə(`T` ,  false  , ``) ; 
+                               const  lumþ0F1DEþ0E27F  =  əslider({l : 0 , v : fx[`2`] [0] * 255 , h : 255 , s : 1 , 
+                                                 ƒ :  (x,...𝔸)=> (lumlþ0E27F . innerText = `${ þ02B13 ((fx[`2`] [0] = x / 255) * 100)}%` , update())}) ; 
+                               return mkə( false  , {[`𝐶`] : `𝘌fxSection`} , [(mkə(`label` ,  false  , `Brightness`)) , (lumlþ0E27F) , (lumþ0F1DEþ0E27F)]) ;  })()] } ; 
+      [`rev` , `rot` , `lum`] . forEach( (x,y,...𝔸)=> fx_togs[x] [0] . set(y in fx_og)) ; 
+      has_init  =   true  ; 
       
       inspectþ0E27F . replaceWith(inspectþ0E27F  =  
         mkə( false  , {[`𝐶`] : `𝘌inspector`} , [(mkə(`label` ,  false  , `Effects`)) , (mkə(`span` , {[`𝐶`] : `𝘌toggleSection`} , 𝒪v(fx_togs) . ꟿ( (x,y,...𝔸)=> x . þ0E27F))) , (𝒪v(fx_togs) . ᴍþF01A9( (x,...𝔸)=> x . length == 2 ? [x[1]] : []))])) ;  } ; 
@@ -243,11 +248,10 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
      const  ətriLabel  =  (n ,  ... 𝔸) => 
       mkə( false  , {[`𝑆`] : `min-height: ${scale(n)}px;`} , [(mkə( false  , {} , 𝔸)) , (mkə(`svg` , {[`viewBox`] : `-1.05 -1 2 2` , [`preserveAspectRatio`] : `none`} , [(mkə(`path` , {[`d`] : `M1 -1 L-1 0 L1 1` , [`style`] : `fill:#0000;stroke:#FFF;stroke-width:0.05`} , ``))]))])
     labelsþ0E27F . replaceChildren( ... outer  ?   þ021A8 ( þF147C (names , counts)) . ꟿ((i , [𝐧 , n]) => ətriLabel(n ,  mkə(`T` ,  false  , `${𝐧}`) ,  mkə(`T` ,  false  , `${n} Pixels`)))
-                                    :  ətriLabel(stot ,  mkə(`T` ,  false  , `${stot} Pixels`))) ; 
+                                    :  [ətriLabel(stot ,  mkə(`T` ,  false  , `${stot} Pixels`))]) ; 
   } ; 
   
-  render(dat) ; 
+  render(dat ,  true ) ; 
   
   þF0219 . body . append(þ0E27F) ;  þ0E27F . showModal() ; 
-  
 } ; 

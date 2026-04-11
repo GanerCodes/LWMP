@@ -82,7 +82,7 @@ button {
     border-bottom-right-radius: 4px;
   }
 }
-::backdrop {
+dialog::backdrop {
   background-color: #00000080;
   backdrop-filter: blur(5px);
 }

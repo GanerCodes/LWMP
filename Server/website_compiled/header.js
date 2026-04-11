@@ -16,8 +16,8 @@ BASE_CHARSET  =  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 [ (Math.max)  ,  (Math.min) ]  =  [Math . max , Math . min] ; 
  þF7E44       =   (x,y,z,...𝔸)=>  (Math.min) ( (Math.max) (x , y) , z)
  þ021A8   =   (x,...𝔸)=> [ ... x] . map((x , i) => [i , x])
- þ02B65   =   (x,y,...𝔸)=> isArray(x)  ? [ ... x . keys()] :   þ02B65 (Array(y ===  undefined  ? x : y - x)) . ᴍ((v) => v + (y ===  undefined  ? 0 : x)) ; 
- þF7E3B   =   (x,y,...𝔸)=> isArray(x)  ?  þ02B65 (a . length + 1) :  y ===  undefined   ?  þ02B65 (x + 1) :   þ02B65 (x , y + 1) ; 
+ þ02B65   =   (x,y,...𝔸)=> isArr(x)  ? [ ... x . keys()] :   þ02B65 (Array(y ===  undefined  ? x : y - x)) . ᴍ((v) => v + (y ===  undefined  ? 0 : x)) ; 
+ þF7E3B   =   (x,y,...𝔸)=> isArr(x)  ?  þ02B65 (a . length + 1) :  y ===  undefined   ?  þ02B65 (x + 1) :   þ02B65 (x , y + 1) ; 
  þF147C   =  ( ... 𝙰) =>  þ02B65 ( (Math.max) ( ... 𝙰 . ᴍ( þ1F0CC ))) . ᴍ((i) => 𝙰 . ᴍ( (x,...𝔸)=> x[i])) ; 
 ᴍv  =   (x,y,...𝔸)=> 𝒟(𝒪(x) . ᴍ(([k , v]) => [k , y(v)])) ; 
 ᴍk  =   (x,y,...𝔸)=> 𝒟(𝒪(x) . ᴍ(([k , v]) => [y(k) , v])) ; 
@@ -96,11 +96,11 @@ mkə  =  (name , attrs , kids) => {
      return þ0E27F ;  } ; 
 
 swapə  =   (x,y,...𝔸)=> {  if (x === y)  return  ; 
-            const  p  =  [x . parentNode , y . parentNode] ; 
-            if (p . þ022C0()) {  let  χ  =  mkə(`div;` ,  false  ,  false )
-                     p[0] . insertBefore(χ , x) ; 
-                     y[1] . insertBefore(x , y) ; 
-                     χ . parentNode . insertBefore(y , χ) ; 
-                     χ . remove() ;  }
-            else if (p[0]) p[0] . replaceChild(y , x) ; 
-            else if (p[1]) p[0] . replaceChild(x , y) ;  } ; 
+            const  [α , β]  =  [x . parentNode , y . parentNode] ; 
+            if (α && β) {  let  χ  =  mkə( false  , {} ,  false )
+                    α . insertBefore(χ , x) ; 
+                    β . insertBefore(x , y) ; 
+                    χ . parentNode . insertBefore(y , χ) ; 
+                    χ . remove() ;  }
+            else if (α) α . replaceChild(y , x) ; 
+            else if (β) α . replaceChild(x , y) ;  } ; 

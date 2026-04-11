@@ -149,13 +149,13 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
   © ctot   = counts􋔩(󰲣x+y,0);
   
   © dat𝘏 = [];
-  
-  ⎉ labels,dat,inspect;
+  ⎉ prevBack,labels,dat,inspect;
   ©  = popup({󰅙:✓, noAppend:✓},
               󱀝 {𝐶 𝘌outer} [
-                󱀝 h2 ‹Scene Editor - ⟦ctot⟧ Pixels›
+                󱀝 h2 ‹Scene Editor›
                 󱀝 {𝐶 𝘌inner} [
                   󱀝 {𝐶 𝘌preview} [
+                    󱀝:prevBack button ‹←›
                     󱀝 {} [
                       󱀝 {} [
                         󱀝:labels {𝐶 𝘌alignedLabels}
@@ -163,12 +163,18 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
                   󱀝 {𝐶 vertBar⍮ ⦅𝚠 10px⦆} ‹›
                   󱀝:inspect {}]]);
   􋒅 ⁺(‹editorDialog›);
+  
+  prevBack.onclick = 󰲟render((dat𝘏.pop(),dat𝘏.pop()),¬dat𝘏􋌵);
+  
   © render = ⥌dat,outer=✓↦{
     ☾(‹render(⟦𝔍􋀫(dat)⟧, ⟦outer⟧)›);
-    dat𝘏.push(dat);
+    ¿(¬dat𝘏􋌵 ∨ dat𝘏􋕛(󷰾)≇dat) dat𝘏.push(dat);
+    prevBack􋒗 = outer;
     
     © stot  = scene_count(dat);
-    © scale = 󰲡⤉(2,400/stot)⋅x;
+    © ar = window.outerHeight÷window.outerWidth;
+    © scale = 󰲡⤉(2,2.5⋅ar,400÷stot)⋅x;
+     2
     
     © render_𝖬 = ⥌M,n=0↦{
       © render_atom = ⥌[n,i,⠤M]↦{
@@ -218,33 +224,33 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
       © fx_og = grp_fx(dat);
       © fx = {0:[], 1:[1,0], 2:[1], ⠤fx_og};
       
+      ⎉ has_init = ✗;
+      © check = 󰲣fx_togsₓ ₁􋛟 ᵈⁱˢᵖˡᵃʸ≠‹none›⭜[[y,⠤fx]]⭝[]
+      © update = 󰲟has_init ∧ ☾(datᶠˣ = [
+        ⠤fx_togsʳᵉᵛ₀󰀒⭜[[0]]⭝[],
+        ⠤check(‹rot›,1),
+        ⠤check(‹lum›,2)]);
+      
       © show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;
-      © fx_togs = {
-        rev: [toggleButton(󰻾                   ,␛,␛,✗,{init:✗,polar:✗})],
-        rot: [toggleButton(󰲡show(fx_togsʳᵒᵗ₁,x),␛󱦙,␛󱦙,✗,{init:✗}),
-              (󰲟{ ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
-                  © speed = əslider({l:󷰿󷰽󷰽 ,v:fx􊯛₁ ₀,h:200 ,s:0.1,
-                                       ƒ:󰲡speedl􋒷=‹⟦fx􊯛₁ ₀=x⟧ Pixels/s›});
-                  © offst = əslider({l:󷰾󷰽󷰽󷰽,v:fx􊯛₁ ₁,h:1000,s:1  ,
-                                       ƒ:󰲡offstl􋒷=‹⟦fx􊯛₁ ₁=x⟧ Pixels›  });
-                  ↪󱀝 {𝐶 𝘌fxSection} [
-                     󱀝 label ‹Rotation›
-                     󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
-                     󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]]; })()],
-        lum: [toggleButton(󰲡show(fx_togsˡᵘᵐ₁,x),␛󰳲,␛󰳲,✗,{init:✗}),
-              (󰲟{ ⎉ luml = 󱀝 T ‹›;
-                  © lum = əslider({l:0,v:fx􊯛₂ ₀⋅255,h:255,s:1,
-                                     ƒ:󰲡luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›});
-                  ↪󱀝 {𝐶 𝘌fxSection} [
-                     󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ]; })()] };
-      
-      © fx_names = [‹rev›,‹rot›,‹lum›];
-      fx_names􋁃(󰲣fx_togsₓ ₀.set(y∈fx_og));
-      
-      © update_fx_dat = 󰲟{
-        
-      }
-      
+      © fx_togs = { rev: [toggleButton(󰲡update()                      ,␛,␛,✗,{init:✗,polar:✗})],
+                    rot: [toggleButton(󰲡(show(fx_togsʳᵒᵗ₁,x),update()),␛󱦙,␛󱦙,✗,{init:✗}),
+                          (󰲟{ ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
+                              © speed = əslider({l:󷰿󷰽󷰽 ,v:fx􊯛₁ ₀,h:200 ,s:0.1,
+                                                   ƒ:󰲡(speedl􋒷=‹⟦fx􊯛₁ ₀=x⟧ Pixels/s›,update())});
+                              © offst = əslider({l:󷰾󷰽󷰽󷰽,v:fx􊯛₁ ₁,h:1000,s:1  ,
+                                                   ƒ:󰲡(offstl􋒷=‹⟦fx􊯛₁ ₁=x⟧ Pixels›  ,update())});
+                              ↪󱀝 {𝐶 𝘌fxSection} [
+                                 󱀝 label ‹Rotation›
+                                 󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
+                                 󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]]; })()],
+                    lum: [toggleButton(󰲡(show(fx_togsˡᵘᵐ₁,x),update()),␛󰳲,␛󰳲,✗,{init:✗}),
+                          (󰲟{ ⎉ luml = 󱀝 T ‹›;
+                              © lum = əslider({l:0,v:fx􊯛₂ ₀⋅255,h:255,s:1,
+                                                 ƒ:󰲡(luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›,update())});
+                              ↪󱀝 {𝐶 𝘌fxSection} [
+                                 󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ]; })()] };
+      [‹rev›,‹rot›,‹lum›]􋁃(󰲣fx_togsₓ ₀.set(y∈fx_og));
+      has_init = ✓;
       
       inspect.replaceWith(inspect = 
         󱀝 {𝐶 𝘌inspector} [
@@ -261,11 +267,10 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
         󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
           󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
     labels.replaceChildren(⠤outer ⭜ ↨(󱑼(names,counts))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pixels›))
-                                   ⭝ ətriLabel(stot, 󱀝 T ‹⟦stot⟧ Pixels›));
+                                   ⭝ [ətriLabel(stot, 󱀝 T ‹⟦stot⟧ Pixels›)]);
   };
   
-  render(dat);
+  render(dat,✓);
   
   󰈙.body􍪙(); .showModal();
-   cb(𝐬);
 };

@@ -18,13 +18,13 @@
                         return ƒ(Ѧ . S) ;  } } ; 
   Ѧ . polar  &&  SAT(N , `off`) ;  N . onclick  =   (...𝔸)=> Ѧ . set( true ) ; 
   Ѧ . polar  &&  SAT(Y , `on`) ;  Y . onclick  =   (...𝔸)=> Ѧ . set( false ) ; 
-  
+  Y . Ѧ  =  N . Ѧ  =  Ѧ ; 
    if (Ѧ . init) Ѧ . set(Ѧ . S) ; 
    return Ѧ ;  } ; 
 Ϣ . textField  =  (Ѧ) => { 
    let  ə ; 
    let  fld  =  mkə(`input` , {[`𝑆`] : `flex-grow: 2; min-width: 0; padding: 2px; height: 100%; border: none;` ,  ... (Ѧ)} ,  false ) ; 
-   if (Ѧ . þ0F070 || Ѧ . þ0F06E) { ə  =  mkə(`span` , {[`𝐶`] : `boxInput` , [`𝑆`] : `width: 100%;`} , [(fld) , (notab(toggleButton( (x,...𝔸)=> (fld . type  =  ["password" , "text"][ + x]) , "" , "")))]) ;  }
+   if (Ѧ . þ0F070 || Ѧ . þ0F06E) { ə  =  mkə(`span` , {[`𝐶`] : `boxInput` , [`𝑆`] : `width: 100%;`} , [(fld) , (notab(toggleButton( (x,...𝔸)=> (fld . type  =  ["password" , "text"][ + x]) , "" , "" ,  true  , {polar :  true }) . þ0E27F))]) ;  }
    else { ə  =  mkə(`span` , {[`𝐶`] : `boxInput` , [`𝑆`] : `width: 100%;`} , fld) ;  }
   ə . 𝚒  =  fld ; 
    return ə ;  }
@@ -104,6 +104,7 @@
                          αoverβ(𝘥 , 𝘵 ,  false ) ;  𝘥 = null ;  }) ; 
   AEL(þ0E27F , `drop`      , (𝜺) => { 𝜺 . preventDefault() ; 
                           if (þ0E27F !== 𝘵)  return  ; 
+                          if (𝘥 === 𝘵)  return  ; 
                          ƒ(𝘥 , 𝘵) ;  }) ; 
    return confDrag(þ0E27F , 𝚒) ;  } ; 
 Ϣ . dragHold  =  (þ0E27F , 𝚒 = 0 , ƒ =  (x,y,...𝔸)=> x . append(y)) => {
