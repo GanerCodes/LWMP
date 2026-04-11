@@ -529,7 +529,7 @@ dialog[open] {
                   text-wrap: nowrap;
                   transform: translateY(-1.35em);
                   &>:first-child {
-                    unicode-bidi: bidi-override;
+                    unicode-bidi: embed;
                     direction: rtl;
                   }
                 }

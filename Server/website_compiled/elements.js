@@ -24,6 +24,7 @@
 əbuttonBar  =   (...𝔸)=> 
   mkə(`span` , {[`𝐶`] : `multiButtonBar`} , 𝔸 . ꟿ( (x,y,...𝔸)=> mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] : y} , x))) ; 
 ənavBar  =  (Ѧ ,  ... 𝙴) => {
+  
   Ѧ . 𝙳  =  {} ; 
    const  bar  =  [] ; 
    for ( let [k , e , ɒ = {}]  of  𝙴)
