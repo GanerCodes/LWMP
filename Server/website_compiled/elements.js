@@ -33,9 +33,9 @@
      else     { bar . push(e) ;  }
   
    let  þ0E27Fholder ; 
-   const  þ0E27F  =  mkə(`div` , {[`𝐶`] : `navContainer`} , [
-          mkə(`span` , {[`𝐶`] : `multiButtonBar`} , bar) , 
-          (þ0E27Fholder = mkə(`div` , {[`𝐶`] : `navBodyHolder`} , [(mkə(`T` ,  false  , ``))]))])
+   const  þ0E27F  =  mkə( false  , {[`𝐶`] : `navContainer`} , [
+          mkə( false  , {[`𝐶`] : `multiButtonBar`} , bar) , 
+          (þ0E27Fholder = mkə( false  , {[`𝐶`] : `navBodyHolder`} , [(mkə(`T` ,  false  , ``))]))])
   þ0E27F . set  =  (k = Ѧ . Ⴝ) => { RAT(Ѧ . 𝙳[Ѧ . Ⴝ] . 𝚋 , `choosen` , `disabled`) ; 
                  Ѧ . Ⴝ = k ; 
                  [`choosen` , `disabled`] . forEach( (x,...𝔸)=> SAT(Ѧ . 𝙳[Ѧ . Ⴝ] . 𝚋 , x)) ; 

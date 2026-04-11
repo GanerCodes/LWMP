@@ -6,28 +6,31 @@
 © bg1 #3d3d3d
 © bg2 #545454
 © bg3 #606060
+© bg4 #707070
 ⊖ ꬶrb0_→ linear-gradient( 90􋠏,#21A8C6 0%, #FC2462 100%)
 ⊖ ꬶrb0_↓ linear-gradient(180􋠏,#21A8C6 0%, #FC2462 100%)
 ⊖ ꬶrb1_↓ linear-gradient(180􋠏,#30B2D5 0%, #FF3068 100%)
 ⊖ ꬶrb2_↓ linear-gradient(180􋠏,#35C0F0 0%, #FF4075 100%)
 
  idiot hack for scaling bc px aren't pixels
-⊖ 𝗐 vw * 󰁘(--zvw)
-⊖ 𝗁 vh * 󰁘(--zvh)
+⊖ 𝗐 vw / 󰁘(--zoom)
+⊖ 𝗁 vh / 󰁘(--zoom)
 :root ∣ --zoom 1
-        --zvw 􊽺(1vw * 󰁘(--zoom))
-        --zvh 􊽺(1vh * 󰁘(--zoom))
         𝚣𝚘𝚘𝚖 󰁘(--zoom)
         󰊄𝚜 1.5em
 @media (max-width:768px), (max-height:600px)
   :root ∣ --zoom 0.6
+@media (max-width:390px)
+  :root ∣ --zoom 0.48
+@media (max-width:350px)
+  :root ∣ --zoom 0.45
 
  idiot hack for scrollbars bc it's still somehow not standardized 
 :root ∣ @supports selector(::-webkit-scrollbar)
           ::-webkit-scrollbar-thumb  ∣ 𝚋𝚐 ⦑ꬶrb0_↓⦒; 𝚋𝚛 100px
           ::-webkit-scrollbar-thumb􍳵 ∣ 𝚋𝚐 ⦑ꬶrb1_↓⦒
           ::-webkit-scrollbar-thumb􀴗 ∣ 𝚋𝚐 ⦑ꬶrb2_↓⦒
-          ::-webkit-scrollbar        ∣ 𝚠 0.15em
+          ::-webkit-scrollbar        ∣ 𝚠 0.25em
         @supports not selector(::-webkit-scrollbar)
           scrollbar-color #E62 #38C4
 ⎊ 𝐑𝐠𝐞𝐧 ∣ 𝚠𝚔𝚊□; 𝚖𝚙 pointer
@@ -35,7 +38,7 @@
            𝚋 ⦑bg0⦒; 𝚋 􋄅; 𝚋𝚛 25px
 ⎊ 𝐑𝐭𝐡𝐮𝐦𝐛 ∣ 𝐑𝐠𝐞𝐧; 𝚋𝚘𝚡𝚜b
            «𝚠 𝚑» 1em; 𝚖↑ -0.25em
-           𝚋 #0000; 𝚋𝚛 9999px
+           𝚋 #0000; 𝚋𝚛 􋔛px
 input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
                     𝚋 #0000
                     􎁎 ∣ 𝚘𝚕 􋄅
@@ -59,19 +62,19 @@ body,html ∣ 𝚋 ⦑bg0⦒
 button    ∣ 𝚙𝚘𝚜r
             𝚃 all 0.2s ease
             𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣
-            􋒗 ∣  ⦑fg3⦒
-                 opacity 0.5
+            􋒗􊽬⁽󰁺choosen󰁻⁾ ∣  ⦑fg3⦒
+                             𝚘𝚙 0.5
             𝚋𝚐󰈲 brightness(1.1)
 
 .icon ∣ 𝚑 0.75em; 𝚟𝚊 center
-.box ∣ 𝚋𝚛 10px
+.box  ∣ 𝚋𝚛 10px
 
 input,.boxInput ∣ 𝚋 ⦑bg1⦒
 .dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
   𝚋 #0000
 .boxInput􍴍 ∣ 𝚋 􍍝
 button,.bigButton ∣ 𝚋 􍍝
-                     ⦑fg1⦒EE; 𝚋 #0000
+                     ⦑fg0⦒EE; 𝚋 #0000
                     􎁎 ∣ 𝚃𝚏 􍍝
                           ⦑fg0⦒; 𝚋 #0002
                          𝚖𝚙 pointer
@@ -82,7 +85,7 @@ button,.bigButton ∣ 𝚋 􍍝
 .bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
 .barButton ∣ 𝚠;𝚑;󰊄𝚜 1.25em
              >* ∣ 𝚊𝚛 1; 𝚑¾
-             􋒗  ∣  ⦑fg2⦒; 𝚋 ⦑bg0⦒
+             􋒗  ∣ 𝚋 ⦑bg0⦒
              𝚙↑ 5px
              𝚋↓ 5px solid
              [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
@@ -111,12 +114,12 @@ button,.bigButton ∣ 𝚋 􍍝
                    𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 12px
 
 .rgbButtons
+  󰊄𝚜 min(5em,calc(7.5vmin)); font-weight bold
   >* ∣ «𝚠 𝚑» 2em
         line-height 0
         𝚍 inline-flex;𝚊𝙿󷷣;𝚊𝚂󷷣
         𝚖 0.25em; 𝚙 20px
         𝚋 2px solid #EEE; 𝚋𝚛 1000px
-        󰊄𝚜 7em; font-weight bold
         [c="R"] ∣ 𝚋 6px solid #F00
                      ∣  #DD2222; 𝚋 #100000
                    􎁎 ∣  #EE2222; 𝚋 #200000
@@ -130,13 +133,15 @@ button,.bigButton ∣ 𝚋 􍍝
                    􎁎 ∣  #2222EE; 𝚋 #000020
                    􀴗 ∣  #3333FF; 𝚋 #000030
 
-.navContainer  ∣ 𝚠;𝚘𝚏x hidden
-                 >.multiButtonBar
-                    𝚋 ⦑bg1⦒
-                    𝚑≤ 􊽺(10􍽺)
 
-.navBodyHolder ∣ 𝚠; 𝚑≥ 􊽺(80􍽺); 𝚑≤ 􊽺(90􍽺 - 30px)
-                 𝚖↑ 30px; 𝚘𝚏y scroll
+body>.navContainer
+  𝚠;𝚘𝚏x hidden
+  >.multiButtonBar
+     𝚋 ⦑bg1⦒
+     𝚑≤ 􊽺(10􍽺)
+  .navBodyHolder
+    𝚠; 𝚑≥ 􊽺(80􍽺); 𝚑≤ 􊽺(90􍽺 - 30px)
+    𝚖↑ 30px; 𝚘𝚏y scroll
 .devDraggableHolder ∣ 𝚏↓;𝚠;𝚑;󰊄𝚜 22px
                       𝚋 1px solid #555
                       [maydrop]  ∣ 𝚋 1px dashed #FF0
@@ -160,78 +165,87 @@ dialog[open]
    ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
   𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
   𝚜 ⦑fg0⦒33 0px 0px 20px 0px
-  .editorDialog
-    𝚠 min(􊽺(97.5􍾘),1000px); 𝙷 􊽺(97.5􍽺)
-    𝚖a; 𝚙 10px
-    𝚋 ⦑bg0⦒F5
 
 .𝘌«modes atom»
   [dragitem]􍳵
     󰈲 saturate(0.6) contrast(0.6) brightness(2)
     𝚖𝚙 pointer
   [maydrop]  ∣ 𝚘𝚕 2px dashed #FF0
-  [dragging] ∣ 𝚃𝚏 􍍝; opacity 0.25
+  [dragging] ∣ 𝚃𝚏 􍍝; 𝚘𝚙 0.25
   >* * ∣ pointer-events 􋄅
 .𝘌modes    ∣ 𝚏↓
-.𝘌atom     ∣ 𝚘𝚏 clip; 𝚠 20px
-.𝘌tickmark ∣ 𝚋𝚛→ 10px; 𝚣 10
+.𝘌atom     ∣ 𝚘𝚏 clip; 𝚠 1em
+.𝘌tickmark ∣ 𝚋𝚛→ 􋔛px; 𝚣 10
              􍳵 ∣ 𝚖𝚙 pointer
 
-.𝘌outer
-  𝚏↓;𝚠;𝙷 􊽺(95􍽺)
-  .𝘌preview   ∣ 𝚆 47.5%
-  .𝘌inspector ∣ 𝚆 47.5%
-  .𝘌«preview inspector»
-    𝚋 ⦑bg1⦒
-    𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 10px
-  
-  >⁰ ∣ 𝙷 1em; 𝚖󷷤 0.5em
-  >.𝘌inner
-    𝚏→;𝚊𝙿e
-    >.𝘌preview
-      𝚙𝚘𝚜r
-      >button
-        𝚙𝚘𝚜a; ← 0px; ↑ -27.5px; «𝚠 𝚑» 20px
-        𝚋𝚛 5px
-        𝚋 ⦑bg2⦒
-      >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
-            𝙷 􊽺(95􍽺 - 2em);
-            𝚖 3px; 𝚍𝚒𝚛 rtl
-            >⁰ ∣ 𝚏→;𝚖→ auto;𝚍𝚒𝚛 ltr
-                  >.𝘌alignedLabels
-                    𝚏↓;𝚊𝙿←
-                    >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 180px
-                          𝚣 10; 󰊄𝚜 24px
-                          >⁰ ∣ 𝚊𝙿󷷣; 𝚏↓; 𝚠 140px
-                                >⁰ ∣ 𝚏↓
-                          >􍨅 ∣ 𝚠 37.5px
-                                𝚋→ 1px dashed #FFF
-                  >.𝘌pixels
-                    𝚖← -1px
-                    𝚍 grid; place-items start start
-    >.𝘌inspector
-      𝚏↓;𝚏𝚐 1;𝚙↑ 8px;󰊄𝚜 1.2em
-       div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
-       label       ∣ 󰊄𝚜 1.3em; 𝚖󷷤 0.1em
-      
-      >􋁕⁽span󰁱div⁾ ∣ 𝚖󷷤 10px
-      >.𝘌toggleSection
-        𝚏→;𝚊«𝙿 𝚂»󷷣
-        𝚋 ⦑bg2⦒
-        >* ∣ 𝚏↓;𝚊𝙿󷷣
-              𝚖 10px; 𝚙 5px; 𝚋𝚛 0.2em
-              «𝚠 𝚠≤ 𝚠≥ 𝚑 𝚑≤ 𝚑≥» 1em
-              󰊄𝚜 2em
-              𝚋 2px solid ⦑fg2⦒
-              [off] ∣ 𝚋 ⦑bg2⦒
-                    ∣ 𝚋 ⦑bg1⦒
-              [on ] ∣ 𝚋 ⦑bg0⦒
-      >.𝘌fxSection, >.𝘌fxSection div
-        𝚏↓;𝚊𝚂󷷣;𝚖󷷤 5px;𝚙 0.5em
-       .𝘌fxSection
-        𝚠 ;𝚋 ⦑bg2⦒
-       .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
-        𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
+.editorDialog[open]
+  𝚠 min(􊽺(98􍾘),1000px); 𝙷 􊽺(98􍽺)
+  𝚖a; 𝚙 0.1em
+  𝚋 ⦑bg0⦒F5
+  .𝘌outer
+    𝚏↓;𝚠
+    >T
+      𝚖󷷤 0.25em; 󰊄𝚜 2em
+    >.𝘌inner
+      𝚏→;𝚊𝙿e;𝚊𝚂←
+      >* ∣ 𝚆 􊽺(50% - 0.5em)
+            𝚋 ⦑bg1⦒
+            𝚋 0.1em solid ⦑bg2⦒; 𝚋𝚛 0.25em
+       .multiButtonBar
+           this part is DESPERATE
+          𝚑 1.35em;󰊄𝚜 1.35em
+          𝚋 #0000
+          𝚋↓ 0.1em solid ⦑bg2⦒
+          «𝚋󷷢 𝚋↑» 0.05em solid ⦑bg2⦒
+          𝚃𝚏 scale(1.0125)
+          𝚋𝚛«↖ ↗» 0.2em
+          >⁰ ∣ 𝚋𝚛↖ 0.1em
+          >􍨅 ∣ 𝚋𝚛↗ 0.1em
+      >.𝘌preview
+        𝚋↑ 0.05em solid ⦑bg2⦒
+        󰊄𝚜 1.25
+        𝚏↓;𝚙𝚘𝚜r
+        >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
+              𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em; 𝚍𝚒𝚛 rtl
+              >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 0.5em;𝚍𝚒𝚛 ltr
+                    >.𝘌alignedLabels
+                      𝚏↓;𝚊𝙿←
+                      >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
+                            𝚣 10; 󰊄𝚜 0.8em
+                            >⁰ ∣ 𝚏↓;𝚊𝙿󷷣;𝚠 100px
+                                  󰊄𝚠 nowrap
+                                  𝚃𝚏 translateY(-1.35em)
+                                  >⁰ ∣ unicode-bidi bidi-override
+                                        𝚍𝚒𝚛 rtl
+                            >􍨅 ∣ 𝚠 37.5px
+                                  𝚋→ 1px dashed #FFF
+                    >.𝘌pixels
+                      𝚖← -1px
+                      𝚍 grid; place-items start start
+      >.𝘌inspector
+        𝚏↓;𝚏𝚐 1;𝚑;󰊄𝚜 1em
+         .multiButtonBar
+           bruh this is wronggg
+          𝚖0
+          >* ∣ 󰊄𝚜 0.85em
+         .navBodyHolder > div
+           div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
+          >􋁕⁽span󰁱div󰁱label⁾ ∣ 𝚖󷷤 0.1em
+          >.𝘌toggleSection
+            𝚏→;𝚊𝙿e;𝚊𝚂󷷣
+            𝚋 ⦑bg2⦒
+            >* ∣ 𝚏↓;𝚙 5px; 𝚋𝚛 0.2em
+                  «𝚠 𝚠≤ 𝚠≥ 𝚑 𝚑≤ 𝚑≥» 1em
+                  󰊄𝚜 2em
+                  𝚋 0.075em solid ⦑bg3⦒
+                  [off] ∣ 𝚋 ⦑bg2⦒
+                        ∣ 𝚋 ⦑bg1⦒
+                  [on ] ∣ 𝚋 ⦑bg0⦒
+          >.𝘌fxSection, >.𝘌fxSection div
+            𝚏↓;𝚊𝚂󷷣;𝚖󷷤 5px;𝚙 0.5em
+           .𝘌fxSection
+            𝚠;𝚋 ⦑bg2⦒
+           .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
+            𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
 
-.vertBar ∣ 𝚋 ⦑bg1⦒
-           𝚋𝚛 100px
+label ∣ 󰊄𝚜 1.3em

@@ -150,17 +150,20 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
    const  ctot    =  counts . ſ( (x,y,...𝔸)=> x + y , 0) ; 
   
    const  dat𝘏  =  [] ; 
-   let  prevBackþ0E27F , labelsþ0E27F , datþ0E27F , inspectþ0E27F ; 
-   const  þ0E27F  =  popup({þF0159 :  true  ,  noAppend :  true } , 
-              mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`h2` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [((prevBackþ0E27F = mkə(`button` ,  false  , `←`))) , (mkə( false  , {} , [(mkə( false  , {} , [((labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , (mkə( false  , {[`𝐶`] : `𝘌pixels       `} , [((datþ0E27F = mkə( false  , {} ,  false )))]))]))]))])) , (mkə( false  , {[`𝐶`] : `vertBar` , [`𝑆`] : `width: 10px;`} , ``)) , ((inspectþ0E27F = mkə( false  , {} ,  false )))]))])) ; 
-  þ0E27F . classList  . add(`editorDialog`) ; 
+   let  prevDatþ0E27F , labelsþ0E27F , datþ0E27F , inspectþ0E27F ; 
   
-  prevBackþ0E27F . onclick  =   (...𝔸)=> render((dat𝘏 . pop() , dat𝘏 . pop()) ,  ! dat𝘏 . length) ; 
+   const  prevDat   =   (...𝔸)=> render((dat𝘏 . pop() , dat𝘏 . pop()) ,  ! dat𝘏 . length) ; 
+   const  addElm    =   (...𝔸)=>  print (`󰤱`) ; 
+   const  splitElm  =   (...𝔸)=>  print (`󰤱`) ; 
+  
+   const  þ0E27F  =  popup({þF0159 :  true  ,  noAppend :  true } , 
+              mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`T` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {[`𝐶`] : `multiButtonBar`} , [((prevDatþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] : prevDat } , `←`))) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] : addElm  } , `+`)) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] : splitElm} , ``))])) , (mkə( false  , {} , [(mkə( false  , {} , [((labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , (mkə( false  , {[`𝐶`] : `𝘌pixels       `} , [((datþ0E27F = mkə( false  , {} ,  false )))]))]))]))])) , ((inspectþ0E27F = mkə( false  , {[`𝐶`] : `𝘌inspector`} ,  false )))]))])) ; 
+  þ0E27F . classList  . add(`editorDialog`) ; 
   
    const  render  =  (dat , outer =  true ) => {
      print (`render(${𝔍 . þ02191(dat)}, ${outer})`) ; 
      if ( ! dat𝘏 . length  ||  dat𝘏 . at(-1) !== dat) dat𝘏 . push(dat) ; 
-    prevBackþ0E27F . disabled  =  outer ; 
+    prevDatþ0E27F . disabled  =  outer ; 
     
      const  stot   =  scene_count(dat) ; 
      const  ar  =  window . outerHeight / window . outerWidth ; 
@@ -193,7 +196,7 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
        if (C . length > 1) C  =  C . þ02A1D𝑙( (...𝔸)=> render_tick(n + 1)) ; 
        let  þ0E27F  =  mkə(`div` , {[`𝐶`] : `𝘌modes`} , C) ; 
       
-       if ( ! isAtom  &&  (n == 0  &&  C . length > 1  ||  C[0] . length > 1)) {
+       if ( ! isAtom  &&  ( ! n  &&  C . length > 1  ||  C[0] . length > 1)) {
         C . forEach((cþ0E27F) => {
           cþ0E27F  =  dragItem(cþ0E27F , n ,  (x,y,...𝔸)=> {
             swapə(x , y) ; 
@@ -202,7 +205,7 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
             render(dat , outer) ;  }) ; 
           cþ0E27F . onclick  =   (...𝔸)=> render(dat[`*`] [cþ0E27F . idx] ,   false ) ;  }) ;  }
        else if (n > 1) þ0E27F . style  . pointerEvents  =  `none` ; 
-       if (n == 0) { þ0E27F . idx  =  0 ; 
+       if ( ! n ) { þ0E27F . idx  =  0 ; 
                 const  x  =  ((𝚚 , þ0E27F = þF0219) => [ ... þ0E27F . matches(𝚚) ? [þ0E27F] : [] ,  ... QSA(𝚚 , þ0E27F)])(`.𝘌atom` , þ0E27F) ; 
                 print (þ0E27F , x) ; 
                x[0]    . style . borderTopRightRadius     =  `10px` ; 
@@ -239,16 +242,21 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
       [`rev` , `rot` , `lum`] . forEach( (x,y,...𝔸)=> fx_togs[x] [0] . set(y in fx_og)) ; 
       has_init  =   true  ; 
       
-      inspectþ0E27F . replaceWith(inspectþ0E27F  =  
-        mkə( false  , {[`𝐶`] : `𝘌inspector`} , [(mkə(`label` ,  false  , `Effects`)) , (mkə(`span` , {[`𝐶`] : `𝘌toggleSection`} , 𝒪v(fx_togs) . ꟿ( (x,y,...𝔸)=> x . þ0E27F))) , (𝒪v(fx_togs) . ᴍþF01A9( (x,...𝔸)=> x . length == 2 ? [x[1]] : []))])) ;  } ; 
+      
+      
+      
+      inspectþ0E27F . replaceChildren(
+        ənavBar({ Ⴝ : `Effects` } , 
+                [`Effects` ,  mkə( false  , {} , [(mkə(`span` , {[`𝐶`] : `𝘌toggleSection`} , 𝒪v(fx_togs) . ꟿ( (x,y,...𝔸)=> x . þ0E27F))) , (𝒪v(fx_togs) . ᴍþF01A9( (x,...𝔸)=> x . length == 2 ? [x[1]] : []))])] , 
+                [`Activate` ,  mkə(`div` ,  false  , `󰤱`)])) ;  } ; 
     
     datþ0E27F . replaceWith(datþ0E27F  =  render_𝖬(dat)) ; 
     set_inspector(datþ0E27F) ; 
     
      const  ətriLabel  =  (n ,  ... 𝔸) => 
       mkə( false  , {[`𝑆`] : `min-height: ${scale(n)}px;`} , [(mkə( false  , {} , 𝔸)) , (mkə(`svg` , {[`viewBox`] : `-1.05 -1 2 2` , [`preserveAspectRatio`] : `none`} , [(mkə(`path` , {[`d`] : `M1 -1 L-1 0 L1 1` , [`style`] : `fill:#0000;stroke:#FFF;stroke-width:0.05`} , ``))]))])
-    labelsþ0E27F . replaceChildren( ... outer  ?   þ021A8 ( þF147C (names , counts)) . ꟿ((i , [𝐧 , n]) => ətriLabel(n ,  mkə(`T` ,  false  , `${𝐧}`) ,  mkə(`T` ,  false  , `${n} Pixels`)))
-                                    :  [ətriLabel(stot ,  mkə(`T` ,  false  , `${stot} Pixels`))]) ; 
+    labelsþ0E27F . replaceChildren( ... outer  ?   þ021A8 ( þF147C (names , counts)) . ꟿ((i , [𝐧 , n]) => ətriLabel(n ,  mkə(`T` ,  false  , `${𝐧}`) ,  mkə(`T` ,  false  , `${n} Pxl`)))
+                                    :  [ətriLabel(stot ,  mkə(`T` ,  false  , `${stot} Pxl`))]) ; 
   } ; 
   
   render(dat ,  true ) ; 

@@ -149,27 +149,32 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
   © ctot   = counts􋔩(󰲣x+y,0);
   
   © dat𝘏 = [];
-  ⎉ prevBack,labels,dat,inspect;
+  ⎉ prevDat,labels,dat,inspect;
+  
+  © prevDat  = 󰲟render((dat𝘏.pop(),dat𝘏.pop()),¬dat𝘏􋌵);
+  © addElm   = 󰲟☾(‹󰤱›);
+  © splitElm = 󰲟☾(‹󰤱›);
+  
   ©  = popup({󰅙:✓, noAppend:✓},
               󱀝 {𝐶 𝘌outer} [
-                󱀝 h2 ‹Scene Editor›
+                󱀝 T ‹Scene Editor›
                 󱀝 {𝐶 𝘌inner} [
                   󱀝 {𝐶 𝘌preview} [
-                    󱀝:prevBack button ‹←›
+                    󱀝 {𝐶 multiButtonBar} [
+                      󱀝:prevDat button {𝐶 barButton⍮ onclick ⟦prevDat ⟧} ␛←
+                      󱀝          button {𝐶 barButton⍮ onclick ⟦addElm  ⟧} ␛+
+                      󱀝          button {𝐶 barButton⍮ onclick ⟦splitElm⟧} ␛]
                     󱀝 {} [
                       󱀝 {} [
                         󱀝:labels {𝐶 𝘌alignedLabels}
                         󱀝         {𝐶 𝘌pixels       } [󱀝:dat {}]]]]
-                  󱀝 {𝐶 vertBar⍮ ⦅𝚠 10px⦆} ‹›
-                  󱀝:inspect {}]]);
+                  󱀝:inspect {𝐶 𝘌inspector}]]);
   􋒅 ⁺(‹editorDialog›);
-  
-  prevBack.onclick = 󰲟render((dat𝘏.pop(),dat𝘏.pop()),¬dat𝘏􋌵);
   
   © render = ⥌dat,outer=✓↦{
     ☾(‹render(⟦𝔍􋀫(dat)⟧, ⟦outer⟧)›);
     ¿(¬dat𝘏􋌵 ∨ dat𝘏􋕛(󷰾)≇dat) dat𝘏.push(dat);
-    prevBack􋒗 = outer;
+    prevDat􋒗 = outer;
     
     © stot  = scene_count(dat);
     © ar = window.outerHeight÷window.outerWidth;
@@ -202,7 +207,7 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
       ¿(C􋌵>1) C = C􌿑􋇙(󰲟render_tick(n+1));
       ⎉  = 󱀝 div {𝐶 𝘌modes} ⟦C⟧;
       
-      ¿(¬isAtom ∧ (n≡0 ∧ C􋌵>1 ∨ C₀􋌵>1)) {
+      ¿(¬isAtom ∧ (¬n ∧ C􋌵>1 ∨ C₀􋌵>1)) {
         C􋁃(⥌c↦{
           c = dragItem(c,n,󰲣{
             swapə(x,y);
@@ -211,7 +216,7 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
             render(dat,outer); });
           c.onclick = 󰲟render(dat􊯛 􋑴􊬖􊫵􊫄, ✗); }); }
       ⸘(n>1) 􋛟 ᵖᵒⁱⁿᵗᵉʳᴱᵛᵉⁿᵗˢ = ‹none›;
-      ¿(n≡0) { ⁱᵈˣ = 0;
+      ¿(¬n ) { ⁱᵈˣ = 0;
                © x = (⥌𝚚,=󰈙↦[⠤.matches(𝚚)⭜[]⭝[],⠤QSA(𝚚,)])(‹.𝘌atom›,);
                ☾(,x);
                x₀   􋛟.borderTopRightRadius    = ‹10px›;
@@ -252,11 +257,15 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
       [‹rev›,‹rot›,‹lum›]􋁃(󰲣fx_togsₓ ₀.set(y∈fx_og));
       has_init = ✓;
       
-      inspect.replaceWith(inspect = 
-        󱀝 {𝐶 𝘌inspector} [
-          󱀝 label ‹Effects›
-          󱀝 span {𝐶 𝘌toggleSection} ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
-          ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]); };
+       ¿(␛1∈dat)
+       󱀝 label ‹Mode›
+      
+      inspect.replaceChildren(
+        ənavBar({ Ⴝ:‹Effects› },
+                [‹Effects󷺗›, 󱀝 {} [
+                               󱀝 span {𝐶 𝘌toggleSection} ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
+                               ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]],
+                [‹Activate›, 󱀝 div ‹󰤱›])); };
     
     dat.replaceWith(dat = render_𝖬(dat));
     set_inspector(dat);
@@ -266,8 +275,8 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
         󱀝 {} ⟦𝔸⟧
         󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
           󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
-    labels.replaceChildren(⠤outer ⭜ ↨(󱑼(names,counts))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pixels›))
-                                   ⭝ [ətriLabel(stot, 󱀝 T ‹⟦stot⟧ Pixels›)]);
+    labels.replaceChildren(⠤outer ⭜ ↨(󱑼(names,counts))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))
+                                   ⭝ [ətriLabel(stot, 󱀝 T ‹⟦stot⟧ Pxl›)]);
   };
   
   render(dat,✓);

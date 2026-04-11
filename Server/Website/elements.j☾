@@ -26,6 +26,7 @@
 əbuttonBar = 𝚲
   󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 ənavBar = ⥌Ѧ,⠤𝙴↦{
+   󰤱 clean way to hide/unhide certain pages
   Ѧ􀳕 = {};
   © bar = [];
   ∀(⎉[k,e,ɒ={}] ⎔ 𝙴)
@@ -35,9 +36,9 @@
     ¡    { bar.push(e); }
   
   ⎉ holder;
-  ©  = 󱀝 div {𝐶 navContainer} ⟦[
-          󱀝         span {𝐶 multiButtonBar} ⟦bar⟧,
-          󱀝:holder div  {𝐶  navBodyHolder} [󱀝 T ‹›]]⟧
+  ©  = 󱀝 {𝐶 navContainer} ⟦[
+          󱀝         {𝐶 multiButtonBar} ⟦bar⟧,
+          󱀝:holder {𝐶  navBodyHolder} [󱀝 T ‹›]]⟧
   ˢᵉᵗ = ⥌k=Ѧ􎁎↦{ RAT(Ѧ􀳕􀴖􎎵􀲝,‹choosen›,‹disabled›);
                  Ѧ􎁎=k;
                  [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
