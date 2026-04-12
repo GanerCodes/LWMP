@@ -8,6 +8,7 @@
 © bg3 #606060
 © bg4 #707070
 ⊖ ꬶrb0_→ linear-gradient( 90􋠏,#21A8C6 0%, #FC2462 100%)
+⊖ ꬶbr0_→ linear-gradient( 90􋠏,#FC2462 0%, #21A8C6 100%)
 ⊖ ꬶrb0_↓ linear-gradient(180􋠏,#21A8C6 0%, #FC2462 100%)
 ⊖ ꬶrb1_↓ linear-gradient(180􋠏,#30B2D5 0%, #FF3068 100%)
 ⊖ ꬶrb2_↓ linear-gradient(180􋠏,#35C0F0 0%, #FF4075 100%)
@@ -83,15 +84,20 @@ button,.bigButton ∣ 𝚋 􍍝
 .«hbar bigButton»      ∣ 𝚠;𝚖0
 .«barButton bigButton» ∣ 𝚠;𝚑;󰊄𝚊 center
 .bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
-.barButton ∣ 𝚠;𝚑;󰊄𝚜 1.25em
-             >* ∣ 𝚊𝚛 1; 𝚑¾
-             􋒗  ∣ 𝚋 ⦑bg0⦒
-             𝚙↑ 5px
-             𝚋↓ 5px solid
-             [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
-                             border-image ⦑ꬶrb0_→⦒ 1
-             􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90􋠏,#0000 0%, #0000 100%) 1;
-.multiButtonBar ∣ 𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
+.multiButtonBar
+  𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
+  >.barButton
+    𝚠;𝚑;󰊄𝚜 1.25em
+    >* ∣ 𝚊𝚛 1; 𝚑¾
+    􋒗  ∣ 𝚋 ⦑bg0⦒
+    𝚙↑ 5px
+    𝚋↓ 5px solid
+    [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
+                    border-image ⦑ꬶrb0_→⦒ 1
+    􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90􋠏,#0000 0%, #0000 100%) 1;
+  [plural]>.barButton[choosen]
+    􍬷(2n-1) ∣ border-image ⦑ꬶbr0_→⦒ 1
+  
 .itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 􊽺(90􍽺)
             𝚊𝙿󷷣; 𝚐 20px
             grid-template-columns repeat(auto-fit,300px)
@@ -139,7 +145,7 @@ body>.navContainer
   >.multiButtonBar
      𝚋 ⦑bg1⦒
      𝚑≤ 􊽺(10􍽺)
-  .navBodyHolder
+  >.navBodyHolder
     𝚠; 𝚑≥ 􊽺(80􍽺); 𝚑≤ 􊽺(90􍽺 - 30px)
     𝚖↑ 30px; 𝚘𝚏y scroll
 .devDraggableHolder ∣ 𝚏↓;𝚠;𝚑;󰊄𝚜 22px

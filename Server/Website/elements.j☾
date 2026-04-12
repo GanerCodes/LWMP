@@ -30,20 +30,31 @@
   Ѧ􀳕 = {};
   © bar = [];
   ∀(⎉[k,e,ɒ={}] ⎔ 𝙴)
-    ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮ onclick ⟦󰲟.set(k)⟧⍮ ⠤ɒ} ⟦k⟧
+    ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮ onclick ⟦󰲟ˢᵉᵗ(k)⟧⍮ ⠤ɒ} ⟦k⟧
            Ѧ􀳕ₖ = {:e,𝚋};
            bar.push(𝚋); }
     ¡    { bar.push(e); }
   
-  ⎉ holder;
-  ©  = 󱀝 {𝐶 navContainer} ⟦[
-          󱀝         {𝐶 multiButtonBar} ⟦bar⟧,
-          󱀝:holder {𝐶  navBodyHolder} [󱀝 T ‹›]]⟧
-  ˢᵉᵗ = ⥌k=Ѧ􎁎↦{ RAT(Ѧ􀳕􀴖􎎵􀲝,‹choosen›,‹disabled›);
-                 Ѧ􎁎=k;
-                 [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
-                 holder􋑱₀.replaceWith(Ѧ􀳕􀴖􎎵􋑵); };
-  ˢᵉᵗ();
+  ⎉ holder,bar;
+  ©  = 󱀝 {𝐶 navContainer} [
+          󱀝:bar    {𝐶 multiButtonBar} ⟦bar⟧
+          󱀝:holder {𝐶  navBodyHolder} ⟦Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ??(󱀝 T ‹›)⟧]
+  ˢᵉᵗ = Ѧᵐᵘˡᵗⁱ ⭜⥌k   ↦{ © s = Ѧ􎁎.includes(k)
+                         ¿(s){ Ѧ􎁎 = Ѧ􎁎 􋐉(󰲡x≠k);
+                               RAT(Ѧ􀳕ₖ􀲝,‹choosen›);
+                               holder.removeChild(Ѧ􀳕ₖ􋑵); }
+                         ¡   { Ѧ􎁎.push(k);
+                               SAT(Ѧ􀳕ₖ􀲝,‹choosen›);
+                               holder􍪙(Ѧ􀳕ₖ􋑵); } }
+                ⭝⥌k=Ѧ􎁎↦{ RAT(Ѧ􀳕􀴖􎎵􀲝,‹choosen›,‹disabled›);
+                        Ѧ􎁎=k;
+                        [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
+                        holder.replaceChildren(Ѧ􀳕􀴖􎎵􋑵); };
+  ¿(Ѧᵐᵘˡᵗⁱ) { SAT(bar,‹plural›)
+              © Ⴝ = Ѧ􎁎;
+              Ѧ􎁎 = [];
+              Ⴝ 􋁃(󰲡ˢᵉᵗ(x)); }
+  ¡ ˢᵉᵗ()
   􀴗 = Ѧ;
   ↪; }
 

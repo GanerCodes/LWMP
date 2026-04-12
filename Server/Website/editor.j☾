@@ -225,7 +225,6 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
       ↪; };
     
     © set_inspector = ⥌↦{
-        󷸾   󱦙 󰳲
       © fx_og = grp_fx(dat);
       © fx = {0:[], 1:[1,0], 2:[1], ⠤fx_og};
       
@@ -257,14 +256,22 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
       [‹rev›,‹rot›,‹lum›]􋁃(󰲣fx_togsₓ ₀.set(y∈fx_og));
       has_init = ✓;
       
-       ¿(␛1∈dat)
-       󱀝 label ‹Mode›
+      © isAtom = ␛1∈dat;
+      
+      © modes = [[␛G,‹Group›],[␛,‹Color›],[␛󷸾,‹Fade›],[␛,‹Rainbow›]];
+      © mode =  ənavBar({ Ⴝ:modes[isAtom⭜dat􊯛₁ ₁+1⭝0]₀ },
+                         ⠤modes􊾡(⥌[s,n],i↦[s, 󱀝 T ⟦n⟧, ☾(isAtom^¬¬i,isAtom,i)⭜{disabled:✓}⭝{}]));
+      
+       © toggleSectionə = 
+       󱀝 span {𝐶 𝘌toggleSection}
+      
+        󷸾   󱦙 󰳲
       
       inspect.replaceChildren(
         ənavBar({ Ⴝ:‹Effects› },
-                [‹Effects󷺗›, 󱀝 {} [
-                               󱀝 span {𝐶 𝘌toggleSection} ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
-                               ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]],
+                [‹Mode󷺗󷺗󷺗󷺗›, mode],
+                [‹Effects󷺗›, 󱀝 {} [󱀝 span {𝐶 𝘌toggleSection} ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
+                                   ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]],
                 [‹Activate›, 󱀝 div ‹󰤱›])); };
     
     dat.replaceWith(dat = render_𝖬(dat));

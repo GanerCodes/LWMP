@@ -33,15 +33,24 @@
            bar . push(𝚋) ;  }
      else     { bar . push(e) ;  }
   
-   let  þ0E27Fholder ; 
-   const  þ0E27F  =  mkə( false  , {[`𝐶`] : `navContainer`} , [
-          mkə( false  , {[`𝐶`] : `multiButtonBar`} , bar) , 
-          (þ0E27Fholder = mkə( false  , {[`𝐶`] : `navBodyHolder`} , [(mkə(`T` ,  false  , ``))]))])
-  þ0E27F . set  =  (k = Ѧ . Ⴝ) => { RAT(Ѧ . 𝙳[Ѧ . Ⴝ] . 𝚋 , `choosen` , `disabled`) ; 
-                 Ѧ . Ⴝ = k ; 
-                 [`choosen` , `disabled`] . forEach( (x,...𝔸)=> SAT(Ѧ . 𝙳[Ѧ . Ⴝ] . 𝚋 , x)) ; 
-                 þ0E27Fholder . children[0] . replaceWith(Ѧ . 𝙳[Ѧ . Ⴝ] . þ0E27F) ;  } ; 
-  þ0E27F . set() ; 
+   let  holderþ0E27F , barþ0E27F ; 
+   const  þ0E27F  =  mkə( false  , {[`𝐶`] : `navContainer`} , [((barþ0E27F = mkə( false  , {[`𝐶`] : `multiButtonBar`} , bar))) , ((holderþ0E27F = mkə( false  , {[`𝐶`] : `navBodyHolder`} , Ѧ . placeholder ?? (mkə(`T` ,  false  , ``)))))])
+  þ0E27F . set  =  Ѧ . multi  ? (k   ) => {  const  s  =  Ѧ . Ⴝ . includes(k)
+                          if (s){ Ѧ . Ⴝ  =  Ѧ . Ⴝ  . þF0232( (x,...𝔸)=> x != k) ; 
+                               RAT(Ѧ . 𝙳[k] . 𝚋 , `choosen`) ; 
+                               holderþ0E27F . removeChild(Ѧ . 𝙳[k] . þ0E27F) ;  }
+                          else    { Ѧ . Ⴝ . push(k) ; 
+                               SAT(Ѧ . 𝙳[k] . 𝚋 , `choosen`) ; 
+                               holderþ0E27F . append(Ѧ . 𝙳[k] . þ0E27F) ;  } }
+                 : (k = Ѧ . Ⴝ) => { RAT(Ѧ . 𝙳[Ѧ . Ⴝ] . 𝚋 , `choosen` , `disabled`) ; 
+                        Ѧ . Ⴝ = k ; 
+                        [`choosen` , `disabled`] . forEach( (x,...𝔸)=> SAT(Ѧ . 𝙳[Ѧ . Ⴝ] . 𝚋 , x)) ; 
+                        holderþ0E27F . replaceChildren(Ѧ . 𝙳[Ѧ . Ⴝ] . þ0E27F) ;  } ; 
+   if (Ѧ . multi) { SAT(barþ0E27F , `plural`)
+               const  Ⴝ  =  Ѧ . Ⴝ ; 
+              Ѧ . Ⴝ  =  [] ; 
+              Ⴝ  . forEach( (x,...𝔸)=> þ0E27F . set(x)) ;  }
+   else  þ0E27F . set()
   þ0E27F . Ѧ  =  Ѧ ; 
    return þ0E27F ;  }
 

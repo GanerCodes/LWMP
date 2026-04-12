@@ -214,7 +214,6 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
        return þ0E27F ;  } ; 
     
      const  set_inspector  =  (þ0E27F) => {
-      
        const  fx_og  =  grp_fx(dat) ; 
        const  fx  =  {0 : [] ,  1 : [1 , 0] ,  2 : [1] ,   ... fx_og} ; 
       
@@ -242,11 +241,20 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
       [`rev` , `rot` , `lum`] . forEach( (x,y,...𝔸)=> fx_togs[x] [0] . set(y in fx_og)) ; 
       has_init  =   true  ; 
       
+       const  isAtom  =  `1` in dat ; 
+      
+       const  modes  =  [[`G` , `Group`] , [`` , `Color`] , [`󷸾` , `Fade`] , [`` , `Rainbow`]] ; 
+       const  modeþ0E27F  =   ənavBar({ Ⴝ : modes[isAtom ? dat[`1`] [1] + 1 : 0][0] } , 
+                          ... modes . ᴍ(([s , n] , i) => [s ,  mkə(`T` ,  false  , n) ,   print (isAtom ^  !  ! i , isAtom , i) ? {disabled :  true } : {}])) ; 
+      
+      
+      
       
       
       
       inspectþ0E27F . replaceChildren(
         ənavBar({ Ⴝ : `Effects` } , 
+                [`Mode` ,  modeþ0E27F] , 
                 [`Effects` ,  mkə( false  , {} , [(mkə(`span` , {[`𝐶`] : `𝘌toggleSection`} , 𝒪v(fx_togs) . ꟿ( (x,y,...𝔸)=> x . þ0E27F))) , (𝒪v(fx_togs) . ᴍþF01A9( (x,...𝔸)=> x . length == 2 ? [x[1]] : []))])] , 
                 [`Activate` ,  mkə(`div` ,  false  , `󰤱`)])) ;  } ; 
     
