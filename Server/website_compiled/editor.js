@@ -150,14 +150,15 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
    const  ctot    =  counts . ſ( (x,y,...𝔸)=> x + y , 0) ; 
   
    const  dat𝘏  =  [] ; 
-   let  prevDatþ0E27F , labelsþ0E27F , datþ0E27F , inspectþ0E27F ; 
+   let  þ0E27F , prevDatþ0E27F , labelsþ0E27F , datþ0E27F , inspectþ0E27F ; 
   
-   const  prevDat   =   (...𝔸)=> render((dat𝘏 . pop() , dat𝘏 . pop()) ,  ! dat𝘏 . length) ; 
-   const  addElm    =   (...𝔸)=>  print (`󰤱`) ; 
-   const  splitElm  =   (...𝔸)=>  print (`󰤱`) ; 
+   const  tool  =  (𝗍) => {
+     if (𝗍 == `←`)  return render((dat𝘏 . pop() , dat𝘏 . pop()) ,  ! dat𝘏 . length) ; 
+     if (𝗍 == `󰆴`) SAT(þ0E27F , `𝘌toolmode`) ; 
+  } ; 
   
-   const  þ0E27F  =  popup({þF0159 :  true  ,  noAppend :  true } , 
-              mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`T` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {[`𝐶`] : `multiButtonBar`} , [((prevDatþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] : prevDat } , `←`))) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] : addElm  } , `+`)) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] : splitElm} , ``))])) , (mkə( false  , {} , [(mkə( false  , {} , [((labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , (mkə( false  , {[`𝐶`] : `𝘌pixels       `} , [((datþ0E27F = mkə( false  , {} ,  false )))]))]))]))])) , ((inspectþ0E27F = mkə( false  , {[`𝐶`] : `𝘌inspector`} ,  false )))]))])) ; 
+  þ0E27F  =  popup({þF0159 :  true  ,  noAppend :  true } , 
+            mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`T` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {[`𝐶`] : `multiButtonBar`} , [((prevDatþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`←`)} , `←`))) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`+`)} , `+`)) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(``)} , ``)) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰆴`)} , `󰆴`))])) , (mkə( false  , {} , [(mkə( false  , {} , [((labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , (mkə( false  , {[`𝐶`] : `𝘌pixels       `} , [((datþ0E27F = mkə( false  , {} ,  false )))]))]))]))])) , ((inspectþ0E27F = mkə( false  , {[`𝐶`] : `𝘌inspector`} ,  false )))]))])) ; 
   þ0E27F . classList  . add(`editorDialog`) ; 
   
    const  render  =  (dat , outer =  true ) => {
@@ -252,11 +253,20 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
       
       
       
+       const  run  =   (x,...𝔸)=> {
+         const   Ϝ   =  (x , ƒ ,  ... 𝔸) => { x  =  [ ... 𝔸 ,  ... x] ; 
+                         for ( let  i = 1 ;  i < x . length ;  i ++ )
+                          x[i]  =  ƒ(x[i - 1] , x[i])
+                        x . pop()
+                         return x ;  } ; 
+         const  dat  =  {mode : x ,  offsets : 𝒟( þF147C (𝐬 . 𝐔 ,  Ϝ (𝐬 . 𝐔 ,  (x,y,...𝔸)=> x + 𝔖 . 𝐃[y] . LEDC , 0)))} ; 
+        𝐀(𝔖 . 𝐭 ,  ... 𝐬 . 𝐔) . scene(𝐬 . name , dat ,  false  , -1) ;  }
+      
       inspectþ0E27F . replaceChildren(
         ənavBar({ Ⴝ : `Effects` } , 
                 [`Mode` ,  modeþ0E27F] , 
                 [`Effects` ,  mkə( false  , {} , [(mkə(`span` , {[`𝐶`] : `𝘌toggleSection`} , 𝒪v(fx_togs) . ꟿ( (x,y,...𝔸)=> x . þ0E27F))) , (𝒪v(fx_togs) . ᴍþF01A9( (x,...𝔸)=> x . length == 2 ? [x[1]] : []))])] , 
-                [`Activate` ,  mkə(`div` ,  false  , `󰤱`)])) ;  } ; 
+                [`Activate` ,  mkə(`button` , {[`onclick`] :  (...𝔸)=> run(dat𝘏[0])} , `Ⴝω󷱇𝑔`)])) ;  } ; 
     
     datþ0E27F . replaceWith(datþ0E27F  =  render_𝖬(dat)) ; 
     set_inspector(datþ0E27F) ; 

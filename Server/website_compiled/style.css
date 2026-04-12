@@ -453,6 +453,9 @@ dialog[open] {
   margin: auto;
   padding: 0.1em;
   background-color: #2b2b2bF5;
+  &[𝘌toolmode] {
+    transform: scale(2);
+  }
   .𝘌outer {
     display: flex;
     flex-direction: column;

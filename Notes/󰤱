@@ -38,6 +38,11 @@ Done
   𝟒
     I stopped keeping track lol
 
+fix bad scenes cause dev to bootloop lol,
+⟨['*', ['Push_scenes', {'raw': {'mode': {'fx': [[1, 0, 0]], '*': [{'*': [{'1': [50, 0, 16711680]}, {'1': [50, 0, 65280]}, {'1': [50, 0, 255]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [5, 1, 3, 245, 50]}, {'1': [45, 0, 4456448]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [22, 1, 1, 245, 50]}, {'1': [15, 0, 17408]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [33, 1, 1, 245, 50]}, {'1': [25, 0, 68]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [2, 1, 1, 245, 50]}, {'1': [120, 0, 4456516]}]}]}, 'offsets': {'testdevice1': 'testdevice150', 'testdevice0': 'testdevice050', 'testdevice2': 'testdevice250', 'testdevice3': 'testdevice3'}}}], ['Set_scene', 'raw', False, -1, 1776004828852]]⟩ → testdevice3
+
+
+
 Planned
   General
     Finish API things

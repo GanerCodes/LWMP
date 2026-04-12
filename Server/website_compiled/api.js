@@ -2,10 +2,11 @@
 𝖦 = (...𝔸) => [true , ...𝔸];
 𝖡 = (...𝔸) => [false, ...𝔸];
 
+api_base = location.origin;
 api_body = (𝐭,P,...𝔸) => JSON.stringify({ 𝐭, _:[...𝔸], ...P });
 api = async (𝐭,P,...𝔸) => {
   const body = api_body(𝐭,P,...𝔸);
-  const req = await fetch("/api", {
+  const req = await fetch(`${api_base}/api`, {
     method: "POST",
     body,
     headers: { "Content-type": "application/json; charset=UTF-8" } });
@@ -13,7 +14,7 @@ api = async (𝐭,P,...𝔸) => {
   r.status = req.status;
   print(`API with "${JSON.stringify(JSON.parse(body))}" → "${JSON.stringify(r,null,2)}"`);
   return r; };
-apiURL = (...𝔸) => `${location.origin}/api/${encodeURIComponent(api_body(...𝔸))}`;
+apiURL = (...𝔸) => `${api_base}/api/${encodeURIComponent(api_body(...𝔸))}`;
 
 const s_per_d = 60*60*24;
 const s_per_w = s_per_d*7;
@@ -43,20 +44,13 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
     const scheg    = (   S) => { if(!S) return [["Pull_schedule"]];
                                  const scheg = Object.fromEntries(S.map(([x,y]) => [s2utcW(dhms2s(...x)),y]));
                                  return [["Set_schedule", scheg]]; };
+    
     const M = {sync,config,recalb_t,set_AP,off,scene,scheg};
-    
-    log = (...𝔸)=>console.log(...𝔸)||𝔸[0];
-    
     const send = v=>𝔄𝔘(...v.length>1 ? ["*",...v] : v[0])
-    const R = {
-      𝐭,𝐔,
-      bulk: (...𝔸)=>send(𝔸.flatMap(([n,...𝔸])=>M[n](...𝔸))),
-      ...Object.fromEntries(
-           Object.entries(M)
-                 .map(([k,ƒ])=>[k,(...𝔸)=>send(ƒ(...𝔸))]))};
-    
-    // const 𝔐 = (...𝐑)=>𝔄("*",{uuids,reqs:𝐑.map((m,...𝔸)=>M[m](...𝔸))𝔠["*"]()});
-    return R; };
+    return { 𝐭,𝐔,
+             bulk: (...𝔸)=>send(𝔸.flatMap(([n,...𝔸])=>M[n](...𝔸))),
+             ...Object.fromEntries(Object.entries(M)
+                                         .map(([k,ƒ])=>[k,(...𝔸)=>send(ƒ(...𝔸))])) }; };
   if(𝐔.length) return dev(...𝐔);
   return {get_devs,dev}; };
 

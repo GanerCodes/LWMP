@@ -149,26 +149,28 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
   © ctot   = counts􋔩(󰲣x+y,0);
   
   © dat𝘏 = [];
-  ⎉ prevDat,labels,dat,inspect;
+  ⎉ ,prevDat,labels,dat,inspect;
   
-  © prevDat  = 󰲟render((dat𝘏.pop(),dat𝘏.pop()),¬dat𝘏􋌵);
-  © addElm   = 󰲟☾(‹󰤱›);
-  © splitElm = 󰲟☾(‹󰤱›);
+  © tool = ⥌𝗍↦{
+    ¿(𝗍≡␛←) ↪render((dat𝘏.pop(),dat𝘏.pop()),¬dat𝘏􋌵);
+    ¿(𝗍≡␛󰆴) SAT(,‹𝘌toolmode›);
+  };
   
-  ©  = popup({󰅙:✓, noAppend:✓},
-              󱀝 {𝐶 𝘌outer} [
-                󱀝 T ‹Scene Editor›
-                󱀝 {𝐶 𝘌inner} [
-                  󱀝 {𝐶 𝘌preview} [
-                    󱀝 {𝐶 multiButtonBar} [
-                      󱀝:prevDat button {𝐶 barButton⍮ onclick ⟦prevDat ⟧} ␛←
-                      󱀝          button {𝐶 barButton⍮ onclick ⟦addElm  ⟧} ␛+
-                      󱀝          button {𝐶 barButton⍮ onclick ⟦splitElm⟧} ␛]
+   = popup({󰅙:✓, noAppend:✓},
+            󱀝 {𝐶 𝘌outer} [
+              󱀝 T ‹Scene Editor›
+              󱀝 {𝐶 𝘌inner} [
+                󱀝 {𝐶 𝘌preview} [
+                  󱀝 {𝐶 multiButtonBar} [
+                    󱀝:prevDat button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛←)⟧} ␛←
+                    󱀝          button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛+)⟧} ␛+
+                    󱀝          button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛)⟧} ␛
+                    󱀝          button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󰆴)⟧} ␛󰆴]
+                  󱀝 {} [
                     󱀝 {} [
-                      󱀝 {} [
-                        󱀝:labels {𝐶 𝘌alignedLabels}
-                        󱀝         {𝐶 𝘌pixels       } [󱀝:dat {}]]]]
-                  󱀝:inspect {𝐶 𝘌inspector}]]);
+                      󱀝:labels {𝐶 𝘌alignedLabels}
+                      󱀝         {𝐶 𝘌pixels       } [󱀝:dat {}]]]]
+                󱀝:inspect {𝐶 𝘌inspector}]]);
   􋒅 ⁺(‹editorDialog›);
   
   © render = ⥌dat,outer=✓↦{
@@ -267,12 +269,21 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
       
         󷸾   󱦙 󰳲
       
+      © run = 󰲡{
+        © Ϝ = ⥌x,ƒ,⠤𝔸↦{ x = [⠤𝔸,⠤x];
+                        ∀(⎉ i=1; i<x􋌵; i++)
+                          xᵢ = ƒ(xᵢ₋₁,xᵢ)
+                        x.pop()
+                        ↪x; };
+        © dat = {mode:x, offsets:𝒟(󱑼(𝐬􋆕,Ϝ(𝐬􋆕,󰲣x+𝔖􋆄ᴸᴱᴰ󰀂,0)))};
+        𝐀(𝔖􋆮,⠤𝐬􋆕).scene(𝐬ⁿᵃᵐᵉ,dat,✗,󷰾); }
+      
       inspect.replaceChildren(
         ənavBar({ Ⴝ:‹Effects› },
                 [‹Mode󷺗󷺗󷺗󷺗›, mode],
                 [‹Effects󷺗›, 󱀝 {} [󱀝 span {𝐶 𝘌toggleSection} ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
                                    ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]],
-                [‹Activate›, 󱀝 div ‹󰤱›])); };
+                [‹Activate›, 󱀝 button {onclick ⟦󰲟run(dat𝘏₀)⟧} ‹Ⴝω󷱇𝑔›])); };
     
     dat.replaceWith(dat = render_𝖬(dat));
     set_inspector(dat);
