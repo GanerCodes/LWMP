@@ -84,6 +84,8 @@ class Scene_Cacher:
   def __call__(𝕊,scene):
     if "mode" in scene:
       scene,offsets = scene["mode"],scene.get("offsets")
+      if offsets:
+        offsets = {k:v for k,v in offsets.items() if isinstance(v,int)}
     else:
       scene,offsets = scene,None
     return encode_mode(scene),offsets

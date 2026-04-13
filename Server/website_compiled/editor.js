@@ -12,272 +12,134 @@
 
 
 
-
  const  grp_fx  =   (x,...𝔸)=> x . fx  ? ᴍv(x . fx  . þ0EB86( (x,...𝔸)=> x[0]) ,   (x,...𝔸)=> [ ... x[0] . þF7E3B(1)]) :  {} ; 
 
- const  dat  = 
-{
-  "fx" :  [
-    [
-      1 , 
-      0 , 
-      0
-    ]
-  ] , 
-  "*" :  [
-    { "*" :  [{"1" :  [50 , 0 , 0xFF0000]} , 
-            {"1" :  [50 , 0 , 0x00FF00]} , 
-            {"1" :  [50 , 0 , 0x0000FF]}] } , 
-    {
-      "fx" :  [
-        [
-          1 , 
-          25 , 
-          0
-        ]
-      ] , 
-      "*" :  [
-        {
-          "1" :  [
-            5 , 
-            1 , 
-            3 , 
-            245 , 
-            50
-          ]
-        } , 
-        {
-          "1" :  [
-            45 , 
-            0 , 
-            4456448
-          ]
-        }
-      ]
-    } , 
-    {
-      "fx" :  [
-        [
-          1 , 
-          25 , 
-          0
-        ]
-      ] , 
-      "*" :  [
-        {
-          "1" :  [
-            22 , 
-            1 , 
-            1 , 
-            245 , 
-            50
-          ]
-        } , 
-        {
-          "1" :  [
-            15 , 
-            0 , 
-            17408
-          ]
-        }
-      ]
-    } , 
-    {
-      "fx" :  [
-        [
-          1 , 
-          25 , 
-          0
-        ]
-      ] , 
-      "*" :  [
-        {
-          "1" :  [
-            33 , 
-            1 , 
-            1 , 
-            245 , 
-            50
-          ]
-        } , 
-        {
-          "1" :  [
-            25 , 
-            0 , 
-            68
-          ]
-        }
-      ]
-    } , 
-    {
-      "fx" :  [
-        [
-          1 , 
-          25 , 
-          0
-        ]
-      ] , 
-      "*" :  [
-        {
-          "1" :  [
-            2 , 
-            1 , 
-            1 , 
-            245 , 
-            50
-          ]
-        } , 
-        {
-          "1" :  [
-            120 , 
-            0 , 
-            4456516
-          ]
-        }
-      ]
-    }
-  ]
-} ; 
+ const  test_dat  =  {"fx" : [[1 , 0 , 0]] , "*" : [{"*" : [{"1" : [50 , 0 , 16711680]} , {"1" : [50 , 0 , 65280]} , {"1" : [50 , 0 , 255]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"1" : [5 , 1 , 3 , 245 , 50]} , {"1" : [45 , 0 , 4456448]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"1" : [22 , 1 , 1 , 245 , 50]} , {"1" : [15 , 0 , 17408]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"1" : [33 , 1 , 1 , 245 , 50]} , {"1" : [25 , 0 , 68]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"1" : [2 , 1 , 1 , 245 , 50]} , {"1" : [120 , 0 , 4456516]}]}]}
 
- const  scene_count  =  (M) => isArr(M)  ? M[1]    : 
-                      `1` in M   ? M[`1`] [0] : 
-                      M[`*`] . ᴍ( (x,...𝔸)=> scene_count(x)) . ſ( (x,y,...𝔸)=> x + y) ;  
  const  þ0E22B  =   (x,...𝔸)=> `rgb(${x >> 16 & 0xFF},${x >> 8 & 0xFF},${x >> 0 & 0xFF})` ; 
+ const  scene_count  =  (þF0832) => isArr(þF0832)  ? þF0832[1]    : 
+                      `1` in þF0832   ? þF0832[`1`] [0] : 
+                      þF0832[`*`] . ᴍ( (x,...𝔸)=> scene_count(x)) . ſ( (x,y,...𝔸)=> x + y) ;  
+
+ const  þ0EF26grad  =   (x,...𝔸)=> `linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ${100 / x}% 100% repeat-x`
+
+ const  ətriLabel  =  (𝚑 ,  ... 𝔸) => 
+  mkə( false  , {[`𝑆`] : `min-height: ${𝚑}px;`} , [(mkə( false  , {} , 𝔸)) , (mkə(`svg` , {[`viewBox`] : `-1.05 -1 2 2` , [`preserveAspectRatio`] : `none`} , [(mkə(`path` , {[`d`] : `M1 -1 L-1 0 L1 1` , [`style`] : `fill:#0000;stroke:#FFF;stroke-width:0.05`} , ``))]))])
+
+ const  𝘌atom  =  (Ѧ , [n , i ,  ... þF0832]) => {
+   const  𝗆  =   (x,...𝔸)=> mkə( false  , {[`𝐶`] : `𝘌atom` , [`𝑆`] : `height: ${Ѧ . χ * n}px;` + `;` + x} , ``) 
+   if (i == 0) {  const  [𝚌]  =  þF0832 ; 
+            return 𝗆(`background-color: ${þ0E22B(𝚌)};`) ;  }
+   else if (i == 1) {  const  [seg , sat , val]  =  þF0832 ; 
+            return 𝗆(`background: ${þ0EF26grad(seg)};`) ;  }
+   return `󰤱` ;  } ; 
+ const  𝘌𝖬  =  (Ѧ , þF0832 , n = 0) => {
+   const  ətick  =  (𝚒 , m = 40 , b = 20) => {
+     const  [p , s]  =  [ (Math.max) (1 , 3 / 𝚒)     ,  b + m / 𝚒] ; 
+     const  [l , α]  =  [255 - 40 * (𝚒 - 1) ,  100  ] ; 
+     const  clr  =  `rgba(${l},${l},${l},${α}%)` ; 
+     const  cnd  =  𝚒 > 1 ? `;pointer-events:none` :  ""  ; 
+     return mkə( false  , {[`𝐶`] : `𝘌tickmark` , [`𝑆`] : `background-color: ${clr}; width: ${s}px; height: ${p}px; min-height: ${p}px; margin-bottom: ${ - p}px;` + cnd} , ``) ;  } ; 
+  
+   let  C  =  `1` in þF0832  ? [𝘌atom(Ѧ , þF0832[`1`])] :  þF0832[`*`] . ᴍ( (x,...𝔸)=> 𝘌𝖬(Ѧ , x , n + 1)) ; 
+  C  =  C . ᴍ( (x,y,...𝔸)=> (x . idx = y , x)) ; 
+   if (C . length > 1) C  =  C . þ02A1D𝑙( (...𝔸)=> ətick(n + 1)) ; 
+  
+   let  þ0E27F  =  mkə( false  , {[`𝐶`] : `𝘌modes`} , C) ; 
+  
+   if ( ! n  &&  `*` in þF0832) {
+    C . forEach((cþ0E27F) => { cþ0E27F  =  dragItem(cþ0E27F , n ,  (x,y,...𝔸)=> {
+               swapə(x , y) ; 
+                const  d  =  Ѧ . þF0832[`*`] ; 
+               [d[x . idx] , d[y . idx]]  =  [d[y . idx] , d[x . idx]] ; 
+               Ѧ . setPreview() ;  }) ; 
+             cþ0E27F . onclick  =   (...𝔸)=> Ѧ . setPreview(Ѧ . þF0832[`*`] [cþ0E27F . idx]) ;  }) ;  }
+   else if (n > 1) þ0E27F . style  . pointerEvents  =  `none` ; 
+   if ( ! n ) { þ0E27F . idx  =  0 ; 
+            const  x  =  ((𝚚 , þ0E27F = þF0219) => [ ... þ0E27F . matches(𝚚) ? [þ0E27F] : [] ,  ... þ0E27F . querySelectorAll(𝚚)])(`.𝘌atom` , þ0E27F) ; 
+           x[0]    . toggleAttribute(`atom1`) ; 
+           x . at(-1) . toggleAttribute(`atom󷰾`) ;  }
+   return þ0E27F ;  } ; 
+
+ const  𝘌run  =  (þF0832 , 𝐬 , 𝔖) => {  const  body  =  {mode : þF0832 ,  offsets : 𝒟( þF147C (𝐬 . 𝐔 , 𝐬 . 𝐔  . Ϝ( (x,y,...𝔸)=> x + 𝔖 . 𝐃[y] . LEDC , 0)))} ; 
+                  𝐀(𝔖 . 𝐭 ,  ... 𝐬 . 𝐔) . scene(𝐬 . name , body ,  false  , -1) ;  }
+
+ const  𝘌setInspector  =  (Ѧ) => {
+   const  fx_og  =  grp_fx(Ѧ . þF0832) ; 
+   const  fx  =  {0 : [] ,  1 : [1 , 0] ,  2 : [1] ,   ... fx_og} ; 
+  
+   let  has_init  =   false  ; 
+   const  check  =   (x,y,...𝔸)=> fx_togs[x] [1] . style  . display != `none` ? [[y ,  ... fx[y]]] : [] ;  
+   const  update  =   (...𝔸)=> has_init  &&  (Ѧ . þF0832  . fx  =  
+    [ ... fx_togs . rev[0] . S ? [[0]] : [] ,   ... check(`rot` , 1) ,   ... check(`lum` , 2)]) ; 
+  
+   const  fx_togs  =  {
+    rev :  [toggleButton( (x,...𝔸)=> update()                       , `` , `` ,  false  , {init :  false  , polar :  false })] , 
+    rot :  [toggleButton( (x,...𝔸)=> (show(fx_togs . rot[1] , x) , update()) , `󱦙` , `󱦙` ,  false  , {init :  false }) , 
+          ( (...𝔸)=> {  let  [speedlþ0E27F , offstlþ0E27F]  =  [mkə(`T` ,  false  , ``) , mkə(`T` ,  false  , ``)] ; 
+               const  speedþ0F1DEþ0E27F  =  əslider({l : -200  , v : fx[`1`] [0] , h : 200  , s : 0.1 ,  ƒ :  (x,...𝔸)=> (speedlþ0E27F . innerText = `${fx[`1`] [0] = x} Pixels/s` , update())}) ; 
+               const  offstþ0F1DEþ0E27F  =  əslider({l : -1000 , v : fx[`1`] [1] , h : 1000 , s : 1   ,  ƒ :  (x,...𝔸)=> (offstlþ0E27F . innerText = `${fx[`1`] [1] = x} Pixels`   , update())}) ; 
+               return mkə( false  , {[`𝐶`] : `𝘌fxSection`} , [(mkə(`label` ,  false  , `Rotation`)) , (mkə( false  ,  false  , [(mkə(`label` ,  false  , `Speed`)) , (speedlþ0E27F) , (speedþ0F1DEþ0E27F)])) , (mkə( false  ,  false  , [(mkə(`label` ,  false  , `Offset`)) , (offstlþ0E27F) , (offstþ0F1DEþ0E27F)]))]) ;  })()] , 
+    lum :  [toggleButton( (x,...𝔸)=> (show(fx_togs . lum[1] , x) , update()) , `󰳲` , `󰳲` ,  false  , {init :  false }) , 
+          ( (...𝔸)=> {  let  lumlþ0E27F  =  mkə(`T` ,  false  , ``) ; 
+               const  lumþ0F1DEþ0E27F  =  əslider({l : 0 , v : fx[`2`] [0] * 255 , h : 255 , s : 1 , 
+                                 ƒ :  (x,...𝔸)=> (lumlþ0E27F . innerText = `${ þ02B13 ((fx[`2`] [0] = x / 255) * 100)}%` , update())}) ; 
+               return mkə( false  , {[`𝐶`] : `𝘌fxSection`} , [(mkə(`label` ,  false  , `Brightness`)) , (lumlþ0E27F) , (lumþ0F1DEþ0E27F)]) ;  })()] } ; 
+  [`rev` , `rot` , `lum`] . forEach( (x,y,...𝔸)=> fx_togs[x] [0] . set(y in fx_og)) ; 
+  has_init  =   true  ; 
+  
+   const  modes  =  [[`G` , `Group`] , [`` , `Color`] , [`󷸾` , `Fade`] , [`` , `Rainbow`]] ; 
+   const  modeþ0E27F  =   ənavBar({ Ⴝ : modes[`1` in Ѧ . þF0832 ? Ѧ . þF0832[`1`] [1] + 1 : 0][0] } , 
+                      ... modes . ᴍ(([s , n] , i) => [s ,  mkə(`T` ,  false  , n) ,  (`1` in Ѧ . þF0832) ^  !  ! i ? {disabled :  true } : {}])) ; 
+  
+  Ѧ . 𝘐þ0E27F . replaceChildren(
+    ənavBar({ Ⴝ : `` } , 
+            [`` ,  modeþ0E27F] , 
+            [`` ,  mkə( false  , {} , [(mkə(`span` , {[`𝐶`] : `𝘌toggleSection`} , 𝒪v(fx_togs) . ꟿ( (x,y,...𝔸)=> x . þ0E27F))) , (𝒪v(fx_togs) . ᴍþF01A9( (x,...𝔸)=> x . length == 2 ? [x[1]] : []))])] , 
+            [`⯈` ,  mkə(`button` , {[`onclick`] :  (...𝔸)=> 𝘌run(Ѧ . þF0832 , Ѧ . 𝐬 , Ѧ . 𝔖)} , `Ⴝω󷱇𝑔`)])) ;  } ; 
+
+ const  𝘌setPreview  =  (Ѧ , dat) => {
+   if ( ! dat) dat  =  Ѧ . þF0832 ; 
+   if ( ! Ѧ . þF0832𝘏  . length  ||  dat  &&  Ѧ . þF0832𝘏  . at(-1) !== dat)
+    Ѧ . þF0832𝘏 . push(Ѧ . þF0832  =  dat) ; 
+   const  stot  =  scene_count(Ѧ . þF0832) ; 
+   print ( ... Ѧ . þF0832𝘏) ; 
+  Ѧ . top  =  Ѧ . þF0832𝘏  . length == 1 ; 
+  
+  Ѧ . χ  =   (Math.max) (2 , 2.5 * (window . outerHeight / window . outerWidth) , 400 /  (Math.max) (stot , Ѧ . top ? Ѧ . L  . ſ( (x,y,...𝔸)=> x + y , 0) / 5 : 0)) ; 
+  
+  Ѧ . 𝘖  . prvþ0E27F  . disabled  =  Ѧ . top ; 
+  Ѧ . 𝘖  . delþ0E27F  . disabled  =  `1` in Ѧ . þF0832  ||  Ѧ . þF0832[`*`] . length <= 1 ; 
+  Ѧ . labelsþ0E27F . replaceChildren(
+               ... Ѧ . top  ?   þ021A8 ( þF147C (Ѧ . N , Ѧ . L)) . ꟿ((i , [𝐧 , n]) => ətriLabel(n * Ѧ . χ ,  mkə(`T` ,  false  , `${𝐧}`) ,  mkə(`T` ,  false  , `${n} Pxl`)))
+                     :  [ətriLabel(Ѧ . χ * stot ,  mkə(`T` ,  false  , `${stot} Pxl`))]) ; 
+  Ѧ . pixelsþ0E27F . replaceChildren(Ѧ . þF0832þ0E27F  =  𝘌𝖬(Ѧ , Ѧ . þF0832)) ;  } ; 
 
 prompt_editor  =  (cb , 𝔖 , 𝐬) => {
-   const  names   =  𝐬 . 𝐔  . ᴍ( (x,...𝔸)=> 𝔖 . 𝐃[x] ?. NAME ?? x) ; 
-   const  counts  =  𝐬 . 𝐔  . ᴍ( (x,...𝔸)=> 𝔖 . 𝐃[x] . LEDC) ; 
-   const  ctot    =  counts . ſ( (x,y,...𝔸)=> x + y , 0) ; 
-  
-   const  dat𝘏  =  [] ; 
-   let  þ0E27F , prevDatþ0E27F , labelsþ0E27F , datþ0E27F , inspectþ0E27F ; 
+  𝐬 . dat  =  test_dat ;  
+   const  Ѧ  =  { 𝔖 , 𝐬 , 
+          N :  𝐬 . 𝐔  . ᴍ( (x,...𝔸)=> 𝔖 . 𝐃[x] ?. NAME ?? x) , 
+          L :  𝐬 . 𝐔  . ᴍ( (x,...𝔸)=> 𝔖 . 𝐃[x] . LEDC) , 
+          þF0832 :  𝐬 . dat , 
+          þF0832𝘏 :  [] ,  
+          𝘖 :  {} ,  
+          setPreview   :   (...𝔸)=> 𝘌setPreview  (Ѧ ,  ... 𝔸) , 
+          setInspector :   (...𝔸)=> 𝘌setInspector(Ѧ ,  ... 𝔸) } ; 
   
    const  tool  =  (𝗍) => {
-     if (𝗍 == `←`)  return render((dat𝘏 . pop() , dat𝘏 . pop()) ,  ! dat𝘏 . length) ; 
-     if (𝗍 == `󰆴`) SAT(þ0E27F , `𝘌toolmode`) ; 
+     if (𝗍 == `←`) { Ѧ . þF0832𝘏 . pop() ; 
+               return Ѧ . setPreview(Ѧ . þF0832𝘏 . pop()) ;  }
+     if (𝗍 == `󰆴`) { Ѧ . þ0E27F  . setAttribute(`𝘌toolmode` ,  "" ) ; 
+              clickDetect(`.𝘌modes,.𝘌atom` , 
+                          (sþ0E27F) => { Ѧ . þ0E27F  . removeAttribute(`𝘌toolmode` ,  "" ) ; 
+                                 if (sþ0E27F) { Ѧ . þF0832[`*`] . splice(sþ0E27F . idx , 1) ; 
+                                        Ѧ . setPreview() ;  } } , 
+                          Ѧ . þ0E27F) ;  }
   } ; 
+  (Ѧ.þ0E27F = mkə(popup , {[`󰅙`] : `✓` , [`noAppend`] : `✓`} , [(mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`T` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {[`𝐶`] : `multiButtonBar`} , [((Ѧ.𝘖 .prvþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`←`)} , `←`))) , ((Ѧ.𝘖 .addþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`+`)} , `+`))) , ((Ѧ.𝘖 .cutþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󷹻`)} , `󷹻`))) , ((Ѧ.𝘖 .delþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰆴`)} , `󰆴`)))])) , (mkə( false  , {} , [(mkə( false  , {} , [((Ѧ.labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , ((Ѧ.pixelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌pixels       `} ,  false )))]))]))])) , ((Ѧ.𝘐þ0E27F = mkə( false  , {[`𝐶`] : `𝘌inspector`} ,  false )))]))]))])) ; 
+  Ѧ . þ0E27F  . classList.add(`editorDialog`) ; 
   
-  þ0E27F  =  popup({þF0159 :  true  ,  noAppend :  true } , 
-            mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`T` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {[`𝐶`] : `multiButtonBar`} , [((prevDatþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`←`)} , `←`))) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`+`)} , `+`)) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(``)} , ``)) , (mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰆴`)} , `󰆴`))])) , (mkə( false  , {} , [(mkə( false  , {} , [((labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , (mkə( false  , {[`𝐶`] : `𝘌pixels       `} , [((datþ0E27F = mkə( false  , {} ,  false )))]))]))]))])) , ((inspectþ0E27F = mkə( false  , {[`𝐶`] : `𝘌inspector`} ,  false )))]))])) ; 
-  þ0E27F . classList  . add(`editorDialog`) ; 
+  Ѧ . setInspector() ; 
+  Ѧ . setPreview() ; 
   
-   const  render  =  (dat , outer =  true ) => {
-     print (`render(${𝔍 . þ02191(dat)}, ${outer})`) ; 
-     if ( ! dat𝘏 . length  ||  dat𝘏 . at(-1) !== dat) dat𝘏 . push(dat) ; 
-    prevDatþ0E27F . disabled  =  outer ; 
-    
-     const  stot   =  scene_count(dat) ; 
-     const  ar  =  window . outerHeight / window . outerWidth ; 
-     const  scale  =   (x,...𝔸)=>  (Math.max) (2 , 2.5 * ar , 400 / stot) * x ; 
-    
-    
-     const  render_𝖬  =  (M , n = 0) => {
-       const  render_atom  =  ([n , i ,  ... M]) => {
-         const  𝗆  =   (x,...𝔸)=> mkə( false  , {[`𝐶`] : `𝘌atom` , [`𝑆`] : `height: ${scale(n)}px;` + `;` + x} , ``) 
-         if (i == 0) {
-           const  [𝚌]  =  M ; 
-           return 𝗆(`background-color: ${þ0E22B(𝚌)};`) ;  }
-         else if (i == 1) {
-           const  [seg , sat , val]  =  M ; 
-           const  þ1F308  =  `linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ${100 / seg}% 100% repeat-x` ; 
-           return 𝗆(`background: ${þ1F308};`) ;  } ; 
-         return `󰤱` ;  } ; 
-       const  render_tick  =  (𝚒 , m = 40 , b = 20) => {
-         const  [p , s]  =  [ (Math.max) (1 , 3 / 𝚒)     ,  b + m / 𝚒] ; 
-         const  [l , α]  =  [255 - 40 * (𝚒 - 1) ,  100  ] ; 
-         const  clr  =  `rgba(${l},${l},${l},${α}%)` ; 
-         const  cnd  =  𝚒 > 1 ? `;pointer-events:none` :  ""  ; 
-         return mkə( false  , {[`𝐶`] : `𝘌tickmark` , [`𝑆`] : `background-color: ${clr}; width: ${s}px; height: ${p}px; min-height: ${p}px; margin-bottom: ${ - p}px;` + cnd} , ``) ;  } ; 
-      
-       const  isAtom  =  isArr(M) ; 
-       let  C  =  isAtom  ? [render_atom(M  )] : 
-             `1` in M   ? [render_atom(M[`1`])] : 
-                    M[`*`] . ᴍ( (x,y,...𝔸)=> render_𝖬(x , n + 1)) ; 
-      C  =  C . ᴍ( (x,y,...𝔸)=> (x . idx = y , x)) ; 
-       if (C . length > 1) C  =  C . þ02A1D𝑙( (...𝔸)=> render_tick(n + 1)) ; 
-       let  þ0E27F  =  mkə(`div` , {[`𝐶`] : `𝘌modes`} , C) ; 
-      
-       if ( ! isAtom  &&  ( ! n  &&  C . length > 1  ||  C[0] . length > 1)) {
-        C . forEach((cþ0E27F) => {
-          cþ0E27F  =  dragItem(cþ0E27F , n ,  (x,y,...𝔸)=> {
-            swapə(x , y) ; 
-             const  d  =  dat[`*`] ; 
-            [d[x . idx] , d[y . idx]]  =  [d[y . idx] , d[x . idx]] ; 
-            render(dat , outer) ;  }) ; 
-          cþ0E27F . onclick  =   (...𝔸)=> render(dat[`*`] [cþ0E27F . idx] ,   false ) ;  }) ;  }
-       else if (n > 1) þ0E27F . style  . pointerEvents  =  `none` ; 
-       if ( ! n ) { þ0E27F . idx  =  0 ; 
-                const  x  =  ((𝚚 , þ0E27F = þF0219) => [ ... þ0E27F . matches(𝚚) ? [þ0E27F] : [] ,  ... QSA(𝚚 , þ0E27F)])(`.𝘌atom` , þ0E27F) ; 
-                print (þ0E27F , x) ; 
-               x[0]    . style . borderTopRightRadius     =  `10px` ; 
-               x . at(-1) . style . borderBottomRightRadius  =  `10px` ;  }
-      
-       return þ0E27F ;  } ; 
-    
-     const  set_inspector  =  (þ0E27F) => {
-       const  fx_og  =  grp_fx(dat) ; 
-       const  fx  =  {0 : [] ,  1 : [1 , 0] ,  2 : [1] ,   ... fx_og} ; 
-      
-       let  has_init  =   false  ; 
-       const  check  =   (x,y,...𝔸)=> fx_togs[x] [1] . style  . display != `none` ? [[y ,  ... fx[y]]] : []
-       const  update  =   (...𝔸)=> has_init  &&   print (dat . fx  =  [
-         ... fx_togs . rev[0] . S ? [[0]] : [] , 
-         ... check(`rot` , 1) , 
-         ... check(`lum` , 2)]) ; 
-      
-       const  show  =   (x,y,...𝔸)=> x . style . display = y ?  ""  : `none` ; 
-       const  fx_togs  =  { rev :  [toggleButton( (x,...𝔸)=> update()                       , `` , `` ,  false  , {init :  false  , polar :  false })] , 
-                    rot :  [toggleButton( (x,...𝔸)=> (show(fx_togs . rot[1] , x) , update()) , `󱦙` , `󱦙` ,  false  , {init :  false }) , 
-                          ( (...𝔸)=> {  let  [speedlþ0E27F , offstlþ0E27F]  =  [mkə(`T` ,  false  , ``) , mkə(`T` ,  false  , ``)] ; 
-                               const  speedþ0F1DEþ0E27F  =  əslider({l : -200  , v : fx[`1`] [0] , h : 200  , s : 0.1 , 
-                                                   ƒ :  (x,...𝔸)=> (speedlþ0E27F . innerText = `${fx[`1`] [0] = x} Pixels/s` , update())}) ; 
-                               const  offstþ0F1DEþ0E27F  =  əslider({l : -1000 , v : fx[`1`] [1] , h : 1000 , s : 1   , 
-                                                   ƒ :  (x,...𝔸)=> (offstlþ0E27F . innerText = `${fx[`1`] [1] = x} Pixels`   , update())}) ; 
-                               return mkə( false  , {[`𝐶`] : `𝘌fxSection`} , [(mkə(`label` ,  false  , `Rotation`)) , (mkə( false  ,  false  , [(mkə(`label` ,  false  , `Speed`)) , (speedlþ0E27F) , (speedþ0F1DEþ0E27F)])) , (mkə( false  ,  false  , [(mkə(`label` ,  false  , `Offset`)) , (offstlþ0E27F) , (offstþ0F1DEþ0E27F)]))]) ;  })()] , 
-                    lum :  [toggleButton( (x,...𝔸)=> (show(fx_togs . lum[1] , x) , update()) , `󰳲` , `󰳲` ,  false  , {init :  false }) , 
-                          ( (...𝔸)=> {  let  lumlþ0E27F  =  mkə(`T` ,  false  , ``) ; 
-                               const  lumþ0F1DEþ0E27F  =  əslider({l : 0 , v : fx[`2`] [0] * 255 , h : 255 , s : 1 , 
-                                                 ƒ :  (x,...𝔸)=> (lumlþ0E27F . innerText = `${ þ02B13 ((fx[`2`] [0] = x / 255) * 100)}%` , update())}) ; 
-                               return mkə( false  , {[`𝐶`] : `𝘌fxSection`} , [(mkə(`label` ,  false  , `Brightness`)) , (lumlþ0E27F) , (lumþ0F1DEþ0E27F)]) ;  })()] } ; 
-      [`rev` , `rot` , `lum`] . forEach( (x,y,...𝔸)=> fx_togs[x] [0] . set(y in fx_og)) ; 
-      has_init  =   true  ; 
-      
-       const  isAtom  =  `1` in dat ; 
-      
-       const  modes  =  [[`G` , `Group`] , [`` , `Color`] , [`󷸾` , `Fade`] , [`` , `Rainbow`]] ; 
-       const  modeþ0E27F  =   ənavBar({ Ⴝ : modes[isAtom ? dat[`1`] [1] + 1 : 0][0] } , 
-                          ... modes . ᴍ(([s , n] , i) => [s ,  mkə(`T` ,  false  , n) ,   print (isAtom ^  !  ! i , isAtom , i) ? {disabled :  true } : {}])) ; 
-      
-      
-      
-      
-      
-      
-       const  run  =   (x,...𝔸)=> {
-         const   Ϝ   =  (x , ƒ ,  ... 𝔸) => { x  =  [ ... 𝔸 ,  ... x] ; 
-                         for ( let  i = 1 ;  i < x . length ;  i ++ )
-                          x[i]  =  ƒ(x[i - 1] , x[i])
-                        x . pop()
-                         return x ;  } ; 
-         const  dat  =  {mode : x ,  offsets : 𝒟( þF147C (𝐬 . 𝐔 ,  Ϝ (𝐬 . 𝐔 ,  (x,y,...𝔸)=> x + 𝔖 . 𝐃[y] . LEDC , 0)))} ; 
-        𝐀(𝔖 . 𝐭 ,  ... 𝐬 . 𝐔) . scene(𝐬 . name , dat ,  false  , -1) ;  }
-      
-      inspectþ0E27F . replaceChildren(
-        ənavBar({ Ⴝ : `Effects` } , 
-                [`Mode` ,  modeþ0E27F] , 
-                [`Effects` ,  mkə( false  , {} , [(mkə(`span` , {[`𝐶`] : `𝘌toggleSection`} , 𝒪v(fx_togs) . ꟿ( (x,y,...𝔸)=> x . þ0E27F))) , (𝒪v(fx_togs) . ᴍþF01A9( (x,...𝔸)=> x . length == 2 ? [x[1]] : []))])] , 
-                [`Activate` ,  mkə(`button` , {[`onclick`] :  (...𝔸)=> run(dat𝘏[0])} , `Ⴝω󷱇𝑔`)])) ;  } ; 
-    
-    datþ0E27F . replaceWith(datþ0E27F  =  render_𝖬(dat)) ; 
-    set_inspector(datþ0E27F) ; 
-    
-     const  ətriLabel  =  (n ,  ... 𝔸) => 
-      mkə( false  , {[`𝑆`] : `min-height: ${scale(n)}px;`} , [(mkə( false  , {} , 𝔸)) , (mkə(`svg` , {[`viewBox`] : `-1.05 -1 2 2` , [`preserveAspectRatio`] : `none`} , [(mkə(`path` , {[`d`] : `M1 -1 L-1 0 L1 1` , [`style`] : `fill:#0000;stroke:#FFF;stroke-width:0.05`} , ``))]))])
-    labelsþ0E27F . replaceChildren( ... outer  ?   þ021A8 ( þF147C (names , counts)) . ꟿ((i , [𝐧 , n]) => ətriLabel(n ,  mkə(`T` ,  false  , `${𝐧}`) ,  mkə(`T` ,  false  , `${n} Pxl`)))
-                                    :  [ətriLabel(stot ,  mkə(`T` ,  false  , `${stot} Pxl`))]) ; 
-  } ; 
-  
-  render(dat ,  true ) ; 
-  
-  þF0219 . body . append(þ0E27F) ;  þ0E27F . showModal() ; 
-} ; 
+  þF0219 . body . append(Ѧ . þ0E27F) ;  Ѧ . þ0E27F . showModal() ;  } ; 

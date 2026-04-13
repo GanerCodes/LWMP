@@ -16,7 +16,7 @@ fit_size  =  (𝐭 , w , sz = 100 , st =  ""  , Δ = 5) => {
    return `font-size:${sz}px;` ;  }
 
 𝘋𝘉  =  𝔏𝔖 . þ02193("tokens" , {}) ; 
-updateDB  =   (...𝔸)=> 𝔏𝔖 . þ02191("tokens" , 𝘋𝘉) ; 
+updateDB  =   ()=> 𝔏𝔖 . þ02191("tokens" , 𝘋𝘉) ; 
 
 add_check_tok  =  (𝐭) => {
    if ( ! (𝐭 in 𝘋𝘉)) { 𝘋𝘉[𝐭] = { scenes : {} ,  devs : {} } ; 

@@ -28,29 +28,36 @@ table  =  ( ... x) => (console . table( ... x) , x[0]) ;
 ends   =  (l) => l . map((𝑥 , i) => [i == 0 , 𝑥 , i ==  þ1F0CC (l) - 1]) ; 
 merge  =   (...𝔸)=> 𝑜 . assign({} ,  ... 𝔸) ; 
 sleep  =  (s) =>  new Promise((r) => setTimeout(r , 1000 * s)) ; 
-mk_id  =  (l , chars = BASE_CHARSET) =>  þ02B65 (l) . ᴍ( (...𝔸)=> chars . at(Number( þF114F () *  þ1F0CC (chars)))) . ſ( (x,y,...𝔸)=> x + y ,   "" ) ; 
+mk_id  =  (l , chars = BASE_CHARSET) =>  þ02B65 (l) . ᴍ( ()=> chars . at(Number( þF114F () *  þ1F0CC (chars)))) . ſ( (x,y,...𝔸)=> x + y ,   "" ) ; 
 
 𝔓(Number) . mod  =  function(n){  return (this % n + n) % n ;  } ; 
 
- const  arrayLike  =  { þ0EB86  :  (x , ƒ) => { O  =  {} ; 
-                         x . forEach( (x,...𝔸)=> ((y) => y in O  ? O[y] . push(x) :  (O[y] = [x]))(ƒ(x ,  ... 𝔸))) ; 
-                          return O ;  } , 
-               ᴍ :   (x,...𝔸)=> x . map    (        ... 𝔸) , 
-               þF01A9 :   (x,...𝔸)=> x . flat   (        ... 𝔸) , 
-              ᴍþF01A9 :   (x,...𝔸)=> x . flatMap(        ... 𝔸) , 
-                ſ  :   (x,...𝔸)=> x . reduce (        ... 𝔸) , 
-                þF0232  :   (x,...𝔸)=> x . filter (        ... 𝔸) , 
-                þF7E3B  :   (x,...𝔸)=> x . slice  (        ... 𝔸) , 
-                ꟿ  :   (x,y,...𝔸)=> x . map    ( (x,...𝔸)=> y( ... x) ,  ... 𝔸) , 
-                þ022C0  :   (x,...𝔸)=> x . every  ( þF0EFE         ) , 
-                þ022C1  :   (x,...𝔸)=> x . some   ( þF0EFE         ) } ; 
+ þ0EB86   =  (x , ƒ   ) => { O  =  {} ; 
+              x . forEach( (x,...𝔸)=> ((y) => y in O  ? O[y] . push(x) :  (O[y] = [x]))(ƒ(x ,  ... 𝔸))) ; 
+               return O ;  } ; 
+ Ϝ   =  (x , ƒ ,  ... 𝔸) => { 𝚁  =  [ ... 𝔸 ,  ... x] ; 
+               for ( let  i = 𝔸 . length || 1 ;  i < 𝚁 . length ;  i ++ )
+                𝚁[i]  =  ƒ(𝚁[i - 1] , 𝚁[i] , i)
+              𝚁 . pop()
+               return 𝚁 ;  } ; 
+ const  arrayLike  =  {   þ0EB86  ,  Ϝ  , 
+                 ᴍ :   (x,...𝔸)=> x . map    (        ... 𝔸) , 
+                 þF01A9 :   (x,...𝔸)=> x . flat   (        ... 𝔸) , 
+                ᴍþF01A9 :   (x,...𝔸)=> x . flatMap(        ... 𝔸) , 
+                  ſ  :   (x,...𝔸)=> x . reduce (        ... 𝔸) , 
+                  þF0232  :   (x,...𝔸)=> x . filter (        ... 𝔸) , 
+                  þF7E3B  :   (x,...𝔸)=> x . slice  (        ... 𝔸) , 
+                  ꟿ  :   (x,y,...𝔸)=> x . map    ( (x,...𝔸)=> y( ... x) ,  ... 𝔸) , 
+                  þ022C0  :   (x,...𝔸)=> x . every  ( þF0EFE         ) , 
+                  þ022C1  :   (x,...𝔸)=> x . some   ( þF0EFE         ) } ; 
 arrayLike . þ02A1D𝑙  =   (x,y,...𝔸)=> [x[0] ,  ... x . þF7E3B(0 , -1) . ᴍþF01A9((c , i) => [y(c , x[i + 1]) , x[i + 1]])] ; 
 𝒪(arrayLike) . forEach(([s , ƒ]) => {
   window[s]  =   (x,...𝔸)=> ƒ(isElement(x) ? 𝐴 . from(x) : x ,  ... 𝔸) ; 
   𝔓(𝐴)[s]  =  function( ... 𝔸){  return ƒ(       this  ,  ... 𝔸) ; } ; 
   𝔓(𝐸)[s]  =  function( ... 𝔸){  return ƒ(𝐴 . from(this) ,  ... 𝔸) ; } ;  }) ; 
 
-AEL  =   (x,...𝔸)=> x . addEventListener( ... 𝔸) ; 
+AEL  =  (þ0E27F ,  ... 𝔸) => (þ0E27F . addEventListener( ... 𝔸) ,  ()=> REL(þ0E27F ,  ... 𝔸)) ; 
+REL  =  (þ0E27F ,  ... 𝔸) => þ0E27F . removeEventListener( ... 𝔸) ; 
 SAT  =  (x , y , z =  "" ) => x . setAttribute(y , z) ; 
 HAT  =   (x,...𝔸)=> 𝔸 . ᴍ((a) => x . hasAttribute(a)) . þ022C0() ; 
 RAT  =   (x,...𝔸)=> 𝔸 . forEach((a) => x . removeAttribute(a)) ; 

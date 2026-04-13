@@ -189,6 +189,7 @@ class Controller:
         continue
       if r := specify_mode(*𝕊.mode.s,𝕊.ℭ):
         return r,𝕊.Δ
+      frees(0.1)
   
   @micropython.native
   def loop(𝕊,leds=leds,set_𝕒=set_𝕒,𝕒_ptr=𝕒_ptr):

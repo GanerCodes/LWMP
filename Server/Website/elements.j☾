@@ -1,3 +1,15 @@
+© show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;  󰤱 abstract a bit and add to j☾ or something
+© clickDetect = ⥌𝚚,ƒ,base=󰈙.body↦{  󰤱 add to j☾ once I add close feature and think of a better name
+  © b = 󱀝 button {𝐶 clickDetectExit} ‹⨉›;
+  base􍪙(b);
+  © rem = AEL(󰈙,‹click›,⥌ε↦{
+    © cease = 󰲟(ε.stopPropagation(),ε.preventDefault(),
+                b.remove(),rem(),ƒ(⠤𝔸));
+    ¿(ε.target.closest(‹.clickDetectExit›)) ↪cease();
+    © el = ε.target.closest(𝚚);
+    ¿(el) ↪cease(el); },✓);
+  ↪rem; };
+
 əbigButton = ⥌c,𝔸↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } ⟦c⟧
 əbarButton = ⥌c,𝔸↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } ⟦c⟧
 
@@ -23,7 +35,7 @@
   󱀝 div {𝐶 titledBox} [󱀝 h1 [⟦𝚝⟧]
                        󱀝 {𝐶 ‹box⟦¬Ѧᵒᵘᵗˡⁱⁿᵉ⭜‹ noOutline›⭝ᐦ⟧›⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto⦆} [⟦ə⟧]]
 
-əbuttonBar = 𝚲
+əbuttonBar = 󰲟
   󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 ənavBar = ⥌Ѧ,⠤𝙴↦{
    󰤱 clean way to hide/unhide certain pages
@@ -47,9 +59,9 @@
                                SAT(Ѧ􀳕ₖ􀲝,‹choosen›);
                                holder􍪙(Ѧ􀳕ₖ􋑵); } }
                 ⭝⥌k=Ѧ􎁎↦{ RAT(Ѧ􀳕􀴖􎎵􀲝,‹choosen›,‹disabled›);
-                        Ѧ􎁎=k;
-                        [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
-                        holder.replaceChildren(Ѧ􀳕􀴖􎎵􋑵); };
+                         Ѧ􎁎=k;
+                         [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
+                         holder.replaceChildren(Ѧ􀳕􀴖􎎵􋑵); };
   ¿(Ѧᵐᵘˡᵗⁱ) { SAT(bar,‹plural›)
               © Ⴝ = Ѧ􎁎;
               Ѧ􎁎 = [];

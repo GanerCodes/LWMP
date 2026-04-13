@@ -1,11 +1,11 @@
-𝗉 = 󰲟{ ⎉ r,b,p = 🆕 Promise(𝚲[r,b]=𝔸);
+𝗉 = 󰲟{ ⎉ r,b,p = 🆕 Promise(󰲟[r,b]=𝔸);
        ↪pʳ=r,pᵇ=b,p; }
 𝘔 = 󰲟{  messenger and awaitor
   © M = [𝗉()];
-  © 𝘴 = 𝚲(M􋕛(󷰾)ʳ(𝔸),M.push(𝗉()));
+  © 𝘴 = 󰲟(M􋕛(󷰾)ʳ(𝔸),M.push(𝗉()));
   © 𝘳 = 󱟱󰲟(󰲡(M.shift(),x))(󱫬 M₀)
   ↪[𝘴,𝘳]; }
-󰇮 = ⥌ƒ↦𝚲{  bidirectional messages
+󰇮 = ⥌ƒ↦󰲟{  bidirectional messages
   © [[𝚂𝘴,𝙲𝘳],[𝙲𝘴,𝚂𝘳]] = [𝘔(),𝘔()]
   ƒ(𝚂𝘴,𝚂𝘳)(⠤𝔸);
   ↪[𝙲𝘴,𝙲𝘳]; }

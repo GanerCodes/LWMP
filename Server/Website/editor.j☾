@@ -1,4 +1,3 @@
-
  𝖬: { fx󷷰 [fx], 1󷷰 atom, *󷷰 [𝖬] }
  󷹇 keys have '1' 󷺤 '*'
  
@@ -14,290 +13,154 @@
 
 © grp_fx = 󰲡xᶠˣ ⭜ᴍv(xᶠˣ 􋕁(󰲡x₀), 󰲡[⠤x₀􍦛(1)])⭝ {};
 
-© dat =
-{
-  "fx": [
-    [
-      1,
-      0,
-      0
-    ]
-  ],
-  "*": [
-    { "*": [{"1": [50,0,0xFF0000]},
-            {"1": [50,0,0x00FF00]},
-            {"1": [50,0,0x0000FF]}] },
-    {
-      "fx": [
-        [
-          1,
-          25,
-          0
-        ]
-      ],
-      "*": [
-        {
-          "1": [
-            5,
-            1,
-            3,
-            245,
-            50
-          ]
-        },
-        {
-          "1": [
-            45,
-            0,
-            4456448
-          ]
-        }
-      ]
-    },
-    {
-      "fx": [
-        [
-          1,
-          25,
-          0
-        ]
-      ],
-      "*": [
-        {
-          "1": [
-            22,
-            1,
-            1,
-            245,
-            50
-          ]
-        },
-        {
-          "1": [
-            15,
-            0,
-            17408
-          ]
-        }
-      ]
-    },
-    {
-      "fx": [
-        [
-          1,
-          25,
-          0
-        ]
-      ],
-      "*": [
-        {
-          "1": [
-            33,
-            1,
-            1,
-            245,
-            50
-          ]
-        },
-        {
-          "1": [
-            25,
-            0,
-            68
-          ]
-        }
-      ]
-    },
-    {
-      "fx": [
-        [
-          1,
-          25,
-          0
-        ]
-      ],
-      "*": [
-        {
-          "1": [
-            2,
-            1,
-            1,
-            245,
-            50
-          ]
-        },
-        {
-          "1": [
-            120,
-            0,
-            4456516
-          ]
-        }
-      ]
-    }
-  ]
-};
+© test_dat = {"fx":[[1,0,0]],"*":[{"*":[{"1":[50,0,16711680]},{"1":[50,0,65280]},{"1":[50,0,255]}]},{"fx":[[1,25,0]],"*":[{"1":[5,1,3,245,50]},{"1":[45,0,4456448]}]},{"fx":[[1,25,0]],"*":[{"1":[22,1,1,245,50]},{"1":[15,0,17408]}]},{"fx":[[1,25,0]],"*":[{"1":[33,1,1,245,50]},{"1":[25,0,68]}]},{"fx":[[1,25,0]],"*":[{"1":[2,1,1,245,50]},{"1":[120,0,4456516]}]}]}
 
-© scene_count = ⥌M↦isArr(M) ⭜M₁   ⭝
-                      ␛1∈M  ⭜M􊯛₁ ₀⭝
-                      M􊯛􊾡(󰲡scene_count(x))􋔩(󰲣x+y);  󰤱􊽨 make this cache
 ©  = 󰲡‹rgb(⟦x>>16&0xFF⟧,⟦x>>8&0xFF⟧,⟦x>>0&0xFF⟧)›;
+© scene_count = ⥌󰠲↦isArr(󰠲) ⭜󰠲₁   ⭝
+                      ␛1∈󰠲  ⭜󰠲􊯛₁ ₀⭝
+                      󰠲􊯛􊾡(󰲡scene_count(x))􋔩(󰲣x+y);  󰤱􊽨 make this cache
+
+© grad = 󰲡‹linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ⟦100/x⟧% 100% repeat-x›
+
+© ətriLabel = ⥌𝚑,⠤𝔸↦
+  󱀝 {⦅𝚑≥ ⟦𝚑⟧px⦆} [
+    󱀝 {} ⟦𝔸⟧
+    󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
+      󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
+
+© 𝘌atom = ⥌Ѧ,[n,i,⠤󰠲]↦{
+  © 𝗆 = 󰲡󱀝 {𝐶 𝘌atom⍮ 𝑆 ⟦⦅𝚑 ⟦Ѧ󰁢⋅n⟧px⦆+␛;+x⟧} ‹› 
+  ¿(i≡0) { © [𝚌] = 󰠲;
+           ↪𝗆(⦅𝚋 ⟦(𝚌)⟧⦆); }
+  ⸘(i≡1) { © [seg,sat,val] = 󰠲;
+           ↪𝗆(⦅background ⟦grad(seg)⟧⦆); }
+  ↪‹󰤱›; };
+© 𝘌𝖬 = ⥌Ѧ,󰠲,n=0↦{
+  © ətick = ⥌𝚒,m=40,b=20↦{
+    © [p,s] = [⤉(1,3÷𝚒)    , b+m÷𝚒];
+    © [l,α] = [255-40⋅(𝚒-1), 100  ];
+    © clr = ‹rgba(⟦l⟧,⟦l⟧,⟦l⟧,⟦α⟧%)›;
+    © cnd = 𝚒>1⭜‹;pointer-events:none›⭝ᐦ;
+    ↪󱀝 {𝐶 𝘌tickmark⍮ 𝑆 ⟦⦅𝚋 ⟦clr⟧; 𝚠 ⟦s⟧px; «𝚑 𝚑≥» ⟦p⟧px; 𝚖↓ ⟦-p⟧px⦆+cnd⟧} ‹›; };
+  
+  ⎉ C = ␛1∈󰠲 ⭜[𝘌atom(Ѧ,󰠲􊯛₁)]⭝ 󰠲􊯛􊾡(󰲡𝘌𝖬(Ѧ,x,n+1));
+  C = C􊾡(󰲣(xⁱᵈˣ=y,x));
+  ¿(C􋌵>1) C = C􌿑􋇙(󰲟ətick(n+1));
+  
+  ⎉  = 󱀝 {𝐶 𝘌modes} ⟦C⟧;
+  
+  ¿(¬n ∧ ␛*∈󰠲) {
+    C􋁃(⥌c↦{ c = dragItem(c,n,󰲣{
+               swapə(x,y);
+               © d = Ѧ􈛈􊯛;
+               [dₓ􊬖􊫵􊫄,d􊬖􊫵􊫄] = [d􊬖􊫵􊫄,dₓ􊬖􊫵􊫄];
+               Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); });
+             c.onclick = 󰲟Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(Ѧ􈛈􊯛 􋑴􊬖􊫵􊫄); }); }
+  ⸘(n>1) 􋛟 ᵖᵒⁱⁿᵗᵉʳᴱᵛᵉⁿᵗˢ = ‹none›;
+  ¿(¬n ) { ⁱᵈˣ = 0;
+           © x = (⥌𝚚,=󰈙↦[⠤.matches(𝚚)⭜[]⭝[],⠤􈛕(𝚚)])(‹.𝘌atom›,);
+           x₀   􈛣(‹atom1›);
+           x􋕛(󷰾)􈛣(‹atom󷰾›); }
+  ↪; };
+
+© 𝘌run = ⥌󰠲,𝐬,𝔖↦{ © body = {mode:󰠲, offsets:𝒟(󱑼(𝐬􋆕,𝐬􋆕 􋔫(󰲣x+𝔖􋆄ᴸᴱᴰ󰀂,0)))};
+                  𝐀(𝔖􋆮,⠤𝐬􋆕).scene(𝐬ⁿᵃᵐᵉ,body,✗,󷰾); }
+
+© 𝘌setInspector = ⥌Ѧ↦{
+  © fx_og = grp_fx(Ѧ􈛈);
+  © fx = {0:[], 1:[1,0], 2:[1], ⠤fx_og};
+  
+  ⎉ has_init = ✗;
+  © check = 󰲣fx_togsₓ ₁􋛟 ᵈⁱˢᵖˡᵃʸ≠‹none›⭜[[y,⠤fx]]⭝[];  says if the fx enabled
+  © update = 󰲟has_init ∧ (Ѧ􈛈 ᶠˣ = 
+    [⠤fx_togsʳᵉᵛ₀󰀒⭜[[0]]⭝[], ⠤check(‹rot›,1), ⠤check(‹lum›,2)]);
+  
+  © fx_togs = {
+    rev: [toggleButton(󰲡update()                      ,␛,␛,✗,{init:✗,polar:✗})],
+    rot: [toggleButton(󰲡(show(fx_togsʳᵒᵗ₁,x),update()),␛󱦙,␛󱦙,✗,{init:✗}),
+          (󰲟{ ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
+              © speed = əslider({l:󷰿󷰽󷰽 ,v:fx􊯛₁ ₀,h:200 ,s:0.1, ƒ:󰲡(speedl􋒷=‹⟦fx􊯛₁ ₀=x⟧ Pixels/s›,update())});
+              © offst = əslider({l:󷰾󷰽󷰽󷰽,v:fx􊯛₁ ₁,h:1000,s:1  , ƒ:󰲡(offstl􋒷=‹⟦fx􊯛₁ ₁=x⟧ Pixels›  ,update())});
+              ↪󱀝 {𝐶 𝘌fxSection} [
+                 󱀝 label ‹Rotation›
+                 󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
+                 󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]]; })()],
+    lum: [toggleButton(󰲡(show(fx_togsˡᵘᵐ₁,x),update()),␛󰳲,␛󰳲,✗,{init:✗}),
+          (󰲟{ ⎉ luml = 󱀝 T ‹›;
+              © lum = əslider({l:0,v:fx􊯛₂ ₀⋅255,h:255,s:1,
+                                 ƒ:󰲡(luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›,update())});
+              ↪󱀝 {𝐶 𝘌fxSection} [
+                 󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ]; })()] };
+  [‹rev›,‹rot›,‹lum›]􋁃(󰲣fx_togsₓ ₀.set(y∈fx_og));
+  has_init = ✓;
+  
+  © modes = [[␛G,‹Group›],[␛,‹Color›],[␛󷸾,‹Fade›],[␛,‹Rainbow›]];
+  © mode =  ənavBar({ Ⴝ:modes[␛1∈Ѧ􈛈⭜Ѧ􈛈􊯛₁ ₁+1⭝0]₀ },
+                     ⠤modes􊾡(⥌[s,n],i↦[s, 󱀝 T ⟦n⟧, (␛1∈Ѧ􈛈)^¬¬i⭜{disabled:✓}⭝{}]));
+  
+  Ѧ􍻠􋑵.replaceChildren(
+    ənavBar({ Ⴝ:‹› },
+            [‹›, mode],
+            [‹›, 󱀝 {} [󱀝 span {𝐶 𝘌toggleSection} ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
+                               ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]],
+            [‹⯈›, 󱀝 button {onclick ⟦󰲟𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈟)⟧} ‹Ⴝω󷱇𝑔›])); };
+
+© 𝘌setPreview = ⥌Ѧ,dat↦{
+  ¿(¬dat) dat = Ѧ􈛈;
+  ¿(¬Ѧ􈛈􍻞 􋌵 ∨ dat ∧ Ѧ􈛈􍻞 􋕛(󷰾)≇dat)
+    Ѧ􈛈􍻞.push(Ѧ􈛈 = dat);
+  © stot = scene_count(Ѧ􈛈);
+  ☾(⠤Ѧ􈛈􍻞);
+  Ѧᵗᵒᵖ = Ѧ􈛈􍻞 􋌵≡1;
+  
+  Ѧ󰁢 = ⤉(2,2.5⋅(window.outerHeight÷window.outerWidth),400÷⤉(stot,Ѧᵗᵒᵖ⭜Ѧᴸ 􋔩(󰲣x+y,0)÷5⭝0));
+  
+  Ѧ􍻬 ᵖʳᵛ􋑵 􋒗 = Ѧᵗᵒᵖ;
+  Ѧ􍻬 ᵈᵉˡ􋑵 􋒗 = ␛1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
+  Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(
+              ⠤Ѧᵗᵒᵖ ⭜ ↨(󱑼(Ѧᴺ,Ѧᴸ))􋅝(⥌i,[𝐧,n]↦ətriLabel(n⋅Ѧ󰁢, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))
+                    ⭝ [ətriLabel(Ѧ󰁢⋅stot, 󱀝 T ‹⟦stot⟧ Pxl›)]);
+  Ѧᵖⁱˣᵉˡˢ􋑵.replaceChildren(Ѧ􈛈􋑵 = 𝘌𝖬(Ѧ,Ѧ􈛈)); };
 
 prompt_editor = ⥌cb,𝔖,𝐬↦{
-  © names  = 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓ⸮NAME??x);
-  © counts = 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓᴸᴱᴰ󰀂);
-  © ctot   = counts􋔩(󰲣x+y,0);
-  
-  © dat𝘏 = [];
-  ⎉ ,prevDat,labels,dat,inspect;
+  𝐬ᵈᵃᵗ = test_dat;  󰤱 temp
+  © Ѧ = { 𝔖,𝐬,
+          N: 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓ⸮NAME??x),
+          L: 𝐬􋆕 􊾡(󰲡𝔖􋆄ₓᴸᴱᴰ󰀂),
+          󰠲: 𝐬ᵈᵃᵗ,
+          󰠲𝘏: [],  󰠲 history
+          𝘖: {},  tool elms
+          setPreview  : 󰲟𝘌setPreview  (Ѧ,⠤𝔸),
+          setInspector: 󰲟𝘌setInspector(Ѧ,⠤𝔸) };
   
   © tool = ⥌𝗍↦{
-    ¿(𝗍≡␛←) ↪render((dat𝘏.pop(),dat𝘏.pop()),¬dat𝘏􋌵);
-    ¿(𝗍≡␛󰆴) SAT(,‹𝘌toolmode›);
+    ¿(𝗍≡␛←) { Ѧ􈛈􍻞.pop();
+              ↪Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(Ѧ􈛈􍻞.pop()); }
+    ¿(𝗍≡␛󰆴) { Ѧ􋑵 􈛘(‹𝘌toolmode›,ᐦ);
+              clickDetect(‹.𝘌modes,.𝘌atom›,
+                          ⥌s↦{ Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
+                                ¿(s) { Ѧ􈛈􊯛.splice(sⁱᵈˣ,1);
+                                        Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); } },
+                          Ѧ􋑵); }
   };
+  󱀝:⟦Ѧ􋑵⟧ ⟦popup⟧ {󰅙:✓⍮ noAppend:✓} [
+    󱀝 {𝐶 𝘌outer} [
+      󱀝 T ‹Scene Editor›
+      󱀝 {𝐶 𝘌inner} [
+        󱀝 {𝐶 𝘌preview} [
+          󱀝 {𝐶 multiButtonBar} [
+            󱀝:⟦Ѧ􍻬 ᵖʳᵛ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛←)⟧} ␛←
+            󱀝:⟦Ѧ􍻬 ᵃᵈᵈ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛+)⟧} ␛+
+            󱀝:⟦Ѧ􍻬 ᶜᵘᵗ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󷹻)⟧} ␛󷹻
+            󱀝:⟦Ѧ􍻬 ᵈᵉˡ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󰆴)⟧} ␛󰆴]
+          󱀝 {} [
+            󱀝 {} [
+              󱀝:⟦Ѧˡᵃᵇᵉˡˢ􋑵⟧ {𝐶 𝘌alignedLabels}
+              󱀝:⟦Ѧᵖⁱˣᵉˡˢ􋑵⟧ {𝐶 𝘌pixels       }]]]
+        󱀝:⟦Ѧ􍻠􋑵⟧ {𝐶 𝘌inspector}]]];
+  Ѧ􋑵 􈛓(‹editorDialog›);
   
-   = popup({󰅙:✓, noAppend:✓},
-            󱀝 {𝐶 𝘌outer} [
-              󱀝 T ‹Scene Editor›
-              󱀝 {𝐶 𝘌inner} [
-                󱀝 {𝐶 𝘌preview} [
-                  󱀝 {𝐶 multiButtonBar} [
-                    󱀝:prevDat button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛←)⟧} ␛←
-                    󱀝          button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛+)⟧} ␛+
-                    󱀝          button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛)⟧} ␛
-                    󱀝          button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󰆴)⟧} ␛󰆴]
-                  󱀝 {} [
-                    󱀝 {} [
-                      󱀝:labels {𝐶 𝘌alignedLabels}
-                      󱀝         {𝐶 𝘌pixels       } [󱀝:dat {}]]]]
-                󱀝:inspect {𝐶 𝘌inspector}]]);
-  􋒅 ⁺(‹editorDialog›);
+  Ѧˢᵉᵗᴵⁿˢᵖᵉᶜᵗᵒʳ();
+  Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ();
   
-  © render = ⥌dat,outer=✓↦{
-    ☾(‹render(⟦𝔍􋀫(dat)⟧, ⟦outer⟧)›);
-    ¿(¬dat𝘏􋌵 ∨ dat𝘏􋕛(󷰾)≇dat) dat𝘏.push(dat);
-    prevDat􋒗 = outer;
-    
-    © stot  = scene_count(dat);
-    © ar = window.outerHeight÷window.outerWidth;
-    © scale = 󰲡⤉(2,2.5⋅ar,400÷stot)⋅x;
-     2
-    
-    © render_𝖬 = ⥌M,n=0↦{
-      © render_atom = ⥌[n,i,⠤M]↦{
-        © 𝗆 = 󰲡󱀝 {𝐶 𝘌atom⍮ 𝑆 ⟦⦅𝚑 ⟦scale(n)⟧px⦆+␛;+x⟧} ‹› 
-        ¿(i≡0) {
-          © [𝚌] = M;
-          ↪𝗆(⦅𝚋 ⟦(𝚌)⟧⦆); }
-        ⸘(i≡1) {
-          © [seg,sat,val] = M;
-          © 🌈 = ‹linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ⟦100/seg⟧% 100% repeat-x›;
-          ↪𝗆(⦅background ⟦🌈⟧⦆); };
-        ↪‹󰤱›; };
-      © render_tick = ⥌𝚒,m=40,b=20↦{
-        © [p,s] = [⤉(1,3÷𝚒)    , b+m÷𝚒];
-        © [l,α] = [255-40⋅(𝚒-1), 100  ];
-        © clr = ‹rgba(⟦l⟧,⟦l⟧,⟦l⟧,⟦α⟧%)›;
-        © cnd = 𝚒>1⭜‹;pointer-events:none›⭝ᐦ;
-        ↪󱀝 {𝐶 𝘌tickmark⍮ 𝑆 ⟦⦅𝚋 ⟦clr⟧; 𝚠 ⟦s⟧px; «𝚑 𝚑≥» ⟦p⟧px; 𝚖↓ ⟦-p⟧px⦆+cnd⟧} ‹›; };
-      
-      © isAtom = isArr(M);
-      ⎉ C = isAtom ⭜[render_atom(M  )]⭝
-             ␛1∈M  ⭜[render_atom(M􊯛₁)]⭝
-                    M􊯛􊾡(󰲣render_𝖬(x,n+1));
-      C = C􊾡(󰲣(xⁱᵈˣ=y,x));
-      ¿(C􋌵>1) C = C􌿑􋇙(󰲟render_tick(n+1));
-      ⎉  = 󱀝 div {𝐶 𝘌modes} ⟦C⟧;
-      
-      ¿(¬isAtom ∧ (¬n ∧ C􋌵>1 ∨ C₀􋌵>1)) {
-        C􋁃(⥌c↦{
-          c = dragItem(c,n,󰲣{
-            swapə(x,y);
-            © d = dat􊯛;
-            [dₓ􊬖􊫵􊫄,d􊬖􊫵􊫄] = [d􊬖􊫵􊫄,dₓ􊬖􊫵􊫄];
-            render(dat,outer); });
-          c.onclick = 󰲟render(dat􊯛 􋑴􊬖􊫵􊫄, ✗); }); }
-      ⸘(n>1) 􋛟 ᵖᵒⁱⁿᵗᵉʳᴱᵛᵉⁿᵗˢ = ‹none›;
-      ¿(¬n ) { ⁱᵈˣ = 0;
-               © x = (⥌𝚚,=󰈙↦[⠤.matches(𝚚)⭜[]⭝[],⠤QSA(𝚚,)])(‹.𝘌atom›,);
-               ☾(,x);
-               x₀   􋛟.borderTopRightRadius    = ‹10px›;
-               x􋕛(󷰾)􋛟.borderBottomRightRadius = ‹10px›; }
-      
-      ↪; };
-    
-    © set_inspector = ⥌↦{
-      © fx_og = grp_fx(dat);
-      © fx = {0:[], 1:[1,0], 2:[1], ⠤fx_og};
-      
-      ⎉ has_init = ✗;
-      © check = 󰲣fx_togsₓ ₁􋛟 ᵈⁱˢᵖˡᵃʸ≠‹none›⭜[[y,⠤fx]]⭝[]
-      © update = 󰲟has_init ∧ ☾(datᶠˣ = [
-        ⠤fx_togsʳᵉᵛ₀󰀒⭜[[0]]⭝[],
-        ⠤check(‹rot›,1),
-        ⠤check(‹lum›,2)]);
-      
-      © show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;
-      © fx_togs = { rev: [toggleButton(󰲡update()                      ,␛,␛,✗,{init:✗,polar:✗})],
-                    rot: [toggleButton(󰲡(show(fx_togsʳᵒᵗ₁,x),update()),␛󱦙,␛󱦙,✗,{init:✗}),
-                          (󰲟{ ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
-                              © speed = əslider({l:󷰿󷰽󷰽 ,v:fx􊯛₁ ₀,h:200 ,s:0.1,
-                                                   ƒ:󰲡(speedl􋒷=‹⟦fx􊯛₁ ₀=x⟧ Pixels/s›,update())});
-                              © offst = əslider({l:󷰾󷰽󷰽󷰽,v:fx􊯛₁ ₁,h:1000,s:1  ,
-                                                   ƒ:󰲡(offstl􋒷=‹⟦fx􊯛₁ ₁=x⟧ Pixels›  ,update())});
-                              ↪󱀝 {𝐶 𝘌fxSection} [
-                                 󱀝 label ‹Rotation›
-                                 󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
-                                 󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]]; })()],
-                    lum: [toggleButton(󰲡(show(fx_togsˡᵘᵐ₁,x),update()),␛󰳲,␛󰳲,✗,{init:✗}),
-                          (󰲟{ ⎉ luml = 󱀝 T ‹›;
-                              © lum = əslider({l:0,v:fx􊯛₂ ₀⋅255,h:255,s:1,
-                                                 ƒ:󰲡(luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›,update())});
-                              ↪󱀝 {𝐶 𝘌fxSection} [
-                                 󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ]; })()] };
-      [‹rev›,‹rot›,‹lum›]􋁃(󰲣fx_togsₓ ₀.set(y∈fx_og));
-      has_init = ✓;
-      
-      © isAtom = ␛1∈dat;
-      
-      © modes = [[␛G,‹Group›],[␛,‹Color›],[␛󷸾,‹Fade›],[␛,‹Rainbow›]];
-      © mode =  ənavBar({ Ⴝ:modes[isAtom⭜dat􊯛₁ ₁+1⭝0]₀ },
-                         ⠤modes􊾡(⥌[s,n],i↦[s, 󱀝 T ⟦n⟧, ☾(isAtom^¬¬i,isAtom,i)⭜{disabled:✓}⭝{}]));
-      
-       © toggleSectionə = 
-       󱀝 span {𝐶 𝘌toggleSection}
-      
-        󷸾   󱦙 󰳲
-      
-      © run = 󰲡{
-        © Ϝ = ⥌x,ƒ,⠤𝔸↦{ x = [⠤𝔸,⠤x];
-                        ∀(⎉ i=1; i<x􋌵; i++)
-                          xᵢ = ƒ(xᵢ₋₁,xᵢ)
-                        x.pop()
-                        ↪x; };
-        © dat = {mode:x, offsets:𝒟(󱑼(𝐬􋆕,Ϝ(𝐬􋆕,󰲣x+𝔖􋆄ᴸᴱᴰ󰀂,0)))};
-        𝐀(𝔖􋆮,⠤𝐬􋆕).scene(𝐬ⁿᵃᵐᵉ,dat,✗,󷰾); }
-      
-      inspect.replaceChildren(
-        ənavBar({ Ⴝ:‹Effects› },
-                [‹Mode󷺗󷺗󷺗󷺗›, mode],
-                [‹Effects󷺗›, 󱀝 {} [󱀝 span {𝐶 𝘌toggleSection} ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
-                                   ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]],
-                [‹Activate›, 󱀝 button {onclick ⟦󰲟run(dat𝘏₀)⟧} ‹Ⴝω󷱇𝑔›])); };
-    
-    dat.replaceWith(dat = render_𝖬(dat));
-    set_inspector(dat);
-    
-    © ətriLabel = ⥌n,⠤𝔸↦
-      󱀝 {⦅𝚑≥ ⟦scale(n)⟧px⦆} [
-        󱀝 {} ⟦𝔸⟧
-        󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
-          󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
-    labels.replaceChildren(⠤outer ⭜ ↨(󱑼(names,counts))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))
-                                   ⭝ [ətriLabel(stot, 󱀝 T ‹⟦stot⟧ Pxl›)]);
-  };
-  
-  render(dat,✓);
-  
-  󰈙.body􍪙(); .showModal();
-};
+  󰈙.body􍪙(Ѧ􋑵); Ѧ􋑵.showModal(); };

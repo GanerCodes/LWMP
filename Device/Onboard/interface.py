@@ -20,6 +20,7 @@ def pre(N,ν=None,σ=0,d=0):
   r,C = Node(None,σ,None,N[1],N[2],d),N[3]
   if type(C) is int:
     r.ν,r.Σ,r.m = ν,C*(1-2*N[0]),True
+    if not r.Σ: raise Exception(f"Atom with length 0!")
   else:
     r.Σ = 0
     r.ν = h1 = Node()
@@ -55,17 +56,19 @@ def flab(S):
     p = tmp
   return R,mx+1
 
-rgb_i2b = lambda x:(x>>16 & 0xFF, x>>8 & 0xFF, x & 0xFF)
+def rgb_i2b(x):
+  x = int(x)
+  return x>>16 & 0xFF, x>>8 & 0xFF, x & 0xFF
 def convert_atom(dat,bright,out):
   t,*dat = dat
   out["atoms"] += pack("BBxx",int(min(255*bright,255)),t)
   if   t==0: # Static
     out["atoms"] += pack("BBBxxxxxxxxx",*rgb_i2b(dat[0]))
   elif t==1: # Rainbow
-    out["atoms"] += pack("fBBxxxxxx"   ,*dat) # seg,sat,val
+    out["atoms"] += pack("fBBxxxxxx"   ,float(dat[0]),int  (dat[1]),int  (dat[2]))
   elif t==2: # Fade
     speed,sharp,*dat = dat
-    out["atoms"] += pack("HHff"        ,len(dat),len(out["fades"]),speed,sharp)
+    out["atoms"] += pack("HHff"        ,len(dat),len(out["fades"]),float(speed),float(sharp))
     out["fades"] += 3*b"\00" + b''.join(pack("BBB",*rgb_i2b(c)) for c in dat)
   else:
     raise Exception(f'Unknown atom type "{t}"!')
@@ -74,10 +77,10 @@ def parse_mode(mode,brightness=1,data=None,reverse=False):
   if data is None: data = dict(atoms=b'',fades=b'')
   
   r0 = rΔ = 0
-  for t,(*v) in mode.get("fx",[]):
+  for t,(*v) in mode.get("fx",()):
     if   t==0: reverse     = True # Rev
-    elif t==1: rΔ,r0       = v    # Rot
-    elif t==2: brightness *= v[0] # Lum
+    elif t==1: rΔ,r0 = float(v[0]),float(v[1])
+    elif t==2: brightness *= max(min(float(v[0]),1000),0) # Lum, idk why im allowing 1000 but it might factor through
     else     : raise Exception(f'Unknown effect type "{t}"!')
   if '*' in mode:
     s = tuple(parse_mode(m,brightness,data)[0] for m in mode["*"])
@@ -108,7 +111,8 @@ def specify_mode(mode,offsets,ℭ):
   l = (offsets or {}).get(ℭ.UUID,0)
   h = min(l+ℭ.LEDC,abs(Σ))
   if l>=h:
-    print("[Interface] Device has no LEDs to display for mode.")
+    # print("[Interface] Device has no LEDs to display for mode.")
+    print('-',end='')
     return None
   return mode,(l,h)
 

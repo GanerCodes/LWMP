@@ -57,7 +57,7 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
 @font-face ∣ 󰊄𝚏 "Symbols"; src url("/Assets/Symbols.woff2"       )
 :root ∣ 󰊄𝚏 "Symbols","Avenir"
 
-*         ∣ 𝚃 background-color 0.2s ease
+*         ∣ 𝚃 background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease
 body      ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
 body,html ∣ 𝚋 ⦑bg0⦒
 button    ∣ 𝚙𝚘𝚜r
@@ -179,17 +179,20 @@ dialog[open]
   [dragging] ∣ 𝚃𝚏 􍍝; 𝚘𝚙 0.25
   >* * ∣ pointer-events 􋄅
 .𝘌modes    ∣ 𝚏↓
-.𝘌atom     ∣ 𝚘𝚏 clip; 𝚠 1em
-.𝘌tickmark ∣ 𝚋𝚛→ 􋔛px; 𝚣 10
+.𝘌atom     ∣ 𝚠 1em
+.𝘌tickmark ∣ 𝚣 1; 𝚋𝚛→ 􋔛px
+             𝚖← -1em
+             𝚃𝚏 translateX(1em)
              􍳵 ∣ 𝚖𝚙 pointer
+              𝚖← -100%
 
 .editorDialog[open]
   𝚠 min(􊽺(98􍾘),1000px); 𝙷 􊽺(98􍽺)
   𝚖a; 𝚙 0.1em
   𝚋 ⦑bg0⦒F5
-  [𝘌toolmode]
-     󰤱
-    𝚃𝚏 scale(2)
+  􊽬([𝘌toolmode])
+     .𝘌atom[atom1] ∣ 𝚋𝚛↗ 0.5em
+     .𝘌atom[atom󷰾] ∣ 𝚋𝚛↘ 0.5em
   .𝘌outer
     𝚏↓;𝚠
     >T
@@ -211,7 +214,6 @@ dialog[open]
           >􍨅 ∣ 𝚋𝚛↗ 0.1em
       >.𝘌preview
         𝚋↑ 0.05em solid ⦑bg2⦒
-        󰊄𝚜 1.25
         𝚏↓;𝚙𝚘𝚜r
         >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
               𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em; 𝚍𝚒𝚛 rtl
@@ -219,7 +221,8 @@ dialog[open]
                     >.𝘌alignedLabels
                       𝚏↓;𝚊𝙿←
                       >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
-                            𝚣 10; 󰊄𝚜 0.8em
+                             𝚣 10
+                            󰊄𝚜 0.8em
                             >⁰ ∣ 𝚏↓;𝚊𝙿󷷣;𝚠 100px
                                   󰊄𝚠 nowrap
                                   𝚃𝚏 translateY(-1.35em)
@@ -235,14 +238,14 @@ dialog[open]
          .multiButtonBar
            bruh this is wronggg
           𝚖0
-          >* ∣ 󰊄𝚜 0.85em
+           >* ∣ 󰊄𝚜 0.85em
          .navBodyHolder > div
            div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
           >􋁕⁽span󰁱div󰁱label⁾ ∣ 𝚖󷷤 0.1em
           >.𝘌toggleSection
             𝚏→;𝚊𝙿e;𝚊𝚂󷷣
             𝚋 ⦑bg2⦒
-            >* ∣ 𝚏↓;𝚙 5px; 𝚋𝚛 0.2em
+            >* ∣ 𝚏↓;𝚊𝙿󷷣;𝚙 5px;𝚋𝚛 0.2em
                   «𝚠 𝚠≤ 𝚠≥ 𝚑 𝚑≤ 𝚑≥» 1em
                   󰊄𝚜 2em
                   𝚋 0.075em solid ⦑bg3⦒
@@ -255,5 +258,22 @@ dialog[open]
             𝚠;𝚋 ⦑bg2⦒
            .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
             𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
-
+  [𝘌toolmode]
+     *􊽬(􋁋(.𝘌modes,.𝘌atom))
+      󰈲 opacity(0)
+     *.𝘌tickmark ∣ 𝚍 􋄅
+     .𝘌preview ∣ 𝚋 #0000
+     .𝘌pixels>.𝘌modes>􋁕(.𝘌modes,.𝘌atom)
+      𝚃𝚏 scale(0.9,0.8)
+      𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
+      􍳵 ∣ 𝚃𝚏 scale(1,0.95)
+           𝚖𝚙 pointer
+      , * ∣ 󰈲 brightness(1)
 label ∣ 󰊄𝚜 1.3em
+
+.clickDetectExit ∣ 𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; → 􊽺(25% - 1em)
+                   󰊄𝚜 2em
+                   «𝚠 𝚑» 2em
+                   𝚋 0.1em solid ⦑bg3⦒; 𝚋𝚛 􋔛px
+                    ⦑fg1⦒; 𝚋 ⦑bg1⦒
+                   󰈲 􋄅 !important

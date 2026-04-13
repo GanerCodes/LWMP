@@ -35,13 +35,13 @@
 
 
 Ϣ . popup  =  (Ѧ , c) => {
-   let  ə , btn ; 
-  (ə = mkə(`dialog` , {[`closedby`] : Ѧ . þ0F2D4 ? `any` : `none`} , [(Ѧ . þF0159  ? ((btn = mkə(`button` , {[`𝐶`] : `dialogCloseBtn`} , `✗`))) :  []) , (c)]))
-  ə . addEventListener(`close` ,   (...𝔸)=> (Ѧ . onclose ?. () , ə . remove())) ; 
-  (btn ?? {}) . onclick  =   (...𝔸)=> ə . close() ; 
-   if ( ! Ѧ . noAppend) { þF0219 . body . append(ə) ; 
-                   ə . showModal() ;  }
-   return ə } ; 
+   let  þ0E27F , btnþ0E27F ; 
+  (þ0E27F = mkə(`dialog` , {[`closedby`] : Ѧ . þ0F2D4 ? `any` : `none`} , [(Ѧ . þF0159  ? ((btnþ0E27F = mkə(`button` , {[`𝐶`] : `dialogCloseBtn`} , `✗`))) :  []) , (c)]))
+  AEL(þ0E27F , `close` ,  ()=> (Ѧ . onclose ?. () , þ0E27F . remove())) ; 
+   if (btnþ0E27F) btnþ0E27F . onclick  =   ()=> þ0E27F . close() ; 
+   if ( ! Ѧ . noAppend) { þF0219 . body . append(þ0E27F) ; 
+                  þ0E27F . showModal() ;  }
+   return þ0E27F } ; 
 
 Ϣ . table  =  (Ѧ , rows) => {
    let  ə ; 
@@ -58,9 +58,9 @@
     (𝚕 = mkə(`button` , {[`𝐶`] : `pageNumPrev`} , `←`)) , 
      ... 𝙱 =  þ02B65 ( (Math.min) (2 * Ѧ . w + 1 , Ѧ . N)) . ᴍ( (x,...𝔸)=> mkə(`button` , {[`𝐶`] : `pageNumButton`} ,  false )) , 
     (𝚛 = mkə(`button` , {[`𝐶`] : `pageNumNext`} , `→`)) ]))
-   þ021A8 (𝙱) . ꟿ( (x,y,...𝔸)=> y . onclick =  (...𝔸)=> Ѧ . setN( undefined  , x)) ; 
-  𝚕 . onclick  =   (...𝔸)=> Ѧ . setN(Ѧ . n - 1) ; 
-  𝚛 . onclick  =   (...𝔸)=> Ѧ . setN(Ѧ . n + 1) ; 
+   þ021A8 (𝙱) . ꟿ( (x,y,...𝔸)=> y . onclick =  ()=> Ѧ . setN( undefined  , x)) ; 
+  𝚕 . onclick  =   ()=> Ѧ . setN(Ѧ . n - 1) ; 
+  𝚛 . onclick  =   ()=> Ѧ . setN(Ѧ . n + 1) ; 
    const  G  =  (n) => {  const  [L , R]  =  [0 , Ѧ . N - 1] ; 
              n  =   þF7E44 (n , 0 , R) ; 
               if (Ѧ . N <= 1 + 2 * Ѧ . w)  return [L , n , R] ; 

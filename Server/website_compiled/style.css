@@ -112,7 +112,7 @@ input[type=range]::-moz-range-thumb:active {
   font-family: "Symbols","Avenir";
 }
 * {
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease;
 }
 body {
   display: flex;
@@ -434,13 +434,14 @@ dialog[open] {
   flex-direction: column;
 }
 .𝘌atom {
-  overflow: clip;
   width: 1em;
 }
 .𝘌tickmark {
+  z-index: 1;
   border-top-right-radius: 9999px;
   border-bottom-right-radius: 9999px;
-  z-index: 10;
+  margin-left: -1em;
+  transform: translateX(1em);
   &:hover {
     cursor: pointer;
   }
@@ -453,8 +454,13 @@ dialog[open] {
   margin: auto;
   padding: 0.1em;
   background-color: #2b2b2bF5;
-  &[𝘌toolmode] {
-    transform: scale(2);
+  &:not([𝘌toolmode]) {
+    & .𝘌atom[atom1] {
+      border-top-right-radius: 0.5em;
+    }
+    & .𝘌atom[atom󷰾] {
+      border-bottom-right-radius: 0.5em;
+    }
   }
   .𝘌outer {
     display: flex;
@@ -498,7 +504,6 @@ dialog[open] {
       }
       &>.𝘌preview {
         border-top: 0.05em solid #545454;
-        font-size: 1.25;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -527,7 +532,6 @@ dialog[open] {
                 flex-direction: row;
                 justify-content: center;
                 width: 140px;
-                z-index: 10;
                 font-size: 0.8em;
                 &>:first-child {
                   display: flex;
@@ -563,9 +567,6 @@ dialog[open] {
         font-size: 1em;
         & .multiButtonBar {
           margin: 0px;
-          &>* {
-            font-size: 0.85em;
-          }
         }
         & .navBodyHolder > div {
           & div:has(label) {
@@ -584,6 +585,7 @@ dialog[open] {
             &>* {
               display: flex;
               flex-direction: column;
+              justify-content: center;
               padding: 5px;
               border-radius: 0.2em;
               width: 1em;
@@ -626,7 +628,43 @@ dialog[open] {
       }
     }
   }
+  &[𝘌toolmode] {
+    & *:not(:has(.𝘌modes,.𝘌atom)) {
+      filter: opacity(0);
+    }
+    & *.𝘌tickmark {
+      display: none;
+    }
+    & .𝘌preview {
+      background-color: #0000;
+    }
+    & .𝘌pixels>.𝘌modes>:is(.𝘌modes,.𝘌atom) {
+      transform: scale(0.9,0.8);
+      box-shadow: 0px 0px 10px 4px rgba(255,255,46,0.85);
+      &:hover {
+        transform: scale(1,0.95);
+        cursor: pointer;
+      }
+      &,& * {
+        filter: brightness(1);
+      }
+    }
+  }
 }
 label {
   font-size: 1.3em;
+}
+.clickDetectExit {
+  position: fixed;
+  z-index: 10;
+  top: 1em;
+  right: calc(25% - 1em);
+  font-size: 2em;
+  width: 2em;
+  height: 2em;
+  border: 0.1em solid #606060;
+  border-radius: 9999px;
+  color: #dddddd;
+  background-color: #3d3d3d;
+  filter: none !important;
 }
