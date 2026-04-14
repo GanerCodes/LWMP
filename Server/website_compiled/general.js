@@ -14,6 +14,11 @@
   ƒ(𝚂𝘴 , 𝚂𝘳)( ... 𝔸) ; 
    return [𝙲𝘴 , 𝙲𝘳] ;  }
 
+ const  QSAS  =  (𝚚 , þ0E27F = þF0219) => [ ... þ0E27F . matches(𝚚) ? [þ0E27F] : [] ,  ... þ0E27F . querySelectorAll(𝚚)] ; 
+ const  þ0F06F  =  (þ0E27F) => {  const  s  =  þ0E27F . getClientRects()[0] ; 
+            return { l : s . left , r : s . right , t : s . top , b : s . bottom , 
+              w : s . width , h : s . height } } ; 
+
 fit_size  =  (𝐭 , w , sz = 100 , st =  ""  , Δ = 5) => {
    while (measureText(𝐭 , sz ,  "" ) . width >= w) sz  -=  Δ ; 
    return `font-size:${sz}px;` ;  }

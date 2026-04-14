@@ -1,56 +1,8 @@
 © test_dat = {"fx":[[1,0,0]],"*":[{"*":[{"1":[50,0,16711680]},{"1":[50,0,65280]},{"1":[50,0,255]}]},{"fx":[[1,25,0]],"*":[{"1":[5,1,3,245,50]},{"1":[45,0,4456448]}]},{"fx":[[1,25,0]],"*":[{"1":[22,1,1,245,50]},{"1":[15,0,17408]}]},{"fx":[[1,25,0]],"*":[{"1":[33,1,1,245,50]},{"1":[25,0,68]}]},{"fx":[[1,25,0]],"*":[{"1":[2,1,1,245,50]},{"1":[120,0,4456516]}]}]}
-
- 𝖬: { fx󷷰 [fx], 1󷷰 atom, *󷷰 [𝖬] }
- 󷹇 keys have '1' 󷺤 '*'
- 
- atom: [ledc,⠤mode]
- mode
-   static : [0,]
-   rainbow: [1,seg,sat,val]
-   fade   : [2,speed,sharp,⠤[]]
- fx
-   rev: [0]
-   rot: [1,speed,offset]
-   lum: [2,ℝ⁰􍦛¹]
+ 𝑜Replace(test_dat, 󰠲Utilᵈᵉᶠᴹ([50,50,50,50]));
 
 ©  = 󰲡‹rgb(⟦x>>16&0xFF⟧,⟦x>>8&0xFF⟧,⟦x>>0&0xFF⟧)›;
 © grad = 󰲡‹linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ⟦100/x⟧% 100% repeat-x›
-
-󰠲Util = {
-  len  : ⥌󰠲↦isArr(󰠲) ⭜󰠲₁⭝ ␛1∈󰠲 ⭜󰠲􊯛₁ ₀⭝ 󰠲􊯛􊾡(󰲡󰠲Utilˡᵉⁿ(x))􋔩(󰲣x+y,0),  󰤱􊽨 make this cache
-  grpfx: ⥌󰠲↦󰠲ᶠˣ ⭜ᴍv(󰠲ᶠˣ 􋕁(󰲡x₀), 󰲡x􊾡(󰲡x􍦛(1)))⭝ {},
-  
-  defM : ⥌C↦({"*":C􊾡(󰲣({"1":[x,0,[0xFF0000,0xFF00,0xFF]﹪₃]})), fx:[[1,5,0]]}),
-  
-  add  : ⥌󰠲,m↦{ ¿(␛1∈󰠲) ↪{"*":[󰠲,m]};
-                󰠲􊯛.push(m);
-                ↪󰠲; },
-  ungrp: ⥌󰠲,𝚒↦{ 󰠲􊯛 = 󰠲􊯛􊾡􎘌(󰲣y≡𝚒⭜x􊯛⭝[x]);
-                ↪󰠲; },
-  fold: ⥌󰠲↦{  󰤱 this way of combining rotations prob wrong, esp considering direction.
-              ¿(¬(‹fx›∈󰠲)) ↪󰠲;
-              ¿(¬ 󰠲ᶠˣ 􋌵  ) ↪(󰆴 󰠲ᶠˣ,󰠲);
-              ⎉  = 󰠲Utilᵍʳᵖᶠˣ(󰠲);
-              ¿(␛0∈ ∧ 􊯛₀􋌵&2) 󰆴 􊯛₀;
-               = ᴍv(,⥌v,k↦{ ¿(k≡␛0) ↪v;
-                              ¿(k≡␛1) ↪v􋔩(󰲣[x₀+y₀,x₁+y₁],[1,0]);
-                              ¿(k≡␛2) ↪v􋔩(󰲣[x₀⋅y₀],[1]); });
-              ¿(␛1∈ ∧ 􊯛₁ ₀≡0 ∧ 􊯛₁ ₁≡0) 󰆴 􊯛₁;
-              ¿(␛2∈ ∧ 􊯛₂ ₀≡1) 󰆴 􊯛₂;
-              󰠲ᶠˣ = 𝒪()􋅝(󰲣[+x,⠤y]);
-              ↪󰠲; },
-  rm1Gs: ⥌󰠲↦{ ➰(␛*∈󰠲 ∧ 󰠲􊯛􋌵≡1) {
-                © β = 󰠲􊯛 ₀;
-                ¿((󰠲ᶠˣ??[])􋌵 ∧ (βᶠˣ??[])􋌵)
-                  󰠲ᶠˣ = [⠤󰠲ᶠˣ??[], ⠤βᶠˣ??[]];
-                ¿(␛1∈β) { 󰆴 󰠲􊯛; 󰠲􊯛₁ = β􊯛₁; ⇥; }
-                󰠲􊯛 = β􊯛; }
-              ↪󰠲Utilᶠᵒˡᵈ􋅰(󰠲); },
-  del  : ⥌󰠲,𝚒↦{ 󰠲􊯛.splice(𝚒,1);
-                ↪󰠲Utilʳᵐ¹ᴳˢ(󰠲); }
-}
-
- 𝑜Replace(test_dat, 󰠲Utilᵈᵉᶠᴹ([50,50,50,50]));
 
 © ətriLabel = ⥌𝚑,⠤𝔸↦
   󱀝 {⦅𝚑≥ ⟦𝚑⟧px⦆} [
@@ -88,13 +40,10 @@
              c.onclick = 󰲟Ѧʳᵉⁿᵈᵉʳ(Ѧ􈛈􊯛 􋑴􊬖􊫵􊫄); }); }
   ⸘(n>1) 􋛟 ᵖᵒⁱⁿᵗᵉʳᴱᵛᵉⁿᵗˢ = ‹none›;
   ¿(¬n ) { ⁱᵈˣ = 0;
-           © x = (⥌𝚚,=󰈙↦[⠤.matches(𝚚)⭜[]⭝[],⠤􈛕(𝚚)])(‹.𝘌atom›,);
+           © x = QSAS(‹.𝘌atom›,);
            x₀   􈛣(‹atom1›);
            x􋕛(󷰾)􈛣(‹atom󷰾›); }
   ↪; };
-
-© 𝘌run = ⥌󰠲,𝐬,𝔖↦{ © body = {mode:󰠲, offsets:𝒟(󱑼(𝐬􋆕,𝐬􋆕 􋔫(󰲣x+𝔖􋆄ᴸᴱᴰ󰀂,0)))};
-                  𝐀(𝔖􋆮,⠤𝐬􋆕).scene(𝐬ⁿᵃᵐᵉ,body,✗,󷰾); }
 
 © 𝘌setInspector = ⥌Ѧ↦{
   © fx_og = ᴍv(󰠲Utilᵍʳᵖᶠˣ(Ѧ􈛈),󰲡x₀);
@@ -142,18 +91,18 @@
   ¿(¬Ѧ􈛈􍻞 􋌵 ∨ dat ∧ Ѧ􈛈􍻞 􋕛(󷰾)≇dat)
     Ѧ􈛈􍻞.push(Ѧ􈛈 = dat);
   © stot = 󰠲Utilˡᵉⁿ(Ѧ􈛈);
-  ☾(⠤Ѧ􈛈􍻞);
   Ѧᵗᵒᵖ = Ѧ􈛈􍻞 􋌵≡1;
   
   Ѧ󰁢 = ⤉(2,2.5⋅(window.outerHeight÷window.outerWidth),400÷⤉(stot,Ѧᵗᵒᵖ⭜Ѧᴸ 􋔩(󰲣x+y,0)÷5⭝0));
   
-  Ѧ􍻬 ᵖʳᵛ􋑵 􋒗 = Ѧᵗᵒᵖ;
-  Ѧ􍻬 ᵈᵉˡ􋑵 􋒗 = ␛1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
-  Ѧ􍻬 ᵘᵍᵖ􋑵 􋒗 = ¬¬Ѧ􋑵 􈛐(CSS_valid_ungroup);
   Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(
               ⠤Ѧᵗᵒᵖ ⭜ ↨(󱑼(Ѧᴺ,Ѧᴸ))􋅝(⥌i,[𝐧,n]↦ətriLabel(n⋅Ѧ󰁢, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))
                     ⭝ [ətriLabel(Ѧ󰁢⋅stot, 󱀝 T ‹⟦stot⟧ Pxl›)]);
-  Ѧᵖⁱˣᵉˡˢ􋑵.replaceChildren(Ѧ􈛈􋑵 = 𝘌𝖬(Ѧ,Ѧ􈛈)); };
+  Ѧᵖⁱˣᵉˡˢ􋑵.replaceChildren(Ѧ􈛈􋑵 = 𝘌𝖬(Ѧ,Ѧ􈛈));
+  Ѧ􍻬 ᵖʳᵛ􋑵 􋒗 = Ѧᵗᵒᵖ;
+  Ѧ􍻬 ᵈᵉˡ􋑵 􋒗 = ␛1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
+  Ѧ􍻬 ᵘᵍᵖ􋑵 􋒗 = ¬Ѧ􋑵 􈛐(CSS_valid_ungroup);
+};
 
 prompt_editor = ⥌cb,𝔖,𝐬↦{
   𝐬ᵈᵃᵗ = test_dat;  󰤱 temp
@@ -171,23 +120,56 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
   
   © tool = ⥌𝗍↦{
     ¿(𝗍≡␛←) { Ѧ􈛈􍻞.pop();
-              Ѧʳᵉⁿᵈᵉʳ(Ѧ􈛈􍻞.pop()); }
+              ↪Ѧʳᵉⁿᵈᵉʳ(Ѧ􈛈􍻞.pop()); }
     ⸘(𝗍≡␛+) { Ѧʳᵉⁿᵈᵉʳ(𝑜Replace(Ѧ􈛈, 󰠲Utilᵃᵈᵈ(Ѧ􈛈,{"1":[50,0,0x7F7F7F]})));  󰤱 why do we not replace in 󰠲Utilᵃᵈᵈ?
-              [⠤Ѧᵖⁱˣᵉˡˢ􋑵 􈛕(‹.𝘌modes›)]􋕛(󷰾).scrollIntoView(); }
-    ⸘(𝗍≡␛󰕔) { Ѧ􋑵 􈛘(‹𝘌toolmode›,ᐦ);
-              clickDetect(CSS_valid_ungroup,
-                          ⥌s↦{ Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
-                                ¿(s) { 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
-                                        Ѧʳᵉⁿᵈᵉʳ(); } },
-                          Ѧ􋑵);
-              🟑󰤱🟑 }
-    ⸘(𝗍≡␛󰡏) { 🟑󰤱🟑 }
-    ⸘(𝗍≡␛󰆴) { Ѧ􋑵 􈛘(‹𝘌toolmode›,ᐦ);
-              clickDetect(‹.𝘌modes[dragitem],.𝘌atom[dragitem]›,
-                          ⥌s↦{ Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
-                                ¿(s) { 󰠲Utilᵈᵉˡ(Ѧ􈛈,sⁱᵈˣ);
-                                        Ѧʳᵉⁿᵈᵉʳ(); } },
-                          Ѧ􋑵); }
+              ↪[⠤Ѧᵖⁱˣᵉˡˢ􋑵 􈛕(‹.𝘌modes›)]􋕛(󷰾).scrollIntoView(); }
+    
+    © css = 𝗍≡␛󰕔 ⭜CSS_valid_ungroup⭝ ‹.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]›;
+     maybe scroll first valid into view if it's not?
+    clickDetect(css,
+                ⥌s↦{ ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
+                      ¿(𝗍≡␛󰕔 ∨ ␛󰆴≡𝗍) {
+                        ¿(𝗍≡␛󰕔) 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
+                        ⸘(𝗍≡␛󰆴) 󰠲Utilᵈᵉˡ  (Ѧ􈛈,sⁱᵈˣ);
+                        Ѧʳᵉⁿᵈᵉʳ();
+                        ↪Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ); }
+                      
+                       󰤱 redo this weird way of doing resizing, like actually this code sucks
+                      © d = QSAS(‹.𝘌atom›,s)􋕛(󷰾);
+                      © A  = 󰠲Utilᵉⁿᵈˢ(␛1∈Ѧ􈛈 ⭜Ѧ􈛈􊯛₁⭝ Ѧ􈛈􊯛 ₛ􋑴􊬖􊫵􊫄)₁;
+                      
+                      ⎉ l,n;
+                      © 󰘖 = 󱀝 {𝐶 resizer} [
+                               󱀝    T {} ‹󰮹›
+                               󱀝:l T {}];
+                      
+                      ⎉ 𝚙;
+                      © show = ⥌Δ↦{ © h = Ѧ󰁢⋅󰠲Utilˡᵉⁿ(A);
+                                    Δ = ⤉(Ѧ󰁢⋅▢(Δ÷Ѧ󰁢),Ѧ󰁢-h);
+                                    l􋒷 = n = ▢((h+Δ)÷Ѧ󰁢);
+                                    󰘖􋛟.top    = ‹⟦𝚙ᵇ+Δ⟧px›;
+                                    d􋛟.height = ‹⟦𝚙ʰ+Δ⟧px›; };
+                      © 𝐮 = 𝚲{ 𝚙 = (d);
+                               󰘖􋛟.left = ‹⟦𝚙ˡ+𝚙ʷ⟧px›;
+                               show(0); };
+                      𝐮();
+                      
+                      SAT(󰘖,‹draggable›,‹true›);
+                      AEL(󰘖,‹dragstart›,⥌𝜺↦{ 𝜺.dataTransfer.setDragImage(󱀝 img [],0,0);
+                                              󰘖􈛘(‹dragging›,ᐦ); 𝐮(); });
+                      AEL(󰘖,‹dragend󷺗󷺗›,⥌𝜺↦{ A₀ = n;
+                                              󰘖􈛑(‹dragging›  );
+                                              s􈛑(‹detector›);
+                                              s􈛑(‹noscale󷺗›);
+                                              Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
+                                              Ѧʳᵉⁿᵈᵉʳ(); });
+                      AEL(󰘖,‹drag›,⥌𝜺↦{ ¿(𝜺ʸ) show(𝜺ʸ-𝚙ᵇ); });
+                      s.after(󰘖);
+                      s􈛘(‹detector›,ᐦ);
+                      s􈛘(‹noscale󷺗›,ᐦ);
+                    },
+                Ѧ􋑵);
+    Ѧ􋑵 􈛘(‹𝘌toolmode›,ᐦ);
   };
   󱀝:⟦Ѧ􋑵⟧ ⟦popup⟧ {󰅙:✓⍮ noAppend:✓} [
     󱀝 {𝐶 𝘌outer} [

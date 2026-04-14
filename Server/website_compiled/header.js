@@ -12,7 +12,8 @@ BASE_CHARSET  =  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 𝗙  =   (x,...𝔸)=> x instanceof Function ; 
 𝑙  =   (x,...𝔸)=> [ ... x] ; 
  þF0EFE   =   (x,...𝔸)=> x ; 
-[ þF114F  ,  þ02B13 ]  =  [Math . random ,  Math . floor] ; 
+ þF114F   =  Math . random ; 
+[ þ02B13  ,  þ025A2  ,  þ02B12 ]  =  [Math . floor ,  Math . round ,  Math . ceil] ; 
 [ (Math.max)  ,  (Math.min) ]  =  [Math . max , Math . min] ; 
  þF7E44       =   (x,y,z,...𝔸)=>  (Math.min) ( (Math.max) (x , y) , z)
  þ021A8   =   (x,...𝔸)=> [ ... x] . map((x , i) => [i , x])
