@@ -443,9 +443,7 @@ dialog[open] {
   border-bottom-right-radius: 9999px;
   margin-left: -1em;
   transform: translateX(1em);
-  &:hover {
-    cursor: pointer;
-  }
+  pointer-events: none;
 }
 .editorDialog[open] {
   width: min(calc(98vw / var(--zoom)),1000px);
@@ -639,7 +637,7 @@ dialog[open] {
     & .𝘌preview {
       background-color: #0000;
     }
-    & .𝘌pixels>.𝘌modes>:is(.𝘌modes,.𝘌atom) {
+    & :is(.𝘌modes,.𝘌atom)[detector] {
       transform: scale(0.9,0.8);
       box-shadow: 0px 0px 10px 4px rgba(255,255,46,0.85);
       &:hover {
@@ -649,6 +647,9 @@ dialog[open] {
       &,& * {
         filter: brightness(1);
       }
+    }
+    *:not([detector]) {
+      cursor: unset;
     }
   }
 }

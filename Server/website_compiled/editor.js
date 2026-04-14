@@ -13,6 +13,7 @@
 
 
 
+
  const  þ0E22B  =   (x,...𝔸)=> `rgb(${x >> 16 & 0xFF},${x >> 8 & 0xFF},${x >> 0 & 0xFF})` ; 
  const  þ0EF26grad  =   (x,...𝔸)=> `linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ${100 / x}% 100% repeat-x`
 
@@ -20,8 +21,12 @@
   len   :  (þF0832) => isArr(þF0832)  ? þF0832[1] :  `1` in þF0832  ? þF0832[`1`] [0] :  þF0832[`*`] . ᴍ( (x,...𝔸)=> þF0832Util . len(x)) . ſ( (x,y,...𝔸)=> x + y , 0) ,  
   grpfx :  (þF0832) => þF0832 . fx  ? ᴍv(þF0832 . fx  . þ0EB86( (x,...𝔸)=> x[0]) ,   (x,...𝔸)=> x . ᴍ( (x,...𝔸)=> x . þF7E3B(1))) :  {} , 
   
+  defM  :  (C) => ({"*" : C . ᴍ( (x,y,...𝔸)=> ({"1" : [x , 0 , [0xFF0000 , 0xFF00 , 0xFF][y % 3]]})) ,  fx : [[1 , 5 , 0]]}) , 
+  
   add   :  (þF0832 , m) => {  if (`1` in þF0832)  return {"*" : [þF0832 , m]} ; 
                 þF0832[`*`] . push(m) ; 
+                 return þF0832 ;  } , 
+  ungrp :  (þF0832 , 𝚒) => { þF0832[`*`]  =  þF0832[`*`] . ᴍþF01A9( (x,y,...𝔸)=> y == 𝚒 ? x[`*`] : [x]) ; 
                  return þF0832 ;  } , 
   foldþ0F0D0 :  (þF0832) => { 
                if ( ! (`fx` in þF0832))  return þF0832 ; 
@@ -45,6 +50,8 @@
   del   :  (þF0832 , 𝚒) => { þF0832[`*`] . splice(𝚒 , 1) ; 
                  return þF0832Util . rm1Gs(þF0832) ;  }
 }
+
+
 
  const  ətriLabel  =  (𝚑 ,  ... 𝔸) => 
   mkə( false  , {[`𝑆`] : `min-height: ${𝚑}px;`} , [(mkə( false  , {} , 𝔸)) , (mkə(`svg` , {[`viewBox`] : `-1.05 -1 2 2` , [`preserveAspectRatio`] : `none`} , [(mkə(`path` , {[`d`] : `M1 -1 L-1 0 L1 1` , [`style`] : `fill:#0000;stroke:#FFF;stroke-width:0.05`} , ``))]))])
@@ -121,6 +128,8 @@
             [`` ,  mkə( false  , {} , [(mkə(`span` , {[`𝐶`] : `𝘌toggleSection`} , 𝒪v(fx_togs) . ꟿ( (x,y,...𝔸)=> x . þ0E27F))) , (𝒪v(fx_togs) . ᴍþF01A9( (x,...𝔸)=> x . length == 2 ? [x[1]] : []))])] , 
             [`⯈` ,  mkə(`button` , {[`onclick`] :  (...𝔸)=> 𝘌run(Ѧ . þF0832 , Ѧ . 𝐬 , Ѧ . 𝔖)} , `Ⴝω󷱇𝑔`)])) ;  } ; 
 
+ const  CSS_valid_ungroup  =  `.𝘌modes[dragitem]:not(:has(>:only-child))` ; 
+
  const  𝘌setPreview  =  (Ѧ , dat) => {
    if ( ! dat) dat  =  Ѧ . þF0832 ; 
    if ( ! Ѧ . þF0832𝘏  . length  ||  dat  &&  Ѧ . þF0832𝘏  . at(-1) !== dat)
@@ -133,6 +142,7 @@
   
   Ѧ . 𝘖  . prvþ0E27F  . disabled  =  Ѧ . top ; 
   Ѧ . 𝘖  . delþ0E27F  . disabled  =  `1` in Ѧ . þF0832  ||  Ѧ . þF0832[`*`] . length <= 1 ; 
+  Ѧ . 𝘖  . ugpþ0E27F  . disabled  =   !  ! Ѧ . þ0E27F  . querySelector(CSS_valid_ungroup) ; 
   Ѧ . labelsþ0E27F . replaceChildren(
                ... Ѧ . top  ?   þ021A8 ( þF147C (Ѧ . N , Ѧ . L)) . ꟿ((i , [𝐧 , n]) => ətriLabel(n * Ѧ . χ ,  mkə(`T` ,  false  , `${𝐧}`) ,  mkə(`T` ,  false  , `${n} Pxl`)))
                      :  [ətriLabel(Ѧ . χ * stot ,  mkə(`T` ,  false  , `${stot} Pxl`))]) ; 
@@ -152,23 +162,27 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
   
   window . Ѧ  =  Ѧ ; 
   
-   const  replace  =   (x,y,...𝔸)=> { y  =  structuredClone(y) ; 
-                  for (k in x)  delete  x[k] ; 
-                  return 𝑜 . assign(x , y) ;  } ; 
-  
    const  tool  =  (𝗍) => {
      if (𝗍 == `←`) { Ѧ . þF0832𝘏 . pop() ; 
               Ѧ . render(Ѧ . þF0832𝘏 . pop()) ;  }
-     else if (𝗍 == `+`) { Ѧ . render(replace(Ѧ . þF0832 ,  þF0832Util . add(Ѧ . þF0832 , {"1" : [50 , 0 , 0x7F7F7F]}))) ; 
+     else if (𝗍 == `+`) { Ѧ . render(𝑜Replace(Ѧ . þF0832 ,  þF0832Util . add(Ѧ . þF0832 , {"1" : [50 , 0 , 0x7F7F7F]}))) ;  
               [ ... Ѧ . pixelsþ0E27F  . querySelectorAll(`.𝘌modes`)] . at(-1) . scrollIntoView() ;  }
+     else if (𝗍 == `󰕔`) { Ѧ . þ0E27F  . setAttribute(`𝘌toolmode` ,  "" ) ; 
+              clickDetect(CSS_valid_ungroup , 
+                          (sþ0E27F) => { Ѧ . þ0E27F  . removeAttribute(`𝘌toolmode` ,  "" ) ; 
+                                 if (sþ0E27F) { þF0832Util . ungrp(Ѧ . þF0832 , sþ0E27F . idx) ; 
+                                        Ѧ . render() ;  } } , 
+                          Ѧ . þ0E27F) ; 
+               }
+     else if (𝗍 == `󰡏`) {  }
      else if (𝗍 == `󰆴`) { Ѧ . þ0E27F  . setAttribute(`𝘌toolmode` ,  "" ) ; 
-              clickDetect(`.𝘌modes,.𝘌atom` , 
+              clickDetect(`.𝘌modes[dragitem],.𝘌atom[dragitem]` , 
                           (sþ0E27F) => { Ѧ . þ0E27F  . removeAttribute(`𝘌toolmode` ,  "" ) ; 
                                  if (sþ0E27F) { þF0832Util . del(Ѧ . þF0832 , sþ0E27F . idx) ; 
                                         Ѧ . render() ;  } } , 
                           Ѧ . þ0E27F) ;  }
   } ; 
-  (Ѧ.þ0E27F = mkə(popup , {[`󰅙`] : `✓` , [`noAppend`] : `✓`} , [(mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`T` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {[`𝐶`] : `multiButtonBar`} , [((Ѧ.𝘖 .prvþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`←`)} , `←`))) , ((Ѧ.𝘖 .addþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`+`)} , `+`))) , ((Ѧ.𝘖 .cutþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󷹻`)} , `󷹻`))) , ((Ѧ.𝘖 .delþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰆴`)} , `󰆴`)))])) , (mkə( false  , {} , [(mkə( false  , {} , [((Ѧ.labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , ((Ѧ.pixelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌pixels       `} ,  false )))]))]))])) , ((Ѧ.𝘐þ0E27F = mkə( false  , {[`𝐶`] : `𝘌inspector`} ,  false )))]))]))])) ; 
+  (Ѧ.þ0E27F = mkə(popup , {[`󰅙`] : `✓` , [`noAppend`] : `✓`} , [(mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`T` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {[`𝐶`] : `multiButtonBar`} , [((Ѧ.𝘖 .prvþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`←`)} , `←`))) , ((Ѧ.𝘖 .addþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`+`)} , `+`))) , ((Ѧ.𝘖 .ugpþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰕔`)} , `󰕔`))) , ((Ѧ.𝘖 .rszþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰡏`)} , `󰡏`))) , ((Ѧ.𝘖 .delþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰆴`)} , `󰆴`)))])) , (mkə( false  , {} , [(mkə( false  , {} , [((Ѧ.labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , ((Ѧ.pixelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌pixels       `} ,  false )))]))]))])) , ((Ѧ.𝘐þ0E27F = mkə( false  , {[`𝐶`] : `𝘌inspector`} ,  false )))]))]))])) ; 
   Ѧ . þ0E27F  . classList.add(`editorDialog`) ; 
   
   Ѧ . render() ; 

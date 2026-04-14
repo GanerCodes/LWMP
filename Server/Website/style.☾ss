@@ -184,7 +184,7 @@ dialog[open]
 .𝘌tickmark ∣ 𝚣 1; 𝚋𝚛→ 􋔛px
              𝚖← -1em
              𝚃𝚏 translateX(1em)
-             􍳵 ∣ 𝚖𝚙 pointer
+             pointer-events 􋄅
               𝚖← -100%
 
 .editorDialog[open]
@@ -264,12 +264,14 @@ dialog[open]
       󰈲 opacity(0)
      *.𝘌tickmark ∣ 𝚍 􋄅
      .𝘌preview ∣ 𝚋 #0000
-     .𝘌pixels>.𝘌modes>􋁕(.𝘌modes,.𝘌atom)
+     􋁕(.𝘌modes,.𝘌atom)[detector]
       𝚃𝚏 scale(0.9,0.8)
       𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
       􍳵 ∣ 𝚃𝚏 scale(1,0.95)
            𝚖𝚙 pointer
       , * ∣ 󰈲 brightness(1)
+    *􊽬([detector])
+      𝚖𝚙 􍍝
 label ∣ 󰊄𝚜 1.3em
 
 .clickDetectExit ∣ 𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; → 􊽺(25% - 1em)

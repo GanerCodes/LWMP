@@ -1,10 +1,13 @@
 © show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;  󰤱 abstract a bit and add to j☾ or something
-© clickDetect = ⥌𝚚,ƒ,base=󰈙.body↦{  󰤱 add to j☾ once I add close feature and think of a better name
-  © b = 󱀝 button {𝐶 clickDetectExit} ‹✗›;
+© clickDetect = ⥌𝚚,ƒ,base=󰈙.body,attr=‹detector›↦{  󰤱 add to j☾ once I add close feature and think of a better name
+  © b = 󱀝 button {𝐶 clickDetectExit⍮ detector true} ‹✗›;
   base􍪙(b);
+  © 𝚂 = [⠤base􈛕(𝚚)];
+  © tog = 𝚲𝚂􋁃(󰲡x􈛣(attr));
+  tog();
   © rem = AEL(󰈙,‹click›,⥌ε↦{
-    © cease = 󰲟(ε.stopPropagation(),ε.preventDefault(),
-                b.remove(),rem(),ƒ(⠤𝔸));
+    ε.stopPropagation(); ε.preventDefault();
+    © cease = 󰲟(tog(),b.remove(),rem(),ƒ(⠤𝔸));
     ¿(ε.target.closest(‹.clickDetectExit›)) ↪cease();
     © el = ε.target.closest(𝚚);
     ¿(el) ↪cease(el); },✓);
