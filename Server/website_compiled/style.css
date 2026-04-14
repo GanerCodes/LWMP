@@ -653,56 +653,76 @@ dialog[open] {
     }
   }
   &[𝘌toolmode] {
-    & *:not(:has(.𝘌modes,.𝘌atom)) {
-      filter: opacity(0);
-    }
-    & *.𝘌tickmark {
+    & .𝘌tickmark {
       display: none;
     }
     & .𝘌preview {
       background-color: #0000;
     }
-    & :is(.𝘌modes,.𝘌atom)[detector] {
-      &:not([noscale]) {
-        transform: scale(0.9,0.8);
-      }
-      box-shadow: 0px 0px 10px 4px rgba(255,255,46,0.85);
+    & *[detector]:not(:is([noscale],.detectorMeta)) {
+      transform: scale(0.9,0.8);
       &:hover {
-        &:not([noscale]) {
-          transform: scale(1,0.95);
-        }
-        cursor: pointer;
+        transform: scale(1,0.95);
       }
-      &,& * {
-        filter: brightness(1);
-      }
-    }
-    *:not([detector]) {
-      cursor: unset;
     }
   }
 }
 label {
   font-size: 1.3em;
 }
-.clickDetectExit {
+:root:has(*[detector]) {
+  *:not([detector],.detectorMeta) {
+    cursor: unset;
+    pointer-events: none;
+  }
+  *:not(:has(*[detector],.detectorMeta)) {
+    filter: opacity(0);
+  }
+  *[detector] {
+    box-shadow: 0px 0px 10px 4px rgba(255,255,46,0.85);
+    &,& * {
+      filter: brightness(1);
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    &[multidetect] {
+      box-shadow: 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85);
+    }
+  }
+  *:has(*[detector],.detectorMeta) {
+    pointer-events: auto;
+  }
+}
+.detectorMeta {
   position: fixed;
   z-index: 10;
   top: 1em;
-  right: calc(25% - 1em);
   font-size: 2.5em;
   width: 1.75em;
   height: 1.75em;
   border: 0.1em solid #606060;
   border-radius: 9999px;
-  background-color: #611;
-  &:not(:disabled):is(:hover,:focus-visible) {
-    background-color: #712A;
+  &.detectorSubmit {
+    right: calc(50% - 1em);
+    background-color: #161;
+    &:not(:disabled):is(:hover,:focus-visible) {
+      background-color: #172A;
+    }
+    &:not(:disabled):active {
+      background-color: #1824;
+    }
   }
-  &:not(:disabled):active {
-    background-color: #8124;
+  &.detectorCancel {
+    right: calc(25% - 1em);
+    background-color: #611;
+    &:not(:disabled):is(:hover,:focus-visible) {
+      background-color: #712A;
+    }
+    &:not(:disabled):active {
+      background-color: #8124;
+    }
   }
-  filter: none !important;
 }
 .resizer {
   position: fixed;

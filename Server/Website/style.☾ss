@@ -267,28 +267,39 @@ dialog[open]
            .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
             𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
   [𝘌toolmode]
-     *􊽬(􋁋(.𝘌modes,.𝘌atom))
-      󰈲 opacity(0)
-     *.𝘌tickmark ∣ 𝚍 􋄅
+     .𝘌tickmark ∣ 𝚍 􋄅
      .𝘌preview ∣ 𝚋 #0000
-     􋁕(.𝘌modes,.𝘌atom)[detector]
-      􊽬([noscale]) ∣ 𝚃𝚏 scale(0.9,0.8)
-      𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
-      􍳵 ∣ 􊽬([noscale]) ∣ 𝚃𝚏 scale(1,0.95)
-           𝚖𝚙 pointer
-      , * ∣ 󰈲 brightness(1)
-    *􊽬([detector])
-      𝚖𝚙 􍍝
+     *[detector]􊽬(􋁕([noscale],.detectorMeta))
+      𝚃𝚏 scale(0.9,0.8)
+      􍳵 ∣ 𝚃𝚏 scale(1,0.95)
 label ∣ 󰊄𝚜 1.3em
 
-.clickDetectExit ∣ 𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; → 􊽺(25% - 1em)
-                   󰊄𝚜 2.5em
-                   «𝚠 𝚑» 1.75em
-                   𝚋 0.1em solid ⦑bg3⦒; 𝚋𝚛 􋔛px
-                   𝚋 #611
-                   􎁎 ∣ 𝚋 #712A
-                   􀴗 ∣ 𝚋 #8124
-                   󰈲 􋄅 !important
+:root􋁋(*[detector])
+  *􊽬([detector],.detectorMeta)
+    𝚖𝚙 􍍝; pointer-events 􋄅
+  *􊽬(􋁋(*[detector],.detectorMeta))
+    󰈲 opacity(0)
+  *[detector]
+    𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
+    , * ∣ 󰈲 brightness(1)
+    􍳵 ∣ 𝚖𝚙 pointer
+    [multidetect]
+      𝚜 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85)
+  *􋁋(*[detector],.detectorMeta)
+    pointer-events auto
+
+.detectorMeta
+  𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; 󰊄𝚜 2.5em
+  «𝚠 𝚑» 1.75em; 
+  𝚋 0.1em solid ⦑bg3⦒; 𝚋𝚛 􋔛px
+  .detectorSubmit ∣ → 􊽺(50% - 1em)
+                     𝚋 #161
+                     􎁎 ∣ 𝚋 #172A
+                     􀴗 ∣ 𝚋 #1824
+  .detectorCancel ∣ → 􊽺(25% - 1em)
+                     𝚋 #611
+                     􎁎 ∣ 𝚋 #712A
+                     􀴗 ∣ 𝚋 #8124
 
 .resizer ∣ 𝚙𝚘𝚜f;𝚏↓;𝚊𝙿←;𝚊𝚂󷷣;𝚠≥ 1em
            line-height 0

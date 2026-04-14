@@ -71,25 +71,28 @@
   has_init = ✓;
   
   © set = 󰲟Ѧ􈛈􊯛₁=[Ѧ􈛈􊯛₁ ₀,⠤𝔸];
-  
    󰤱 rerender just the thingy
   
-  ⎉ 𝚟, 𝚖 = 󱀝 {};
+  © 𝘈 = Ѧ􍻐􋑵 􀴗;
+  
+  ⎉ 𝚟 = 󱀝 {};
   ¿(␛1∈Ѧ􈛈) {
     𝚟 = Ѧ􈛈􊯛₁ ₁≡0 ⭜𝑖2(Ѧ􈛈􊯛₁ ₂)⭝ [50,50,50];
-    𝚖 = ə({v:𝚟, ƒ:󰲡set(0,2𝑖(x))});
+    𝘈.set(␛, ə({v:𝚟, ƒ:󰲡set(0,2𝑖(x))}));
+  
+    𝘈.set(␛󷸾, 󱀝 ‹󰤱›);
+    𝘈.set(␛, 󱀝 ‹󰤱›);
   }
   
-  © modes = [[␛G,‹Group›],[␛,𝚖],[␛󷸾,‹Fade›],[␛,‹Rainbow›]];
-  © mode =  ənavBar({ Ⴝ:modes[␛1∈Ѧ􈛈⭜Ѧ􈛈􊯛₁ ₁+1⭝0]₀ },
-                     ⠤modes􊾡(⥌[s,n],i↦[s, 󱀝 T ⟦n⟧, (␛1∈Ѧ􈛈)^¬¬i⭜{disabled:✓}⭝{}]));
-  
-  Ѧ􍻠􋑵.replaceChildren(
-    ənavBar({ Ⴝ:‹› },
-            [‹›, mode],
-            [‹›, 󱀝 {} [󱀝 span {𝐶 𝘌toggleSection} ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
-                               ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]],
-            [‹⯈›, 󱀝 button {onclick ⟦󰲟𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈟)⟧} ‹Ⴝω󷱇𝑔›])); };
+  © modes = 𝒪k(𝘈 􀳕);
+  ☾(modes);
+  𝘈.set(modes[␛1∈Ѧ􈛈⭜Ѧ􈛈􊯛₁ ₁+1⭝0]);
+  modes􋁃(󰲣☾(𝘈􀳕ₓ􀲝 􋒗=(␛1∈Ѧ􈛈)^¬¬y));
+  Ѧ􍻠􋑵 􀴗.set(␛,󱀝 {} [󱀝 span {𝐶 𝘌toggleSection}
+                      ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
+                      ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]);
+  Ѧ􍻠􋑵 􀴗.set(␛⯈,󱀝 button {onclick ⟦󰲟𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈟)⟧} ‹Ⴝω󷱇𝑔›);
+};
 
 © CSS_valid_ungroup = ‹.𝘌modes[dragitem]:not(:has(>:only-child))›;
 
@@ -107,8 +110,9 @@
                     ⭝ [ətriLabel(Ѧ󰁢⋅stot, 󱀝 T ‹⟦stot⟧ Pxl›)]);
   Ѧᵖⁱˣᵉˡˢ􋑵.replaceChildren(Ѧ􈛈􋑵 = 𝘌𝖬(Ѧ,Ѧ􈛈));
   Ѧ􍻬 ᵖʳᵛ􋑵 􋒗 = Ѧᵗᵒᵖ;
-  Ѧ􍻬 ᵈᵉˡ􋑵 􋒗 = ␛1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
+  Ѧ􍻬 ᵍʳᵖ􋑵 􋒗 = ␛1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
   Ѧ􍻬 ᵘᵍᵖ􋑵 􋒗 = ¬Ѧ􋑵 􈛐(CSS_valid_ungroup);
+  Ѧ􍻬 ᵈᵉˡ􋑵 􋒗 = ␛1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
 };
 
 prompt_editor = ⥌cb,𝔖,𝐬↦{
@@ -130,52 +134,61 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
               ↪Ѧʳᵉⁿᵈᵉʳ(Ѧ􈛈􍻞.pop()); }
     ⸘(𝗍≡␛+) { Ѧʳᵉⁿᵈᵉʳ(𝑜Replace(Ѧ􈛈, 󰠲Utilᵃᵈᵈ(Ѧ􈛈,{"1":[50,0,0x7F7F7F]})));  󰤱 why do we not replace in 󰠲Utilᵃᵈᵈ?
               ↪[⠤Ѧᵖⁱˣᵉˡˢ􋑵 􈛕(‹.𝘌modes›)]􋕛(󷰾).scrollIntoView(); }
-    
-    © css = 𝗍≡␛󰕔 ⭜CSS_valid_ungroup⭝ ‹.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]›;
+    © css = 𝗍≡␛ ⭜CSS_valid_ungroup⭝ ‹.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]›;
      maybe scroll first valid into view if it's not?
-    clickDetect(css,
-                ⥌s↦{ ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
-                      ¿(𝗍≡␛󰕔 ∨ ␛󰆴≡𝗍) {
-                        ¿(𝗍≡␛󰕔) 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
-                        ⸘(𝗍≡␛󰆴) 󰠲Utilᵈᵉˡ  (Ѧ􈛈,sⁱᵈˣ);
-                        Ѧʳᵉⁿᵈᵉʳ();
-                        ↪Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ); }
-                      
-                       󰤱 redo this weird way of doing resizing, like actually this code sucks
-                      © d = QSAS(‹.𝘌atom›,s)􋕛(󷰾);
-                      © A  = 󰠲Utilᵉⁿᵈˢ(␛1∈Ѧ􈛈 ⭜Ѧ􈛈􊯛₁⭝ Ѧ􈛈􊯛 ₛ􋑴􊬖􊫵􊫄)₁;
-                      
-                      ⎉ l,n;
-                      © 󰘖 = 󱀝 {𝐶 resizer} [
-                               󱀝    T {} ‹󰮹›
-                               󱀝:l T {}];
-                      
-                      ⎉ 𝚙;
-                      © show = ⥌Δ↦{ © h = Ѧ󰁢⋅󰠲Utilˡᵉⁿ(A);
-                                    Δ = ⤉(Ѧ󰁢⋅▢(Δ÷Ѧ󰁢),Ѧ󰁢-h);
-                                    l􋒷 = n = ▢((h+Δ)÷Ѧ󰁢);
-                                    󰘖􋛟.top    = ‹⟦𝚙ᵇ+Δ⟧px›;
-                                    d􋛟.height = ‹⟦𝚙ʰ+Δ⟧px›; };
-                      © 𝐮 = 𝚲{ 𝚙 = (d);
-                               󰘖􋛟.left = ‹⟦𝚙ˡ+𝚙ʷ⟧px›;
-                               show(0); };
-                      𝐮();
-                      
-                      SAT(󰘖,‹draggable›,‹true›);
-                      AEL(󰘖,‹dragstart›,⥌𝜺↦{ 𝜺.dataTransfer.setDragImage(󱀝 img [],0,0);
-                                              󰘖􈛘(‹dragging›,ᐦ); 𝐮(); });
-                      AEL(󰘖,‹dragend󷺗󷺗›,⥌𝜺↦{ A₀ = n;
-                                              󰘖􈛑(‹dragging›  );
-                                              s􈛑(‹detector›);
-                                              s􈛑(‹noscale󷺗›);
-                                              Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
-                                              Ѧʳᵉⁿᵈᵉʳ(); });
-                      AEL(󰘖,‹drag›,⥌𝜺↦{ ¿(𝜺ʸ) show(𝜺ʸ-𝚙ᵇ); });
-                      s.after(󰘖);
-                      s􈛘(‹detector›,ᐦ);
-                      s􈛘(‹noscale󷺗›,ᐦ);
-                    },
-                Ѧ􋑵);
+    ¿(𝗍≡␛)  󰤱 better interface, why is this a multiselect? also you can select all of it bruh
+      clickDetect(css,⥌𝚂↦{
+        Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
+        ¿(¬𝚂) ↪;
+        © 𝙸 = 𝚂􊾡(󰲡xⁱᵈˣ);
+        © r = [⤈(⠤𝙸),⤉(⠤𝙸)];
+        r₁++;
+        Ѧ􈛈􊯛.splice(r₀,r₁-r₀,{"*":Ѧ􈛈􊯛􊽧(r₀,r₁)});
+        Ѧʳᵉⁿᵈᵉʳ();
+      },Ѧ􋑵,{"*":✓});
+    ¡ clickDetect(css,
+                  ⥌s↦{ ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
+                        ¿(𝗍≡␛ ∨ ␛󰆴≡𝗍) {
+                          ¿(𝗍≡␛) 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
+                          ⸘(𝗍≡␛󰆴) 󰠲Utilᵈᵉˡ  (Ѧ􈛈,sⁱᵈˣ);
+                          Ѧʳᵉⁿᵈᵉʳ();
+                          ↪Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ); }
+                        
+                         󰤱 redo this weird way of doing resizing, like actually this code sucks
+                        © d = QSAS(‹.𝘌atom›,s)􋕛(󷰾);
+                        © A  = 󰠲Utilᵉⁿᵈˢ(␛1∈Ѧ􈛈 ⭜Ѧ􈛈􊯛₁⭝ Ѧ􈛈􊯛 ₛ􋑴􊬖􊫵􊫄)₁;
+                        
+                        ⎉ l,n;
+                        © 󰘖 = 󱀝 {𝐶 resizer} [
+                                 󱀝    T {} ‹󰮹›
+                                 󱀝:l T {}];
+                        
+                        ⎉ 𝚙;
+                        © show = ⥌Δ↦{ © h = Ѧ󰁢⋅󰠲Utilˡᵉⁿ(A);
+                                      Δ = ⤉(Ѧ󰁢⋅▢(Δ÷Ѧ󰁢),Ѧ󰁢-h);
+                                      l􋒷 = n = ▢((h+Δ)÷Ѧ󰁢);
+                                      󰘖􋛟.top    = ‹⟦𝚙ᵇ+Δ⟧px›;
+                                      d􋛟.height = ‹⟦𝚙ʰ+Δ⟧px›; };
+                        © 𝐮 = 𝚲{ 𝚙 = (d);
+                                 󰘖􋛟.left = ‹⟦𝚙ˡ+𝚙ʷ⟧px›;
+                                 show(0); };
+                        𝐮();
+                        
+                        SAT(󰘖,‹draggable›,‹true›);
+                        AEL(󰘖,‹dragstart›,⥌𝜺↦{ 𝜺.dataTransfer.setDragImage(󱀝 img [],0,0);
+                                                󰘖􈛘(‹dragging›,ᐦ); 𝐮(); });
+                        AEL(󰘖,‹dragend󷺗󷺗›,⥌𝜺↦{ A₀ = n;
+                                                󰘖􈛑(‹dragging›  );
+                                                s􈛑(‹detector›);
+                                                s􈛑(‹noscale󷺗›);
+                                                Ѧ􋑵 􈛑(‹𝘌toolmode›,ᐦ);
+                                                Ѧʳᵉⁿᵈᵉʳ(); });
+                        AEL(󰘖,‹drag›,⥌𝜺↦{ ¿(𝜺ʸ) show(𝜺ʸ-𝚙ᵇ); });
+                        s.after(󰘖);
+                        s􈛘(‹detector›,ᐦ);
+                        s􈛘(‹noscale󷺗›,ᐦ);
+                      },
+                  Ѧ􋑵);
     Ѧ􋑵 􈛘(‹𝘌toolmode›,ᐦ);
   };
   󱀝:⟦Ѧ􋑵⟧ ⟦popup⟧ {󰅙:✓⍮ noAppend:✓} [
@@ -185,15 +198,25 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
         󱀝 {𝐶 𝘌preview} [
           󱀝 {𝐶 multiButtonBar} [
             󱀝:⟦Ѧ􍻬 ᵖʳᵛ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛←)⟧} ␛←
-            󱀝:⟦Ѧ􍻬 ᵃᵈᵈ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛+)⟧} ␛+
-            󱀝:⟦Ѧ􍻬 ᵘᵍᵖ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󰕔)⟧} ␛󰕔
             󱀝:⟦Ѧ􍻬 ʳˢᶻ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󰡏)⟧} ␛󰡏
+            󱀝:⟦Ѧ􍻬 ᵍʳᵖ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛)⟧} ␛
+            󱀝:⟦Ѧ􍻬 ᵘᵍᵖ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛)⟧} ␛
+            󱀝:⟦Ѧ􍻬 ᵃᵈᵈ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛+)⟧} ␛+
             󱀝:⟦Ѧ􍻬 ᵈᵉˡ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󰆴)⟧} ␛󰆴]
           󱀝 {} [
             󱀝 {} [
               󱀝:⟦Ѧˡᵃᵇᵉˡˢ􋑵⟧ {𝐶 𝘌alignedLabels}
               󱀝:⟦Ѧᵖⁱˣᵉˡˢ􋑵⟧ {𝐶 𝘌pixels       }]]]
-        󱀝:⟦Ѧ􍻠􋑵⟧ {𝐶 𝘌inspector}]]];
+        󱀝 {𝐶 𝘌inspector}
+          ⟦Ѧ􍻠􋑵=ənavBar({ Ⴝ:‹› },
+            [‹›, Ѧ􍻐􋑵=ənavBar({ Ⴝ:‹G› },
+                    [␛G, 󱀝 {}],
+                    [␛, 󱀝 {}],
+                    [␛󷸾, 󱀝 {}],
+                    [␛, 󱀝 {}])],
+            [‹›, 󱀝 {}],
+            [‹⯈›, 󱀝 {}])⟧
+        ]]];
   Ѧ􋑵 􈛓(‹editorDialog›);
   Ѧʳᵉⁿᵈᵉʳ();
   
