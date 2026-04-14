@@ -2,9 +2,6 @@
  const  test_dat  =  {"fx" : [[1 , 0 , 0]] , "*" : [{"*" : [{"1" : [50 , 0 , 16711680]} , {"1" : [50 , 0 , 65280]} , {"1" : [50 , 0 , 255]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"1" : [5 , 1 , 3 , 245 , 50]} , {"1" : [45 , 0 , 4456448]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"1" : [22 , 1 , 1 , 245 , 50]} , {"1" : [15 , 0 , 17408]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"1" : [33 , 1 , 1 , 245 , 50]} , {"1" : [25 , 0 , 68]}]} , {"fx" : [[1 , 25 , 0]] , "*" : [{"1" : [2 , 1 , 1 , 245 , 50]} , {"1" : [120 , 0 , 4456516]}]}]}
 
 
- const  þ0E22B  =   (x,...𝔸)=> `rgb(${x >> 16 & 0xFF},${x >> 8 & 0xFF},${x >> 0 & 0xFF})` ; 
- const  þ0EF26grad  =   (x,...𝔸)=> `linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ${100 / x}% 100% repeat-x`
-
  const  ətriLabel  =  (𝚑 ,  ... 𝔸) => 
   mkə( false  , {[`𝑆`] : `min-height: ${𝚑}px;`} , [(mkə( false  , {} , 𝔸)) , (mkə(`svg` , {[`viewBox`] : `-1.05 -1 2 2` , [`preserveAspectRatio`] : `none`} , [(mkə(`path` , {[`d`] : `M1 -1 L-1 0 L1 1` , [`style`] : `fill:#0000;stroke:#FFF;stroke-width:0.05`} , ``))]))])
 
@@ -67,7 +64,17 @@
   [`rev` , `rot` , `lum`] . forEach( (x,y,...𝔸)=> fx_togs[x] [0] . set(y in fx_og)) ; 
   has_init  =   true  ; 
   
-   const  modes  =  [[`G` , `Group`] , [`` , `Color`] , [`󷸾` , `Fade`] , [`` , `Rainbow`]] ; 
+   const  set  =   (...𝔸)=> Ѧ . þF0832[`1`] = [Ѧ . þF0832[`1`] [0] ,  ... 𝔸] ; 
+  
+  
+  
+   let  𝚟þ0E22B ,  𝚖þ0E22Bþ0E27F  =  mkə( false  , {} ,  false ) ; 
+   if (`1` in Ѧ . þF0832) {
+    𝚟þ0E22B  =  Ѧ . þF0832[`1`] [1] == 0  ? 𝑖2þ0E22B(Ѧ . þF0832[`1`] [2]) :  [50 , 50 , 50] ; 
+    𝚖þ0E22Bþ0E27F  =  əþ0E22Bþ0F1DE({v : 𝚟þ0E22B ,  ƒ :  (x,...𝔸)=> set(0 , þ0E22B2𝑖(x))}) ; 
+  }
+  
+   const  modes  =  [[`G` , `Group`] , [`` , 𝚖þ0E22Bþ0E27F] , [`󷸾` , `Fade`] , [`` , `Rainbow`]] ; 
    const  modeþ0E27F  =   ənavBar({ Ⴝ : modes[`1` in Ѧ . þF0832 ? Ѧ . þF0832[`1`] [1] + 1 : 0][0] } , 
                       ... modes . ᴍ(([s , n] , i) => [s ,  mkə(`T` ,  false  , n) ,  (`1` in Ѧ . þF0832) ^  !  ! i ? {disabled :  true } : {}])) ; 
   
@@ -164,7 +171,6 @@ prompt_editor  =  (cb , 𝔖 , 𝐬) => {
   } ; 
   (Ѧ.þ0E27F = mkə(popup , {[`󰅙`] : `✓` , [`noAppend`] : `✓`} , [(mkə( false  , {[`𝐶`] : `𝘌outer`} , [(mkə(`T` ,  false  , `Scene Editor`)) , (mkə( false  , {[`𝐶`] : `𝘌inner`} , [(mkə( false  , {[`𝐶`] : `𝘌preview`} , [(mkə( false  , {[`𝐶`] : `multiButtonBar`} , [((Ѧ.𝘖 .prvþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`←`)} , `←`))) , ((Ѧ.𝘖 .addþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`+`)} , `+`))) , ((Ѧ.𝘖 .ugpþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰕔`)} , `󰕔`))) , ((Ѧ.𝘖 .rszþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰡏`)} , `󰡏`))) , ((Ѧ.𝘖 .delþ0E27F = mkə(`button` , {[`𝐶`] : `barButton` , [`onclick`] :  (...𝔸)=> tool(`󰆴`)} , `󰆴`)))])) , (mkə( false  , {} , [(mkə( false  , {} , [((Ѧ.labelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌alignedLabels`} ,  false ))) , ((Ѧ.pixelsþ0E27F = mkə( false  , {[`𝐶`] : `𝘌pixels       `} ,  false )))]))]))])) , ((Ѧ.𝘐þ0E27F = mkə( false  , {[`𝐶`] : `𝘌inspector`} ,  false )))]))]))])) ; 
   Ѧ . þ0E27F  . classList.add(`editorDialog`) ; 
-  
   Ѧ . render() ; 
   
   þF0219 . body . append(Ѧ . þ0E27F) ;  Ѧ . þ0E27F . showModal() ;  } ; 

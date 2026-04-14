@@ -1,3 +1,8 @@
+© 𝑖2   = 󰲡[x>>16&0xFF,x>>8&0xFF,x>>0&0xFF];
+© 2𝑖   = 󰲡x₀<<16|x₁<<8|x₂;
+©      = 󰲡‹rgb(⟦x>>16&0xFF⟧,⟦x>>8&0xFF⟧,⟦x>>0&0xFF⟧)›;
+© grad = 󰲡‹linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ⟦100/x⟧% 100% repeat-x›;
+
 © show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;  󰤱 abstract a bit and add to j☾ or something
 © clickDetect = ⥌𝚚,ƒ,base=󰈙.body,attr=‹detector›↦{  󰤱 add to j☾ once I add close feature and think of a better name
   © b = 󱀝 button {𝐶 clickDetectExit⍮ detector true} ‹✗›;
@@ -41,6 +46,7 @@
 əbuttonBar = 󰲟
   󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 ənavBar = ⥌Ѧ,⠤𝙴↦{
+   󰤱 callback for page switching
    󰤱 clean way to hide/unhide certain pages
   Ѧ􀳕 = {};
   © bar = [];
@@ -83,6 +89,27 @@
                 Ѧ􊽺(Ѧᵛ = v);
                 ↪Ѧᵛ;              };
   AEL(,‹input›,󰲟Ѧˢᵉᵗ());
+  􀴗 = Ѧ;
+  ¿(Ѧⁱⁿⁱᵗ) Ѧˢᵉᵗ();
+  ↪; }
+
+ə = ⥌Ѧ={}↦{
+  Ѧ = {init:✓,v:[0,0,0],ƒ:󰻾,⠤Ѧ};
+  © 𝚂 = [⠤‹RGB›]􊾡(󰲣əslider({l:0,v:Ѧᵛ,h:255,s:1,ƒ:󰲡(Ѧᵛ=x,Ѧˢᵉᵗ()),init:✗}));
+  © 𝙳 = 𝚂􊾡(󰲣󱀝 {} [󱀝 T [] ⟦x⟧]);
+  ©  = 󱀝 {𝐶 rgbSliders} ⟦𝙳⟧;
+  Ѧᵘᵖᵈᵃᵗᵉ = ⥌𝚟=󱣩↦{ ¿(𝚟≅󱣩) Ѧᵛ = ⭥(3)􊾡(󰲡𝚂ₓ􀴗.v);
+                   ¡      (Ѧᵛ=𝚟)􋁃(󰲣𝚂􀴗.v=x);
+                   Ѧᵛ 􋁃(󰲣{ © 𝚍 = 𝙳;
+                           𝚍􋑱₀􋒷 = ‹⟦x⟧›;
+                           𝚍􋛟.backgroundColor = ‹rgb(⟦
+                              y≡0 ⭜‹⟦x⟧,󷺗󷺗0,󷺗󷺗0›⭝
+                              y≡1 ⭜‹󷺗󷺗0,⟦x⟧,󷺗󷺗0›⭝
+                                   ‹󷺗󷺗0,󷺗󷺗0,⟦x⟧›     ⟧)›; });
+                   􋛟.backgroundColor = ‹rgb(⟦Ѧᵛ.join(𝘀)⟧)›;
+                   Ѧ􊽺(Ѧᵛ);
+                   ↪Ѧᵛ; };
+  Ѧˢᵉᵗ = 󰲟Ѧ􊽺(Ѧᵘᵖᵈᵃᵗᵉ(⠤𝔸));
   􀴗 = Ѧ;
   ¿(Ѧⁱⁿⁱᵗ) Ѧˢᵉᵗ();
   ↪; }
