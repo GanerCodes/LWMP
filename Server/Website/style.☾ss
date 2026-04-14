@@ -58,6 +58,7 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
 :root ∣ 󰊄𝚏 "Symbols","Avenir"
 
 *         ∣ 𝚃 background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease
+            scroll-behavior smooth
 body      ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
 body,html ∣ 𝚋 ⦑bg0⦒
 button    ∣ 𝚙𝚘𝚜r
@@ -272,8 +273,10 @@ dialog[open]
 label ∣ 󰊄𝚜 1.3em
 
 .clickDetectExit ∣ 𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; → 􊽺(25% - 1em)
-                   󰊄𝚜 2em
-                   «𝚠 𝚑» 2em
+                   󰊄𝚜 2.5em
+                   «𝚠 𝚑» 1.75em
                    𝚋 0.1em solid ⦑bg3⦒; 𝚋𝚛 􋔛px
-                    ⦑fg1⦒; 𝚋 ⦑bg1⦒
+                   𝚋 #611
+                   􎁎 ∣ 𝚋 #712A
+                   􀴗 ∣ 𝚋 #8124
                    󰈲 􋄅 !important

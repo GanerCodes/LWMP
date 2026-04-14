@@ -1,6 +1,6 @@
 © show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;  󰤱 abstract a bit and add to j☾ or something
 © clickDetect = ⥌𝚚,ƒ,base=󰈙.body↦{  󰤱 add to j☾ once I add close feature and think of a better name
-  © b = 󱀝 button {𝐶 clickDetectExit} ‹⨉›;
+  © b = 󱀝 button {𝐶 clickDetectExit} ‹✗›;
   base􍪙(b);
   © rem = AEL(󰈙,‹click›,⥌ε↦{
     © cease = 󰲟(ε.stopPropagation(),ε.preventDefault(),

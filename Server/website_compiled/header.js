@@ -19,9 +19,10 @@ BASE_CHARSET  =  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
  þ02B65   =   (x,y,...𝔸)=> isArr(x)  ? [ ... x . keys()] :   þ02B65 (Array(y ===  undefined  ? x : y - x)) . ᴍ((v) => v + (y ===  undefined  ? 0 : x)) ; 
  þF7E3B   =   (x,y,...𝔸)=> isArr(x)  ?  þ02B65 (a . length + 1) :  y ===  undefined   ?  þ02B65 (x + 1) :   þ02B65 (x , y + 1) ; 
  þF147C   =  ( ... 𝙰) =>  þ02B65 ( (Math.max) ( ... 𝙰 . ᴍ( þ1F0CC ))) . ᴍ((i) => 𝙰 . ᴍ( (x,...𝔸)=> x[i])) ; 
-ᴍv  =   (x,y,...𝔸)=> 𝒟(𝒪(x) . ᴍ(([k , v]) => [k , y(v)])) ; 
-ᴍk  =   (x,y,...𝔸)=> 𝒟(𝒪(x) . ᴍ(([k , v]) => [y(k) , v])) ; 
-𝒮  =  (d , k , v) => ( ! (k in d)  ||  d[k] === null)  ? (d[k] = v) :  d[k] ; 
+ᴍk  =   (x,y,...𝔸)=> 𝒟(𝒪(x) . ᴍ(([k , v]) => [y(k , v) , v])) ; 
+ᴍv  =   (x,y,...𝔸)=> 𝒟(𝒪(x) . ᴍ(([k , v]) => [k , y(v , k)])) ; 
+ᴍd  =   (x,y,...𝔸)=> 𝒟(𝒪(x) . ᴍ(([k , v]) => y(k , v))) ; 
+𝒮  =  (d , k , v) => ( ! (k in d)  ||  d[k] === null)  ? (d[k] = v) :  d[k] ;  
  print       =  ( ... x) => (console . log  ( ... x) , x[0]) ; 
 pairs  =   (x,...𝔸)=> x . toSpliced( - 1 , 1) . ᴍ((x , i) => [x , v[i + 1]]) ; 
 table  =  ( ... x) => (console . table( ... x) , x[0]) ; 
@@ -29,6 +30,10 @@ ends   =  (l) => l . map((𝑥 , i) => [i == 0 , 𝑥 , i ==  þ1F0CC (l) - 1]) 
 merge  =   (...𝔸)=> 𝑜 . assign({} ,  ... 𝔸) ; 
 sleep  =  (s) =>  new Promise((r) => setTimeout(r , 1000 * s)) ; 
 mk_id  =  (l , chars = BASE_CHARSET) =>  þ02B65 (l) . ᴍ( ()=> chars . at(Number( þF114F () *  þ1F0CC (chars)))) . ſ( (x,y,...𝔸)=> x + y ,   "" ) ; 
+ƒdbg   =  (ƒ) =>  (...𝔸)=> {  print (`ƒ: Calling with:` ,  ... 𝔸) ; 
+               const  r  =  ƒ( ... 𝔸) ; 
+               print (`f: Returning` ,  r) ; 
+               return r } ; 
 
 𝔓(Number) . mod  =  function(n){  return (this % n + n) % n ;  } ; 
 

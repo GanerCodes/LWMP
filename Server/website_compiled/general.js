@@ -55,6 +55,6 @@ load_devices  =   async  (𝐭) => {
   
   try{ r  =   await  𝐀(𝐭) . get_devs() ;  }catch(e){}
    if ( ! r  ||   ! r[0]  ||  r . status != 200)  return 𝖡(𝐋 . devs) ; 
-  𝐋 . devs  =  {  ... ᴍv(𝐋 . devs ,  (x,y,...𝔸)=> [x , { ... y , offline :  false }]) ,   ... r[1] }
+  𝐋 . devs  =  {  ... ᴍv(𝐋 . devs ,  (x,...𝔸)=> ({ ... x , offline :  false })) ,   ... r[1] }
   updateDB() ; 
    return 𝖦(𝐋 . devs) ;  }
