@@ -25,7 +25,3 @@
    }]);
  þ0E27FtokenListing.populate(get_toks());
  þF0219.body.append(þ0E27Fnav);
-
- QS(`.bigButton`).click();
- setTimeout((...𝔸) => QSA(`              .barButton`)[2].click(), 300);
- setTimeout((...𝔸) => QSA(`.itemGridItem .barButton`)[1].click(), 500);

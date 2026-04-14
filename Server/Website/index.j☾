@@ -16,6 +16,6 @@
 tokenListing.populate(get_toks());
 󰈙.body􍪙(nav);
 
-QS(‹.bigButton›).click();
-setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 300);
-setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 500);
+ QS(‹.bigButton›).click();
+ setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 300);
+ setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 500);
