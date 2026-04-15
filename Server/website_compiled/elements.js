@@ -24,8 +24,8 @@
    const 𝚂þ0E27F = [...base.querySelectorAll(𝚚)];
    const tog = () => 𝚂þ0E27F.ᴍþF01A9((x, ...𝔸) => {
      const r = HAT(x, `multidetect`);
-     x.toggleAttribute(`detector`);
-     x.removeAttribute(`multidetect`);
+     x.þF017A(`detector`);
+     x.þF15DF(`multidetect`);
      return r ? [x] : [];
    });
    tog();
@@ -37,7 +37,7 @@
      if (ε.target.closest(`.detectorCancel`)) return tog(), cease();
      const þ0E27F = ε.target.closest(𝚚);
      if (!þ0E27F) return;
-     if (Ѧ[`*`]) return þ0E27F.toggleAttribute(`multidetect`);
+     if (Ѧ[`*`]) return þ0E27F.þF017A(`multidetect`);
      else return tog(), cease(þ0E27F);
    }, true);
    return rem;
@@ -103,8 +103,14 @@
      [`onclick`]: y
    }, x)));
  ənavBar = (Ѧ, ...𝙴) => {
+   𝙴 = 𝙴.ᴍ((x, ...𝔸) => x.nodeName != `✗` ? [x.þF1021(`󰊄`), x.children[0], (x.þF15DF(`󰊄`), x.þF1021())] : ["", x.children[0]]);
 
-   Ѧ.𝙳 = {};
+   Ѧ = {
+     init: true,
+     ƒ: þF0EFE,
+     𝙳: {},
+     ...Ѧ
+   };
    const bar = [];
    for (let [k, e, ɒ = {}] of 𝙴)
      if (k) {
@@ -131,9 +137,7 @@
    }, bar))), ((holderþ0E27F = mkə(false, {
      [`𝐶`]: `navBodyHolder`
    }, Ѧ.placeholder ?? (mkə(`T`, false, ``)))))])
-   þ0E27F.set = Ѧ.set =
-     Ѧ.multi ?
-     (k) => {
+   Ѧ.update = Ѧ.multi ? (k) => {
        const s = Ѧ.Ⴝ.includes(k)
        if (s) {
          Ѧ.Ⴝ = Ѧ.Ⴝ.þF0232((x, ...𝔸) => x != k);
@@ -144,21 +148,26 @@
          SAT(Ѧ.𝙳[k].𝚋, `choosen`);
          holderþ0E27F.append(Ѧ.𝙳[k].þ0E27F);
        }
+       return Ѧ.Ⴝ;
      } :
      (k = Ѧ.Ⴝ) => {
        RAT(Ѧ.𝙳[Ѧ.Ⴝ].𝚋, `choosen`, `disabled`);
        Ѧ.Ⴝ = k;
        [`choosen`, `disabled`].forEach((x, ...𝔸) => SAT(Ѧ.𝙳[Ѧ.Ⴝ].𝚋, x));
        holderþ0E27F.replaceChildren(Ѧ.𝙳[Ѧ.Ⴝ].þ0E27F);
+       return Ѧ.Ⴝ;
      };
+   þ0E27F.set = Ѧ.set = (...𝔸) => Ѧ.ƒ(Ѧ.update(...𝔸));
+
    Ѧ.setþ0E27F = (𝚔, þ0E27F) => Ѧ.𝙳[𝚔].þ0E27F.replaceWith(Ѧ.𝙳[𝚔].þ0E27F = þ0E27F);
    if (Ѧ.multi) {
      SAT(barþ0E27F, `plural`)
      const Ⴝ = Ѧ.Ⴝ;
      Ѧ.Ⴝ = [];
-     Ⴝ.forEach((x, ...𝔸) => þ0E27F.set(x));
-   } else þ0E27F.set()
+     Ⴝ.forEach((x, ...𝔸) => Ѧ.update(x));
+   } else Ѧ.update();
    þ0E27F.Ѧ = Ѧ;
+   if (Ѧ.init) Ѧ.ƒ(Ѧ.Ⴝ);
    return þ0E27F;
  }
 
@@ -172,6 +181,8 @@
      ...Ѧ
    };
    if (!(`v` in Ѧ)) Ѧ.v = Ѧ.l;
+   [Ѧ.l, Ѧ.v, Ѧ.h, Ѧ.s] = [+Ѧ.l, +Ѧ.v, +Ѧ.h, +Ѧ.s];
+
    const þ0E27F = Ѧ.þ0E27F = mkə(`input`, {
      [`type`]: `range`,
      [`min`]: Ѧ.l,
@@ -199,14 +210,14 @@
      ƒ: þF0EFE,
      ...Ѧ
    };
-   const 𝚂þ0E27F = [...`RGB`].ᴍ((x, y, ...𝔸) => əslider({
-     l: 0,
-     v: Ѧ.v[y],
-     h: 255,
-     s: 1,
-     ƒ: (x, ...𝔸) => (Ѧ.v[y] = x, Ѧ.set()),
-     init: false
-   }));
+   const 𝚂þ0E27F = [...`RGB`].ᴍ((x, y, ...𝔸) => mkə(əslider, {
+     [`init`]: false,
+     [`l`]: `0`,
+     [`v`]: Ѧ.v[y],
+     [`h`]: `255`,
+     [`s`]: `1`,
+     [`ƒ`]: () => Ѧ.set()
+   }, false));
    const 𝙳þ0E27F = 𝚂þ0E27F.ᴍ((x, y, ...𝔸) => mkə(false, {}, [(mkə(`T`, false, [])), (x)]));
    const þ0E27F = mkə(false, {
      [`𝐶`]: `rgbSliders`
@@ -223,11 +234,11 @@
                                    `0,0,${x}`     })`;
      });
      þ0E27F.style.backgroundColor = `rgb(${Ѧ . v . join(` `)})`;
-     Ѧ.ƒ(Ѧ.v);
      return Ѧ.v;
    };
    Ѧ.set = (...𝔸) => Ѧ.ƒ(Ѧ.update(...𝔸));
+   Ѧ.update();
    þ0E27F.Ѧ = Ѧ;
-   if (Ѧ.init) Ѧ.set();
+   if (Ѧ.init) Ѧ.ƒ(Ѧ.v);
    return þ0E27F;
  }

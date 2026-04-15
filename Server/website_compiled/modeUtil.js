@@ -14,9 +14,9 @@
   }),
 
   add: (þF0832, m) => {
-    if (`1` in þF0832) return {
+    if (`1` in þF0832) return 𝑜Replace(þF0832, {
       "*": [þF0832, m]
-    };
+    });
     þF0832[`*`].push(m);
     return þF0832;
   },

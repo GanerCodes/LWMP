@@ -7,15 +7,15 @@
   nav.set(‹Devices›); });
 © devListing   = ədevListing();
 © sceneListing = əsceneListing(󰲡☾(‹Scene called ⟦x⟧›));
-© nav = ənavBar({ Ⴝ:‹Tokens› },
-                 [ᐦ         , 󱀝 div ‹󰤱 logo›               ],
-                 [‹Tokens›  , tokenListing                ],
-                 [‹Devices› , devListing  , { disabled:✓ }],
-                 [‹Scenes›  , sceneListing, { disabled:✓ }],
-                 [‹Schedule›, 󱀝 div ‹󰤱›    , { disabled:✓ }]);
+© nav = 󱀝 ⟦ənavBar⟧ {Ⴝ Tokens} [
+           󱀝 ✗                            [󱀝 div ‹󰤱 logo›]
+           󱀝 {󰊄 ‹Tokens󷺗󷺗›⍮ disabled ⟦✓⟧} ⟦tokenListing⟧
+           󱀝 {󰊄 ‹Devices󷺗›⍮ disabled ⟦✓⟧} ⟦devListing  ⟧
+           󱀝 {󰊄 ‹Scenes󷺗󷺗›⍮ disabled ⟦✓⟧} ⟦sceneListing⟧
+           󱀝 {󰊄 ‹Schedule›⍮ disabled ⟦✓⟧} [󱀝 div ‹󰤱›]];
 tokenListing.populate(get_toks());
 󰈙.body􍪙(nav);
 
- QS(‹.bigButton›).click();
- setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 300);
- setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 500);
+QS(‹.bigButton›).click();
+setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 300);
+setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 500);

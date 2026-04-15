@@ -9,19 +9,24 @@
  });
  const þ0E27FdevListing = ədevListing();
  const þ0E27FsceneListing = əsceneListing((x, ...𝔸) => print(`Scene called ${x}`));
- const þ0E27Fnav = ənavBar({
-     Ⴝ: `Tokens`
-   },
-   ["", mkə(`div`, false, `󰤱 logo`)],
-   [`Tokens`, þ0E27FtokenListing],
-   [`Devices`, þ0E27FdevListing, {
-     disabled: true
-   }],
-   [`Scenes`, þ0E27FsceneListing, {
-     disabled: true
-   }],
-   [`Schedule`, mkə(`div`, false, `󰤱`), {
-     disabled: true
-   }]);
+ const þ0E27Fnav = mkə(ənavBar, {
+   [`Ⴝ`]: `Tokens`
+ }, [(mkə(`✗`, false, [(mkə(`div`, false, `󰤱 logo`))])), (mkə(false, {
+   [`󰊄`]: `Tokens`,
+   [`disabled`]: true
+ }, þ0E27FtokenListing)), (mkə(false, {
+   [`󰊄`]: `Devices`,
+   [`disabled`]: true
+ }, þ0E27FdevListing)), (mkə(false, {
+   [`󰊄`]: `Scenes`,
+   [`disabled`]: true
+ }, þ0E27FsceneListing)), (mkə(false, {
+   [`󰊄`]: `Schedule`,
+   [`disabled`]: true
+ }, [(mkə(`div`, false, `󰤱`))]))]);
  þ0E27FtokenListing.populate(get_toks());
  þF0219.body.append(þ0E27Fnav);
+
+ QS(`.bigButton`).click();
+ setTimeout((...𝔸) => QSA(`              .barButton`)[2].click(), 300);
+ setTimeout((...𝔸) => QSA(`.itemGridItem .barButton`)[1].click(), 500);

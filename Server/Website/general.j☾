@@ -1,6 +1,8 @@
 © 𝑜Replace = 󰲣{ y = structuredClone(y);
-                 ∀(k∈x) 󰆴 xₖ;
-                 ↪𝑜.assign(x,y); };
+                ∀(⎉k∈x) 󰆴 xₖ;
+                ↪𝑜.assign(x,y); };
+© 𝑙Replace = 󰲣{ x.splice(0,∞,⠤y);
+                ↪x; }
 𝗉 = 󰲟{ ⎉ r,b,p = 🆕 Promise(󰲟[r,b]=𝔸);
        ↪pʳ=r,pᵇ=b,p; }
 𝘔 = 󰲟{  messenger and awaitor

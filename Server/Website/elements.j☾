@@ -55,9 +55,13 @@
 əbuttonBar = 󰲟
   󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 ənavBar = ⥌Ѧ,⠤𝙴↦{
+  𝙴 = 𝙴􊾡(󰲡xⁿᵒᵈᵉᴺᵃᵐᵉ≠␛✗ ⭜[x􈞠(␛󰊄), x􋑱₀, (x􈛑(␛󰊄),x􈞠())]⭝ [ᐦ,x􋑱₀]);
+  
+   𝙴 = 𝙴􊾡(󰲡𝒪(x)₀);
    󰤱 callback for page switching
    󰤱 clean way to hide/unhide certain pages
-  Ѧ􀳕 = {};
+  
+  Ѧ = {init:✓,ƒ:󰻾,𝙳:{},⠤Ѧ};
   © bar = [];
   ∀(⎉[k,e,ɒ={}] ⎔ 𝙴)
     ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮ onclick ⟦󰲟ˢᵉᵗ(k)⟧⍮ ⠤ɒ} ⟦k⟧
@@ -69,31 +73,36 @@
   ©  = 󱀝 {𝐶 navContainer} [
           󱀝:bar    {𝐶 multiButtonBar} ⟦bar⟧
           󱀝:holder {𝐶  navBodyHolder} ⟦Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ??(󱀝 T ‹›)⟧]
-  ˢᵉᵗ = Ѧˢᵉᵗ = 
-    Ѧᵐᵘˡᵗⁱ
-      ⭜ ⥌k   ↦{ © s = Ѧ􎁎.includes(k)
-                ¿(s){ Ѧ􎁎 = Ѧ􎁎 􋐉(󰲡x≠k);
-                      RAT(Ѧ􀳕ₖ􀲝,‹choosen›);
-                      holder.removeChild(Ѧ􀳕ₖ􋑵); }
-                ¡   { Ѧ􎁎.push(k);
-                      SAT(Ѧ􀳕ₖ􀲝,‹choosen›);
-                      holder􍪙(Ѧ􀳕ₖ􋑵); } }
-      ⭝ ⥌k=Ѧ􎁎↦{ RAT(Ѧ􀳕􀴖􎎵􀲝,‹choosen›,‹disabled›);
-                Ѧ􎁎=k;
-                [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
-                holder.replaceChildren(Ѧ􀳕􀴖􎎵􋑵); };
+  Ѧᵘᵖᵈᵃᵗᵉ = Ѧᵐᵘˡᵗⁱ ⭜ ⥌k   ↦{ © s = Ѧ􎁎.includes(k)
+                             ¿(s){ Ѧ􎁎 = Ѧ􎁎 􋐉(󰲡x≠k);
+                                   RAT(Ѧ􀳕ₖ􀲝,‹choosen›);
+                                   holder.removeChild(Ѧ􀳕ₖ􋑵); }
+                             ¡   { Ѧ􎁎.push(k);
+                                   SAT(Ѧ􀳕ₖ􀲝,‹choosen›);
+                                   holder􍪙(Ѧ􀳕ₖ􋑵); }
+                             ↪Ѧ􎁎; }
+                   ⭝ ⥌k=Ѧ􎁎↦{ RAT(Ѧ􀳕􀴖􎎵􀲝,‹choosen›,‹disabled›);
+                             Ѧ􎁎=k;
+                             [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
+                             holder.replaceChildren(Ѧ􀳕􀴖􎎵􋑵);
+                             ↪Ѧ􎁎; };
+  ˢᵉᵗ = Ѧˢᵉᵗ = 󰲟Ѧ􊽺(Ѧᵘᵖᵈᵃᵗᵉ(⠤𝔸));
+  
   Ѧˢᵉᵗ􋑵 = ⥌𝚔,↦Ѧ􀳕􀲮􋑵.replaceWith(Ѧ􀳕􀲮􋑵=);
   ¿(Ѧᵐᵘˡᵗⁱ) { SAT(bar,‹plural›)
               © Ⴝ = Ѧ􎁎;
               Ѧ􎁎 = [];
-              Ⴝ 􋁃(󰲡ˢᵉᵗ(x)); }
-  ¡ ˢᵉᵗ()
+              Ⴝ 􋁃(󰲡Ѧᵘᵖᵈᵃᵗᵉ(x)); }
+  ¡ Ѧᵘᵖᵈᵃᵗᵉ();
   􀴗 = Ѧ;
+  ¿(Ѧⁱⁿⁱᵗ) Ѧ􊽺(Ѧ􎁎);
   ↪; }
 
 əslider = ⥌Ѧ={}↦{
   Ѧ = {init:✓,l:0,h:100,s:0,ƒ:󰻾,⠤Ѧ};
   ¿(¬(␛v∈Ѧ)) Ѧᵛ = Ѧˡ;
+  [Ѧˡ,Ѧᵛ,Ѧʰ,Ѧˢ] = [+Ѧˡ,+Ѧᵛ,+Ѧʰ,+Ѧˢ];
+  
   ©  = Ѧ􋑵 = 󱀝 input {type ‹range›⍮ min ⟦Ѧˡ⟧⍮ defaultValue ⟦Ѧᵛ⟧⍮ max ⟦Ѧʰ⟧⍮ step ⟦Ѧˢ⟧} ‹›;
   ᵛᵃˡᵘᵉ = Ѧᵛ;
   Ѧˢᵉᵗ = ⥌v=󱣩↦{ ¿(v≅󱣩) v = +ᵛᵃˡᵘᵉ;
@@ -107,7 +116,7 @@
 
 ə = ⥌Ѧ={}↦{
   Ѧ = {init:✓,v:[0,0,0],ƒ:󰻾,⠤Ѧ};
-  © 𝚂 = [⠤‹RGB›]􊾡(󰲣əslider({l:0,v:Ѧᵛ,h:255,s:1,ƒ:󰲡(Ѧᵛ=x,Ѧˢᵉᵗ()),init:✗}));
+  © 𝚂 = [⠤‹RGB›]􊾡(󰲣󱀝 ⟦əslider⟧ {init ⟦✗⟧⍮l 0⍮v ⟦Ѧᵛ⟧⍮h 255⍮s 1⍮ƒ ⟦𝚲Ѧˢᵉᵗ()⟧});
   © 𝙳 = 𝚂􊾡(󰲣󱀝 {} [󱀝 T [] ⟦x⟧]);
   ©  = 󱀝 {𝐶 rgbSliders} ⟦𝙳⟧;
   Ѧᵘᵖᵈᵃᵗᵉ = ⥌𝚟=󱣩↦{ ¿(𝚟≅󱣩) Ѧᵛ = ⭥(3)􊾡(󰲡𝚂ₓ􀴗.v);
@@ -119,9 +128,9 @@
                               y≡1 ⭜‹󷺗󷺗0,⟦x⟧,󷺗󷺗0›⭝
                                    ‹󷺗󷺗0,󷺗󷺗0,⟦x⟧›     ⟧)›; });
                    􋛟.backgroundColor = ‹rgb(⟦Ѧᵛ.join(𝘀)⟧)›;
-                   Ѧ􊽺(Ѧᵛ);
                    ↪Ѧᵛ; };
   Ѧˢᵉᵗ = 󰲟Ѧ􊽺(Ѧᵘᵖᵈᵃᵗᵉ(⠤𝔸));
+  Ѧᵘᵖᵈᵃᵗᵉ();
   􀴗 = Ѧ;
-  ¿(Ѧⁱⁿⁱᵗ) Ѧˢᵉᵗ();
+  ¿(Ѧⁱⁿⁱᵗ) Ѧ􊽺(Ѧᵛ);
   ↪; }
