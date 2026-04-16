@@ -194,78 +194,106 @@ dialog[open]
              pointer-events 􋄅
               𝚖← -100%
 
+.𝘌preview
+  𝚋↑ 0.05em solid ⦑bg2⦒
+  𝚏↓;𝚙𝚘𝚜r
+  >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
+        𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em;𝚍𝚒𝚛 rtl
+        >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 0.5em;𝚍𝚒𝚛 ltr
+              >.𝘌alignedLabels
+                𝚏↓;𝚊𝙿←
+                >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
+                       𝚣 10
+                      󰊄𝚜 0.8em
+                      >⁰ ∣ 𝚏↓;𝚊𝙿󷷣;𝚠 100px
+                            󰊄𝚠 nowrap
+                            𝚃𝚏 translateY(-1.35em)
+                            >⁰ ∣ unicode-bidi embed
+                                  𝚍𝚒𝚛 rtl
+                      >􍨅 ∣ 𝚠 37.5px
+                            𝚋→ 1px dashed #FFF
+              >.𝘌pixels
+                𝚖← -1px
+                𝚍 grid; place-items start start
+
+.𝘌inspector
+  𝚏↓;𝚏𝚐 1;𝚑;󰊄𝚜 1em
+   .multiButtonBar
+    𝚖0
+.𝘌modebar>.navBodyHolder
+  𝚘𝚏x clip;𝚘𝚏y scroll
+  𝙷 􊽺(98􍽺 - 8em)
+.𝘌𝘐fx
+  >span
+    𝚏→;𝚊𝙿e;𝚊𝚂󷷣
+    𝚋 ⦑bg2⦒
+    >* ∣ 𝚏↓;𝚊𝙿󷷣;𝚙 5px;𝚋𝚛 0.2em
+          «𝚠 𝚠≤ 𝚠≥ 𝚑 𝚑≤ 𝚑≥» 1em
+          󰊄𝚜 2em
+          𝚋 0.075em solid ⦑bg3⦒
+          [off] ∣ 𝚋 ⦑bg2⦒
+                ∣ 𝚋 ⦑bg1⦒
+          [on ] ∣ 𝚋 ⦑bg0⦒
+  >div
+     div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
+    >􋁕⁽span󰁱div󰁱label⁾ ∣ 𝚖󷷤 0.1em
+    >.𝘌fxSection, >.𝘌fxSection div
+        𝚏↓;𝚊𝚂󷷣;𝚖󷷤 5px;𝚙 0.5em
+       .𝘌fxSection
+        𝚠;𝚋 ⦑bg2⦒
+       .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
+        𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
+.𝘌󷸾mode
+  𝚏↓;𝚊𝚂󷷣
+  >*  ∣ 𝚠󷷈
+  >.󷸾 ∣ 𝚖↑ 0.5em
+         >span
+           𝚙𝚘𝚜r
+           >* ∣ 𝚖󷷤 0.2em
+           >.rgbSliders
+             𝚙← 0; 𝚙→ 10%
+           >button
+             𝚙𝚘𝚜a
+             󰊄𝚜 1.2em
+             «𝚠 𝚑» 1em; «→ ↑» 0.1em
+             𝚋𝚛 􋔛px
+                   #611; 𝚋 #FFF
+             􎁎 ∣  #712; 𝚋 #CCC
+             􀴗 ∣  #812; 𝚋 #AAA
+           :only-child>button
+             𝚍 􋄅
+  >button
+    𝚋 2px solid ⦑fg3⦒; 𝚋𝚛 1em
+
+.𝘌outer
+  𝚏↓;𝚠
+  >T
+    𝚖󷷤 0.25em; 󰊄𝚜 2em
+.𝘌inner
+  𝚏→;𝚊𝙿e;𝚊𝚂←
+   .multiButtonBar
+       this part is DESPERATE
+      𝚑 1.35em;󰊄𝚜 1.35em
+      𝚋 #0000
+      𝚋↓ 0.1em solid ⦑bg2⦒
+      «𝚋󷷢 𝚋↑» 0.05em solid ⦑bg2⦒
+      𝚃𝚏 scale(1.0125)
+      𝚋𝚛«↖ ↗» 0.2em
+      >⁰ ∣ 𝚋𝚛↖ 0.1em
+      >􍨅 ∣ 𝚋𝚛↗ 0.1em
+  >* ∣ 𝚆 􊽺(50% - 0.5em)
+        𝚋 ⦑bg1⦒
+        𝚋 0.1em solid ⦑bg2⦒; 𝚋𝚛 0.25em
+
 .editorDialog[open]
   𝚠 min(􊽺(98􍾘),1000px); 𝙷 􊽺(98􍽺)
   𝚖a; 𝚙 0.1em
   𝚋 ⦑bg0⦒F5
   􊽬([𝘌toolmode])
      .𝘌atom[atom1] ∣ 𝚋𝚛↗ 0.5em
+                      􊽬([devLayer]) ∣ 𝚋𝚛↖ 0.5em
      .𝘌atom[atom󷰾] ∣ 𝚋𝚛↘ 0.5em
-  .𝘌outer
-    𝚏↓;𝚠
-    >T
-      𝚖󷷤 0.25em; 󰊄𝚜 2em
-    >.𝘌inner
-      𝚏→;𝚊𝙿e;𝚊𝚂←
-      >* ∣ 𝚆 􊽺(50% - 0.5em)
-            𝚋 ⦑bg1⦒
-            𝚋 0.1em solid ⦑bg2⦒; 𝚋𝚛 0.25em
-       .multiButtonBar
-           this part is DESPERATE
-          𝚑 1.35em;󰊄𝚜 1.35em
-          𝚋 #0000
-          𝚋↓ 0.1em solid ⦑bg2⦒
-          «𝚋󷷢 𝚋↑» 0.05em solid ⦑bg2⦒
-          𝚃𝚏 scale(1.0125)
-          𝚋𝚛«↖ ↗» 0.2em
-          >⁰ ∣ 𝚋𝚛↖ 0.1em
-          >􍨅 ∣ 𝚋𝚛↗ 0.1em
-      >.𝘌preview
-        𝚋↑ 0.05em solid ⦑bg2⦒
-        𝚏↓;𝚙𝚘𝚜r
-        >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
-              𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em;𝚍𝚒𝚛 rtl
-              >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 0.5em;𝚍𝚒𝚛 ltr
-                    >.𝘌alignedLabels
-                      𝚏↓;𝚊𝙿←
-                      >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
-                             𝚣 10
-                            󰊄𝚜 0.8em
-                            >⁰ ∣ 𝚏↓;𝚊𝙿󷷣;𝚠 100px
-                                  󰊄𝚠 nowrap
-                                  𝚃𝚏 translateY(-1.35em)
-                                  >⁰ ∣ unicode-bidi embed
-                                        𝚍𝚒𝚛 rtl
-                            >􍨅 ∣ 𝚠 37.5px
-                                  𝚋→ 1px dashed #FFF
-                    >.𝘌pixels
-                      𝚖← -1px
-                      𝚍 grid; place-items start start
-      >.𝘌inspector
-        𝚏↓;𝚏𝚐 1;𝚑;󰊄𝚜 1em
-         .multiButtonBar
-           bruh this is wronggg
-          𝚖0
-           >* ∣ 󰊄𝚜 0.85em
-         .navBodyHolder > div
-           div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
-          >􋁕⁽span󰁱div󰁱label⁾ ∣ 𝚖󷷤 0.1em
-          >.𝘌toggleSection
-            𝚏→;𝚊𝙿e;𝚊𝚂󷷣
-            𝚋 ⦑bg2⦒
-            >* ∣ 𝚏↓;𝚊𝙿󷷣;𝚙 5px;𝚋𝚛 0.2em
-                  «𝚠 𝚠≤ 𝚠≥ 𝚑 𝚑≤ 𝚑≥» 1em
-                  󰊄𝚜 2em
-                  𝚋 0.075em solid ⦑bg3⦒
-                  [off] ∣ 𝚋 ⦑bg2⦒
-                        ∣ 𝚋 ⦑bg1⦒
-                  [on ] ∣ 𝚋 ⦑bg0⦒
-          >.𝘌fxSection, >.𝘌fxSection div
-            𝚏↓;𝚊𝚂󷷣;𝚖󷷤 5px;𝚙 0.5em
-           .𝘌fxSection
-            𝚠;𝚋 ⦑bg2⦒
-           .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
-            𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
+                      􊽬([devLayer]) ∣ 𝚋𝚛↙ 0.5em
   [𝘌toolmode]
      .𝘌tickmark ∣ 𝚍 􋄅
      .𝘌preview ∣ 𝚋 #0000
@@ -301,12 +329,16 @@ label ∣ 󰊄𝚜 1.3em
                      􎁎 ∣ 𝚋 #712A
                      􀴗 ∣ 𝚋 #8124
 
-.resizer ∣ 𝚙𝚘𝚜f;𝚏↓;𝚊𝙿←;𝚊𝚂󷷣;𝚠≥ 1em
-           line-height 0
-           >⁰ ∣ 󰊄𝚜 2em; 𝚖↓ 0.5em
-           >􍨅 ∣ 󰊄𝚜 1em
-           􍳵 ∣ 𝚖𝚙 pointer !important
-           , * ∣ 󰍽 􋉀 !important
+.resizer ∣ 𝚙𝚘𝚜r;𝚑 0;𝚊𝚂󷷣;← 0.825em
+           >* ∣ 𝚙𝚘𝚜a; 𝚠≤ 0.5em; 𝚑 0.5em; «← ↑» 0
+           >⁰ ∣ 󰊄𝚜 1.75em; 𝚑 0
+           >􍨅 ∣ 󰊄𝚜 0.9em; ← 0.25em; ↑ 0.75em
+           􍳵􊽬([dragging]) ∣ 𝚖𝚙 pointer !important
+           , * ∣ 𝚏↓;𝚊𝙿󷷣
+                   󰍽 􋉀 !important
                    󰈲 brightness(1) !important
                    𝚃 􋄅
                    𝚃𝚏 􋄅 !important
+
+body􋁋(*[dragging])
+  touch-action 􋄅

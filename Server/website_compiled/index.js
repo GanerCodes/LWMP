@@ -4,7 +4,6 @@
    þ0E27FsceneListing.populate(x);
 
    [`Devices`, `Scenes`, `Schedule`].forEach((x, ...𝔸) => þ0E27Fnav.Ѧ.𝙳[x].𝚋.disabled = false)
-
    þ0E27Fnav.set(`Devices`);
  });
  const þ0E27FdevListing = ədevListing();
@@ -26,7 +25,3 @@
  }, [(mkə(`div`, false, `󰤱`))]))]);
  þ0E27FtokenListing.populate(get_toks());
  þF0219.body.append(þ0E27Fnav);
-
- QS(`.bigButton`).click();
- setTimeout((...𝔸) => QSA(`              .barButton`)[2].click(), 300);
- setTimeout((...𝔸) => QSA(`.itemGridItem .barButton`)[1].click(), 500);

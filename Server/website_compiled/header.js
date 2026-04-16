@@ -2,7 +2,7 @@
 BASE_CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 [Ϣ, þF0219] = [window, document];
-[𝐴, 𝐸, 𝑜, þ0221E] = [Array, Element, Object, Infinity];
+[𝐴, 𝐸, 𝑜, 𝑖, þ0221E] = [Array, Element, Object, Number, Infinity];
 [𝒪, 𝒟, 𝒪k, 𝒪v] = [𝑜.entries, 𝑜.fromEntries, 𝑜.keys, 𝑜.values];
 const þ0E27FType = [HTMLDocument, ShadowRoot, Element];
 𝒪ℳ = (x, ...𝔸) => x.ſ((x, y, ...𝔸) => ({
@@ -16,28 +16,31 @@ const þ0E27FType = [HTMLDocument, ShadowRoot, Element];
 𝑙 = (x, ...𝔸) => [...x];
 þF0EFE = (x, ...𝔸) => x;
 þF114F = Math.random;
+þ10B46F = (x, b = Math.E) => Math.log(x) / Math.log(b);
 [þ02B13, þ025A2, þ02B12] = [Math.floor, Math.round, Math.ceil];
-[(Math.max), (Math.min)] = [Math.max, Math.min];
-þF7E44 = (x, y, z, ...𝔸) => (Math.min)((Math.max)(x, y), z)
-þ021A8 = (x, ...𝔸) => [...x].map((x, i) => [i, x])
-þ02B65 = (x, y, ...𝔸) => isArr(x) ? [...x.keys()] : þ02B65(Array(y === undefined ? x : y - x)).ᴍ((v) => v + (y === undefined ? 0 : x));
+þ02908 = (...𝔸) => Math.min(...𝔸.flat(þ0221E));
+þ02909 = (...𝔸) => Math.max(...𝔸.flat(þ0221E));
+þF7E44 = (x, y, z, ...𝔸) => þ02908(þ02909(x, y), z);
+þ021A8 = (x, ...𝔸) => [...x].map((x, i) => [i, x]);
+þ02B65 = (x, y, ...𝔸) => isArr(x) ? [...x.keys()] : þ02B65(𝐴(y === undefined ? x : y - x)).ᴍ((v) => v + (y === undefined ? 0 : x));
 þF7E3B = (x, y, ...𝔸) => isArr(x) ? þ02B65(a.length + 1) : y === undefined ? þ02B65(x + 1) : þ02B65(x, y + 1);
-þF147C = (...𝙰) => þ02B65((Math.max)(...𝙰.ᴍ(þ1F0CC))).ᴍ((i) => 𝙰.ᴍ((x, ...𝔸) => x[i]));
+þF147C = (...𝙰) => þ02B65(þ02909(...𝙰.ᴍ(þ1F0CC))).ᴍ((i) => 𝙰.ᴍ((x, ...𝔸) => x[i]));
 ᴍk = (x, y, ...𝔸) => 𝒟(𝒪(x).ᴍ(([k, v]) => [y(k, v), v]));
 ᴍv = (x, y, ...𝔸) => 𝒟(𝒪(x).ᴍ(([k, v]) => [k, y(v, k)]));
 ᴍd = (x, y, ...𝔸) => 𝒟(𝒪(x).ᴍ(([k, v]) => y(k, v)));
+boxᴍ = (x, y, ...𝔸) => (isArr(x) ? x.þF01A9(þ0221E) : [x]).ᴍ(y);
 𝒮 = (d, k, v) => (!(k in d) || d[k] === null) ? (d[k] = v) : d[k];
-print = (...x) => (console.log(...x), x[0]);
+print = (...𝔸) => (console.log(...𝔸), 𝔸[0]);
+table = (...𝔸) => (console.table(...𝔸), 𝔸[0]);
 pairs = (x, ...𝔸) => x.toSpliced(-1, 1).ᴍ((x, i) => [x, v[i + 1]]);
-table = (...x) => (console.table(...x), x[0]);
 ends = (l) => l.map((𝑥, i) => [i == 0, 𝑥, i == þ1F0CC(l) - 1]);
 merge = (...𝔸) => 𝑜.assign({}, ...𝔸);
 sleep = (s) => new Promise((r) => setTimeout(r, 1000 * s));
-mk_id = (l, chars = BASE_CHARSET) => þ02B65(l).ᴍ(() => chars.at(Number(þF114F() * þ1F0CC(chars)))).ſ((x, y, ...𝔸) => x + y, "");
+mk_id = (l, chars = BASE_CHARSET) => þ02B65(l).ᴍ(() => chars.at(𝑖(þF114F() * þ1F0CC(chars)))).ſ((x, y, ...𝔸) => x + y, "");
 ƒdbg = (ƒ) => (...𝔸) => {
   print(`ƒ: Calling with:`, ...𝔸);
   const r = ƒ(...𝔸);
-  print(`f: Returning`, r);
+  print(`ƒ: Returning`, r);
   return r
 };
 
@@ -60,13 +63,13 @@ const arrayLikeƒ = {
   Ϝ: (x, ƒ, ...𝔸) => {
     𝚁 = [...𝔸, ...x];
     for (let i = 𝔸.length || 1; i < 𝚁.length; i++)
-      𝚁[i] = ƒ(𝚁[i - 1], 𝚁[i], i)
+      𝚁[i] = ƒ(𝚁[i - 1], 𝚁[i], i, x)
     𝚁.pop()
     return 𝚁;
   },
+  þF01A9: (x, ...𝔸) => isArr(x) ? x.flat(...𝔸) : x,
+  ᴍþF01A9: (x, ...𝔸) => isArr(x) ? x.flatMap(...𝔸) : x,
   ᴍ: (x, ...𝔸) => x.map(...𝔸),
-  þF01A9: (x, ...𝔸) => x.flat(...𝔸),
-  ᴍþF01A9: (x, ...𝔸) => x.flatMap(...𝔸),
   ſ: (x, ...𝔸) => x.reduce(...𝔸),
   þF0232: (x, ...𝔸) => x.filter(...𝔸),
   þF7E3B: (x, ...𝔸) => x.slice(...𝔸),
@@ -80,16 +83,16 @@ arrayLikeƒ.þ02A1D𝑙 = (x, y, ...𝔸) => [x[0], ...x.þF7E3B(0, -1).ᴍþF01
   𝔓(𝐴)[𝚔] = function(...𝔸) {
     return ƒ(this, ...𝔸);
   };
-  𝔓(𝐸)[𝚔] = function(...𝔸) {
-    return ƒ(𝐴.from(this), ...𝔸);
-  };
+  þ0E27FType.forEach((𝑇) => 𝔓(𝑇)[𝚔] = function(...𝔸) {
+    return ƒ(𝐴.from(this.children), ...𝔸);
+  });
 });
 
 𝒪({
-  þF0817: HAT = (x, ...𝔸) => 𝔸.ᴍ((a) => x.hasAttribute(a)).þ022C0(),
+  þF0817: HAT = (x, ...𝔸) => boxᴍ(𝔸, (a) => x.hasAttribute(a)).þ022C0(),
   þF1021: GAT = (x, y, ...𝔸) => y !== undefined ? x.getAttribute(y) : x.attributes,
-  þF09E5: SAT = (x, y, z = "") => x.setAttribute(y, z),
-  þF15DF: RAT = (x, ...𝔸) => 𝔸.forEach((a) => x.removeAttribute(a)),
+  þF09E5: SAT = (x, y, z = "") => boxᴍ(y, (a) => x.setAttribute(a, z)),
+  þF15DF: RAT = (x, ...𝔸) => boxᴍ(𝔸, (a) => x.removeAttribute(a)),
   þF017A: TAT = (x, ...𝔸) => x.toggleAttribute(...𝔸)
 }).forEach(([𝚔, ƒ]) => þ0E27FType.forEach((𝑇) => {
   Ϣ[𝚔] = ƒ;
@@ -115,6 +118,7 @@ arrayLikeƒ.þ02A1D𝑙 = (x, y, ...𝔸) => [x[0], ...x.þF7E3B(0, -1).ᴍþF01
 };
 
 GID = (x, ...𝔸) => þF0219.getElementById(x);
+EFP = (...𝔸) => þF0219.elementFromPoint(...𝔸.þF01A9(þ0221E));
 AEL = (þ0E27F, ...𝔸) => (þ0E27F.addEventListener(...𝔸), () => REL(þ0E27F, ...𝔸));
 REL = (þ0E27F, ...𝔸) => þ0E27F.removeEventListener(...𝔸);
 
@@ -134,28 +138,29 @@ chainIntoElements = (x, P) => {
   return P;
 }
 
-const NSElmNames = new Set(`svg g defs symbol use path rect circle ellipse line polyline polygon text tspan textPath linearGradient radialGradient stop pattern clipPath mask animate animateMotion animateTransform set metadata title desc view image foreignObject marker switch style`.split(` `));
+const þ0E27FattrMap = {
+  "": "onclick",
+  onclick: "onclick",
+  closedby: "closedBy",
+  NAME: "T",
+  𝑇𝐼: "tabIndex",
+  𝑃𝐻: "placeholder",
+  𝑇: "type",
+  𝐼: "id",
+  𝐶: "className"
+};
+const þ0E27FNSNames = new Set(`svg g defs symbol use path rect circle ellipse line polyline polygon text tspan textPath linearGradient radialGradient stop pattern clipPath mask animate animateMotion animateTransform set metadata title desc view image foreignObject marker switch style`.split(` `));
 mkə = (name, attrs, kids) => {
-  const remaps = {
-    onclick: "onclick",
-    closedby: "closedBy",
-    NAME: "T",
-    𝑇𝐼: "tabIndex",
-    𝑃𝐻: "placeholder",
-    𝑇: "type",
-    𝐼: "id",
-    𝐶: "className"
-  };
   kids = chainIntoElements(kids);
   if (𝗙(name)) return name(attrs, ...kids);
   if (name === false) name = "div";
-  let þ0E27F = NSElmNames.has(name) ? þF0219.createElementNS(`http://www.w3.org/2000/svg`, name) :
+  let þ0E27F = þ0E27FNSNames.has(name) ? þF0219.createElementNS(`http://www.w3.org/2000/svg`, name) :
     þF0219.createElement(name);
   þ0E27F.append(...kids);
   if (attrs)
     𝒪(attrs).forEach(([k, v]) => {
       if (k == `𝑆`) þ0E27F.style.cssText = v;
-      else if (k in remaps) þ0E27F[remaps[k]] = v;
+      else if (k in þ0E27FattrMap) þ0E27F[þ0E27FattrMap[k]] = v;
       else SAT(þ0E27F, k, v);
     });
 

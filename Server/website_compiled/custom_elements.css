@@ -158,11 +158,11 @@ dialog:open {
 .pageNumPrev:disabled, .pageNumNext:disabled {
   background-color: #222222;
 }
-*[draggable] {
+*[canDrag] {
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
 *[dragging] {
   transform: scale(0.5);
-  cursor: grabbing;
+  user-select: none;
 }

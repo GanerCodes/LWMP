@@ -1,141 +1,6 @@
-© test_dat = {"fx":[[1,0,0]],"*":[{"*":[{"1":[50,0,16711680]},{"1":[50,0,65280]},{"1":[50,0,255]}]},{"fx":[[1,25,0]],"*":[{"1":[5,1,3,245,50]},{"1":[45,0,4456448]}]},{"fx":[[1,25,0]],"*":[{"1":[22,1,1,245,50]},{"1":[15,0,17408]}]},{"fx":[[1,25,0]],"*":[{"1":[33,1,1,245,50]},{"1":[25,0,68]}]},{"fx":[[1,25,0]],"*":[{"1":[2,1,1,245,50]},{"1":[120,0,4456516]}]}]}
- 𝑜Replace(test_dat, 󰠲Utilᵈᵉᶠᴹ([50,50,50,50]));
-
-© ətriLabel = ⥌𝚑,⠤𝔸↦
-  󱀝 {⦅𝚑≥ ⟦𝚑⟧px⦆} [
-    󱀝 {} ⟦𝔸⟧
-    󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
-      󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
-
-© 𝘌atom = ⥌Ѧ,[n,i,⠤󰠲]↦{
-  © 𝗆 = 󰲡󱀝 {𝐶 𝘌atom⍮ 𝑆 ⟦⦅𝚑 ⟦Ѧ󰁢⋅n⟧px⦆+␛;+x⟧} ‹› 
-  ¿(i≡0) { © [𝚌] = 󰠲;
-           ↪𝗆(⦅𝚋 ⟦(𝚌)⟧⦆); }
-  ⸘(i≡1) { © [seg,sat,val] = 󰠲;
-           ↪𝗆(⦅background ⟦grad(seg)⟧⦆); }
-  ↪‹󰤱›; };
-© 𝘌𝖬 = ⥌Ѧ,󰠲,n=0↦{
-  © ətick = ⥌𝚒,m=40,b=20↦{
-    © [p,s] = [⤉(1,3÷𝚒)    , b+m÷𝚒];
-    © [l,α] = [255-40⋅(𝚒-1), 100  ];
-    © clr = ‹rgba(⟦l⟧,⟦l⟧,⟦l⟧,⟦α⟧%)›;
-    © cnd = 𝚒>1⭜‹;pointer-events:none›⭝ᐦ;
-    ↪󱀝 {𝐶 𝘌tickmark⍮ 𝑆 ⟦⦅𝚋 ⟦clr⟧; 𝚠 ⟦s⟧px; «𝚑 𝚑≥» ⟦p⟧px; 𝚖↓ ⟦-p⟧px⦆+cnd⟧} ‹›; };
-  
-  ⎉ C = 1∈󰠲 ⭜[𝘌atom(Ѧ,󰠲₁)]⭝ 󰠲􊯛􊾡(󰲡𝘌𝖬(Ѧ,x,n+1));
-  C = C􊾡(󰲣(xⁱᵈˣ=y,x));
-  ¿(C􋌵>1) C = C􌿑􋇙(󰲟ətick(n+1));
-  
-  ⎉  = 󱀝 {𝐶 𝘌modes} ⟦C⟧;
-  
-  ¿(¬n ∧ ␛*∈󰠲) {
-    C􋁃(⥌c↦{ c = dragItem(c,n,󰲣{
-               swapə(x,y);
-               © d = Ѧ􈛈􊯛;
-               [dₓ􊬖􊫵􊫄,d􊬖􊫵􊫄] = [d􊬖􊫵􊫄,dₓ􊬖􊫵􊫄];
-               Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); });
-             c.onclick = 󰲟Ѧʳᵉⁿᵈᵉʳ(Ѧ􈛈􊯛 􋑴􊬖􊫵􊫄); }); }
-  ⸘(n>1) 􋛟 ᵖᵒⁱⁿᵗᵉʳᴱᵛᵉⁿᵗˢ = ‹none›;
-  ¿(¬n ) { ⁱᵈˣ = 0;
-           © x = QSAS(‹.𝘌atom›,);
-           x₀   􈛣(‹atom1›);
-           x􋕛(󷰾)􈛣(‹atom󷰾›); }
-  ↪; };
-
-© 𝘌setInspector = ⥌Ѧ↦{
-  © fx_og = ᴍv(󰠲Utilᵍʳᵖᶠˣ(Ѧ􈛈),󰲡x₀);
-  © fx = {0:[], 1:[1,0], 2:[1], ⠤fx_og};
-  
-  ⎉ has_init = ✗;
-  © check = 󰲣fx_togsₓ ₁􋛟 ᵈⁱˢᵖˡᵃʸ≠‹none›⭜[[y,⠤fx]]⭝[];  says if the fx enabled
-  © update = 󰲟has_init ∧ (Ѧ􈛈 ᶠˣ = 
-    [⠤fx_togsʳᵉᵛ₀󰀒⭜[[0]]⭝[], ⠤check(‹rot›,1), ⠤check(‹lum›,2)]);
-  
-  © fx_togs = {
-    rev: [toggleButton(󰲡update()                      ,␛,␛,✗,{init:✗,polar:✗})],
-    rot: [toggleButton(󰲡(show(fx_togsʳᵒᵗ₁,x),update()),␛󱦙,␛󱦙,✗,{init:✗}),
-          (󰲟{ ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
-              © speed = 󱀝 ⟦əslider⟧ {l ⟦󷰿󷰽󷰽 ⟧⍮v ⟦fx₁ ₀⟧⍮h 200 ⍮s:0.1⍮ƒ ⟦󰲡(speedl􋒷=‹⟦fx₁ ₀=x⟧ Pixels/s›,update())⟧};
-              © offst = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽󷰽⟧⍮v ⟦fx₁ ₁⟧⍮h 1000⍮s:1  ⍮ƒ ⟦󰲡(offstl􋒷=‹⟦fx₁ ₁=x⟧ Pixels›  ,update())⟧};
-              ↪󱀝 {𝐶 𝘌fxSection} [
-                 󱀝 label ‹Rotation›
-                 󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
-                 󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]]; })()],
-    lum: [toggleButton(󰲡(show(fx_togsˡᵘᵐ₁,x),update()),␛󰳲,␛󰳲,✗,{init:✗}),
-          (󰲟{ ⎉ luml = 󱀝 T {};
-              © lum = 󱀝 ⟦əslider⟧ {l 0⍮v ⟦fx􊯛₂ ₀⋅255⟧⍮h 255⍮s 1⍮
-                                     ƒ ⟦󰲡(luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›,update())⟧};
-              ↪󱀝 {𝐶 𝘌fxSection} [
-                󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ]; })()] };
-  [‹rev›,‹rot›,‹lum›]􋁃(󰲣fx_togsₓ ₀.set(y∈fx_og));
-  has_init = ✓;
-  
-   ☾(‹I AM INSPECTOR...𝗻⟦𝔍􋀫(Ѧ􈛈)⟧𝗻⟦𝔍􋀫(Ѧ􍻐􋑵 􀴗)⟧›);
-  
-  © 𝘈 = Ѧ􍻐􋑵 􀴗;
-  𝘈.update(1∈Ѧ􈛈 ⭜[⠤‹󷸾›][Ѧ􈛈₁ ₁]⭝ ␛G);
-  𝒪k(𝘈 􀳕)􋁃(󰲣𝘈􀳕ₓ􀲝 􋒗=(1∈Ѧ􈛈)^¬¬y);
-  
-  Ѧˢᵉᵗᴹᵒᵈᵉⱽⁱᵉʷ = ⥌𝚜=󱣩↦{
-    ¿(¬(1∈Ѧ􈛈)) ↪;
-    ⎉ [𝚗,𝚖,⠤󰠲] = Ѧ􈛈₁;
-    𝚜 = 𝚜≅󱣩 ⭜𝚖⭝ {"G":󷰾,"":0,"":1,"󷸾":2}􀲾;
-    
-    © def = { "": [50,50,50],
-              "󷸾": [1,1,1,1,1],  󰤱
-              "": [2,225,255] }
-    
-    © set = ⥌𝚖,⠤𝔸↦{ 𝑙Replace(Ѧ􈛈₁,[𝚗,𝚖,⠤𝔸]);
-                     󰤱 render but only the atom
-                  };
-    
-    { ⎉ ;
-      ⎉ 𝚟 = 𝚖≡0 ⭜𝑖2(󰠲₀)⭝ def􊯛􇧓;
-      © ƒ = 𝚲set(0,2𝑖(􀴗 ᵛ));
-      𝘈.set(␛, 󱀝: ⟦ə⟧ {init ⟦✗⟧⍮ v ⟦𝚟⟧⍮ ƒ ⟦ƒ⟧});
-      ¿(𝚜≠𝚖 ∧ 𝚜≡0) ƒ(); 🟑 󰤱 THIS IS 🟑 }
-    
-    { 𝘈.set(␛󷸾, 󱀝 ‹󰤱›); }
-    
-    { ⎉ c,s,v;
-      ⎉ 𝚟 = 𝚖≡1 ⭜󰠲⭝ def􊯛􈕅;
-      © ƒ = 𝚲set(1,⠤𝚟 = [c,s,v]􊾡(󰲡x􀴗 ᵛ));
-      𝘈.set(␛, 󱀝 {𝐶 mode} [
-                   󱀝 [󱀝    T ‹Cycles›
-                      󱀝:c ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₀⟧⍮h  25⍮s 0.1⍮ƒ ⟦ƒ⟧}]
-                   󱀝 [󱀝    T ‹Saturation›
-                      󱀝:s ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₁⟧⍮h 255⍮s 0.1⍮ƒ ⟦ƒ⟧}]
-                   󱀝 [󱀝    T ‹Value›
-                      󱀝:v ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₂⟧⍮h 255⍮s 0.1⍮ƒ ⟦ƒ⟧}] ]);
-      ¿(𝚜≠𝚖 ∧ 𝚜≡1) ƒ(); 🟑 󰤱 REALLY DUMB 🟑 } }
-  Ѧˢᵉᵗᴹᵒᵈᵉⱽⁱᵉʷ();
-  
-  Ѧ􍻠􋑵 􀴗.set(␛,󱀝 [󱀝 span {𝐶 𝘌toggleSection}
-                     ⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧
-                     ⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]);
-  Ѧ􍻠􋑵 􀴗.set(␛⯈,󱀝 button {onclick ⟦󰲟𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈟)⟧} ‹Ⴝω󷱇𝑔›);
-};
-
-© CSS_valid_ungroup = ‹.𝘌modes[dragitem]:not(:has(>:only-child))›;
-
-© 𝘌setPreview = ⥌Ѧ,dat↦{
-  ¿(¬dat) dat = Ѧ􈛈;
-  ¿(¬Ѧ􈛈􍻞 􋌵 ∨ dat ∧ Ѧ􈛈􍻞 􋕛(󷰾)≇dat)
-    Ѧ􈛈􍻞.push(Ѧ􈛈 = dat);
-  © stot = 󰠲Utilˡᵉⁿ(Ѧ􈛈);
-  Ѧᵗᵒᵖ = Ѧ􈛈􍻞 􋌵≡1;
-  
-  Ѧ󰁢 = ⤉(2,2.5⋅(window.outerHeight÷window.outerWidth),400÷⤉(stot,Ѧᵗᵒᵖ⭜Ѧᴸ 􋔩(󰲣x+y,0)÷5⭝0));
-  
-  Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(
-              ⠤Ѧᵗᵒᵖ ⭜ ↨(󱑼(Ѧᴺ,Ѧᴸ))􋅝(⥌i,[𝐧,n]↦ətriLabel(n⋅Ѧ󰁢, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))
-                    ⭝ [ətriLabel(Ѧ󰁢⋅stot, 󱀝 T ‹⟦stot⟧ Pxl›)]);
-  Ѧᵖⁱˣᵉˡˢ􋑵.replaceChildren(Ѧ􈛈􋑵 = 𝘌𝖬(Ѧ,Ѧ􈛈));
-  Ѧ􍻬 ᵖʳᵛ􋑵 􋒗 = Ѧᵗᵒᵖ;
-  Ѧ􍻬 ᵍʳᵖ􋑵 􋒗 = 1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
-  Ѧ􍻬 ᵘᵍᵖ􋑵 􋒗 = ¬Ѧ􋑵 􈛐(CSS_valid_ungroup);
-  Ѧ􍻬 ᵈᵉˡ􋑵 􋒗 = 1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
-};
+ © test_dat = {"fx":[[1,0,0]],"*":[{"1":[25,0,0x222222]},{"*":[{"1":[50,0,16711680]},{"1":[50,0,65280]},{"1":[50,0,255]}]},{"fx":[[1,25,0]],"*":[{"1":[5,1,3,245,50]},{"1":[45,0,4456448]}]},{"fx":[[1,25,0]],"*":[{"1":[22,1,1,245,50]},{"1":[15,0,17408]}]},{"fx":[[1,25,0]],"*":[{"1":[33,1,1,245,50]},{"1":[25,0,68]}]},{"fx":[[1,25,0]],"*":[{"1":[2,1,1,245,50]},{"1":[120,0,4456516]}]}]}
+© test_dat = {"fx":[[1,0,0]],"*":[{"fx":[],"1":[10,2,0.1,0,16711680,65280,255]},{"fx":[],"1":[10,2,0.1,0.25,16711680,65280,255]},{"fx":[],"1":[10,2,0.1,0.5,16711680,65280,255]},{"fx":[],"1":[10,2,0.1,0.8,16711680,65280,255]},{"fx":[],"1":[10,2,0.1,1,16711680,65280,255]}]}
+ © test_dat = 󰠲Utilᵈᵉᶠᴹ([50,50,50,50]);
 
 prompt_editor = ⥌cb,𝔖,𝐬↦{
   𝐬ᵈᵃᵗ = test_dat;  󰤱 temp
@@ -154,87 +19,52 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
   © tool = ⥌𝗍↦{
     ¿(𝗍≡␛←) { Ѧ􈛈􍻞.pop();
               ↪Ѧʳᵉⁿᵈᵉʳ(Ѧ􈛈􍻞.pop()); }
-    ⸘(𝗍≡␛+) { 󰠲Utilᵃᵈᵈ(Ѧ􈛈,{1:[50,0,0x7F7F7F]});
+    ⸘(𝗍≡␛+) { © avgN = ▢((1∈Ѧ􈛈⭜[Ѧ􈛈]⭝Ѧ􈛈􊯛)􊾡(󰠲Utilˡᵉⁿ)􋔩(󰲧x+y÷w􋌵,0));
+              󰠲Utilᵃᵈᵈ(Ѧ􈛈,{1:[avgN,0,0x7F7F7F]});
               Ѧʳᵉⁿᵈᵉʳ();
               ↪Ѧᵖⁱˣᵉˡˢ􋑵 􈞣(‹.𝘌modes›)􋕛(󷰾).scrollIntoView(); }
     © css = 𝗍≡␛ ⭜CSS_valid_ungroup⭝ ‹.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]›;
      maybe scroll first valid into view if it's not?
-    ¿(𝗍≡␛)  󰤱 better interface, why is this a multiselect? also you can select all of it bruh
+    ¿(𝗍≡␛)  󰤱 better interface, why is this a multiselect? also you can select all of it bruhhh
       clickDetect(css,⥌𝚂↦{
         Ѧ􋑵 􈛑(‹𝘌toolmode›);
         ¿(¬𝚂) ↪;
         © 𝙸 = 𝚂􊾡(󰲡xⁱᵈˣ);
         © r = [⤈(⠤𝙸),⤉(⠤𝙸)];
         r₁++;
+        ¿(r₁≡Ѧ􈛈􊯛􋌵) ↪;
         Ѧ􈛈􊯛.splice(r₀,r₁-r₀,{"*":Ѧ􈛈􊯛􊽧(r₀,r₁)});
         Ѧʳᵉⁿᵈᵉʳ();
       },Ѧ􋑵,{"*":✓});
-    ¡ clickDetect(css,
-                  ⥌s↦{ ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›);
-                        ¿(𝗍≡␛ ∨ ␛󰆴≡𝗍) {
-                          ¿(𝗍≡␛) 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
-                          ⸘(𝗍≡␛󰆴) 󰠲Utilᵈᵉˡ  (Ѧ􈛈,sⁱᵈˣ);
-                          Ѧʳᵉⁿᵈᵉʳ();
-                          ↪Ѧ􋑵 􈛑(‹𝘌toolmode›); }
-                        
-                         󰤱 redo this weird way of doing resizing, like actually this code sucks
-                        © d = QSAS(‹.𝘌atom›,s)􋕛(󷰾);
-                        © A  = 󰠲Utilᵉⁿᵈˢ(1∈Ѧ􈛈 ⭜Ѧ􈛈₁⭝ Ѧ􈛈􊯛 ₛ􋑴􊬖􊫵􊫄)₁;
-                        
-                        ⎉ l,n;
-                        © 󰘖 = 󱀝 {𝐶 resizer} [
-                                 󱀝    T {} ‹󰮹›
-                                 󱀝:l T {}];
-                        
-                        ⎉ 𝚙;
-                        © show = ⥌Δ↦{ © h = Ѧ󰁢⋅󰠲Utilˡᵉⁿ(A);
-                                      Δ = ⤉(Ѧ󰁢⋅▢(Δ÷Ѧ󰁢),Ѧ󰁢-h);
-                                      l􋒷 = n = ▢((h+Δ)÷Ѧ󰁢);
-                                      󰘖􋛟.top    = ‹⟦𝚙ᵇ+Δ⟧px›;
-                                      d􋛟.height = ‹⟦𝚙ʰ+Δ⟧px›; };
-                        © 𝐮 = 𝚲{ 𝚙 = (d);
-                                 󰘖􋛟.left = ‹⟦𝚙ˡ+𝚙ʷ⟧px›;
-                                 show(0); };
-                        𝐮();
-                        
-                        󰘖􈛘(‹draggable›,‹true›);
-                        AEL(󰘖,‹dragstart›,ƒdbg(⥌𝜺↦{ 𝜺.dataTransfer.setDragImage(󱀝 img [],0,0);
-                                                󰘖􈛘(‹dragging›); 𝐮(); }));
-                        AEL(󰘖,‹dragend󷺗󷺗›,ƒdbg(⥌𝜺↦{ A₀ = n;
-                                                󰘖􈛑(‹dragging›);
-                                                s􈛑(‹detector›,‹noscale›);
-                                                Ѧ􋑵 􈛑(‹𝘌toolmode›);
-                                                Ѧʳᵉⁿᵈᵉʳ(); }));
-                        AEL(󰘖,‹drag›,ƒdbg(⥌𝜺↦{ ¿(𝜺ʸ) show(𝜺ʸ-𝚙ᵇ); }));
-                        s.after(󰘖);
-                        s􈛘(‹detector›,‹noscale›);
-                      },
-                  Ѧ􋑵);
-    Ѧ􋑵 􈛘(‹𝘌toolmode›);
-  };
+    ¡ clickDetect(css, ⥌s↦{ ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›);
+                             ¿(𝗍≡␛ ∨ ␛󰆴≡𝗍) {
+                               ¿(𝗍≡␛) 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
+                               ⸘(𝗍≡␛󰆴) 󰠲Utilᵈᵉˡ  (Ѧ􈛈,sⁱᵈˣ);
+                               Ѧʳᵉⁿᵈᵉʳ();
+                               ↪Ѧ􋑵 􈛑(‹𝘌toolmode›); } }, Ѧ􋑵);
+    Ѧ􋑵 􈛘(‹𝘌toolmode›); };
+  
   󱀝:⟦Ѧ􋑵⟧ ⟦popup⟧ {󰅙:✓⍮ noAppend:✓} [
-    󱀝 {𝐶 𝘌outer} [
+    󱀝{𝐶 𝘌outer} [
       󱀝 T ‹Scene Editor›
-      󱀝 {𝐶 𝘌inner} [
-        󱀝 {𝐶 𝘌preview} [
-          󱀝 {𝐶 multiButtonBar} [
-            󱀝:⟦Ѧ􍻬 ᵖʳᵛ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛←)⟧} ␛←
-            󱀝:⟦Ѧ􍻬 ʳˢᶻ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󰡏)⟧} ␛󰡏
-            󱀝:⟦Ѧ􍻬 ᵍʳᵖ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛)⟧} ␛
-            󱀝:⟦Ѧ􍻬 ᵘᵍᵖ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛)⟧} ␛
-            󱀝:⟦Ѧ􍻬 ᵃᵈᵈ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛+)⟧} ␛+
-            󱀝:⟦Ѧ􍻬 ᵈᵉˡ􋑵⟧ button {𝐶 barButton⍮ onclick ⟦󰲟tool(␛󰆴)⟧} ␛󰆴]
+      󱀝{𝐶 𝘌inner} [
+        󱀝{𝐶 𝘌preview} [
+          󱀝{𝐶 multiButtonBar} [
+            󱀝:⟦Ѧ􍻬 ᵖʳᵛ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛←)⟧} ␛←
+            󱀝:⟦Ѧ􍻬 ᵍʳᵖ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛)⟧} ␛
+            󱀝:⟦Ѧ􍻬 ᵘᵍᵖ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛)⟧} ␛
+            󱀝:⟦Ѧ􍻬 ᵃᵈᵈ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛+)⟧} ␛+
+            󱀝:⟦Ѧ􍻬 ᵈᵉˡ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛󰆴)⟧} ␛󰆴]
           󱀝 [󱀝 [󱀝:⟦Ѧˡᵃᵇᵉˡˢ􋑵⟧ {𝐶 𝘌alignedLabels}
                 󱀝:⟦Ѧᵖⁱˣᵉˡˢ􋑵⟧ {𝐶 𝘌pixels       }]]]
-        󱀝 {𝐶 𝘌inspector} [
-          󱀝:⟦Ѧ􍻠􋑵⟧ ⟦ənavBar⟧ {Ⴝ } [
-            󱀝 {󰊄 } [󱀝:⟦Ѧ􍻐􋑵⟧ ⟦ənavBar⟧ {Ⴝ G⍮ init ⟦✗⟧⍮ ƒ ⟦󰲡Ѧˢᵉᵗᴹᵒᵈᵉⱽⁱᵉʷ⸮(x)⟧} [
-                       󱀝 {󰊄 G} [󱀝 {}]
-                       󱀝 {󰊄 } [󱀝 {}]
-                       󱀝 {󰊄 󷸾} [󱀝 {}]
-                       󱀝 {󰊄 } [󱀝 {}]]]
-            󱀝 {󰊄 } [󱀝 {}]
-            󱀝 {󰊄 ⯈} [󱀝 {}]]]]]];
+        󱀝:⟦Ѧ􍻠􋑵⟧ ⟦ənavBar⟧ {Ⴝ ⍮𝐶 𝘌inspector} [
+          󱀝{󰊄 } [󱀝:⟦Ѧ􍻐􋑵⟧ ⟦ənavBar⟧ {Ⴝ G⍮𝐶 𝘌modebar⍮ init ⟦✗⟧⍮ ƒ ⟦󰲡Ѧˢᵉᵗᴹᵒᵈᵉⱽⁱᵉʷ⸮(x)⟧} [
+                    󱀝{󰊄 G} [󱀝{}]
+                    󱀝{󰊄 } [󱀝{}]
+                    󱀝{󰊄 󷸾} [󱀝{}]
+                    󱀝{󰊄 } [󱀝{}]]]
+          󱀝{󰊄 } [󱀝 {}]
+          󱀝{󰊄 ⯈} [󱀝 {}]]]]];
   Ѧ􋑵 􈛓(‹editorDialog›);
   Ѧʳᵉⁿᵈᵉʳ();
   

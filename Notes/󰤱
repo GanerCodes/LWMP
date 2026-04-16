@@ -1,3 +1,9 @@
+start dragging a mode:
+  have a trash icon you can drag it to
+  have a duplicate icon you can drag it to
+  when letting go over other mode:
+    [swap,replace] inline popups
+
 Done
   𝟏
     Reworked WiFi/AP things

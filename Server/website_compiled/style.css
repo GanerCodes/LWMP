@@ -470,6 +470,229 @@ dialog[open] {
   transform: translateX(1em);
   pointer-events: none;
 }
+.𝘌preview {
+  border-top: 0.05em solid #545454;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  &>:last-child {
+    display: grid;
+    align-content: space-around;
+    overflow-y: scroll;
+    max-height: calc(98vh / var(--zoom) - 6.25em);
+    height: calc(98vh / var(--zoom) - 6.25em);
+    min-height: calc(98vh / var(--zoom) - 6.25em);
+    margin: 0.1em;
+    direction: rtl;
+    &>:first-child {
+      display: flex;
+      flex-direction: row;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0.5em;
+      direction: ltr;
+      &>.𝘌alignedLabels {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        &>* {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          width: 140px;
+          font-size: 0.8em;
+          &>:first-child {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100px;
+            text-wrap: nowrap;
+            transform: translateY(-1.35em);
+            &>:first-child {
+              unicode-bidi: embed;
+              direction: rtl;
+            }
+          }
+          &>:last-child {
+            width: 37.5px;
+            border-right: 1px dashed #FFF;
+          }
+        }
+      }
+      &>.𝘌pixels {
+        margin-left: -1px;
+        display: grid;
+        place-items: start start;
+      }
+    }
+  }
+}
+.𝘌inspector {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  font-size: 1em;
+  & .multiButtonBar {
+    margin: 0px;
+  }
+}
+.𝘌modebar>.navBodyHolder {
+  overflow-x: clip;
+  overflow-y: scroll;
+  max-height: calc(98vh / var(--zoom) - 8em);
+  height: calc(98vh / var(--zoom) - 8em);
+  min-height: calc(98vh / var(--zoom) - 8em);
+}
+.𝘌𝘐fx {
+  &>span {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #545454;
+    &>* {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5px;
+      border-radius: 0.2em;
+      width: 1em;
+      max-width: 1em;
+      min-width: 1em;
+      height: 1em;
+      max-height: 1em;
+      min-height: 1em;
+      font-size: 2em;
+      border: 0.075em solid #606060;
+      &[off] {
+        background-color: #545454;
+      }
+      & {
+        background-color: #3d3d3d;
+      }
+      &[on ] {
+        background-color: #2b2b2b;
+      }
+    }
+  }
+  &>div {
+    & div:has(label) {
+      font-size: 0.9em;
+    }
+    &>:is(span,div,label) {
+      margin-top: 0.1em;
+      margin-bottom: 0.1em;
+    }
+    &>.𝘌fxSection, &>.𝘌fxSection div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 0.5em;
+    }
+    & .𝘌fxSection {
+      width: 100%;
+      background-color: #545454;
+    }
+    & .𝘌fxSection div:not(.𝘌fxSection) {
+      width: 95%;
+      background-color: #FFF1;
+      border-radius: 0.5em;
+    }
+  }
+}
+.𝘌󷸾mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &>* {
+    width: 90%;
+  }
+  &>.󷸾 {
+    margin-top: 0.5em;
+    &>span {
+      position: relative;
+      &>* {
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
+      }
+      &>.rgbSliders {
+        padding-left: 0;
+        padding-right: 10%;
+      }
+      &>button {
+        position: absolute;
+        font-size: 1.2em;
+        width: 1em;
+        height: 1em;
+        right: 0.1em;
+        top: 0.1em;
+        border-radius: 9999px;
+        color: #611;
+        background-color: #FFF;
+        &:not(:disabled):is(:hover,:focus-visible) {
+          color: #712;
+          background-color: #CCC;
+        }
+        &:not(:disabled):active {
+          color: #812;
+          background-color: #AAA;
+        }
+      }
+      &:only-child>button {
+        display: none;
+      }
+    }
+  }
+  &>button {
+    border: 2px solid #808080;
+    border-radius: 1em;
+  }
+}
+.𝘌outer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &>T {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    font-size: 2em;
+  }
+}
+.𝘌inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  & .multiButtonBar {
+    height: 1.35em;
+    font-size: 1.35em;
+    background-color: #0000;
+    border-bottom: 0.1em solid #545454;
+    border-left: 0.05em solid #545454;
+    border-right: 0.05em solid #545454;
+    border-top: 0.05em solid #545454;
+    transform: scale(1.0125);
+    border-top-left-radius: 0.2em;
+    border-top-right-radius: 0.2em;
+    &>:first-child {
+      border-top-left-radius: 0.1em;
+    }
+    &>:last-child {
+      border-top-right-radius: 0.1em;
+    }
+  }
+  &>* {
+    max-width: calc(50% - 0.5em);
+    width: calc(50% - 0.5em);
+    min-width: calc(50% - 0.5em);
+    background-color: #3d3d3d;
+    border: 0.1em solid #545454;
+    border-radius: 0.25em;
+  }
+}
 .editorDialog[open] {
   width: min(calc(98vw / var(--zoom)),1000px);
   max-height: calc(98vh / var(--zoom));
@@ -481,174 +704,14 @@ dialog[open] {
   &:not([𝘌toolmode]) {
     & .𝘌atom[atom1] {
       border-top-right-radius: 0.5em;
+      &:not([devLayer]) {
+        border-top-left-radius: 0.5em;
+      }
     }
     & .𝘌atom[atom󷰾] {
       border-bottom-right-radius: 0.5em;
-    }
-  }
-  .𝘌outer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    &>T {
-      margin-top: 0.25em;
-      margin-bottom: 0.25em;
-      font-size: 2em;
-    }
-    &>.𝘌inner {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      align-items: flex-start;
-      &>* {
-        max-width: calc(50% - 0.5em);
-        width: calc(50% - 0.5em);
-        min-width: calc(50% - 0.5em);
-        background-color: #3d3d3d;
-        border: 0.1em solid #545454;
-        border-radius: 0.25em;
-      }
-      & .multiButtonBar {
-        height: 1.35em;
-        font-size: 1.35em;
-        background-color: #0000;
-        border-bottom: 0.1em solid #545454;
-        border-left: 0.05em solid #545454;
-        border-right: 0.05em solid #545454;
-        border-top: 0.05em solid #545454;
-        transform: scale(1.0125);
-        border-top-left-radius: 0.2em;
-        border-top-right-radius: 0.2em;
-        &>:first-child {
-          border-top-left-radius: 0.1em;
-        }
-        &>:last-child {
-          border-top-right-radius: 0.1em;
-        }
-      }
-      &>.𝘌preview {
-        border-top: 0.05em solid #545454;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        &>:last-child {
-          display: grid;
-          align-content: space-around;
-          overflow-y: scroll;
-          max-height: calc(98vh / var(--zoom) - 6.25em);
-          height: calc(98vh / var(--zoom) - 6.25em);
-          min-height: calc(98vh / var(--zoom) - 6.25em);
-          margin: 0.1em;
-          direction: rtl;
-          &>:first-child {
-            display: flex;
-            flex-direction: row;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 0.5em;
-            direction: ltr;
-            &>.𝘌alignedLabels {
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-start;
-              &>* {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                width: 140px;
-                font-size: 0.8em;
-                &>:first-child {
-                  display: flex;
-                  flex-direction: column;
-                  justify-content: center;
-                  width: 100px;
-                  text-wrap: nowrap;
-                  transform: translateY(-1.35em);
-                  &>:first-child {
-                    unicode-bidi: embed;
-                    direction: rtl;
-                  }
-                }
-                &>:last-child {
-                  width: 37.5px;
-                  border-right: 1px dashed #FFF;
-                }
-              }
-            }
-            &>.𝘌pixels {
-              margin-left: -1px;
-              display: grid;
-              place-items: start start;
-            }
-          }
-        }
-      }
-      &>.𝘌inspector {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        height: 100%;
-        font-size: 1em;
-        & .multiButtonBar {
-          margin: 0px;
-        }
-        & .navBodyHolder > div {
-          & div:has(label) {
-            font-size: 0.9em;
-          }
-          &>:is(span,div,label) {
-            margin-top: 0.1em;
-            margin-bottom: 0.1em;
-          }
-          &>.𝘌toggleSection {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
-            align-items: center;
-            background-color: #545454;
-            &>* {
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              padding: 5px;
-              border-radius: 0.2em;
-              width: 1em;
-              max-width: 1em;
-              min-width: 1em;
-              height: 1em;
-              max-height: 1em;
-              min-height: 1em;
-              font-size: 2em;
-              border: 0.075em solid #606060;
-              &[off] {
-                background-color: #545454;
-              }
-              & {
-                background-color: #3d3d3d;
-              }
-              &[on ] {
-                background-color: #2b2b2b;
-              }
-            }
-          }
-          &>.𝘌fxSection, &>.𝘌fxSection div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            padding: 0.5em;
-          }
-          & .𝘌fxSection {
-            width: 100%;
-            background-color: #545454;
-          }
-          & .𝘌fxSection div:not(.𝘌fxSection) {
-            width: 95%;
-            background-color: #FFF1;
-            border-radius: 0.5em;
-          }
-        }
+      &:not([devLayer]) {
+        border-bottom-left-radius: 0.5em;
       }
     }
   }
@@ -725,27 +788,39 @@ label {
   }
 }
 .resizer {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  position: relative;
+  height: 0;
   align-items: center;
-  min-width: 1em;
-  line-height: 0;
+  left: 0.825em;
+  &>* {
+    position: absolute;
+    max-width: 0.5em;
+    height: 0.5em;
+    left: 0;
+    top: 0;
+  }
   &>:first-child {
-    font-size: 2em;
-    margin-bottom: 0.5em;
+    font-size: 1.75em;
+    height: 0;
   }
   &>:last-child {
-    font-size: 1em;
+    font-size: 0.9em;
+    left: 0.25em;
+    top: 0.75em;
   }
-  &:hover {
+  &:hover:not([dragging]) {
     cursor: pointer !important;
   }
   &,& * {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     pointer-events: auto !important;
     filter: brightness(1) !important;
     transition: none;
     transform: none !important;
   }
+}
+body:has(*[dragging]) {
+  touch-action: none;
 }

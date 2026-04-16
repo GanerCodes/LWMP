@@ -1,9 +1,8 @@
 © tokenListing = ətokenListing(󱟱󰲡{
   󱫬 devListing.populate(x);
   sceneListing.populate(x);
-  
+   󰤱 add/pull selected token from 𝔏𝔖
   [‹Devices›,‹Scenes›,‹Schedule›]􋁃(󰲡nav􀴗 􀳕ₓ􀲝 􋒗=✗)
-  
   nav.set(‹Devices›); });
 © devListing   = ədevListing();
 © sceneListing = əsceneListing(󰲡☾(‹Scene called ⟦x⟧›));
@@ -16,6 +15,6 @@
 tokenListing.populate(get_toks());
 󰈙.body􍪙(nav);
 
-QS(‹.bigButton›).click();
-setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 300);
-setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 500);
+ QS(‹.bigButton›).click();
+ setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 300);
+ setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 500);

@@ -1,7 +1,10 @@
 © 𝑖2   = 󰲡[x>>16&0xFF,x>>8&0xFF,x>>0&0xFF];
 © 2𝑖   = 󰲡x₀<<16|x₁<<8|x₂;
-©      = 󰲡‹rgb(⟦x>>16&0xFF⟧,⟦x>>8&0xFF⟧,⟦x>>0&0xFF⟧)›;
-© grad = 󰲡‹linear-gradient(180deg in hsl longer hue, hsl(0,100%,50%), hsl(360,100%,50%)) 0 0 / ⟦100/x⟧% 100% repeat-x›;
+© lerp = 󰲥󱑼(x,y)􋅝(󰲣x+z⋅(y-x));
+
+©        = ⥌[r,g,b,a=255]↦‹rgba(⟦r⟧,⟦g⟧,⟦b⟧,⟦a÷2.55⟧%)›;
+© grad   = ⥌c,s,v↦‹linear-gradient(180deg in hsl longer hue,⟦hsv2hsl([0,s,v])⟧,⟦hsv2hsl([255,s,v])⟧) 0 0 / 100% ⟦100÷c⟧% repeat-y›;
+© hsv2hsl = ⥌[h,s,v]↦‹hsl(⟦h÷255⋅360⟧deg,⟦s÷2.55⟧%,⟦v÷255⋅50⟧%)›;
 
 © show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;  󰤱 abstract a bit and add to j☾ or something
 © clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{  󰤱 add to j☾ once I add close feature and think of a better name
@@ -95,6 +98,7 @@
               Ⴝ 􋁃(󰲡Ѧᵘᵖᵈᵃᵗᵉ(x)); }
   ¡ Ѧᵘᵖᵈᵃᵗᵉ();
   􀴗 = Ѧ;
+  ¿(Ѧ􋆷) 􈛓(Ѧ􋆷);
   ¿(Ѧⁱⁿⁱᵗ) Ѧ􊽺(Ѧ􎁎);
   ↪; }
 
@@ -103,7 +107,7 @@
   ¿(¬(␛v∈Ѧ)) Ѧᵛ = Ѧˡ;
   [Ѧˡ,Ѧᵛ,Ѧʰ,Ѧˢ] = [+Ѧˡ,+Ѧᵛ,+Ѧʰ,+Ѧˢ];
   
-  ©  = Ѧ􋑵 = 󱀝 input {type ‹range›⍮ min ⟦Ѧˡ⟧⍮ defaultValue ⟦Ѧᵛ⟧⍮ max ⟦Ѧʰ⟧⍮ step ⟦Ѧˢ⟧} ‹›;
+  ©  = Ѧ􋑵 = 󱀝 input {𝑇 ‹range›⍮ min ⟦Ѧˡ⟧⍮ defaultValue ⟦Ѧᵛ⟧⍮ max ⟦Ѧʰ⟧⍮ step ⟦Ѧˢ⟧} ‹›;
   ᵛᵃˡᵘᵉ = Ѧᵛ;
   Ѧˢᵉᵗ = ⥌v=󱣩↦{ ¿(v≅󱣩) v = +ᵛᵃˡᵘᵉ;
                 ¡      ᵛᵃˡᵘᵉ = v;

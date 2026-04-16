@@ -40,9 +40,7 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
             
             bundle = ⥌F,e,𝚍=SITE_COMPILE↦𝚍􀋋‹bundle.⟦e⟧›ᑀ􀊄􍡩(Fᐖ‹⟦⟞⟧.⟦e⟧›ᐒ‹/* ⟦⟞⟧ */𝗻⟦𝚍􀋋⟞􀯖⟧›ᐸᐸ􀋢𝗻)􀊰⟞
             
-            𝙵_JS  = 􀌌‹header extra custom_elements api general elements calibration modeUtil editor listings index›
-            𝙵_CSS = 􀌌‹custom_elements style›
-            
+            𝙵_JS,𝙵_CSS = __dir__􀋋‹BUNDLE›􀯖􀋦𝗻􀯖􊬋₂􀉳􀂺
             𝚋js,𝚋css = 𝙵_JS􀊱‹js›􀝕𝙵_CSS􀊱‹css› 􀜘 bundle
             𝚋𝚖js,𝚋𝚖css = ‹js css›􀌌ᐖSITE_COMPILE􀋋‹bundle.min.⟦⟞⟧›
             $ᵉᵒnpx lightningcss ⟦𝚋css⟧ -o ⟦𝚋𝚖css⟧ --minify󷹹

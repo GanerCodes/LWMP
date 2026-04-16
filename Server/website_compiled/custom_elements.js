@@ -109,7 +109,7 @@
     (𝚕 = mkə(`button`, {
       [`𝐶`]: `pageNumPrev`
     }, `←`)),
-    ...𝙱 = þ02B65((Math.min)(2 * Ѧ.w + 1, Ѧ.N)).ᴍ((x, ...𝔸) => mkə(`button`, {
+    ...𝙱 = þ02B65(þ02908(2 * Ѧ.w + 1, Ѧ.N)).ᴍ((x, ...𝔸) => mkə(`button`, {
       [`𝐶`]: `pageNumButton`
     }, false)),
     (𝚛 = mkə(`button`, {
@@ -123,9 +123,9 @@
     const [L, R] = [0, Ѧ.N - 1];
     n = þF7E44(n, 0, R);
     if (Ѧ.N <= 1 + 2 * Ѧ.w) return [L, n, R];
-    let [l, r] = [(Math.max)(n - Ѧ.w, L), (Math.min)(n + Ѧ.w, R)];
-    if (l < L + Ѧ.w) return [l, n, (Math.min)(l + 2 * Ѧ.w, R)];
-    if (r > R - Ѧ.w) return [(Math.max)(r - 2 * Ѧ.w, L), n, r];
+    let [l, r] = [þ02909(n - Ѧ.w, L), þ02908(n + Ѧ.w, R)];
+    if (l < L + Ѧ.w) return [l, n, þ02908(l + 2 * Ѧ.w, R)];
+    if (r > R - Ѧ.w) return [þ02909(r - 2 * Ѧ.w, L), n, r];
     return [l, n, r];
   };
   Ѧ.setN = (n = Ѧ.n, i = undefined, activate = true) => {
@@ -150,47 +150,109 @@
   return ə;
 };
 
-let [𝘥, 𝘵] = [null, null];
-const αoverβ = (α, β, s) => {
-  if (α === β || !(α && β)) return;
-  const [v, A] = [α.attributes.dragItem.value, β.attributes];
-  if (!(v == A.dragItem?.value || v == A.dragHold?.value)) return;
-  if (s) {
-    SAT(β, `maydrop`, "");
-    if (𝘵 && 𝘵 !== β) RAT(𝘵, `maydrop`, "");
-    𝘵 = β;
-  } else RAT(β, `maydrop`, "");
+const 𝐍 = (𝜺) => {
+  let 𝐞;
+  if (𝜺.touches) {
+    const t = 𝜺.touches[0] || 𝜺.changedTouches[0];
+    𝐞 = {
+      x: t.clientX,
+      y: t.clientY
+    };
+  } else 𝐞 = {
+    x: 𝜺.clientX,
+    y: 𝜺.clientY
+  };
+  𝐞.þ0E27F = EFP(𝐞.x, 𝐞.y) || undefined;
+  𝐞.PD = () => 𝜺.preventDefault();
+  𝐞.𝜺 = 𝜺;
+  return 𝐞;
 };
-const confDrag = (þ0E27F, 𝚒) => {
-  AEL(þ0E27F, `dragenter`, (𝜺) => αoverβ(𝘥, 𝜺.target, true));
-  AEL(þ0E27F, `dragleave`, (𝜺) => αoverβ(𝘥, 𝜺.target, false));
-  AEL(þ0E27F, `dragover`, (𝜺) => 𝜺.preventDefault());
+
+Ϣ.makeDraggable = (þ0E27F) => {
+  let 𝚂, 𝚍, 𝚙, þF0A02;
+
+  const exit = () => {
+
+    𝚂 = 𝚍 = 𝚙 = þF0A02 = undefined;
+  };
+  const 𝔖 = (𝜺) => {
+    𝜺 = 𝐍(𝜺);
+
+    þ0E27F.setPointerCapture(𝚙 = 𝜺.𝜺.pointerId);
+    𝚂 = [𝜺.x, 𝜺.y];
+  }
+  const 𝔈 = (𝜺, ok) => {
+    𝜺 = 𝐍(𝜺);
+
+    if (!𝚂) return;
+    if (!𝚍) return þ0E27F.click();
+    if (ok && þF0A02?.þ0E27F) þ0E27F.dropped?.(þF0A02);
+    þ0E27F.dragend?.(þF0A02);
+    exit();
+  }
+  const 𝔐 = (𝜺) => {
+    𝜺 = 𝐍(𝜺);
+
+    if (!𝚂) return;
+    if (!𝚍) {
+      if ((𝜺.x - 𝚂[0]) ** 2 + (𝜺.y - 𝚂[1]) ** 2 <= 25) return;
+      𝚍 = true;
+      þ0E27F.dragstart?.(𝜺);
+    }
+    þ0E27F.drag?.(𝜺);
+    if (þF0A02?.þ0E27F === 𝜺?.þ0E27F) return;
+    if (þF0A02?.þ0E27F) þ0E27F.dragleave?.({
+      ...𝜺,
+      þ0E27F: þF0A02.þ0E27F
+    });
+    if (𝜺?.þ0E27F) þ0E27F.dragenter?.(𝜺);
+    þF0A02 = 𝜺;
+  }
+  AEL(þ0E27F, `pointerdown`, (x, ...𝔸) => 𝔖(x));
+  AEL(þ0E27F, `pointerup`, (x, ...𝔸) => 𝔈(x, true));
+  AEL(þ0E27F, `pointercancel`, (x, ...𝔸) => 𝔈(x, false));
+  AEL(þ0E27F, `pointermove`, (x, ...𝔸) => 𝔐(x));
+  AEL(þ0E27F, `touchstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
+  AEL(þ0E27F, `dragstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
   return þ0E27F;
 };
+
+let 𝘵 = null;
+const αoverβ = (α, β, s) => {
+  if (α === β || !(α && β)) return;
+  const v = α.þF1021(`dragItem`);
+  if (!(v == β.þF1021(`dragItem`) || v == β.þF1021(`dragHold`))) return;
+  if (s) {
+    𝘵?.þF15DF(`maydrop`);
+    β.þF09E5(`maydrop`);
+    𝘵 = β;
+  } else β.þF15DF(`maydrop`);
+};
+
 Ϣ.dragItem = (þ0E27F, 𝚒 = 0, ƒ = swapə) => {
   𝚒 = "" + 𝚒;
-  SAT(þ0E27F, `dragItem`, 𝚒);
-  SAT(þ0E27F, `draggable`, `true`);
-  AEL(þ0E27F, `dragstart`, (𝜺) => {
-    SAT(þ0E27F, `dragging`, "");
-    𝘥 = þ0E27F;
-  });
-  AEL(þ0E27F, `dragend`, (𝜺) => {
-    RAT(þ0E27F, `dragging`);
-    αoverβ(𝘥, 𝘵, false);
-    𝘥 = null;
-  });
-  AEL(þ0E27F, `drop`, (𝜺) => {
-    𝜺.preventDefault();
-    if (þ0E27F !== 𝘵) return;
-    if (𝘥 === 𝘵) return;
-    ƒ(𝘥, 𝘵);
-  });
-  return confDrag(þ0E27F, 𝚒);
+  þ0E27F.þF09E5(`dragItem`, 𝚒);
+  þ0E27F.þF09E5(`canDrag`, `true`);
+  makeDraggable(þ0E27F);
+  þ0E27F.dragstart = (𝜺) => {
+    þ0E27F.þF09E5(`dragging`);
+  };
+  þ0E27F.dragend = (𝜺) => {
+    þ0E27F.þF15DF(`dragging`);
+  };
+  þ0E27F.dragenter = (𝜺) => αoverβ(þ0E27F, 𝜺.þ0E27F, true);
+  þ0E27F.dragleave = (𝜺) => αoverβ(þ0E27F, 𝜺.þ0E27F, false);
+  þ0E27F.dropped = (𝜺) => {
+    if (þ0E27F === 𝜺.þ0E27F || !𝜺.þ0E27F) return;
+    if (𝜺.þ0E27F.þF1021(`dragItem`) == 𝚒) ƒ(þ0E27F, 𝜺.þ0E27F);
+    if (𝜺.þ0E27F.þF1021(`dragHold`) == 𝚒) 𝜺.þ0E27F.dropInto(þ0E27F);
+    𝜺.þ0E27F.þF15DF(`maydrop`);
+  };
+  return þ0E27F;
 };
 Ϣ.dragHold = (þ0E27F, 𝚒 = 0, ƒ = (x, y, ...𝔸) => x.append(y)) => {
   𝚒 = "" + 𝚒;
-  SAT(þ0E27F, `dragHold`, 𝚒);
-  AEL(þ0E27F, `drop`, (...𝔸) => þ0E27F === 𝘵 && ƒ(þ0E27F, 𝘥));
-  return confDrag(þ0E27F, 𝚒);
+  þ0E27F.þF09E5(`dragHold`, 𝚒);
+  þ0E27F.dropInto = (𝓮) => ƒ(þ0E27F, 𝓮);
+  return þ0E27F;
 };
