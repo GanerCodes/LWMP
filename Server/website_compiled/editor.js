@@ -33,6 +33,7 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
     𝘖: {},
     setPreview: (...𝔸) => 𝘌setPreview(Ѧ, ...𝔸),
     setInspector: (...𝔸) => 𝘌setInspector(Ѧ, ...𝔸),
+    setModeView: (...𝔸) => 𝘌makeModeViewer(Ѧ, ...𝔸),
     render: (...𝔸) => (Ѧ.setPreview(...𝔸), Ѧ.setInspector())
   };
 
@@ -114,20 +115,7 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
     [`𝐶`]: `𝘌inspector`
   }, [(mkə(false, {
     [`󰊄`]: ``
-  }, [((Ѧ.𝘈þ0E27F = mkə(ənavBar, {
-    [`Ⴝ`]: `G`,
-    [`𝐶`]: `𝘌modebar`,
-    [`init`]: false,
-    [`ƒ`]: (x, ...𝔸) => Ѧ.setModeView?.(x)
-  }, [(mkə(false, {
-    [`󰊄`]: `G`
   }, [(mkə(false, {}, false))])), (mkə(false, {
-    [`󰊄`]: ``
-  }, [(mkə(false, {}, false))])), (mkə(false, {
-    [`󰊄`]: `󷸾`
-  }, [(mkə(false, {}, false))])), (mkə(false, {
-    [`󰊄`]: ``
-  }, [(mkə(false, {}, false))]))])))])), (mkə(false, {
     [`󰊄`]: ``
   }, [(mkə(false, {}, false))])), (mkə(false, {
     [`󰊄`]: `⯈`

@@ -20,7 +20,6 @@
            show(0); };
   𝐮();
 
-  makeDraggable();
   .dragstart = ⥌𝜺↦{ y0 = 𝜺ʸ;
                      􈛘(‹dragging›); 𝐮(); };
   .dragend   = ⥌𝜺↦{ A₀ = n;
@@ -79,10 +78,9 @@
   ¿(¬dat) dat = Ѧ􈛈;
   ¿(¬Ѧ􈛈􍻞 􋌵 ∨ dat ∧ Ѧ􈛈􍻞 􋕛(󷰾)≇dat)
     Ѧ􈛈􍻞.push(Ѧ􈛈 = dat);
-  © stot = 󰠲Utilˡᵉⁿ(Ѧ􈛈);
   Ѧᵗᵒᵖ = Ѧ􈛈􍻞 􋌵≡1;
-  
-  © tots = 1∈Ѧ􈛈⭜[stot]⭝Ѧ􈛈􊯛􊾡(󰠲Utilˡᵉⁿ);
+  © tots = (1∈Ѧ􈛈⭜[Ѧ􈛈]⭝Ѧ􈛈􊯛)􊾡(󰠲Utilˡᵉⁿ);
+  © stot = tots􋔩(󰲣x+y,0);
    © oh = 0.9⋅Ϣ.outerHeight;
    © avg = 󰲟𝔸􎘌(∞)􋔩(󰲧x+y÷w􋌵,0);
    © fac = (Ϣ.outerHeight ÷ Ϣ.outerWidth)÷2
@@ -90,7 +88,12 @@
    Ѧ󰁢 = 0.1⋅Ϣ.innerHeight÷⤈(tots);
    ¿(Ѧᵗᵒᵖ) Ѧ󰁢 = ⤈(Ѧ󰁢,250÷Ѧᴸ 􋔩(󰲣x+y,0));
    ¿(Ѧᵗᵒᵖ) Ѧ󰁢 = ⤉(Ѧ󰁢,oh÷avg(Ѧᴸ)÷4);
-  Ѧ󰁢 = 300÷(stot);
+  
+  © 󰰀 = 0.8 ⋅ Ϣ.outerHeight
+  Ѧ󰁢 = ⤉(0.8⋅󰰀÷(⤉(stot,Ѧᵗᵒᵖ⭜Ѧᴸ 􋔩(󰲣x+y,0)⭝0)),
+         0.1⋅󰰀÷⤈(tots));
+  
+  
   
   Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(
               ⠤Ѧᵗᵒᵖ ⭜ ↨(󱑼(Ѧᴺ,Ѧᴸ))􋅝(⥌i,[𝐧,n]↦ətriLabel(n⋅Ѧ󰁢, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))

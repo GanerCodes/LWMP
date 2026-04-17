@@ -124,12 +124,13 @@
    if (!dat) dat = Ѧ.þF0832;
    if (!Ѧ.þF0832𝘏.length || dat && Ѧ.þF0832𝘏.at(-1) !== dat)
      Ѧ.þF0832𝘏.push(Ѧ.þF0832 = dat);
-   const stot = þF0832Util.len(Ѧ.þF0832);
    Ѧ.top = Ѧ.þF0832𝘏.length == 1;
+   const tots = (1 in Ѧ.þF0832 ? [Ѧ.þF0832] : Ѧ.þF0832[`*`]).ᴍ(þF0832Util.len);
+   const stot = tots.ſ((x, y, ...𝔸) => x + y, 0);
 
-   const tots = 1 in Ѧ.þF0832 ? [stot] : Ѧ.þF0832[`*`].ᴍ(þF0832Util.len);
-
-   Ѧ.χ = 300 / (stot);
+   const þF0C00 = 0.8 * Ϣ.outerHeight
+   Ѧ.χ = þ02909(0.8 * þF0C00 / (þ02909(stot, Ѧ.top ? Ѧ.L.ſ((x, y, ...𝔸) => x + y, 0) : 0)),
+     0.1 * þF0C00 / þ02908(tots));
 
    Ѧ.labelsþ0E27F.replaceChildren(
      ...Ѧ.top ? þ021A8(þF147C(Ѧ.N, Ѧ.L)).ꟿ((i, [𝐧, n]) => ətriLabel(n * Ѧ.χ, mkə(`T`, false, `${𝐧}`), mkə(`T`, false, `${n} Pxl`))) :
