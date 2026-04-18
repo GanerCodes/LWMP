@@ -14,7 +14,7 @@
 
  const əresizer = (Ѧ, sþ0E27F) => {
    const A = þF0832Util.ends(1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][sþ0E27F.idx])[1];
-   const 𝘈þ0E27F = print(sþ0E27F.þF7E04(`.𝘌atom`)).at(-1);
+   const 𝘈þ0E27F = sþ0E27F.þF7E04(`.𝘌atom`).at(-1);
 
    let lþ0E27F, n0, n, y0;
    const þ0E27F = mkə(false, [
@@ -128,8 +128,8 @@
    const stot = tots.ſ((x, y, ...𝔸) => x + y, 0);
 
    const 𝚣 = þ0E749𝚟.zoom;
-   print(`Height: ${innerHeight} ${outerHeight} ${𝚣}`);
-   const þF0C00 = 0.8 * innerHeight / 𝚣;
+
+   const þF0C00 = 0.85 * innerHeight / 𝚣;
    Ѧ.χ = þ02909(0.5 * þF0C00 / (þ02909(stot, Ѧ.top ? Ѧ.L.ſ((x, y, ...𝔸) => x + y, 0) : 0)),
      0.1 * þF0C00 / þ02908(tots));
 

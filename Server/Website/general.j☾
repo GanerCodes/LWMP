@@ -33,9 +33,8 @@ add_check_tok = ⥌𝐭↦{
   ¿(¬(𝐭∈𝘋𝘉)) { 𝘋𝘉􊳬={ scenes:{}, devs:{} };
                updateDB(); }
   ↪𝘋𝘉􊳬; }
-del_tok = ⥌𝐭↦{ ☾(‹Deleting token "⟦𝐭⟧"›);
-                  󰆴 𝘋𝘉􊳬;
-                  updateDB(); }
+del_tok = ⥌𝐭↦{ 󰆴 𝘋𝘉􊳬;
+               updateDB(); }
 get_toks     = 󰲟𝒪k(𝘋𝘉)
 get_devs     = ⥌𝐭↦add_check_tok(𝐭).devs
 get_scenes   = ⥌𝐭↦add_check_tok(𝐭).scenes

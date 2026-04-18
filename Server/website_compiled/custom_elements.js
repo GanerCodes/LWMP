@@ -205,12 +205,12 @@
       if (𝜺?.þ0E27F) þ0E27F.dragenter?.(𝜺);
       þF0A02 = 𝜺;
     }
-    AEL(þ0E27F, `pointerdown`, (x, ...𝔸) => 𝔖(x));
-    AEL(þ0E27F, `pointerup`, (x, ...𝔸) => 𝔈(x, true));
-    AEL(þ0E27F, `pointercancel`, (x, ...𝔸) => 𝔈(x, false));
-    AEL(þ0E27F, `pointermove`, (x, ...𝔸) => 𝔐(x));
-    AEL(þ0E27F, `touchstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
-    AEL(þ0E27F, `dragstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
+    AEL(þ0E27F, `pointerdown`, (x, ...𝔸) => þ0E27F.disableDrag || (𝔖(x)));
+    AEL(þ0E27F, `pointerup`, (x, ...𝔸) => þ0E27F.disableDrag || (𝔈(x, true)));
+    AEL(þ0E27F, `pointercancel`, (x, ...𝔸) => þ0E27F.disableDrag || (𝔈(x, false)));
+    AEL(þ0E27F, `pointermove`, (x, ...𝔸) => þ0E27F.disableDrag || (𝔐(x)));
+    AEL(þ0E27F, `touchstart`, (x, ...𝔸) => þ0E27F.disableDrag || (x.cancelable && x.preventDefault()));
+    AEL(þ0E27F, `dragstart`, (x, ...𝔸) => þ0E27F.disableDrag || (x.cancelable && x.preventDefault()));
     return þ0E27F;
   };
 

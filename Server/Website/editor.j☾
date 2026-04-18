@@ -24,26 +24,30 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
               󰠲Utilᵃᵈᵈ(Ѧ􈛈,{1:[avgN,0,0x7F7F7F]});
               Ѧʳᵉⁿᵈᵉʳ();
               ↪Ѧᵖⁱˣᵉˡˢ􋑵 􈞣(‹.𝘌modes›)􋕛(󷰾).scrollIntoView(); }
+    
+    Ѧ􋑵 􈛘(‹𝘌toolmode›);
     © css = 𝗍≡␛ ⭜CSS_valid_ungroup⭝ ‹.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]›;
-     maybe scroll first valid into view if it's not?
+    
+     󰤱􊽨 maybe scroll first valid into view if it's not?
     ¿(𝗍≡␛)  󰤱 better interface, why is this a multiselect? also you can select all of it bruhhh
       clickDetect(css,⥌𝚂↦{
+        ☾(𝚂);
         Ѧ􋑵 􈛑(‹𝘌toolmode›);
         ¿(¬𝚂) ↪;
         © 𝙸 = 𝚂􊾡(󰲡xⁱᵈˣ);
         © r = [⤈(⠤𝙸),⤉(⠤𝙸)];
         r₁++;
-        ¿(r₁≡Ѧ􈛈􊯛􋌵) ↪;
-        Ѧ􈛈􊯛.splice(r₀,r₁-r₀,{"*":Ѧ􈛈􊯛􊽧(r₀,r₁)});
+        ¿(r₁-r₀≡Ѧ􈛈􊯛􋌵) ↪;
+        ☾(Ѧ􈛈􊯛,r₀,r₁,Ѧ􈛈􊯛􊽧(r₀,r₁));
+        Ѧ􈛈􊯛.splice(r₀,r₁-r₀,{␛*:Ѧ􈛈􊯛􊽧(r₀,r₁)});
         Ѧʳᵉⁿᵈᵉʳ();
       },Ѧ􋑵,{␛*:✓});
-    ¡ clickDetect(css, ⥌s↦{ ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›);
-                             ¿(𝗍≡␛ ∨ ␛󰆴≡𝗍) {
-                               ¿(𝗍≡␛) 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
-                               ⸘(𝗍≡␛󰆴) 󰠲Utilᵈᵉˡ  (Ѧ􈛈,sⁱᵈˣ);
-                               Ѧʳᵉⁿᵈᵉʳ();
-                               ↪Ѧ􋑵 􈛑(‹𝘌toolmode›); } }, Ѧ􋑵);
-    Ѧ􋑵 􈛘(‹𝘌toolmode›); };
+    ¡ clickDetect(css, ⥌s↦{
+        ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›);
+        ¿(𝗍≡␛) 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
+        ⸘(𝗍≡␛󰆴) 󰠲Utilᵈᵉˡ  (Ѧ􈛈,sⁱᵈˣ);
+        Ѧʳᵉⁿᵈᵉʳ();
+        ↪Ѧ􋑵 􈛑(‹𝘌toolmode›); }, Ѧ􋑵); };
   
   󱀝:⟦Ѧ􋑵⟧ ⟦popup⟧ {󰅙 ⟦✓⟧⍮ noAppend ✓} [
     󱀝{𝐶 𝘌outer} [

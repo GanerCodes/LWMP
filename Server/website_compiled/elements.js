@@ -16,28 +16,34 @@
 
    const Bþ0E27F = [mkə(`button`, [
      [`𝐶`, `detectorMeta detectorCancel`],
-     [`detector`, `true`]
+     [`detector`, true]
    ], `←`)];
    if (Ѧ["*"]) Bþ0E27F.push(mkə(`button`, [
      [`𝐶`, `detectorMeta detectorSubmit`],
-     [`detector`, `true`]
+     [`detector`, true]
    ], `✓`));
 
    base.append(...Bþ0E27F);
-   const 𝚂þ0E27F = [...base.querySelectorAll(𝚚)];
+   const 𝚂þ0E27F = base.þF7E02(𝚚);
+   const restoreDrags = ((x, ...𝔸) => () => x.forEach((x, ...𝔸) => x.disableDrag = false))
+     (𝚂þ0E27F.þF0232((x, ...𝔸) => {
+       const v = x.disableDrag;
+       x.disableDrag = true;
+       return !v && x;
+     }));
    const tog = () => 𝚂þ0E27F.ᴍþF01A9((x, ...𝔸) => {
-     const r = HAT(x, `multidetect`);
+     const r = x.þF0817(`multidetect`);
      x.þF017A(`detector`);
      x.þF15DF(`multidetect`);
      return r ? [x] : [];
    });
    tog();
    const rem = AEL(þF0219, `click`, (ε) => {
-     const cease = (...𝔸) => (Bþ0E27F.ᴍ((x, ...𝔸) => x.remove()), rem(), ƒ(...𝔸));
+     const cease = (...𝔸) => (restoreDrags(), Bþ0E27F.ᴍ((x, ...𝔸) => x.remove()), rem(), ƒ(...𝔸));
      ε.stopPropagation();
      ε.preventDefault();
      if (ε.target.closest(`.detectorSubmit`)) return cease(tog());
-     if (ε.target.closest(`.detectorCancel`)) return tog(), cease();
+     if (ε.target.closest(`.detectorCancel`)) return (tog(), cease());
      const þ0E27F = ε.target.closest(𝚚);
      if (!þ0E27F) return;
      if (Ѧ["*"]) return þ0E27F.þF017A(`multidetect`);

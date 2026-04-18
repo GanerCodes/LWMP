@@ -10,17 +10,19 @@
 © clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{  󰤱 add to j☾ once I add close feature and think of a better name
   Ѧ = {"*":✗, ⠤Ѧ};
   
-  © B = [󱀝 button {𝐶 detectorMeta detectorCancel⍮ detector true} ‹←›];
-  ¿(Ѧ􊯛) B.push(󱀝 button {𝐶 detectorMeta detectorSubmit⍮ detector true} ‹✓›);
+  © B = [󱀝 button {𝐶 detectorMeta detectorCancel⍮ detector ⟦✓⟧} ‹←›];
+  ¿(Ѧ􊯛) B.push(󱀝 button {𝐶 detectorMeta detectorSubmit⍮ detector ⟦✓⟧} ‹✓›);
   
   base􍪙(⠤B);
-  © 𝚂 = [⠤base􈛕(𝚚)];
-  © tog = 𝚲𝚂􊾡􎘌(󰲡{ © r = HAT(x,‹multidetect›);
+  © 𝚂 = base􈞣(𝚚);
+  © restoreDrags = (󰲡𝚲x􋁃(󰲡xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ=✗))
+                   (𝚂􋐉(󰲡{© v=xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ; xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ=✓; ↪¬v∧x; }));
+  © tog = 𝚲𝚂􊾡􎘌(󰲡{ © r = x􈞧(‹multidetect›);
                    x􈛣(‹detector›); x􈛑(‹multidetect›);
                    ↪r⭜[x]⭝[]; });
   tog();
   © rem = AEL(󰈙,‹click›,⥌ε↦{
-    © cease = 󰲟(B􊾡(󰲡x.remove()),rem(),ƒ(⠤𝔸));
+    © cease = 󰲟(restoreDrags(),B􊾡(󰲡x.remove()),rem(),ƒ(⠤𝔸));
     ε.stopPropagation(); ε.preventDefault();
     ¿(ε.target.closest(‹.detectorSubmit›)) ↪cease(tog());
     ¿(ε.target.closest(‹.detectorCancel›)) ↪tog(),cease();

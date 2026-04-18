@@ -143,8 +143,8 @@ REL = (þ0E27F, ...𝔸) => þ0E27F.removeEventListener(...𝔸);
   (p, þ0E27F = þF0219þ0E27F) => getComputedStyle(þ0E27F).getPropertyValue(`--${p}`),
   (p, v = "", þ0E27F = þF0219þ0E27F) => þF0219þ0E27F.style.setProperty(`--${p}`, v))
 
-isStr = (x, ...𝔸) => typeof x === "string";
-isNum = (x, ...𝔸) => typeof x === "number";
+isStr = (x, ...𝔸) => typeof x === `string`;
+isNum = (x, ...𝔸) => typeof x === `number`;
 isArr = (x, ...𝔸) => x instanceof Array;
 isElm = (x, ...𝔸) => x instanceof Element || x instanceof HTMLDocument;
 [isArray, isElement] = [isArr, isElm];
@@ -435,12 +435,12 @@ function measureText(pText, pFontSize, pStyle) {
       if (𝜺?.þ0E27F) þ0E27F.dragenter?.(𝜺);
       þF0A02 = 𝜺;
     }
-    AEL(þ0E27F, `pointerdown`, (x, ...𝔸) => 𝔖(x));
-    AEL(þ0E27F, `pointerup`, (x, ...𝔸) => 𝔈(x, true));
-    AEL(þ0E27F, `pointercancel`, (x, ...𝔸) => 𝔈(x, false));
-    AEL(þ0E27F, `pointermove`, (x, ...𝔸) => 𝔐(x));
-    AEL(þ0E27F, `touchstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
-    AEL(þ0E27F, `dragstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
+    AEL(þ0E27F, `pointerdown`, (x, ...𝔸) => þ0E27F.disableDrag || (𝔖(x)));
+    AEL(þ0E27F, `pointerup`, (x, ...𝔸) => þ0E27F.disableDrag || (𝔈(x, true)));
+    AEL(þ0E27F, `pointercancel`, (x, ...𝔸) => þ0E27F.disableDrag || (𝔈(x, false)));
+    AEL(þ0E27F, `pointermove`, (x, ...𝔸) => þ0E27F.disableDrag || (𝔐(x)));
+    AEL(þ0E27F, `touchstart`, (x, ...𝔸) => þ0E27F.disableDrag || (x.cancelable && x.preventDefault()));
+    AEL(þ0E27F, `dragstart`, (x, ...𝔸) => þ0E27F.disableDrag || (x.cancelable && x.preventDefault()));
     return þ0E27F;
   };
 
@@ -606,7 +606,6 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
    return 𝘋𝘉[𝐭];
  }
  del_tok = (𝐭) => {
-   print(`Deleting token "${𝐭}"`);
    delete 𝘋𝘉[𝐭];
    updateDB();
  }
@@ -679,28 +678,34 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
 
    const Bþ0E27F = [mkə(`button`, [
      [`𝐶`, `detectorMeta detectorCancel`],
-     [`detector`, `true`]
+     [`detector`, true]
    ], `←`)];
    if (Ѧ["*"]) Bþ0E27F.push(mkə(`button`, [
      [`𝐶`, `detectorMeta detectorSubmit`],
-     [`detector`, `true`]
+     [`detector`, true]
    ], `✓`));
 
    base.append(...Bþ0E27F);
-   const 𝚂þ0E27F = [...base.querySelectorAll(𝚚)];
+   const 𝚂þ0E27F = base.þF7E02(𝚚);
+   const restoreDrags = ((x, ...𝔸) => () => x.forEach((x, ...𝔸) => x.disableDrag = false))
+     (𝚂þ0E27F.þF0232((x, ...𝔸) => {
+       const v = x.disableDrag;
+       x.disableDrag = true;
+       return !v && x;
+     }));
    const tog = () => 𝚂þ0E27F.ᴍþF01A9((x, ...𝔸) => {
-     const r = HAT(x, `multidetect`);
+     const r = x.þF0817(`multidetect`);
      x.þF017A(`detector`);
      x.þF15DF(`multidetect`);
      return r ? [x] : [];
    });
    tog();
    const rem = AEL(þF0219, `click`, (ε) => {
-     const cease = (...𝔸) => (Bþ0E27F.ᴍ((x, ...𝔸) => x.remove()), rem(), ƒ(...𝔸));
+     const cease = (...𝔸) => (restoreDrags(), Bþ0E27F.ᴍ((x, ...𝔸) => x.remove()), rem(), ƒ(...𝔸));
      ε.stopPropagation();
      ε.preventDefault();
      if (ε.target.closest(`.detectorSubmit`)) return cease(tog());
-     if (ε.target.closest(`.detectorCancel`)) return tog(), cease();
+     if (ε.target.closest(`.detectorCancel`)) return (tog(), cease());
      const þ0E27F = ε.target.closest(𝚚);
      if (!þ0E27F) return;
      if (Ѧ["*"]) return þ0E27F.þF017A(`multidetect`);
@@ -1142,7 +1147,7 @@ prompt_led_calibrate = async (𝐝, cb) => {
 
  const əresizer = (Ѧ, sþ0E27F) => {
    const A = þF0832Util.ends(1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][sþ0E27F.idx])[1];
-   const 𝘈þ0E27F = print(sþ0E27F.þF7E04(`.𝘌atom`)).at(-1);
+   const 𝘈þ0E27F = sþ0E27F.þF7E04(`.𝘌atom`).at(-1);
 
    let lþ0E27F, n0, n, y0;
    const þ0E27F = mkə(false, [
@@ -1256,8 +1261,8 @@ prompt_led_calibrate = async (𝐝, cb) => {
    const stot = tots.ſ((x, y, ...𝔸) => x + y, 0);
 
    const 𝚣 = þ0E749𝚟.zoom;
-   print(`Height: ${innerHeight} ${outerHeight} ${𝚣}`);
-   const þF0C00 = 0.8 * innerHeight / 𝚣;
+
+   const þF0C00 = 0.85 * innerHeight / 𝚣;
    Ѧ.χ = þ02909(0.5 * þF0C00 / (þ02909(stot, Ѧ.top ? Ѧ.L.ſ((x, y, ...𝔸) => x + y, 0) : 0)),
      0.1 * þF0C00 / þ02908(tots));
 
@@ -1555,16 +1560,20 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
       Ѧ.render();
       return Ѧ.pixelsþ0E27F.þF7E02(`.𝘌modes`).at(-1).scrollIntoView();
     }
+
+    Ѧ.þ0E27F.þF09E5(`𝘌toolmode`);
     const css = 𝗍 == "" ? CSS_valid_ungroup : `.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]`;
 
     if (𝗍 == "")
       clickDetect(css, (𝚂þ0E27F) => {
+        print(𝚂þ0E27F);
         Ѧ.þ0E27F.þF15DF(`𝘌toolmode`);
         if (!𝚂þ0E27F) return;
         const 𝙸 = 𝚂þ0E27F.ᴍ((x, ...𝔸) => x.idx);
         const r = [þ02908(...𝙸), þ02909(...𝙸)];
         r[1]++;
-        if (r[1] == Ѧ.þF0832["*"].length) return;
+        if (r[1] - r[0] == Ѧ.þF0832["*"].length) return;
+        print(Ѧ.þF0832["*"], r[0], r[1], Ѧ.þF0832["*"].slice(r[0], r[1]));
         Ѧ.þF0832["*"].splice(r[0], r[1] - r[0], {
           "*": Ѧ.þF0832["*"].slice(r[0], r[1])
         });
@@ -1574,14 +1583,11 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
       });
     else clickDetect(css, (sþ0E27F) => {
       if (!sþ0E27F) return Ѧ.þ0E27F.þF15DF(`𝘌toolmode`);
-      if (𝗍 == "" || "󰆴" == 𝗍) {
-        if (𝗍 == "") þF0832Util.ungrp(Ѧ.þF0832, sþ0E27F.idx);
-        else if (𝗍 == "󰆴") þF0832Util.del(Ѧ.þF0832, sþ0E27F.idx);
-        Ѧ.render();
-        return Ѧ.þ0E27F.þF15DF(`𝘌toolmode`);
-      }
+      if (𝗍 == "") þF0832Util.ungrp(Ѧ.þF0832, sþ0E27F.idx);
+      else if (𝗍 == "󰆴") þF0832Util.del(Ѧ.þF0832, sþ0E27F.idx);
+      Ѧ.render();
+      return Ѧ.þ0E27F.þF15DF(`𝘌toolmode`);
     }, Ѧ.þ0E27F);
-    Ѧ.þ0E27F.þF09E5(`𝘌toolmode`);
   };
 
   (Ѧ.þ0E27F = mkə(popup, [

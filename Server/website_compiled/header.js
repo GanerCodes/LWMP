@@ -142,8 +142,8 @@ REL = (þ0E27F, ...𝔸) => þ0E27F.removeEventListener(...𝔸);
   (p, þ0E27F = þF0219þ0E27F) => getComputedStyle(þ0E27F).getPropertyValue(`--${p}`),
   (p, v = "", þ0E27F = þF0219þ0E27F) => þF0219þ0E27F.style.setProperty(`--${p}`, v))
 
-isStr = (x, ...𝔸) => typeof x === "string";
-isNum = (x, ...𝔸) => typeof x === "number";
+isStr = (x, ...𝔸) => typeof x === `string`;
+isNum = (x, ...𝔸) => typeof x === `number`;
 isArr = (x, ...𝔸) => x instanceof Array;
 isElm = (x, ...𝔸) => x instanceof Element || x instanceof HTMLDocument;
 [isArray, isElement] = [isArr, isElm];

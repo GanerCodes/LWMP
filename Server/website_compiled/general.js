@@ -61,7 +61,6 @@
    return 𝘋𝘉[𝐭];
  }
  del_tok = (𝐭) => {
-   print(`Deleting token "${𝐭}"`);
    delete 𝘋𝘉[𝐭];
    updateDB();
  }
