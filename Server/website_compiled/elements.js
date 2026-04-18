@@ -43,7 +43,7 @@
      ε.stopPropagation();
      ε.preventDefault();
      if (ε.target.closest(`.detectorSubmit`)) return cease(tog());
-     if (ε.target.closest(`.detectorCancel`)) return (tog(), cease());
+     if (ε.target.closest(`.detectorCancel`)) return tog(), cease();
      const þ0E27F = ε.target.closest(𝚚);
      if (!þ0E27F) return;
      if (Ѧ["*"]) return þ0E27F.þF017A(`multidetect`);

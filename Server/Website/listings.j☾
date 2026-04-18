@@ -61,7 +61,7 @@
     Ѧ   􋆕 􊾡(󰲡devsR􍪙(ədevItem(x)));
     © get = 󰲟({⠤Ѧ,name: name􀲫.value,
                   𝐔   : QSA(‹T›,devsR)􊾡(󰲡x􋒷)});
-    ©  = popup({:✓,󰅙:✓},
+    ©  = popup({␛:✓,␛󰅙:✓},
                 ətitledBox(
                   ‹Scene details›,
                   󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
@@ -77,10 +77,12 @@
           ⥌𝐬,rem↦{ © update = ⥌𝚗↦{ rem(𝐬);
                                    add_scene(𝔖􋆮,𝚗,✓);
                                    ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); };
+                   © clone = 󰲟ᵃᵈᵈ􋕟ⁱᵗᵉᵐ({⠤structuredClone(𝐬),name:‹⟦𝐬ⁿᵃᵐᵉ⟧ - Copy›});
                    ↪[ətileButton(𝐬ⁿᵃᵐᵉ,cb),
                      əbuttonBar(
                        [␛󰆴,rem],
                        [␛,󰲟prompt_editor(update,𝔖,𝐬)],
+                       [␛󰆏,clone                     ],
                        [␛,󰲟prompt_scene (update,  𝐬)])]; },
           ⥌𝐬    ↦move_scene(𝔖􋆮,𝐬ⁿᵃᵐᵉ));
   ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐭↦{ [𝔖􋆮,𝔖􋆄] = [𝐭,get_devs(𝐭)];

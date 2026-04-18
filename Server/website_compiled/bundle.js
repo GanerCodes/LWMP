@@ -705,7 +705,7 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
      ε.stopPropagation();
      ε.preventDefault();
      if (ε.target.closest(`.detectorSubmit`)) return cease(tog());
-     if (ε.target.closest(`.detectorCancel`)) return (tog(), cease());
+     if (ε.target.closest(`.detectorCancel`)) return tog(), cease();
      const þ0E27F = ε.target.closest(𝚚);
      if (!þ0E27F) return;
      if (Ѧ["*"]) return þ0E27F.þF017A(`multidetect`);
@@ -1757,8 +1757,8 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
        𝐔: QSA(`T`, þ0E27FdevsR).ᴍ((x, ...𝔸) => x.innerText)
      });
      const þ0E27F = popup({
-         þ0F2D4: true,
-         þF0159: true
+         "": true,
+         "󰅙": true
        },
        ətitledBox(
          `Scene details`,
@@ -1789,10 +1789,15 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
          add_scene(𝔖.𝐭, 𝚗, true);
          þ0E27F.add_item(𝚗);
        };
+       const clone = (...𝔸) => þ0E27F.add_item({
+         ...structuredClone(𝐬),
+         name: `${𝐬 . name} - Copy`
+       });
        return [ətileButton(𝐬.name, cb),
          əbuttonBar(
            ["󰆴", rem],
            ["", (...𝔸) => prompt_editor(update, 𝔖, 𝐬)],
+           ["󰆏", clone],
            ["", (...𝔸) => prompt_scene(update, 𝐬)])
        ];
      },
