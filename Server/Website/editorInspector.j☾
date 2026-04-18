@@ -1,4 +1,4 @@
-© 𝘌s2𝚖 = {"G":󷰾,"":0,"":1,"󷸾":2};
+© 𝘌s2𝚖 = {␛G:󷰾,␛:0,␛:1,␛󷸾:2};
 © 𝘌𝚖2s = ᴍd(𝘌s2𝚖,󰲣[y,x]);
 
 © 𝘌fxPanel = ⥌Ѧ↦{
@@ -10,21 +10,21 @@
   
   ⎉ update = 󰻾;
   © fx_togs = {
-    "": [toggleButton(󰲡update()                      ,␛,␛,✗,{init:✗,polar:✗})],
-    "󱦙": [toggleButton(󰲡(show(fx_togs􊯛􈕗 ₁,x),update()),␛󱦙,␛󱦙,✗,{init:✗}),
-          (󰲟{ ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
-              © speed = 󱀝 ⟦əslider⟧ {l ⟦󷰿󷰽󷰽 ⟧⍮v ⟦fx₁ ₀⟧⍮h 200 ⍮s:0.1⍮ƒ ⟦󰲡(speedl􋒷=‹⟦fx₁ ₀=x⟧ Pixels/s›,update())⟧};
-              © offst = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽󷰽⟧⍮v ⟦fx₁ ₁⟧⍮h 1000⍮s:1  ⍮ƒ ⟦󰲡(offstl􋒷=‹⟦fx₁ ₁=x⟧ Pixels›  ,update())⟧};
-              ↪󱀝 {𝐶 𝘌fxSection} [
-                 󱀝 label ‹Rotation›
-                 󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
-                 󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]]; })()],
-    "󰳲": [toggleButton(󰲡(show(fx_togs􊯛􈔨 ₁,x),update()),␛󰳲,␛󰳲,✗,{init:✗}),
-          (󰲟{ ⎉ luml = 󱀝 T {};
-              © lum = 󱀝 ⟦əslider⟧ {l 0⍮v ⟦fx􊯛₂ ₀⋅255⟧⍮h 255⍮s 1⍮
-                                     ƒ ⟦󰲡(luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›,update())⟧};
-              ↪󱀝 {𝐶 𝘌fxSection} [
-                󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ]; })()] };
+    ␛: [toggleButton(󰲡update()                      ,␛,␛,✗,{init:✗,polar:✗})],
+    ␛󱦙: [toggleButton(󰲡(show(fx_togs􊯛􈕗 ₁,x),update()),␛󱦙,␛󱦙,✗,{init:✗}),
+         (󰲟{ ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
+             © speed = 󱀝 ⟦əslider⟧ {l ⟦󷰿󷰽󷰽 ⟧⍮v ⟦fx₁ ₀⟧⍮h 200 ⍮s:0.1⍮ƒ ⟦󰲡(speedl􋒷=‹⟦fx₁ ₀=x⟧ Pixels/s›,update())⟧};
+             © offst = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽󷰽⟧⍮v ⟦fx₁ ₁⟧⍮h 1000⍮s:1  ⍮ƒ ⟦󰲡(offstl􋒷=‹⟦fx₁ ₁=x⟧ Pixels›  ,update())⟧};
+             ↪󱀝 {𝐶 𝘌fxSection} [
+                󱀝 label ‹Rotation›
+                󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
+                󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]]; })()],
+    ␛󰳲: [toggleButton(󰲡(show(fx_togs􊯛􈔨 ₁,x),update()),␛󰳲,␛󰳲,✗,{init:✗}),
+         (󰲟{ ⎉ luml = 󱀝 T {};
+             © lum = 󱀝 ⟦əslider⟧ {l 0⍮v ⟦fx􊯛₂ ₀⋅255⟧⍮h 255⍮s 1⍮
+                                    ƒ ⟦󰲡(luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›,update())⟧};
+             ↪󱀝 {𝐶 𝘌fxSection} [
+               󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ]; })()] };
   𝒪(fx_togs)􋅝(󰲣y₀.set(x∈fx_og))
   update = 󰲟Ѧ􈛈 ᶠˣ = [⠤fx_togs􊯛􈔩 ₀󰀒⭜[[0]]⭝[], ⠤check(␛󱦙,1), ⠤check(␛󰳲,2)];
   

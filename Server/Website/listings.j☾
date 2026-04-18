@@ -38,11 +38,12 @@
           [],
           { show_plus  : ✗,
             placeholder: 󰲟󱀝 h2 ‹No devices found for this token...› })
-  ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱 ⥌𝐭↦{ 𝔖􋆮 = 𝐭;
-                     ⎉ devs = 󱫬 load_devices(𝔖􋆮);
-                     devs = devs₁;
-                     .clear_items();
-                     𝒪(devs)􋁃(󰲡ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x)); };
+  ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱⥌𝐭↦{ 𝔖􋆮 = 𝐭;
+                    ⎉ devs = 󱫬 load_devices(𝔖􋆮);
+                    devs = devs₁;
+                    ᶜˡᵉᵃʳ􋕟ⁱᵗᵉᵐˢ();
+                    𝒪(devs)􋁃(󰲡ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x));
+                    ↪devs; };
   ↪; };
 
 ⎉ əsceneListing = ⥌cb↦{

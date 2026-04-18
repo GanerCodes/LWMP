@@ -14,14 +14,14 @@
      ...Ѧ
    };
 
-   const Bþ0E27F = [mkə(`button`, {
-     [`𝐶`]: `detectorMeta detectorCancel`,
-     [`detector`]: `true`
-   }, `←`)];
-   if (Ѧ[`*`]) Bþ0E27F.push(mkə(`button`, {
-     [`𝐶`]: `detectorMeta detectorSubmit`,
-     [`detector`]: `true`
-   }, `✓`));
+   const Bþ0E27F = [mkə(`button`, [
+     [`𝐶`, `detectorMeta detectorCancel`],
+     [`detector`, `true`]
+   ], `←`)];
+   if (Ѧ["*"]) Bþ0E27F.push(mkə(`button`, [
+     [`𝐶`, `detectorMeta detectorSubmit`],
+     [`detector`, `true`]
+   ], `✓`));
 
    base.append(...Bþ0E27F);
    const 𝚂þ0E27F = [...base.querySelectorAll(𝚚)];
@@ -40,37 +40,35 @@
      if (ε.target.closest(`.detectorCancel`)) return tog(), cease();
      const þ0E27F = ε.target.closest(𝚚);
      if (!þ0E27F) return;
-     if (Ѧ[`*`]) return þ0E27F.þF017A(`multidetect`);
+     if (Ѧ["*"]) return þ0E27F.þF017A(`multidetect`);
      else return tog(), cease(þ0E27F);
    }, true);
    return rem;
  };
 
- əbigButton = (c, 𝔸) => mkə(`div`, {
-   [`𝐶`]: `bigButton`,
-   ...(𝔸)
- }, c)
- əbarButton = (c, 𝔸) => mkə(`span`, {
-   [`𝐶`]: `hbar     `,
-   ...(𝔸)
- }, c)
+ əbigButton = (c, 𝔸) => mkə(`div`, [
+   [`𝐶`, `bigButton`], ...𝒪(𝔸)
+ ], c)
+ əbarButton = (c, 𝔸) => mkə(`span`, [
+   [`𝐶`, `hbar     `], ...𝒪(𝔸)
+ ], c)
 
  əitemGridEditable = (plus, gen, rem, items = [], Ѧ = {
    show_plus: true,
    placeholder: undefined
  }) => {
    let þ0E27F, þ0E27F_adder;
-   (þ0E27F = mkə(false, {
-     [`𝐶`]: `itemGrid`
-   }, [((þ0E27F_adder = mkə(false, {
-     [`𝐶`]: `itemGridItem itemGridAdder`
-   }, [(əbigButton(`+`, {
+   (þ0E27F = mkə(false, [
+     [`𝐶`, `itemGrid`]
+   ], [((þ0E27F_adder = mkə(false, [
+     [`𝐶`, `itemGridItem itemGridAdder`]
+   ], [(əbigButton("+", {
      onclick: () => plus(þ0E27F.add_item)
    }))])))]));
    þ0E27F.add_item = (x, y, ...𝔸) => {
-     let newElm = mkə(`div`, {
-       [`𝐶`]: `itemGridItem`
-     }, false);
+     let newElm = mkə(`div`, [
+       [`𝐶`, `itemGridItem`]
+     ], false);
      if (y) {
        newElm.classList.add(`itemGridPlaceholder`);
        chainIntoElements(x, newElm);
@@ -91,22 +89,22 @@
  ətitledBox = (𝚝, ə, Ѧ = {
      outline: true
    }) =>
-   mkə(`div`, {
-     [`𝐶`]: `titledBox`
-   }, [(mkə(`h1`, false, [(𝚝)])), (mkə(false, {
-     [`𝐶`]: `box${ ! Ѧ . outline ? ` noOutline` :  "" }`,
-     [`𝑆`]: `overflow-x: hidden; overflow-y: auto;`
-   }, [(ə)]))])
+   mkə(`div`, [
+     [`𝐶`, `titledBox`]
+   ], [(mkə(`h1`, false, [(𝚝)])), (mkə(false, [
+     [`𝐶`, `box${ ! Ѧ . outline ? ` noOutline` :  "" }`],
+     [`𝑆`, `overflow-x: hidden; overflow-y: auto;`]
+   ], [(ə)]))])
 
  əbuttonBar = (...𝔸) =>
-   mkə(`span`, {
-     [`𝐶`]: `multiButtonBar`
-   }, 𝔸.ꟿ((x, y, ...𝔸) => mkə(`button`, {
-     [`𝐶`]: `barButton`,
-     [`onclick`]: y
-   }, x)));
+   mkə(`span`, [
+     [`𝐶`, `multiButtonBar`]
+   ], 𝔸.ꟿ((x, y, ...𝔸) => mkə(`button`, [
+     [`𝐶`, `barButton`],
+     [`onclick`, y]
+   ], x)));
  ənavBar = (Ѧ, ...𝙴) => {
-   𝙴 = 𝙴.ᴍ((x, ...𝔸) => x.nodeName != `✗` ? [x.þF1021(`󰊄`), x.children[0], (x.þF15DF(`󰊄`), x.þF1021())] : ["", x.children[0]]);
+   𝙴 = 𝙴.ᴍ((x, ...𝔸) => x.nodeName != "✗" ? [x.þF1021("󰊄"), x.children[0], (x.þF15DF("󰊄"), x.þF1021())] : ["", x.children[0]]);
 
    Ѧ = {
      init: true,
@@ -117,11 +115,10 @@
    const bar = [];
    for (let [k, e, ɒ = {}] of 𝙴)
      if (k) {
-       const 𝚋 = mkə(`button`, {
-         [`𝐶`]: `barButton`,
-         [`onclick`]: (...𝔸) => þ0E27F.set(k),
-         ...(ɒ)
-       }, k)
+       const 𝚋 = mkə(`button`, [
+         [`𝐶`, `barButton`],
+         [`onclick`, (...𝔸) => þ0E27F.set(k)], ...𝒪(ɒ)
+       ], k)
        Ѧ.𝙳[k] = {
          þ0E27F: e,
          𝚋
@@ -133,13 +130,13 @@
    }
 
    let holderþ0E27F, barþ0E27F;
-   const þ0E27F = mkə(false, {
-     [`𝐶`]: `navContainer`
-   }, [((barþ0E27F = mkə(false, {
-     [`𝐶`]: `multiButtonBar`
-   }, bar))), ((holderþ0E27F = mkə(false, {
-     [`𝐶`]: `navBodyHolder`
-   }, Ѧ.placeholder ?? (mkə(`T`, false, ``)))))])
+   const þ0E27F = mkə(false, [
+     [`𝐶`, `navContainer`]
+   ], [((barþ0E27F = mkə(false, [
+     [`𝐶`, `multiButtonBar`]
+   ], bar))), ((holderþ0E27F = mkə(false, [
+     [`𝐶`, `navBodyHolder`]
+   ], Ѧ.placeholder ?? (mkə(`T`, false, ``)))))])
    Ѧ.update = Ѧ.multi ? (k) => {
        const s = Ѧ.Ⴝ.includes(k)
        if (s) {
@@ -184,16 +181,16 @@
      ƒ: þF0EFE,
      ...Ѧ
    };
-   if (!(`v` in Ѧ)) Ѧ.v = Ѧ.l;
+   if (!("v" in Ѧ)) Ѧ.v = Ѧ.l;
    [Ѧ.l, Ѧ.v, Ѧ.h, Ѧ.s] = [+Ѧ.l, +Ѧ.v, +Ѧ.h, +Ѧ.s];
 
-   const þ0E27F = Ѧ.þ0E27F = mkə(`input`, {
-     [`𝑇`]: `range`,
-     [`min`]: Ѧ.l,
-     [`defaultValue`]: Ѧ.v,
-     [`max`]: Ѧ.h,
-     [`step`]: Ѧ.s
-   }, ``);
+   const þ0E27F = Ѧ.þ0E27F = mkə(`input`, [
+     [`𝑇`, `range`],
+     [`min`, Ѧ.l],
+     [`defaultValue`, Ѧ.v],
+     [`max`, Ѧ.h],
+     [`step`, Ѧ.s]
+   ], ``);
    þ0E27F.value = Ѧ.v;
    Ѧ.set = (v = undefined) => {
      if (v === undefined) v = +þ0E27F.value;
@@ -214,18 +211,18 @@
      ƒ: þF0EFE,
      ...Ѧ
    };
-   const 𝚂þ0E27F = [...`RGB`].ᴍ((x, y, ...𝔸) => mkə(əslider, {
-     [`init`]: false,
-     [`l`]: `0`,
-     [`v`]: Ѧ.v[y],
-     [`h`]: `255`,
-     [`s`]: `1`,
-     [`ƒ`]: () => Ѧ.set()
-   }, false));
-   const 𝙳þ0E27F = 𝚂þ0E27F.ᴍ((x, y, ...𝔸) => mkə(false, {}, [(mkə(`T`, false, [])), (x)]));
-   const þ0E27F = mkə(false, {
-     [`𝐶`]: `rgbSliders`
-   }, 𝙳þ0E27F);
+   const 𝚂þ0E27F = [...`RGB`].ᴍ((x, y, ...𝔸) => mkə(əslider, [
+     [`init`, false],
+     [`l`, `0`],
+     [`v`, Ѧ.v[y]],
+     [`h`, `255`],
+     [`s`, `1`],
+     [`ƒ`, () => Ѧ.set()]
+   ], false));
+   const 𝙳þ0E27F = 𝚂þ0E27F.ᴍ((x, y, ...𝔸) => mkə(false, [], [(mkə(`T`, false, [])), (x)]));
+   const þ0E27F = mkə(false, [
+     [`𝐶`, `rgbSliders`]
+   ], 𝙳þ0E27F);
    Ѧ.update = (𝚟 = undefined) => {
      if (𝚟 === undefined) Ѧ.v = þ02B65(3).ᴍ((x, ...𝔸) => 𝚂þ0E27F[x].Ѧ.v);
      else(Ѧ.v = 𝚟).forEach((x, y, ...𝔸) => 𝚂þ0E27F[y].Ѧ.v = x);

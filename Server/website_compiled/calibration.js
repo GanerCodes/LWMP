@@ -38,11 +38,11 @@ prompt_rgb_calibrate = async (𝐝, cb) => {
       þ0F2D4: true,
       þF0159: true
     },
-    mkə(`div`, {
-      [`𝑆`]: `display: flex; flex-direction: column;`
-    }, [(mkə(`h1`, false, `RGB Calibration`)), (mkə(`□`, {
-      [`𝑆`]: `height: 40px;`
-    }, ``)), ((α = mkə(`□`, false, ``))), ((β = mkə(`□`, false, ``)))]));
+    mkə(`div`, [
+      [`𝑆`, `display: flex; flex-direction: column;`]
+    ], [(mkə(`h1`, false, `RGB Calibration`)), (mkə(`□`, [
+      [`𝑆`, `height: 40px;`]
+    ], ``)), ((α = mkə(`□`, false, ``))), ((β = mkə(`□`, false, ``)))]));
 
   const Ғ = async (x, ...𝔸) => {
     α.replaceWith(α = mkə(`h2`, false, `Loading...`))
@@ -54,9 +54,9 @@ prompt_rgb_calibrate = async (𝐝, cb) => {
     }
     const [C, ƒ] = V;
     α.replaceWith(α = mkə(`h2`, false, `Choose the color that is visible on your LED strip.`))
-    β.replaceWith(β = mkə(`span`, {
-      [`𝐶`]: `rgbButtons`
-    }, C.ᴍ((x, ...𝔸) => {
+    β.replaceWith(β = mkə(`span`, [
+      [`𝐶`, `rgbButtons`]
+    ], C.ᴍ((x, ...𝔸) => {
       const þ0E27F = textButton(x, (...𝔸) => Ғ(async (...𝔸) => ƒ(x)));
       SAT(þ0E27F, `c`, x);
       return þ0E27F
@@ -96,7 +96,7 @@ led_calibrate = þF01EE((𝘴, 𝘳) => async (𝐝, cb) => {
       ] : [],
       [`scene`, `_calib`, SCENE_CALIB(m), false, -1]);
     first = false;
-    𝘴(m, MSG, [...𝔖.length > 1 ? [`←`] : [], `No`, `Yes`]);
+    𝘴(m, MSG, [...𝔖.length > 1 ? ["←"] : [], `No`, `Yes`]);
     let r = await 𝘳();
     if (r == `←`) {
       𝔖.pop();
@@ -124,11 +124,11 @@ prompt_led_calibrate = async (𝐝, cb) => {
       þ0F2D4: true,
       þF0159: true
     },
-    mkə(`div`, {
-      [`𝑆`]: `display: flex; flex-direction: column;`
-    }, [(mkə(`h1`, false, `Pixel Count Calibration`)), (mkə(`□`, {
-      [`𝑆`]: `height: 40px;`
-    }, ``)), ((α = mkə(`□`, false, ``))), ((β = mkə(`□`, false, ``)))]));
+    mkə(`div`, [
+      [`𝑆`, `display: flex; flex-direction: column;`]
+    ], [(mkə(`h1`, false, `Pixel Count Calibration`)), (mkə(`□`, [
+      [`𝑆`, `height: 40px;`]
+    ], ``)), ((α = mkə(`□`, false, ``))), ((β = mkə(`□`, false, ``)))]));
   const load = (...𝔸) => {
     α.replaceWith(α = mkə(`h2`, false, `Loading...`))
     β.replaceWith(β = mkə(`□`, false, ``));

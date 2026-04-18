@@ -23,60 +23,60 @@
 
    let update = þF0EFE;
    const fx_togs = {
-     "": [toggleButton((x, ...𝔸) => update(), ``, ``, false, {
+     "": [toggleButton((x, ...𝔸) => update(), "", "", false, {
        init: false,
        polar: false
      })],
-     "󱦙": [toggleButton((x, ...𝔸) => (show(fx_togs[`󱦙`][1], x), update()), `󱦙`, `󱦙`, false, {
+     "󱦙": [toggleButton((x, ...𝔸) => (show(fx_togs["󱦙"][1], x), update()), "󱦙", "󱦙", false, {
          init: false
        }),
        ((...𝔸) => {
          let [speedlþ0E27F, offstlþ0E27F] = [mkə(`T`, false, ``), mkə(`T`, false, ``)];
-         const speedþ0F1DEþ0E27F = mkə(əslider, {
-           [`l`]: -200,
-           [`v`]: fx[1][0],
-           [`h`]: `200 `,
-           [`s`]: `0.1`,
-           [`ƒ`]: (x, ...𝔸) => (speedlþ0E27F.innerText = `${fx[1] [0] = x} Pixels/s`, update())
-         }, false);
-         const offstþ0F1DEþ0E27F = mkə(əslider, {
-           [`l`]: -1000,
-           [`v`]: fx[1][1],
-           [`h`]: `1000`,
-           [`s`]: `1  `,
-           [`ƒ`]: (x, ...𝔸) => (offstlþ0E27F.innerText = `${fx[1] [1] = x} Pixels`, update())
-         }, false);
-         return mkə(false, {
-           [`𝐶`]: `𝘌fxSection`
-         }, [(mkə(`label`, false, `Rotation`)), (mkə(false, false, [(mkə(`label`, false, `Speed`)), (speedlþ0E27F), (speedþ0F1DEþ0E27F)])), (mkə(false, false, [(mkə(`label`, false, `Offset`)), (offstlþ0E27F), (offstþ0F1DEþ0E27F)]))]);
+         const speedþ0F1DEþ0E27F = mkə(əslider, [
+           [`l`, -200],
+           [`v`, fx[1][0]],
+           [`h`, `200 `],
+           [`s`, `0.1`],
+           [`ƒ`, (x, ...𝔸) => (speedlþ0E27F.innerText = `${fx[1] [0] = x} Pixels/s`, update())]
+         ], false);
+         const offstþ0F1DEþ0E27F = mkə(əslider, [
+           [`l`, -1000],
+           [`v`, fx[1][1]],
+           [`h`, `1000`],
+           [`s`, `1  `],
+           [`ƒ`, (x, ...𝔸) => (offstlþ0E27F.innerText = `${fx[1] [1] = x} Pixels`, update())]
+         ], false);
+         return mkə(false, [
+           [`𝐶`, `𝘌fxSection`]
+         ], [(mkə(`label`, false, `Rotation`)), (mkə(false, false, [(mkə(`label`, false, `Speed`)), (speedlþ0E27F), (speedþ0F1DEþ0E27F)])), (mkə(false, false, [(mkə(`label`, false, `Offset`)), (offstlþ0E27F), (offstþ0F1DEþ0E27F)]))]);
        })()
      ],
-     "󰳲": [toggleButton((x, ...𝔸) => (show(fx_togs[`󰳲`][1], x), update()), `󰳲`, `󰳲`, false, {
+     "󰳲": [toggleButton((x, ...𝔸) => (show(fx_togs["󰳲"][1], x), update()), "󰳲", "󰳲", false, {
          init: false
        }),
        ((...𝔸) => {
-         let lumlþ0E27F = mkə(`T`, {}, false);
-         const lumþ0F1DEþ0E27F = mkə(əslider, {
-           [`l`]: `0`,
-           [`v`]: fx[`2`][0] * 255,
-           [`h`]: `255`,
-           [`s`]: `1`,
-           [`ƒ`]: (x, ...𝔸) => (lumlþ0E27F.innerText = `${ þ02B13 ((fx[`2`] [0] = x / 255) * 100)}%`, update())
-         }, false);
-         return mkə(false, {
-           [`𝐶`]: `𝘌fxSection`
-         }, [(mkə(`label`, false, `Brightness`)), (lumlþ0E27F), (lumþ0F1DEþ0E27F)]);
+         let lumlþ0E27F = mkə(`T`, [], false);
+         const lumþ0F1DEþ0E27F = mkə(əslider, [
+           [`l`, `0`],
+           [`v`, fx["2"][0] * 255],
+           [`h`, `255`],
+           [`s`, `1`],
+           [`ƒ`, (x, ...𝔸) => (lumlþ0E27F.innerText = `${ þ02B13 ((fx["2"] [0] = x / 255) * 100)}%`, update())]
+         ], false);
+         return mkə(false, [
+           [`𝐶`, `𝘌fxSection`]
+         ], [(mkə(`label`, false, `Brightness`)), (lumlþ0E27F), (lumþ0F1DEþ0E27F)]);
        })()
      ]
    };
    𝒪(fx_togs).ꟿ((x, y, ...𝔸) => y[0].set(x in fx_og))
-   update = (...𝔸) => Ѧ.þF0832.fx = [...fx_togs[``][0].S ? [
+   update = (...𝔸) => Ѧ.þF0832.fx = [...fx_togs[""][0].S ? [
      [0]
-   ] : [], ...check(`󱦙`, 1), ...check(`󰳲`, 2)];
+   ] : [], ...check("󱦙", 1), ...check("󰳲", 2)];
 
-   return mkə(false, {
-     [`𝐶`]: `𝘌𝘐fx`
-   }, [(mkə(`span`, false, [(𝒪v(fx_togs).ꟿ((x, y, ...𝔸) => x.þ0E27F))])), (mkə(false, false, [(𝒪v(fx_togs).ᴍþF01A9((x, ...𝔸) => x.length == 2 ? [x[1]] : []))]))]);
+   return mkə(false, [
+     [`𝐶`, `𝘌𝘐fx`]
+   ], [(mkə(`span`, false, [(𝒪v(fx_togs).ꟿ((x, y, ...𝔸) => x.þ0E27F))])), (mkə(false, false, [(𝒪v(fx_togs).ᴍþF01A9((x, ...𝔸) => x.length == 2 ? [x[1]] : []))]))]);
  };
 
  const 𝘌makeModeViewer = (Ѧ, 𝚜 = undefined) => {
@@ -108,103 +108,103 @@
 
    {
      let þ0E22Bþ0E27F;
-     let 𝚟 = 𝚖 == 0 ? 𝑖2þ0E22B(þF0832[0]) : def[``];
-     𝐔[``] = () => set(0, þ0E22B2𝑖(þ0E22Bþ0E27F.Ѧ.v));
-     𝘈.setþ0E27F(``, (þ0E22Bþ0E27F = mkə(əþ0E22Bþ0F1DE, {
-       [`init`]: false,
-       [`v`]: 𝚟,
-       [`ƒ`]: 𝐔[``]
-     }, false)));
+     let 𝚟 = 𝚖 == 0 ? 𝑖2þ0E22B(þF0832[0]) : def[""];
+     𝐔[""] = () => set(0, þ0E22B2𝑖(þ0E22Bþ0E27F.Ѧ.v));
+     𝘈.setþ0E27F("", (þ0E22Bþ0E27F = mkə(əþ0E22Bþ0F1DE, [
+       [`init`, false],
+       [`v`, 𝚟],
+       [`ƒ`, 𝐔[""]]
+     ], false)));
    }
 
    {
      let þF7E3Eþ0E27F;
      const [adj, adjI] = [(x, ...𝔸) => (20 * 60) ** x / 60, (x, ...𝔸) => þ10B46F(60 * x, 20 * 60)];
-     let 𝚟 = 𝚖 == 2 ? [adjI(þF0832[0]), þF0832[1], þF0832.slice(2).ᴍ(𝑖2þ0E22B)] : def[`󷸾`];
-     𝐔[`󷸾`] = () => set(2, ...(([s, Δ, 𝙲]) => [adj(s), Δ, ...𝙲.ᴍ(þ0E22B2𝑖)])
+     let 𝚟 = 𝚖 == 2 ? [adjI(þF0832[0]), þF0832[1], þF0832.slice(2).ᴍ(𝑖2þ0E22B)] : def["󷸾"];
+     𝐔["󷸾"] = () => set(2, ...(([s, Δ, 𝙲]) => [adj(s), Δ, ...𝙲.ᴍ(þ0E22B2𝑖)])
        (𝚟 = [sþ0E27F.Ѧ.v, Δþ0E27F.Ѧ.v, þF7E3Eþ0E27F.þF7E02(`.rgbSliders`).ᴍ((x, ...𝔸) => x.Ѧ.v)]));
 
      const addþ0E22B = (þ0E22B) => {
-       const cþ0E27F = mkə(`span`, false, [(mkə(əþ0E22Bþ0F1DE, {
-         [`init`]: false,
-         [`v`]: þ0E22B,
-         [`ƒ`]: 𝐔[`󷸾`]
-       }, false)), (mkə(`button`, {
-         [``]: () => (cþ0E27F.remove(), ƒ())
-       }, `✗`))]);
+       const cþ0E27F = mkə(`span`, false, [(mkə(əþ0E22Bþ0F1DE, [
+         [`init`, false],
+         [`v`, þ0E22B],
+         [`ƒ`, 𝐔["󷸾"]]
+       ], false)), (mkə(`button`, [
+         [``, () => (cþ0E27F.remove(), ƒ())]
+       ], `✗`))]);
        þF7E3Eþ0E27F.append(cþ0E27F);
      };
-     𝘈.setþ0E27F(`󷸾`, (þ0E27F = mkə(false, {
-       [`𝐶`]: `𝘌󷸾mode`
-     }, [(mkə(false, false, [(mkə(`T`, false, `Speed`)), ((sþ0E27F = mkə(əslider, {
-       [`init`]: false,
-       [`l`]: `0`,
-       [`v`]: 𝚟[0],
-       [`h`]: `1`,
-       [`s`]: `0.001`,
-       [`ƒ`]: 𝐔[`󷸾`]
-     }, false)))])), (mkə(false, false, [(mkə(`T`, false, `Sharpness`)), ((Δþ0E27F = mkə(əslider, {
-       [`init`]: false,
-       [`l`]: `0`,
-       [`v`]: 𝚟[1],
-       [`h`]: `1`,
-       [`s`]: `0.001`,
-       [`ƒ`]: 𝐔[`󷸾`]
-     }, false)))])), ((þF7E3Eþ0E27F = mkə(false, {
-       [`𝐶`]: `󷸾`
-     }, []))), (mkə(`button`, {
-       [`onclick`]: () => (addþ0E22B([50, 50, 50]), ƒ())
-     }, `Add`))])));
+     𝘈.setþ0E27F("󷸾", (þ0E27F = mkə(false, [
+       [`𝐶`, `𝘌󷸾mode`]
+     ], [(mkə(false, false, [(mkə(`T`, false, `Speed`)), ((sþ0E27F = mkə(əslider, [
+       [`init`, false],
+       [`l`, `0`],
+       [`v`, 𝚟[0]],
+       [`h`, `1`],
+       [`s`, `0.001`],
+       [`ƒ`, 𝐔["󷸾"]]
+     ], false)))])), (mkə(false, false, [(mkə(`T`, false, `Sharpness`)), ((Δþ0E27F = mkə(əslider, [
+       [`init`, false],
+       [`l`, `0`],
+       [`v`, 𝚟[1]],
+       [`h`, `1`],
+       [`s`, `0.001`],
+       [`ƒ`, 𝐔["󷸾"]]
+     ], false)))])), ((þF7E3Eþ0E27F = mkə(false, [
+       [`𝐶`, `󷸾`]
+     ], []))), (mkə(`button`, [
+       [`onclick`, () => (addþ0E22B([50, 50, 50]), ƒ())]
+     ], `Add`))])));
      𝚟[2].ᴍ(addþ0E22B);
    }
 
    {
      let þ0EF26þ0E27F, cþ0E27F, sþ0E27F, vþ0E27F;
-     let 𝚟 = 𝚖 == 1 ? þF0832 : def[``];
-     𝐔[``] = () => set(1, ...𝚟 = [cþ0E27F, sþ0E27F, vþ0E27F].ᴍ((x, ...𝔸) => x.Ѧ.v));
-     𝘈.setþ0E27F(``, mkə(false, {
-       [`𝐶`]: `mode`
-     }, [(mkə(false, false, [(mkə(`T`, false, `Cycles`)), ((cþ0E27F = mkə(əslider, {
-       [`init`]: false,
-       [`l`]: `0`,
-       [`v`]: 𝚟[0],
-       [`h`]: `25`,
-       [`s`]: `0.1`,
-       [`ƒ`]: 𝐔[``]
-     }, false)))])), (mkə(false, false, [(mkə(`T`, false, `Saturation`)), ((sþ0E27F = mkə(əslider, {
-       [`init`]: false,
-       [`l`]: `0`,
-       [`v`]: 𝚟[1],
-       [`h`]: `255`,
-       [`s`]: `0.1`,
-       [`ƒ`]: 𝐔[``]
-     }, false)))])), (mkə(false, false, [(mkə(`T`, false, `Value`)), ((vþ0E27F = mkə(əslider, {
-       [`init`]: false,
-       [`l`]: `0`,
-       [`v`]: 𝚟[2],
-       [`h`]: `255`,
-       [`s`]: `0.1`,
-       [`ƒ`]: 𝐔[``]
-     }, false)))]))]));
+     let 𝚟 = 𝚖 == 1 ? þF0832 : def[""];
+     𝐔[""] = () => set(1, ...𝚟 = [cþ0E27F, sþ0E27F, vþ0E27F].ᴍ((x, ...𝔸) => x.Ѧ.v));
+     𝘈.setþ0E27F("", mkə(false, [
+       [`𝐶`, `mode`]
+     ], [(mkə(false, false, [(mkə(`T`, false, `Cycles`)), ((cþ0E27F = mkə(əslider, [
+       [`init`, false],
+       [`l`, `0`],
+       [`v`, 𝚟[0]],
+       [`h`, `25`],
+       [`s`, `0.1`],
+       [`ƒ`, 𝐔[""]]
+     ], false)))])), (mkə(false, false, [(mkə(`T`, false, `Saturation`)), ((sþ0E27F = mkə(əslider, [
+       [`init`, false],
+       [`l`, `0`],
+       [`v`, 𝚟[1]],
+       [`h`, `255`],
+       [`s`, `0.1`],
+       [`ƒ`, 𝐔[""]]
+     ], false)))])), (mkə(false, false, [(mkə(`T`, false, `Value`)), ((vþ0E27F = mkə(əslider, [
+       [`init`, false],
+       [`l`, `0`],
+       [`v`, 𝚟[2]],
+       [`h`, `255`],
+       [`s`, `0.1`],
+       [`ƒ`, 𝐔[""]]
+     ], false)))]))]));
    }
 
    if (𝚜 != 𝚖) 𝐔[𝘌𝚖2s[𝚜]]();
  }
  const 𝘌modePanel = (Ѧ) => {
-   (Ѧ.𝘈þ0E27F = mkə(ənavBar, {
-     [`Ⴝ`]: `G`,
-     [`𝐶`]: `𝘌modebar`,
-     [`init`]: false,
-     [`ƒ`]: (x, ...𝔸) => Ѧ.setModeView?.(x)
-   }, [(mkə(false, {
-     [`󰊄`]: `G`
-   }, [(mkə(false, {}, false))])), (mkə(false, {
-     [`󰊄`]: ``
-   }, [(mkə(false, {}, false))])), (mkə(false, {
-     [`󰊄`]: `󷸾`
-   }, [(mkə(false, {}, false))])), (mkə(false, {
-     [`󰊄`]: ``
-   }, [(mkə(false, {}, false))]))]))
+   (Ѧ.𝘈þ0E27F = mkə(ənavBar, [
+     [`Ⴝ`, `G`],
+     [`𝐶`, `𝘌modebar`],
+     [`init`, false],
+     [`ƒ`, (x, ...𝔸) => Ѧ.setModeView?.(x)]
+   ], [(mkə(false, [
+     [`󰊄`, `G`]
+   ], [(mkə(false, [], false))])), (mkə(false, [
+     [`󰊄`, ``]
+   ], [(mkə(false, [], false))])), (mkə(false, [
+     [`󰊄`, `󷸾`]
+   ], [(mkə(false, [], false))])), (mkə(false, [
+     [`󰊄`, ``]
+   ], [(mkə(false, [], false))]))]))
    const 𝘈 = Ѧ.𝘈þ0E27F.Ѧ;
    const 𝚖 = 1 in Ѧ.þF0832 ? Ѧ.þF0832[1][1] : -1;
 
@@ -216,13 +216,13 @@
  };
 
  const 𝘌activatePanel = (Ѧ) => {
-   return mkə(`button`, {
-     [`onclick`]: (...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖)
-   }, `Test Scene`);
+   return mkə(`button`, [
+     [`onclick`, (...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖)]
+   ], `Test Scene`);
  };
 
  const 𝘌setInspector = (Ѧ) => {
-   Ѧ.𝘐þ0E27F.Ѧ.setþ0E27F(``, 𝘌modePanel(Ѧ));
-   Ѧ.𝘐þ0E27F.Ѧ.setþ0E27F(``, 𝘌fxPanel(Ѧ));
-   Ѧ.𝘐þ0E27F.Ѧ.setþ0E27F(`⯈`, 𝘌activatePanel(Ѧ));
+   Ѧ.𝘐þ0E27F.Ѧ.setþ0E27F("", 𝘌modePanel(Ѧ));
+   Ѧ.𝘐þ0E27F.Ѧ.setþ0E27F("", 𝘌fxPanel(Ѧ));
+   Ѧ.𝘐þ0E27F.Ѧ.setþ0E27F("⯈", 𝘌activatePanel(Ѧ));
  };

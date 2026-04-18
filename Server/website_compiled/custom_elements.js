@@ -5,9 +5,7 @@
 Ϣ.domswap = (x, y, ...𝔸) => y.parentNode.insertBefore(y, x);
 
 Ϣ.textButton = (x, ƒ, 𝕂) => {
-  const ə = mkə(`button`, {
-    ...(𝕂 || {})
-  }, `${x}`)
+  const ə = mkə(`button`, [...𝒪(𝕂 || {})], `${x}`)
   ə.onclick = ƒ;
   return ə;
 };
@@ -42,40 +40,39 @@
 };
 Ϣ.textField = (Ѧ) => {
   let ə;
-  let fld = mkə(`input`, {
-    [`𝑆`]: `flex-grow: 2; min-width: 0; padding: 2px; height: 100%; border: none;`,
-    ...(Ѧ)
-  }, false);
+  let fld = mkə(`input`, [
+    [`𝑆`, `flex-grow: 2; min-width: 0; padding: 2px; height: 100%; border: none;`], ...𝒪(Ѧ)
+  ], false);
   if (Ѧ.þ0F070 || Ѧ.þ0F06E) {
-    ə = mkə(`span`, {
-      [`𝐶`]: `boxInput`,
-      [`𝑆`]: `width: 100%;`
-    }, [(fld), (notab(toggleButton((x, ...𝔸) => (fld.type = ["password", "text"][+x]), "", "", true, {
+    ə = mkə(`span`, [
+      [`𝐶`, `boxInput`],
+      [`𝑆`, `width: 100%;`]
+    ], [(fld), (notab(toggleButton((x, ...𝔸) => (fld.type = ["password", "text"][+x]), "", "", true, {
       polar: true
     }).þ0E27F))]);
   } else {
-    ə = mkə(`span`, {
-      [`𝐶`]: `boxInput`,
-      [`𝑆`]: `width: 100%;`
-    }, fld);
+    ə = mkə(`span`, [
+      [`𝐶`, `boxInput`],
+      [`𝑆`, `width: 100%;`]
+    ], fld);
   }
   ə.𝚒 = fld;
   return ə;
 }
 Ϣ.box = (Ѧ, ...C) => {
-  return mkə(`div`, {
-    [`𝐶`]: `box`,
-    [`𝑆`]: `display: flex; flex-direction: column; align-items: center;`
-  }, C)
+  return mkə(`div`, [
+    [`𝐶`, `box`],
+    [`𝑆`, `display: flex; flex-direction: column; align-items: center;`]
+  ], C)
 };
 
 Ϣ.popup = (Ѧ, c) => {
   let þ0E27F, btnþ0E27F;
-  (þ0E27F = mkə(`dialog`, {
-    [`closedby`]: Ѧ.þ0F2D4 ? `any` : `none`
-  }, [(Ѧ.þF0159 ? ((btnþ0E27F = mkə(`button`, {
-    [`𝐶`]: `dialogCloseBtn`
-  }, `✗`))) : []), (c)]))
+  (þ0E27F = mkə(`dialog`, [
+    [`closedby`, Ѧ[""] ? `any` : `none`]
+  ], [(Ѧ["󰅙"] ? ((btnþ0E27F = mkə(`button`, [
+    [`𝐶`, `dialogCloseBtn`]
+  ], `✗`))) : []), (c)]))
   AEL(þ0E27F, `close`, () => (Ѧ.onclose?.(), þ0E27F.remove()));
   if (btnþ0E27F) btnþ0E27F.onclick = () => þ0E27F.close();
   if (!Ѧ.noAppend) {
@@ -87,13 +84,12 @@
 
 Ϣ.table = (Ѧ, rows) => {
   let ə;
-  (ə = mkə(false, {
-    [`𝐶`]: `table`,
-    [`𝑆`]: `grid-template-columns: repeat(${ þ1F0CC (rows[0])},minmax(max-content, 1fr));`,
-    ...(Ѧ)
-  }, rows.flat().ᴍ((x, ...𝔸) => mkə(`div`, {
-    [`𝐶`]: `tableItem`
-  }, x))))
+  (ə = mkə(false, [
+    [`𝐶`, `table`],
+    [`𝑆`, `grid-template-columns: repeat(${ þ1F0CC (rows[0])},minmax(max-content, 1fr));`], ...𝒪(Ѧ)
+  ], rows.flat().ᴍ((x, ...𝔸) => mkə(`div`, [
+    [`𝐶`, `tableItem`]
+  ], x))))
   return ə;
 };
 
@@ -103,18 +99,18 @@
   Ѧ.w ??= 1;
   Ѧ.d_off ??= 1;
   Ѧ.n ??= n;
-  (ə = mkə(`span`, {
-    [`𝐶`]: `pageNumBar`
-  }, [
-    (𝚕 = mkə(`button`, {
-      [`𝐶`]: `pageNumPrev`
-    }, `←`)),
-    ...𝙱 = þ02B65(þ02908(2 * Ѧ.w + 1, Ѧ.N)).ᴍ((x, ...𝔸) => mkə(`button`, {
-      [`𝐶`]: `pageNumButton`
-    }, false)),
-    (𝚛 = mkə(`button`, {
-      [`𝐶`]: `pageNumNext`
-    }, `→`))
+  (ə = mkə(`span`, [
+    [`𝐶`, `pageNumBar`]
+  ], [
+    (𝚕 = mkə(`button`, [
+      [`𝐶`, `pageNumPrev`]
+    ], `←`)),
+    ...𝙱 = þ02B65(þ02908(2 * Ѧ.w + 1, Ѧ.N)).ᴍ((x, ...𝔸) => mkə(`button`, [
+      [`𝐶`, `pageNumButton`]
+    ], false)),
+    (𝚛 = mkə(`button`, [
+      [`𝐶`, `pageNumNext`]
+    ], `→`))
   ]))
   þ021A8(𝙱).ꟿ((x, y, ...𝔸) => y.onclick = () => Ѧ.setN(undefined, x));
   𝚕.onclick = () => Ѧ.setN(Ѧ.n - 1);
@@ -150,109 +146,111 @@
   return ə;
 };
 
-const 𝐍 = (𝜺) => {
-  let 𝐞;
-  if (𝜺.touches) {
-    const t = 𝜺.touches[0] || 𝜺.changedTouches[0];
-    𝐞 = {
-      x: t.clientX,
-      y: t.clientY
+{
+  const 𝐍 = (𝜺) => {
+    let 𝐞;
+    if (𝜺.touches) {
+      const t = 𝜺.touches[0] || 𝜺.changedTouches[0];
+      𝐞 = {
+        x: t.clientX,
+        y: t.clientY
+      };
+    } else 𝐞 = {
+      x: 𝜺.clientX,
+      y: 𝜺.clientY
     };
-  } else 𝐞 = {
-    x: 𝜺.clientX,
-    y: 𝜺.clientY
+    𝐞.þ0E27F = EFP(𝐞.x, 𝐞.y) || undefined;
+    𝐞.PD = () => 𝜺.preventDefault();
+    𝐞.𝜺 = 𝜺;
+    return 𝐞;
   };
-  𝐞.þ0E27F = EFP(𝐞.x, 𝐞.y) || undefined;
-  𝐞.PD = () => 𝜺.preventDefault();
-  𝐞.𝜺 = 𝜺;
-  return 𝐞;
-};
 
-Ϣ.makeDraggable = (þ0E27F) => {
-  let 𝚂, 𝚍, 𝚙, þF0A02;
+  Ϣ.makeDraggable = (þ0E27F) => {
+    let 𝚂, 𝚍, 𝚙, þF0A02;
 
-  const exit = () => {
+    const exit = () => {
 
-    𝚂 = 𝚍 = 𝚙 = þF0A02 = undefined;
-  };
-  const 𝔖 = (𝜺) => {
-    𝜺 = 𝐍(𝜺);
+      𝚂 = 𝚍 = 𝚙 = þF0A02 = undefined;
+    };
+    const 𝔖 = (𝜺) => {
+      𝜺 = 𝐍(𝜺);
 
-    þ0E27F.setPointerCapture(𝚙 = 𝜺.𝜺.pointerId);
-    𝚂 = [𝜺.x, 𝜺.y];
-  }
-  const 𝔈 = (𝜺, ok) => {
-    𝜺 = 𝐍(𝜺);
-
-    if (!𝚂) return;
-    if (!𝚍) return þ0E27F.click();
-    if (ok && þF0A02?.þ0E27F) þ0E27F.dropped?.(þF0A02);
-    þ0E27F.dragend?.(þF0A02);
-    exit();
-  }
-  const 𝔐 = (𝜺) => {
-    𝜺 = 𝐍(𝜺);
-
-    if (!𝚂) return;
-    if (!𝚍) {
-      if ((𝜺.x - 𝚂[0]) ** 2 + (𝜺.y - 𝚂[1]) ** 2 <= 25) return;
-      𝚍 = true;
-      þ0E27F.dragstart?.(𝜺);
+      þ0E27F.setPointerCapture(𝚙 = 𝜺.𝜺.pointerId);
+      𝚂 = [𝜺.x, 𝜺.y];
     }
-    þ0E27F.drag?.(𝜺);
-    if (þF0A02?.þ0E27F === 𝜺?.þ0E27F) return;
-    if (þF0A02?.þ0E27F) þ0E27F.dragleave?.({
-      ...𝜺,
-      þ0E27F: þF0A02.þ0E27F
-    });
-    if (𝜺?.þ0E27F) þ0E27F.dragenter?.(𝜺);
-    þF0A02 = 𝜺;
-  }
-  AEL(þ0E27F, `pointerdown`, (x, ...𝔸) => 𝔖(x));
-  AEL(þ0E27F, `pointerup`, (x, ...𝔸) => 𝔈(x, true));
-  AEL(þ0E27F, `pointercancel`, (x, ...𝔸) => 𝔈(x, false));
-  AEL(þ0E27F, `pointermove`, (x, ...𝔸) => 𝔐(x));
-  AEL(þ0E27F, `touchstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
-  AEL(þ0E27F, `dragstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
-  return þ0E27F;
-};
+    const 𝔈 = (𝜺, ok) => {
+      𝜺 = 𝐍(𝜺);
 
-let 𝘵 = null;
-const αoverβ = (α, β, s) => {
-  if (α === β || !(α && β)) return;
-  const v = α.þF1021(`dragItem`);
-  if (!(v == β.þF1021(`dragItem`) || v == β.þF1021(`dragHold`))) return;
-  if (s) {
-    𝘵?.þF15DF(`maydrop`);
-    β.þF09E5(`maydrop`);
-    𝘵 = β;
-  } else β.þF15DF(`maydrop`);
-};
+      if (!𝚂) return;
+      if (!𝚍) return þ0E27F.click();
+      if (ok && þF0A02?.þ0E27F) þ0E27F.dropped?.(þF0A02);
+      þ0E27F.dragend?.(þF0A02);
+      exit();
+    }
+    const 𝔐 = (𝜺) => {
+      𝜺 = 𝐍(𝜺);
 
-Ϣ.dragItem = (þ0E27F, 𝚒 = 0, ƒ = swapə) => {
-  𝚒 = "" + 𝚒;
-  þ0E27F.þF09E5(`dragItem`, 𝚒);
-  þ0E27F.þF09E5(`canDrag`, `true`);
-  makeDraggable(þ0E27F);
-  þ0E27F.dragstart = (𝜺) => {
-    þ0E27F.þF09E5(`dragging`);
+      if (!𝚂) return;
+      if (!𝚍) {
+        if ((𝜺.x - 𝚂[0]) ** 2 + (𝜺.y - 𝚂[1]) ** 2 <= 25) return;
+        𝚍 = true;
+        þ0E27F.dragstart?.(𝜺);
+      }
+      þ0E27F.drag?.(𝜺);
+      if (þF0A02?.þ0E27F === 𝜺?.þ0E27F) return;
+      if (þF0A02?.þ0E27F) þ0E27F.dragleave?.({
+        ...𝜺,
+        þ0E27F: þF0A02.þ0E27F
+      });
+      if (𝜺?.þ0E27F) þ0E27F.dragenter?.(𝜺);
+      þF0A02 = 𝜺;
+    }
+    AEL(þ0E27F, `pointerdown`, (x, ...𝔸) => 𝔖(x));
+    AEL(þ0E27F, `pointerup`, (x, ...𝔸) => 𝔈(x, true));
+    AEL(þ0E27F, `pointercancel`, (x, ...𝔸) => 𝔈(x, false));
+    AEL(þ0E27F, `pointermove`, (x, ...𝔸) => 𝔐(x));
+    AEL(þ0E27F, `touchstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
+    AEL(þ0E27F, `dragstart`, (x, ...𝔸) => x.cancelable && x.preventDefault());
+    return þ0E27F;
   };
-  þ0E27F.dragend = (𝜺) => {
-    þ0E27F.þF15DF(`dragging`);
+
+  let 𝘵 = null;
+  const αoverβ = (α, β, s) => {
+    if (α === β || !(α && β)) return;
+    const v = α.þF1021(`dragItem`);
+    if (!(v == β.þF1021(`dragItem`) || v == β.þF1021(`dragHold`))) return;
+    if (s) {
+      𝘵?.þF15DF(`maydrop`);
+      β.þF09E5(`maydrop`);
+      𝘵 = β;
+    } else β.þF15DF(`maydrop`);
   };
-  þ0E27F.dragenter = (𝜺) => αoverβ(þ0E27F, 𝜺.þ0E27F, true);
-  þ0E27F.dragleave = (𝜺) => αoverβ(þ0E27F, 𝜺.þ0E27F, false);
-  þ0E27F.dropped = (𝜺) => {
-    if (þ0E27F === 𝜺.þ0E27F || !𝜺.þ0E27F) return;
-    if (𝜺.þ0E27F.þF1021(`dragItem`) == 𝚒) ƒ(þ0E27F, 𝜺.þ0E27F);
-    if (𝜺.þ0E27F.þF1021(`dragHold`) == 𝚒) 𝜺.þ0E27F.dropInto(þ0E27F);
-    𝜺.þ0E27F.þF15DF(`maydrop`);
+
+  Ϣ.dragItem = (þ0E27F, 𝚒 = 0, ƒ = swapə) => {
+    𝚒 = "" + 𝚒;
+    þ0E27F.þF09E5(`dragItem`, 𝚒);
+    þ0E27F.þF09E5(`canDrag`, `true`);
+    makeDraggable(þ0E27F);
+    þ0E27F.dragstart = (𝜺) => {
+      þ0E27F.þF09E5(`dragging`);
+    };
+    þ0E27F.dragend = (𝜺) => {
+      þ0E27F.þF15DF(`dragging`);
+    };
+    þ0E27F.dragenter = (𝜺) => αoverβ(þ0E27F, 𝜺.þ0E27F, true);
+    þ0E27F.dragleave = (𝜺) => αoverβ(þ0E27F, 𝜺.þ0E27F, false);
+    þ0E27F.dropped = (𝜺) => {
+      if (þ0E27F === 𝜺.þ0E27F || !𝜺.þ0E27F) return;
+      if (𝜺.þ0E27F.þF1021(`dragItem`) == 𝚒) ƒ(þ0E27F, 𝜺.þ0E27F);
+      if (𝜺.þ0E27F.þF1021(`dragHold`) == 𝚒) 𝜺.þ0E27F.dropInto(þ0E27F);
+      𝜺.þ0E27F.þF15DF(`maydrop`);
+    };
+    return þ0E27F;
   };
-  return þ0E27F;
-};
-Ϣ.dragHold = (þ0E27F, 𝚒 = 0, ƒ = (x, y, ...𝔸) => x.append(y)) => {
-  𝚒 = "" + 𝚒;
-  þ0E27F.þF09E5(`dragHold`, 𝚒);
-  þ0E27F.dropInto = (𝓮) => ƒ(þ0E27F, 𝓮);
-  return þ0E27F;
-};
+  Ϣ.dragHold = (þ0E27F, 𝚒 = 0, ƒ = (x, y, ...𝔸) => x.append(y)) => {
+    𝚒 = "" + 𝚒;
+    þ0E27F.þF09E5(`dragHold`, 𝚒);
+    þ0E27F.dropInto = (𝓮) => ƒ(þ0E27F, 𝓮);
+    return þ0E27F;
+  };
+}

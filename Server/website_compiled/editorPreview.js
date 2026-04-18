@@ -2,24 +2,24 @@
  const CSS_valid_ungroup = `.𝘌modes[dragitem]:not(:has(>:only-child))`;
 
  const ətriLabel = (𝚑, ...𝔸) =>
-   mkə(false, {
-     [`𝑆`]: `min-height: ${𝚑}px;`
-   }, [(mkə(false, {}, 𝔸)), (mkə(`svg`, {
-     [`viewBox`]: `-1.05 -1 2 2`,
-     [`preserveAspectRatio`]: `none`
-   }, [(mkə(`path`, {
-     [`d`]: `M1 -1 L-1 0 L1 1`,
-     [`style`]: `fill:#0000;stroke:#FFF;stroke-width:0.05`
-   }, ``))]))])
+   mkə(false, [
+     [`𝑆`, `min-height: ${𝚑}px;`]
+   ], [(mkə(false, [], 𝔸)), (mkə(`svg`, [
+     [`viewBox`, `-1.05 -1 2 2`],
+     [`preserveAspectRatio`, `none`]
+   ], [(mkə(`path`, [
+     [`d`, `M1 -1 L-1 0 L1 1`],
+     [`style`, `fill:#0000;stroke:#FFF;stroke-width:0.05`]
+   ], ``))]))])
 
  const əresizer = (Ѧ, sþ0E27F) => {
-   const A = þF0832Util.ends(1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832[`*`][sþ0E27F.idx])[1];
+   const A = þF0832Util.ends(1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][sþ0E27F.idx])[1];
    const 𝘈þ0E27F = print(sþ0E27F.þF7E04(`.𝘌atom`)).at(-1);
 
    let lþ0E27F, n0, n, y0;
-   const þ0E27F = mkə(false, {
-     [`𝐶`]: `resizer`
-   }, [(mkə(`T`, {}, `󰮹`)), ((lþ0E27F = mkə(`T`, {}, false)))]);
+   const þ0E27F = mkə(false, [
+     [`𝐶`, `resizer`]
+   ], [(mkə(`T`, [], `󰮹`)), ((lþ0E27F = mkə(`T`, [], false)))]);
    const show = (Δ) => {
      n = þF7E44(n0 + þ025A2(Δ / Ѧ.χ), 1, MAX_LEDC);
      lþ0E27F.innerText = n;
@@ -48,10 +48,10 @@
  };
 
  const 𝘌atom = (Ѧ, [n, i, ...þF0832]) => {
-   const 𝗆 = (x, ...𝔸) => mkə(false, {
-     [`𝐶`]: `𝘌atom`,
-     [`𝑆`]: `height: ${Ѧ . χ * n}px;` + `;` + x
-   }, ``)
+   const 𝗆 = (x, ...𝔸) => mkə(false, [
+     [`𝐶`, `𝘌atom`],
+     [`𝑆`, `height: ${Ѧ . χ * n}px;` + ";" + x]
+   ], ``)
    if (i == 0) {
      const [𝚌] = þF0832;
      return 𝗆(`background-color: ${þ0E22Bþ0E749(𝑖2þ0E22B(þF0832[0]))};`);
@@ -70,7 +70,7 @@
        ]),
        [þ0E22Be, 1]
      ];
-     const bgþ0E749 = `linear-gradient(to bottom,${þF7E3E . ꟿ( (x,y,...𝔸)=> `${þ0E22Bþ0E749(x)} ${y * 100}%`) . join(`,`)})`;
+     const bgþ0E749 = `linear-gradient(to bottom,${þF7E3E . ꟿ( (x,y,...𝔸)=> `${þ0E22Bþ0E749(x)} ${y * 100}%`) . join(",")})`;
      return 𝗆(`background: ${bgþ0E749};`);
    } else if (i == 1) {
      const [seg, sat, val] = þF0832;
@@ -91,27 +91,27 @@
      const [l, α] = [255 - 40 * (𝚗 - 1), 255];
      const clr = þ0E22Bþ0E749([l, l, l, α]);
      const cnd = 𝚗 > 1 ? `;pointer-events:none` : "";
-     return mkə(false, {
-       [`𝐶`]: `𝘌tickmark`,
-       [`𝑆`]: `background-color: ${clr}; width: ${s}em; height: ${p}em; min-height: ${p}em; margin-bottom: ${ - p}em;` + cnd
-     }, ``);
+     return mkə(false, [
+       [`𝐶`, `𝘌tickmark`],
+       [`𝑆`, `background-color: ${clr}; width: ${s}em; height: ${p}em; min-height: ${p}em; margin-bottom: ${ - p}em;` + cnd]
+     ], ``);
    };
 
-   let C = 1 in þF0832 ? [𝘌atom(Ѧ, þF0832[1])] : þF0832[`*`].ᴍ((x, ...𝔸) => 𝘌𝖬(Ѧ, x, n + 1));
+   let C = 1 in þF0832 ? [𝘌atom(Ѧ, þF0832[1])] : þF0832["*"].ᴍ((x, ...𝔸) => 𝘌𝖬(Ѧ, x, n + 1));
    C = C.ᴍ((x, y, ...𝔸) => (x.idx = y, x))
      .þ02A1D𝑙((...𝔸) => ətick(n + 1))
      .ᴍþF01A9((x, ...𝔸) => [x, ...n || x.classList.contains(`𝘌tickmark`) ? [] : [əresizer(Ѧ, x)]]);
-   let þ0E27F = mkə(false, {
-     [`𝐶`]: `𝘌modes`
-   }, C);
+   let þ0E27F = mkə(false, [
+     [`𝐶`, `𝘌modes`]
+   ], C);
 
-   if (n == 0 && `*` in þF0832)
+   if (n == 0 && "*" in þF0832)
      C.forEach((cþ0E27F) => {
        if (!cþ0E27F.þF7DFD(`.𝘌modes,.𝘌atom`)) return;
-       cþ0E27F.onclick = (...𝔸) => Ѧ.render(Ѧ.þF0832[`*`][cþ0E27F.idx]);
+       cþ0E27F.onclick = (...𝔸) => Ѧ.render(Ѧ.þF0832["*"][cþ0E27F.idx]);
        cþ0E27F = dragItem(cþ0E27F, n, (x, y, ...𝔸) => {
          swapə(x, y);
-         const d = Ѧ.þF0832[`*`];
+         const d = Ѧ.þF0832["*"];
          [d[x.idx], d[y.idx]] = [d[y.idx], d[x.idx]];
          Ѧ.setPreview();
        });
@@ -124,11 +124,13 @@
    if (!Ѧ.þF0832𝘏.length || dat && Ѧ.þF0832𝘏.at(-1) !== dat)
      Ѧ.þF0832𝘏.push(Ѧ.þF0832 = dat);
    Ѧ.top = Ѧ.þF0832𝘏.length == 1;
-   const tots = (1 in Ѧ.þF0832 ? [Ѧ.þF0832] : Ѧ.þF0832[`*`]).ᴍ(þF0832Util.len);
+   const tots = (1 in Ѧ.þF0832 ? [Ѧ.þF0832] : Ѧ.þF0832["*"]).ᴍ(þF0832Util.len);
    const stot = tots.ſ((x, y, ...𝔸) => x + y, 0);
 
-   const þF0C00 = 0.8 * Ϣ.outerHeight
-   Ѧ.χ = þ02909(0.8 * þF0C00 / (þ02909(stot, Ѧ.top ? Ѧ.L.ſ((x, y, ...𝔸) => x + y, 0) : 0)),
+   const 𝚣 = þ0E749𝚟.zoom;
+   print(`Height: ${innerHeight} ${outerHeight} ${𝚣}`);
+   const þF0C00 = 0.8 * innerHeight / 𝚣;
+   Ѧ.χ = þ02909(0.5 * þF0C00 / (þ02909(stot, Ѧ.top ? Ѧ.L.ſ((x, y, ...𝔸) => x + y, 0) : 0)),
      0.1 * þF0C00 / þ02908(tots));
 
    Ѧ.labelsþ0E27F.replaceChildren(
@@ -138,7 +140,7 @@
    Ѧ.pixelsþ0E27F.replaceChildren(Ѧ.þF0832þ0E27F = 𝘌𝖬(Ѧ, Ѧ.þF0832));
    𝘌bevelMode(Ѧ);
    Ѧ.𝘖.prvþ0E27F.disabled = Ѧ.top;
-   Ѧ.𝘖.grpþ0E27F.disabled = 1 in Ѧ.þF0832 || Ѧ.þF0832[`*`].length <= 1;
+   Ѧ.𝘖.grpþ0E27F.disabled = 1 in Ѧ.þF0832 || Ѧ.þF0832["*"].length <= 1;
    Ѧ.𝘖.ugpþ0E27F.disabled = !Ѧ.þ0E27F.querySelector(CSS_valid_ungroup);
-   Ѧ.𝘖.delþ0E27F.disabled = 1 in Ѧ.þF0832 || Ѧ.þF0832[`*`].length <= 1;
+   Ѧ.𝘖.delþ0E27F.disabled = 1 in Ѧ.þF0832 || Ѧ.þF0832["*"].length <= 1;
  };

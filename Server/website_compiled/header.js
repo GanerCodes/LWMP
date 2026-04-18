@@ -4,11 +4,15 @@ BASE_CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 [Ϣ, þF0219] = [window, document];
 [𝐴, 𝐸, 𝑜, 𝑖, þ0221E] = [Array, Element, Object, Number, Infinity];
 [𝒪, 𝒟, 𝒪k, 𝒪v] = [𝑜.entries, 𝑜.fromEntries, 𝑜.keys, 𝑜.values];
-const þ0E27FType = [HTMLDocument, ShadowRoot, Element];
 𝒪ℳ = (x, ...𝔸) => x.ſ((x, y, ...𝔸) => ({
   ...x,
   ...y
 }));
+𝒪𝑏 = (o, n = false, y = o) => {
+  for (const _ in o) return y;
+  return n;
+};
+const þ0E27FType = [HTMLDocument, ShadowRoot, Element];
 𝔓 = (x, ...𝔸) => x.prototype;
 þF7E5D = String.fromCharCode;
 þ1F0CC = (x, ...𝔸) => x.length;
@@ -44,6 +48,16 @@ mk_id = (l, chars = BASE_CHARSET) => þ02B65(l).ᴍ(() => chars.at(𝑖(þF114F(
   return r
 };
 
+const makeProxy = (𝚐, 𝚜) =>
+  new Proxy({}, {
+    get(_, k) {
+      return 𝚐(k);
+    },
+    set(_, k, v) {
+      return 𝚜(k, v);
+    }
+  });
+
 𝔍 = {
   þ02191: JSON.stringify,
   þ02193: JSON.parse
@@ -53,40 +67,41 @@ mk_id = (l, chars = BASE_CHARSET) => þ02B65(l).ᴍ(() => chars.at(𝑖(þF114F(
   þ02193: (x, y, ...𝔸) => x in localStorage ? 𝔍.þ02193(localStorage[x]) : y,
   þ02E13: (x, y, z, ...𝔸) => 𝔏𝔖.þ02191(x, y(𝔏𝔖.þ02193(x, z)))
 };
-
-const arrayLikeƒ = {
-  þ0EB86: (x, ƒ) => {
-    O = {};
-    x.forEach((x, ...𝔸) => ((y) => y in O ? O[y].push(x) : (O[y] = [x]))(ƒ(x, ...𝔸)));
-    return O;
-  },
-  Ϝ: (x, ƒ, ...𝔸) => {
-    𝚁 = [...𝔸, ...x];
-    for (let i = 𝔸.length || 1; i < 𝚁.length; i++)
-      𝚁[i] = ƒ(𝚁[i - 1], 𝚁[i], i, x)
-    𝚁.pop()
-    return 𝚁;
-  },
-  þF01A9: (x, ...𝔸) => isArr(x) ? x.flat(...𝔸) : x,
-  ᴍþF01A9: (x, ...𝔸) => isArr(x) ? x.flatMap(...𝔸) : x,
-  ᴍ: (x, ...𝔸) => x.map(...𝔸),
-  ſ: (x, ...𝔸) => x.reduce(...𝔸),
-  þF0232: (x, ...𝔸) => x.filter(...𝔸),
-  þF7E3B: (x, ...𝔸) => x.slice(...𝔸),
-  ꟿ: (x, y, ...𝔸) => x.map((x, ...𝔸) => y(...x), ...𝔸),
-  þ022C0: (x, ...𝔸) => x.every(þF0EFE),
-  þ022C1: (x, ...𝔸) => x.some(þF0EFE)
-};
-arrayLikeƒ.þ02A1D𝑙 = (x, y, ...𝔸) => [x[0], ...x.þF7E3B(0, -1).ᴍþF01A9((c, i) => [y(c, x[i + 1]), x[i + 1]])];
-𝒪(arrayLikeƒ).forEach(([𝚔, ƒ]) => {
-  Ϣ[𝚔] = (x, ...𝔸) => ƒ(isElm(x) ? 𝐴.from(x) : x, ...𝔸);
-  𝔓(𝐴)[𝚔] = function(...𝔸) {
-    return ƒ(this, ...𝔸);
+{
+  const arrayLikeƒ = {
+    þ0EB86: (x, ƒ) => {
+      O = {};
+      x.forEach((x, ...𝔸) => ((y) => y in O ? O[y].push(x) : (O[y] = [x]))(ƒ(x, ...𝔸)));
+      return O;
+    },
+    Ϝ: (x, ƒ, ...𝔸) => {
+      𝚁 = [...𝔸, ...x];
+      for (let i = 𝔸.length || 1; i < 𝚁.length; i++)
+        𝚁[i] = ƒ(𝚁[i - 1], 𝚁[i], i, x)
+      𝚁.pop()
+      return 𝚁;
+    },
+    þF01A9: (x, ...𝔸) => isArr(x) ? x.flat(...𝔸) : x,
+    ᴍþF01A9: (x, ...𝔸) => isArr(x) ? x.flatMap(...𝔸) : x,
+    ᴍ: (x, ...𝔸) => x.map(...𝔸),
+    ſ: (x, ...𝔸) => x.reduce(...𝔸),
+    þF0232: (x, ...𝔸) => x.filter(...𝔸),
+    þF7E3B: (x, ...𝔸) => x.slice(...𝔸),
+    ꟿ: (x, y, ...𝔸) => x.map((x, ...𝔸) => y(...x), ...𝔸),
+    þ022C0: (x, ...𝔸) => x.every(þF0EFE),
+    þ022C1: (x, ...𝔸) => x.some(þF0EFE)
   };
-  þ0E27FType.forEach((𝑇) => 𝔓(𝑇)[𝚔] = function(...𝔸) {
-    return ƒ(𝐴.from(this.children), ...𝔸);
+  arrayLikeƒ.þ02A1D𝑙 = (x, y, ...𝔸) => [x[0], ...x.þF7E3B(0, -1).ᴍþF01A9((c, i) => [y(c, x[i + 1]), x[i + 1]])];
+  𝒪(arrayLikeƒ).forEach(([𝚔, ƒ]) => {
+    Ϣ[𝚔] = (x, ...𝔸) => ƒ(isElm(x) ? 𝐴.from(x) : x, ...𝔸);
+    𝔓(𝐴)[𝚔] = function(...𝔸) {
+      return ƒ(this, ...𝔸);
+    };
+    þ0E27FType.forEach((𝑇) => 𝔓(𝑇)[𝚔] = function(...𝔸) {
+      return ƒ(𝐴.from(this.children), ...𝔸);
+    });
   });
-});
+};
 
 𝒪({
   þF0817: HAT = (x, ...𝔸) => boxᴍ(𝔸, (a) => x.hasAttribute(a)).þ022C0(),
@@ -122,6 +137,11 @@ EFP = (...𝔸) => þF0219.elementFromPoint(...𝔸.þF01A9(þ0221E));
 AEL = (þ0E27F, ...𝔸) => (þ0E27F.addEventListener(...𝔸), () => REL(þ0E27F, ...𝔸));
 REL = (þ0E27F, ...𝔸) => þ0E27F.removeEventListener(...𝔸);
 
+þF0219þ0E27F = þF0219.documentElement;
+þ0E749𝚟 = makeProxy(
+  (p, þ0E27F = þF0219þ0E27F) => getComputedStyle(þ0E27F).getPropertyValue(`--${p}`),
+  (p, v = "", þ0E27F = þF0219þ0E27F) => þF0219þ0E27F.style.setProperty(`--${p}`, v))
+
 isStr = (x, ...𝔸) => typeof x === "string";
 isNum = (x, ...𝔸) => typeof x === "number";
 isArr = (x, ...𝔸) => x instanceof Array;
@@ -152,14 +172,14 @@ const þ0E27FattrMap = {
 const þ0E27FNSNames = new Set(`svg g defs symbol use path rect circle ellipse line polyline polygon text tspan textPath linearGradient radialGradient stop pattern clipPath mask animate animateMotion animateTransform set metadata title desc view image foreignObject marker switch style`.split(` `));
 mkə = (name, attrs, kids) => {
   kids = chainIntoElements(kids);
-  if (𝗙(name)) return name(attrs, ...kids);
+  if (𝗙(name)) return name(𝒟(attrs), ...kids);
   if (name === false) name = "div";
   let þ0E27F = þ0E27FNSNames.has(name) ? þF0219.createElementNS(`http://www.w3.org/2000/svg`, name) :
     þF0219.createElement(name);
   þ0E27F.append(...kids);
   if (attrs)
-    𝒪(attrs).forEach(([k, v]) => {
-      if (k == `𝑆`) þ0E27F.style.cssText = v;
+    (attrs).forEach(([k, v]) => {
+      if (k == "𝑆") þ0E27F.style.cssText = v;
       else if (k in þ0E27FattrMap) þ0E27F[þ0E27FattrMap[k]] = v;
       else SAT(þ0E27F, k, v);
     });
@@ -171,7 +191,7 @@ swapə = (x, y, ...𝔸) => {
   if (x === y) return;
   const [α, β] = [x.parentNode, y.parentNode];
   if (α && β) {
-    let χ = mkə(false, {}, false)
+    let χ = mkə(false, [], false)
     α.insertBefore(χ, x);
     β.insertBefore(x, y);
     χ.parentNode.insertBefore(y, χ);

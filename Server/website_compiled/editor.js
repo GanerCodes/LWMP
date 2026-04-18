@@ -40,29 +40,29 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
   Ϣ.Ѧ = Ѧ;
 
   const tool = (𝗍) => {
-    if (𝗍 == `←`) {
+    if (𝗍 == "←") {
       Ѧ.þF0832𝘏.pop();
       return Ѧ.render(Ѧ.þF0832𝘏.pop());
-    } else if (𝗍 == `+`) {
-      const avgN = þ025A2((1 in Ѧ.þF0832 ? [Ѧ.þF0832] : Ѧ.þF0832[`*`]).ᴍ(þF0832Util.len).ſ((x, y, z, w, ...𝔸) => x + y / w.length, 0));
+    } else if (𝗍 == "+") {
+      const avgN = þ025A2((1 in Ѧ.þF0832 ? [Ѧ.þF0832] : Ѧ.þF0832["*"]).ᴍ(þF0832Util.len).ſ((x, y, z, w, ...𝔸) => x + y / w.length, 0));
       þF0832Util.add(Ѧ.þF0832, {
         1: [avgN, 0, 0x7F7F7F]
       });
       Ѧ.render();
       return Ѧ.pixelsþ0E27F.þF7E02(`.𝘌modes`).at(-1).scrollIntoView();
     }
-    const css = 𝗍 == `` ? CSS_valid_ungroup : `.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]`;
+    const css = 𝗍 == "" ? CSS_valid_ungroup : `.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]`;
 
-    if (𝗍 == ``)
+    if (𝗍 == "")
       clickDetect(css, (𝚂þ0E27F) => {
         Ѧ.þ0E27F.þF15DF(`𝘌toolmode`);
         if (!𝚂þ0E27F) return;
         const 𝙸 = 𝚂þ0E27F.ᴍ((x, ...𝔸) => x.idx);
         const r = [þ02908(...𝙸), þ02909(...𝙸)];
         r[1]++;
-        if (r[1] == Ѧ.þF0832[`*`].length) return;
-        Ѧ.þF0832[`*`].splice(r[0], r[1] - r[0], {
-          "*": Ѧ.þF0832[`*`].slice(r[0], r[1])
+        if (r[1] == Ѧ.þF0832["*"].length) return;
+        Ѧ.þF0832["*"].splice(r[0], r[1] - r[0], {
+          "*": Ѧ.þF0832["*"].slice(r[0], r[1])
         });
         Ѧ.render();
       }, Ѧ.þ0E27F, {
@@ -70,9 +70,9 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
       });
     else clickDetect(css, (sþ0E27F) => {
       if (!sþ0E27F) return Ѧ.þ0E27F.þF15DF(`𝘌toolmode`);
-      if (𝗍 == `` || `󰆴` == 𝗍) {
-        if (𝗍 == ``) þF0832Util.ungrp(Ѧ.þF0832, sþ0E27F.idx);
-        else if (𝗍 == `󰆴`) þF0832Util.del(Ѧ.þF0832, sþ0E27F.idx);
+      if (𝗍 == "" || "󰆴" == 𝗍) {
+        if (𝗍 == "") þF0832Util.ungrp(Ѧ.þF0832, sþ0E27F.idx);
+        else if (𝗍 == "󰆴") þF0832Util.del(Ѧ.þF0832, sþ0E27F.idx);
         Ѧ.render();
         return Ѧ.þ0E27F.þF15DF(`𝘌toolmode`);
       }
@@ -80,46 +80,46 @@ prompt_editor = (cb, 𝔖, 𝐬) => {
     Ѧ.þ0E27F.þF09E5(`𝘌toolmode`);
   };
 
-  (Ѧ.þ0E27F = mkə(popup, {
-    [`󰅙`]: `✓`,
-    [`noAppend`]: `✓`
-  }, [(mkə(false, {
-    [`𝐶`]: `𝘌outer`
-  }, [(mkə(`T`, false, `Scene Editor`)), (mkə(false, {
-    [`𝐶`]: `𝘌inner`
-  }, [(mkə(false, {
-    [`𝐶`]: `𝘌preview`
-  }, [(mkə(false, {
-    [`𝐶`]: `multiButtonBar`
-  }, [((Ѧ.𝘖.prvþ0E27F = mkə(`button`, {
-    [`𝐶`]: `barButton`,
-    [``]: (...𝔸) => tool(`←`)
-  }, `←`))), ((Ѧ.𝘖.grpþ0E27F = mkə(`button`, {
-    [`𝐶`]: `barButton`,
-    [``]: (...𝔸) => tool(``)
-  }, ``))), ((Ѧ.𝘖.ugpþ0E27F = mkə(`button`, {
-    [`𝐶`]: `barButton`,
-    [``]: (...𝔸) => tool(``)
-  }, ``))), ((Ѧ.𝘖.addþ0E27F = mkə(`button`, {
-    [`𝐶`]: `barButton`,
-    [``]: (...𝔸) => tool(`+`)
-  }, `+`))), ((Ѧ.𝘖.delþ0E27F = mkə(`button`, {
-    [`𝐶`]: `barButton`,
-    [``]: (...𝔸) => tool(`󰆴`)
-  }, `󰆴`)))])), (mkə(false, false, [(mkə(false, false, [((Ѧ.labelsþ0E27F = mkə(false, {
-    [`𝐶`]: `𝘌alignedLabels`
-  }, false))), ((Ѧ.pixelsþ0E27F = mkə(false, {
-    [`𝐶`]: `𝘌pixels       `
-  }, false)))]))]))])), ((Ѧ.𝘐þ0E27F = mkə(ənavBar, {
-    [`Ⴝ`]: ``,
-    [`𝐶`]: `𝘌inspector`
-  }, [(mkə(false, {
-    [`󰊄`]: ``
-  }, [(mkə(false, {}, false))])), (mkə(false, {
-    [`󰊄`]: ``
-  }, [(mkə(false, {}, false))])), (mkə(false, {
-    [`󰊄`]: `⯈`
-  }, [(mkə(false, {}, false))]))])))]))]))]));
+  (Ѧ.þ0E27F = mkə(popup, [
+    [`󰅙`, true],
+    [`noAppend`, `✓`]
+  ], [(mkə(false, [
+    [`𝐶`, `𝘌outer`]
+  ], [(mkə(`T`, false, `Scene Editor`)), (mkə(false, [
+    [`𝐶`, `𝘌inner`]
+  ], [(mkə(false, [
+    [`𝐶`, `𝘌preview`]
+  ], [(mkə(false, [
+    [`𝐶`, `multiButtonBar`]
+  ], [((Ѧ.𝘖.prvþ0E27F = mkə(`button`, [
+    [`𝐶`, `barButton`],
+    [``, (...𝔸) => tool("←")]
+  ], "←"))), ((Ѧ.𝘖.grpþ0E27F = mkə(`button`, [
+    [`𝐶`, `barButton`],
+    [``, (...𝔸) => tool("")]
+  ], ""))), ((Ѧ.𝘖.ugpþ0E27F = mkə(`button`, [
+    [`𝐶`, `barButton`],
+    [``, (...𝔸) => tool("")]
+  ], ""))), ((Ѧ.𝘖.addþ0E27F = mkə(`button`, [
+    [`𝐶`, `barButton`],
+    [``, (...𝔸) => tool("+")]
+  ], "+"))), ((Ѧ.𝘖.delþ0E27F = mkə(`button`, [
+    [`𝐶`, `barButton`],
+    [``, (...𝔸) => tool("󰆴")]
+  ], "󰆴")))])), (mkə(false, false, [(mkə(false, false, [((Ѧ.labelsþ0E27F = mkə(false, [
+    [`𝐶`, `𝘌alignedLabels`]
+  ], false))), ((Ѧ.pixelsþ0E27F = mkə(false, [
+    [`𝐶`, `𝘌pixels       `]
+  ], false)))]))]))])), ((Ѧ.𝘐þ0E27F = mkə(ənavBar, [
+    [`Ⴝ`, ``],
+    [`𝐶`, `𝘌inspector`]
+  ], [(mkə(false, [
+    [`󰊄`, ``]
+  ], [(mkə(false, [], false))])), (mkə(false, [
+    [`󰊄`, ``]
+  ], [(mkə(false, [], false))])), (mkə(false, [
+    [`󰊄`, `⯈`]
+  ], [(mkə(false, [], false))]))])))]))]))]));
   Ѧ.þ0E27F.classList.add(`editorDialog`);
   Ѧ.render();
 

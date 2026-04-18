@@ -36,7 +36,7 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
         ¿(r₁≡Ѧ􈛈􊯛􋌵) ↪;
         Ѧ􈛈􊯛.splice(r₀,r₁-r₀,{"*":Ѧ􈛈􊯛􊽧(r₀,r₁)});
         Ѧʳᵉⁿᵈᵉʳ();
-      },Ѧ􋑵,{"*":✓});
+      },Ѧ􋑵,{␛*:✓});
     ¡ clickDetect(css, ⥌s↦{ ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›);
                              ¿(𝗍≡␛ ∨ ␛󰆴≡𝗍) {
                                ¿(𝗍≡␛) 󰠲Utilᵘⁿᵍʳᵖ(Ѧ􈛈,sⁱᵈˣ);
@@ -45,7 +45,7 @@ prompt_editor = ⥌cb,𝔖,𝐬↦{
                                ↪Ѧ􋑵 􈛑(‹𝘌toolmode›); } }, Ѧ􋑵);
     Ѧ􋑵 􈛘(‹𝘌toolmode›); };
   
-  󱀝:⟦Ѧ􋑵⟧ ⟦popup⟧ {󰅙:✓⍮ noAppend:✓} [
+  󱀝:⟦Ѧ􋑵⟧ ⟦popup⟧ {󰅙 ⟦✓⟧⍮ noAppend ✓} [
     󱀝{𝐶 𝘌outer} [
       󱀝 T ‹Scene Editor›
       󱀝{𝐶 𝘌inner} [
