@@ -82,7 +82,7 @@
  const 𝘌makeModeViewer = (Ѧ, 𝚜 = undefined) => {
    const 𝘈 = Ѧ.𝘈þ0E27F.Ѧ;
    if (!(1 in Ѧ.þF0832)) return;
-   let [𝚗, 𝚖, ...þF0832] = Ѧ.þF0832[1];
+   let [_, 𝚖, ...þF0832] = Ѧ.þF0832[1];
    𝚜 = 𝚜 === undefined ? 𝚖 : 𝘌s2𝚖[𝚜];
 
    if (Ѧ.modeUpdators && 𝚜 != 𝚖) return Ѧ.modeUpdators[𝘌𝚖2s[𝚜]]();
@@ -95,14 +95,14 @@
        [0, 0, 200]
      ]],
      "": [2, 225, 255]
-   }
+   };
 
    const set = (𝚖, ...𝔸) => {
-     const 𝚅 = [𝚗, 𝚖, ...𝔸];
+     const 𝚅 = [Ѧ.þF0832[1][0], 𝚖, ...𝔸];
      𝑙Replace(Ѧ.þF0832[1], 𝚅);
      const rþ0E27F = 𝘌atom(Ѧ, 𝚅);
-     Ѧ.þ0E27F.þF7E01(`.𝘌atom`).replaceWith(rþ0E27F);
-     rþ0E27F.idx = 0;
+     print(𝚅);
+     Ѧ.þ0E27F.þF7E01(`.𝘌atom`).style.cssText = rþ0E27F.style.cssText;
      𝘌bevelMode(Ѧ);
    };
 
@@ -130,7 +130,7 @@
          [`v`, þ0E22B],
          [`ƒ`, 𝐔["󷸾"]]
        ], false)), (mkə(`button`, [
-         [``, () => (cþ0E27F.remove(), ƒ())]
+         [``, () => (cþ0E27F.remove(), 𝐔["󷸾"]())]
        ], `✗`))]);
        þF7E3Eþ0E27F.append(cþ0E27F);
      };
@@ -153,7 +153,7 @@
      ], false)))])), ((þF7E3Eþ0E27F = mkə(false, [
        [`𝐶`, `󷸾`]
      ], []))), (mkə(`button`, [
-       [`onclick`, () => (addþ0E22B([50, 50, 50]), ƒ())]
+       [`onclick`, () => (addþ0E22B([50, 50, 50]), 𝐔["󷸾"]())]
      ], `Add`))])));
      𝚟[2].ᴍ(addþ0E22B);
    }

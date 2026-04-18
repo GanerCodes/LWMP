@@ -148,17 +148,14 @@
 
 {
   const 𝐍 = (𝜺) => {
-    let 𝐞;
-    if (𝜺.touches) {
-      const t = 𝜺.touches[0] || 𝜺.changedTouches[0];
-      𝐞 = {
-        x: t.clientX,
-        y: t.clientY
-      };
-    } else 𝐞 = {
-      x: 𝜺.clientX,
-      y: 𝜺.clientY
-    };
+    const 𝐂 = (x, ...𝔸) => ({
+      x: x.clientX,
+      y: x.clientY,
+      Sx: x.screenX,
+      Sy: x.screenY
+    });
+    const 𝐞 = 𝜺.touches ? 𝐂(𝜺.touches[0] || 𝜺.changedTouches[0]) :
+      𝐂(𝜺);
     𝐞.þ0E27F = EFP(𝐞.x, 𝐞.y) || undefined;
     𝐞.PD = () => 𝜺.preventDefault();
     𝐞.𝜺 = 𝜺;

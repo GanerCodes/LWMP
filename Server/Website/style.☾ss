@@ -1,3 +1,4 @@
+ vars
 © fg0 #ffffff
 © fg1 #dddddd
 © fg2 #a5a5a5
@@ -16,7 +17,11 @@
  idiot hack for scaling bc px aren't pixels
 ⊖ 𝗐 vw / 󰁘(--zoom)
 ⊖ 𝗁 vh / 󰁘(--zoom)
-:root ∣ --zoom 1
+⊖ 𝔴 px * 󰁘(--pxlSx)
+⊖ 𝔥 px * 󰁘(--pxlSy)
+:root ∣ --pxlSx 1
+        --pxlSy 1
+        --zoom 1
         𝚣𝚘𝚘𝚖 󰁘(--zoom)
         󰊄𝚜 1.5em
 @media (max-width:768px), (max-height:600px)
@@ -34,7 +39,7 @@
           ::-webkit-scrollbar        ∣ 𝚠 0.25em
         @supports not selector(::-webkit-scrollbar)
           scrollbar-color #E62 #38C4
-⎊ 𝐑𝐠𝐞𝐧 ∣ 𝚠𝚔𝚊□; 𝚖𝚙 pointer
+⎊ 𝐑𝐠𝐞𝐧 ∣ 𝚠𝚔𝚊□; p
 ⎊ 𝐑𝐭𝐫𝐚𝐜𝐤 ∣ 𝐑𝐠𝐞𝐧; 𝚑
            𝚋 ⦑bg0⦒; 𝚋 􋄅; 𝚋𝚛 25px
 ⎊ 𝐑𝐭𝐡𝐮𝐦𝐛 ∣ 𝐑𝐠𝐞𝐧; 𝚋𝚘𝚡𝚜b
@@ -56,42 +61,29 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
 @font-face ∣ 󰊄𝚏 "Avenir" ; src url("/Assets/Tomkin-Regular.woff2")
 @font-face ∣ 󰊄𝚏 "Symbols"; src url("/Assets/Symbols.woff2"       )
 :root ∣ 󰊄𝚏 "Symbols","Avenir"
+*     ∣ 𝚃 background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease
+        scroll-behavior smooth
 
-*         ∣ 𝚃 background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease
-            scroll-behavior smooth
+input,button,body􋁋(*[dragging])
+  «touch-action user-select» 􋄅
+
 body      ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
 body,html ∣ 𝚋 ⦑bg0⦒
-button    ∣ 𝚙𝚘𝚜r
+button    ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣
+            user-select 􋄅
             𝚃 all 0.2s ease
-            𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣
-            􋒗􊽬⁽󰁺choosen󰁻⁾ ∣  ⦑fg3⦒
-                             𝚘𝚙 0.5
-            𝚋𝚐󰈲 brightness(1.1)
-
-.icon ∣ 𝚑 0.75em; 𝚟𝚊 center
-.box  ∣ 𝚋𝚛 10px
-
-.rgbSliders
-  𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣; 𝚙 0.25em; 𝚋𝚛 0.25em
-  >* ∣ 𝚏→;𝚊𝙿󷷣;𝚊𝚂󷷣;𝚠󷷈; 𝚖󷷤 0.25em; 𝚑 1.2em
-        𝚋𝚛 􋔛px
-        >⁰ ∣ 𝚠 3em
-        >􍨅 ∣ 𝚠 􊽺(100% - 3.5em)
-
-input,.boxInput ∣ 𝚋 ⦑bg1⦒
-.dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
-  𝚋 #0000
-.boxInput􍴍 ∣ 𝚋 􍍝
-button,.bigButton ∣ 𝚋 􍍝
-                     ⦑fg0⦒EE; 𝚋 #0000
-                    􎁎 ∣ 𝚃𝚏 􍍝
-                          ⦑fg0⦒; 𝚋 #0002
-                         𝚖𝚙 pointer
-                    􀴗 ∣ 𝚃𝚏 􍍝
-                          ⦑fg0⦒; 𝚋 #0004
+            𝚋 􍍝
+             ⦑fg0⦒EE; 𝚋 #0000
+            􋒗􊽬⁽󰁺choosen󰁻⁾ ∣  ⦑fg3⦒; 𝚘𝚙 0.5
+            «􎁎 􀴗» ∣ 𝚃𝚏 􍍝; p;  ⦑fg0⦒
+                     𝚋𝚐󰈲 brightness(1.1)
+            􎁎 ∣ 𝚋 #0002
+            􀴗 ∣ 𝚋 #0004
 .«hbar bigButton»      ∣ 𝚠;𝚖0
 .«barButton bigButton» ∣ 𝚠;𝚑;󰊄𝚊 center
 .bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
+.dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
+  𝚋 #0000
 .multiButtonBar
   𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
   >.barButton
@@ -105,7 +97,19 @@ button,.bigButton ∣ 𝚋 􍍝
     􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90􋠏,#0000 0%, #0000 100%) 1;
   [plural]>.barButton[choosen]
     􍬷(2n-1) ∣ border-image ⦑ꬶbr0_→⦒ 1
-  
+
+.icon ∣ 𝚑 0.75em; 𝚟𝚊 center
+.box  ∣ 𝚋𝚛 10px
+
+.rgbSliders
+  𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣; 𝚙 0.25em; 𝚋𝚛 0.25em
+  >* ∣ 𝚏→;𝚊𝙿󷷣;𝚊𝚂󷷣;𝚠󷷈; 𝚖󷷤 0.25em; 𝚑 1.2em
+        𝚋𝚛 􋔛px
+        >⁰ ∣ 𝚠 3em
+        >􍨅 ∣ 𝚠 􊽺(100% - 3.5em)
+
+input,.boxInput ∣ 𝚋 ⦑bg1⦒
+.boxInput􍴍 ∣ 𝚋 􍍝
 .itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 􊽺(90􍽺)
             𝚊𝙿󷷣; 𝚐 20px
             grid-template-columns repeat(auto-fit,300px)
@@ -180,26 +184,44 @@ dialog[open]
   𝚜 ⦑fg0⦒33 0px 0px 20px 0px
 
 .𝘌«modes atom»
+   𝚃 height 0.05s ease-out
   [dragitem]􍳵
     󰈲 saturate(0.6) contrast(0.6) brightness(2)
-    𝚖𝚙 pointer
+    p
   [maydrop]  ∣ 𝚘𝚕 2px dashed #FF0
   [dragging] ∣ 𝚃𝚏 􍍝; 𝚘𝚙 0.25
   >* * ∣ pointer-events 􋄅
 .𝘌modes    ∣ 𝚏↓
-.𝘌atom     ∣ 𝚠 1em
+
+.𝘌atom ∣ 𝚠 􊽺(1􋈼)
 .𝘌tickmark ∣ 𝚣 1; 𝚋𝚛→ 􋔛px
-             𝚖← -1em
-             𝚃𝚏 translateX(1em)
+             𝚠 􊽺(1􋈼);
+             𝚖← 􊽺(-1􋈼)
+             𝚃𝚏 translateX(􊽺(1􋈼))
              pointer-events 􋄅
-              𝚖← -100%
+.resizer ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝚂󷷣;𝚑 0;← 􊽺(1􋈼)
+           «touch-action user-select» 􋄅
+           >􍨅 ∣ 󰊄𝚜 1em; ← 0.25em
+           >* ∣ 𝚙𝚘𝚜a; 𝚠≤ 0.5em; 𝚑 0.5em; ← 0; 󷷤a
+           􍳵􊽬([dragging]) ∣  pointer !important
+           , * ∣ 𝚏↓;𝚊𝙿󷷣
+                   󰍽 􋉀 !important
+                   󰈲 brightness(1) !important
+                   𝚃 􋄅
+                   𝚃𝚏 􋄅 !important
+
+.editorDialog[open]􊽬([𝘌toolmode])
+   .𝘌atom[atom1] ∣ 𝚋𝚛↗ 􊽺(0.5􋈼)
+                    􊽬([devLayer]) ∣ 𝚋𝚛↖ 􊽺(0.5􋈼)
+   .𝘌atom[atom󷰾] ∣ 𝚋𝚛↘ 􊽺(0.5􋈼)
+                    􊽬([devLayer]) ∣ 𝚋𝚛↙ 􊽺(0.5􋈼)
 
 .𝘌preview
+  𝚙𝚘𝚜r;𝚏↓
   𝚋↑ 0.05em solid ⦑bg2⦒
-  𝚏↓;𝚙𝚘𝚜r
   >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
         𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em;𝚍𝚒𝚛 rtl
-        >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 0.5em;𝚍𝚒𝚛 ltr
+        >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 0.5em;𝚙󷷢 1em;𝚍𝚒𝚛 ltr
               >.𝘌alignedLabels
                 𝚏↓;𝚊𝙿←
                 >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
@@ -289,11 +311,6 @@ dialog[open]
   𝚠 min(􊽺(98􍾘),1000px); 𝙷 􊽺(98􍽺)
   𝚖a; 𝚙 0.1em
   𝚋 ⦑bg0⦒F5
-  􊽬([𝘌toolmode])
-     .𝘌atom[atom1] ∣ 𝚋𝚛↗ 0.5em
-                      􊽬([devLayer]) ∣ 𝚋𝚛↖ 0.5em
-     .𝘌atom[atom󷰾] ∣ 𝚋𝚛↘ 0.5em
-                      􊽬([devLayer]) ∣ 𝚋𝚛↙ 0.5em
   [𝘌toolmode]
      .𝘌tickmark ∣ 𝚍 􋄅
      .𝘌preview ∣ 𝚋 #0000
@@ -304,13 +321,13 @@ label ∣ 󰊄𝚜 1.3em
 
 :root􋁋(*[detector])
   *􊽬([detector],.detectorMeta)
-    𝚖𝚙 􍍝; pointer-events 􋄅
+     􍍝; pointer-events 􋄅
   *􊽬(􋁋(*[detector],.detectorMeta))
     󰈲 opacity(0)
   *[detector]
     𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
     , * ∣ 󰈲 brightness(1)
-    􍳵 ∣ 𝚖𝚙 pointer
+    􍳵 ∣ p
     [multidetect]
       𝚜 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85)
   *􋁋(*[detector],.detectorMeta)
@@ -328,17 +345,3 @@ label ∣ 󰊄𝚜 1.3em
                      𝚋 #611
                      􎁎 ∣ 𝚋 #712A
                      􀴗 ∣ 𝚋 #8124
-
-.resizer ∣ 𝚙𝚘𝚜r;𝚑 0;𝚊𝚂󷷣;← 0.825em
-           >* ∣ 𝚙𝚘𝚜a; 𝚠≤ 0.5em; 𝚑 0.5em; «← ↑» 0
-           >⁰ ∣ 󰊄𝚜 1.75em; 𝚑 0
-           >􍨅 ∣ 󰊄𝚜 0.9em; ← 0.25em; ↑ 0.75em
-           􍳵􊽬([dragging]) ∣ 𝚖𝚙 pointer !important
-           , * ∣ 𝚏↓;𝚊𝙿󷷣
-                   󰍽 􋉀 !important
-                   󰈲 brightness(1) !important
-                   𝚃 􋄅
-                   𝚃𝚏 􋄅 !important
-
-body􋁋(*[dragging])
-  touch-action 􋄅

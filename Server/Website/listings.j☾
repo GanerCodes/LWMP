@@ -1,4 +1,4 @@
-⎉ ətileButton = ⥌t,cb↦󱀝 div {𝐶 bigButton⍮ 𝑆 ⟦fit_size(t,250)⟧⍮ onclick ⟦󰲟cb(t)⟧} ⟦t⟧
+⎉ ətileButton = ⥌t,cb↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(t,250)⟧⍮  ⟦󰲟cb(t)⟧} ⟦t⟧
 
 ⎉ ətokenListing = ⥌cb↦{
   © prompt_token = ⥌cb↦{

@@ -8,7 +8,7 @@
 
 © show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;  󰤱 abstract a bit and add to j☾ or something
 © clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{  󰤱 add to j☾ once I add close feature and think of a better name
-  Ѧ = {"*":✗, ⠤Ѧ};
+  Ѧ = {␛*:✗,⠤Ѧ};
   
   © B = [󱀝 button {𝐶 detectorMeta detectorCancel⍮ detector ⟦✓⟧} ‹←›];
   ¿(Ѧ􊯛) B.push(󱀝 button {𝐶 detectorMeta detectorSubmit⍮ detector ⟦✓⟧} ‹✓›);
@@ -32,14 +32,13 @@
     ¡      ↪tog(),cease(); },✓);
   ↪rem; };
 
-əbigButton = ⥌c,𝔸↦󱀝 div  { 𝐶 bigButton⍮ ⠤𝔸 } ⟦c⟧
-əbarButton = ⥌c,𝔸↦󱀝 span { 𝐶 hbar     ⍮ ⠤𝔸 } ⟦c⟧
+əbarButton = ⥌Ѧ,c↦󱀝 button { 𝐶 hbar⍮ ⠤𝔸 } ⟦c⟧
 
 əitemGridEditable = ⥌plus,gen,rem,items=[],Ѧ={show_plus:✓,placeholder:󱣩}↦{
   ⎉ ,_adder;
   󱀝: {𝐶 itemGrid} [
       󱀝:_adder {𝐶 itemGridItem itemGridAdder} [
-          ⟦əbigButton(␛+, {onclick:𝚲plus(ᵃᵈᵈ􋕟ⁱᵗᵉᵐ)})⟧ ] ];
+        󱀝 button {𝐶 bigButton⍮  ⟦𝚲plus(ᵃᵈᵈ􋕟ⁱᵗᵉᵐ)⟧} ‹+› ] ];
   ᵃᵈᵈ􋕟ⁱᵗᵉᵐ = 󰲣{ ⎉ newElm = 󱀝 div {𝐶 itemGridItem};
                  ¿(y) { newElm􋒅 ⁺(‹itemGridPlaceholder›);
                         chainIntoElements(x, newElm); }

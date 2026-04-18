@@ -1,35 +1,47 @@
 © CSS_valid_ungroup = ‹.𝘌modes[dragitem]:not(:has(>:only-child))›;
 
-© ətriLabel = ⥌𝚑,⠤𝔸↦
-  󱀝 {⦅𝚑≥ ⟦𝚑⟧px⦆} [
+𝔥 = 󰲡‹calc(⟦x⟧px * var(--pxlSy))›;
+
+© ətriLabel = ⥌𝚗,⠤𝔸↦
+  󱀝 {⦅«𝚑≥ 𝚑 𝚑≤» ⟦𝔥(𝚗)⟧⦆} [
     󱀝 {} ⟦𝔸⟧
     󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
       󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
 
-© əresizer = ⥌Ѧ,s↦{
-  © A = 󰠲Utilᵉⁿᵈˢ(1∈Ѧ􈛈 ⭜Ѧ􈛈₁⭝ Ѧ􈛈􊯛 ₛ􋑴􊬖􊫵􊫄)₁;
-  © 𝘈 = s􈞚(‹.𝘌atom›)􋕛(󷰾);
-  
-  ⎉ l,n0,n,y0;
-  ©  = 󱀝 {𝐶 resizer} [󱀝    T {} ‹󰮹›
-                       󱀝:l T {}];
-  © show = ⥌Δ↦{ n = 󷹄(n0+▢(Δ÷Ѧ󰁢),1,MAX_LEDC);
-                l􋒷 = n;
-                𝘈􋛟.height = ‹⟦Ѧ󰁢⋅n⟧px›; };
-  © 𝐮 = 𝚲{ n0 = 󰠲Utilˡᵉⁿ(A);
-           show(0); };
-  𝐮();
+© i2m = 󰲡1∈Ѧ􈛈 ⭜Ѧ􈛈₁⭝ Ѧ􈛈􊯛 ₓ;
 
-  .dragstart = ⥌𝜺↦{ y0 = 𝜺ʸ;
-                     􈛘(‹dragging›); 𝐮(); };
-  .dragend   = ⥌𝜺↦{ A₀ = n;
-                     􈛑(‹dragging›);
-                     Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); };
-  .drag      = ⥌𝜺↦{ ¿(𝜺ʸ) show(𝜺ʸ-y0); };
+© əresizer = ⥌Ѧ,𝘔↦{
+  ⎉ l;
+  ©  = 󱀝 {𝐶 resizer} [
+          󱀝:l T ⟦☾(󰠲Utilˡᵉⁿ(i2m(𝘔ⁱᵈˣ)))⟧];
+  .dragstart = ⥌𝜺↦{
+    © y0    = 𝜺󰀒ʸ;
+    © stot0 = Ѧˢᵗᵒᵗ;
+    © M     = i2m(𝘔ⁱᵈˣ);
+    © Mtot  = 󰠲Utilˡᵉⁿ (M);
+    © A     = 󰠲Utilᵉⁿᵈˢ(M)₁;
+    © Atot  = 󰠲Utilˡᵉⁿ (A);
+    © 𝘈    = 𝘔􈞚(‹.𝘌atom›)􋕛(󷰾);
+    
+    𝘔􀳩 = ⥌𝚗=󱣩↦{ ¿(𝚗≅󱣩) 𝚗=Mtot;
+                 © Δ = 𝚗-Mtot;
+                 A₀    = Atot +Δ;
+                 Ѧˢᵗᵒᵗ = stot0+Δ;
+                 𝘈􋛟.height = 𝔥(Atot+Δ);
+                 l􋒷 = 𝚗;
+                 ☾(‹Δ=⟦Δ⟧ (⟦A₀⟧ ⟦Ѧˢᵗᵒᵗ⟧)›)
+                 scale();
+                 ↪𝚗; }
+    © update = ⥌Δ↦{ © n = 󷹄(Atot+▢(Δ÷Ѧᶜʰ⋅100),1,MAX_LEDC);
+                    𝘔􀳩(Mtot-Atot+n); };
+    .drag      = ⥌𝜺↦𝜺󰀒ʸ ∧ update(𝜺󰀒ʸ-y0);
+    .dragend   = ⥌𝜺↦{ 􈛑(‹dragging›);
+                       Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); };
+    􈛘(‹dragging›); };
   ↪makeDraggable(); };
 
 © 𝘌atom = ⥌Ѧ,[n,i,⠤󰠲]↦{
-  © 𝗆 = 󰲡󱀝 {𝐶 𝘌atom⍮ 𝑆 ⟦⦅𝚑 ⟦Ѧ󰁢⋅n⟧px⦆+␛;+x⟧} ‹› 
+  © 𝗆 = 󰲡󱀝 {𝐶 𝘌atom⍮ 𝑆 ⟦⦅𝚑 ⟦𝔥(n)⟧⦆+x⟧} ‹›;
   ¿(i≡0) { © [𝚌] = 󰠲;
            ↪𝗆(⦅𝚋 ⟦(𝑖2(󰠲₀))⟧⦆); }
   ⸘(i≡2) { ⎉ [_,Δ,⠤𝙲] = 󰠲;
@@ -53,11 +65,11 @@
 
 © 𝘌𝖬 = ⥌Ѧ,󰠲,n=0↦{
   © ətick = ⥌𝚗,m=0,b=1↦{
-    © [p,s] = [⤉(1,3÷𝚗)÷100, b+m÷𝚗];
-    © [l,α] = [255-40⋅(𝚗-1), 255  ];
+    © p = ⤉(1,3÷𝚗)÷100;
+    © [l,α] = [255-40⋅(𝚗-1),255];
     © clr = ([l,l,l,α]);
     © cnd = 𝚗>1⭜‹;pointer-events:none›⭝ᐦ;
-    ↪󱀝 {𝐶 𝘌tickmark⍮ 𝑆 ⟦⦅𝚋 ⟦clr⟧; 𝚠 ⟦s⟧em; «𝚑 𝚑≥» ⟦p⟧em; 𝚖↓ ⟦-p⟧em⦆+cnd⟧} ‹›; };
+    ↪󱀝 {𝐶 𝘌tickmark⍮ 𝑆 ⟦⦅𝚋 ⟦clr⟧; «𝚑 𝚑≥» ⟦p⟧em; 𝚖󷷤 ⟦-p÷2⟧em⦆+cnd⟧} ‹›; };
   
   ⎉ C = 1∈󰠲 ⭜[𝘌atom(Ѧ,󰠲₁)]⭝ 󰠲􊯛􊾡(󰲡𝘌𝖬(Ѧ,x,n+1));
   C = C􊾡 (󰲣(xⁱᵈˣ=y,x))
@@ -80,18 +92,10 @@
     Ѧ􈛈􍻞.push(Ѧ􈛈 = dat);
   Ѧᵗᵒᵖ = Ѧ􈛈􍻞 􋌵≡1;
   © tots = (1∈Ѧ􈛈⭜[Ѧ􈛈]⭝Ѧ􈛈􊯛)􊾡(󰠲Utilˡᵉⁿ);
-  © stot = tots􋔩(󰲣x+y,0);
+  Ѧˢᵗᵒᵗ = tots􋔩(󰲣x+y,0);
+  scale();
   
-  © 𝚣 = 𝚟ᶻᵒᵒᵐ;
-   ☾(‹Height: ⟦innerHeight⟧ ⟦outerHeight⟧ ⟦𝚣⟧›);
-  © 󰰀 = 0.85 ⋅ innerHeight ÷ 𝚣;
-  Ѧ󰁢 = ⤉(0.5⋅󰰀÷(⤉(stot,Ѧᵗᵒᵖ⭜Ѧᴸ 􋔩(󰲣x+y,0)⭝0)),
-         0.1⋅󰰀÷⤈(tots));
-  
-  Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(
-              ⠤Ѧᵗᵒᵖ ⭜ ↨(󱑼(Ѧᴺ,Ѧᴸ))􋅝(⥌i,[𝐧,n]↦ətriLabel(n⋅Ѧ󰁢, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))
-                    ⭝ []);
-                     ⭝ [ətriLabel(Ѧ󰁢⋅stot, 󱀝 T ‹⟦stot⟧ Pxl›)]);
+  Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(⠤Ѧᵗᵒᵖ ⭜↨(󱑼(Ѧᴺ,Ѧᴸ))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))⭝ []);
   Ѧᵖⁱˣᵉˡˢ􋑵.replaceChildren(Ѧ􈛈􋑵 = 𝘌𝖬(Ѧ,Ѧ􈛈));
   𝘌bevelMode(Ѧ);
   Ѧ􍻬 ᵖʳᵛ􋑵 􋒗 = Ѧᵗᵒᵖ;

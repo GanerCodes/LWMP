@@ -52,11 +52,8 @@
    return rem;
  };
 
- əbigButton = (c, 𝔸) => mkə(`div`, [
-   [`𝐶`, `bigButton`], ...𝒪(𝔸)
- ], c)
- əbarButton = (c, 𝔸) => mkə(`span`, [
-   [`𝐶`, `hbar     `], ...𝒪(𝔸)
+ əbarButton = (Ѧ, c) => mkə(`button`, [
+   [`𝐶`, `hbar`], ...𝒪(𝔸)
  ], c)
 
  əitemGridEditable = (plus, gen, rem, items = [], Ѧ = {
@@ -68,9 +65,10 @@
      [`𝐶`, `itemGrid`]
    ], [((þ0E27F_adder = mkə(false, [
      [`𝐶`, `itemGridItem itemGridAdder`]
-   ], [(əbigButton("+", {
-     onclick: () => plus(þ0E27F.add_item)
-   }))])))]));
+   ], [(mkə(`button`, [
+     [`𝐶`, `bigButton`],
+     [``, () => plus(þ0E27F.add_item)]
+   ], `+`))])))]));
    þ0E27F.add_item = (x, y, ...𝔸) => {
      let newElm = mkə(`div`, [
        [`𝐶`, `itemGridItem`]

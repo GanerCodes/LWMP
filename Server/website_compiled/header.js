@@ -142,21 +142,25 @@ REL = (þ0E27F, ...𝔸) => þ0E27F.removeEventListener(...𝔸);
   (p, þ0E27F = þF0219þ0E27F) => getComputedStyle(þ0E27F).getPropertyValue(`--${p}`),
   (p, v = "", þ0E27F = þF0219þ0E27F) => þF0219þ0E27F.style.setProperty(`--${p}`, v))
 
+swapə = (x, y, ...𝔸) => {
+  if (x === y) return;
+  const [α, β] = [x.parentNode, y.parentNode];
+  if (α && β) {
+    let χ = mkə(false, [], false)
+    α.insertBefore(χ, x);
+    β.insertBefore(x, y);
+    χ.parentNode.insertBefore(y, χ);
+    χ.remove();
+  } else if (α) α.replaceChild(y, x);
+  else if (β) α.replaceChild(x, y);
+};
+
+is𝑏 = (x, ...𝔸) => typeof x === "boolean";
 isStr = (x, ...𝔸) => typeof x === `string`;
 isNum = (x, ...𝔸) => typeof x === `number`;
 isArr = (x, ...𝔸) => x instanceof Array;
 isElm = (x, ...𝔸) => x instanceof Element || x instanceof HTMLDocument;
 [isArray, isElement] = [isArr, isElm];
-
-chainIntoElements = (x, P) => {
-  if (!(isArr(x) || isStr(x) || isElm(x)))
-    x = [];
-  else x = (isArr(x) ? x.þF01A9(þ0221E) : [x])
-    .ᴍ((𝚎) => isStr(𝚎) ? þF0219.createTextNode(𝚎) : 𝚎);
-  if (P === undefined) return x
-  P.append(...x);
-  return P;
-}
 
 const þ0E27FattrMap = {
   "": "onclick",
@@ -170,6 +174,15 @@ const þ0E27FattrMap = {
   𝐶: "className"
 };
 const þ0E27FNSNames = new Set(`svg g defs symbol use path rect circle ellipse line polyline polygon text tspan textPath linearGradient radialGradient stop pattern clipPath mask animate animateMotion animateTransform set metadata title desc view image foreignObject marker switch style`.split(` `));
+chainIntoElements = (x, þ0E27F) => {
+  const þF0284 = (x, ...𝔸) => þF0219.createTextNode(x);
+  x = isNum(x) || isArr(x) || isStr(x) || isElm(x) ?
+    boxᴍ(x, (x, ...𝔸) => isElm(x) ? x : þF0284(x)) :
+    [];
+  if (þ0E27F === undefined) return x;
+  þ0E27F.append(...x);
+  return þ0E27F;
+}
 mkə = (name, attrs, kids) => {
   kids = chainIntoElements(kids);
   if (𝗙(name)) return name(𝒟(attrs), ...kids);
@@ -185,17 +198,4 @@ mkə = (name, attrs, kids) => {
     });
 
   return þ0E27F;
-};
-
-swapə = (x, y, ...𝔸) => {
-  if (x === y) return;
-  const [α, β] = [x.parentNode, y.parentNode];
-  if (α && β) {
-    let χ = mkə(false, [], false)
-    α.insertBefore(χ, x);
-    β.insertBefore(x, y);
-    χ.parentNode.insertBefore(y, χ);
-    χ.remove();
-  } else if (α) α.replaceChild(y, x);
-  else if (β) α.replaceChild(x, y);
 };
