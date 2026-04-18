@@ -32,7 +32,7 @@
                  ☾(‹Δ=⟦Δ⟧ (⟦A₀⟧ ⟦Ѧˢᵗᵒᵗ⟧)›)
                  scale();
                  ↪𝚗; }
-    © update = ⥌Δ↦{ © n = 󷹄(Atot+▢(Δ÷Ѧᶜʰ⋅100),1,MAX_LEDC);
+    © update = ⥌Δ↦{ © n = 󷹄(Atot+▢(Δ÷Ѧᶜʰ⋅⤈(100,⤉(10,Ѧˢᵗᵒᵗ))),1,MAX_LEDC);
                     𝘔􀳩(Mtot-Atot+n); };
     .drag      = ⥌𝜺↦𝜺󰀒ʸ ∧ update(𝜺󰀒ʸ-y0);
     .dragend   = ⥌𝜺↦{ 􈛑(‹dragging›);
@@ -40,10 +40,14 @@
     􈛘(‹dragging›); };
   ↪makeDraggable(); };
 
+© stagger = ‹repeating-linear-gradient(180deg,#0000,#0000 ⟦𝔥(1)⟧,#0007 ⟦𝔥(1)⟧,#0007 ⟦𝔥(2)⟧)›
+
 © 𝘌atom = ⥌Ѧ,[n,i,⠤󰠲]↦{
   © 𝗆 = 󰲡󱀝 {𝐶 𝘌atom⍮ 𝑆 ⟦⦅𝚑 ⟦𝔥(n)⟧⦆+x⟧} ‹›;
+  © bgPfx = 1∈Ѧ􈛈 ⭜stagger+␛,⭝ ᐦ
   ¿(i≡0) { © [𝚌] = 󰠲;
-           ↪𝗆(⦅𝚋 ⟦(𝑖2(󰠲₀))⟧⦆); }
+           © bg = (󰲡‹linear-gradient(0deg,⟦x⟧)›)((𝑖2(󰠲₀)));
+           ↪𝗆(‹background:⟦bgPfx⟧⟦bg⟧›); }
   ⸘(i≡2) { ⎉ [_,Δ,⠤𝙲] = 󰠲;
            𝙲 = 𝙲􊾡(𝑖2);
            © γ = 1-Δ;
@@ -54,9 +58,9 @@
                   ⠤𝙲􊾡􎘌(⥌,i↦[[,𝜸⋅0.5+i⋅𝚠],[,𝜸⋅0.5+i⋅𝚠+𝜟]]),
                   [e,1]];
            © bg = ‹linear-gradient(to bottom,⟦󷸾􋅝(󰲣‹⟦(x)⟧ ⟦y⋅100⟧%›).join(␛,)⟧)›;
-           ↪𝗆(⦅background ⟦bg⟧⦆); }
+           ↪𝗆(‹background:⟦bgPfx⟧⟦bg⟧›); }
   ⸘(i≡1) { © [seg,sat,val] = 󰠲;
-           ↪𝗆(⦅background ⟦grad(⤉(seg,0.5),sat,val)⟧⦆); } };
+           ↪𝗆(‹background:⟦bgPfx⟧⟦grad(⤉(seg,0.5),sat,val)⟧›); } };
 
 © 𝘌bevelMode = ⥌Ѧ↦{ © 𝙰 = Ѧᵖⁱˣᵉˡˢ􋑵 􈞣(‹.𝘌atom›);
                     © add = Ѧ􈛈􍻞 􋌵≡1 ⭜[‹devLayer›]⭝ []

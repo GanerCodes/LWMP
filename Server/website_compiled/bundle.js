@@ -1170,7 +1170,7 @@ prompt_led_calibrate = async (𝐝, cb) => {
        return 𝚗;
      }
      const update = (Δ) => {
-       const n = þF7E44(Atot + þ025A2(Δ / Ѧ.ch * 100), 1, MAX_LEDC);
+       const n = þF7E44(Atot + þ025A2(Δ / Ѧ.ch * þ02908(100, þ02909(10, Ѧ.stot))), 1, MAX_LEDC);
        𝘔þ0E27F.𝙽(Mtot - Atot + n);
      };
      þ0E27F.drag = (𝜺) => 𝜺.Sy && update(𝜺.Sy - y0);
@@ -1183,14 +1183,18 @@ prompt_led_calibrate = async (𝐝, cb) => {
    return makeDraggable(þ0E27F);
  };
 
+ const staggerþ0E749 = `repeating-linear-gradient(180deg,#0000,#0000 ${𝔥(1)},#0007 ${𝔥(1)},#0007 ${𝔥(2)})`
+
  const 𝘌atom = (Ѧ, [n, i, ...þF0832]) => {
    const 𝗆 = (x, ...𝔸) => mkə(false, [
      [`𝐶`, `𝘌atom`],
      [`𝑆`, `height: ${𝔥(n)};` + x]
    ], ``);
+   const bgPfxþ0E749 = 1 in Ѧ.þF0832 ? staggerþ0E749 + "," : ""
    if (i == 0) {
      const [𝚌] = þF0832;
-     return 𝗆(`background-color: ${þ0E22Bþ0E749(𝑖2þ0E22B(þF0832[0]))};`);
+     const bgþ0E749 = ((x, ...𝔸) => `linear-gradient(0deg,${x})`)(þ0E22Bþ0E749(𝑖2þ0E22B(þF0832[0])));
+     return 𝗆(`background:${bgPfxþ0E749}${bgþ0E749}`);
    } else if (i == 2) {
      let [_, Δ, ...𝙲] = þF0832;
      𝙲 = 𝙲.ᴍ(𝑖2þ0E22B);
@@ -1207,10 +1211,10 @@ prompt_led_calibrate = async (𝐝, cb) => {
        [þ0E22Be, 1]
      ];
      const bgþ0E749 = `linear-gradient(to bottom,${þF7E3E . ꟿ( (x,y,...𝔸)=> `${þ0E22Bþ0E749(x)} ${y * 100}%`) . join(",")})`;
-     return 𝗆(`background: ${bgþ0E749};`);
+     return 𝗆(`background:${bgPfxþ0E749}${bgþ0E749}`);
    } else if (i == 1) {
      const [seg, sat, val] = þF0832;
-     return 𝗆(`background: ${þ0EF26gradþ0E749( þ02909 (seg , 0.5) , sat , val)};`);
+     return 𝗆(`background:${bgPfxþ0E749}${þ0EF26gradþ0E749( þ02909 (seg , 0.5) , sat , val)}`);
    }
  };
 
