@@ -31,7 +31,6 @@
    };
    𝐮();
 
-   makeDraggable(þ0E27F);
    þ0E27F.dragstart = (𝜺) => {
      y0 = 𝜺.y;
      þ0E27F.þF09E5(`dragging`);
@@ -45,7 +44,7 @@
    þ0E27F.drag = (𝜺) => {
      if (𝜺.y) show(𝜺.y - y0);
    };
-   return þ0E27F;
+   return makeDraggable(þ0E27F);
  };
 
  const 𝘌atom = (Ѧ, [n, i, ...þF0832]) => {
