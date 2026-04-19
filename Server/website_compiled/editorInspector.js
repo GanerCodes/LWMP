@@ -100,9 +100,7 @@
    const set = (𝚖, ...𝔸) => {
      const 𝚅 = [Ѧ.þF0832[1][0], 𝚖, ...𝔸];
      𝑙Replace(Ѧ.þF0832[1], 𝚅);
-     const rþ0E27F = 𝘌atom(Ѧ, 𝚅);
-     print(𝚅);
-     Ѧ.þ0E27F.þF7E01(`.𝘌atom`).style.cssText = rþ0E27F.style.cssText;
+     Ѧ.þ0E27F.þF7E01(`.𝘌atom`).style.cssText = 𝘌atom(Ѧ, 𝚅).style.cssText;
      𝘌bevelMode(Ѧ);
    };
 
@@ -215,10 +213,25 @@
    return Ѧ.𝘈þ0E27F;
  };
 
+ const copy = (x, ...𝔸) => navigator.clipboard.writeText(x);
+
  const 𝘌activatePanel = (Ѧ) => {
-   return mkə(`button`, [
-     [`onclick`, (...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖)]
-   ], `Test Scene`);
+   let queþ0E27F, durþ0E27F;
+   const cmd = (x, ...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖, x, queþ0E27F.Ѧ.S, ((x, ...𝔸) => x == durþ0E27F.Ѧ.v.h ? -1 : x)(durþ0E27F.Ѧ.v))
+   return mkə(`div`, [
+     [`𝑆`, `display: flex; flex-direction: column; align-content: space-evenly;`]
+   ], [(mkə(`span`, [
+     [`𝑆`, `width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;`]
+   ], [(mkə(`T`, false, `Enable queing?`)), (queþ0E27F = toggleButton(þF0EFE, "✗", "✓", false).þ0E27F)])), ((durþ0E27F = mkə(əslider, [
+     [`l`, `1`],
+     [`v`, `30`],
+     [`h`, `61`],
+     [`s`, `1`]
+   ], false))), (mkə(`button`, [
+     [``, (...𝔸) => cmd(false)]
+   ], `Test Scene`)), (mkə(`button`, [
+     [``, (...𝔸) => copy(cmd(true))]
+   ], `Copy Webhook`))]);
  };
 
  const 𝘌setInspector = (Ѧ) => {

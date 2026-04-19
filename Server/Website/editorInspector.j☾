@@ -47,9 +47,7 @@
   
   © set = ⥌𝚖,⠤𝔸↦{ © 𝚅 = [Ѧ􈛈₁ ₀,𝚖,⠤𝔸];
                   𝑙Replace(Ѧ􈛈₁,𝚅);
-                  © r = 𝘌atom(Ѧ,𝚅);
-                  ☾(𝚅);
-                  Ѧ􋑵 􈞢(‹.𝘌atom›)􋛟.cssText = r􋛟.cssText;
+                  Ѧ􋑵 􈞢(‹.𝘌atom›)􋛟.cssText = 𝘌atom(Ѧ,𝚅)􋛟.cssText;
                   𝘌bevelMode(Ѧ); };
   
   { ⎉ ;
@@ -103,8 +101,18 @@
   Ѧˢᵉᵗᴹᵒᵈᵉⱽⁱᵉʷ();
   ↪Ѧ􍻐􋑵; };
 
+© copy = 󰲡navigator.clipboard.writeText(x);
+
 © 𝘌activatePanel = ⥌Ѧ↦{
-  ↪󱀝 button {onclick ⟦󰲟𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈟)⟧} ‹Test Scene›; };
+  ⎉ que,dur;
+  © cmd = 󰲡𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈟,x,que􀴗 󰀒,(󰲡x≡dur􀴗 ᵛ ʰ⭜󷰾⭝x)(dur􀴗 ᵛ))
+  ↪󱀝 div ⦅𝚏↓;𝚊𝚜e⦆ [
+    󱀝 span ⦅𝚠;𝚏→;𝚊𝙿e⦆ [
+      󱀝 T ‹Enable queing?›
+      ⟦que = toggleButton(󰻾,␛✗,␛✓,✗)􋑵⟧]
+    󱀝:dur ⟦əslider⟧ {l 1⍮v 30⍮h 61⍮s 1}
+    󱀝 button { ⟦󰲟     cmd(✗) ⟧} ‹Test Scene›
+    󱀝 button { ⟦󰲟copy(cmd(✓))⟧} ‹Copy Webhook› ]; };
 
 © 𝘌setInspector = ⥌Ѧ↦{ Ѧ􍻠􋑵 􀴗.set(␛,𝘌modePanel    (Ѧ));
                        Ѧ􍻠􋑵 􀴗.set(␛,𝘌fxPanel      (Ѧ));

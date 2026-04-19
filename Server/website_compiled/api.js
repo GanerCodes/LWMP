@@ -3,9 +3,9 @@
 𝖡 = (...𝔸) => [false, ...𝔸];
 
 api_base = location.origin;
-api_body = (𝐭,P,...𝔸) => JSON.stringify({ 𝐭, _:[...𝔸], ...P });
+apiBody = (𝐭,P,...𝔸) => JSON.stringify({ 𝐭, _:[...𝔸], ...P });
 api = async (𝐭,P,...𝔸) => {
-  const body = api_body(𝐭,P,...𝔸);
+  const body = apiBody(𝐭,P,...𝔸);
   const req = await fetch(`${api_base}/api`, {
     method: "POST",
     body,
@@ -14,7 +14,7 @@ api = async (𝐭,P,...𝔸) => {
   r.status = req.status;
   print(`API with "${JSON.stringify(JSON.parse(body))}" → "${JSON.stringify(r,null,2)}"`);
   return r; };
-apiURL = (...𝔸) => `${api_base}/api/${encodeURIComponent(api_body(...𝔸))}`;
+apiURL = (...𝔸) => `${api_base}/api/${encodeURIComponent(apiBody(...𝔸))}`;
 
 const s_per_d = 60*60*24;
 const s_per_w = s_per_d*7;
@@ -24,7 +24,11 @@ const s2utcD = s => ((s + utc_Δ_s())%s_per_d + s_per_d) % s_per_d;
 const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
 
 𝐀 = (𝐭,...𝐔) => {
-  const 𝔄 = (...𝔸)=>api(𝐭,...𝔸);
+  let api_ƒ = api;
+  if(typeof 𝐔[0] === "boolean")
+    if(𝐔.shift())
+      api_ƒ = apiURL;
+  const 𝔄 = (...𝔸)=>api_ƒ(𝐭,...𝔸);
   const get_devs = _ => 𝔄({},"Get_devs");
   const dev = (...𝐔) => {
     𝐔 = 𝐔.flat(1/0);

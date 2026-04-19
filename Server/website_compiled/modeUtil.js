@@ -59,10 +59,17 @@
   }
 };
 
-𝘌run = (þF0832, 𝐬, 𝔖) => {
+𝘌run = (þF0832, 𝐬, 𝔖, url = false, que = false, dur = -1) => {
   const M = {
     mode: þF0832,
     offsets: 𝒟(þF147C(𝐬.𝐔, 𝐬.𝐔.Ϝ((x, y, ...𝔸) => x + 𝔖.𝐃[y].LEDC, 0)))
   };
-  𝐀(𝔖.𝐭, ...𝐬.𝐔).scene(𝐬.name, M, false, -1);
-}
+  const 𝔸 = [que, dur == -1 ? -1 : 1000 * dur];
+  if (url) {
+    𝐀(𝔖.𝐭, false, ...𝐬.𝐔).scene({
+      [𝐬.name]: M
+    });
+    return 𝐀(𝔖.𝐭, true, ...𝐬.𝐔).scene(𝐬.name, ...𝔸);
+  }
+  return 𝐀(𝔖.𝐭, false, ...𝐬.𝐔).scene(𝐬.name, M, ...𝔸);
+};
