@@ -67,7 +67,7 @@
   Ѧ = {init:✓,ƒ:󰻾,𝙳:{},⠤Ѧ};
   © bar = [];
   ∀(⎉[k,e,ɒ={}] ⎔ 𝙴)
-    ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮ onclick ⟦󰲟ˢᵉᵗ(k)⟧⍮ ⠤ɒ} ⟦k⟧
+    ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮ onclick ⟦󰲟ˢᵉᵗ(k)⟧⍮ ⠤𝒟([⠤ɒ]􊾡(󰲡[xⁿᵃᵐᵉ,xᵛᵃˡᵘᵉ]))} ⟦k⟧
            Ѧ􀳕ₖ = {:e,𝚋};
            bar.push(𝚋); }
     ¡    { bar.push(e); }

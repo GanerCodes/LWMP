@@ -161,6 +161,11 @@ input[type=range]::-moz-range-thumb:active {
       background-color: #0004;
     }
   }
+  .borderButton {
+    margin: 5px;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+  }
   .hbar, .bigButton {
     width: 100%;
     margin: 0px;
@@ -559,7 +564,7 @@ input[type=range]::-moz-range-thumb:active {
         flex-direction: row;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 0.5em;
+        margin-top: 1em;
         padding-left: 1em;
         padding-right: 1em;
         direction: ltr;
@@ -721,6 +726,17 @@ input[type=range]::-moz-range-thumb:active {
     &>button {
       border: 2px solid #808080;
       border-radius: 1em;
+    }
+  }
+  .𝘌activatePanel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: space-evenly;
+    padding-left: 4%;
+    padding-right: 4%;
+    &>* {
+      width: 100%;
     }
   }
   .𝘌outer {

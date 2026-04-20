@@ -82,6 +82,8 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
                        𝚋𝚐󰈲 brightness(1.1)
               􎁎 ∣ 𝚋 #0002
               􀴗 ∣ 𝚋 #0004
+  .borderButton ∣ 𝚖 5px
+                  𝚋 2px solid ⦑fg1⦒; 𝚋𝚛 5px
   .«hbar bigButton»      ∣ 𝚠;𝚖0
   .«barButton bigButton» ∣ 𝚠;𝚑;󰊄𝚊 center
   .bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
@@ -229,7 +231,7 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
     𝚋↑ 0.05em solid ⦑bg2⦒
     >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
           𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em;𝚍𝚒𝚛 rtl
-          >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 0.5em;𝚙󷷢 1em;𝚍𝚒𝚛 ltr
+          >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 1em;𝚙󷷢 1em;𝚍𝚒𝚛 ltr
                 >.𝘌alignedLabels
                   𝚏↓;𝚊𝙿←
                   >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
@@ -294,7 +296,10 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
                𝚍 􋄅
     >button
       𝚋 2px solid ⦑fg3⦒; 𝚋𝚛 1em
-
+  .𝘌activatePanel
+    𝚠;𝚏↓;𝚊𝚜e;𝚙󷷢 4%
+    >* ∣ 𝚠
+  
   .𝘌outer
     𝚏↓;𝚠
     >T
@@ -340,7 +345,6 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
         𝚜 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85)
     *􋁋(*[detector],.detectorMeta)
       pointer-events auto
-
   .detectorMeta
     𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; 󰊄𝚜 2.5em
     «𝚠 𝚑» 1.75em; 

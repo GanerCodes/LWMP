@@ -9,7 +9,7 @@
 
  const þ0E27FtokenListing = ətokenListing(setTok);
  const þ0E27FdevListing = ədevListing();
- const þ0E27FsceneListing = əsceneListing((x, ...𝔸) => print(`Scene called ${x}`));
+ const þ0E27FsceneListing = əsceneListing((Ѧ) => 𝘌run(Ѧ.𝐬.dat, Ѧ.𝐬, Ѧ.𝔖, false, false, -1));
 
  const toks = get_toks();
  þ0E27FtokenListing.populate(toks);
@@ -22,9 +22,11 @@
 
  const þ0E27Fnav = mkə(ənavBar, [
    [`Ⴝ`, defView]
- ], [(mkə(`✗`, false, [(mkə(`div`, false, `󰤱 logo`))])), (mkə(false, [
-   [`󰊄`, `Tokens`],
-   [`disabled`, true]
+ ], [(mkə(`✗`, false, [(mkə(`img`, [
+   [`𝑆`, `height: 2em; margin-left: 0.5em;`],
+   [`src`, `/Assets/logo.svg`]
+ ], false))])), (mkə(false, [
+   [`󰊄`, `Tokens`]
  ], þ0E27FtokenListing)), (mkə(false, [
    [`󰊄`, `Devices`],
    [`disabled`, true]

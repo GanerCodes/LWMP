@@ -78,7 +78,7 @@
                                    add_scene(𝔖􋆮,𝚗,✓);
                                    ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); };
                    © clone = 󰲟ᵃᵈᵈ􋕟ⁱᵗᵉᵐ({⠤structuredClone(𝐬),name:‹⟦𝐬ⁿᵃᵐᵉ⟧ - Copy›});
-                   ↪[ətileButton(𝐬ⁿᵃᵐᵉ,cb),
+                   ↪[ətileButton(𝐬ⁿᵃᵐᵉ,𝚲cb({𝐬,𝔖})),
                      əbuttonBar(
                        [␛󰆴,rem],
                        [␛,󰲟prompt_editor(update,𝔖,𝐬)],

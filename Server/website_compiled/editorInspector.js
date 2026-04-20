@@ -207,18 +207,22 @@
  const copy = (x, ...𝔸) => navigator.clipboard.writeText(x);
 
  const 𝘌activatePanel = (Ѧ) => {
-   const cmd = (x, ...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖, x, queþ0E27F.Ѧ.S, ((x, ...𝔸) => x == durþ0E27F.Ѧ.secs() ? -1 : x)(durþ0E27F.Ѧ.v))
+   const cmd = (x, ...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖,
+     x, queþ0E27F.Ѧ.S,
+     infþ0E27F.Ѧ.S ? -1 : durþ0E27F.Ѧ.secs());
    const durþ0E27F = mkə(ədurSlider, [], false);
-   let queþ0E27F;
+   let queþ0E27F, infþ0E27F;
    return mkə(`div`, [
-     [`𝑆`, `display: flex; flex-direction: column; align-content: space-evenly;`]
+     [`𝐶`, `𝘌activatePanel`]
    ], [(mkə(`span`, [
-     [`𝑆`, `width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;`]
-   ], [(mkə(`T`, false, `Enable queing?`)), (queþ0E27F = toggleButton(þF0EFE, "✗", "✓", false).þ0E27F)])), (mkə(`span`, [
-     [`𝑆`, `width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;`]
-   ], [(mkə(`T`, false, `Infinite?`)), (toggleButton((x, ...𝔸) => showə(durþ0E27F, !x), "✗", "✓", true).þ0E27F)])), (durþ0E27F), (mkə(`button`, [
+     [`𝑆`, `width: 100%; display: flex; flex-direction: row; justify-content: space-between;`]
+   ], [(mkə(`T`, false, `Enable queing?`)), (queþ0E27F = toggleButton((x, ...𝔸) => x && infþ0E27F.Ѧ.set(false), "✗", "✓", false).þ0E27F)])), (mkə(`span`, [
+     [`𝑆`, `width: 100%; display: flex; flex-direction: row; justify-content: space-between;`]
+   ], [(mkə(`T`, false, `Infinite?`)), (infþ0E27F = toggleButton((x, ...𝔸) => (showə(durþ0E27F, !x), x && queþ0E27F.Ѧ.set(false, undefined)), "✗", "✓", true).þ0E27F)])), (durþ0E27F), (mkə(`button`, [
+     [`𝐶`, `borderButton`],
      [``, (...𝔸) => cmd(false)]
    ], `Test Scene`)), (mkə(`button`, [
+     [`𝐶`, `borderButton`],
      [``, (...𝔸) => copy(cmd(true))]
    ], `Copy Webhook`))]);
  };

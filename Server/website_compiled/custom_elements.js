@@ -24,10 +24,11 @@
     Y,
     N,
     þ0E27F: S ? Y : N,
-    set: (s = undefined) => {
+    set: (s = undefined, call = true) => {
       Ѧ.S = s === undefined ? !Ѧ.S : +s;
       swapə(Ѧ.þ0E27F, Ѧ.þ0E27F = Ѧ.S ? Ѧ.Y : Ѧ.N);
-      return ƒ(Ѧ.S);
+      if (call) ƒ(Ѧ.S);
+      return Ѧ.S;
     }
   };
   Ѧ.polar && SAT(N, `off`);

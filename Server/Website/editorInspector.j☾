@@ -104,19 +104,21 @@
 © copy = 󰲡navigator.clipboard.writeText(x);
 
 © 𝘌activatePanel = ⥌Ѧ↦{
-  © cmd = 󰲡𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈟,x,que􀴗 󰀒,(󰲡x≡dur􀴗 ˢᵉᶜˢ()⭜󷰾⭝x)(dur􀴗 ᵛ))
+  © cmd = 󰲡𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈟,
+                x,que􀴗 󰀒,
+                inf􀴗 󰀒⭜󷰾⭝dur􀴗 ˢᵉᶜˢ());
   © dur = 󱀝 ⟦ədurSlider⟧ {};
-  ⎉ que;
-  ↪󱀝 div ⦅𝚏↓;𝚊𝚜e⦆ [
-    󱀝 span ⦅𝚠;𝚏→;𝚊𝙿e⦆ [
+  ⎉ que,inf;
+  ↪󱀝 div {𝐶 𝘌activatePanel} [
+    󱀝 span ⦅𝚠;𝚏→;𝚊𝙿b⦆ [
       󱀝 T ‹Enable queing?›
-      ⟦que = toggleButton(󰻾,␛✗,␛✓,✗)􋑵⟧]
-    󱀝 span ⦅𝚠;𝚏→;𝚊𝙿e⦆ [
+      ⟦que = toggleButton(󰲡x∧inf􀴗.set(✗),␛✗,␛✓,✗)􋑵⟧]
+    󱀝 span ⦅𝚠;𝚏→;𝚊𝙿b⦆ [
       󱀝 T ‹Infinite?›
-      ⟦toggleButton(󰲡showə(dur,¬x),␛✗,␛✓,✓)􋑵⟧]
+      ⟦inf = toggleButton(󰲡(showə(dur,¬x),x∧que􀴗.set(✗,󱣩)),␛✗,␛✓,✓)􋑵⟧]
     ⟦dur⟧
-    󱀝 button { ⟦󰲟     cmd(✗) ⟧} ‹Test Scene›
-    󱀝 button { ⟦󰲟copy(cmd(✓))⟧} ‹Copy Webhook› ]; };
+    󱀝 button {𝐶 borderButton⍮ ⟦󰲟     cmd(✗) ⟧} ‹Test Scene›
+    󱀝 button {𝐶 borderButton⍮ ⟦󰲟copy(cmd(✓))⟧} ‹Copy Webhook› ]; };
 
 © 𝘌setInspector = ⥌Ѧ↦{ Ѧ􍻠􋑵 􀴗.set(␛,𝘌modePanel    (Ѧ));
                        Ѧ􍻠􋑵 􀴗.set(␛,𝘌fxPanel      (Ѧ));

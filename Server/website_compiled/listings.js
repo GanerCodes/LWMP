@@ -154,7 +154,10 @@
          ...structuredClone(𝐬),
          name: `${𝐬 . name} - Copy`
        });
-       return [ətileButton(𝐬.name, cb),
+       return [ətileButton(𝐬.name, () => cb({
+           𝐬,
+           𝔖
+         })),
          əbuttonBar(
            ["󰆴", rem],
            ["", (...𝔸) => prompt_editor(update, 𝔖, 𝐬)],

@@ -20,7 +20,7 @@
    let lþ0E27F;
    const þ0E27F = mkə(false, [
      [`𝐶`, `resizer`]
-   ], [((lþ0E27F = mkə(`T`, false, print(þF0832Util.len(i2m(𝘔þ0E27F.idx))))))]);
+   ], [((lþ0E27F = mkə(`T`, false, þF0832Util.len(i2m(𝘔þ0E27F.idx)))))]);
    þ0E27F.dragstart = (𝜺) => {
      const y0 = 𝜺.Sy;
      const stot0 = Ѧ.stot;
@@ -37,7 +37,6 @@
        Ѧ.stot = stot0 + Δ;
        𝘈þ0E27F.style.height = 𝔥(Atot + Δ);
        lþ0E27F.innerText = 𝚗;
-       print(`Δ=${Δ} (${A[0]} ${Ѧ . stot})`)
        scale();
        return 𝚗;
      }

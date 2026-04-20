@@ -6,7 +6,7 @@
 
 © tokenListing = ətokenListing(setTok);
 © devListing   = ədevListing();
-© sceneListing = əsceneListing(󰲡☾(‹Scene called ⟦x⟧›));
+© sceneListing = əsceneListing(⥌Ѧ↦𝘌run(Ѧ􋆭 ᵈᵃᵗ,Ѧ􋆭,Ѧ􋈟,✗,✗,󷰾));
 
 © toks = get_toks();
 tokenListing.populate(toks);
@@ -17,8 +17,8 @@
   defView = ‹Devices›; }
 
 © nav = 󱀝 ⟦ənavBar⟧ {Ⴝ ⟦defView⟧} [
-           󱀝 ✗                            [󱀝 div ‹󰤱 logo›]
-           󱀝 {󰊄 ‹Tokens󷺗󷺗›⍮ disabled ⟦✓⟧} ⟦tokenListing⟧
+           󱀝 ✗                            [󱀝 img {⦅𝚑 2em;𝚖← 0.5em⦆⍮src ‹/Assets/logo.svg›}]
+           󱀝 {󰊄 ‹Tokens󷺗󷺗›              } ⟦tokenListing⟧
            󱀝 {󰊄 ‹Devices󷺗›⍮ disabled ⟦✓⟧} ⟦devListing  ⟧
            󱀝 {󰊄 ‹Scenes󷺗󷺗›⍮ disabled ⟦✓⟧} ⟦sceneListing⟧
            󱀝 {󰊄 ‹Schedule›⍮ disabled ⟦✓⟧} [󱀝 div ‹󰤱›]];

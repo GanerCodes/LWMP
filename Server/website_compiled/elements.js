@@ -120,7 +120,7 @@
      if (k) {
        const 𝚋 = mkə(`button`, [
          [`𝐶`, `barButton`],
-         [`onclick`, (...𝔸) => þ0E27F.set(k)], ...𝒪(ɒ)
+         [`onclick`, (...𝔸) => þ0E27F.set(k)], ...𝒪(𝒟([...ɒ].ᴍ((x, ...𝔸) => [x.name, x.value])))
        ], k)
        Ѧ.𝙳[k] = {
          þ0E27F: e,
