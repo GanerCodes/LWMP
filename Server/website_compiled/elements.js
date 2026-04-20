@@ -7,7 +7,6 @@
  const þ0EF26gradþ0E749 = (c, s, v) => `linear-gradient(180deg in hsl longer hue,${hsv2hslþ0E749([0 , s , v])},${hsv2hslþ0E749([255 , s , v])}) 0 0 / 100% ${100 / c}% repeat-y`;
  const hsv2hslþ0E749 = ([h, s, v]) => `hsl(${h / 255 * 360}deg,${s / 2.55}%,${v / 255 * 50}%)`;
 
- const show = (x, y, ...𝔸) => x.style.display = y ? "" : `none`;
  const clickDetect = (𝚚, ƒ, base = þF0219.body, Ѧ = {}) => {
    Ѧ = {
      "*": false,
@@ -196,17 +195,91 @@
      [`step`, Ѧ.s]
    ], ``);
    þ0E27F.value = Ѧ.v;
-   Ѧ.set = (v = undefined) => {
+   Ѧ.set = (v = undefined, call = true) => {
      if (v === undefined) v = +þ0E27F.value;
      else þ0E27F.value = v;
-     Ѧ.ƒ(Ѧ.v = v);
+     Ѧ.v = v;
+     if (call) Ѧ.ƒ(Ѧ.v);
      return Ѧ.v;
    };
    AEL(þ0E27F, `input`, (...𝔸) => Ѧ.set());
    þ0E27F.Ѧ = Ѧ;
-   if (Ѧ.init) Ѧ.set();
+   Ѧ.þ0E27F = þ0E27F;
+   Ѧ.set(undefined, Ѧ.init);
    return þ0E27F;
  }
+
+ əsliderLabeled = (Ѧ = {}) => {
+   let ɒ;
+   [ɒ, Ѧ] = 𝓟(Ѧ, {
+     init: true,
+     "󰊄ƒ": þF0EFE,
+     ƒ: þF0EFE
+   });
+   ɒ = {
+     ...ɒ,
+     init: false,
+     ƒ: () => Ѧ.set()
+   };
+   let þ0E27F, sþ0E27F, lþ0E27F;
+   (þ0E27F = mkə(false, [
+     [`𝐶`, `sliderLabeled`]
+   ], [((lþ0E27F = mkə(`T`, [], false))), ((sþ0E27F = mkə(əslider, [...𝒪(ɒ)], false)))]));
+
+   Ѧ.set = (v = undefined, call = true) => {
+     if (v === undefined) v = +sþ0E27F.Ѧ.v;
+     else sþ0E27F.Ѧ.set(v, false);
+     Ѧ.v = v;
+     lþ0E27F.innerText = Ѧ["󰊄ƒ"](Ѧ.v);
+     if (call) Ѧ.ƒ(Ѧ.v);
+     return Ѧ.v;
+   };
+   þ0E27F.Ѧ = Ѧ;
+   Ѧ.þ0E27F = þ0E27F;
+   Ѧ.set(undefined, Ѧ.init);
+   return þ0E27F;
+ };
+
+ ədurSlider = (Ѧ = {}) => {
+   let ɒ;
+   [ɒ, Ѧ] = 𝓟(Ѧ, {
+     init: true,
+     v: [0, 0, 0],
+     hh: 3,
+     ƒ: þF0EFE
+   });
+   ɒ = {
+     ...ɒ,
+     l: 0,
+     init: false,
+     ƒ: () => Ѧ.set()
+   };
+   let þ0E27F, hþ0E27F, mþ0E27F, sþ0E27F;
+   (þ0E27F = mkə(false, [
+     [`𝐶`, `durSliders`]
+   ], [((hþ0E27F = mkə(əsliderLabeled, [...𝒪(ɒ), [`v`, Ѧ.v[0]],
+     [`h`, Ѧ.hh],
+     [`󰊄ƒ`, (x, ...𝔸) => x + "h"]
+   ], false))), ((mþ0E27F = mkə(əsliderLabeled, [...𝒪(ɒ), [`v`, Ѧ.v[1]],
+     [`h`, `59 `],
+     [`󰊄ƒ`, (x, ...𝔸) => x + "m"]
+   ], false))), ((sþ0E27F = mkə(əsliderLabeled, [...𝒪(ɒ), [`v`, Ѧ.v[2]],
+     [`h`, `59 `],
+     [`󰊄ƒ`, (x, ...𝔸) => x + "s"]
+   ], false)))]));
+   Ѧ.set = (v = undefined, call = true) => {
+     if (v === undefined) v = þ0E27F.ᴍ((x, ...𝔸) => x.Ѧ.v);
+     else þ0E27F.ᴍ((x, y, ...𝔸) => (x.Ѧ.set(v[y], false)));
+     Ѧ.v = v;
+     if (call) Ѧ.ƒ(Ѧ.v);
+     return Ѧ.v;
+   };
+   Ѧ.secs = () => (Ѧ.v[0] * 60 + Ѧ.v[1]) * 60 + Ѧ.v[2];
+   þ0E27F.Ѧ = Ѧ;
+   Ѧ.þ0E27F = þ0E27F;
+   Ѧ.set(undefined, Ѧ.init);
+   return þ0E27F;
+ };
 
  əþ0E22Bþ0F1DE = (Ѧ = {}) => {
    Ѧ = {

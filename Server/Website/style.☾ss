@@ -58,290 +58,300 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
 ⦑𝚝𝚑𝚞𝚖𝚋mz⦒􍳫 ∣         𝚋 0.33em solid ⦑fg0⦒
 
  unironic styling
-@font-face ∣ 󰊄𝚏 "Avenir" ; src url("/Assets/Tomkin-Regular.woff2")
-@font-face ∣ 󰊄𝚏 "Symbols"; src url("/Assets/Symbols.woff2"       )
-:root ∣ 󰊄𝚏 "Symbols","Avenir"
-*     ∣ 𝚃 background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease
-        scroll-behavior smooth
 
-input,button,body􋁋(*[dragging])
-  «touch-action user-select» 􋄅
+@layer base
+  @font-face ∣ 󰊄𝚏 "Avenir" ; src url("/Assets/Tomkin-Regular.woff2")
+  @font-face ∣ 󰊄𝚏 "Symbols"; src url("/Assets/Symbols.woff2"       )
+  :root ∣ 󰊄𝚏 "Symbols","Avenir"
+  *     ∣ 𝚃 background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease
+          scroll-behavior smooth
+          box-sizing border-box
 
-body      ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
-body,html ∣ 𝚋 ⦑bg0⦒
-button    ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣
-            user-select 􋄅
-            𝚃 all 0.2s ease
-            𝚋 􍍝
-             ⦑fg0⦒EE; 𝚋 #0000
-            􋒗􊽬⁽󰁺choosen󰁻⁾ ∣  ⦑fg3⦒; 𝚘𝚙 0.5
-            «􎁎 􀴗» ∣ 𝚃𝚏 􍍝; p;  ⦑fg0⦒
-                     𝚋𝚐󰈲 brightness(1.1)
-            􎁎 ∣ 𝚋 #0002
-            􀴗 ∣ 𝚋 #0004
-.«hbar bigButton»      ∣ 𝚠;𝚖0
-.«barButton bigButton» ∣ 𝚠;𝚑;󰊄𝚊 center
-.bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
-.dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
-  𝚋 #0000
-.multiButtonBar
-  𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
-  >.barButton
-    𝚠;𝚑;󰊄𝚜 1.25em
-    >* ∣ 𝚊𝚛 1; 𝚑¾
-    􋒗  ∣ 𝚋 ⦑bg0⦒
-    𝚙↑ 5px
-    𝚋↓ 5px solid
-    [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
-                    border-image ⦑ꬶrb0_→⦒ 1
-    􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90􋠏,#0000 0%, #0000 100%) 1;
-  [plural]>.barButton[choosen]
-    􍬷(2n-1) ∣ border-image ⦑ꬶbr0_→⦒ 1
+  input,button,body􋁋(*[dragging])
+    «touch-action user-select» 􋄅
+  
+  body      ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
+  body,html ∣ 𝚋 ⦑bg0⦒
+  button    ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣
+              user-select 􋄅
+              𝚃 all 0.2s ease
+              𝚋 􍍝
+               ⦑fg0⦒EE; 𝚋 #0000
+              􋒗􊽬⁽󰁺choosen󰁻⁾ ∣  ⦑fg3⦒; 𝚘𝚙 0.5
+              «􎁎 􀴗» ∣ 𝚃𝚏 􍍝; p;  ⦑fg0⦒
+                       𝚋𝚐󰈲 brightness(1.1)
+              􎁎 ∣ 𝚋 #0002
+              􀴗 ∣ 𝚋 #0004
+  .«hbar bigButton»      ∣ 𝚠;𝚖0
+  .«barButton bigButton» ∣ 𝚠;𝚑;󰊄𝚊 center
+  .bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
+  .dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
+    𝚋 #0000
+  .multiButtonBar
+    𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
+    >.barButton
+      𝚠;𝚑;󰊄𝚜 1.25em
+      >* ∣ 𝚊𝚛 1; 𝚑¾
+      􋒗  ∣ 𝚋 ⦑bg0⦒
+      𝚙↑ 5px
+      𝚋↓ 5px solid
+      [choosen]    ∣  ⦑fg0⦒; 𝚋 ⦑bg2⦒
+                      border-image ⦑ꬶrb0_→⦒ 1
+      􊽬⁽󰁺choosen󰁻⁾ ∣ border-image linear-gradient(90􋠏,#0000 0%, #0000 100%) 1;
+    [plural]>.barButton[choosen]
+      􍬷(2n-1) ∣ border-image ⦑ꬶbr0_→⦒ 1
 
-.icon ∣ 𝚑 0.75em; 𝚟𝚊 center
-.box  ∣ 𝚋𝚛 10px
+  .icon ∣ 𝚑 0.75em; 𝚟𝚊 center
+  .box  ∣ 𝚋𝚛 10px
+  
+  .sliderLabeled
+    𝚏→;𝚊𝚂󷷣;𝚙󷷢 0.5em
+    >⁰ ∣ 𝚠 2em; 𝚖→ 0.25em
+    >􍨅 ∣ 𝚏𝚐 1
 
-.rgbSliders
-  𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣; 𝚙 0.25em; 𝚋𝚛 0.25em
-  >* ∣ 𝚏→;𝚊𝙿󷷣;𝚊𝚂󷷣;𝚠󷷈; 𝚖󷷤 0.25em; 𝚑 1.2em
-        𝚋𝚛 􋔛px
-        >⁰ ∣ 𝚠 3em
-        >􍨅 ∣ 𝚠 􊽺(100% - 3.5em)
+  .rgbSliders
+    𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣; 𝚙 0.25em; 𝚋𝚛 0.25em
+    >* ∣ 𝚏→;𝚊𝙿󷷣;𝚊𝚂󷷣;𝚠󷷈; 𝚖󷷤 0.25em; 𝚑 1.2em
+          𝚋𝚛 􋔛px
+          >⁰ ∣ 𝚠 3em
+          >􍨅 ∣ 𝚠 􊽺(100% - 3.5em)
 
-input,.boxInput ∣ 𝚋 ⦑bg1⦒
-.boxInput􍴍 ∣ 𝚋 􍍝
-.itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 􊽺(90􍽺)
-            𝚊𝙿󷷣; 𝚐 20px
-            grid-template-columns repeat(auto-fit,300px)
-            >.itemGridPlaceholder
-              𝚍 􋄅
-            􊽬⁽􋁋⁽󰂁􊽬⁽􋁕⁽.itemGridAdder󰁱.itemGridPlaceholder⁾⁾⁾⁾
-              𝚏
-              >.itemGridPlaceholder ∣ «𝚠≤ 𝚠 𝚠≥» 100%; 𝚍 unset; 𝚋 􋄅
-.itemGridAdder ∣ 𝚘𝚏 clip
-.itemGridItem  ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥» 300px; «𝚑≤ 𝚑 𝚑≥» 200px
-                 􋁋⁽.multiButtonBar⁾
-                   >⁰
-                     𝚋«↑ ← →» 4px solid ⦑bg2⦒; 𝚋𝚛↑ 12px
-                   >.multiButtonBar
-                     𝚖0
-                     𝚋𝚛↓ 12px
-                     𝚋 ⦑bg2⦒
-                     «𝚋󷷢 𝚋↓» 0px solid ⦑bg2⦒
-                 􊽬⁽􋁋⁽.multiButtonBar⁾⁾
-                   𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 12px
+  input,.boxInput ∣ 𝚋 ⦑bg1⦒
+  .boxInput􍴍 ∣ 𝚋 􍍝
+  .itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 􊽺(90􍽺)
+              𝚊𝙿󷷣; 𝚐 20px
+              grid-template-columns repeat(auto-fit,300px)
+              >.itemGridPlaceholder
+                𝚍 􋄅
+              􊽬⁽􋁋⁽󰂁􊽬⁽􋁕⁽.itemGridAdder󰁱.itemGridPlaceholder⁾⁾⁾⁾
+                𝚏
+                >.itemGridPlaceholder ∣ «𝚠≤ 𝚠 𝚠≥» 100%; 𝚍 unset; 𝚋 􋄅
+  .itemGridAdder ∣ 𝚘𝚏 clip
+  .itemGridItem  ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥» 300px; «𝚑≤ 𝚑 𝚑≥» 200px
+                   􋁋⁽.multiButtonBar⁾
+                     >⁰
+                       𝚋«↑ ← →» 4px solid ⦑bg2⦒; 𝚋𝚛↑ 12px
+                     >.multiButtonBar
+                       𝚖0
+                       𝚋𝚛↓ 12px
+                       𝚋 ⦑bg2⦒
+                       «𝚋󷷢 𝚋↓» 0px solid ⦑bg2⦒
+                   􊽬⁽􋁋⁽.multiButtonBar⁾⁾
+                     𝚋 3px solid ⦑bg2⦒; 𝚋𝚛 12px
 
-.rgbButtons
-  󰊄𝚜 min(5em,calc(7.5vmin)); font-weight bold
-  >* ∣ «𝚠 𝚑» 2em
-        line-height 0
-        𝚍 inline-flex;𝚊𝙿󷷣;𝚊𝚂󷷣
-        𝚖 0.25em; 𝚙 20px
-        𝚋 2px solid #EEE; 𝚋𝚛 1000px
-        [c="R"] ∣ 𝚋 6px solid #F00
-                     ∣  #DD2222; 𝚋 #100000
-                   􎁎 ∣  #EE2222; 𝚋 #200000
-                   􀴗 ∣  #FF3333; 𝚋 #300000
-        [c="G"] ∣ 𝚋 6px solid #0F0
-                     ∣  #22DD22; 𝚋 #001100
-                   􎁎 ∣  #22EE22; 𝚋 #002000
-                   􀴗 ∣  #33FF33; 𝚋 #003000
-        [c="B"] ∣ 𝚋 6px solid #00F
-                     ∣  #2222DD; 𝚋 #000010
-                   􎁎 ∣  #2222EE; 𝚋 #000020
-                   􀴗 ∣  #3333FF; 𝚋 #000030
+  .rgbButtons
+    󰊄𝚜 min(5em,calc(7.5vmin)); font-weight bold
+    >* ∣ «𝚠 𝚑» 2em
+          line-height 0
+          𝚍 inline-flex;𝚊𝙿󷷣;𝚊𝚂󷷣
+          𝚖 0.25em; 𝚙 20px
+          𝚋 2px solid #EEE; 𝚋𝚛 1000px
+          [c="R"] ∣ 𝚋 6px solid #F00
+                       ∣  #DD2222; 𝚋 #100000
+                     􎁎 ∣  #EE2222; 𝚋 #200000
+                     􀴗 ∣  #FF3333; 𝚋 #300000
+          [c="G"] ∣ 𝚋 6px solid #0F0
+                       ∣  #22DD22; 𝚋 #001100
+                     􎁎 ∣  #22EE22; 𝚋 #002000
+                     􀴗 ∣  #33FF33; 𝚋 #003000
+          [c="B"] ∣ 𝚋 6px solid #00F
+                       ∣  #2222DD; 𝚋 #000010
+                     􎁎 ∣  #2222EE; 𝚋 #000020
+                     􀴗 ∣  #3333FF; 𝚋 #000030
 
-body>.navContainer
-  𝚠;𝚘𝚏x hidden
-  >.multiButtonBar
-     𝚋 ⦑bg1⦒
-     𝚑≤ 􊽺(10􍽺)
-  >.navBodyHolder
-    𝚠; 𝚑≥ 􊽺(80􍽺); 𝚑≤ 􊽺(90􍽺 - 30px)
-    𝚖↑ 30px; 𝚘𝚏y scroll
-.devDraggableHolder ∣ 𝚏↓;𝚠;𝚑;󰊄𝚜 22px
-                      𝚋 1px solid #555
-                      [maydrop]  ∣ 𝚋 1px dashed #FF0
-.devDraggable       ∣ 𝚠;𝚏→;𝚊𝙿b;𝚊𝚂󷷣;𝚙󷷢 5%
-                      𝚋 1px solid #555
-                      [maydrop]  ∣ 𝚋 1px dashed #FF0
-                      [dragging] ∣ 𝚃𝚏 scale(0.75)
-.titledBox ∣ 𝚠≥ 80%;𝚏↓;𝚊𝚂󷷣
-.promptBox
-  𝚊𝚂󷷣
-  >h1 ∣ 󰊄𝚜 50px
-  >.boxInput
-    𝚖↓ 30px
-    >* ∣ 󰊄𝚜 30px
-  >button ∣ 𝚠 150px
-             𝚋 2px solid #999; 𝚋𝚛 5px
-             󰊄𝚜 40px
+  body>.navContainer
+    𝚠;𝚘𝚏x hidden
+    >.multiButtonBar
+       𝚋 ⦑bg1⦒
+       𝚑≤ 􊽺(10􍽺)
+    >.navBodyHolder
+      𝚠; 𝚑≥ 􊽺(80􍽺); 𝚑≤ 􊽺(90􍽺 - 30px)
+      𝚖↑ 30px; 𝚘𝚏y scroll
+  .devDraggableHolder ∣ 𝚏↓;𝚠;𝚑;󰊄𝚜 22px
+                        𝚋 1px solid #555
+                        [maydrop]  ∣ 𝚋 1px dashed #FF0
+  .devDraggable       ∣ 𝚠;𝚏→;𝚊𝙿b;𝚊𝚂󷷣;𝚙󷷢 5%
+                        𝚋 1px solid #555
+                        [maydrop]  ∣ 𝚋 1px dashed #FF0
+                        [dragging] ∣ 𝚃𝚏 scale(0.75)
+  .titledBox ∣ 𝚠≥ 80%;𝚏↓;𝚊𝚂󷷣
+  .promptBox
+    𝚊𝚂󷷣
+    >h1 ∣ 󰊄𝚜 50px
+    >.boxInput
+      𝚖↓ 30px
+      >* ∣ 󰊄𝚜 30px
+    >button ∣ 𝚠 150px
+               𝚋 2px solid #999; 𝚋𝚛 5px
+               󰊄𝚜 40px
 
-dialog[open]
-  𝚠 􊽺(90􍾘); 𝚑 􊽺(90􍽺)
-   ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
-  𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
-  𝚜 ⦑fg0⦒33 0px 0px 20px 0px
+  dialog[open]
+    𝚠 􊽺(90􍾘); 𝚑 􊽺(90􍽺)
+     ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
+    𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
+    𝚜 ⦑fg0⦒33 0px 0px 20px 0px
 
-.𝘌«modes atom»
-   𝚃 height 0.05s ease-out
-  [dragitem]􍳵
-    󰈲 saturate(0.6) contrast(0.6) brightness(2)
-    p
-  [maydrop]  ∣ 𝚘𝚕 2px dashed #FF0
-  [dragging] ∣ 𝚃𝚏 􍍝; 𝚘𝚙 0.25
-  >* * ∣ pointer-events 􋄅
-.𝘌modes    ∣ 𝚏↓
+  .𝘌«modes atom»
+     𝚃 height 0.05s ease-out
+    [dragitem]􍳵
+      󰈲 saturate(0.6) contrast(0.6) brightness(2)
+      p
+    [maydrop]  ∣ 𝚘𝚕 2px dashed #FF0
+    [dragging] ∣ 𝚃𝚏 􍍝; 𝚘𝚙 0.25
+    >* * ∣ pointer-events 􋄅
+  .𝘌modes    ∣ 𝚏↓
 
-.𝘌atom ∣ 𝚠 􊽺(1􋈼)
-.𝘌tickmark ∣ 𝚣 1; 𝚋𝚛→ 􋔛px
-             𝚠 􊽺(1􋈼);
-             𝚖← 􊽺(-1􋈼)
-             𝚃𝚏 translateX(􊽺(1􋈼))
-             pointer-events 􋄅
-.resizer ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝚂󷷣;𝚑 0;← 􊽺(1􋈼)
-           «touch-action user-select» 􋄅
-           >􍨅 ∣ 󰊄𝚜 1em; ← 0.25em
-           >* ∣ 𝚙𝚘𝚜a; 𝚠≤ 0.5em; 𝚑 0.5em; ← 0; 󷷤a
-           􍳵􊽬([dragging]) ∣  pointer !important
-           , * ∣ 𝚏↓;𝚊𝙿󷷣
-                   󰍽 􋉀 !important
-                   󰈲 brightness(1) !important
-                   𝚃 􋄅
-                   𝚃𝚏 􋄅 !important
+  .𝘌atom ∣ 𝚠 􊽺(1􋈼)
+  .𝘌tickmark ∣ 𝚣 1; 𝚋𝚛→ 􋔛px
+               𝚠 􊽺(1􋈼);
+               𝚖← 􊽺(-1􋈼)
+               𝚃𝚏 translateX(􊽺(1􋈼))
+               pointer-events 􋄅
+  .resizer ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝚂󷷣;𝚑 0;← 􊽺(1􋈼)
+             «touch-action user-select» 􋄅
+             >􍨅 ∣ 󰊄𝚜 1em; ← 0.25em
+             >* ∣ 𝚙𝚘𝚜a; 𝚠≤ 0.5em; 𝚑 0.5em; ← 0; 󷷤a
+             􍳵􊽬([dragging]) ∣  pointer !important
+             , * ∣ 𝚏↓;𝚊𝙿󷷣
+                     󰍽 􋉀 !important
+                     󰈲 brightness(1) !important
+                     𝚃 􋄅
+                     𝚃𝚏 􋄅 !important
 
-.editorDialog[open]􊽬([𝘌toolmode])
-   .𝘌atom[atom1] ∣ 𝚋𝚛↗ 􊽺(0.5􋈼)
-                    􊽬([devLayer]) ∣ 𝚋𝚛↖ 􊽺(0.5􋈼)
-   .𝘌atom[atom󷰾] ∣ 𝚋𝚛↘ 􊽺(0.5􋈼)
-                    􊽬([devLayer]) ∣ 𝚋𝚛↙ 􊽺(0.5􋈼)
+  .editorDialog[open]􊽬([𝘌toolmode])
+     .𝘌atom[atom1] ∣ 𝚋𝚛↗ 􊽺(0.5􋈼)
+                      􊽬([devLayer]) ∣ 𝚋𝚛↖ 􊽺(0.5􋈼)
+     .𝘌atom[atom󷰾] ∣ 𝚋𝚛↘ 􊽺(0.5􋈼)
+                      􊽬([devLayer]) ∣ 𝚋𝚛↙ 􊽺(0.5􋈼)
 
-.𝘌preview
-  𝚙𝚘𝚜r;𝚏↓
-  𝚋↑ 0.05em solid ⦑bg2⦒
-  >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
-        𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em;𝚍𝚒𝚛 rtl
-        >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 0.5em;𝚙󷷢 1em;𝚍𝚒𝚛 ltr
-              >.𝘌alignedLabels
-                𝚏↓;𝚊𝙿←
-                >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
-                       𝚣 10
-                      󰊄𝚜 0.8em
-                      >⁰ ∣ 𝚏↓;𝚊𝙿󷷣;𝚠 100px
-                            󰊄𝚠 nowrap
-                            𝚃𝚏 translateY(-1.35em)
-                            >⁰ ∣ unicode-bidi embed
-                                  𝚍𝚒𝚛 rtl
-                      >􍨅 ∣ 𝚠 37.5px
-                            𝚋→ 1px dashed #FFF
-              >.𝘌pixels
-                𝚖← -1px
-                𝚍 grid; place-items start start
+  .𝘌preview
+    𝚙𝚘𝚜r;𝚏↓
+    𝚋↑ 0.05em solid ⦑bg2⦒
+    >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
+          𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em;𝚍𝚒𝚛 rtl
+          >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 0.5em;𝚙󷷢 1em;𝚍𝚒𝚛 ltr
+                >.𝘌alignedLabels
+                  𝚏↓;𝚊𝙿←
+                  >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
+                         𝚣 10
+                        󰊄𝚜 0.8em
+                        >⁰ ∣ 𝚏↓;𝚊𝙿󷷣;𝚠 100px
+                              󰊄𝚠 nowrap
+                              𝚃𝚏 translateY(-1.35em)
+                              >⁰ ∣ unicode-bidi embed
+                                    𝚍𝚒𝚛 rtl
+                        >􍨅 ∣ 𝚠 37.5px
+                              𝚋→ 1px dashed #FFF
+                >.𝘌pixels
+                  𝚖← -1px
+                  𝚍 grid; place-items start start
 
-.𝘌inspector
-  𝚏↓;𝚏𝚐 1;𝚑;󰊄𝚜 1em
-   .multiButtonBar
-    𝚖0
-.𝘌modebar>.navBodyHolder
-  𝚘𝚏x clip;𝚘𝚏y scroll
-  𝙷 􊽺(98􍽺 - 8em)
-.𝘌𝘐fx
-  >span
-    𝚏→;𝚊𝙿e;𝚊𝚂󷷣
-    𝚋 ⦑bg2⦒
-    >* ∣ 𝚏↓;𝚊𝙿󷷣;𝚙 5px;𝚋𝚛 0.2em
-          «𝚠 𝚠≤ 𝚠≥ 𝚑 𝚑≤ 𝚑≥» 1em
-          󰊄𝚜 2em
-          𝚋 0.075em solid ⦑bg3⦒
-          [off] ∣ 𝚋 ⦑bg2⦒
-                ∣ 𝚋 ⦑bg1⦒
-          [on ] ∣ 𝚋 ⦑bg0⦒
-  >div
-     div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
-    >􋁕⁽span󰁱div󰁱label⁾ ∣ 𝚖󷷤 0.1em
-    >.𝘌fxSection, >.𝘌fxSection div
-        𝚏↓;𝚊𝚂󷷣;𝚖󷷤 5px;𝚙 0.5em
-       .𝘌fxSection
-        𝚠;𝚋 ⦑bg2⦒
-       .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
-        𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
-.𝘌󷸾mode
-  𝚏↓;𝚊𝚂󷷣
-  >*  ∣ 𝚠󷷈
-  >.󷸾 ∣ 𝚖↑ 0.5em
-         >span
-           𝚙𝚘𝚜r
-           >* ∣ 𝚖󷷤 0.2em
-           >.rgbSliders
-             𝚙← 0; 𝚙→ 10%
-           >button
-             𝚙𝚘𝚜a
-             󰊄𝚜 1.2em
-             «𝚠 𝚑» 1em; «→ ↑» 0.1em
-             𝚋𝚛 􋔛px
-                   #611; 𝚋 #FFF
-             􎁎 ∣  #712; 𝚋 #CCC
-             􀴗 ∣  #812; 𝚋 #AAA
-           :only-child>button
-             𝚍 􋄅
-  >button
-    𝚋 2px solid ⦑fg3⦒; 𝚋𝚛 1em
+  .𝘌inspector
+    𝚏↓;𝚏𝚐 1;𝚑;󰊄𝚜 1em
+     .multiButtonBar
+      𝚖0
+  .𝘌modebar>.navBodyHolder
+    𝚘𝚏x clip;𝚘𝚏y scroll
+    𝙷 􊽺(98􍽺 - 8em)
+  .𝘌𝘐fx
+    >span
+      𝚏→;𝚊𝙿e;𝚊𝚂󷷣
+      𝚋 ⦑bg2⦒
+      >* ∣ 𝚏↓;𝚊𝙿󷷣;𝚙 5px;𝚋𝚛 0.2em
+            «𝚠 𝚠≤ 𝚠≥ 𝚑 𝚑≤ 𝚑≥» 1em
+            󰊄𝚜 2em
+            𝚋 0.075em solid ⦑bg3⦒
+            [off] ∣ 𝚋 ⦑bg2⦒
+                  ∣ 𝚋 ⦑bg1⦒
+            [on ] ∣ 𝚋 ⦑bg0⦒
+    >div
+       div􋁋⁽label⁾ ∣ 󰊄𝚜 0.9em
+      >􋁕⁽span󰁱div󰁱label⁾ ∣ 𝚖󷷤 0.1em
+      >.𝘌fxSection, >.𝘌fxSection div
+          𝚏↓;𝚊𝚂󷷣;𝚖󷷤 5px;𝚙 0.5em
+         .𝘌fxSection
+          𝚠;𝚋 ⦑bg2⦒
+         .𝘌fxSection div􊽬⁽.𝘌fxSection⁾
+          𝚠 95%;𝚋 #FFF1;𝚋𝚛 0.5em
+  .𝘌󷸾mode
+    𝚏↓;𝚊𝚂󷷣
+    >*  ∣ 𝚠󷷈
+    >.󷸾 ∣ 𝚖↑ 0.5em
+           >span
+             𝚙𝚘𝚜r
+             >* ∣ 𝚖󷷤 0.2em
+             >.rgbSliders
+               𝚙← 0; 𝚙→ 10%
+             >button
+               𝚙𝚘𝚜a
+               󰊄𝚜 1.2em
+               «𝚠 𝚑» 1em; «→ ↑» 0.1em
+               𝚋𝚛 􋔛px
+                     #611; 𝚋 #FFF
+               􎁎 ∣  #712; 𝚋 #CCC
+               􀴗 ∣  #812; 𝚋 #AAA
+             :only-child>button
+               𝚍 􋄅
+    >button
+      𝚋 2px solid ⦑fg3⦒; 𝚋𝚛 1em
 
-.𝘌outer
-  𝚏↓;𝚠
-  >T
-    𝚖󷷤 0.25em; 󰊄𝚜 2em
-.𝘌inner
-  𝚏→;𝚊𝙿e;𝚊𝚂←
-   .multiButtonBar
-       this part is DESPERATE
-      𝚑 1.35em;󰊄𝚜 1.35em
-      𝚋 #0000
-      𝚋↓ 0.1em solid ⦑bg2⦒
-      «𝚋󷷢 𝚋↑» 0.05em solid ⦑bg2⦒
-      𝚃𝚏 scale(1.0125)
-      𝚋𝚛«↖ ↗» 0.2em
-      >⁰ ∣ 𝚋𝚛↖ 0.1em
-      >􍨅 ∣ 𝚋𝚛↗ 0.1em
-  >* ∣ 𝚆 􊽺(50% - 0.5em)
-        𝚋 ⦑bg1⦒
-        𝚋 0.1em solid ⦑bg2⦒; 𝚋𝚛 0.25em
+  .𝘌outer
+    𝚏↓;𝚠
+    >T
+      𝚖󷷤 0.25em; 󰊄𝚜 2em
+  .𝘌inner
+    𝚏→;𝚊𝙿e;𝚊𝚂←
+     .multiButtonBar
+         this part is DESPERATE
+        𝚑 1.35em;󰊄𝚜 1.35em
+        𝚋 #0000
+        𝚋↓ 0.1em solid ⦑bg2⦒
+        «𝚋󷷢 𝚋↑» 0.05em solid ⦑bg2⦒
+        𝚃𝚏 scale(1.0125)
+        𝚋𝚛«↖ ↗» 0.2em
+        >⁰ ∣ 𝚋𝚛↖ 0.1em
+        >􍨅 ∣ 𝚋𝚛↗ 0.1em
+    >* ∣ 𝚆 􊽺(50% - 0.5em)
+          𝚋 ⦑bg1⦒
+          𝚋 0.1em solid ⦑bg2⦒; 𝚋𝚛 0.25em
 
-.editorDialog[open]
-  𝚠 min(􊽺(98􍾘),1000px); 𝙷 􊽺(98􍽺)
-  𝚖a; 𝚙 0.1em
-  𝚋 ⦑bg0⦒F5
-  [𝘌toolmode]
-     .𝘌tickmark ∣ 𝚍 􋄅
-     .𝘌preview ∣ 𝚋 #0000
-     *[detector]􊽬(􋁕([noscale],.detectorMeta))
-      𝚃𝚏 scale(0.9,0.8)
-      􍳵 ∣ 𝚃𝚏 scale(1,0.95)
-label ∣ 󰊄𝚜 1.3em
+  .editorDialog[open]
+    𝚠 min(􊽺(98􍾘),1000px); 𝙷 􊽺(98􍽺)
+    𝚖a; 𝚙 0.1em
+    𝚋 ⦑bg0⦒F5
+    [𝘌toolmode]
+       .𝘌tickmark ∣ 𝚍 􋄅
+       .𝘌preview ∣ 𝚋 #0000
+       *[detector]􊽬(􋁕([noscale],.detectorMeta))
+        𝚃𝚏 scale(0.9,0.8)
+        􍳵 ∣ 𝚃𝚏 scale(1,0.95)
+  label ∣ 󰊄𝚜 1.3em
 
-:root􋁋(*[detector])
-  *􊽬([detector],.detectorMeta)
-     􍍝; pointer-events 􋄅
-  *􊽬(􋁋(*[detector],.detectorMeta))
-    󰈲 opacity(0)
-  *[detector]
-    𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
-    , * ∣ 󰈲 brightness(1)
-    􍳵 ∣ p
-    [multidetect]
-      𝚜 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85)
-  *􋁋(*[detector],.detectorMeta)
-    pointer-events auto
+  :root􋁋(*[detector])
+    *􊽬([detector],.detectorMeta)
+       􍍝; pointer-events 􋄅
+    *􊽬(􋁋(*[detector],.detectorMeta))
+      󰈲 opacity(0)
+    *[detector]
+      𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
+      , * ∣ 󰈲 brightness(1)
+      􍳵 ∣ p
+      [multidetect]
+        𝚜 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85)
+    *􋁋(*[detector],.detectorMeta)
+      pointer-events auto
 
-.detectorMeta
-  𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; 󰊄𝚜 2.5em
-  «𝚠 𝚑» 1.75em; 
-  𝚋 0.1em solid ⦑bg3⦒; 𝚋𝚛 􋔛px
-  .detectorSubmit ∣ → 􊽺(50% - 1em)
-                     𝚋 #161
-                     􎁎 ∣ 𝚋 #172A
-                     􀴗 ∣ 𝚋 #1824
-  .detectorCancel ∣ → 􊽺(25% - 1em)
-                     𝚋 #611
-                     􎁎 ∣ 𝚋 #712A
-                     􀴗 ∣ 𝚋 #8124
+  .detectorMeta
+    𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; 󰊄𝚜 2.5em
+    «𝚠 𝚑» 1.75em; 
+    𝚋 0.1em solid ⦑bg3⦒; 𝚋𝚛 􋔛px
+    .detectorSubmit ∣ → 􊽺(50% - 1em)
+                       𝚋 #161
+                       􎁎 ∣ 𝚋 #172A
+                       􀴗 ∣ 𝚋 #1824
+    .detectorCancel ∣ → 􊽺(25% - 1em)
+                       𝚋 #611
+                       􎁎 ∣ 𝚋 #712A
+                       􀴗 ∣ 𝚋 #8124
+@layer state
+  *[hidden] ∣ 𝚍 􋄅

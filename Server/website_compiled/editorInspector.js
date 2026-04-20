@@ -16,63 +16,54 @@
      ...fx_og
    };
 
-   let has_init = false;
-   const check = (x, y, ...𝔸) => fx_togs[x][1].style.display != `none` ? [
+   const check = (x, y, ...𝔸) => fx_togs[x][0].S ? [
      [y, ...fx[y]]
    ] : [];
+   let ƒ = þF0EFE;
 
-   let update = þF0EFE;
-   const fx_togs = {
-     "": [toggleButton((x, ...𝔸) => update(), "", "", false, {
-       init: false,
+   const fx_togs = {};
+   {
+     fx_togs[""] = [toggleButton((x, ...𝔸) => ƒ(), "", "", 0 in fx_og, {
        polar: false
-     })],
-     "󱦙": [toggleButton((x, ...𝔸) => (show(fx_togs["󱦙"][1], x), update()), "󱦙", "󱦙", false, {
-         init: false
-       }),
-       ((...𝔸) => {
-         let [speedlþ0E27F, offstlþ0E27F] = [mkə(`T`, false, ``), mkə(`T`, false, ``)];
-         const speedþ0F1DEþ0E27F = mkə(əslider, [
-           [`l`, -200],
-           [`v`, fx[1][0]],
-           [`h`, `200 `],
-           [`s`, `0.1`],
-           [`ƒ`, (x, ...𝔸) => (speedlþ0E27F.innerText = `${fx[1] [0] = x} Pixels/s`, update())]
-         ], false);
-         const offstþ0F1DEþ0E27F = mkə(əslider, [
-           [`l`, -1000],
-           [`v`, fx[1][1]],
-           [`h`, `1000`],
-           [`s`, `1  `],
-           [`ƒ`, (x, ...𝔸) => (offstlþ0E27F.innerText = `${fx[1] [1] = x} Pixels`, update())]
-         ], false);
-         return mkə(false, [
-           [`𝐶`, `𝘌fxSection`]
-         ], [(mkə(`label`, false, `Rotation`)), (mkə(false, false, [(mkə(`label`, false, `Speed`)), (speedlþ0E27F), (speedþ0F1DEþ0E27F)])), (mkə(false, false, [(mkə(`label`, false, `Offset`)), (offstlþ0E27F), (offstþ0F1DEþ0E27F)]))]);
-       })()
-     ],
-     "󰳲": [toggleButton((x, ...𝔸) => (show(fx_togs["󰳲"][1], x), update()), "󰳲", "󰳲", false, {
-         init: false
-       }),
-       ((...𝔸) => {
-         let lumlþ0E27F = mkə(`T`, [], false);
-         const lumþ0F1DEþ0E27F = mkə(əslider, [
-           [`l`, `0`],
-           [`v`, fx["2"][0] * 255],
-           [`h`, `255`],
-           [`s`, `1`],
-           [`ƒ`, (x, ...𝔸) => (lumlþ0E27F.innerText = `${ þ02B13 ((fx["2"] [0] = x / 255) * 100)}%`, update())]
-         ], false);
-         return mkə(false, [
-           [`𝐶`, `𝘌fxSection`]
-         ], [(mkə(`label`, false, `Brightness`)), (lumlþ0E27F), (lumþ0F1DEþ0E27F)]);
-       })()
-     ]
+     })];
    };
-   𝒪(fx_togs).ꟿ((x, y, ...𝔸) => y[0].set(x in fx_og))
-   update = (...𝔸) => Ѧ.þF0832.fx = [...fx_togs[""][0].S ? [
-     [0]
-   ] : [], ...check("󱦙", 1), ...check("󰳲", 2)];
+   {
+     let [speedlþ0E27F, offstlþ0E27F] = [mkə(`T`, false, ``), mkə(`T`, false, ``)];
+     const speedþ0F1DEþ0E27F = mkə(əslider, [
+       [`l`, -100],
+       [`v`, fx[1][0]],
+       [`h`, `100`],
+       [`s`, `0.1`],
+       [`ƒ`, (x, ...𝔸) => (speedlþ0E27F.innerText = `${fx[1] [0] = x} Pixels/s`, ƒ())]
+     ], false);
+     const offstþ0F1DEþ0E27F = mkə(əslider, [
+       [`l`, -100],
+       [`v`, fx[1][1]],
+       [`h`, `100`],
+       [`s`, `1  `],
+       [`ƒ`, (x, ...𝔸) => (offstlþ0E27F.innerText = `${fx[1] [1] = x} Pixels`, ƒ())]
+     ], false);
+     let þ0E27F;
+     (þ0E27F = mkə(false, [
+       [`𝐶`, `𝘌fxSection`]
+     ], [(mkə(`label`, false, `Rotation`)), (mkə(false, false, [(mkə(`label`, false, `Speed`)), (speedlþ0E27F), (speedþ0F1DEþ0E27F)])), (mkə(false, false, [(mkə(`label`, false, `Offset`)), (offstlþ0E27F), (offstþ0F1DEþ0E27F)]))]));
+     fx_togs["󱦙"] = [toggleButton((x, ...𝔸) => (showə(þ0E27F, x), ƒ()), "󱦙", "󱦙", 1 in fx_og), þ0E27F];
+   } {
+     let lumlþ0E27F = mkə(`T`, [], false);
+     const lumþ0F1DEþ0E27F = mkə(əslider, [
+       [`l`, `0`],
+       [`v`, fx["2"][0] * 255],
+       [`h`, `255`],
+       [`s`, `1`],
+       [`ƒ`, (x, ...𝔸) => (lumlþ0E27F.innerText = `${ þ02B13 ((fx["2"] [0] = x / 255) * 100)}%`, ƒ())]
+     ], false);
+     let þ0E27F;
+     (þ0E27F = mkə(false, [
+       [`𝐶`, `𝘌fxSection`]
+     ], [(mkə(`label`, false, `Brightness`)), (lumlþ0E27F), (lumþ0F1DEþ0E27F)]));
+     fx_togs["󰳲"] = [toggleButton((x, ...𝔸) => (showə(þ0E27F, x), ƒ()), "󰳲", "󰳲", 2 in fx_og), þ0E27F];
+   }
+   ƒ = (...𝔸) => Ѧ.þF0832.fx = [...check("", 0), ...check("󱦙", 1), ...check("󰳲", 2)];
 
    return mkə(false, [
      [`𝐶`, `𝘌𝘐fx`]
@@ -216,18 +207,16 @@
  const copy = (x, ...𝔸) => navigator.clipboard.writeText(x);
 
  const 𝘌activatePanel = (Ѧ) => {
-   let queþ0E27F, durþ0E27F;
-   const cmd = (x, ...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖, x, queþ0E27F.Ѧ.S, ((x, ...𝔸) => x == durþ0E27F.Ѧ.v.h ? -1 : x)(durþ0E27F.Ѧ.v))
+   const cmd = (x, ...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖, x, queþ0E27F.Ѧ.S, ((x, ...𝔸) => x == durþ0E27F.Ѧ.secs() ? -1 : x)(durþ0E27F.Ѧ.v))
+   const durþ0E27F = mkə(ədurSlider, [], false);
+   let queþ0E27F;
    return mkə(`div`, [
      [`𝑆`, `display: flex; flex-direction: column; align-content: space-evenly;`]
    ], [(mkə(`span`, [
      [`𝑆`, `width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;`]
-   ], [(mkə(`T`, false, `Enable queing?`)), (queþ0E27F = toggleButton(þF0EFE, "✗", "✓", false).þ0E27F)])), ((durþ0E27F = mkə(əslider, [
-     [`l`, `1`],
-     [`v`, `30`],
-     [`h`, `61`],
-     [`s`, `1`]
-   ], false))), (mkə(`button`, [
+   ], [(mkə(`T`, false, `Enable queing?`)), (queþ0E27F = toggleButton(þF0EFE, "✗", "✓", false).þ0E27F)])), (mkə(`span`, [
+     [`𝑆`, `width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;`]
+   ], [(mkə(`T`, false, `Infinite?`)), (toggleButton((x, ...𝔸) => showə(durþ0E27F, !x), "✗", "✓", true).þ0E27F)])), (durþ0E27F), (mkə(`button`, [
      [``, (...𝔸) => cmd(false)]
    ], `Test Scene`)), (mkə(`button`, [
      [``, (...𝔸) => copy(cmd(true))]

@@ -6,7 +6,6 @@
 © grad   = ⥌c,s,v↦‹linear-gradient(180deg in hsl longer hue,⟦hsv2hsl([0,s,v])⟧,⟦hsv2hsl([255,s,v])⟧) 0 0 / 100% ⟦100÷c⟧% repeat-y›;
 © hsv2hsl = ⥌[h,s,v]↦‹hsl(⟦h÷255⋅360⟧deg,⟦s÷2.55⟧%,⟦v÷255⋅50⟧%)›;
 
-© show = 󰲣x􋛟.display=y⭜ᐦ⭝‹none›;  󰤱 abstract a bit and add to j☾ or something
 © clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{  󰤱 add to j☾ once I add close feature and think of a better name
   Ѧ = {␛*:✗,⠤Ѧ};
   
@@ -110,14 +109,56 @@
   
   ©  = Ѧ􋑵 = 󱀝 input {𝑇 ‹range›⍮ min ⟦Ѧˡ⟧⍮ defaultValue ⟦Ѧᵛ⟧⍮ max ⟦Ѧʰ⟧⍮ step ⟦Ѧˢ⟧} ‹›;
   ᵛᵃˡᵘᵉ = Ѧᵛ;
-  Ѧˢᵉᵗ = ⥌v=󱣩↦{ ¿(v≅󱣩) v = +ᵛᵃˡᵘᵉ;
-                ¡      ᵛᵃˡᵘᵉ = v;
-                Ѧ􊽺(Ѧᵛ = v);
-                ↪Ѧᵛ; };
+  Ѧˢᵉᵗ = ⥌v=󱣩,call=✓↦{
+           ¿(v≅󱣩) v = +ᵛᵃˡᵘᵉ;
+           ¡      ᵛᵃˡᵘᵉ = v;
+           Ѧᵛ = v;
+           ¿(call) Ѧ􊽺(Ѧᵛ);
+           ↪Ѧᵛ; };
   AEL(,‹input›,󰲟Ѧˢᵉᵗ());
-  􀴗 = Ѧ;
-  ¿(Ѧⁱⁿⁱᵗ) Ѧˢᵉᵗ();
+  􀴗=Ѧ; Ѧ􋑵=; Ѧ.set(󱣩,Ѧⁱⁿⁱᵗ);
   ↪; }
+
+əsliderLabeled = ⥌Ѧ={}↦{
+  ⎉ ɒ;
+  [ɒ,Ѧ] = 𝓟(Ѧ,{ init:✓, "󰊄ƒ":󰻾, ƒ:󰻾 });
+  ɒ = {⠤ɒ,init:✗,ƒ:𝚲Ѧˢᵉᵗ()};
+  ⎉ ,s,l;
+  󱀝: {𝐶 sliderLabeled} [
+    󱀝:l T {}
+    󱀝:s ⟦əslider⟧ {⠤ɒ} ];
+  
+  Ѧˢᵉᵗ = ⥌v=󱣩,call=✓↦{
+           ¿(v≅󱣩) v = +s􀴗 ᵛ;
+           ¡      s􀴗.set(v,✗);
+           Ѧᵛ = v;
+           l􋒷 = Ѧ􋕨􋒶􊪸􋕨(Ѧᵛ);
+           ¿(call) Ѧ􊽺(Ѧᵛ);
+           ↪Ѧᵛ; };
+  􀴗=Ѧ; Ѧ􋑵=; Ѧ.set(󱣩,Ѧⁱⁿⁱᵗ);
+  ↪; };
+
+ədurSlider = ⥌Ѧ={}↦{
+  ⎉ ɒ;
+  [ɒ,Ѧ] = 𝓟(Ѧ,{ init: ✓    ,
+                v   : ₀󰄎₀󰄎₀,
+                hh  : 3    ,
+                ƒ   : 󰻾     });
+  ɒ = {⠤ɒ,l:0,init:✗,ƒ:𝚲Ѧˢᵉᵗ()};
+  ⎉ ,h,m,s;
+  󱀝: {𝐶 durSliders} [
+    󱀝:h ⟦əsliderLabeled⟧ {⠤ɒ⍮v ⟦Ѧᵛ₀⟧⍮h ⟦Ѧʰʰ⟧⍮󰊄ƒ ⟦󰲡x+␛h⟧}
+    󱀝:m ⟦əsliderLabeled⟧ {⠤ɒ⍮v ⟦Ѧᵛ₁⟧⍮h   59 ⍮󰊄ƒ ⟦󰲡x+␛m⟧}
+    󱀝:s ⟦əsliderLabeled⟧ {⠤ɒ⍮v ⟦Ѧᵛ₂⟧⍮h   59 ⍮󰊄ƒ ⟦󰲡x+␛s⟧} ];
+  Ѧˢᵉᵗ = ⥌v=󱣩,call=✓↦{
+           ¿(v≅󱣩) v = 􊾡(󰲡x􀴗 ᵛ);
+           ¡      􊾡(󰲣(x􀴗.set(v,✗)));
+           Ѧᵛ = v;
+           ¿(call) Ѧ􊽺(Ѧᵛ);
+           ↪Ѧᵛ; };
+  Ѧˢᵉᶜˢ = 𝚲(Ѧᵛ₀⋅60+Ѧᵛ₁)⋅60+Ѧᵛ₂;
+  􀴗=Ѧ; Ѧ􋑵=; Ѧ.set(󱣩,Ѧⁱⁿⁱᵗ);
+  ↪; };
 
 ə = ⥌Ѧ={}↦{
   Ѧ = {init:✓,v:[0,0,0],ƒ:󰻾,⠤Ѧ};

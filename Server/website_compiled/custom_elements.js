@@ -16,7 +16,7 @@
     ...Ѧ
   };
   S = +!!S;
-  if (isStr(N))[N, Y] = [N, Y].ᴍ((x, ...𝔸) => mkə(`button`, false, `${x}`));
+  [N, Y] = [N, Y].ᴍ((x, ...𝔸) => isStr(x) ? mkə(`button`, false, `${x}`) : x);
 
   Ѧ = {
     ...Ѧ,

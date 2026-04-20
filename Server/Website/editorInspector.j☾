@@ -5,28 +5,28 @@
   © fx_og = ᴍv(󰠲Utilᵍʳᵖᶠˣ(Ѧ􈛈),󰲡x₀);
   © fx = {0:[], 1:[1,0], 2:[1], ⠤fx_og};
   
-  ⎉ has_init = ✗;
-  © check = 󰲣fx_togsₓ ₁􋛟 ᵈⁱˢᵖˡᵃʸ≠‹none›⭜[[y,⠤fx]]⭝[];  says if the fx enabled
+  © check = 󰲣fx_togsₓ ₀󰀒⭜[[y,⠤fx]]⭝[];  says if the fx enabled
+  ⎉ ƒ = 󰻾;
   
-  ⎉ update = 󰻾;
-  © fx_togs = {
-    ␛: [toggleButton(󰲡update()                      ,␛,␛,✗,{init:✗,polar:✗})],
-    ␛󱦙: [toggleButton(󰲡(show(fx_togs􊯛􈕗 ₁,x),update()),␛󱦙,␛󱦙,✗,{init:✗}),
-         (󰲟{ ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
-             © speed = 󱀝 ⟦əslider⟧ {l ⟦󷰿󷰽󷰽 ⟧⍮v ⟦fx₁ ₀⟧⍮h 200 ⍮s:0.1⍮ƒ ⟦󰲡(speedl􋒷=‹⟦fx₁ ₀=x⟧ Pixels/s›,update())⟧};
-             © offst = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽󷰽⟧⍮v ⟦fx₁ ₁⟧⍮h 1000⍮s:1  ⍮ƒ ⟦󰲡(offstl􋒷=‹⟦fx₁ ₁=x⟧ Pixels›  ,update())⟧};
-             ↪󱀝 {𝐶 𝘌fxSection} [
-                󱀝 label ‹Rotation›
-                󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
-                󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]]; })()],
-    ␛󰳲: [toggleButton(󰲡(show(fx_togs􊯛􈔨 ₁,x),update()),␛󰳲,␛󰳲,✗,{init:✗}),
-         (󰲟{ ⎉ luml = 󱀝 T {};
-             © lum = 󱀝 ⟦əslider⟧ {l 0⍮v ⟦fx􊯛₂ ₀⋅255⟧⍮h 255⍮s 1⍮
-                                    ƒ ⟦󰲡(luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›,update())⟧};
-             ↪󱀝 {𝐶 𝘌fxSection} [
-               󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ]; })()] };
-  𝒪(fx_togs)􋅝(󰲣y₀.set(x∈fx_og))
-  update = 󰲟Ѧ􈛈 ᶠˣ = [⠤fx_togs􊯛􈔩 ₀󰀒⭜[[0]]⭝[], ⠤check(␛󱦙,1), ⠤check(␛󰳲,2)];
+  © fx_togs = {};
+  { fx_togs􊯛􈔩 = [toggleButton(󰲡ƒ(),␛,␛,0∈fx_og,{polar:✗})]; };
+  { ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
+    © speed = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽⟧⍮v ⟦fx₁ ₀⟧⍮h 100⍮s:0.1⍮ƒ ⟦󰲡(speedl􋒷=‹⟦fx₁ ₀=x⟧ Pixels/s›,ƒ())⟧};
+    © offst = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽⟧⍮v ⟦fx₁ ₁⟧⍮h 100⍮s:1  ⍮ƒ ⟦󰲡(offstl􋒷=‹⟦fx₁ ₁=x⟧ Pixels›  ,ƒ())⟧};
+    ⎉ ;
+    󱀝: {𝐶 𝘌fxSection} [
+      󱀝 label ‹Rotation›
+      󱀝 [󱀝 label ‹Speed󷺗› ⟦speedl⟧ ⟦speed⟧]
+      󱀝 [󱀝 label ‹Offset› ⟦offstl⟧ ⟦offst⟧]];
+    fx_togs􊯛􈕗 = [toggleButton(󰲡(showə(,x),ƒ()),␛󱦙,␛󱦙,1∈fx_og), ]; }
+  { ⎉ luml = 󱀝 T {};
+    © lum = 󱀝 ⟦əslider⟧ {l 0⍮v ⟦fx􊯛₂ ₀⋅255⟧⍮h 255⍮s 1⍮
+                           ƒ ⟦󰲡(luml􋒷=‹⟦⬓((fx􊯛₂ ₀=x÷255)⋅100)⟧%›,ƒ())⟧};
+    ⎉ ;
+    󱀝: {𝐶 𝘌fxSection} [
+      󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ];
+    fx_togs􊯛􈔨 = [toggleButton(󰲡(showə(,x),ƒ()),␛󰳲,␛󰳲,2∈fx_og), ]; }
+  ƒ = 󰲟Ѧ􈛈 ᶠˣ = [⠤check(␛,0), ⠤check(␛󱦙,1), ⠤check(␛󰳲,2)];
   
   ↪󱀝 {𝐶 𝘌𝘐fx} [
      󱀝 span [⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧]
@@ -104,13 +104,17 @@
 © copy = 󰲡navigator.clipboard.writeText(x);
 
 © 𝘌activatePanel = ⥌Ѧ↦{
-  ⎉ que,dur;
-  © cmd = 󰲡𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈟,x,que􀴗 󰀒,(󰲡x≡dur􀴗 ᵛ ʰ⭜󷰾⭝x)(dur􀴗 ᵛ))
+  © cmd = 󰲡𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈟,x,que􀴗 󰀒,(󰲡x≡dur􀴗 ˢᵉᶜˢ()⭜󷰾⭝x)(dur􀴗 ᵛ))
+  © dur = 󱀝 ⟦ədurSlider⟧ {};
+  ⎉ que;
   ↪󱀝 div ⦅𝚏↓;𝚊𝚜e⦆ [
     󱀝 span ⦅𝚠;𝚏→;𝚊𝙿e⦆ [
       󱀝 T ‹Enable queing?›
       ⟦que = toggleButton(󰻾,␛✗,␛✓,✗)􋑵⟧]
-    󱀝:dur ⟦əslider⟧ {l 1⍮v 30⍮h 61⍮s 1}
+    󱀝 span ⦅𝚠;𝚏→;𝚊𝙿e⦆ [
+      󱀝 T ‹Infinite?›
+      ⟦toggleButton(󰲡showə(dur,¬x),␛✗,␛✓,✓)􋑵⟧]
+    ⟦dur⟧
     󱀝 button { ⟦󰲟     cmd(✗) ⟧} ‹Test Scene›
     󱀝 button { ⟦󰲟copy(cmd(✓))⟧} ‹Copy Webhook› ]; };
 
