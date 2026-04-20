@@ -101,7 +101,9 @@
    ], [(mkə(false, [], false))])), (mkə(false, [
      [`󰊄`, ``]
    ], [(mkə(false, [], false))])), (mkə(false, [
-     [`󰊄`, `⯈`]
+     [`󰊄`, `⯈`], ...𝒪(𝐬.𝐔.length ? {} : {
+       disabled: true
+     })
    ], [(mkə(false, [], false))]))])))]))]))]));
    Ѧ.þ0E27F.classList.add(`editorDialog`);
    þF0219.body.append(Ѧ.þ0E27F);

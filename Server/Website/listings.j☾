@@ -1,4 +1,4 @@
-⎉ ətileButton = ⥌t,cb↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(t,250)⟧⍮  ⟦󰲟cb(t)⟧} ⟦t⟧
+⎉ ətileButton = ⥌t,cb,󰊄=t↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(t,250)⟧⍮  ⟦󰲟cb(t)⟧} ⟦󰊄⟧
 
 ⎉ ətokenListing = ⥌cb↦{
   © prompt_token = ⥌cb↦{
@@ -12,7 +12,7 @@
                   {outline:✗})); };
   ©  = əitemGridEditable(
           ⥌  gen↦prompt_token(󰲡(add_check_tok(x),gen(x))),
-          ⥌x,rem↦[ətileButton(x,cb),əbuttonBar([␛󰆴,rem])],
+          ⥌x,rem↦[ətileButton(x,cb,x.replace(⦋/(?<=.).(?=.)/g⦌,␛⋅)),əbuttonBar([␛󰆴,rem])],
           del_tok);
   ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐓↦{ .clear_items();
                    𝐓􋁃(󰲡ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x)); }
@@ -62,8 +62,10 @@
         󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Used›  ,dragHold(󱀝:devsR div {𝐶 devDraggableHolder} ‹›)]⟧]⟧;
     𝒪k(𝔖􋆄)􊾡(󰲡Ѧ􋆕.includes(x) ∨ devsL􍪙(ədevItem(x)));
     Ѧ   􋆕 􊾡(󰲡devsR􍪙(ədevItem(x)));
-    © get = 󰲟({⠤Ѧ,name: name􀲫.value,
-                  𝐔   : QSA(‹T›,devsR)􊾡(󰲡x􋒷)});
+    © get = 𝚲{ © 𝐔 = devsR􈞣(‹T›)􊾡(󰲡x􋒷);
+               © L = 𝐔􊾡(󰲡𝔖􋆄ₓᴸᴱᴰ󰀂);
+               ↪{⠤Ѧ,𝐔,dat : 𝒪𝑏(Ѧᵈᵃᵗ) ∨ 󰠲Utilᵈᵉᶠᴹ(L),
+                      name: name􀲫.value } };
     ©  = popup({␛:✓,␛󰅙:✓},
                 ətitledBox(
                   ‹Scene details›,
@@ -81,12 +83,13 @@
                                    add_scene(𝔖􋆮,𝚗,✓);
                                    ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); };
                    © clone = 󰲟ᵃᵈᵈ􋕟ⁱᵗᵉᵐ({⠤structuredClone(𝐬),name:‹⟦𝐬ⁿᵃᵐᵉ⟧ - Copy›});
-                   ↪[ətileButton(𝐬ⁿᵃᵐᵉ,𝚲cb({𝐬,𝔖})),
-                     əbuttonBar(
-                       [␛󰆴,rem],
-                       [␛,󰲟prompt_editor(update,𝔖,𝐬)],
-                       [␛󰆏,clone                     ],
-                       [␛,󰲟prompt_scene (update,  𝐬)])]; },
+                   © button = ətileButton(𝐬ⁿᵃᵐᵉ,𝚲cb({𝐬,𝔖}));
+                   ¿(¬𝐬􋆕 􋌵) button􋒗=✓;
+                   ↪[button,əbuttonBar(
+                               [␛󰆴,rem],
+                               [␛,󰲟prompt_editor(update,𝔖,𝐬)],
+                               [␛󰆏,clone                     ],
+                               [␛,󰲟prompt_scene (update,  𝐬)])]; },
           ⥌𝐬    ↦move_scene(𝔖􋆮,𝐬ⁿᵃᵐᵉ));
   ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐭↦{ [𝔖􋆮,𝔖􋆄] = [𝐭,get_devs(𝐭)];
                    .clear_items();
