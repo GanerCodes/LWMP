@@ -1763,11 +1763,17 @@ prompt_led_calibrate = async (𝐝, cb) => {
  let ədevListing = (...𝔸) => {
    const 𝔖 = {};
    const ədevTile = (𝐮, 𝐝) => {
+     const clr = `#${𝐝 . online ? `0F0` : `F00`}`;
      const þ0E27F = mkə(`div`, [
        [`𝑆`, `display: flex; flex-direction: column; font-size: 30px;`]
+     ], [(mkə(false, [
+       [`𝑆`, `display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;`]
      ], [(mkə(`T`, [
        [`𝑆`, `font-size: 40px;`]
-     ], `${𝐮} ${[`🔴` , `🟢`][ + 𝐝 . online]}`)), (mkə(`T`, false, `${𝐝 . RGB_ORDER} - ${𝐝 . LEDC} Pixels`)), (mkə(`T`, false, `${"→←"[ + 𝐝 . REVERSE]}`))])
+     ], `${𝐮}`)), (mkə(`T`, [
+       [`𝑆`, `font-size: 50px; color: ${clr};`]
+     ], `⬤`))])), (mkə(`T`, false, `${𝐝 . RGB_ORDER} - ${𝐝 . LEDC} Pixels`)), (mkə(`T`, false, `${""[ + 𝐝 . REVERSE]}`))])
+
      return þ0E27F
    };
    const þ0E27F = əitemGridEditable(
