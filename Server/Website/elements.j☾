@@ -33,22 +33,24 @@
 
 əbarButton = ⥌Ѧ,c↦󱀝 button { 𝐶 hbar⍮ ⠤𝔸 } ⟦c⟧
 
-əitemGridEditable = ⥌plus,gen,rem,items=[],Ѧ={show_plus:✓,placeholder:󱣩}↦{
-  ⎉ ,_adder;
+əitemGridEditable = ⥌𝚙𝚕𝚞𝚜,𝚐𝚎𝚗,𝚛𝚎𝚖,items=[],Ѧ={}↦{
+  Ѧ = {show_plus:✓,placeholder:󱣩,⠤Ѧ};
+  ⎉ ,adder;
   󱀝: {𝐶 itemGrid} [
-      󱀝:_adder {𝐶 itemGridItem itemGridAdder} [
-        󱀝 button {𝐶 bigButton⍮  ⟦𝚲plus(ᵃᵈᵈ􋕟ⁱᵗᵉᵐ)⟧} ‹+› ] ];
-  ᵃᵈᵈ􋕟ⁱᵗᵉᵐ = 󰲣{ ⎉ newElm = 󱀝 div {𝐶 itemGridItem};
-                 ¿(y) { newElm􋒅 ⁺(‹itemGridPlaceholder›);
-                        chainIntoElements(x, newElm); }
-                 ¡    { chainIntoElements(gen(x,𝚲(rem(x),newElm.remove())), newElm); }
-                 newElm􌿱 = newElm􋑱₀
-                 .insertBefore(newElm,_adder); };
-  ¿(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ≇󱣩) ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ(),✓);
-  ᶜˡᵉᵃʳ􋕟ⁱᵗᵉᵐˢ = 𝚲QSA(‹:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))›,)􊾡(󰲡x.remove())
-  ˢᵉᵗ􋕟ᵖˡᵘˢ = 󰲡_adder􋛟.display = x⭜‹unset›⭝‹none›;
-  ˢᵉᵗ􋕟ᵖˡᵘˢ(Ѧˢʰᵒʷ􋕟ᵖˡᵘˢ);
-  items􋁃(ᵃᵈᵈ􋕟ⁱᵗᵉᵐ);
+      󱀝:adder {𝐶 itemGridItem itemGridAdder} [
+        󱀝 button {𝐶 bigButton⍮  ⟦𝚲𝚙𝚕𝚞𝚜(Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ)⟧} ‹+› ] ];
+  Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ = 󰲣{ ⎉ new = 󱀝 div {𝐶 itemGridItem};
+                 ¿(y) { new􋒅 ⁺(‹itemGridPlaceholder›);
+                        chainIntoElements(x, new); }
+                 ¡    { chainIntoElements(𝚐𝚎𝚗(x,𝚲(𝚛𝚎𝚖(x),new.remove())), new); }
+                 new􌿱 = new􋑱₀
+                 .insertBefore(new,adder); };
+  ¿(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ≇󱣩) Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ(),✓);
+  Ѧᶜˡᵉᵃʳ    = 𝚲􈞣(‹:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))›)􊾡(󰲡x.remove())
+  Ѧˢᵉᵗ􋕟ᵖˡᵘˢ = 󰲡adder􋛟.display = x⭜‹unset›⭝‹none›;
+  Ѧˢᵉᵗ􋕟ᵖˡᵘˢ(Ѧˢʰᵒʷ􋕟ᵖˡᵘˢ);
+  items􋁃(Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ);
+  􀴗=Ѧ; Ѧ􋑵=;
   ↪; };
 
 ətitledBox = ⥌𝚝,ə,Ѧ={outline:✓}↦

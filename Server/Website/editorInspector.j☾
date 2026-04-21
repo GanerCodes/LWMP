@@ -104,9 +104,7 @@
 © copy = 󰲡navigator.clipboard.writeText(x);
 
 © 𝘌activatePanel = ⥌Ѧ↦{
-  © cmd = 󰲡𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈟,
-                x,que􀴗 󰀒,
-                inf􀴗 󰀒⭜󷰾⭝dur􀴗 ˢᵉᶜˢ());
+  © cmd = 󰲡𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈹,x,que􀴗 󰀒,inf􀴗 󰀒⭜󷰾⭝dur􀴗 ˢᵉᶜˢ());
   © dur = 󱀝 ⟦ədurSlider⟧ {};
   ⎉ que,inf;
   ↪󱀝 div {𝐶 𝘌activatePanel} [

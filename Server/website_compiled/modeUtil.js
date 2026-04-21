@@ -61,17 +61,18 @@
 
 const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
 
-𝘌run = (þF0832, 𝐬, 𝔖, url = false, que = false, dur = -1) => {
+𝘌run = (þF0832, 𝐬, 𝔱, url = false, que = false, dur = -1) => {
+  const 𝐃 = get_devs(𝔱);
   const M = {
     mode: þF0832,
-    offsets: 𝒟(þF147C(𝐬.𝐔, 𝐬.𝐔.Ϝ((x, y, ...𝔸) => x + 𝔖.𝐃[y].LEDC, 0)))
+    offsets: 𝒟(þF147C(𝐬.𝐔, 𝐬.𝐔.Ϝ((x, y, ...𝔸) => x + 𝐃[y].LEDC, 0)))
   };
   const 𝔸 = [que, dur == -1 ? -1 : 1000 * dur];
   if (url) {
-    𝐀(𝔖.𝐭, false, ...𝐬.𝐔).scene({
+    𝔱.dev(𝐬.𝐔).scene({
       [𝐬.name]: M
     });
-    return 𝐀(𝔖.𝐭, true, ...𝐬.𝐔).scene(𝐬.name, ...𝔸);
+    return 𝐀(𝔱.𝐭, true, ...𝐬.𝐔).scene(𝐬.name, ...𝔸);
   }
-  return 𝐀(𝔖.𝐭, false, ...𝐬.𝐔).scene(𝐬.name, M, ...𝔸);
+  return 𝔱.dev(𝐬.𝐔).scene(𝐬.name, M, ...𝔸);
 };

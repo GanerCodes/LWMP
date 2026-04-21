@@ -56,6 +56,6 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
              ...Object.fromEntries(Object.entries(M)
                                          .map(([k,ƒ])=>[k,(...𝔸)=>send(ƒ(...𝔸))])) }; };
   if(𝐔.length) return dev(...𝐔);
-  return {get_devs,dev}; };
+  return {𝐭,get_devs,dev}; };
 
 // const make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs).Ϝ((x,y)=>x+y,0)).slice(0,-1)) });

@@ -137,12 +137,13 @@
    Ѧ.stot = þ02A01(tots);
    scale();
 
-   const 𝐋 = Ѧ.𝐬.𝐔.ᴍ((x, ...𝔸) => [Ѧ.𝔖.𝐃[x].NAME || x, Ѧ.𝔖.𝐃[x].LEDC]);
+   const 𝐃 = get_devs(Ѧ.𝔱);
+   const 𝐋 = Ѧ.𝐬.𝐔.ᴍ((x, ...𝔸) => [𝐃[x].NAME || x, 𝐃[x].LEDC]);
    Ѧ.labelsþ0E27F.replaceChildren(...Ѧ.top ? 𝐋.ᴍ(([𝐧, n], i) => ətriLabel(n, mkə(`T`, false, `${𝐧}`), mkə(`T`, false, `${n} Pxl`))) : []);
    Ѧ.pixelsþ0E27F.replaceChildren(Ѧ.þF0832þ0E27F = 𝘌𝖬(Ѧ, Ѧ.þF0832));
    𝘌bevelMode(Ѧ);
    Ѧ.𝘖.prvþ0E27F.disabled = Ѧ.top;
    Ѧ.𝘖.grpþ0E27F.disabled = 1 in Ѧ.þF0832 || Ѧ.þF0832["*"].length <= 1;
-   Ѧ.𝘖.ugpþ0E27F.disabled = !Ѧ.þ0E27F.querySelector(valid_ungroup_þ0E749);
+   Ѧ.𝘖.ugpþ0E27F.disabled = !Ѧ.þ0E27F.þF7E01(valid_ungroup_þ0E749);
    Ѧ.𝘖.delþ0E27F.disabled = 1 in Ѧ.þF0832 || Ѧ.þF0832["*"].length <= 1;
  };

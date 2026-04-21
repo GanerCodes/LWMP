@@ -29,7 +29,6 @@
    return [𝙲𝘴, 𝙲𝘳];
  }
 
- const QSAS = (𝚚, þ0E27F = þF0219) => [...þ0E27F.matches(𝚚) ? [þ0E27F] : [], ...þ0E27F.querySelectorAll(𝚚)];
  const þ0F06F = (þ0E27F) => {
    const s = þ0E27F.getClientRects()[0];
    return {
@@ -65,8 +64,8 @@
    updateDB();
  }
  get_toks = (...𝔸) => 𝒪k(𝘋𝘉)
- get_devs = (𝐭) => add_check_tok(𝐭).devs
- get_scenes = (𝐭) => add_check_tok(𝐭).scenes
+ get_devs = (𝔱) => add_check_tok(𝔱.𝐭).devs
+ get_scenes = (𝔱) => add_check_tok(𝔱.𝐭).scenes
  copy_scene = (𝐭, o, n) => {
    const 𝐒 = add_check_tok(𝐭).scenes;
    if (!(o in 𝐒) || (n in 𝐒)) return false;
@@ -96,12 +95,11 @@
    return 𝐬;
  }
 
- load_devices = async (𝐭) => {
-   const 𝐋 = add_check_tok(𝐭)
+ load_devices = async (𝔱) => {
+   const 𝐋 = add_check_tok(𝔱.𝐭);
    let r;
-
    try {
-     r = await 𝐀(𝐭).get_devs();
+     r = await 𝔱.get_devs();
    } catch (e) {}
    if (!r || !r[0] || r.status != 200) return 𝖡(𝐋.devs);
    𝐋.devs = {

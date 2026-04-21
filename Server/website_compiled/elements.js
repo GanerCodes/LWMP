@@ -55,37 +55,41 @@
    [`𝐶`, `hbar`], ...𝒪(𝔸)
  ], c)
 
- əitemGridEditable = (plus, gen, rem, items = [], Ѧ = {
-   show_plus: true,
-   placeholder: undefined
- }) => {
-   let þ0E27F, þ0E27F_adder;
+ əitemGridEditable = (𝚙𝚕𝚞𝚜, 𝚐𝚎𝚗, 𝚛𝚎𝚖, items = [], Ѧ = {}) => {
+   Ѧ = {
+     show_plus: true,
+     placeholder: undefined,
+     ...Ѧ
+   };
+   let þ0E27F, adderþ0E27F;
    (þ0E27F = mkə(false, [
      [`𝐶`, `itemGrid`]
-   ], [((þ0E27F_adder = mkə(false, [
+   ], [((adderþ0E27F = mkə(false, [
      [`𝐶`, `itemGridItem itemGridAdder`]
    ], [(mkə(`button`, [
      [`𝐶`, `bigButton`],
-     [``, () => plus(þ0E27F.add_item)]
+     [``, () => 𝚙𝚕𝚞𝚜(Ѧ.add_item)]
    ], `+`))])))]));
-   þ0E27F.add_item = (x, y, ...𝔸) => {
-     let newElm = mkə(`div`, [
+   Ѧ.add_item = (x, y, ...𝔸) => {
+     let newþ0E27F = mkə(`div`, [
        [`𝐶`, `itemGridItem`]
      ], false);
      if (y) {
-       newElm.classList.add(`itemGridPlaceholder`);
-       chainIntoElements(x, newElm);
+       newþ0E27F.classList.add(`itemGridPlaceholder`);
+       chainIntoElements(x, newþ0E27F);
      } else {
-       chainIntoElements(gen(x, () => (rem(x), newElm.remove())), newElm);
+       chainIntoElements(𝚐𝚎𝚗(x, () => (𝚛𝚎𝚖(x), newþ0E27F.remove())), newþ0E27F);
      }
-     newElm.ə = newElm.children[0]
-     þ0E27F.insertBefore(newElm, þ0E27F_adder);
+     newþ0E27F.ə = newþ0E27F.children[0]
+     þ0E27F.insertBefore(newþ0E27F, adderþ0E27F);
    };
-   if (Ѧ.placeholder !== undefined) þ0E27F.add_item(Ѧ.placeholder(), true);
-   þ0E27F.clear_items = () => QSA(`:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))`, þ0E27F).ᴍ((x, ...𝔸) => x.remove())
-   þ0E27F.set_plus = (x, ...𝔸) => þ0E27F_adder.style.display = x ? `unset` : `none`;
-   þ0E27F.set_plus(Ѧ.show_plus);
-   items.forEach(þ0E27F.add_item);
+   if (Ѧ.placeholder !== undefined) Ѧ.add_item(Ѧ.placeholder(), true);
+   Ѧ.clear = () => þ0E27F.þF7E02(`:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))`).ᴍ((x, ...𝔸) => x.remove())
+   Ѧ.set_plus = (x, ...𝔸) => adderþ0E27F.style.display = x ? `unset` : `none`;
+   Ѧ.set_plus(Ѧ.show_plus);
+   items.forEach(Ѧ.add_item);
+   þ0E27F.Ѧ = Ѧ;
+   Ѧ.þ0E27F = þ0E27F;
    return þ0E27F;
  };
 

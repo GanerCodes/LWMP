@@ -493,6 +493,9 @@ input[type=range]::-moz-range-thumb:active {
     &,& * {
       user-select: none;
     }
+    & * {
+      pointer-events: none;
+    }
     &[maydrop] {
       border: 1px dashed #FF0;
     }
@@ -933,5 +936,13 @@ input[type=range]::-moz-range-thumb:active {
 @layer state {
   *[hidden] {
     display: none;
+  }
+  .itemGridItem[choosen] {
+    &>:first-child {
+      border-color: #284;
+    }
+    &>:last-child {
+      background-color: #284;
+    }
   }
 }

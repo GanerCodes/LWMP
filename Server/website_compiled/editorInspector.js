@@ -207,9 +207,7 @@
  const copy = (x, ...𝔸) => navigator.clipboard.writeText(x);
 
  const 𝘌activatePanel = (Ѧ) => {
-   const cmd = (x, ...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔖,
-     x, queþ0E27F.Ѧ.S,
-     infþ0E27F.Ѧ.S ? -1 : durþ0E27F.Ѧ.secs());
+   const cmd = (x, ...𝔸) => 𝘌run(Ѧ.þF0832𝘏[0], Ѧ.𝐬, Ѧ.𝔱, x, queþ0E27F.Ѧ.S, infþ0E27F.Ѧ.S ? -1 : durþ0E27F.Ѧ.secs());
    const durþ0E27F = mkə(ədurSlider, [], false);
    let queþ0E27F, infþ0E27F;
    return mkə(`div`, [
