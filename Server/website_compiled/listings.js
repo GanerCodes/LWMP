@@ -269,7 +269,6 @@
      const 𝐭 = 𝔱?.𝐭;
      if (𝐭) Ѧ.𝐭 = 𝐭;
 
-     Ѧ.𝐃 = get_devs(Ѧ.𝔱);
      þ0E27F.Ѧ.clear();
      𝒪(get_scenes(Ѧ.𝔱)).ꟿ((name, y) => Ѧ.add_item({
        name,

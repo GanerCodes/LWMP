@@ -6,7 +6,7 @@
 © grad   = ⥌c,s,v↦‹linear-gradient(180deg in hsl longer hue,⟦hsv2hsl([0,s,v])⟧,⟦hsv2hsl([255,s,v])⟧) 0 0 / 100% ⟦100÷c⟧% repeat-y›;
 © hsv2hsl = ⥌[h,s,v]↦‹hsl(⟦h÷255⋅360⟧deg,⟦s÷2.55⟧%,⟦v÷255⋅50⟧%)›;
 
-© clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{  󰤱 add to j☾ once I add close feature and think of a better name
+© clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
   Ѧ = {␛*:✗,⠤Ѧ};
   
   © B = [󱀝 button {𝐶 detectorMeta detectorCancel⍮ detector ⟦✓⟧} ‹←›];
@@ -60,11 +60,9 @@
 əbuttonBar = 󰲟
   󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 ənavBar = ⥌Ѧ,⠤𝙴↦{
-  𝙴 = 𝙴􊾡(󰲡xⁿᵒᵈᵉᴺᵃᵐᵉ≠␛✗ ⭜[x􈞠(␛󰊄), x􋑱₀, (x􈛑(␛󰊄),x􈞠())]⭝ [ᐦ,x􋑱₀]);
-  
-   𝙴 = 𝙴􊾡(󰲡𝒪(x)₀);
    󰤱 callback for page switching
    󰤱 clean way to hide/unhide certain pages
+  𝙴 = 𝙴􊾡(󰲡xⁿᵒᵈᵉᴺᵃᵐᵉ≠␛✗ ⭜[x􈞠(␛󰊄), x􋑱₀, (x􈛑(␛󰊄),x􈞠())]⭝ [ᐦ,x􋑱₀]);
   
   Ѧ = {init:✓,ƒ:󰻾,𝙳:{},⠤Ѧ};
   © bar = [];

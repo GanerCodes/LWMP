@@ -1,16 +1,19 @@
-RGB_calibrate = 󱟱 ⥌𝐝↦{
+© recalb_t_temp_hack = ⥌𝔡↦𝔡.recalb_t();  󰤱 this is not when we should do this
+
+RGB_calibrate = 󱟱 ⥌𝔡↦{
+  󱫬 recalb_t_temp_hack(𝔡);
   ⎉ C = [⠤"RGB"];
-  󱫬 𝐝.bulk([‹config›, { RGB_ORDER:‹RGB› }],
+  󱫬 𝔡.bulk([‹config›, { RGB_ORDER:‹RGB› }],
            [‹scene› , { _singlecolor0: {fx:[[2,0.25]],1:[500,0,255<<16]},
                         _singlecolor1: {fx:[[2,0.25]],1:[500,0,255<< 8]} }],
            [‹scene› , ‹_singlecolor0›,✗,󷰾]);
   ↪[C,󱟱⥌α↦{ C = C􋐉(󰲡x≠α);
-            󱫬 𝐝.scene(‹_singlecolor1›,✗,󷰾);
+            󱫬 𝔡.scene(‹_singlecolor1›,✗,󷰾);
             ↪[C,󱟱⥌β↦{ C = α+β+C􋐉(󰲡x≠β)₀;
-                      󱫬 𝐝.bulk([‹config›, {RGB_ORDER:C}],
+                      󱫬 𝔡.bulk([‹config›, {RGB_ORDER:C}],
                                [‹scene› , ‹_default›,✗,󷰾]);
                       ↪C }]; }]; };
-prompt_rgb_calibrate = 󱟱⥌𝐝,cb↦{
+prompt_rgb_calibrate = 󱟱⥌𝔡,cb↦{
   ⎉ α,β;
   ©  = popup({:✓,󰅙:✓},
               󱀝 div ⦅𝚏↓⦆ [
@@ -30,16 +33,17 @@ prompt_rgb_calibrate = 󱟱⥌𝐝,cb↦{
     β.replaceWith(β=󱀝 span {𝐶 rgbButtons}
                       ⟦C􊾡(󰲡{© =textButton(x,󰲟Ғ(󱟱󰲟ƒ(x))); SAT(,‹c›,x); ↪})⟧);
   };
-  Ғ(󱟱󰲟󱫬RGB_calibrate(𝐝)); }
+  Ғ(󱟱󰲟󱫬RGB_calibrate(𝔡)); }
 
-led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{
+led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝔡,cb↦{
+  󱫬 recalb_t_temp_hack(𝔡);
   © SCENE_CALIB = 󰲡({'*':[{1:[x,0,0xFF00]},{1:[1001-x,0,0xFF0000]}                 ]});
   © SCENE_FINAL = 󰲡({'*':[{1:[1,0,0xFF00]},{1:[   x-2,0,0       ]},{1:[1,0,0xFF00]}]});
   © MSG = ‹Is red visible at the end of the LED strip?›;
   ⎉ 𝔖 = [[1,100,1000]];
   ⎉ first=✓;
   ➰(✓) { ⎉ [l,m,h] = 𝔖􋕛(󷰾);
-         󱫬 𝐝.bulk(⠤first⭜[[‹config›, {LEDC:1000}]]⭝[],
+         󱫬 𝔡.bulk(⠤first⭜[[‹config›, {LEDC:1000}]]⭝[],
                   [‹scene›, ‹_calib›,SCENE_CALIB(m),✗,󷰾]);
          first=✗;
          𝘴(m,MSG,[⠤𝔖􋌵>1⭜[␛←]⭝[],‹No›,‹Yes›]);
@@ -48,12 +52,12 @@ led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝐝,cb↦{
          ¿(l<h  ) { ¿(r≡‹No›) h = m;
                     ¡         l = m+1;
                     m = ~~((l+h)/2); }
-         ¿(l≡h  ) { 󱫬 𝐝.bulk(["config", {LEDC:m}                   ],
+         ¿(l≡h  ) { 󱫬 𝔡.bulk(["config", {LEDC:m}                   ],
                              ["scene" , ‹_calib›,SCENE_FINAL(m),✗,󷰾]);
                     𝘴();
                     ↪cb(l); }
          𝔖.push([l,m,h]); } });
-prompt_led_calibrate = 󱟱⥌𝐝,cb↦{
+prompt_led_calibrate = 󱟱⥌𝔡,cb↦{
   ⎉ α,β;
   ©  = popup({:✓,󰅙:✓},
               󱀝 div ⦅𝚏↓⦆ [
@@ -64,7 +68,7 @@ prompt_led_calibrate = 󱟱⥌𝐝,cb↦{
   © load = 󰲟{ α.replaceWith(α=󱀝 h2 ‹Loading...›)
               β.replaceWith(β=󱀝 □  ‹›); }
   load();
-  © [𝘴,𝘳] = led_calibrate(𝐝,󰲡(.close(),cb(x)));
+  © [𝘴,𝘳] = led_calibrate(𝔡,󰲡(.close(),cb(x)));
   ➰(✓) { ⎉ v = 󱫬 𝘳();
          ¿(¬(v∧v􋌵)) ⇥;
          © [n,m,C] = v;

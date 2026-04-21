@@ -111,6 +111,7 @@
      [`onclick`, y]
    ], x)));
  ənavBar = (Ѧ, ...𝙴) => {
+
    𝙴 = 𝙴.ᴍ((x, ...𝔸) => x.nodeName != "✗" ? [x.þF1021("󰊄"), x.children[0], (x.þF15DF("󰊄"), x.þF1021())] : ["", x.children[0]]);
 
    Ѧ = {
