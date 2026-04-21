@@ -1360,7 +1360,8 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
    Ѧ.stot = þ02A01(tots);
    scale();
 
-   Ѧ.labelsþ0E27F.replaceChildren(...Ѧ.top ? Ѧ.𝐋.ᴍ(([𝐧, n], i) => ətriLabel(n, mkə(`T`, false, `${𝐧}`), mkə(`T`, false, `${n} Pxl`))) : []);
+   const 𝐋 = Ѧ.𝐬.𝐔.ᴍ((x, ...𝔸) => [Ѧ.𝔖.𝐃[x].NAME || x, Ѧ.𝔖.𝐃[x].LEDC]);
+   Ѧ.labelsþ0E27F.replaceChildren(...Ѧ.top ? 𝐋.ᴍ(([𝐧, n], i) => ətriLabel(n, mkə(`T`, false, `${𝐧}`), mkə(`T`, false, `${n} Pxl`))) : []);
    Ѧ.pixelsþ0E27F.replaceChildren(Ѧ.þF0832þ0E27F = 𝘌𝖬(Ѧ, Ѧ.þF0832));
    𝘌bevelMode(Ѧ);
    Ѧ.𝘖.prvþ0E27F.disabled = Ѧ.top;
@@ -1612,7 +1613,6 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
    const Ѧ = {
      𝔖,
      𝐬,
-     𝐋: 𝐬.𝐔.ᴍ((x, ...𝔸) => [𝔖.𝐃[x].NAME || x, 𝔖.𝐃[x].LEDC]),
      þF0832: 𝐬.dat,
      þF0832𝘏: [],
      𝘖: {},
@@ -1712,7 +1712,6 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
    Ѧ.þ0E27F.classList.add(`editorDialog`);
    þF0219.body.append(Ѧ.þ0E27F);
    Ѧ.þ0E27F.showModal();
-
    Ѧ.ch = þ0F06F(Ѧ.þ0E27F.þF7E01(`.𝘌preview > :last-child`)).h / þ0E749𝚟.zoom;
    scale = (𝚗 = Ѧ.stot) => þ0E749𝚟.pxlSy = þ02909(0.7 * Ѧ.ch / þ02908(𝚗, 300));
    þ0E749𝚟.pxlSx = 35;
@@ -1764,10 +1763,11 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
    return þ0E27F;
  }
 
- let ədevListing = (...𝔸) => {
+ let ədevListing = (cb = þF0EFE) => {
    const 𝔖 = {};
    const ədevTile = (𝐮, 𝐝) => {
      const clr = `#${𝐝 . online ? `8CD521` : `D54C21`}`;
+
      const name1 = 𝐝.NAME || 𝐮;
      const name2 = name1 != 𝐮 ? 𝐮 : undefined;
      const þ0E27F = mkə(`div`, [
@@ -1777,17 +1777,17 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
      ], `⬤`)), (mkə(`T`, [
        [`𝑆`, `font-weight: 400; font-size: 30px;`]
      ], `${name1}`)), (name2 ? mkə(`T`, false, `UUID: ${name2}`) : []), (mkə(`T`, false, `${𝐝 . RGB_ORDER} - ${𝐝 . LEDC} pixels`)), (mkə(`T`, false, `Direction: ${[`For` , `Back`][ + 𝐝 . REVERSE]}wards`))]);
-
      return þ0E27F
    };
    const þ0E27F = əitemGridEditable(
      undefined,
      ([𝐮, 𝐝], rem) => {
        const set = (𝚜) => Bþ0E27F.ᴍþF01A9((x, ...𝔸) => x.ᴍ(þF0EFE)).þF01A9().ᴍ((x, ...𝔸) => x.disabled = !𝚜);
+       const 𝐚 = 𝐀(𝔖.𝐭, 𝐮);
 
        const þ0F044ƒ = () => əpromptText(async (x, ...𝔸) => {
            set(false);
-           await 𝐀(𝔖.𝐭, 𝐮).config({
+           await 𝐚.config({
              NAME: x
            });
            þ0E27F.populate();
@@ -1798,16 +1798,16 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
          });
        const þ0F021ƒ = async () => {
          set(false);
-         await 𝐀(𝔖.𝐭, 𝐮).config({
+         await 𝐚.config({
            REVERSE: !𝐝.REVERSE
          });
          þ0E27F.populate();
          set(true);
        };
        const Bþ0E27F = [
-         əbuttonBar(["", (...𝔸) => prompt_rgb_calibrate(𝐀(𝔖.𝐭, 𝐮), (x, ...𝔸) => (x, þ0E27F.populate()))],
-           ["", (...𝔸) => prompt_led_calibrate(𝐀(𝔖.𝐭, 𝐮), (x, ...𝔸) => (x, þ0E27F.populate()))],
-           ["󰐥", (...𝔸) => 𝐀(𝔖.𝐭).dev(𝐲).off()],
+         əbuttonBar(["", (...𝔸) => prompt_rgb_calibrate(𝐚, (x, ...𝔸) => (x, þ0E27F.populate()))],
+           ["", (...𝔸) => prompt_led_calibrate(𝐚, (x, ...𝔸) => (x, þ0E27F.populate()))],
+           ["󰐥", (...𝔸) => 𝐚.off()],
            ["", (...𝔸) => Bþ0E27F[1].þF09E5(`dropped`, Bþ0E27F[1].þF1021(`dropped`) == "✓" ? "✗" : "✓")]),
          əbuttonBar(["", þ0F044ƒ],
            ["", þ0F021ƒ])
@@ -1826,6 +1826,7 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
      devs = devs[1];
      þ0E27F.clear_items();
      𝒪(devs).forEach((x, ...𝔸) => þ0E27F.add_item(x));
+     cb(devs);
      return devs;
    };
    return þ0E27F;
@@ -1839,6 +1840,7 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
      dat: {}
    }) => {
      const ədevItem = (𝐮, 𝐝) => {
+
        const name1 = 𝐝.NAME || 𝐮;
        const name2 = name1 != 𝐮 ? 𝐮 : undefined;
        const þF0284 = `${name1}${name2 ? ` (${name2})` :  "" }`;
@@ -1911,7 +1913,7 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
          gen(𝐬);
        }),
      (𝐬, rem) => {
-       print(`Generating:`, 𝐬);
+       print(`Generating scene:`, 𝐬);
        const update = (𝚗) => {
          rem(𝐬);
          add_scene(𝔖.𝐭, 𝚗, true);
@@ -1927,17 +1929,19 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
          þF0832: 𝐬.dat
        }));
        if (!𝐬.𝐔.length) buttonþ0E27F.disabled = true;
-       return [buttonþ0E27F, əbuttonBar(
-         ["󰆴", rem],
-         ["", (...𝔸) => prompt_editor(update, 𝔖, 𝐬)],
-         ["󰆏", clone],
-         ["", (...𝔸) => prompt_scene(update, 𝐬)])];
+       return [buttonþ0E27F,
+         əbuttonBar(["󰆴", rem],
+           ["", (...𝔸) => prompt_editor(update, 𝔖, 𝐬)],
+           ["󰆏", clone],
+           ["", (...𝔸) => prompt_scene(update, 𝐬)])
+       ];
      },
      (𝐬) => move_scene(𝔖.𝐭, 𝐬.name));
    þ0E27F.populate = (𝐭) => {
-     [𝔖.𝐭, 𝔖.𝐃] = [𝐭, get_devs(𝐭)];
+     if (𝐭) 𝔖.𝐭 = 𝐭;
+     𝔖.𝐃 = get_devs(𝔖.𝐭);
      þ0E27F.clear_items();
-     𝒪(get_scenes(𝐭)).ꟿ((name, y) => þ0E27F.add_item({
+     𝒪(get_scenes(𝔖.𝐭)).ꟿ((name, y) => þ0E27F.add_item({
        name,
        ...y
      }));

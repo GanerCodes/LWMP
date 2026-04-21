@@ -20,10 +20,11 @@
                    𝐓􋁃(󰲡ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x)); }
   ↪; }
 
-⎉ ədevListing = 󰲟{
+⎉ ədevListing = ⥌cb=󰻾↦{
   © 𝔖 = {};
   © ədevTile = ⥌𝐮,𝐝↦{
     © clr = ‹#⟦𝐝ᵒⁿˡⁱⁿᵉ⭜‹8CD521›⭝‹D54C21›⟧›;
+     󰤱 make the name1/name2 stuff a function
     © name1 = 𝐝ᴺᴬᴹᴱ∨𝐮;
     © name2 = name1≠𝐮⭜𝐮⭝󱣩;
     ©  = 󱀝 div ⦅𝚙𝚘𝚜r;𝚑≥ 125px;𝚏↓;𝚊𝚂←;𝚙󷷢 10px;𝚙󷷤 6px;󰊄𝚜 20px;󰊄𝚋l⦆ [
@@ -32,40 +33,42 @@
             ⟦name2⭜󱀝 T ‹UUID: ⟦name2⟧›⭝[]⟧
             󱀝 T ‹⟦𝐝ᴿᴳᴮ􋕟ᴼᴿᴰᴱᴿ⟧ - ⟦𝐝ᴸᴱᴰ󰀂⟧ pixels›
             󱀝 T ‹Direction: ⟦[‹For›,‹Back›]₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧wards› ];
-           󰤱 ↑ make above a toggle
     ↪ };
   ©  = əitemGridEditable(
           󱣩,
-          ⥌[𝐮,𝐝],rem↦{ © set = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
-                        󰤱 actually handle errors! also text validation
-                       © ƒ = 𝚲əpromptText(󱟱 󰲡{
-                                 set(✗);
-                                 󱫬 𝐀(𝔖􋆮,𝐮).config({NAME:x});
-                                 ᵖᵒᵖᵘˡᵃᵗᵉ();
-                                 set(✓); },
-                               ‹Enter new device name›,{𝑃𝐻:‹Name›});
-                       © ƒ = 󱟱𝚲{ set(✗);
-                                  󱫬 𝐀(𝔖􋆮,𝐮).config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
-                                  ᵖᵒᵖᵘˡᵃᵗᵉ();
-                                  set(✓); };
-                       © B = [
-                           əbuttonBar([␛,󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,𝐮),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ()))],
-                                      [␛,󰲟prompt_led_calibrate(𝐀(𝔖􋆮,𝐮),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ()))],
-                                      [␛󰐥,󰲟𝐀(𝔖􋆮).dev(𝐲).off()                            ],
-                                      [␛,󰲟B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓)      ]),
-                           əbuttonBar([␛,ƒ],
-                                      [␛,ƒ])]  󰤱 [␛,󰻾],[␛,󰻾]
-                       B₁􈛘(‹dropped›);
-                       ↪[ədevTile(𝐮,𝐝),⠤B]; },
-          󰲡☾(‹Removing ⟦x⟧›),
+          ⥌[𝐮,𝐝],rem↦{
+            © set = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
+              © 𝐚 = 𝐀(𝔖􋆮,𝐮);
+               󰤱 actually handle errors! also text validation
+              © ƒ = 𝚲əpromptText(󱟱 󰲡{
+                        set(✗);
+                        󱫬 𝐚.config({NAME:x});
+                        ᵖᵒᵖᵘˡᵃᵗᵉ();
+                        set(✓); },
+                      ‹Enter new device name›,{𝑃𝐻:‹Name›});
+              © ƒ = 󱟱𝚲{ set(✗);
+                         󱫬 𝐚.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
+                         ᵖᵒᵖᵘˡᵃᵗᵉ();
+                         set(✓); };
+              © B = [
+                  əbuttonBar([␛,󰲟prompt_rgb_calibrate(𝐚,󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ()))],
+                             [␛,󰲟prompt_led_calibrate(𝐚,󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ()))],
+                             [␛󰐥,󰲟𝐚.off()                                 ],
+                             [␛,󰲟B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓)      ]),
+                  əbuttonBar([␛,ƒ],
+                             [␛,ƒ])]  󰤱 [␛,󰻾],[␛,󰻾]
+              B₁􈛘(‹dropped›);
+              ↪[ədevTile(𝐮,𝐝),⠤B]; },
+          󰲡☾(‹Removing ⟦x⟧›),  󰤱 what/why
           [],
           { show_plus  : ✗,
-            placeholder: 󰲟󱀝 h2 ‹No devices found for this token...› })
+            placeholder: 󰲟󱀝 h2 ‹No devices found for this token...› })  󰤱 only time you use h* ever
   ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱⥌𝐭↦{ ¿(𝐭) 𝔖􋆮 = 𝐭;
                     ⎉ devs = 󱫬 load_devices(𝔖􋆮);
                     devs = devs₁;
                     ᶜˡᵉᵃʳ􋕟ⁱᵗᵉᵐˢ();
                     𝒪(devs)􋁃(󰲡ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x));
+                    cb(devs);
                     ↪devs; };
   ↪; };
 
@@ -73,6 +76,7 @@
   © 𝔖 = {};
   © prompt_scene = ⥌cb,Ѧ={name:ᐦ,𝐔:[],dat:{}}↦{
     © ədevItem = ⥌𝐮,𝐝↦{
+       󰤱 make the name1/name2 stuff a function
       © name1 = 𝐝ᴺᴬᴹᴱ∨𝐮;
       © name2 = name1≠𝐮⭜𝐮⭝󱣩;
       © 󰊄 = ‹⟦name1⟧⟦name2⭜‹ (⟦name2⟧)›⭝ᐦ⟧›;
@@ -104,20 +108,21 @@
                    ⥌𝐬↦{ ¿(¬add_scene(𝔖􋆮,𝐬))
                          ↪☾(‹Scene already exists ⟦x⟧‽›);
                         gen(𝐬); }),
-          ⥌𝐬,rem↦{ ☾(‹Generating:›,𝐬);
+          ⥌𝐬,rem↦{ ☾(‹Generating scene:›,𝐬);
                    © update = ⥌𝚗↦{ rem(𝐬);
                                    add_scene(𝔖􋆮,𝚗,✓);
                                    ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); };
                    © clone = 󰲟ᵃᵈᵈ􋕟ⁱᵗᵉᵐ({⠤structuredClone(𝐬),name:‹⟦𝐬ⁿᵃᵐᵉ⟧ - Copy›});
                    © button = ətileButton(𝐬ⁿᵃᵐᵉ,𝚲cb({𝐬,𝔖,󰠲:𝐬ᵈᵃᵗ}));
                    ¿(¬𝐬􋆕 􋌵) button􋒗=✓;
-                   ↪[button,əbuttonBar(
-                               [␛󰆴,rem],
-                               [␛,󰲟prompt_editor(update,𝔖,𝐬)],
-                               [␛󰆏,clone                     ],
-                               [␛,󰲟prompt_scene (update,  𝐬)])]; },
+                   ↪[button,
+                     əbuttonBar([␛󰆴,rem                       ],
+                                [␛,󰲟prompt_editor(update,𝔖,𝐬)],
+                                [␛󰆏,clone                     ],
+                                [␛,󰲟prompt_scene (update,  𝐬)])]; },
           ⥌𝐬    ↦move_scene(𝔖􋆮,𝐬ⁿᵃᵐᵉ));
-  ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐭↦{ [𝔖􋆮,𝔖􋆄] = [𝐭,get_devs(𝐭)];
+  ᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐭↦{ ¿(𝐭) 𝔖􋆮 = 𝐭;
+                   𝔖􋆄 = get_devs(𝔖􋆮);  󰤱 this stuff is what im talking about unless this gives a single mutable reference this is bad
                    .clear_items();
-                   𝒪(get_scenes(𝐭))􋅝(⥌name,y↦ᵃᵈᵈ􋕟ⁱᵗᵉᵐ({name,⠤y})); };
+                   𝒪(get_scenes(𝔖􋆮))􋅝(⥌name,y↦ᵃᵈᵈ􋕟ⁱᵗᵉᵐ({name,⠤y})); };
   ↪; }

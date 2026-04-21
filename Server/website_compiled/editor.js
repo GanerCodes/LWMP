@@ -6,7 +6,6 @@
    const Ѧ = {
      𝔖,
      𝐬,
-     𝐋: 𝐬.𝐔.ᴍ((x, ...𝔸) => [𝔖.𝐃[x].NAME || x, 𝔖.𝐃[x].LEDC]),
      þF0832: 𝐬.dat,
      þF0832𝘏: [],
      𝘖: {},
@@ -106,7 +105,6 @@
    Ѧ.þ0E27F.classList.add(`editorDialog`);
    þF0219.body.append(Ѧ.þ0E27F);
    Ѧ.þ0E27F.showModal();
-
    Ѧ.ch = þ0F06F(Ѧ.þ0E27F.þF7E01(`.𝘌preview > :last-child`)).h / þ0E749𝚟.zoom;
    scale = (𝚗 = Ѧ.stot) => þ0E749𝚟.pxlSy = þ02909(0.7 * Ѧ.ch / þ02908(𝚗, 300));
    þ0E749𝚟.pxlSx = 35;

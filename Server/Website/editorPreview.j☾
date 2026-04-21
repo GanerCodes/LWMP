@@ -96,7 +96,8 @@
   Ѧˢᵗᵒᵗ = ⨁(tots);
   scale();
   
-  Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(⠤Ѧᵗᵒᵖ ⭜Ѧ􋆌 􊾡(⥌[𝐧,n],i↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))⭝ []);
+  © 𝐋 = Ѧ􋆭 􋆕 􊾡(󰲡[Ѧ􋈟 􋆄ₓᴺᴬᴹᴱ∨x,Ѧ􋈟 􋆄ₓᴸᴱᴰ󰀂]);
+  Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(⠤Ѧᵗᵒᵖ ⭜𝐋􊾡(⥌[𝐧,n],i↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))⭝ []);
   Ѧᵖⁱˣᵉˡˢ􋑵.replaceChildren(Ѧ􈛈􋑵 = 𝘌𝖬(Ѧ,Ѧ􈛈));
   𝘌bevelMode(Ѧ);
   Ѧ􍻬 ᵖʳᵛ􋑵 􋒗 = Ѧᵗᵒᵖ;
