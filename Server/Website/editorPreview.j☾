@@ -1,4 +1,4 @@
-© CSS_valid_ungroup = ‹.𝘌modes[dragitem]:not(:has(>:only-child))›;
+© valid_ungroup_ = ‹.𝘌modes[dragitem]:not(:has(>:only-child))›;
 
 𝔥 = 󰲡‹calc(⟦x⟧px * var(--pxlSy))›;
 
@@ -8,16 +8,14 @@
     󱀝 svg {viewBox ‹-1.05 -1 2 2›⍮ preserveAspectRatio ‹none›} [
       󱀝 path {d ‹M1 -1 L-1 0 L1 1›⍮ style ‹fill:#0000;stroke:#FFF;stroke-width:0.05›} ‹›]]
 
-© i2m = 󰲡1∈Ѧ􈛈 ⭜Ѧ􈛈₁⭝ Ѧ􈛈􊯛 ₓ;
-
 © əresizer = ⥌Ѧ,𝘔↦{
   ⎉ l;
   ©  = 󱀝 {𝐶 resizer} [
-          󱀝:l T ⟦󰠲Utilˡᵉⁿ(i2m(𝘔ⁱᵈˣ))⟧];
+          󱀝:l T ⟦󰠲Utilˡᵉⁿ(i2m(Ѧ,𝘔ⁱᵈˣ))⟧];
   .dragstart = ⥌𝜺↦{
     © y0    = 𝜺󰀒ʸ;
     © stot0 = Ѧˢᵗᵒᵗ;
-    © M     = i2m(𝘔ⁱᵈˣ);
+    © M     = i2m(Ѧ,𝘔ⁱᵈˣ);
     © Mtot  = 󰠲Utilˡᵉⁿ (M);
     © A     = 󰠲Utilᵉⁿᵈˢ(M)₁;
     © Atot  = 󰠲Utilˡᵉⁿ (A);
@@ -95,13 +93,13 @@
     Ѧ􈛈􍻞.push(Ѧ􈛈 = dat);
   Ѧᵗᵒᵖ = Ѧ􈛈􍻞 􋌵≡1;
   © tots = (1∈Ѧ􈛈⭜[Ѧ􈛈]⭝Ѧ􈛈􊯛)􊾡(󰠲Utilˡᵉⁿ);
-  Ѧˢᵗᵒᵗ = tots􋔩(󰲣x+y,0);
+  Ѧˢᵗᵒᵗ = ⨁(tots);
   scale();
   
-  Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(⠤Ѧᵗᵒᵖ ⭜↨(󱑼(Ѧᴺ,Ѧᴸ))􋅝(⥌i,[𝐧,n]↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))⭝ []);
+  Ѧˡᵃᵇᵉˡˢ􋑵.replaceChildren(⠤Ѧᵗᵒᵖ ⭜Ѧ􋆌 􊾡(⥌[𝐧,n],i↦ətriLabel(n, 󱀝 T ‹⟦𝐧⟧›, 󱀝 T ‹⟦n⟧ Pxl›))⭝ []);
   Ѧᵖⁱˣᵉˡˢ􋑵.replaceChildren(Ѧ􈛈􋑵 = 𝘌𝖬(Ѧ,Ѧ􈛈));
   𝘌bevelMode(Ѧ);
   Ѧ􍻬 ᵖʳᵛ􋑵 􋒗 = Ѧᵗᵒᵖ;
   Ѧ􍻬 ᵍʳᵖ􋑵 􋒗 = 1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1;
-  Ѧ􍻬 ᵘᵍᵖ􋑵 􋒗 = ¬Ѧ􋑵 􈛐(CSS_valid_ungroup);
+  Ѧ􍻬 ᵘᵍᵖ􋑵 􋒗 = ¬Ѧ􋑵 􈛐(valid_ungroup_);
   Ѧ􍻬 ᵈᵉˡ􋑵 􋒗 = 1∈Ѧ􈛈 ∨ Ѧ􈛈􊯛􋌵≤1; };

@@ -78,15 +78,16 @@
           󱀝:holder {𝐶  navBodyHolder} ⟦Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ??(󱀝 T ‹›)⟧]
   Ѧᵘᵖᵈᵃᵗᵉ = Ѧᵐᵘˡᵗⁱ ⭜ ⥌k   ↦{ © s = Ѧ􎁎.includes(k)
                              ¿(s){ Ѧ􎁎 = Ѧ􎁎 􋐉(󰲡x≠k);
-                                   RAT(Ѧ􀳕ₖ􀲝,‹choosen›);
+                                   Ѧ􀳕ₖ􀲝 􈛑(‹choosen›);
                                    holder.removeChild(Ѧ􀳕ₖ􋑵); }
                              ¡   { Ѧ􎁎.push(k);
-                                   SAT(Ѧ􀳕ₖ􀲝,‹choosen›);
+                                   Ѧ􀳕ₖ􀲝 􈛘(‹choosen›);
                                    holder􍪙(Ѧ􀳕ₖ􋑵); }
                              ↪Ѧ􎁎; }
-                   ⭝ ⥌k=Ѧ􎁎↦{ RAT(Ѧ􀳕􀴖􎎵􀲝,‹choosen›,‹disabled›);
+                   ⭝ ⥌k=Ѧ􎁎↦{ Ѧ􀳕􀴖􎎵􀲝 􈛑([‹choosen›,‹disabled›]);
                              Ѧ􎁎=k;
-                             [‹choosen›,‹disabled›]􋁃(󰲡SAT(Ѧ􀳕􀴖􎎵􀲝,x));
+                             Ѧ􀳕􀴖􎎵􀲝 􈛘(‹disabled›);
+                             Ѧ􀳕􀴖􎎵􀲝 􈛘(‹choosen›,k);
                              holder.replaceChildren(Ѧ􀳕􀴖􎎵􋑵);
                              ↪Ѧ􎁎; };
   ˢᵉᵗ = Ѧˢᵉᵗ = 󰲟Ѧ􊽺(Ѧᵘᵖᵈᵃᵗᵉ(⠤𝔸));

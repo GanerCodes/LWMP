@@ -1,21 +1,27 @@
 DONE
-  • add the logo (pls send lol)
-  • activate panel
-  • scenes listing duplicate option
-  • clicking on buttons sometimes selects text, need to disable phone gestures when dragging sliders
-  • redo how the scaling works (for the like 3rd time lol) as it's quite jumpy right now.
+  • Add the logo (pls send lol)
+  • Activate panel
+  • Scenes listing duplicate option
+  • Clicking on buttons sometimes selects text, need to disable phone gestures when dragging sliders
+  • Redo how the scaling works (for the like 3rd time lol) as it's quite jumpy right now.
+  • Device expand menu
+  • Device rename
+  • Device reverse
 
 TODO
-  • scene scheduler
-  • misc device options: plan to add a hamburger or … option under devices in the device listing to pull scenes, rename, set AP mode, change token, set reset time (automatically it (*will i actually forgot and will do that soon) be 3am user local time but they can change it). In this menu ill prob add an advanced menu, where they can change websocket/update URLs, change bit timing (useful for controlling certain nonstandard ws*-like LED strips), and maybe change router credentials
-  • dragging one element into another should make a tooltip menu with `swap` and `replace` as options as right now you can't copy modes/segments around.
-  • the grouping option is unintuitive; right now you can select whatever and itll just group everything between the ends; it should prob start (and having some text that says "choose start of group" or something) by clicking one of the segments and then the text changes to "choose end of group" and you click the other one.
+  • The way we pass around devices is scuffed, use the actual SSOT for dev info. Also fallbacks for missing devices
+  • Device options
+    • pulling scenes, setting AP mode, change token, setting reset time (automatically it (*will i actually forgot and will do that soon) be 3am user local time but they can change it)
+    • Add "Advanced..." In above menu, where they can change websocket/update URLs, change bit timing (useful for controlling certain nonstandard ws*-like LED strips), and maybe change router credentials
+  • LW-controller bugs, idk why but they'll disconnect or just freeze on occasion. unfortunately I suspect it's that stupid websocket SSL bug which is by-and-large the worst problem i've had to deal with this entire project
+  • Dragging one element into another should make a tooltip menu with `swap` and `replace` as options as right now you can't copy modes/segments around.
+  • The grouping option is unintuitive; right now you can select whatever and itll just group everything between the ends; it should prob start (and having some text that says "choose start of group" or something) by clicking one of the segments and then the text changes to "choose end of group" and you click the other one.
   • Considering making the delete and ungroup options be hidden and just appear somewhere as an obvious option when you start dragging an  element and you can just stick it into the option (lmk what you think about that?).
-  • resizers were appearing in one of the element-chooser screens
-  • buttons to submit/exit element picker are in random places
-  • scrolling things into view for some reason goes too far
+  • Resizers were appearing in one of the element-chooser screens
+  • Buttons to submit/exit element picker are in random places
+  • Scrolling things into view for some reason goes too far
+  • Scene scheduler
 
-7. one or two random LW-controller bugs, idk why but they'll disconnect or just freeze on occasion. unfortunately I suspect it's that stupid websocket SSL bug which is by-and-large the worst problem i've had to deal with this entire project
 
 start dragging a mode:
   have a trash icon you can drag it to

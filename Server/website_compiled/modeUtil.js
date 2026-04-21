@@ -59,6 +59,8 @@
   }
 };
 
+const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
+
 𝘌run = (þF0832, 𝐬, 𝔖, url = false, que = false, dur = -1) => {
   const M = {
     mode: þF0832,

@@ -1,15 +1,16 @@
 © setTok = 󱟱󰲡{ 𝔏𝔖􋀫(‹selTok›,x);
-               © devs = 󱫬 devListing.populate(x);
-               sceneListing.populate(x);
+               © devs = 󱫬 devListing.populate(x);
+               sceneListing.populate(x);
                [‹Devices›,‹Scenes›,‹Schedule›]􋁃(󰲡nav􀴗 􀳕ₓ􀲝 􋒗=✗);  󰤱􊽨 disable scenes/schedule if no devices
                nav.set(𝒪𝑏(devs,‹Devices›,‹Scenes›)); }
 
-© tokenListing = ətokenListing(setTok);
-© devListing   = ədevListing();
-© sceneListing = əsceneListing(⥌Ѧ↦𝘌run(Ѧ􋆭 ᵈᵃᵗ,Ѧ􋆭,Ѧ􋈟,✗,✗,󷰾));
+© tokenListing  = ətokenListing(setTok);
+© devListing    = ədevListing();
+© sceneListing  = əsceneListing(⥌Ѧ↦𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈟,✗,✗,󷰾));
+© sceneSheduler = 󱀝 T ‹󰤱›;
 
 © toks = get_toks();
-tokenListing.populate(toks);
+tokenListing.populate(toks);
 
 ⎉ defView = ‹Tokens›;
 ¿(toks􋌵 ∧ 𝔏𝔖􋀭(‹selTok›)) {
@@ -18,12 +19,9 @@
 
 © nav = 󱀝 ⟦ənavBar⟧ {Ⴝ ⟦defView⟧} [
            󱀝 ✗                            [󱀝 img {⦅𝚑 2em;𝚖← 0.5em⦆⍮src ‹/Assets/logo.svg›}]
-           󱀝 {󰊄 ‹Tokens󷺗󷺗›              } ⟦tokenListing⟧
-           󱀝 {󰊄 ‹Devices󷺗›⍮ disabled ⟦✓⟧} ⟦devListing  ⟧
-           󱀝 {󰊄 ‹Scenes󷺗󷺗›⍮ disabled ⟦✓⟧} ⟦sceneListing⟧
-           󱀝 {󰊄 ‹Schedule›⍮ disabled ⟦✓⟧} [󱀝 div ‹󰤱›]];
+           󱀝 {󰊄 ‹Tokens󷺗󷺗›              } ⟦tokenListing ⟧
+           󱀝 {󰊄 ‹Devices󷺗›⍮ disabled ⟦✓⟧} ⟦devListing   ⟧
+           󱀝 {󰊄 ‹Scenes󷺗󷺗›⍮ disabled ⟦✓⟧} ⟦sceneListing ⟧
+           󱀝 {󰊄 ‹Schedule›⍮ disabled ⟦✓⟧} ⟦sceneSheduler⟧];
+nav􀴗 􀳕 󰀒ᶜʰᵉᵈᵘˡᵉ 􀲝 􋛟 ᵈⁱˢᵖˡᵃʸ = ‹None›;  󰤱 temp until we get scheduler working
 󰈙.body􍪙(nav);
-
- QS(‹.bigButton›).click();
- setTimeout(󰲟QSA(‹              .barButton›)₂.click(), 300);
- setTimeout(󰲟QSA(‹.itemGridItem .barButton›)₁.click(), 500);

@@ -3,13 +3,11 @@
 
  prompt_editor = (cb, 𝔖, 𝐬) => {
    if (test_dat) 𝐬.dat = test_dat;
-   const L = 𝐬.𝐔.ᴍ((x, ...𝔸) => 𝔖.𝐃[x].LEDC);
    const Ѧ = {
      𝔖,
      𝐬,
-     L,
-     N: 𝐬.𝐔.ᴍ((x, ...𝔸) => 𝔖.𝐃[x]?.NAME ?? x),
-     þF0832: 𝐬.dat = 𝒪𝑏(𝐬.dat) || þF0832Util.defM(L),
+     𝐋: 𝐬.𝐔.ᴍ((x, ...𝔸) => [𝔖.𝐃[x].NAME || x, 𝔖.𝐃[x].LEDC]),
+     þF0832: 𝐬.dat,
      þF0832𝘏: [],
      𝘖: {},
      setPreview: (...𝔸) => 𝘌setPreview(Ѧ, ...𝔸),
@@ -19,7 +17,7 @@
      save: (...𝔸) => cb(𝐬)
    };
 
-   Ϣ.Ѧ = Ѧ;
+   Ϣ.EDITOR = Ѧ;
 
    const tool = (𝗍) => {
      if (𝗍 == "←") {

@@ -60,8 +60,9 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
  unironic styling
 
 @layer base
-  @font-face ∣ 󰊄𝚏 "Avenir" ; src url("/Assets/Tomkin-Regular.woff2")
-  @font-face ∣ 󰊄𝚏 "Symbols"; src url("/Assets/Symbols.woff2"       )
+  @font-face ∣ 󰊄𝚏 "Avenir" ;󰊄𝚍s;󰊄𝚋 400;src url("/Assets/Tomkin-Medium.woff2") format("woff2")
+  @font-face ∣ 󰊄𝚏 "Avenir" ;󰊄𝚍s;󰊄𝚋 100;src url("/Assets/Tomkin-Light.woff2" ) format("woff2")
+  @font-face ∣ 󰊄𝚏 "Symbols";󰊄𝚍s;󰊄𝚋 400;src url("/Assets/Symbols.woff2"      ) format("woff2")
   :root ∣ 󰊄𝚏 "Symbols","Avenir"
   *     ∣ 𝚃 background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease
           scroll-behavior smooth
@@ -89,8 +90,35 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
   .bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 290px
   .dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
     𝚋 #0000
+  
+  * ∣ interpolate-size allow-keywords
+  
+  @keyframes 󰫮dropped𝚈 ∣ 0%   ∣ 𝚘𝚙 0; 𝚑 0
+                         50%  ∣ 𝚘𝚙 0
+                         100% ∣ 𝚘𝚙 1; 𝚑 max-content
+  @keyframes 󰫮dropped𝙽 ∣ 0%   ∣ 𝚘𝚙 1; 𝚑 max-content
+                         50%  ∣ 𝚘𝚙 0
+                         100% ∣ 𝚘𝚙 0; 𝚑 0
+  
+   the following animation stuff is not how this should be done and it jank
+  .itemGridItem
+    >.multiButtonBar
+     𝚃 border-radius 0.1s ease
+     transition-delay 0.1s
+    >.multiButtonBar[dropped="✓"],􊽬(􋁋([dropped="✓"]))>.multiButtonBar
+     𝚋𝚛↓ 12px
   .multiButtonBar
     𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
+    
+    [dropped] ∣ 𝚘𝚙 0; 𝚑 0
+                 «user-select pointer-events» 􋄅
+                 animation-duration 0.5s
+                 animation-timing-function ease
+                 animation-fill-mode forwards
+                 animation-direction normal
+    [dropped="✗"] ∣ animation-name 󰫮dropped𝙽
+    [dropped="✓"] ∣ animation-name 󰫮dropped𝚈
+                     «user-select pointer-events» 􍍝
     >.barButton
       𝚠;𝚑;󰊄𝚜 1.25em
       >* ∣ 𝚊𝚛 1; 𝚑¾
@@ -122,20 +150,21 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
   .boxInput􍴍 ∣ 𝚋 􍍝
   .itemGrid ∣ 𝚍 grid; 𝚠; 𝚑≤ 􊽺(90􍽺)
               𝚊𝙿󷷣; 𝚐 20px
-              grid-template-columns repeat(auto-fit,300px)
+               grid-template-columns repeat(auto-fit,300px)
+              grid-template-columns repeat(auto-fit,minmax(300px,max-content))
               >.itemGridPlaceholder
                 𝚍 􋄅
               􊽬⁽􋁋⁽󰂁􊽬⁽􋁕⁽.itemGridAdder󰁱.itemGridPlaceholder⁾⁾⁾⁾
                 𝚏
                 >.itemGridPlaceholder ∣ «𝚠≤ 𝚠 𝚠≥» 100%; 𝚍 unset; 𝚋 􋄅
   .itemGridAdder ∣ 𝚘𝚏 clip
-  .itemGridItem  ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥» 300px; «𝚑≤ 𝚑 𝚑≥» 200px
+  .itemGridItem  ∣ 𝚏↓; «𝚠≤ 𝚠 𝚠≥» 300px
+                    ; «𝚑≤ 𝚑 𝚑≥» 200px
                    􋁋⁽.multiButtonBar⁾
                      >⁰
                        𝚋«↑ ← →» 4px solid ⦑bg2⦒; 𝚋𝚛↑ 12px
                      >.multiButtonBar
                        𝚖0
-                       𝚋𝚛↓ 12px
                        𝚋 ⦑bg2⦒
                        «𝚋󷷢 𝚋↓» 0px solid ⦑bg2⦒
                    􊽬⁽􋁋⁽.multiButtonBar⁾⁾
@@ -169,11 +198,15 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
     >.navBodyHolder
       𝚠; 𝚑≥ 􊽺(80􍽺); 𝚑≤ 􊽺(90􍽺 - 30px)
       𝚖↑ 30px; 𝚘𝚏y scroll
+    􋁋(.multiButtonBar>*􋁕([choosen="Tokens"],[choosen="Scenes"]))>.navBodyHolder>.itemGrid>*
+      𝚑 200px
+      
   .devDraggableHolder ∣ 𝚏↓;𝚠;𝚑;󰊄𝚜 22px
                         𝚋 1px solid #555
                         [maydrop]  ∣ 𝚋 1px dashed #FF0
   .devDraggable       ∣ 𝚠;𝚏→;𝚊𝙿b;𝚊𝚂󷷣;𝚙󷷢 5%
                         𝚋 1px solid #555
+                        , * ∣ user-select 􋄅
                         [maydrop]  ∣ 𝚋 1px dashed #FF0
                         [dragging] ∣ 𝚃𝚏 scale(0.75)
   .titledBox ∣ 𝚠≥ 80%;𝚏↓;𝚊𝚂󷷣

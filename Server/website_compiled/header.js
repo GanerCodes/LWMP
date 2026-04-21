@@ -44,6 +44,8 @@ const þ0E27FType = [HTMLDocument, ShadowRoot, Element];
 þ02B65 = (x, y, ...𝔸) => isArr(x) ? [...x.keys()] : þ02B65(𝐴(y === undefined ? x : y - x)).ᴍ((v) => v + (y === undefined ? 0 : x));
 þF7E3B = (x, y, ...𝔸) => isArr(x) ? þ02B65(a.length + 1) : y === undefined ? þ02B65(x + 1) : þ02B65(x, y + 1);
 þF147C = (...𝙰) => þ02B65(þ02909(...𝙰.ᴍ(þ1F0CC))).ᴍ((i) => 𝙰.ᴍ((x, ...𝔸) => x[i]));
+þ02A01 = (...𝔸) => 𝔸.flat(þ0221E).ſ((x, y, ...𝔸) => x + y, 0);
+þ02A00 = (...𝔸) => 𝔸.flat(þ0221E).ſ((x, y, ...𝔸) => x * y, 1);
 ᴍk = (x, y, ...𝔸) => 𝒟(𝒪(x).ᴍ(([k, v]) => [y(k, v), v]));
 ᴍv = (x, y, ...𝔸) => 𝒟(𝒪(x).ᴍ(([k, v]) => [k, y(v, k)]));
 ᴍd = (x, y, ...𝔸) => 𝒟(𝒪(x).ᴍ(([k, v]) => y(k, v)));

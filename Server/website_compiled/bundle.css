@@ -274,11 +274,21 @@ input[type=range]::-moz-range-thumb:active {
 @layer base {
   @font-face {
     font-family: "Avenir";
-    src: url("/Assets/Tomkin-Regular.woff2");
+    font-display: swap;
+    font-weight: 400;
+    src: url("/Assets/Tomkin-Medium.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: "Avenir";
+    font-display: swap;
+    font-weight: 100;
+    src: url("/Assets/Tomkin-Light.woff2" ) format("woff2");
   }
   @font-face {
     font-family: "Symbols";
-    src: url("/Assets/Symbols.woff2"       );
+    font-display: swap;
+    font-weight: 400;
+    src: url("/Assets/Symbols.woff2"      ) format("woff2");
   }
   :root {
     font-family: "Symbols","Avenir";
@@ -354,6 +364,45 @@ input[type=range]::-moz-range-thumb:active {
   .dialogCloseBtn:not(:disabled),.boxInput>button, .dialogCloseBtn:not(:disabled),.boxInput>input, .dialogCloseBtn:not(:disabled):is(:hover,:focus-visible),.boxInput>button, .dialogCloseBtn:not(:disabled):is(:hover,:focus-visible),.boxInput>input, .dialogCloseBtn:not(:disabled):active,.boxInput>button, .dialogCloseBtn:not(:disabled):active,.boxInput>input {
     background-color: #0000;
   }
+  * {
+    interpolate-size: allow-keywords;
+  }
+  @keyframes 󰫮dropped𝚈 {
+    0% {
+      opacity: 0;
+      height: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+      height: max-content;
+    }
+  }
+  @keyframes 󰫮dropped𝙽 {
+    0% {
+      opacity: 1;
+      height: max-content;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+      height: 0;
+    }
+  }
+  .itemGridItem {
+    &>.multiButtonBar {
+      transition: border-radius 0.1s ease;
+      transition-delay: 0.1s;
+    }
+    &>.multiButtonBar[dropped="✓"],&:not(:has([dropped="✓"]))>.multiButtonBar {
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+  }
   .multiButtonBar {
     display: flex;
     flex-direction: row;
@@ -362,6 +411,24 @@ input[type=range]::-moz-range-thumb:active {
     justify-content: space-evenly;
     align-items: center;
     margin-top: auto;
+    &[dropped] {
+      opacity: 0;
+      height: 0;
+      user-select: none;
+      pointer-events: none;
+      animation-duration: 0.5s;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+      animation-direction: normal;
+    }
+    &[dropped="✗"] {
+      animation-name: 󰫮dropped𝙽;
+    }
+    &[dropped="✓"] {
+      animation-name: 󰫮dropped𝚈;
+      user-select: unset;
+      pointer-events: unset;
+    }
     &>.barButton {
       width: 100%;
       height: 100%;
@@ -448,7 +515,7 @@ input[type=range]::-moz-range-thumb:active {
     max-height: calc(90vh / var(--zoom));
     justify-content: center;
     gap: 20px;
-    grid-template-columns: repeat(auto-fit,300px);
+    grid-template-columns: repeat(auto-fit,minmax(300px,max-content));
     &>.itemGridPlaceholder {
       display: none;
     }
@@ -472,9 +539,6 @@ input[type=range]::-moz-range-thumb:active {
     max-width: 300px;
     width: 300px;
     min-width: 300px;
-    max-height: 200px;
-    height: 200px;
-    min-height: 200px;
     &:has(.multiButtonBar) {
       &>:first-child {
         border-top: 4px solid #545454;
@@ -485,8 +549,6 @@ input[type=range]::-moz-range-thumb:active {
       }
       &>.multiButtonBar {
         margin: 0px;
-        border-bottom-left-radius: 12px;
-        border-bottom-right-radius: 12px;
         background-color: #545454;
         border-left: 0px solid #545454;
         border-right: 0px solid #545454;
@@ -573,6 +635,9 @@ input[type=range]::-moz-range-thumb:active {
       margin-top: 30px;
       overflow-y: scroll;
     }
+    &:has(.multiButtonBar>*:is([choosen="Tokens"],[choosen="Scenes"]))>.navBodyHolder>.itemGrid>* {
+      height: 200px;
+    }
   }
   .devDraggableHolder {
     display: flex;
@@ -594,6 +659,9 @@ input[type=range]::-moz-range-thumb:active {
     padding-left: 5%;
     padding-right: 5%;
     border: 1px solid #555;
+    &,& * {
+      user-select: none;
+    }
     &[maydrop] {
       border: 1px dashed #FF0;
     }

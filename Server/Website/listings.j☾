@@ -1,15 +1,17 @@
-⎉ ətileButton = ⥌t,cb,󰊄=t↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(t,250)⟧⍮  ⟦󰲟cb(t)⟧} ⟦󰊄⟧
+⎉ ətileButton = ⥌t,cb,󰊄=t↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(󰊄,250)⟧⍮  ⟦󰲟cb(t)⟧} ⟦󰊄⟧
+
+© əpromptText = ⥌cb,instr,fld↦{
+  © fld = textField(fld);
+  ©  = popup({:✓,󰅙:✓},
+              ətitledBox(
+                instr,
+                󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
+                  fld,
+                  textButton(‹Submit›,󰲟{.close();cb(fld􀲫.value)})]⟧,
+                {outline:✗})); }
 
 ⎉ ətokenListing = ⥌cb↦{
-  © prompt_token = ⥌cb↦{
-    © fld = textField({id:‹tokenField›,𝑃𝐻:‹Token›,:✓});
-    ©  = popup({:✓,󰅙:✓},
-                ətitledBox(
-                  ‹Enter token to add›,
-                  󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
-                    fld,
-                    textButton(‹Submit›,󰲟{.close();cb(fld􀲫.value)})]⟧,
-                  {outline:✗})); };
+  © prompt_token = 󰲡əpromptText(x,‹Enter token to add›,{𝑃𝐻:‹Token›,:✓});
   ©  = əitemGridEditable(
           ⥌  gen↦prompt_token(󰲡(add_check_tok(x),gen(x))),
           ⥌x,rem↦[ətileButton(x,cb,x.replace(⦋/(?<=.).(?=.)/g⦌,␛⋅)),əbuttonBar([␛󰆴,rem])],
@@ -21,27 +23,45 @@
 ⎉ ədevListing = 󰲟{
   © 𝔖 = {};
   © ədevTile = ⥌𝐮,𝐝↦{
-    © clr = ‹#⟦𝐝ᵒⁿˡⁱⁿᵉ⭜‹0F0›⭝‹F00›⟧›;
-    ©  = 󱀝 div ⦅𝚏↓;󰊄𝚜 30px⦆ [
-            󱀝 {⦅𝚏→;𝚊𝙿e;𝚊𝚂󷷣⦆} [󱀝 T ⦅󰊄𝚜 40px⦆ ‹⟦𝐮⟧›
-                              󱀝 T ⦅󰊄𝚜 50px;  ⟦clr⟧⦆ ‹⬤›]
-            󱀝 T ‹⟦𝐝ᴿᴳᴮ􋕟ᴼᴿᴰᴱᴿ⟧ - ⟦𝐝ᴸᴱᴰ󰀂⟧ Pixels›
-            󱀝 T ‹⟦""₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧›]
-             󰤱 ↑ make above a toggle
+    © clr = ‹#⟦𝐝ᵒⁿˡⁱⁿᵉ⭜‹8CD521›⭝‹D54C21›⟧›;
+    © name1 = 𝐝ᴺᴬᴹᴱ∨𝐮;
+    © name2 = name1≠𝐮⭜𝐮⭝󱣩;
+    ©  = 󱀝 div ⦅𝚙𝚘𝚜r;𝚑≥ 125px;𝚏↓;𝚊𝚂←;𝚙󷷢 10px;𝚙󷷤 6px;󰊄𝚜 20px;󰊄𝚋l⦆ [
+            󱀝 T ⦅󰊄𝚋n;𝚙𝚘𝚜a;↑ -7px;→ 10px;󰊄𝚜 50px; ⟦clr⟧⦆ ‹⬤›
+            󱀝 T ⦅󰊄𝚋n;󰊄𝚜 30px⦆ ‹⟦name1⟧›
+            ⟦name2⭜󱀝 T ‹UUID: ⟦name2⟧›⭝[]⟧
+            󱀝 T ‹⟦𝐝ᴿᴳᴮ􋕟ᴼᴿᴰᴱᴿ⟧ - ⟦𝐝ᴸᴱᴰ󰀂⟧ pixels›
+            󱀝 T ‹Direction: ⟦[‹For›,‹Back›]₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧wards› ];
+           󰤱 ↑ make above a toggle
     ↪ };
   ©  = əitemGridEditable(
           󱣩,
-          ⥌x,rem↦[ədevTile(⠤x),
-                  əbuttonBar(
-                    [␛󰆴,rem                                               ],
-                    [␛,󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
-                    [␛,󰲟prompt_led_calibrate(𝐀(𝔖􋆮,x₀),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ(𝔖􋆮)))],
-                    [␛󰐥,󰲟𝐀(𝔖􋆮).dev(x₀).off()                              ])],
+          ⥌[𝐮,𝐝],rem↦{ © set = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
+                        󰤱 actually handle errors! also text validation
+                       © ƒ = 𝚲əpromptText(󱟱 󰲡{
+                                 set(✗);
+                                 󱫬 𝐀(𝔖􋆮,𝐮).config({NAME:x});
+                                 ᵖᵒᵖᵘˡᵃᵗᵉ();
+                                 set(✓); },
+                               ‹Enter new device name›,{𝑃𝐻:‹Name›});
+                       © ƒ = 󱟱𝚲{ set(✗);
+                                  󱫬 𝐀(𝔖􋆮,𝐮).config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
+                                  ᵖᵒᵖᵘˡᵃᵗᵉ();
+                                  set(✓); };
+                       © B = [
+                           əbuttonBar([␛,󰲟prompt_rgb_calibrate(𝐀(𝔖􋆮,𝐮),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ()))],
+                                      [␛,󰲟prompt_led_calibrate(𝐀(𝔖􋆮,𝐮),󰲡(x,ᵖᵒᵖᵘˡᵃᵗᵉ()))],
+                                      [␛󰐥,󰲟𝐀(𝔖􋆮).dev(𝐲).off()                            ],
+                                      [␛,󰲟B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓)      ]),
+                           əbuttonBar([␛,ƒ],
+                                      [␛,ƒ])]  󰤱 [␛,󰻾],[␛,󰻾]
+                       B₁􈛘(‹dropped›);
+                       ↪[ədevTile(𝐮,𝐝),⠤B]; },
           󰲡☾(‹Removing ⟦x⟧›),
           [],
           { show_plus  : ✗,
             placeholder: 󰲟󱀝 h2 ‹No devices found for this token...› })
-  ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱⥌𝐭↦{ 𝔖􋆮 = 𝐭;
+  ᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱⥌𝐭↦{ ¿(𝐭) 𝔖􋆮 = 𝐭;
                     ⎉ devs = 󱫬 load_devices(𝔖􋆮);
                     devs = devs₁;
                     ᶜˡᵉᵃʳ􋕟ⁱᵗᵉᵐˢ();
@@ -52,20 +72,25 @@
 ⎉ əsceneListing = ⥌cb↦{
   © 𝔖 = {};
   © prompt_scene = ⥌cb,Ѧ={name:ᐦ,𝐔:[],dat:{}}↦{
-    © ədevItem = 󰲡dragItem(󱀝 span {𝐶 devDraggable} ⟦[‹󰍜›,󱀝 div ‹›,󱀝 T ⦅pointer-events 􋄅⦆ ⟦x⟧]⟧);
-    
+    © ədevItem = ⥌𝐮,𝐝↦{
+      © name1 = 𝐝ᴺᴬᴹᴱ∨𝐮;
+      © name2 = name1≠𝐮⭜𝐮⭝󱣩;
+      © 󰊄 = ‹⟦name1⟧⟦name2⭜‹ (⟦name2⟧)›⭝ᐦ⟧›;
+      ©  = 󱀝 span {𝐶 devDraggable} ⟦[‹󰍜›,󱀝 div ‹›,󱀝 T ⦅󰊄𝚊→⦆ ⟦󰊄⟧]⟧;
+      􋆯 = 𝐮;
+      ↪dragItem(); };
     © name = textField({𝑃𝐻:‹Scene Name›,value:Ѧⁿᵃᵐᵉ});
     ⎉ devsL,devsR;
     © devcols =
       󱀝 span ⦅𝚏→;𝚠󷷈;𝚑 325px;𝚖↓ 10px⦆ ⟦[
         󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Unused›,dragHold(󱀝:devsL div {𝐶 devDraggableHolder} ‹›)]⟧,
         󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Used›  ,dragHold(󱀝:devsR div {𝐶 devDraggableHolder} ‹›)]⟧]⟧;
-    𝒪k(𝔖􋆄)􊾡(󰲡Ѧ􋆕.includes(x) ∨ devsL􍪙(ədevItem(x)));
-    Ѧ   􋆕 􊾡(󰲡devsR􍪙(ədevItem(x)));
-    © get = 𝚲{ © 𝐔 = devsR􈞣(‹T›)􊾡(󰲡x􋒷);
+    𝒪k(𝔖􋆄)􊾡(󰲡Ѧ􋆕.includes(x) ∨ devsL􍪙(ədevItem(x,𝔖􋆄ₓ)));
+    Ѧ   􋆕 􊾡(󰲡devsR􍪙(ədevItem(x,𝔖􋆄ₓ)));
+    © get = 𝚲{ © 𝐔 = devsR􊾡(󰲡x􋆯);
                © L = 𝐔􊾡(󰲡𝔖􋆄ₓᴸᴱᴰ󰀂);
-               ↪{⠤Ѧ,𝐔,dat : 𝒪𝑏(Ѧᵈᵃᵗ) ∨ 󰠲Utilᵈᵉᶠᴹ(L),
-                      name: name􀲫.value } };
+               © 󰠲 = 𝒪𝑏(Ѧᵈᵃᵗ) ∨ 󰠲Utilᵈᵉᶠᴹ(L);
+               ↪{⠤Ѧ,𝐔, dat:󰠲, name:name􀲫.value} };
     ©  = popup({␛:✓,␛󰅙:✓},
                 ətitledBox(
                   ‹Scene details›,
@@ -79,11 +104,12 @@
                    ⥌𝐬↦{ ¿(¬add_scene(𝔖􋆮,𝐬))
                          ↪☾(‹Scene already exists ⟦x⟧‽›);
                         gen(𝐬); }),
-          ⥌𝐬,rem↦{ © update = ⥌𝚗↦{ rem(𝐬);
+          ⥌𝐬,rem↦{ ☾(‹Generating:›,𝐬);
+                   © update = ⥌𝚗↦{ rem(𝐬);
                                    add_scene(𝔖􋆮,𝚗,✓);
                                    ᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); };
                    © clone = 󰲟ᵃᵈᵈ􋕟ⁱᵗᵉᵐ({⠤structuredClone(𝐬),name:‹⟦𝐬ⁿᵃᵐᵉ⟧ - Copy›});
-                   © button = ətileButton(𝐬ⁿᵃᵐᵉ,𝚲cb({𝐬,𝔖}));
+                   © button = ətileButton(𝐬ⁿᵃᵐᵉ,𝚲cb({𝐬,𝔖,󰠲:𝐬ᵈᵃᵗ}));
                    ¿(¬𝐬􋆕 􋌵) button􋒗=✓;
                    ↪[button,əbuttonBar(
                                [␛󰆴,rem],

@@ -144,19 +144,20 @@
        const s = Ѧ.Ⴝ.includes(k)
        if (s) {
          Ѧ.Ⴝ = Ѧ.Ⴝ.þF0232((x, ...𝔸) => x != k);
-         RAT(Ѧ.𝙳[k].𝚋, `choosen`);
+         Ѧ.𝙳[k].𝚋.þF15DF(`choosen`);
          holderþ0E27F.removeChild(Ѧ.𝙳[k].þ0E27F);
        } else {
          Ѧ.Ⴝ.push(k);
-         SAT(Ѧ.𝙳[k].𝚋, `choosen`);
+         Ѧ.𝙳[k].𝚋.þF09E5(`choosen`);
          holderþ0E27F.append(Ѧ.𝙳[k].þ0E27F);
        }
        return Ѧ.Ⴝ;
      } :
      (k = Ѧ.Ⴝ) => {
-       RAT(Ѧ.𝙳[Ѧ.Ⴝ].𝚋, `choosen`, `disabled`);
+       Ѧ.𝙳[Ѧ.Ⴝ].𝚋.þF15DF([`choosen`, `disabled`]);
        Ѧ.Ⴝ = k;
-       [`choosen`, `disabled`].forEach((x, ...𝔸) => SAT(Ѧ.𝙳[Ѧ.Ⴝ].𝚋, x));
+       Ѧ.𝙳[Ѧ.Ⴝ].𝚋.þF09E5(`disabled`);
+       Ѧ.𝙳[Ѧ.Ⴝ].𝚋.þF09E5(`choosen`, k);
        holderþ0E27F.replaceChildren(Ѧ.𝙳[Ѧ.Ⴝ].þ0E27F);
        return Ѧ.Ⴝ;
      };
