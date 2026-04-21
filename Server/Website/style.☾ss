@@ -111,14 +111,14 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
     𝚏→;𝚠;𝚖0;𝚊𝙿e;𝚊𝚂󷷣;𝚖↑a
     
     [dropped] ∣ 𝚘𝚙 0; 𝚑 0
-                 «user-select pointer-events» 􋄅
+                 «user-select 󰍽» 􋄅
                  animation-duration 0.5s
                  animation-timing-function ease
                  animation-fill-mode forwards
                  animation-direction normal
     [dropped="✗"] ∣ animation-name 󰫮dropped𝙽
     [dropped="✓"] ∣ animation-name 󰫮dropped𝚈
-                     «user-select pointer-events» 􍍝
+                     «user-select 󰍽» 􍍝
     >.barButton
       𝚠;𝚑;󰊄𝚜 1.25em
       >* ∣ 𝚊𝚛 1; 𝚑¾
@@ -207,7 +207,7 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
   .devDraggable       ∣ 𝚠;𝚏→;𝚊𝙿b;𝚊𝚂󷷣;𝚙󷷢 5%
                         𝚋 1px solid #555
                         , * ∣ user-select 􋄅
-                         * ∣ pointer-events 􋄅
+                         * ∣ 󰍽 􋄅
                         [maydrop]  ∣ 𝚋 1px dashed #FF0
                         [dragging] ∣ 𝚃𝚏 scale(0.75)
   .titledBox ∣ 𝚠≥ 80%;𝚏↓;𝚊𝚂󷷣
@@ -234,7 +234,7 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
       p
     [maydrop]  ∣ 𝚘𝚕 2px dashed #FF0
     [dragging] ∣ 𝚃𝚏 􍍝; 𝚘𝚙 0.25
-    >* * ∣ pointer-events 􋄅
+    >* * ∣ 󰍽 􋄅
   .𝘌modes    ∣ 𝚏↓
 
   .𝘌atom ∣ 𝚠 􊽺(1􋈼)
@@ -242,17 +242,15 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
                𝚠 􊽺(1􋈼);
                𝚖← 􊽺(-1􋈼)
                𝚃𝚏 translateX(􊽺(1􋈼))
-               pointer-events 􋄅
+               󰍽 􋄅
   .resizer ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝚂󷷣;𝚑 0;← 􊽺(1􋈼)
              «touch-action user-select» 􋄅
              >􍨅 ∣ 󰊄𝚜 1em; ← 0.25em
              >* ∣ 𝚙𝚘𝚜a; 𝚠≤ 0.5em; 𝚑 0.5em; ← 0; 󷷤a
-             􍳵􊽬([dragging]) ∣  pointer !important
+             􍳵􊽬([dragging]) ∣ p
+              !important
              , * ∣ 𝚏↓;𝚊𝙿󷷣
-                     󰍽 􋉀 !important
-                     󰈲 brightness(1) !important
-                     𝚃 􋄅
-                     𝚃𝚏 􋄅 !important
+                     «𝚃 𝚃𝚏» 􋄅; 󰍽 􋉀
 
   .editorDialog[open]􊽬([𝘌toolmode])
      .𝘌atom[atom1] ∣ 𝚋𝚛↗ 􊽺(0.5􋈼)
@@ -265,7 +263,7 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
     𝚋↑ 0.05em solid ⦑bg2⦒
     >􍨅 ∣ 𝚍 grid; 𝚊𝚜a; 𝚘𝚏y scroll
           𝙷 􊽺(98􍽺 - 6.25em); 𝚖 0.1em;𝚍𝚒𝚛 rtl
-          >⁰ ∣ 𝚏→;𝚖󷷢 auto;𝚖↑ 1em;𝚙󷷢 1em;𝚍𝚒𝚛 ltr
+          >⁰ ∣ 𝚏→;𝚖󷷢 􋉀;𝚖↑ 1em;𝚙󷷢 1em;𝚍𝚒𝚛 ltr
                 >.𝘌alignedLabels
                   𝚏↓;𝚊𝙿←
                   >* ∣ 𝚏→;𝚊𝙿󷷣;𝚠 140px
@@ -364,11 +362,13 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
        *[detector]􊽬(􋁕([noscale],.detectorMeta))
         𝚃𝚏 scale(0.9,0.8)
         􍳵 ∣ 𝚃𝚏 scale(1,0.95)
+       .resizer
+        
   label ∣ 󰊄𝚜 1.3em
 
   :root􋁋(*[detector])
     *􊽬([detector],.detectorMeta)
-       􍍝; pointer-events 􋄅
+       􍍝; 󰍽 􋄅
     *􊽬(􋁋(*[detector],.detectorMeta))
       󰈲 opacity(0)
     *[detector]
@@ -378,7 +378,7 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
       [multidetect]
         𝚜 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85)
     *􋁋(*[detector],.detectorMeta)
-      pointer-events auto
+      󰍽 􋉀
   .detectorMeta
     𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; 󰊄𝚜 2.5em
     «𝚠 𝚑» 1.75em; 

@@ -7,12 +7,12 @@ DONE
   • Device expand menu
   • Device rename
   • Device reverse
+  • Added indication which token is actually active.
+  • Fixed issue of delting active token
+  • Made sure we check the most updated device listings inside Scenes
+  
 
 TODO
-  • There is no indication which token is actually active. Additionally, idk what happens if u delete the active token.
-  • The way we pass around devices is scuffed, use the actual SSOT for dev info. Also fallbacks for missing devices
-    • Additionally we should just pass around the API object for devices
-      • In fact we (I, idk why i keep saying we it's just me) should proxy the token api with scene stuff
   • itemGridEditable needs the ability to directly control and modify elements
   • Device options
     • pulling scenes, setting AP mode, change token, setting reset time (automatically it (*will i actually forgot and will do that soon) be 3am user local time but they can change it)
@@ -23,9 +23,11 @@ TODO
   • Considering making the delete and ungroup options be hidden and just appear somewhere as an obvious option when you start dragging an  element and you can just stick it into the option (lmk what you think about that?).
   • Resizers were appearing in one of the element-chooser screens
   • Buttons to submit/exit element picker are in random places
-  • Scrolling things into view for some reason goes too far
   • Scene scheduler
+  • Proxy the token api with scene stuff
 
+DONE...?
+  • Scrolling things into view for some reason goes too far
 
 start dragging a mode:
   have a trash icon you can drag it to

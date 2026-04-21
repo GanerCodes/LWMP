@@ -1641,16 +1641,16 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
      }
 
      Ѧ.þ0E27F.þF09E5(`𝘌toolmode`);
-     const css = 𝗍 == "" ? CSS_valid_ungroup : `.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]`;
+     const css = 𝗍 == "" ? valid_ungroup_þ0E749 : `.𝘌pixels>.𝘌modes>.𝘌atom,.𝘌modes[dragitem],.𝘌atom[dragitem]`;
 
      if (𝗍 == "")
        clickDetect(css, (𝚂þ0E27F) => {
          Ѧ.þ0E27F.þF15DF(`𝘌toolmode`);
-         if (!𝚂þ0E27F) return;
+         if (!(𝚂þ0E27F && 𝚂þ0E27F.length)) return;
          const 𝙸 = 𝚂þ0E27F.ᴍ((x, ...𝔸) => x.idx);
          const r = [þ02908(...𝙸), þ02909(...𝙸)];
          r[1]++;
-         if (r[1] - r[0] == Ѧ.þF0832["*"].length) return;
+         if ([1, Ѧ.þF0832["*"].length].includes(r[1] - r[0])) return;
          print(Ѧ.þF0832["*"], r[0], r[1], Ѧ.þF0832["*"].slice(r[0], r[1]));
          Ѧ.þF0832["*"].splice(r[0], r[1] - r[0], {
            "*": Ѧ.þF0832["*"].slice(r[0], r[1])

@@ -759,16 +759,15 @@ input[type=range]::-moz-range-thumb:active {
       bottom: auto;
     }
     &:hover:not([dragging]) {
-      cursor: pointer !important;
+      cursor: pointer;
     }
     &,& * {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      pointer-events: auto !important;
-      filter: brightness(1) !important;
       transition: none;
-      transform: none !important;
+      transform: none;
+      pointer-events: auto;
     }
   }
   .editorDialog[open]:not([𝘌toolmode]) {
@@ -1042,6 +1041,7 @@ input[type=range]::-moz-range-thumb:active {
           transform: scale(1,0.95);
         }
       }
+      : .resizer;
     }
   }
   label {
