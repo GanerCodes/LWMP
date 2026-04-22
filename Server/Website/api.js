@@ -12,7 +12,7 @@ api = async (𝐭,P,...𝔸) => {
     headers: { "Content-type": "application/json; charset=UTF-8" } });
   const r = await req.json();
   r.status = req.status;
-  print(`API with "${JSON.stringify(JSON.parse(body))}" → "${JSON.stringify(r,null,2)}"`);
+  console.log(`API with "${JSON.stringify(JSON.parse(body))}" → "${JSON.stringify(r,null,2)}"`);
   return r; };
 apiURL = (...𝔸) => `${api_base}/api/${encodeURIComponent(apiBody(...𝔸))}`;
 
