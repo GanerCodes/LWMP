@@ -6,11 +6,10 @@ USERMODS="$(realpath ../Modules_Native)"
 OUT_DIR="$(realpath ./Out)"
 NUM_CORES=15
 
-# /opt/esp-idf/install.sh esp32
 mkdir -p "$OUT_DIR"
 unalias . || :; export PATH="$PATH:$PWD/../esp-idf"; source ../esp-idf/export.sh
 
-pushd ../Micropython
+pushd ../micropython
   pushd ports/esp32
     [[ " $* " == *" -c "* ]] && {
       rm -rf build-ESP32_GENERIC || :
@@ -22,7 +21,7 @@ pushd ../Micropython
     { cat "$B"; echo "";
       echo "CONFIG_PARTITION_TABLE_CUSTOM=y"
       echo "CONFIG_PARTITION_TABLE_CUSTOM_FILENAME=\"${PARTITIONS}\""
-      # echo "CONFIG_MBEDTLS_MPI_MAX_SIZE=256"
+      echo "CONFIG_MBEDTLS_MPI_MAX_SIZE=256"
       echo "CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=4096"
       echo "CONFIG_MBEDTLS_SSL_IN_CONTENT_LEN=4096"
       echo "CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=4096"

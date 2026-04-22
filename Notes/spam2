@@ -35,7 +35,7 @@ else:
 //       atom.R.s, atom.R.v);
 
 
-cd /home/ganer/Projects/Brynic/LWMP/Device/Micropython/ports/esp32/build-ESP32_GENERIC
+cd /home/ganer/Projects/Brynic/LWMP/Device/micropython/ports/esp32/build-ESP32_GENERIC
 unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
 xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400bc459:0x3ffdd670
 xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400a1cfd:0x3fffecd0 0x400a24ab:0x3fffee10 0x401001a1:0x3fffee30 0x4012c467:0x3fffee50 0x4012c4b1:0x3fffee90 0x401001a1:0x3fffeeb0 0x40129044:0x3fffeed0 0x4011af05:0x3fffef70

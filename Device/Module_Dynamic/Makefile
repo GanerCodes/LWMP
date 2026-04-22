@@ -1,4 +1,4 @@
-MPY_DIR = ../Micropython
+MPY_DIR = ../micropython
 MOD = lightwave
 SRC = lightwave.c
 ARCH = xtensawin

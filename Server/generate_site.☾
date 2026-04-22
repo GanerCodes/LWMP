@@ -26,7 +26,6 @@
      }ℵ􀯖􀉷ᵗᵖˡ􈞛󰲣‹⟨⟦y₀⟧⟩›􀋀ˣy₁
   bundle = ⥌F,e,𝚍=𝔇↦𝚍􀋋‹bundle.⟦e⟧›ᑀ􀊄􍡩(Fᐖ‹⟦⟞⟧.⟦e⟧›ᐒ‹/* ⟦⟞⟧ */𝗻⟦𝚍􀋋⟞􀯖⟧›ᐸᐸ􀋢𝗻)􀊰⟞
   ⊢transpile: ‹Compiling Site...›􀊸
-              
               ¿𝔇.is_dir􀃅: 𝔇 rmtree
               ‹Transpiling .j☾/.☾ss›􀊸
               transpile_dir(𝔖,𝔇,JOON_CUSTOM_ELEMENTS)

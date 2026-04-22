@@ -1,0 +1,11 @@
+docker build -t LWMP .
+
+docker run --privileged --device=/dev/bus/usb \
+           --group-add dialout -v /dev:/dev \
+           LWMP /bin/bash -c ./flash.sh
+
+mkdir -p ./Data
+ 󰤱 -p 2096:2096 -p 4004:4004
+docker run --net=host \
+           -v "$PWD/Data:/opt/LWMP/Server/Data" \
+           LWMP /bin/bash -c "cd Server && ☾ server.☾"
