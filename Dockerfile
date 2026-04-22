@@ -5,9 +5,9 @@ RUN apt-get update && apt-get install -y \
                         fontforge g++ gcc git libbz2-dev libdb5.3-dev \
                         libexpat1-dev libffi-dev libgdbm-dev liblzma-dev \
                         libncurses5-dev libncursesw5-dev libreadline-dev \
-                        libsqlite3-dev libssl-dev make ninja-build nodejs \
-                        npm python3 python3-fontforge python3-pip tar tk-dev \
-                        udev unzip uuid-dev wget zlib1g-dev \
+                        libsqlite3-dev libssl-dev libudev-dev libusb-1.0-0 make \
+                        ninja-build nodejs npm python3 python3.11-venv python3-fontforge \
+                        python3-pip tar tk-dev udev unzip uuid-dev wget zlib1g-dev \
                    && rm -rf /var/lib/apt/lists/*
 
 # Install Node Packages
@@ -26,11 +26,11 @@ RUN python3.13 -m ensurepip --upgrade && \
 RUN rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 
 # Install ☾
-RUN git clone --depth 1 https://github.com/ganercodes/moon /opt/moon
+RUN git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon
 RUN /opt/moon/install
 
 # Install LWMP
-RUN git clone --recurse-submodules https://github.com/GanerCodes/LWMP.git /opt/LWMP
+RUN git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git /opt/LWMP
 WORKDIR /opt/LWMP
 RUN python3.13 -m pip install --no-cache-dir -r requirements.txt
 
