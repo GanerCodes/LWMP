@@ -25,47 +25,41 @@ tok𝘋𝘉,dev𝘋𝘉 = 󰆼(__dir__􀋋‹Data›,
 ⊢show_dbs: ‹DBs:›􀊸
            dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
 
-⊢gen_font(𝔠={σ=□}ℵ):
-  σ = __dir__􀋋‹SYMBOLS›􀯖
+⊢gen_font(tmp=tmpd(‹font_subsets›)):
+  σ = __dir__􀋋‹SYMBOLS›􀯖􀋵􀉽􀋢
+  𝚏 = tmp􀋋‹⟦σ 􇦆􀯖﹕₁₆⟧.woff2›
   α = moon_dir􀋋‹Libraries/Glypher/Output/moonfont_A.ttf›
   β = SITE_COMPILE􀋋‹Assets/Symbols.woff2›
-  t = ‹/tmp/symbolfont.woff2›𝐩
-  ¿𝔠􊯛󰃶􀉟σ 􀛺 t.is_file􀃅􀌐: $ᵒᵉpython ⟦__dir__􀋋‹subset_font›⟧ ⟦α⟧ ⟦t⟧ ⟦σ⟧󷹹
-  t.copy(β)
-  𝔠􊯛󰃶=σ
-
-⊢ultrabundle(,):
-  ↪‹<!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta name="description" content="LightWave Controller Interface">
-        <title>Lightwave</title>
-        <link rel="icon" type="image/x-icon" href="/Assets/favicon.ico">
-        <link rel="preload" href="/Assets/Tomkin-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-        <link rel="preload" href="/Assets/Tomkin-Light.woff2"  as="font" type="font/woff2" crossorigin="anonymous">
-        <link rel="preload" href="/Assets/Symbols.woff2"       as="font" type="font/woff2" crossorigin="anonymous">
-        <style>⟦‹</style>›􀋀􈞞‹<\/style>›⟧</style>
-      </head>
-      <body>
-        <script>⟦‹</script>›􀋀􈞜‹<\/script>›⟧</script>
-      </body>
-    </html>›
-
+  ¿𝚏.is_file􀃅􀌐: $ᵒᵉpython ⟦__dir__􀋋‹subset_font›⟧ ⟦α⟧ ⟦𝚏⟧ ⟦σ⟧󷹹
+  𝚏.copy(β)
+  ↪β
+⊢bundle_html(tpl,,,𝙵,inline=✓):
+  (tpl,,)􇀞􀉳
+  ↪{ 𝙵 = 𝙵 􀉳 ‹<link rel="preload" href="/⬤" as="font" type="font/woff2" crossorigin="anonymous">› ␛
+           􀋢 𝗻,
+      = inline 􇀦‹<script>⟦ esc⟧</script>›􇀧 ‹<script defer src="/bundle.min.js"></script>›,
+      = inline 􇀦‹<style󷺗>⟦ esc⟧</style󷺗>›􇀧 ‹<link rel="stylesheet" href="/bundle.min.css">›
+   }ℵ􀯖􀉷ᵗᵖˡ􈞛󰲣‹⟨⟦y₀⟧⟩›􀋀ˣy₁
+bundle = ⥌F,e,𝚍=SITE_COMPILE↦𝚍􀋋‹bundle.⟦e⟧›ᑀ􀊄􍡩(Fᐖ‹⟦⟞⟧.⟦e⟧›ᐒ‹/* ⟦⟞⟧ */𝗻⟦𝚍􀋋⟞􀯖⟧›ᐸᐸ􀋢𝗻)􀊰⟞
 ⊢transpile: ‹Compiling Site...›􀊸
+            
             ¿SITE_COMPILE.is_dir􀃅: SITE_COMPILE rmtree
+            ‹Transpiling .j☾/.☾ss›􀊸
             transpile_dir(SITE_SOURCE,SITE_COMPILE,JOON_CUSTOM_ELEMENTS)
-            
-            bundle = ⥌F,e,𝚍=SITE_COMPILE↦𝚍􀋋‹bundle.⟦e⟧›ᑀ􀊄􍡩(Fᐖ‹⟦⟞⟧.⟦e⟧›ᐒ‹/* ⟦⟞⟧ */𝗻⟦𝚍􀋋⟞􀯖⟧›ᐸᐸ􀋢𝗻)􀊰⟞
-            
-            𝙵_JS,𝙵_CSS = __dir__􀋋‹BUNDLE›􀯖􀋦𝗻􀯖􊬋₂􀉳􀂺
-            𝚋js,𝚋css = 𝙵_JS􀊱‹js›􀝕𝙵_CSS􀊱‹css› 􀜘 bundle
-            𝚋𝚖js,𝚋𝚖css = ‹js css›􀌌ᐖSITE_COMPILE􀋋‹bundle.min.⟦⟞⟧›
-            $ᵉᵒnpx lightningcss ⟦𝚋css⟧ -o ⟦𝚋𝚖css⟧ --minify󷹹
-            $ᵉᵒnpx esbuild ⟦𝚋js⟧ --charset=utf8 --target=es2020 --minify --outfile=⟦𝚋𝚖js⟧󷹹
-            SITE_COMPILE􀋋‹index.html› 􀜨􍡩 ultrabundle(⠤𝚋𝚖js􀊱𝚋𝚖css􀉳)
+            ‹Generating symbol font›􀊸
             gen_font􀃅
+            ‹Bundling and minifying›􀊸
+            tpl = SITE_SOURCE􀋋‹index.html.template›
+            𝙵 , 𝙵 = __dir__􀋋‹BUNDLE›􀯖􀋦𝗻􀯖􊬋₂􀉳􀂺
+            𝚋 , 𝚋 = 𝙵􀊱‹js›􀝕𝙵􀊱‹css› 􀜘 bundle
+            𝚋𝚖,𝚋𝚖 = ‹js css›􀌌ᐖSITE_COMPILE􀋋‹bundle.min.⟦⟞⟧›
+            $ᵉᵒnpx lightningcss ⟦𝚋⟧ -o ⟦𝚋𝚖⟧ --minify󷹹
+            $ᵉᵒnpx esbuild ⟦𝚋⟧ --charset=utf8 --target=es2020 --minify --outfile=⟦𝚋𝚖⟧󷹹
+            fonts = SITE_COMPILE􀋋‹Assets›􀯖.glob(‹*.woff2›)􀉳relpath(rel𝚍,⬤)
+            gen = bundle_html(tpl,𝚋𝚖,𝚋𝚖,fonts,⬤)
+            SITE_COMPILE􀋋‹index󷺗.html› 􀜨􍡩 gen(✗)
+            SITE_COMPILE􀋋‹bundle.html› 􀜨􍡩 gen(✓)
+            
             ‹Compiled!›􀊸
 
 ⊢get_dev_update_db(𝐭,𝐮,𝐨𝐭=□,dev=□,overwrite=✗):
@@ -175,14 +169,12 @@ tok𝘋𝘉,dev𝘋𝘉 = 󰆼(__dir__􀋋‹Data›,
 api = api􀃅
 
 compress = gzip.compress(⬤,compresslevel=9)
-
-⊢gzip_cached(𝚙,𝙷,cache_dir=tmpd􀃅):
+⊢gzip_cached(𝚙,𝙷,cache=SITE_COMPILE􀋋‹gzip_cache›):
   ¿‹gzip›􀜍𝙷􇣒􊾖􊬏ₐₑₚₜ₋ₑₙ󰂼ᵢₙ􊬐􀋦␛,􀉳􀂼: ↪𝚙,{}
-  p = cache_dir􀋋relpath(SITE_COMPILE,p)
+  p = cache􀋋relpath(SITE_COMPILE,𝚙)
   ¿p.exists􀃅􀌐: pᵖᵃʳᵉⁿᵗ mkd
-               p 􀊄􍡩 compress(𝚙 ᵇ)
-  ↪p,{Content-Encoding=gzip, Vary=Accept-Encoding}
-
+               p 􀊄􍡩􊾶 compress(𝚙 ᵇ)
+  ↪p,{Content-Encoding=‹gzip›, Vary=‹Accept-Encoding›}
 ⊢(HTTP_Server) server(𝚖,𝚙,𝙷,𝚎):  cors = { access-control-allow-origin=␛* }
   ⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇇: ↪‹Invalid JSON!›𝖡
             ↪api(d) 𝔍󰄞 􀝕 200 􀝕 ℵ(𝙲𝚃=‹.json›)
@@ -190,7 +182,7 @@ compress = gzip.compress(⬤,compresslevel=9)
   ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›􀊸
   𝚙􆿾􀌎␛/
   UQ = urllib.parse.unquote
-  ¿𝚖≡‹GET󷺗›: 𝚙􀯿􀌎􀉖‹index.html›
+  ¿𝚖≡‹GET󷺗›: 𝚙􀯿􀌎􀉖‹index.bundle.html›
              ¿𝚙.startswith(𝓁􀯍‹󷺗󷺗󷺗api/›): ↪POST(𝚙.removeprefix(𝓁) UQ)
              ⸘𝚙.startswith(𝓁􀯍‹update/›): p = safej(UPDATE_DIR,𝚙.removeprefix(𝓁))
              ¡                         : p = safej(SITE_COMPILE,𝚙 UQ)

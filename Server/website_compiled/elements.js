@@ -114,6 +114,7 @@
 
    Ѧ = {
      init: true,
+     top: false,
      ƒ: þF0EFE,
      𝙳: {},
      ...Ѧ
@@ -136,11 +137,12 @@
    }
 
    let holderþ0E27F, barþ0E27F;
-   const þ0E27F = mkə(false, [
+   const [α, β, γ] = Ѧ.top ? [`body`, `header`, `main`] : [`div`, `div`, `div`]
+   const þ0E27F = mkə(α, [
      [`𝐶`, `navContainer`]
-   ], [((barþ0E27F = mkə(false, [
+   ], [((barþ0E27F = mkə(β, [
      [`𝐶`, `multiButtonBar`]
-   ], bar))), ((holderþ0E27F = mkə(false, [
+   ], bar))), ((holderþ0E27F = mkə(γ, [
      [`𝐶`, `navBodyHolder`]
    ], Ѧ.placeholder ?? (mkə(`T`, false, ``)))))])
    Ѧ.update = Ѧ.multi ? (k) => {

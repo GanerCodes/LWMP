@@ -63,7 +63,7 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
    󰤱 clean way to hide/unhide certain pages
   𝙴 = 𝙴􊾡(󰲡xⁿᵒᵈᵉᴺᵃᵐᵉ≠␛✗ ⭜[x􈞠(␛󰊄), x􋑱₀, (x􈛑(␛󰊄),x􈞠())]⭝ [ᐦ,x􋑱₀]);
   
-  Ѧ = {init:✓,ƒ:󰻾,𝙳:{},⠤Ѧ};
+  Ѧ = {init:✓,top:✗,ƒ:󰻾,𝙳:{},⠤Ѧ};
   © bar = [];
   ∀(⎉[k,e,ɒ={}] ⎔ 𝙴)
     ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮  ⟦󰲟ˢᵉᵗ(k)⟧⍮ ⠤𝒟([⠤ɒ]􊾡(󰲡[xⁿᵃᵐᵉ,xᵛᵃˡᵘᵉ]))} ⟦k⟧
@@ -72,9 +72,10 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
     ¡    { bar.push(e); }
   
   ⎉ holder,bar;
-  ©  = 󱀝 {𝐶 navContainer} [
-          󱀝:bar    {𝐶 multiButtonBar} ⟦bar⟧
-          󱀝:holder {𝐶  navBodyHolder} ⟦Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ??(󱀝 T ‹›)⟧]
+  © [α,β,γ] = Ѧᵗᵒᵖ⭜[‹body›,‹header›,‹main›]⭝[‹div›,‹div›,‹div›]
+  ©  = 󱀝 ⟦α⟧ {𝐶 navContainer} [
+          󱀝:bar    ⟦β⟧ {𝐶 multiButtonBar} ⟦bar⟧
+          󱀝:holder ⟦γ⟧ {𝐶  navBodyHolder} ⟦Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ??(󱀝 T ‹›)⟧]
   Ѧᵘᵖᵈᵃᵗᵉ = Ѧᵐᵘˡᵗⁱ ⭜ ⥌k   ↦{ © s = Ѧ􎁎.includes(k)
                              ¿(s){ Ѧ􎁎 = Ѧ􎁎 􋐉(󰲡x≠k);
                                    Ѧ􀳕ₖ􀲝 􈛑(‹choosen›);

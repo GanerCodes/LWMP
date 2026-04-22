@@ -776,6 +776,7 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
 
    Ѧ = {
      init: true,
+     top: false,
      ƒ: þF0EFE,
      𝙳: {},
      ...Ѧ
@@ -798,11 +799,12 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
    }
 
    let holderþ0E27F, barþ0E27F;
-   const þ0E27F = mkə(false, [
+   const [α, β, γ] = Ѧ.top ? [`body`, `header`, `main`] : [`div`, `div`, `div`]
+   const þ0E27F = mkə(α, [
      [`𝐶`, `navContainer`]
-   ], [((barþ0E27F = mkə(false, [
+   ], [((barþ0E27F = mkə(β, [
      [`𝐶`, `multiButtonBar`]
-   ], bar))), ((holderþ0E27F = mkə(false, [
+   ], bar))), ((holderþ0E27F = mkə(γ, [
      [`𝐶`, `navBodyHolder`]
    ], Ѧ.placeholder ?? (mkə(`T`, false, ``)))))])
    Ѧ.update = Ѧ.multi ? (k) => {
@@ -1835,7 +1837,7 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
    const name1 = 𝐝.NAME || 𝐮;
    const name2 = name1 != 𝐮 ? 𝐮 : undefined;
    const þ0E27F = mkə(`div`, [
-     [`𝑆`, `position: relative; min-height: 125px; display: flex; flex-direction: column; align-items: flex-start; padding-left: 10px; padding-right: 10px; padding-top: 6px; padding-bottom: 6px; font-size: 20px; font-weight: 100;`]
+     [`𝑆`, `position: relative; min-height: 150px; display: flex; flex-direction: column; align-items: flex-start; padding-left: 10px; padding-right: 10px; padding-top: 6px; padding-bottom: 6px; font-size: 20px; font-weight: 100;`]
    ], [(mkə(`T`, [
      [`𝑆`, `font-weight: 400; position: absolute; top: -7px; right: 10px; font-size: 50px; color: ${clr};`]
    ], `⬤`)), (mkə(`T`, [
@@ -2075,10 +2077,12 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
  const sceneShedulerþ0E27F = mkə(`T`, false, `󰤱`);
 
  const þ0E27Fnav = mkə(ənavBar, [
-   [`Ⴝ`, `Tokens`]
+   [`Ⴝ`, `Tokens`],
+   [`top`, true]
  ], [(mkə(`✗`, false, [(mkə(`img`, [
    [`𝑆`, `height: 2em; margin-left: 0.5em;`],
-   [`src`, `/Assets/logo.svg`]
+   [`src`, `/Assets/logo.svg`],
+   [`alt`, `Logo`]
  ], false))])), (mkə(false, [
    [`󰊄`, `Tokens`]
  ], tokenListingþ0E27F)), (mkə(false, [
@@ -2093,4 +2097,4 @@ const i2m = (Ѧ, x = 0) => 1 in Ѧ.þF0832 ? Ѧ.þF0832[1] : Ѧ.þF0832["*"][x];
 
  tokenListingþ0E27F.Ѧ.populate(get_toks());
  tokenListingþ0E27F.Ѧ.set(𝔏𝔖.þ02193(`selTok`));
- þF0219.body.append(þ0E27Fnav);
+ þF0219.body.replaceWith(þ0E27Fnav);

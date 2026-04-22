@@ -85,7 +85,7 @@
    const name1 = 𝐝.NAME || 𝐮;
    const name2 = name1 != 𝐮 ? 𝐮 : undefined;
    const þ0E27F = mkə(`div`, [
-     [`𝑆`, `position: relative; min-height: 125px; display: flex; flex-direction: column; align-items: flex-start; padding-left: 10px; padding-right: 10px; padding-top: 6px; padding-bottom: 6px; font-size: 20px; font-weight: 100;`]
+     [`𝑆`, `position: relative; min-height: 150px; display: flex; flex-direction: column; align-items: flex-start; padding-left: 10px; padding-right: 10px; padding-top: 6px; padding-bottom: 6px; font-size: 20px; font-weight: 100;`]
    ], [(mkə(`T`, [
      [`𝑆`, `font-weight: 400; position: absolute; top: -7px; right: 10px; font-size: 50px; color: ${clr};`]
    ], `⬤`)), (mkə(`T`, [

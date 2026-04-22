@@ -24,10 +24,12 @@
  const sceneShedulerþ0E27F = mkə(`T`, false, `󰤱`);
 
  const þ0E27Fnav = mkə(ənavBar, [
-   [`Ⴝ`, `Tokens`]
+   [`Ⴝ`, `Tokens`],
+   [`top`, true]
  ], [(mkə(`✗`, false, [(mkə(`img`, [
    [`𝑆`, `height: 2em; margin-left: 0.5em;`],
-   [`src`, `/Assets/logo.svg`]
+   [`src`, `/Assets/logo.svg`],
+   [`alt`, `Logo`]
  ], false))])), (mkə(false, [
    [`󰊄`, `Tokens`]
  ], tokenListingþ0E27F)), (mkə(false, [
@@ -42,4 +44,4 @@
 
  tokenListingþ0E27F.Ѧ.populate(get_toks());
  tokenListingþ0E27F.Ѧ.set(𝔏𝔖.þ02193(`selTok`));
- þF0219.body.append(þ0E27Fnav);
+ þF0219.body.replaceWith(þ0E27Fnav);
