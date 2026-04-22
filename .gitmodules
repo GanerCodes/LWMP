@@ -1,0 +1,6 @@
+[submodule "Device/Micropython"]
+	path = Device/Micropython
+	url = https://github.com/micropython/micropython.git
+[submodule "Device/esp-idf"]
+	path = Device/esp-idf
+	url = https://github.com/espressif/esp-idf.git
