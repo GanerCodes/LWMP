@@ -10,38 +10,37 @@ RUN apt-get update && apt-get install -y \
                         python3-pip tar tk-dev udev unzip uuid-dev wget zlib1g-dev \
                    && rm -rf /var/lib/apt/lists/*
 
-# Install Python3.13
-WORKDIR /usr/src
-RUN wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz && \
-    tar -xzf Python-3.13.0.tgz && \
-    cd Python-3.13.0 && \
-    ./configure --enable-optimizations && \
-    make -j$(nproc) && \
-    make altinstall
-RUN python3.13 -m ensurepip --upgrade && \
-    python3.13 -m pip install --upgrade pip setuptools wheel
+# I hate him
 RUN rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 
-# Install Node Packages
-RUN npm install -g lightningcss esbuild minify html-minifier-terser
+# Install Python3.14
+WORKDIR /usr/src
+RUN wget https://www.python.org/ftp/python/3.14.0/Python-3.14.0.tgz && \
+    tar -xzf Python-3.14.0.tgz && \
+    cd Python-3.14.0 && \
+    ./configure --enable-optimizations --prefix=/usr && \
+    make -j$(nproc) && \
+    make bininstall && \
+    cp /bin/python3.14 /bin/python && \
+    python -m ensurepip -U && \
+    python -m pip install -U pip setuptools wheel
 
-# Install LWMP
+# Clone LWMP
 RUN git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git /opt/LWMP
 WORKDIR /opt/LWMP
-RUN python3.13 -m pip install --no-cache-dir -r requirements.txt
 
-# ESP-IDF (expects Device/esp-idf tooling)
+# Install esp-idf
 ENV IDF_TOOLS_PATH=/root/.espressif
 RUN cd Device/esp-idf && ./install.sh esp32
 
 # Install ☾
-RUN git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon
-RUN /opt/moon/install
+RUN git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon && \
+    /opt/moon/install
 
-# Update LWMP (b/c docker takes forever to do the above)
-RUN git pull
-
-# Install dumb bug fixed library
-RUN cp --remove-destination -r /opt/LWMP/Tools/jsbeautifier /usr/local/lib/python3.13/site-packages/
+# Update LWMP and dependencies
+RUN git pull && \
+    pip install --no-cache-dir -r requirements.txt && \
+    cp --remove-destination -r /opt/LWMP/Tools/jsbeautifier/ /usr/lib/python3.14/site-packages/ && \
+    npm install -g lightningcss esbuild minify html-minifier-terser
 
 CMD ["/bin/bash"]
