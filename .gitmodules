@@ -1,0 +1,8 @@
+[submodule "Device/micropython"]
+	path = Device/micropython
+	url = https://github.com/micropython/micropython
+	branch = master
+[submodule "Device/esp-idf"]
+	path = Device/esp-idf
+	url = https://github.com/espressif/esp-idf
+	branch = v5.5.1
