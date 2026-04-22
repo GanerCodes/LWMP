@@ -81,9 +81,9 @@
                  󱀝 [󱀝    T ‹Cycles›
                     󱀝:c ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₀⟧⍮h  25⍮s 0.1⍮ƒ ⟦𝐔􊯛􈕅⟧}]
                  󱀝 [󱀝    T ‹Saturation›
-                    󱀝:s ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₁⟧⍮h 255⍮s 0.1⍮ƒ ⟦𝐔􊯛􈕅⟧}]
+                    󱀝:s ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₁⟧⍮h 255⍮s   1⍮ƒ ⟦𝐔􊯛􈕅⟧}]
                  󱀝 [󱀝    T ‹Value›
-                    󱀝:v ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₂⟧⍮h 255⍮s 0.1⍮ƒ ⟦𝐔􊯛􈕅⟧}] ]); }
+                    󱀝:v ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₂⟧⍮h 255⍮s   1⍮ƒ ⟦𝐔􊯛􈕅⟧}] ]); }
   
   ¿(𝚜≠𝚖) 𝐔[𝘌𝚖2s􀲾](); }
 © 𝘌modePanel = ⥌Ѧ↦{

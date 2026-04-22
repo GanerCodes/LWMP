@@ -6,7 +6,7 @@
 © grad   = ⥌c,s,v↦‹linear-gradient(180deg in hsl longer hue,⟦hsv2hsl([0,s,v])⟧,⟦hsv2hsl([255,s,v])⟧) 0 0 / 100% ⟦100÷c⟧% repeat-y›;
 © hsv2hsl = ⥌[h,s,v]↦‹hsl(⟦h÷255⋅360⟧deg,⟦s÷2.55⟧%,⟦v÷255⋅50⟧%)›;
 
-© clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
+clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
   Ѧ = {␛*:✗,⠤Ѧ};
   
   © B = [󱀝 button {𝐶 detectorMeta detectorCancel⍮ detector ⟦✓⟧} ‹←›];
@@ -31,7 +31,12 @@
     ¡      ↪tog(),cease(); },✓);
   ↪rem; };
 
-əbarButton = ⥌Ѧ,c↦󱀝 button { 𝐶 hbar⍮ ⠤𝔸 } ⟦c⟧
+ətitledBox = ⥌𝚝,ə,Ѧ={outline:✓}↦
+  󱀝 div {𝐶 titledBox} [
+    󱀝 T ⦅󰊄𝚜 2.25em⦆ ‹⟦𝚝⟧›
+    󱀝 {𝐶 ‹box⟦¬Ѧᵒᵘᵗˡⁱⁿᵉ⭜‹ noOutline›⭝ᐦ⟧›⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto⦆} [⟦ə⟧]]
+əbuttonBar = 󰲟
+  󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮  ⟦y⟧} ⟦x⟧)⟧;
 
 əitemGridEditable = ⥌𝚙𝚕𝚞𝚜,𝚐𝚎𝚗,𝚛𝚎𝚖,items=[],Ѧ={}↦{
   Ѧ = {show_plus:✓,placeholder:󱣩,⠤Ѧ};
@@ -53,12 +58,6 @@
   􀴗=Ѧ; Ѧ􋑵=;
   ↪; };
 
-ətitledBox = ⥌𝚝,ə,Ѧ={outline:✓}↦
-  󱀝 div {𝐶 titledBox} [󱀝 h1 [⟦𝚝⟧]
-                       󱀝 {𝐶 ‹box⟦¬Ѧᵒᵘᵗˡⁱⁿᵉ⭜‹ noOutline›⭝ᐦ⟧›⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto⦆} [⟦ə⟧]]
-
-əbuttonBar = 󰲟
-  󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮ onclick ⟦y⟧} ⟦x⟧)⟧;
 ənavBar = ⥌Ѧ,⠤𝙴↦{
    󰤱 callback for page switching
    󰤱 clean way to hide/unhide certain pages
@@ -67,7 +66,7 @@
   Ѧ = {init:✓,ƒ:󰻾,𝙳:{},⠤Ѧ};
   © bar = [];
   ∀(⎉[k,e,ɒ={}] ⎔ 𝙴)
-    ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮ onclick ⟦󰲟ˢᵉᵗ(k)⟧⍮ ⠤𝒟([⠤ɒ]􊾡(󰲡[xⁿᵃᵐᵉ,xᵛᵃˡᵘᵉ]))} ⟦k⟧
+    ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮  ⟦󰲟ˢᵉᵗ(k)⟧⍮ ⠤𝒟([⠤ɒ]􊾡(󰲡[xⁿᵃᵐᵉ,xᵛᵃˡᵘᵉ]))} ⟦k⟧
            Ѧ􀳕ₖ = {:e,𝚋};
            bar.push(𝚋); }
     ¡    { bar.push(e); }
@@ -101,7 +100,20 @@
   􀴗 = Ѧ;
   ¿(Ѧ􋆷) 􈛓(Ѧ􋆷);
   ¿(Ѧⁱⁿⁱᵗ) Ѧ􊽺(Ѧ􎁎);
-  ↪; }
+  ↪; };
+
+ədropdown = ⥌𝙴,Ѧ={}↦{
+  Ѧ = {𝙴,Ⴝ:𝙴₀,init:✓,ƒ:󰻾,⠤Ѧ};
+  ©  = 󱀝 select {autocomplete off} ⟦𝙴􊾡(󰲡󱀝 option {value ⟦x⟧} ‹⟦x⟧›)⟧;
+  AEL(,‹change›,󰲡Ѧˢᵉᵗ(x.target.value));
+  Ѧ=􀴗={⠤Ѧ,};
+  Ѧˢᵉᵗ = ⥌Ⴝ=󱣩,call=✓↦{
+           Ⴝ≅󱣩 ⭜Ⴝ=Ѧ􎁎⭝ Ѧ􎁎=Ⴝ;
+           ᵛᵃˡᵘᵉ = Ѧ􎁎;
+           ¿(call) Ѧ􊽺(Ѧ􎁎);
+           ↪Ѧ􎁎; }
+  Ѧˢᵉᵗ(Ѧ􎁎,Ѧⁱⁿⁱᵗ);
+  ↪; };
 
 əslider = ⥌Ѧ={}↦{
   Ѧ = {init:✓,l:0,h:100,s:0,ƒ:󰻾,⠤Ѧ};
@@ -110,15 +122,16 @@
   
   ©  = Ѧ􋑵 = 󱀝 input {𝑇 ‹range›⍮ min ⟦Ѧˡ⟧⍮ defaultValue ⟦Ѧᵛ⟧⍮ max ⟦Ѧʰ⟧⍮ step ⟦Ѧˢ⟧} ‹›;
   ᵛᵃˡᵘᵉ = Ѧᵛ;
+  
+  Ѧ=􀴗={⠤Ѧ,}
   Ѧˢᵉᵗ = ⥌v=󱣩,call=✓↦{
-           ¿(v≅󱣩) v = +ᵛᵃˡᵘᵉ;
-           ¡      ᵛᵃˡᵘᵉ = v;
-           Ѧᵛ = v;
+           ¿(v≅󱣩) Ѧᵛ = +ᵛᵃˡᵘᵉ;
+           ¡      ᵛᵃˡᵘᵉ = Ѧᵛ = v;
            ¿(call) Ѧ􊽺(Ѧᵛ);
            ↪Ѧᵛ; };
   AEL(,‹input›,󰲟Ѧˢᵉᵗ());
-  􀴗=Ѧ; Ѧ􋑵=; Ѧ.set(󱣩,Ѧⁱⁿⁱᵗ);
-  ↪; }
+  Ѧˢᵉᵗ(󱣩,Ѧⁱⁿⁱᵗ);
+  ↪; };
 
 əsliderLabeled = ⥌Ѧ={}↦{
   ⎉ ɒ;

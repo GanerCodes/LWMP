@@ -4,11 +4,10 @@
    [`𝑆`, fit_size(þF0284, 250)],
    [``, () => ƒ(t)]
  ], þF0284)
- const əpromptText = (cb, instr, fld) => {
-   const fldþ0E27F = textField(fld);
+ const əpromptGeneral = (cb, instr, ...𝙴) => {
    const þ0E27F = popup({
-       þ0F2D4: true,
-       þF0159: true
+       "": true,
+       "󰅙": true
      },
      ətitledBox(
        instr,
@@ -16,10 +15,13 @@
          [`𝐶`, `promptBox`],
          [`𝑆`, `max-width: ⅘; display: flex; flex-direction: column;`]
        ], [
-         fldþ0E27F,
+         ...𝙴,
+         mkə(false, [
+           [`𝑆`, `height: 1em;`]
+         ], false),
          textButton(`Submit`, (...𝔸) => {
            þ0E27F.close();
-           cb(fldþ0E27F.𝚒.value)
+           cb(...𝙴)
          })
        ]), {
          outline: false
@@ -36,10 +38,12 @@
    };
    Ѧ.𝐓 ??= [];
 
-   const prompt_token = (x, ...𝔸) => əpromptText(x, `Enter token to add`, {
-     𝑃𝐻: `Token`,
-     þ0F070: true
-   });
+   const prompt_token = (x, ...𝔸) => əpromptGeneral((þ0E27F) => x(þ0E27F.𝚒.value),
+     `Enter token to add`,
+     textField({
+       𝑃𝐻: `Token`,
+       þ0F070: true
+     }));
    const censor = (x, ...𝔸) => x.replace(/(?<=.).(?=.)/g, "⋅");
    const þ0E27F = əitemGridEditable(
      (gen) => prompt_token((x, ...𝔸) => (add_check_tok(x), gen(x))),
@@ -52,8 +56,8 @@
      (𝐭) => (Ѧ.delƒ(𝐭), del_tok(𝐭), Ѧ.populate(Ѧ.𝐓.þF0232((x, ...𝔸) => x != 𝐭))));
    Ѧ = þ0E27F.Ѧ = {
      ...þ0E27F.Ѧ,
-     þ0E27F,
-     ...Ѧ
+     ...Ѧ,
+     þ0E27F
    };
    Ѧ.populate = (𝐓 = undefined) => {
      if (𝐓 !== undefined) Ѧ.𝐓 = 𝐓;
@@ -67,8 +71,8 @@
      const nþ0E27F = þ0E27F.children?.[𝚒n = Ѧ.𝐓.indexOf(Ⴝ)];
      Ѧ.Ⴝ = nþ0E27F ? Ⴝ : undefined;
      if (Ѧ.Ⴝ !== undefined && call) Ѧ.ƒ(Ѧ.Ⴝ);
-     oþ0E27F?.þF15DF(`choosen`)
-     nþ0E27F?.þF09E5(`choosen`)
+     oþ0E27F?.þF15DF(`choosen`);
+     nþ0E27F?.þF09E5(`choosen`);
      return Ѧ.Ⴝ
    }
    if (Ѧ.init) Ѧ.set(Ѧ.Ⴝ, Ѧ.init);
@@ -91,19 +95,35 @@
  };
  const ədevTile = (Ѧ, [𝐮, 𝐝], rem) => {
    const set = (𝚜) => Bþ0E27F.ᴍþF01A9((x, ...𝔸) => x.ᴍ(þF0EFE)).þF01A9().ᴍ((x, ...𝔸) => x.disabled = !𝚜);
-   const 𝔡 = Ѧ.𝔱.dev(𝐮);
+   const [𝐭, 𝐧, 𝔡] = [Ѧ.𝔱.𝐭, 𝐝.NAME ?? "", Ѧ.𝔱.dev(𝐮)];
 
-   const þ0F044ƒ = () => əpromptText(async (x, ...𝔸) => {
+   const þ0F044ƒ = () => əpromptGeneral(async (_0, 𝚗, _1, 𝚝) => {
        set(false);
-       await 𝔡.config({
-         NAME: x
-       });
+       const v = [𝚗.𝚒.value, 𝚝.Ѧ.Ⴝ];
+       const þF0B0A = {};
+       if (v[0] != 𝐧) þF0B0A.NAME = v[0];
+       if (v[1] != 𝐭) þF0B0A.TOKEN = v[1];
+       if (!𝒪𝑏(þF0B0A)) return set(true);
+       await 𝔡.config(þF0B0A);
+       if (þF0B0A.TOKEN !== undefined) return rem();
        Ѧ.populate();
        set(true);
      },
-     `Enter new device name`, {
-       𝑃𝐻: `Name`
-     });
+     `Edit device info`,
+     mkə(`T`, [
+       [`𝑆`, `font-size: 1.6em;`]
+     ], `Name`),
+     textField({
+       𝑃𝐻: `Name`,
+       þ0F070: true,
+       value: 𝐧
+     }),
+     mkə(`T`, [
+       [`𝑆`, `font-size: 1.6em;`]
+     ], `Token`),
+     ədropdown(get_toks(), {
+       Ⴝ: 𝐭
+     }));
    const þ0F021ƒ = async () => {
      set(false);
      await 𝔡.config({
@@ -131,15 +151,15 @@
    };
    const þ0E27F = əitemGridEditable(undefined,
      (x, rem) => ədevTile(Ѧ, x, rem),
-     (x, ...𝔸) => print(`Removing ${x}`),
+     (x, ...𝔸) => print(`Removing:`, x),
      [], {
        show_plus: false,
        placeholder: (...𝔸) => mkə(`h2`, false, `No devices found for this token...`)
      })
    Ѧ = þ0E27F.Ѧ = {
      ...þ0E27F.Ѧ,
-     þ0E27F,
-     ...Ѧ
+     ...Ѧ,
+     þ0E27F
    };
    Ѧ.populate = async (𝔱, call = true) => {
      if (𝔱) Ѧ.𝔱 = 𝔱;
@@ -183,8 +203,9 @@
      [`𝐶`, `devDraggableHolder`]
    ], ``));
 
-   const 𝐃 = get_devs(Ѧ.𝔱)
-   𝒪(𝐃).forEach(([𝐮, 𝐝]) => (𝐬.𝐔.includes(𝐮) ? devsRþ0E27F : devsLþ0E27F).append(əscenePromptDev(𝐮, 𝐝)));
+   const 𝐃 = get_devs(Ѧ.𝔱);
+   𝐬.𝐔.forEach((𝐮) => devsRþ0E27F.append(əscenePromptDev(𝐮, 𝐃[𝐮])));
+   𝒪k(𝐃).forEach((𝐮) => 𝐬.𝐔.includes(𝐮) || devsLþ0E27F.append(əscenePromptDev(𝐮, 𝐃[𝐮])));
 
    const get = () => {
      const 𝐔 = devsRþ0E27F.ᴍ((x, ...𝔸) => x.𝐮);
@@ -260,8 +281,8 @@
      (𝐬) => move_scene(Ѧ.𝐭, 𝐬.name));
    Ѧ = þ0E27F.Ѧ = {
      ...þ0E27F.Ѧ,
-     þ0E27F,
-     ...Ѧ
+     ...Ѧ,
+     þ0E27F
    };
    Ѧ.populate = (𝔱) => {
      if (𝔱) Ѧ.𝔱 = 𝔱;

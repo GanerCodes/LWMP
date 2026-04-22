@@ -73,16 +73,22 @@ input[type=range] ∣ 𝚠𝚔𝚊□; 𝚠; 𝚑 0.5em; 𝚖󷷤 0.25em
   
   body      ∣ 𝚏↓;𝚊𝚂󷷣;𝚝𝚊󷷣;𝚖0
   body,html ∣ 𝚋 ⦑bg0⦒
-  button    ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣
-              user-select 􋄅
-              𝚃 all 0.2s ease
-              𝚋 􍍝
-               ⦑fg0⦒EE; 𝚋 #0000
-              􋒗􊽬⁽󰁺choosen󰁻⁾ ∣  ⦑fg3⦒; 𝚘𝚙 0.5
-              «􎁎 􀴗» ∣ 𝚃𝚏 􍍝; p;  ⦑fg0⦒
-                       𝚋𝚐󰈲 brightness(1.1)
-              􎁎 ∣ 𝚋 #0002
-              􀴗 ∣ 𝚋 #0004
+  button,select,option
+    𝚘𝚕 􋄅
+     ⦑fg0⦒EE; 𝚋 #0000
+    «􎁎 􀴗» ∣ 𝚃𝚏 􍍝; p;  ⦑fg0⦒
+             𝚋𝚐󰈲 brightness(1.1)
+    􎁎 ∣ 𝚋 #0002
+    􀴗 ∣ 𝚋 #0004
+  select ∣ 𝚠
+           , * ∣ 𝚙 2px; 𝚋 2px solid ⦑fg3⦒; 𝚋𝚛 10px
+  option ∣ 𝚋 ⦑bg2⦒ !important
+            ↑ hack b/c option is stupid
+  button ∣ 𝚙𝚘𝚜r;𝚏↓;𝚊𝙿󷷣;𝚊𝚂󷷣
+           user-select 􋄅
+           𝚃 all 0.2s ease
+           𝚋 􍍝
+           􋒗􊽬⁽󰁺choosen󰁻⁾ ∣  ⦑fg3⦒; 𝚘𝚙 0.5
   .borderButton ∣ 𝚖 5px
                   𝚋 2px solid ⦑fg1⦒; 𝚋𝚛 5px
   .«hbar bigButton»      ∣ 𝚠;𝚖0

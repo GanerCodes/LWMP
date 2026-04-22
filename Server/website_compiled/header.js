@@ -11,7 +11,6 @@ makeProxy = (𝚐, 𝚜, o = {}) =>
     }
   });
 þF0EFE = (x, ...𝔸) => x;
-
 [Ϣ, þF0219] = [window, document];
 [𝐴, 𝐸, 𝑜, 𝑖, þ0221E] = [Array, Element, Object, Number, Infinity];
 [𝒪, 𝒟, 𝒪k, 𝒪v] = [𝑜.entries, 𝑜.fromEntries, 𝑜.keys, 𝑜.values];
@@ -25,7 +24,7 @@ makeProxy = (𝚐, 𝚜, o = {}) =>
 };
 𝒮 = (d, k, v) => (!(k in d) || d[k] === null) ? (d[k] = v) : d[k];
 𝒫 = ((ƒ) => makeProxy((𝚔) => (x, ...𝔸) => ƒ(x, 𝚔, ...𝔸), þF0EFE, ƒ))
-  ((d, k, v = undefined) => k in d ? (d = d[k], delete d[k], d) : v);
+  ((d, k, v = undefined) => k in d ? (v = d[k], delete d[k], v) : v);
 𝓟 = (x, y, ...𝔸) => [x, ᴍv(y, (v, k) => 𝒫[k](x, v))];
 
 const þ0E27FType = [HTMLDocument, ShadowRoot, Element];
@@ -64,6 +63,34 @@ mk_id = (l, chars = BASE_CHARSET) => þ02B65(l).ᴍ(() => chars.at(𝑖(þF114F(
   return r
 };
 
+const 𝑙Replace = (x, y, ...𝔸) => (x.splice(0, þ0221E, ...y), x);
+const 𝑜Replace = (x, y, ...𝔸) => {
+  y = structuredClone(y);
+  for (let k in x) delete x[k];
+  return 𝑜.assign(x, y);
+};
+𝗉 = (...𝔸) => {
+  let r, b, p = new Promise((...𝔸) => [r, b] = 𝔸);
+  return p.r = r, p.b = b, p;
+}
+𝘔 = (...𝔸) => {
+  const M = [𝗉()];
+  const 𝘴 = (...𝔸) => (M.at(-1).r(𝔸), M.push(𝗉()));
+  const 𝘳 = async (...𝔸) => ((x, ...𝔸) => (M.shift(), x))(await M[0])
+  return [𝘴, 𝘳];
+}
+þF01EE = (ƒ) => (...𝔸) => {
+  const [
+    [𝚂𝘴, 𝙲𝘳],
+    [𝙲𝘴, 𝚂𝘳]
+  ] = [𝘔(), 𝘔()]
+  ƒ(𝚂𝘴, 𝚂𝘳)(...𝔸);
+  return [𝙲𝘴, 𝙲𝘳];
+}
+
+𝔓(Number).mod = function(n) {
+  return (this % n + n) % n;
+};
 𝔍 = {
   þ02191: JSON.stringify,
   þ02193: JSON.parse
@@ -134,10 +161,17 @@ mk_id = (l, chars = BASE_CHARSET) => þ02B65(l).ᴍ(() => chars.at(𝑖(þF114F(
   };
 }));
 
-𝔓(Number).mod = function(n) {
-  return (this % n + n) % n;
+þ0F06F = (þ0E27F) => {
+  const s = þ0E27F.getClientRects()[0];
+  return {
+    l: s.left,
+    r: s.right,
+    t: s.top,
+    b: s.bottom,
+    w: s.width,
+    h: s.height
+  }
 };
-
 GID = (x, ...𝔸) => þF0219.getElementById(x);
 EFP = (...𝔸) => þF0219.elementFromPoint(...𝔸.þF01A9(þ0221E));
 AEL = (þ0E27F, ...𝔸) => (þ0E27F.addEventListener(...𝔸), () => REL(þ0E27F, ...𝔸));

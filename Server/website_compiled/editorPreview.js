@@ -138,7 +138,9 @@
    scale();
 
    const 𝐃 = get_devs(Ѧ.𝔱);
-   const 𝐋 = Ѧ.𝐬.𝐔.ᴍ((x, ...𝔸) => [𝐃[x].NAME || x, 𝐃[x].LEDC]);
+   const 𝐋 = Ѧ.𝐬.𝐔.ᴍþF01A9((x, ...𝔸) => x in 𝐃 ? [
+     [𝐃[x].NAME || x, 𝐃[x].LEDC]
+   ] : []);
    Ѧ.labelsþ0E27F.replaceChildren(...Ѧ.top ? 𝐋.ᴍ(([𝐧, n], i) => ətriLabel(n, mkə(`T`, false, `${𝐧}`), mkə(`T`, false, `${n} Pxl`))) : []);
    Ѧ.pixelsþ0E27F.replaceChildren(Ѧ.þF0832þ0E27F = 𝘌𝖬(Ѧ, Ѧ.þF0832));
    𝘌bevelMode(Ѧ);

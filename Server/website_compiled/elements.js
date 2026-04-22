@@ -7,7 +7,7 @@
  const þ0EF26gradþ0E749 = (c, s, v) => `linear-gradient(180deg in hsl longer hue,${hsv2hslþ0E749([0 , s , v])},${hsv2hslþ0E749([255 , s , v])}) 0 0 / 100% ${100 / c}% repeat-y`;
  const hsv2hslþ0E749 = ([h, s, v]) => `hsl(${h / 255 * 360}deg,${s / 2.55}%,${v / 255 * 50}%)`;
 
- const clickDetect = (𝚚, ƒ, base = þF0219.body, Ѧ = {}) => {
+ clickDetect = (𝚚, ƒ, base = þF0219.body, Ѧ = {}) => {
    Ѧ = {
      "*": false,
      ...Ѧ
@@ -51,9 +51,24 @@
    return rem;
  };
 
- əbarButton = (Ѧ, c) => mkə(`button`, [
-   [`𝐶`, `hbar`], ...𝒪(𝔸)
- ], c)
+ ətitledBox = (𝚝, ə, Ѧ = {
+     outline: true
+   }) =>
+   mkə(`div`, [
+     [`𝐶`, `titledBox`]
+   ], [(mkə(`T`, [
+     [`𝑆`, `font-size: 2.25em;`]
+   ], `${𝚝}`)), (mkə(false, [
+     [`𝐶`, `box${ ! Ѧ . outline ? ` noOutline` :  "" }`],
+     [`𝑆`, `overflow-x: hidden; overflow-y: auto;`]
+   ], [(ə)]))])
+ əbuttonBar = (...𝔸) =>
+   mkə(`span`, [
+     [`𝐶`, `multiButtonBar`]
+   ], 𝔸.ꟿ((x, y, ...𝔸) => mkə(`button`, [
+     [`𝐶`, `barButton`],
+     [``, y]
+   ], x)));
 
  əitemGridEditable = (𝚙𝚕𝚞𝚜, 𝚐𝚎𝚗, 𝚛𝚎𝚖, items = [], Ѧ = {}) => {
    Ѧ = {
@@ -93,23 +108,6 @@
    return þ0E27F;
  };
 
- ətitledBox = (𝚝, ə, Ѧ = {
-     outline: true
-   }) =>
-   mkə(`div`, [
-     [`𝐶`, `titledBox`]
-   ], [(mkə(`h1`, false, [(𝚝)])), (mkə(false, [
-     [`𝐶`, `box${ ! Ѧ . outline ? ` noOutline` :  "" }`],
-     [`𝑆`, `overflow-x: hidden; overflow-y: auto;`]
-   ], [(ə)]))])
-
- əbuttonBar = (...𝔸) =>
-   mkə(`span`, [
-     [`𝐶`, `multiButtonBar`]
-   ], 𝔸.ꟿ((x, y, ...𝔸) => mkə(`button`, [
-     [`𝐶`, `barButton`],
-     [`onclick`, y]
-   ], x)));
  ənavBar = (Ѧ, ...𝙴) => {
 
    𝙴 = 𝙴.ᴍ((x, ...𝔸) => x.nodeName != "✗" ? [x.þF1021("󰊄"), x.children[0], (x.þF15DF("󰊄"), x.þF1021())] : ["", x.children[0]]);
@@ -125,7 +123,7 @@
      if (k) {
        const 𝚋 = mkə(`button`, [
          [`𝐶`, `barButton`],
-         [`onclick`, (...𝔸) => þ0E27F.set(k)], ...𝒪(𝒟([...ɒ].ᴍ((x, ...𝔸) => [x.name, x.value])))
+         [``, (...𝔸) => þ0E27F.set(k)], ...𝒪(𝒟([...ɒ].ᴍ((x, ...𝔸) => [x.name, x.value])))
        ], k)
        Ѧ.𝙳[k] = {
          þ0E27F: e,
@@ -179,7 +177,35 @@
    if (Ѧ.𝐶) þ0E27F.classList.add(Ѧ.𝐶);
    if (Ѧ.init) Ѧ.ƒ(Ѧ.Ⴝ);
    return þ0E27F;
- }
+ };
+
+ ədropdown = (𝙴, Ѧ = {}) => {
+   Ѧ = {
+     𝙴,
+     Ⴝ: 𝙴[0],
+     init: true,
+     ƒ: þF0EFE,
+     ...Ѧ
+   };
+   const þ0E27F = mkə(`select`, [
+     [`autocomplete`, `off`]
+   ], 𝙴.ᴍ((x, ...𝔸) => mkə(`option`, [
+     [`value`, x]
+   ], `${x}`)));
+   AEL(þ0E27F, `change`, (x, ...𝔸) => Ѧ.set(x.target.value));
+   Ѧ = þ0E27F.Ѧ = {
+     ...Ѧ,
+     þ0E27F
+   };
+   Ѧ.set = (Ⴝ = undefined, call = true) => {
+     Ⴝ === undefined ? Ⴝ = Ѧ.Ⴝ : Ѧ.Ⴝ = Ⴝ;
+     þ0E27F.value = Ѧ.Ⴝ;
+     if (call) Ѧ.ƒ(Ѧ.Ⴝ);
+     return Ѧ.Ⴝ;
+   }
+   Ѧ.set(Ѧ.Ⴝ, Ѧ.init);
+   return þ0E27F;
+ };
 
  əslider = (Ѧ = {}) => {
    Ѧ = {
@@ -201,19 +227,21 @@
      [`step`, Ѧ.s]
    ], ``);
    þ0E27F.value = Ѧ.v;
+
+   Ѧ = þ0E27F.Ѧ = {
+     ...Ѧ,
+     þ0E27F
+   }
    Ѧ.set = (v = undefined, call = true) => {
-     if (v === undefined) v = +þ0E27F.value;
-     else þ0E27F.value = v;
-     Ѧ.v = v;
+     if (v === undefined) Ѧ.v = +þ0E27F.value;
+     else þ0E27F.value = Ѧ.v = v;
      if (call) Ѧ.ƒ(Ѧ.v);
      return Ѧ.v;
    };
    AEL(þ0E27F, `input`, (...𝔸) => Ѧ.set());
-   þ0E27F.Ѧ = Ѧ;
-   Ѧ.þ0E27F = þ0E27F;
    Ѧ.set(undefined, Ѧ.init);
    return þ0E27F;
- }
+ };
 
  əsliderLabeled = (Ѧ = {}) => {
    let ɒ;

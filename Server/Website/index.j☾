@@ -8,9 +8,9 @@
 © delTok = ⥌𝐭↦{ ¿(𝔏𝔖􋀭(‹selTok›)≡𝐭) 𝔏𝔖􋀫(‹selTok›,󱣩);
                 setBar(✗); }
 
-© tokenListing  = ətokenListing({ƒ:setTok, delƒ:delTok    });
-© devListing    = ədevListing  ({                         });
-© sceneListing  = əsceneListing({ƒ:⥌Ѧ↦𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈹,✗,✗,󷰾)});
+©  tokenListing = ətokenListing({ƒ:setTok, delƒ:delTok    });
+©    devListing = ədevListing  ({                         });
+©  sceneListing = əsceneListing({ƒ:⥌Ѧ↦𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈹,✗,✗,󷰾)});
 © sceneSheduler = 󱀝 T ‹󰤱›;
 
 © nav = 󱀝 ⟦ənavBar⟧ {Ⴝ ‹Tokens›} [

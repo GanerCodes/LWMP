@@ -1,32 +1,11 @@
 © MAX_LEDC = 4000;
 
-© 𝑜Replace = 󰲣{ y = structuredClone(y);
-                ∀(⎉k∈x) 󰆴 xₖ;
-                ↪𝑜.assign(x,y); };
-© 𝑙Replace = 󰲣{ x.splice(0,∞,⠤y);
-                ↪x; }
-𝗉 = 󰲟{ ⎉ r,b,p = 🆕 Promise(󰲟[r,b]=𝔸);
-       ↪pʳ=r,pᵇ=b,p; }
-𝘔 = 󰲟{  messenger and awaitor
-  © M = [𝗉()];
-  © 𝘴 = 󰲟(M􋕛(󷰾)ʳ(𝔸),M.push(𝗉()));
-  © 𝘳 = 󱟱󰲟(󰲡(M.shift(),x))(󱫬 M₀)
-  ↪[𝘴,𝘳]; }
-󰇮 = ⥌ƒ↦󰲟{  bidirectional messages
-  © [[𝚂𝘴,𝙲𝘳],[𝙲𝘴,𝚂𝘳]] = [𝘔(),𝘔()]
-  ƒ(𝚂𝘴,𝚂𝘳)(⠤𝔸);
-  ↪[𝙲𝘴,𝙲𝘳]; }
-
-©  = ⥌↦{ © s = .getClientRects()₀;
-           ↪{ l:sˡᵉᶠᵗ,r:sʳⁱᵍʰᵗ,t:sᵗᵒᵖ,b:sᵇᵒᵗᵗᵒᵐ,
-              w:sʷⁱᵈᵗʰ,h:sʰᵉⁱᵍʰᵗ } };
-
 fit_size = ⥌𝐭,w,sz=100,st=ᐦ,Δ=5↦{
   ➰(measureText(𝐭,sz,ᐦ)ʷⁱᵈᵗʰ≥w) sz -= Δ;
   ↪‹font-size:⟦sz⟧px;›; }
 
-𝘋𝘉 = 𝔏𝔖􋀭("tokens",{});
-updateDB = 𝚲𝔏𝔖􋀫("tokens",𝘋𝘉);
+𝘋𝘉 = 𝔏𝔖􋀭(‹tokens›,{});
+updateDB = 𝚲𝔏𝔖􋀫(‹tokens›,𝘋𝘉);
 
 add_check_tok = ⥌𝐭↦{
   ¿(¬(𝐭∈𝘋𝘉)) { 𝘋𝘉􊳬={ scenes:{}, devs:{} };
@@ -50,7 +29,7 @@ move_scene = ⥌𝐭,o,n=󱣩↦{  blank n for deletion
   󰆴 𝐒󰂼;
   updateDB();
   ↪✓; }
-add_scene = ⥌𝐭,𝐬,override↦{  name,𝐔,󰠲
+add_scene = ⥌𝐭,𝐬,override↦{  𝐬={name,𝐔,󰠲}
   name = 𝐬ⁿᵃᵐᵉ; 𝐬 = {⠤𝐬}; 󰆴 𝐬ⁿᵃᵐᵉ;
   © 𝐒 = add_check_tok(𝐭).scenes;
   ¿(¬override ∧ name∈𝐒) ↪✗
@@ -58,11 +37,13 @@ add_scene = ⥌𝐭,𝐬,override↦{  name,𝐔,󰠲
   updateDB();
   ↪𝐬; }
 
-load_devices = 󱟱 ⥌𝔱↦{
+load_devices = 󱟱⥌𝔱↦{
   © 𝐋 = add_check_tok(𝔱􋆮);
+  © 𝐃o = 𝐋ᵈᵉᵛˢ;
   ⎉ r;
-  try{ r = 󱫬 𝔱.get_devs(); }catch(e){}
-  ¿(¬r ∨ ¬r₀ ∨ rˢᵗᵃᵗᵘˢ≠200) ↪𝖡(𝐋ᵈᵉᵛˢ);
-  𝐋ᵈᵉᵛˢ = { ⠤ᴍv(𝐋ᵈᵉᵛˢ,󰲡({⠤x,offline:✗})), ⠤r₁ }
+  { r = 󱫬 𝔱.get_devs(); }catch(e){}
+  ¿(¬r ∨ ¬r₀ ∨ rˢᵗᵃᵗᵘˢ≠200) ↪𝖡(𝐃o);
+  © 𝐃 = r₁;
+  𝐋ᵈᵉᵛˢ = {⠤𝐃};
   updateDB();
-  ↪𝖦(𝐋ᵈᵉᵛˢ); }
+  ↪𝖦(𝐃); }

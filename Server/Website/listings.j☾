@@ -1,19 +1,21 @@
 © ətileButton = ⥌t,ƒ,󰊄=t↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(󰊄,250)⟧⍮  ⟦𝚲ƒ(t)⟧} ⟦󰊄⟧
-© əpromptText = ⥌cb,instr,fld↦{
-  © fld = textField(fld);
-  ©  = popup({:✓,󰅙:✓},
+© əpromptGeneral = ⥌cb,instr,⠤𝙴↦{
+  ©  = popup({␛:✓,␛󰅙:✓},
               ətitledBox(
                 instr,
                 󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
-                  fld,
-                  textButton(‹Submit›,󰲟{.close();cb(fld􀲫.value)})]⟧,
+                  ⠤𝙴,
+                  󱀝 {⦅𝚑 1em⦆},
+                  textButton(‹Submit›,󰲟{.close();cb(⠤𝙴)})]⟧,
                 {outline:✗})); }
 
 © ətokenListing = ⥌Ѧ={}↦{
   Ѧ = { ƒ:󰻾, delƒ:󰻾, init:✓, Ⴝ:󱣩, ⠤Ѧ };
   Ѧ􋆔??=[];
   
-  © prompt_token = 󰲡əpromptText(x,‹Enter token to add›,{𝑃𝐻:‹Token›,:✓});
+  © prompt_token = 󰲡əpromptGeneral(⥌↦x(􀲫.value),
+                                   ‹Enter token to add›,
+                                   textField({𝑃𝐻:‹Token›,:✓}));
   © censor = 󰲡x.replace(⦋/(?<=.).(?=.)/g⦌,␛⋅);
   ©  = əitemGridEditable(
           ⥌  gen↦prompt_token(󰲡(add_check_tok(x),gen(x))),
@@ -21,7 +23,7 @@
                    ↪[ətileButton(censor(𝐭),𝚲Ѧˢᵉᵗ(𝐭)),
                      əbuttonBar([␛󰆴,rem])] },
           ⥌𝐭    ↦(Ѧᵈᵉˡ􊽺(𝐭),del_tok(𝐭),Ѧᵖᵒᵖᵘˡᵃᵗᵉ(Ѧ􋆔 􋐉(󰲡x≠𝐭))));
-  Ѧ = 􀴗 = {⠤􀴗,,⠤Ѧ};
+  Ѧ=􀴗={⠤􀴗,⠤Ѧ,};
   Ѧᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐓=󱣩↦{
                 ¿(𝐓≇󱣩) Ѧ􋆔 = 𝐓;
                 ¿(¬Ѧ􋆔 􋁋(Ѧ􎁎)) Ѧ􎁎 = 󱣩
@@ -33,8 +35,8 @@
                 © n = 􋑱⸮[𝚒n = Ѧ􋆔.indexOf(Ⴝ )];
                 Ѧ􎁎 = n ⭜Ⴝ⭝ 󱣩;
                 ¿(Ѧ􎁎≇󱣩 ∧ call) Ѧ􊽺(Ѧ􎁎);
-                o⸮󱗟(‹choosen›)
-                n⸮󰧥(‹choosen›)
+                o⸮󱗟(‹choosen›);
+                n⸮󰧥(‹choosen›);
                 ↪Ѧ􎁎 }
   ¿(Ѧⁱⁿⁱᵗ) Ѧˢᵉᵗ(Ѧ􎁎,Ѧⁱⁿⁱᵗ);
   ↪; }
@@ -53,14 +55,25 @@
   ↪ };
 © ədevTile = ⥌Ѧ,[𝐮,𝐝],rem↦{
   © set = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
-  © 𝔡 = Ѧ􋈹.dev(𝐮);
+  © [𝐭,𝐧,𝔡] = [Ѧ􋈹 􋆮,𝐝ᴺᴬᴹᴱ??ᐦ,Ѧ􋈹.dev(𝐮)];
    󰤱 actually handle errors! also text validation
-  © ƒ = 𝚲əpromptText(󱟱 󰲡{
+   ədropdown
+  © ƒ = 𝚲əpromptGeneral(󱟱 ⥌_0,𝚗,_1,𝚝↦{
             set(✗);
-            󱫬 𝔡.config({NAME:x});
+            © v = [𝚗􀲫.value,𝚝􀴗 􎁎];
+            © 󰬊 = {};
+            ¿(v₀≠𝐧) 󰬊ᴺᴬᴹᴱ  = v₀;
+            ¿(v₁≠𝐭) 󰬊ᵀᴼᴷᴱᴺ = v₁;
+            ¿(¬𝒪𝑏(󰬊)) ↪set(✓);
+            󱫬 𝔡.config(󰬊);
+            ¿(󰬊ᵀᴼᴷᴱᴺ≇󱣩) ↪rem();
             Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
             set(✓); },
-          ‹Enter new device name›,{𝑃𝐻:‹Name›});
+          ‹Edit device info›,
+          󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Name›,
+          textField({𝑃𝐻:‹Name›,:✓,value:𝐧}),
+          󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Token›,
+          ədropdown(get_toks(),{Ⴝ:𝐭}));
   © ƒ = 󱟱𝚲{ set(✗);
              󱫬 𝔡.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
              Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
@@ -78,11 +91,11 @@
   Ѧ = { 𝔱:󱣩, ƒ:󰻾, ⠤Ѧ };
   ©  = əitemGridEditable(󱣩,
                           ⥌x,rem↦ədevTile(Ѧ,x,rem),
-                          󰲡☾(‹Removing ⟦x⟧›),  󰤱 what/why
+                          󰲡☾(‹Removing:›,x),  󰤱 what/why
                           [],
                           { show_plus  : ✗,
                             placeholder: 󰲟󱀝 h2 ‹No devices found for this token...› })  󰤱 why hℕ ever
-  Ѧ = 􀴗 = {⠤􀴗,,⠤Ѧ};
+  Ѧ=􀴗={⠤􀴗,⠤Ѧ,};
   Ѧᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱⥌𝔱,call=✓↦{
                 ¿(𝔱) Ѧ􋈹 = 𝔱;
                 ⎉ devs = 󱫬 load_devices(Ѧ􋈹);
@@ -107,8 +120,9 @@
   © devsL = dragHold(󱀝 div {𝐶 devDraggableHolder} ‹›);
   © devsR = dragHold(󱀝 div {𝐶 devDraggableHolder} ‹›);
   
-  © 𝐃 = get_devs(Ѧ􋈹)
-  𝒪(𝐃)􋁃(⥌[𝐮,𝐝]↦(𝐬􋆕 􋁋(𝐮)⭜devsR⭝devsL)􍪙(əscenePromptDev(𝐮,𝐝)));
+  © 𝐃 = get_devs(Ѧ􋈹);
+  𝐬  􋆕 􋁃(⥌𝐮↦          devsR􍪙(əscenePromptDev(𝐮,𝐃􊳭)));
+  𝒪k(𝐃)􋁃(⥌𝐮↦𝐬􋆕 􋁋(𝐮) ∨ devsL􍪙(əscenePromptDev(𝐮,𝐃􊳭)));
   
   © get = 𝚲{ © 𝐔 = devsR􊾡(󰲡x􋆯);
              © L = 𝐔􊾡(󰲡𝐃ₓᴸᴱᴰ󰀂);
@@ -143,7 +157,7 @@
                                          [␛󰆏,clone                      ],
                                          [␛,󰲟prompt_scene (Ѧ,update, 𝐬)])]; },
           ⥌𝐬    ↦move_scene(Ѧ􋆮,𝐬ⁿᵃᵐᵉ));
-  Ѧ = 􀴗 = {⠤􀴗,,⠤Ѧ};
+  Ѧ=􀴗={⠤􀴗,⠤Ѧ,};
   Ѧᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝔱↦{ ¿(𝔱) Ѧ􋈹 = 𝔱;
                    
                    © 𝐭 = 𝔱⸮𝐭;    temp

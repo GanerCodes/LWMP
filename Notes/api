@@ -3,47 +3,49 @@ UUID ─ ᔐ⁸􍦛⁶⁴  [a-zA-Z0-9]
 NAME ─ ᔐ¹􍦛⁶⁴
 RGB ─ ℕ⁰ˣ⁰⁰⁰⁰⁰⁰􍦛⁰ˣ󰀅󰀅󰀅󰀅󰀅󰀅  0xRRGGBB
 ATOM_PARAM ╥ [0,RGB]  Static
-           ╟ [1,segs:ℝ,s:U8,v:U8]  Rainbow
+           ╟ [1,segs:ℝ,s:U8,v:U8]  Rainbow ; cycle count, sat, val
            ╙ [2,speed:ℝ⁰􍦛􋔛,sharp:ℝ⁰􍦛¹,⠤*RGB]  Fade ; speed: transitions/s
 EFFECT ╥ [0]  Rev
-       ╟ [1,speed:ℝ,offset:ℝ]  Rot ; led/s and leds
+       ╟ [1,speed:ℝ,offset:ℝ]  Rot ; pxl/s and pxls
        ╙ [2,ℝ⁰􍦛¹]  Lum
 MODE ┬ fx ─ *EFFECT
      └╥ 1: [ℕ⁺:ledc, ⠤ATOM_PARAM]
       ╙ *: ["*",⠤*MODE]
-SCENE ┬ offs ─ UUID ↦ ℕ⁺
+SCENE ┬ offs ─ UUID↦ℕ⁺
       └ mode ─ MODE
-SCENE_ACTIVATION ─ [NAME, 𝔹:que, ℕ⁺:dur]
-
-§ FRONTEND STORAGE
-USER ─ TOKEN ↦ LAYOUT ┬ scenes ─ NAME ↦ SCENE
-                      └ devs   ─ UUID ↦ DEV ┬ name      ─ NAME
-                                            ├ ledc      ─ ℕ⁺
-                                            ├ rgb_order ─ U32
-                                            └ reverse   ─ 𝔹
+SCENE_ACTIVATION ─ [NAME, 𝔹:que, ℕ⁺∪{-1}:dur]  dur is in ms, -1 ⇒ infinite.
+                                               que=true and dur=-1 is invalid
 
 § API
-COMMAND ┬ token ─ TOKEN
-        └╥ Get_devs ↪ UUID ↦ DEV
-         ╟ Change_dev ┬ uuid ─ UUID
-         ║            └ dev ─ DEV  all fields optional, also "delete:true" to del; also allows for token,R_SSID,R_PASS
-         ╟ Set_scene ┬ uuids ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
+COMMAND ┬ 𝐭 ─ TOKEN
+        └╥ Get_devs ↪ UUID↦DEV
+         ╟ Change_dev ┬ 𝐔 ─ *UUID
+         ║            └ dev ─ DEV  all fields optional, also allows for TOKEN,R_SSID,R_PASS
+         ╟ Set_scene ┬ 𝐔 ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
          ║           └ scene ─ SCENE_ACTIVATION
          ║           ↪ *𝔹
          ╟ Off  output a max buffer size (≥ LEDC) number of black pixels
-         ╟ Del_scene ┬ uuids ─ *UUID
+         ╟ Del_scene ┬ 𝐔 ─ *UUID
          ║           └ scene ─ NAME
          ║           ↪ *𝔹  if the scene existed prior
-         ╟ Push_scenes ┬ uuids ─ *UUID
-         ║             └ scenes ─ NAME ↦ SCENE
+         ╟ Push_scenes ┬ 𝐔 ─ *UUID
+         ║             └ scenes ─ NAME↦SCENE
          ║             ↪ *ℕ  number of sucessfully saved scenes
-         ╟ Pull_scenes ─ uuids ─ *UUID
-         ║             ↪ *(NAME ↦ SCENE)
-         ╟ Set_schedule ┬ uuids ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
-         ║              └ schedule ─ ℕ ↦ SCENE_ACTIVATION  key is seconds from UTC week start
-         ╙ Pull_schedule ┬ uuids ─ *UUID
-                         └ *(ℕ ↦ SCENE_ACTIVATION)
+         ╟ Pull_scenes ─ 𝐔 ─ *UUID
+         ║             ↪ *(NAME↦SCENE)
+         ╟ Set_schedule ┬ 𝐔 ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
+         ║              └ schedule ─ ℕ↦SCENE_ACTIVATION  key is seconds from UTC week start
+         ╙ Pull_schedule ┬ 𝐔 ─ *UUID
+                         └ *(ℕ↦SCENE_ACTIVATION)
  󷹇 WS msg to LW is very similar, same name and (at least currently) just sending the one relevant value 
+
+§ FRONTEND STORAGE
+USER ─ TOKEN↦LAYOUT ┬ scenes ─ NAME↦SCENE
+                    └ devs   ─ UUID↦DEV ┬ NAME      ─ NAME
+                                        ├ LEDC      ─ ℕ⁺
+                                        ├ RGB_ORDER ─ U32
+                                        ├ REVERSE   ─ 𝔹
+                                        └ online    ─ 𝔹
 
 § MISC
 󷹇 From server to device the `Set_scene` also includes a UTC timestamp in ms to sync to.

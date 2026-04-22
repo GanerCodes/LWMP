@@ -1,6 +1,6 @@
 ⦃from websockets.sync.server import serve as ⦃websocket_serve⦄⦄
 ⦃from shutil import rmtree as ⦃rmtree⦄⦄
-⦃import urllib⦄
+⦃import urllib,gzip⦄
 ⨡ verifiers
 ⨡ http
 ⨡ j☾
@@ -22,8 +22,8 @@ ws_clients = {}
 tok𝘋𝘉,dev𝘋𝘉 = 󰆼(__dir__􀋋‹Data›,
                 tok=􀌌"tok devs",
                 dev=􀌌"UUID NAME RECALB_T LEDC RGB_ORDER REVERSE")
-‹DBs:›􀊸
-dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
+⊢show_dbs: ‹DBs:›􀊸
+           dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
 
 ⊢gen_font(𝔠={σ=□}ℵ):
   σ = __dir__􀋋‹SYMBOLS›􀯖
@@ -33,6 +33,25 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
   ¿𝔠􊯛󰃶􀉟σ 􀛺 t.is_file􀃅􀌐: $ᵒᵉpython ⟦__dir__􀋋‹subset_font›⟧ ⟦α⟧ ⟦t⟧ ⟦σ⟧󷹹
   t.copy(β)
   𝔠􊯛󰃶=σ
+
+⊢ultrabundle(,):
+  ↪‹<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="LightWave Controller Interface">
+        <title>Lightwave</title>
+        <link rel="icon" type="image/x-icon" href="/Assets/favicon.ico">
+        <link rel="preload" href="/Assets/Tomkin-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+        <link rel="preload" href="/Assets/Tomkin-Light.woff2"  as="font" type="font/woff2" crossorigin="anonymous">
+        <link rel="preload" href="/Assets/Symbols.woff2"       as="font" type="font/woff2" crossorigin="anonymous">
+        <style>⟦‹</style>›􀋀􈞞‹<\/style>›⟧</style>
+      </head>
+      <body>
+        <script>⟦‹</script>›􀋀􈞜‹<\/script>›⟧</script>
+      </body>
+    </html>›
 
 ⊢transpile: ‹Compiling Site...›􀊸
             ¿SITE_COMPILE.is_dir􀃅: SITE_COMPILE rmtree
@@ -45,14 +64,16 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
             𝚋𝚖js,𝚋𝚖css = ‹js css›􀌌ᐖSITE_COMPILE􀋋‹bundle.min.⟦⟞⟧›
             $ᵉᵒnpx lightningcss ⟦𝚋css⟧ -o ⟦𝚋𝚖css⟧ --minify󷹹
             $ᵉᵒnpx esbuild ⟦𝚋js⟧ --charset=utf8 --target=es2020 --minify --outfile=⟦𝚋𝚖js⟧󷹹
-            
+            SITE_COMPILE􀋋‹index.html› 􀜨􍡩 ultrabundle(⠤𝚋𝚖js􀊱𝚋𝚖css􀉳)
             gen_font􀃅
             ‹Compiled!›􀊸
 
 ⊢get_dev_update_db(𝐭,𝐮,𝐨𝐭=□,dev=□,overwrite=✗):
+  ‹get_dev_update_db⟦𝐭,𝐮,𝐨𝐭,dev,overwrite⟧›􀊸
   𝐭,𝐮 = 𝐭 ŧ_TOKEN,𝐮 ŧ_UUID
   ⛯ tok𝘋𝘉
-  ¿dev􇪨: dev􀯏ŧ_DEV ℵ
+  ¿dev􇪨: ¿dev􇣒􊬏󰂠󰂓󰂟󰂗􊬐􀉞𝐮: dev􊬏󰂠󰂓󰂟󰂗􊬐=ᐦ
+         dev􀯏ŧ_DEV ℵ
   ¿𝐮􀜍dev𝘋𝘉: dev􇪨 􁀒 ‹Device "⟦𝐮⟧" not in database!›
             dev𝘋𝘉􊳭 = dev
             ‹Added device "⟦𝐮⟧": ⟨⟦dev𝘋𝘉􊳭⟧⟩›􀊸
@@ -61,82 +82,13 @@ dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
     tok𝘋𝘉􊳬 = {devs=𝐃􀊳􊳭}
     ‹Added "⟦𝐮⟧" to "⟦𝐭⟧"›􀊸
   ¿𝐨𝐭􇪨 􀛾 𝐨𝐭􀉧tok𝘋𝘉 􀛾 𝐮􀕿tok𝘋𝘉􊳧􊳬ᵈᵉᵛˢ􀯑𝐃:
-    tok𝘋𝘉􊳧􊳬 = {devs=𝐃􀊪􊳭}
+    tok𝘋𝘉􊳧􊳬 = {devs=𝐃􀊷􊳭}
     ‹Removed "⟦𝐮⟧" from "⟦𝐨𝐭⟧": ⟨⟦tok𝘋𝘉􊳧􊳬ᵈᵉᵛˢ⟧⟩›􀊸
      󰤱􊽨 delete token from db if no devs
   ¿dev􇪨 􀛾 overwrite: α = dev𝘋𝘉􊳭 ᔐ
                      dev𝘋𝘉􊳭 = dev𝘋𝘉􊳭􀊤dev
                      ‹Device change: ⟦α⟧ → ⟦dev𝘋𝘉􊳭⟧›􀊸
   ↪dev𝘋𝘉􊳭
-
-
-⊢api:
-  methods = { Change_dev   = 1, dev
-              Set_schedule = 1, schedule
-              Set_scene    = 3, scene q dur
-              Del_scene    = 1, scene
-              Push_scenes  = 1, scenes
-              Pull_scenes  = 0,
-              Off          = 0,
-              Sync         = 0 }ℵ
-  conf_p = ‹WS_URL UPDATE_URL AP_MODE R_SSID R_PASS LEDP BIT_TIMING
-            NAME LEDC REVERSE RGB_ORDER RECALB_T
-            TOKEN›􀋦𝗻􀉳􀂺
-  ⊢api(𝘳):
-    𝘳 􀯏 ℵ􋄅
-    ¿𝘳􊯛􊳬􀯑𝐭ᑀ􈇇    ᐸ: ↪‹No token in request!›𝖡
-    ¿𝘳􊯛􋕞􀯑𝐛ᑀ􀌐􀛺⟞􀊞𝑙ᐸ: ↪‹No request contents!›𝖡
-    𝐦,⠤𝐁 = 𝐛  ᵉᵍ "Change_dev",{RGB_ORDER="GRB"}
-    ⛯ tok𝘋𝘉
-      ¿𝐦≡‹Get_devs›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
-                     ↪{⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,{online=⟞∈ws_clients,
-                                     ⠶dev𝘋𝘉􍪴 􀝊 􀌌‹NAME RECALB_T LEDC REVERSE RGB_ORDER›}ᐸ} 𝖦
-      ¿𝘳􊯛􊳓􀯑𝐔􀌐: ↪‹Invalid "𝐔" field!›𝖡
-      
-      ⊢mod(𝐦,⠤𝐁):  validate/modify what is sent to LW
-        ¿𝐁􀊹􀜃methods􊳥􀯑p: ↪‹⟦𝐦⟧ expected ⟦p⟧ (≠⟦𝐁􀊹⟧) parameters!›𝖡
-        ¿𝐦􀉞‹Set_scene󷺗›: 𝐁 = [⠤𝐁,𝑖(time􀃅􀝍𝐁₁􀯗⁰3 􁂇 1000)]
-        ⸘𝐦􀉞‹Change_dev›: ¿𝐁₀􀊞𝑑: ↪‹Config is not a dict!›𝖡
-                           𝐁 = [𝐁₀ ℵ 􀝊 conf_p􀋶 􇀥 ŧ_DEV_OPT 􇀥 ℵ]
-                         ¡: ↪‹Invalid config!›𝖡
-        ↪[𝐦,⠤𝐁]
-      
-       󰤱 "*" mode on device side
-      ¿𝐦􀉞␛*: 𝘙 = 𝐁
-             ¿𝘙􀊜𝑙􀛾𝘙􀋃⬤􀁊𝑙􁃏: ↪‹Malformed * request!›𝖡
-      ¡    : 𝘙 = 𝐛􀋁
-      𝘙 􇀞􀉴 mod
-      ¿𝘙􀉼󷺹₀ᐸ􀯑bad: ↪bad􀋢𝗻􀯖𝖡
-      ¿𝘙ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
-      ¿𝘙􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
-        ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in a * request!›𝖡
-        dev = C₀ ₁
-        ∀𝐮⬠𝐔: get_dev_update_db(⠤[dev􇣒􋆮􊬏󰂦󰂡󰂝󰂗󰂠􊬐􀯑nt,𝐮,¿􁌶ⁿᵗ𝐭],dev=dev􀊦conf_p₁,overwrite=✓)
-    ⊢send_devs(ꭒ):
-      ¿ꭒ􀉩tok𝘋𝘉􊳬ᵈᵉᵛˢ: ↪‹Cannot find device!›𝖡
-      ¿ꭒ􀉩ws_clients: ↪‹Device is offline󷺗!›𝖡
-      m = 𝘙􀊹􀉤1 􇂖[␛*,⠤𝘙]􇂗 𝘙₀
-      ‹⟨⟦m⟧⟩ → ⟦ꭒ⟧›􀊸
-      ↪(󰲟m ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
-    ↪􀉵´(𝐔,send_devs,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
-  ↪api
-api = api􀌗
-
-⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇇: ↪‹Invalid JSON!›𝖡
-          ↪api(d) 𝔍󰄞 􀝕 200 􀝕 ℵ(𝙲𝚃=‹.json›)
-
- cors = { access-control-allow-origin=␛* }
-⊢(HTTP_Server) server(𝚖,𝚙,𝙷,𝚎):
-  ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›􀊸
-  𝚙􆿾􀌎␛/
-  UQ = urllib.parse.unquote
-  ¿𝚖≡‹GET󷺗›: 𝚙􀯿􀌎􀉖‹index.html›
-             ¿𝚙.startswith(𝓁􀯍‹󷺗󷺗󷺗api/›): ↪POST(𝚙.removeprefix(𝓁) UQ)
-             ⸘𝚙.startswith(𝓁􀯍‹update/›): p = safej(UPDATE_DIR,𝚙.removeprefix(𝓁))
-             ¡                         : p = safej(SITE_COMPILE,𝚙 UQ)
-             ¿p.exists􀃅􀂾: ↪400
-             ↪ p ᵇ, { 𝙲𝚃=p.suffix, Cache-Control=‹public, max-age=0, must-revalidate› }ℵ
-  ⸘𝚖≡‹POST›: ↪𝙷."content-length" 𝑖 𝚎􋈷 POST
 
 ⊢negotiate_controller_props(𝐈,ꭐ):  update newly connected lw w/ current data
   ¿𝐈􇣒􊬏󰂨󰂗󰂤􊬐􀜃ROM_VERSION: ↪{VER=ROM_VERSION} 𝔠.Change_dev ꭐ
@@ -167,6 +119,86 @@ api = api􀌗
              ꭐ.close􀃅
         ¡ε=𝑒: ‹Failed to close ⟦ꭐ⟧: ⟦ε⟧›􀊸
 
+⊢api:
+  methods = { Change_dev   = 1, dev
+              Set_schedule = 1, schedule
+              Set_scene    = 3, scene que dur
+              Del_scene    = 1, scene
+              Push_scenes  = 1, scenes
+              Pull_scenes  = 0,
+              Off          = 0,
+              Sync         = 0 }ℵ
+  conf_p = ‹WS_URL UPDATE_URL AP_MODE R_SSID R_PASS LEDP BIT_TIMING
+            NAME LEDC REVERSE RGB_ORDER RECALB_T
+            TOKEN›􀋦𝗻􀉳􀂺
+  ⊢api(𝘳):
+    𝘳 􀯏 ℵ􋄅
+    ¿𝘳􊯛􊳬􀯑𝐭ᑀ􈇇    ᐸ: ↪‹No token in request!›𝖡
+    ¿𝘳􊯛􋕞􀯑𝐛ᑀ􀌐􀛺⟞􀊞𝑙ᐸ: ↪‹No request contents!›𝖡
+    𝐦,⠤𝐁 = 𝐛  ᵉᵍ "Change_dev",{RGB_ORDER="GRB"}
+    ⛯ tok𝘋𝘉
+      ¿𝐦≡‹Get_devs›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
+                     ⊢norm(𝐮,𝐝,𝙺=􀌌‹NAME RECALB_T LEDC REVERSE RGB_ORDER›):
+                       𝐝 = 𝐝􀝊𝙺
+                       ¿𝐝􇣒􋕨󰂠󰂓󰂟󰂗􋕨􀉞ᐦ: 󰆴 𝐝􋕨󰂠󰂓󰂟󰂗􋕨
+                       𝐝􋕨󰂼ₙₗᵢₙₑ􋕨 = 𝐮∈ws_clients
+                       ↪𝐝
+                     ↪{⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,norm(⟞,dev𝘋𝘉􍪴)ᐸ} 𝖦
+      ¿𝘳􊯛􊳓􀯑𝐔􀌐: ↪‹Invalid "𝐔" field!›𝖡
+      
+      ⊢mod(𝐦,⠤𝐁):  validate/modify what is sent to LW
+        ¿𝐁􀊹􀜃methods􊳥􀯑p: ↪‹⟦𝐦⟧ expected ⟦p⟧ (≠⟦𝐁􀊹⟧) parameters!›𝖡
+        ¿𝐦􀉞‹Set_scene󷺗›: 𝐁 = [⠤𝐁,𝑖(time􀃅􀝍𝐁₁􀯗⁰3 􁂇 1000)]
+        ⸘𝐦􀉞‹Change_dev›: ¿𝐁₀􀊞𝑑: ↪‹Config is not a dict!›𝖡
+                           𝐁 = [𝐁₀ ℵ 􀝊 conf_p􀋶 􇀥 ŧ_DEV_OPT 􇀥 ℵ]
+                         ¡: ↪‹Invalid config!›𝖡
+        ↪[𝐦,⠤𝐁]
+      
+      ¿𝐦􀉞␛*: 𝘙 = 𝐁
+             ¿𝘙􀊜𝑙􀛾𝘙􀋃⬤􀁊𝑙􁃏: ↪‹Malformed * request!›𝖡
+      ¡    : 𝘙 = 𝐛􀋁
+      𝘙 􇀞􀉴 mod
+      ¿𝘙􀉼󷺹₀ᐸ􀯑bad: ↪bad􀋢𝗻􀯖𝖡
+      ¿𝘙ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
+      ¿𝘙􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
+        ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in a * request!›𝖡
+        dev = C₀ ₁
+        ∀𝐮⬠𝐔: get_dev_update_db(⠤[dev􇣒􋆮􊬏󰂦󰂡󰂝󰂗󰂠􊬐􀯑nt,𝐮,¿􁌶ⁿᵗ𝐭],dev=dev􀊦conf_p₁,overwrite=✓)
+    ⊢send_devs(ꭒ):
+      ¿ꭒ􀉩tok𝘋𝘉􊳬ᵈᵉᵛˢ: ↪‹Cannot find device!›𝖡
+      ¿ꭒ􀉩ws_clients: ↪‹Device is offline󷺗!›𝖡
+      m = 𝘙􀊹􀉤1 􇂖[␛*,⠤𝘙]􇂗 𝘙₀
+      ‹⟨⟦m⟧⟩ → ⟦ꭒ⟧›􀊸
+      ↪(󰲟m ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
+    ↪􀉵´(𝐔,send_devs,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
+  ↪api
+api = api􀃅
+
+compress = gzip.compress(⬤,compresslevel=9)
+
+⊢gzip_cached(𝚙,𝙷,cache_dir=tmpd􀃅):
+  ¿‹gzip›􀜍𝙷􇣒􊾖􊬏ₐₑₚₜ₋ₑₙ󰂼ᵢₙ􊬐􀋦␛,􀉳􀂼: ↪𝚙,{}
+  p = cache_dir􀋋relpath(SITE_COMPILE,p)
+  ¿p.exists􀃅􀌐: pᵖᵃʳᵉⁿᵗ mkd
+               p 􀊄􍡩 compress(𝚙 ᵇ)
+  ↪p,{Content-Encoding=gzip, Vary=Accept-Encoding}
+
+⊢(HTTP_Server) server(𝚖,𝚙,𝙷,𝚎):  cors = { access-control-allow-origin=␛* }
+  ⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇇: ↪‹Invalid JSON!›𝖡
+            ↪api(d) 𝔍󰄞 􀝕 200 􀝕 ℵ(𝙲𝚃=‹.json›)
+  
+  ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›􀊸
+  𝚙􆿾􀌎␛/
+  UQ = urllib.parse.unquote
+  ¿𝚖≡‹GET󷺗›: 𝚙􀯿􀌎􀉖‹index.html›
+             ¿𝚙.startswith(𝓁􀯍‹󷺗󷺗󷺗api/›): ↪POST(𝚙.removeprefix(𝓁) UQ)
+             ⸘𝚙.startswith(𝓁􀯍‹update/›): p = safej(UPDATE_DIR,𝚙.removeprefix(𝓁))
+             ¡                         : p = safej(SITE_COMPILE,𝚙 UQ)
+             ¿p.exists􀃅􀂾: ↪400
+             p,H = gzip_cached(p,𝙷)
+             ↪ p ᵇ, { 𝙲𝚃=p.suffix, Cache-Control=‹public, max-age=0, must-revalidate›, ⠤H }ℵ
+  ⸘𝚖≡‹POST›: ↪𝙷."content-length" 𝑖 𝚎􋈷 POST
+
 transpile􀃅
 
 ‹Starting Websocket server›􀊸
@@ -178,6 +210,7 @@ w = Mutable􀃅
       PL_THREAD(𝚲server(port=WEBSITE_PORT))
        ∀: input􀃅
                 ‹Clients: ⟦ws_clients⟧›􀊸
+                 show_dbs􀃅
                  transpile􀃅
           ¡ε=𝑒𝑒: ‹Transpile failed: ⟦ε⟧›􀊸
 ¡ε=𝑒𝑒: ε􀊸

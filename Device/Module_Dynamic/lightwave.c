@@ -117,8 +117,7 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
     i32 AΣS = abs(s.Σ);
     // stk[p] = (StackEntry){s.r0 + s.rΔ*t,s.σ,s.Σ};
     // stk[p] = (StackEntry){mod(s.r0 + s.rΔ*t, s.Σ),s.σ,s.Σ};
-    stk[p] = (StackEntry){mod(s.r0 + fmulmodpartial(s.rΔ,t,AΣS), AΣS),
-                          s.σ, ((REVERSE && !i)?-1:1)*s.Σ};
+    stk[p] = (StackEntry){mod(s.r0 + fmulmodpartial(s.rΔ,t,AΣS), AΣS), s.σ, s.Σ};
     
     if(!s.m) { p++; continue; }
     
@@ -131,7 +130,7 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
           i32 AΣE = abs(e.Σ);
           n = mod(n+e.r,AΣE);
           if(e.Σ<0) { n = AΣE-1.0-n; // negative length ⇒ reversed
-                      reverse = !reverse; } // 󰤱 optimize out reverse thing to only happen for o=0
+                      reverse = !reverse; } // 󰤱[optional?] optimize out reverse thing to only happen for o=0
           n += e.σ; }
       
       u32 N = (u32)n;
@@ -143,6 +142,9 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
           c = *(RGB*)&atom.S;
         } break;
         case 1: {
+          if(atom.R.segs == 0) { // 󰤱[optional?] optimize
+            c = lightwave_hsv_to_rgb(mod(s.r0 + 5.0*fmulmodpartial(s.rΔ,t,0xFF), 0xFF), atom.R.s, atom.R.v);
+            break; }
           f32 f = atom.R.segs*255.0/AΣS;
           c = lightwave_hsv_to_rgb(f*(o+(reverse ?n-N+1: N-n+1.0)), atom.R.s, atom.R.v);
         } break;
@@ -152,7 +154,7 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
         default: __builtin_unreachable(); }
       c = RGBscale(c,atom.brightness);
       
-      N = 3*(N-l);
+      N = 3*(REVERSE ?h-1-N: N-l);
       leds[N+OFF_R] = c.r;
       leds[N+OFF_G] = c.g;
       leds[N+OFF_B] = c.b; } }

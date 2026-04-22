@@ -42,7 +42,8 @@
 Ϣ.textField = (Ѧ) => {
   let ə;
   let fld = mkə(`input`, [
-    [`𝑆`, `flex-grow: 2; min-width: 0; padding: 2px; height: 100%; border: none;`], ...𝒪(Ѧ)
+    [`𝑆`, `flex-grow: 2; min-width: 0; padding: 2px; height: 100%; border: none;`],
+    [`autocomplete`, `off`], ...𝒪(Ѧ)
   ], false);
   if (Ѧ.þ0F070 || Ѧ.þ0F06E) {
     ə = mkə(`span`, [

@@ -36,7 +36,7 @@ def set_𝕒(hw,mode,arg_fmt=len(𝕒_static)//4*'i'):
   𝕒_static[:] = pack(arg_fmt,Ѧ(S),S_len,Ѧ(atoms),atoms_len,Ѧ(fades),lstk_ptr,leds_ptr,order,reverse,l,h)
   ledv = memoryview(leds)[:3*(h-l)]
   ref_hold[:] = S,atoms,fades
-  log(f"[Controller] Specialized mode with {l}󷸻{h} ({targΔ=})")
+  log(f"[Controller] Specialized mode with {l}󷸹{h} ({targΔ=})")
   return pin,timing,ledv,targΔ
 
 class Controller:
@@ -59,7 +59,7 @@ class Controller:
     timing = ℭ.BIT_TIMING
     if isinstance(timing,str): timing = tuple(map(int,timing.strip().split()))
     (pin := Pin(ℭ.LEDP)).init(pin.OUT)
-    𝕊.dmode = pin,parse_rgb_mode(ℭ.RGB_ORDER),bool(ℭ.REVERSE),tuple(timing)
+    𝕊.dmode = pin,parse_rgb_mode(ℭ.RGB_ORDER),int(ℭ.REVERSE),tuple(timing)
     𝕊.recalb_t = ℭ.RECALB_T
     𝕊.lstate = _LOOP_UPDATE
     log(f"[Controller] Configured to {𝕊}")
