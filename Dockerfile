@@ -38,10 +38,10 @@ RUN cd Device/esp-idf && ./install.sh esp32
 RUN git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon
 RUN /opt/moon/install
 
-# Install dumb bug fixed library
-RUN cp -r /opt/LWMP/Tools/jsbeautifier /usr/lib/python3.13/site-packages/
-
-# Update...
+# Update LWMP (b/c docker takes forever to do the above)
 RUN git pull
+
+# Install dumb bug fixed library
+RUN cp --remove-destination -r /opt/LWMP/Tools/jsbeautifier /usr/local/lib/python3.13/site-packages/
 
 CMD ["/bin/bash"]
