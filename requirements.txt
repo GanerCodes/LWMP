@@ -2,3 +2,5 @@ lmdb
 aiohttp
 requests
 websockets
+esptool
+mpremote
