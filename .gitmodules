@@ -1,6 +1,9 @@
 [submodule "Device/Micropython"]
-	path = Device/Micropython
 	url = https://github.com/micropython/micropython.git
+	path = Device/Micropython
+	shallow = true
 [submodule "Device/esp-idf"]
-	path = Device/esp-idf
 	url = https://github.com/espressif/esp-idf.git
+	path = Device/esp-idf
+	branch = v5.5.1
+	shallow = true
