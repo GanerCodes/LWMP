@@ -3,7 +3,7 @@
 
 WRITE_BAUD_RATE="2000000"
 DEV_FS="$(realpath ./Device/ROM/Out)/onboard"
-DEVS=($(find /dev -regextype posix-extended -regex '.*/tty(ACM|USB).*'))
+DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*' | sed 's/tty/\/dev\/tty/'))
 
 [[ $1 == "--single" ]] && {
   

@@ -1,0 +1,41 @@
+⨡ peggle3/gram_tools
+⨡ peggle3/rgx_golfatron
+⨡ text_format
+
+⊢add_blocks(󱁕,start,scan=‹main›,new=‹blk›):
+  ƒ = ⟨⟨󷺹start⭜⟞ᵉ ᵖ󷹗⍮ 󷺹ᵉ ᵖᑀ₁>⟝₁⭜⟞󷹗ᐘ⍖⍮ 󷺹ᵉ ᵖ₁≥⍖₁⍮ ⍈ C↦𝒩(new,C₀,⠤C₁􊬋􀊚ƒ)⟩ 󷸴 ⴳ⟩○𝑙
+  󱁕.ftrp(scan,󱁕↦󱁕.set(c=󱁕 ƒ),✓)
+
+gram = 󰦥󰦥󰦥󰦥
+
+main = (󰆴(𝗪 ∨ comment) ∨ line ∨ 󰆴mark_nest)*
+line = (~‹[^␛␛∣\n]+› ∨ esc)+
+mark_nest = 󰆴"∣" ✓
+esc       = 󰆴‹␛␛› ~‹.›
+𝘄         = ~‹[ \t]+›
+𝗪         = ~‹[ \t\n]+›
+comment   = 󰆴𝘄? ~‹([^\n]*(?=\n|\Z))|(🟑[^🟑]*(🟑|\Z))|(֎[^֎]*(֎|\Z))› 󰆴𝘄?
+
+󰦥󰦥󰦥󰦥 peggle
+
+⊢(𝚜): ¿𝚜􀊜𝐩: ¿𝚜.is_dir􀃅: 𝚜􇀞􀋋␛
+             𝚜􀯏
+       󱁕 = reform_positions(𝚜 gram,𝚜)
+       add_blocks(󱁕,󷺹ᵗ􀉞‹line›)
+       󱁕.frp(‹line›,󷺹􋒷􀌎􀯖𝔗,✓)
+       󱁕ᵗ=‹blk›; 󱁕ᶜ.insert(0,󷺗𝔗)
+       ƒ = 󷺹ᵉ ᵀ􀉖⟞􀊹􀉦1 􀯗⟞􋒷􀯘 (⟞ᐵᵉ ᵀ􀌐􀛾⟞ᵗ􀉞‹blk› 􇂖􍭓 ⟞₀􋒷􀊱ƒ(⟞.set(c=⟞₁􊬋)))ℵ
+       ↪󱁕 ƒ
+⭷  
+
+⊢test_: 󰦥󰦥󰦥󰦥󰦥
+         joe
+           abcd
+         ABCD␛EF␛␛␛∣␛;␛;
+           X ∣ joe
+           Y ∣ some egg i knew
+         wee zz ∣ joe ∣      xyz
+                  hi
+                    hiiiiii   
+         󰦥󰦥󰦥󰦥󰦥  􀊸
+¿__name__􀉞‹__main__›: test_􀃅

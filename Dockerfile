@@ -38,10 +38,14 @@ RUN cd Device/esp-idf && ./install.sh esp32
 RUN git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon \
     && /opt/moon/install
 
+# Hack to force reupdate, 󰤱 just make it check git hash
+RUN echo 1
+RUN add-apt-repository ppa:fontforge/fontforge; apt-get update; apt-get install python3-fontforge
+
 # Update LWMP and dependencies
 RUN git pull \
     && pip install --no-cache-dir -r requirements.txt \
     && cp --remove-destination -r /opt/LWMP/Tools/jsbeautifier/ /usr/lib/python3.14/site-packages/ \
-    && npm install -g lightningcss esbuild minify html-minifier-terser
+    && npm install -g lightningcss lightningcss-cli esbuild minify html-minifier-terser
 
 CMD ["/bin/bash"]
