@@ -13,6 +13,7 @@
     α = moon_dir􀋋‹Libraries/Glypher/Output/moonfont_A.ttf›
     𝚏 = tmp     􀋋‹⟦σ 􇦆􀯖﹕₁₆⟧.woff2›
     β = 𝔇       􀋋‹Assets/Symbols.woff2›
+     󰤱 fix dumb hack for docker compat
     para = ‹'⟦meta𝚙􀋋‹subset_font›⟧' '⟦α⟧' '⟦𝚏⟧' '⟦σ⟧'›
     ¿𝚏.is_file􀃅􀌐: $ᵒᵉbash -c python3.11 ⟦para⟧ || python ⟦para⟧󷹹
     𝚏.copy(β)

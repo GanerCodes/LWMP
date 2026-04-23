@@ -43,15 +43,10 @@ class Settings:
   __repr__ = lambda 𝕊: "⟨%s⟩"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
 
 boolstr = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
-def parse_rgb_mode(mode):
-  if isinstance(mode,int):
-    return mode
-  if isinstance(mode,str):
-    if mode.isdigit():
-      return int(mode)
-    else:
-      mode = mode.upper()
-      mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
+def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + doesn't break
+  if not isinstance(mode,str): raise ValueError("Not a string")
+  if len(mode) != 3: raise ValueError("RGB mode not length 3")
+  mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
   return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
 ℭ = Settings(WS_URL     =("wss://brynic_led_test.ganer.xyz:2096"    ,       ),
@@ -70,7 +65,6 @@ def parse_rgb_mode(mode):
              DEF_SCENE  =("_default"                                ,       ),
              VER        =("1"                                       ,       ),
              RECALB_T   =(0                                         ,int    ))
-# ℭ.RGB_ORDER = parse_rgb_mode(ℭ.RGB_ORDER)
 
 def wifi_from_ℭ(ℭ):
   if not     all(  ℭ("token","r_ssid","r_pass")) : raise Exception(f"WiFi credentials not found.")

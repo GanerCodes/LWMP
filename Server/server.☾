@@ -153,7 +153,7 @@ transpile􀃅
 
 ‹Starting Websocket server›􀊸
 w = Mutable􀃅
-𝚲ⓦ(websocket_serve(WS_handle, ‹0.0.0.0›, WEBSOCKET_PORT, server_header=□),
+𝚲ⓦ(websocket_serve(WS_handle, ipv4(0x00000000), WEBSOCKET_PORT, server_header=□),
    󷺹w􀯖.serve_forever􀃅)󰅂 PL_THREAD
 
 ‹Starting HTTP server›􀊸
