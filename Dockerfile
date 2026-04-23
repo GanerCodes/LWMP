@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
                         libncurses5-dev libncursesw5-dev libreadline-dev \
                         libsqlite3-dev libssl-dev libudev-dev libusb-1.0-0 \
                         ninja-build nodejs npm python3 python3.11-venv make \
-                        python3-pip tar tk-dev udev unzip uuid-dev wget zlib1g-dev \
+                        python3-pip python3-fontforge tar tk-dev udev unzip \
+                        uuid-dev wget zlib1g-dev \
                    && rm -rf /var/lib/apt/lists/*
 
 # I hate him
@@ -38,14 +39,13 @@ RUN cd Device/esp-idf && ./install.sh esp32
 RUN git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon \
     && /opt/moon/install
 
-# Hack to force reupdate, 󰤱 just make it check git hash
-RUN echo 1
-RUN add-apt-repository ppa:fontforge/fontforge; apt-get update; apt-get install python3-fontforge
+# 󰤱 just make it check git hash for updates
+RUN echo 0
 
 # Update LWMP and dependencies
 RUN git pull \
     && pip install --no-cache-dir -r requirements.txt \
     && cp --remove-destination -r /opt/LWMP/Tools/jsbeautifier/ /usr/lib/python3.14/site-packages/ \
-    && npm install -g lightningcss lightningcss-cli esbuild minify html-minifier-terser
+    && npm install -g lightningcss-cli esbuild minify html-minifier-terser
 
 CMD ["/bin/bash"]
