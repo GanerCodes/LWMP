@@ -12,7 +12,8 @@
     α = moon_dir􀋋‹Libraries/Glypher/Output/moonfont_A.ttf›
     𝚏 = tmp     􀋋‹⟦σ 􇦆􀯖﹕₁₆⟧.woff2›
     β = 𝔇       􀋋‹Assets/Symbols.woff2›
-    ¿𝚏.is_file􀃅􀌐: $ᵒᵉpython ⟦meta𝚙􀋋‹subset_font›⟧ ⟦α⟧ ⟦𝚏⟧ ⟦σ⟧󷹹
+    para = ‹'⟦meta𝚙􀋋‹subset_font›⟧' '⟦α⟧' '⟦𝚏⟧' '⟦σ⟧'›
+    ¿𝚏.is_file􀃅􀌐: $ᵒᵉbash -c python3.11 ⟦para⟧ || ⟦para⟧󷹹
     𝚏.copy(β)
     ↪β
   ⊢bundle_html(tpl,,,𝙵,inline=✓):
