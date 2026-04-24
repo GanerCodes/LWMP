@@ -26,10 +26,10 @@ RUN rm /usr/lib/python3.11/EXTERNALLY-MANAGED \
 
 # LWMP / ☾ / esp-idf
 ENV IDF_TOOLS_PATH=/root/.espressif
-RUN git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git /opt/LWMP
+RUN git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git /opt/LWMP \
     && git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon \
-    && /opt/moon/install
-    && cd /opt/LWMP/Device/esp-idf
+    && /opt/moon/install \
+    && cd /opt/LWMP/Device/esp-idf \
     && ./install.sh esp32
 
 # Create entrypoint + update dependencies
