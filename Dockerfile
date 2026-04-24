@@ -40,8 +40,7 @@ RUN git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon
     && /opt/moon/install
 
 # Create entrypoint & update dependencies
-RUN echo -en '#!/bin/bash\ncd /opt/LWMP\n./deps.sh||:\nexec "$@"' \
-      > /entrypoint.sh \
+RUN echo -en '#!/bin/bash\ncd /opt/LWMP\n./deps.sh||:\nexec "$@"' > /entrypoint.sh \
     && chmod +x /entrypoint.sh \
     && ./deps.sh
 
