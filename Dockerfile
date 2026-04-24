@@ -12,12 +12,9 @@ RUN apt-get update && apt-get install -y \
                         python3-fontforge \
                    && rm -rf /var/lib/apt/lists/*
 
-# I hate him
-RUN rm /usr/lib/python3.11/EXTERNALLY-MANAGED
-
-# Install Python3.14
-WORKDIR /usr/src
-RUN wget https://www.python.org/ftp/python/3.14.0/Python-3.14.0.tgz \
+# Build python
+RUN rm /usr/lib/python3.11/EXTERNALLY-MANAGED \
+    && wget https://www.python.org/ftp/python/3.14.0/Python-3.14.0.tgz \
     && tar -xzf Python-3.14.0.tgz \
     && cd Python-3.14.0 \
     && ./configure --enable-optimizations --prefix=/usr \
@@ -27,22 +24,17 @@ RUN wget https://www.python.org/ftp/python/3.14.0/Python-3.14.0.tgz \
     && python -m ensurepip -U \
     && python -m pip install -U pip setuptools wheel
 
-# Clone LWMP
-RUN git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git /opt/LWMP
-WORKDIR /opt/LWMP
-
-# Install esp-idf
+# LWMP / ☾ / esp-idf
 ENV IDF_TOOLS_PATH=/root/.espressif
-RUN cd Device/esp-idf && ./install.sh esp32
-
-# Install ☾
-RUN git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon \
+RUN git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git /opt/LWMP
+    && git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon \
     && /opt/moon/install
+    && cd /opt/LWMP/Device/esp-idf
+    && ./install.sh esp32
 
-# Create entrypoint & update dependencies
+# Create entrypoint + update dependencies
+WORKDIR /opt/LWMP
 RUN echo -en '#!/bin/bash\ncd /opt/LWMP\n./deps.sh||:\nexec "$@"' > /entrypoint.sh \
     && chmod +x /entrypoint.sh \
     && ./deps.sh
-
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/bin/bash"]
