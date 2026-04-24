@@ -50,6 +50,10 @@ pushd ../micropython
   pushd mpy-cross
     make
     pushd build
-      sudo cp mpy-cross /usr/bin/mpy-cross # LOL
+      if [ "$EUID" -eq 0 ]; then
+        cp mpy-cross /bin/mpy-cross
+      else
+        doas cp mpy-cross /bin/mpy-cross
+      fi
 
 exit $?; }
