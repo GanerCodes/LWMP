@@ -1,9 +1,0 @@
-lmdb
-aiohttp
-requests
-websockets
-esptool
-mpremote
-
-six>=1.13.0
-editorconfig>=0.12.2

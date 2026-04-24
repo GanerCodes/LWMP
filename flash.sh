@@ -49,8 +49,23 @@ rm /tmp/flash_bad_flag || :
 
 for i in "${!DEVS[@]}"; do
   dev="${DEVS[i]}"
-  echo 1
-  /c/Scripts/Path/term -T "(${i}) ${dev}" --option 'font.size=11' --command bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
+  echo "${i}: ${dev}"
+  
+  if [[ "$SYSTEM" == "desktop2" ]]; then
+    /c/Scripts/Path/term -T "(${i}) ${dev}" --option 'font.size=11' --command \
+      bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
+  else
+    SESH="flash"; TARG="${SESH}:main"
+    CMD="bash ./$(basename "$0") --single '${dev}' 'testdevice${i}' '${FLASH_ROM}'"
+    tmux has-session -t "$SESH" 2>/dev/null || tmux new-session -d -s "$SESH" -n main
+    if [[ $i -eq 0 ]]; then
+      tmux send-keys -t "$TARG" "$CMD" C-m
+    else
+      tmux split-window -t "$TARG" -d "$CMD"
+      tmux select-layout -t "$TARG" tiled
+    fi
+  fi
+  
   done
 
 unalias . || :; export PATH="$PATH:$PWD/Device/esp-idf"; source ./Device/esp-idf/export.sh
@@ -63,15 +78,13 @@ pushd ./Device
     mkdir -p ${DEV_FS} || :
     rm -r ${DEV_FS}/* || :
     
-    cp "../VERSION" "${DEV_FS}/VER"
+    cp "./VERSION" "${DEV_FS}/VER"
     pushd ./Onboard
       cp -r Defaults/. "${DEV_FS}/"
       cp -r *.pem "${DEV_FS}/"
       
-      export PATH="$PATH:$HOME/.local/share/npm/bin"
-      html-minifier-terser ./index.html --collapse-whitespace --remove-comments --minify-css true --minify-js true -o /tmp/index.min.html
-      cat index.html | node ../../Tools/HTML_Minifier/main.js > /tmp/index.min.html
-      gzip -c /tmp/index.min.html > "${DEV_FS}/index.html.gzip"
+      npx minify index.html > /tmp/index.min.html
+      gzip -9 -c /tmp/index.min.html > "${DEV_FS}/index.html.gzip"
       
       # cp *.html "${DEV_FS}/"
       cp main._py "${DEV_FS}/main.py"

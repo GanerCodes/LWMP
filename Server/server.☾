@@ -15,7 +15,7 @@ SITE_COMPILE   = __dir__􀋋‹website_compiled›
 UPDATE_DIR     = __dir__􀋋‹../Update›􀯖.resolve􀃅
 DEV_DB         = __dir__􀋋‹Data/dev.db›
 TOK_DB         = __dir__􀋋‹Data/tok.db›
-ROM_VERSION    = __dir__􀋋‹../VERSION›􀯖􀌎
+ROM_VERSION    = __dir__􀋋‹../Device/VERSION›􀯖􀌎
 
 ws_clients = {}
 tok𝘋𝘉,dev𝘋𝘉 = 󰆼(__dir__􀋋‹Data›,

@@ -12,6 +12,6 @@ for f in "${files[@]}"; do cp "${f}" "${VERSION}/"; done
 files=("${files[@]##*/}")
 printf "%s" "$(printf "%s\n" "${files[@]}")" | jq -Rs 'split("\n")' > "${VERSION}/index.json"
 
-echo -n "${VERSION}" > ../VERSION
+echo -n "${VERSION}" > ../Device/VERSION
 
 }

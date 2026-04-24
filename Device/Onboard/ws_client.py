@@ -34,7 +34,7 @@ class WebsocketClient:
     send(f"Host: {uri.host}:{uri.port}")
     send("Connection: Upgrade")
     send("Upgrade: websocket")
-    send("Sec-WebSocket-Key: TFdNUFdlYnNvY2tldEtleQ==")
+    send("Sec-WebSocket-Key: TFdNUFdlYnNvY2tldEtleQ==") # outside spec but I control full stack >:)
     send("Sec-WebSocket-Version: 13")
     send("")
     del send
