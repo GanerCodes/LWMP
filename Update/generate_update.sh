@@ -1,5 +1,6 @@
 #!/bin/bash -e
 { cd "${0%/*}"
+
 shopt -s nullglob
 
 VERSION=${1:?Usage: $0 <version>}

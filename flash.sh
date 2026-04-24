@@ -55,9 +55,9 @@ for i in "${!DEVS[@]}"; do
     /c/Scripts/Path/term -T "(${i}) ${dev}" --option 'font.size=11' --command \
       bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
   else
-    SESH="flash"; TARG="${SESH}:main"
+    TARG="flash:main"
     CMD="bash ./$(basename "$0") --single '${dev}' 'testdevice${i}' '${FLASH_ROM}'"
-    tmux has-session -t "$SESH" 2>/dev/null || tmux new-session -d -s "$SESH" -n main
+    tmux has-session -t "flash" 2>/dev/null || tmux new-session -d -s "flash" -n main
     if [[ $i -eq 0 ]]; then
       tmux send-keys -t "$TARG" "$CMD" C-m
     else
@@ -105,5 +105,9 @@ for ((n=0; n < $N; n++)); do
 done
 [[ -n "$bad" ]] && touch /tmp/flash_bad_flag || :
 touch /tmp/flash_flag
+
+if [[ "$SYSTEM" != "desktop2" ]]; then
+  tmux a -t flash
+fi
 
 exit $?; }
