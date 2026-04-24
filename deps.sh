@@ -14,9 +14,10 @@ if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   git fetch origin
   H_OLD=$(git rev-parse @)
   H_NEW=$(git rev-parse @{u} 2>/dev/null || true)
+  echo "${H_OLD} → ${H_NEW}"
   if [[ -n "${H_NEW}" && "${H_OLD}" != "${H_NEW}" ]]; then
-    git pull --ff-only
     rm "$FLAG"
+    git pull --ff-only
     exec "$0" "$@"
   fi
 fi
