@@ -46,12 +46,13 @@
    󰤱 make the name1/name2 stuff a function
   © name1 = 𝐝ᴺᴬᴹᴱ∨𝐮;
   © name2 = name1≠𝐮⭜𝐮⭝󱣩;
+  © 𝚋1st = 󰲣󱀝 span ⦅𝚏→⦆ [󱀝 T ⦅󰊄𝚋n⦆ ‹⟦x⟧› 󱀝 T ⦅𝚖󷷢 0.25em⦆ ‹-› 󱀝 T ‹⟦y⟧›];
   ©  = 󱀝 div ⦅𝚙𝚘𝚜r;𝚑≥ 150px;𝚏↓;𝚊𝚂←;𝚙󷷢 10px;𝚙󷷤 6px;󰊄𝚜 20px;󰊄𝚋l⦆ [
           󱀝 T ⦅󰊄𝚋n;𝚙𝚘𝚜a;↑ -7px;→ 10px;󰊄𝚜 50px; ⟦clr⟧⦆ ‹⬤›
-          󱀝 T ⦅󰊄𝚋n;󰊄𝚜 30px⦆ ‹⟦name1⟧›
-          ⟦name2⭜󱀝 T ‹UUID: ⟦name2⟧›⭝[]⟧
-          󱀝 T ‹⟦𝐝ᴿᴳᴮ􋕟ᴼᴿᴰᴱᴿ⟧ - ⟦𝐝ᴸᴱᴰ󰀂⟧ pixels›
-          󱀝 T ‹Direction: ⟦[‹For›,‹Back›]₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧wards› ];
+          󱀝 T ⦅󰊄𝚋n;󰊄𝚜 30px; #72bde5⦆ ‹⟦name1⟧›
+          ⟦name2⭜[𝚋1st(‹UUID›,name2)]⭝[]⟧
+          ⟦𝚋1st(𝐝ᴿᴳᴮ􋕟ᴼᴿᴰᴱᴿ,‹⟦𝐝ᴸᴱᴰ󰀂⟧ pixels›)⟧
+          ⟦𝚋1st(‹Direction›,‹⟦[‹For›,‹Back›]₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧wards›)⟧];
   ↪ };
 © ədevTile = ⥌Ѧ,[𝐮,𝐝],rem↦{
   © set = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
