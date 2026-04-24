@@ -4,13 +4,13 @@
 
 FLAG=~/.local/share/LWMP_deps_flag
 
-pull_deps() { npm install -g lightningcss-cli esbuild minify html-minifier-terser
-              pip install -U lmdb aiohttp requests websockets esptool mpremote \
-                             'six>=1.13.0' 'editorconfig>=0.12.2'
-              cp --remove-destination -r ./Server/Tools/jsbeautifier/ \
-                                          /usr/lib/python3.14/site-packages
-              mkdir -p "$(dirname FLAG)"
-              touch "$FLAG" || :; }
+install_deps() { npm install -g lightningcss-cli esbuild minify html-minifier-terser
+                 pip install -U lmdb aiohttp requests websockets esptool mpremote \
+                                'six>=1.13.0' 'editorconfig>=0.12.2'
+                 cp --remove-destination -r ./Server/Tools/jsbeautifier/ \
+                                             /usr/lib/python3.14/site-packages
+                 mkdir -p "$(dirname FLAG)"
+                 touch "$FLAG" || :; }
 
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   git fetch origin
@@ -24,6 +24,6 @@ if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   fi
 fi
 
-[ -f "$FLAG" ] || pull_deps
+[ -f "$FLAG" ] || install_deps
 
 exit $?; }
