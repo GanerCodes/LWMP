@@ -24,7 +24,7 @@ COMMAND ┬ 𝐭 ─ TOKEN
          ╟ Set_scene ┬ 𝐔 ─ *UUID  ← remove this field once we have proper DB storage of user scenes?
          ║           └ scene ─ SCENE_ACTIVATION
          ║           ↪ *𝔹
-         ╟ Off  output a max buffer size (≥ LEDC) number of black pixels
+         ╟ Off ─ 𝐔 ─ *UUID  output a max buffer size (≥ LEDC) number of black pixels
          ╟ Del_scene ┬ 𝐔 ─ *UUID
          ║           └ scene ─ NAME
          ║           ↪ *𝔹  if the scene existed prior
