@@ -57,10 +57,9 @@ for i in "${!DEVS[@]}"; do
   else
     TARG="flash:main"
     CMD="bash ./$(basename "$0") --single '${dev}' 'testdevice${i}' '${FLASH_ROM}'"
-    tmux has-session -t "flash" 2>/dev/null || tmux new-session -d -s "flash" -n main
-    if [[ $i -eq 0 ]]; then
-      tmux send-keys -t "$TARG" "$CMD" C-m
-    else
+    tmux has-session -t "flash" 2>/dev/null || \
+      tmux new-session -d -s "flash" -n main "$CMD"
+    if [[ $i -ne 0 ]]; then
       tmux split-window -t "$TARG" -d "$CMD"
       tmux select-layout -t "$TARG" tiled
     fi
