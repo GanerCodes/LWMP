@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/bin/bash -e
 curl -fsSL "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/manage" -o manage
-chmod +x manage
 echo "Downloaded manager"
+chmod +x manage
 exec ./manage i
