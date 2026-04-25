@@ -45,7 +45,7 @@ RUN : && git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git 
 # the pip install ar part? im going insane
 
 # Create entrypoint + init dependencies
-RUN : && /bin/echo -en '#!/bin/bash\ncd /opt/LWMP\n./Docker/deps||:\nexec "$@"' > /entrypoint.sh \
-      && chmod +x /entrypoint.sh \
-      && /entrypoint.sh /bin/echo 'Installed!'
-ENTRYPOINT ["/entrypoint.sh"]
+RUN : && /bin/echo -en '#!/bin/bash\ncd /opt/LWMP\n./Docker/deps||:\nexec "$@"' > /start.sh \
+      && chmod +x /start.sh \
+      && /start.sh /bin/echo 'Installed!'
+ENTRYPOINT ["/start.sh"]
