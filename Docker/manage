@@ -1,0 +1,22 @@
+#!/bin/bash -e
+
+if [ "$1" = "i" ]; then
+  mkdir -p /tmp/lwmp; cd /tmp/lwmp
+  curl -fsSL "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/Dockerfile" -o Dockerfile
+  docker build -t lwmp .
+elif [ "$1" = "f" ]; then
+  shift
+  docker run -it --privileged --device=/dev/bus/usb --group-add dialout -v /dev:/dev \
+         lwmp /bin/bash -c "./flash.sh $*"
+elif [ "$1" = "s" ]; then
+  DIR=$(realpath -m "${2:-/root/LWMP}")
+  mkdir -p "$DIR/Data"; cd "$DIR"
+  docker run --net=host -v "$DIR/Data:/opt/LWMP/Server/Data" \
+         lwmp /bin/bash -c "cd Server && ☾ ./server.☾"
+else
+  echo "Usage:"
+  echo "  $0 i             # Install Dockerfile"
+  echo "  $0 f [y] [y] [y] # Flash"
+  echo "  $0 s [dir]       # Start server"
+  exit 1
+fi

@@ -1,21 +1,14 @@
-Lightwave MicroPython
-
 The brand new iteration of LW.
-
-(More info will go here at some point as well as fixing various jank)
 
 Docker:
   Install:
-    mkdir -p /tmp/lwmp ; cd /tmp/lwmp
-    curl "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Dockerfile" > ./Dockerfile
-    docker build -t lwmp .
-
+    cd /tmp
+    curl "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/manage" > ./manage
+    chmod +x manage
+    ./manage i
   Flash:
-    docker run -it --privileged --device=/dev/bus/usb \
-               --group-add dialout -v /dev:/dev \
-               lwmp /bin/bash -c './flash.sh y y'
-
+    ./manage y
   Server:
-    mkdir -p /root/LWMP/Data ; cd /root/LWMP
-    docker run --net=host -v "$PWD/Data:/opt/LWMP/Server/Data" \
-           lwmp /bin/bash -c "cd Server && ☾ server.☾"
+    ./manage s
+
+(More info will go here at some point as well as fixing various jank)
