@@ -30,6 +30,7 @@ RUN : && ln -fs /opt/python3.14/bin/python3.14 /bin/python \
       && python -m ensurepip -U \
       && python -m pip install -U pip setuptools wheel \
       && rm /usr/lib/python3.11/EXTERNALLY-MANAGED
+ENV PATH="$PATH:/opt/python3.14/bin"
 
 # LWMP / ☾ / esp-idf
 ENV IDF_TOOLS_PATH=/root/.espressif
@@ -38,7 +39,10 @@ RUN : && git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git 
       && /opt/moon/install \
       && cd /opt/LWMP/Device/esp-idf \
       && ./install.sh esp32 \
-      && /root/.espressif/python_env/idf5.5_py3.11_env/bin/pip install ar # AAAAAAAAAAAA
+      && /root/.espressif/python_env/idf5.5_py3.11_env/bin/pip install ar \
+      && cd ../ROM \
+      && ./build.sh
+# the pip install ar part? im going insane
 
 # Create entrypoint + update dependencies
 WORKDIR /opt/LWMP
