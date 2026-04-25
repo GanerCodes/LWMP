@@ -4,9 +4,7 @@ docker run --privileged --device=/dev/bus/usb \
            --group-add dialout -v /dev:/dev \
            lwmp /bin/bash -c ./flash.sh
 
-
 cd /root
-mkdir -p ./LWMP/Data && cd ./LWMP
-docker run --net=host \
-           -v "$PWD/Data:/opt/LWMP/Server/Data" \
-           lwmp /bin/bash -c "cd Server && ☾ server.☾"
+mkdir -p ./LWMP/Data && cd ./LWMP \
+  && docker run --net=host -v "$PWD/Data:/opt/LWMP/Server/Data" \
+            lwmp /bin/bash -c "cd Server && ☾ server.☾"
