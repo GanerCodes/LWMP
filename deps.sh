@@ -5,8 +5,9 @@
 FLAG=~/.local/share/LWMP_deps_flag
 
 install_deps() { npm install -g lightningcss-cli esbuild minify html-minifier-terser
-                 pip install -U esptool lmdb aiohttp requests websockets ar \
+                 pip install -U esptool lmdb aiohttp requests websockets \
                                 mpremote 'six>=1.13.0' 'editorconfig>=0.12.2'
+                 python3.11 -m pip install ar || : # there are so many hacks
                  cp --remove-destination -r ./Server/Tools/jsbeautifier/ \
                                              /opt/python3.14/lib/python3.14/site-packages
                  mkdir -p "$(dirname "$FLAG")"
