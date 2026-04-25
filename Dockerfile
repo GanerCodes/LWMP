@@ -29,6 +29,7 @@ RUN : && ln -fs /opt/python3.14/bin/python3.14 /bin/python \
       && ln -fs /opt/python3.14/bin/pip3.14    /bin/pip    \
       && python -m ensurepip -U \
       && python -m pip install -U pip setuptools wheel
+      && rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 
 # LWMP / ☾ / esp-idf
 ENV IDF_TOOLS_PATH=/root/.espressif
