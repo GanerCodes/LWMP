@@ -21,7 +21,7 @@ if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   if [[ -n "${H_NEW}" && "${H_OLD}" != "${H_NEW}" ]]; then
     rm "$FLAG" || :
     git pull --ff-only
-    exec "$0" "$@"
+    exec ./Docker/deps "$@"
   fi
 fi
 
