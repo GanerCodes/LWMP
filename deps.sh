@@ -8,7 +8,7 @@ install_deps() { npm install -g lightningcss-cli esbuild minify html-minifier-te
                  pip install -U lmdb aiohttp requests websockets esptool mpremote \
                                 'six>=1.13.0' 'editorconfig>=0.12.2'
                  cp --remove-destination -r ./Server/Tools/jsbeautifier/ \
-                                             /usr/lib/python3.14/site-packages
+                                             /opt/python3.14/lib/python3.14/site-packages
                  mkdir -p "$(dirname FLAG)"
                  touch "$FLAG" || :; }
 
