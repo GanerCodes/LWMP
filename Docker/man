@@ -1,0 +1,4 @@
+#!/bin/bash
+curl -fsSL "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/man" -o manage
+chmod +x manage
+./manage i

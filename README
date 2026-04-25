@@ -2,10 +2,7 @@ The brand new iteration of LW.
 
 Docker:
   Install:
-    cd /tmp
-    curl "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/manage" > ./manage
-    chmod +x manage
-    ./manage i
+    curl -fsSL "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/man" | bash
   Flash:
     ./manage y
   Server:
