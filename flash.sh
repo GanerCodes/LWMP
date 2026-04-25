@@ -51,7 +51,7 @@ for i in "${!DEVS[@]}"; do
   dev="${DEVS[i]}"
   echo "${i}: ${dev}"
   
-  if [[ "$SYSTEM" == "desktop2" ]]; then
+  if [[ "$SYSTEM" == "desktop" ]]; then
     /c/Scripts/Path/term -T "(${i}) ${dev}" --option 'font.size=11' --command \
       bash "./$(basename "$0")" --single "${dev}" "testdevice${i}" "${FLASH_ROM}" &
   else
@@ -105,7 +105,7 @@ done
 [[ -n "$bad" ]] && touch /tmp/flash_bad_flag || :
 touch /tmp/flash_flag
 
-if [[ "$SYSTEM" != "desktop2" ]]; then
+if [[ "$SYSTEM" != "desktop" ]]; then
   tmux a -t flash
 fi
 
