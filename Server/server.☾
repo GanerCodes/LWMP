@@ -158,7 +158,9 @@ w = Mutable􀃅
 
 ‹Starting HTTP server›􀊸
       PL_THREAD(𝚲server(port=WEBSITE_PORT))
-       ∀: input􀃅
+       ∀: ¿sys.stdout.isatty􀃅􀌐:
+            2.5 sleep; ↺
+          input􀃅
                 ‹Clients: ⟦ws_clients⟧›􀊸
                  show_dbs􀃅
                  transpile􀃅
