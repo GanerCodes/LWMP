@@ -1,10 +1,13 @@
+cd /root
+mkdir -p ./LWMP/Data
+cd LWMP
+
+curl "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Dockerfile" > ./Dockerfile
 docker build -t lwmp .
 
-docker run --privileged --device=/dev/bus/usb \
+docker run -it --privileged --device=/dev/bus/usb \
            --group-add dialout -v /dev:/dev \
-           lwmp /bin/bash -c ./flash.sh
+           lwmp /bin/bash -c './flash.sh y y'
 
-cd /root
-mkdir -p ./LWMP/Data && cd ./LWMP \
-  && docker run --net=host -v "$PWD/Data:/opt/LWMP/Server/Data" \
-            lwmp /bin/bash -c "cd Server && ☾ server.☾"
+docker run --net=host -v "$PWD/Data:/opt/LWMP/Server/Data" \
+       lwmp /bin/bash -c "cd Server && ☾ server.☾"
