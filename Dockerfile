@@ -28,7 +28,7 @@ COPY --from=0 /opt/python3.14 /opt/python3.14
 RUN : && ln -fs /opt/python3.14/bin/python3.14 /bin/python \
       && ln -fs /opt/python3.14/bin/pip3.14    /bin/pip    \
       && python -m ensurepip -U \
-      && python -m pip install -U pip setuptools wheel
+      && python -m pip install -U pip setuptools wheel \
       && rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 
 # LWMP / ☾ / esp-idf
@@ -37,7 +37,8 @@ RUN : && git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git 
       && git clone --recursive --depth=1 https://github.com/ganercodes/moon /opt/moon \
       && /opt/moon/install \
       && cd /opt/LWMP/Device/esp-idf \
-      && ./install.sh esp32
+      && ./install.sh esp32 \
+      && /root/.espressif/python_env/idf5.5_py3.11_env/bin/pip install ar # AAAAAAAAAAAA
 
 # Create entrypoint + update dependencies
 WORKDIR /opt/LWMP
