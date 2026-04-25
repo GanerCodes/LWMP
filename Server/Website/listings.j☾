@@ -1,4 +1,4 @@
-© ətileButton = ⥌t,ƒ,󰊄=t↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(󰊄,250)⟧⍮  ⟦𝚲ƒ(t)⟧} ⟦󰊄⟧
+© ətileButton = ⥌t,ƒ,󰊄=t↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(󰊄,250,50)⟧⍮  ⟦𝚲ƒ(t)⟧} ⟦󰊄⟧
 © əpromptGeneral = ⥌cb,instr,⠤𝙴↦{
   ©  = popup({␛:✓,␛󰅙:✓},
               ətitledBox(
