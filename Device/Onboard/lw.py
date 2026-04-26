@@ -36,7 +36,7 @@ def handle_API(𝐦,*𝔸):
       rst = max(rst,s)
     return rst,𝚁
   if 𝐦=="Change_dev":
-    WCON = set("WS_URL DELETE".split())
+    WCON = set("WS_URL TOKEN DELETE".split())
     ICON = set("R_SSID R_PASS AP_MODE".split())
     RLED = set("RECALB_T LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     K = set(D := { k.upper():v for k,v in 𝔸[0].items() })
@@ -45,10 +45,15 @@ def handle_API(𝐦,*𝔸):
       write_file("UPDATE_FLAG",str(D["VER"]).strip())
       return _RESET_BOOT,_RESET_BOOT
     
-    if K & {"DELETE","UUID"}:
-      D["UUID"],D["NAME"] = gen_id(),""
+    # 󰤱 deleting/resetting UUID is disabled for now
+    if "DELETE" in K: del D["DELETE"]
+    if "UUID"   in K: del D["UUID"  ]
+    # if K & {"DELETE","UUID"}: D["UUID"],D["NAME"] = gen_id(),""
     
-    ℭ({ k:v for k,v in D.items() if k in ℭ })
+    Δ = { k:v for k,v in D.items() if k in ℭ }
+    print(f"[API] Changing settings with", Δ)
+    ℭ(Δ)
+    del Δ
     
     if K & RLED: 𝔏.configure()
     if K & ICON: return _RESET_WIFI,_RESET_WIFI
@@ -105,7 +110,7 @@ def lw_websocket_loop():
       con,resp = _RESET_WS,"ERROR"
     if resp is not None: ꭐ(resp,i=i)
     if con > _RESET_NO:
-      try                  : ꭐ.close()
+      try                  : ꭐ.close(reason="Intentional")
       except Exception as ε: dbg(f'Failed to close WS:',ε)
       if con > _RESET_WS   : return con
       break

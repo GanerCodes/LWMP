@@ -124,7 +124,7 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
     Atom atom = atoms[s.m-1]; // mode_id is s.m-1
     for(i32 o=0; o<AΣS; o++) {
       f32 n=o;
-      u8 reverse = 0;
+      u8 reverse = (u8)REVERSE;
       for(i32 q=p; q>=0; q--) { // apply stack of transformation
           StackEntry e = stk[q];
           i32 AΣE = abs(e.Σ);
@@ -133,7 +133,7 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
                       reverse = !reverse; } // 󰤱[optional?] optimize out reverse thing to only happen for o=0
           n += e.σ; }
       
-      u32 N = (u32)(REVERSE ?n+0.995: n);
+      u32 N = (u32)(reverse ?n+0.995: n);
       if(N<l || N>=h) continue;
       
       RGB c;

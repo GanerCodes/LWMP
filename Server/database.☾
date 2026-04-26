@@ -1,0 +1,86 @@
+⨡ 󰆼
+⨡ config ⭸ *
+⨡ verifiers
+
+tok𝘋𝘉,dev𝘋𝘉 = 󰆼(DB_PATH,tok=􀌌"tok devs",
+                        dev=􀌌"UUID NAME RECALB_T LEDC RGB_ORDER REVERSE")
+
+show_dbs = 󰲟dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
+
+𝐇    = 􀌖‹⬤;⬤›  encode device identifier from 𝐭 and 𝐮
+is𝐇  = 󷺹􀋙⁰ᔨ␛;􁀨0􀝕⟞􀊹􈇊
+inv𝐇 = 󷺹is𝐇 􀉓 ‹Not a valid device identifier!› 􀝔 ⟞􀋦¹␛;􀋂
+
+⊢𝖳(𝐭,set=✓): ⛯ tok𝘋𝘉
+             ¿𝐭􀉧tok𝘋𝘉: ↪tok𝘋𝘉􊳬
+             r = {devs=⍁}ℵ
+             ¿set: tok𝘋𝘉􊳬=r
+             ↪r
+⊢𝖣(𝐭,𝐮): ⛯ dev𝘋𝘉
+         ↪dev𝘋𝘉􇣒􋀙􊳆₍􊳬󰄎􊳭₎
+
+⊢𝖣_set_𝐭(𝐭𝚗,𝐮,𝐭𝚘=□):  change tok in tok𝘋𝘉
+  ⛯ tok𝘋𝘉
+  ¿𝐮􀜍(𝖳(𝐭𝚗,✓)􀯑𝐓𝚗)ᵈᵉᵛˢ: tok𝘋𝘉􊳬􀲴 = {⠤𝐓𝚗,devs=𝐓𝚗ᵈᵉᵛˢ􀊳􊳭}
+                       ‹T: "⟦𝐭𝚗⟧" + "⟦𝐮⟧"›􀊸
+  ¿𝐭𝚘􈇇 􀛺 𝐭𝚘􀉞𝐭𝚗: ↪
+  ¿𝐮􀜋(𝖳(𝐭𝚘,✗)􀯑𝐓𝚘)ᵈᵉᵛˢ: tok𝘋𝘉􊳬􀲶 = {⠤𝐓𝚘,devs=𝐓𝚘ᵈᵉᵛˢ􀊷􊳭}
+                       ‹T: "⟦𝐭𝚗⟧" - "⟦𝐮⟧"›􀊸
+⊢𝖳_move_𝐮(𝐭𝚘,𝐭𝚗,𝐮):  change tok in dev𝘋𝘉, returns new dev
+  𝐡𝚘,𝐡𝚗 = 𝐭𝚘􀊱𝐭𝚗􀜗𝐇(⬤,𝐮)
+  ⛯ dev𝘋𝘉
+  dev𝘋𝘉􀉨𝐡𝚘 􀛺 𝐡𝚗􀉧dev𝘋𝘉 􁀒 ‹Cannot find either dev "⟦𝐡𝚘⟧" or "⟦𝐡𝚗⟧" in DB!›
+  ¿𝐡𝚘􀉩dev𝘋𝘉: ‹Expected to find dev "⟦𝐡𝚘⟧", nothing in dev𝘋𝘉 to update.›􀊸
+             ↪dev𝘋𝘉􊳠􀲴
+  𝐝 = dev𝘋𝘉􊳠􀲶
+  ¿𝐡𝚘􀉟𝐡𝚗: 󰆴 dev𝘋𝘉􊳠􀲶
+          ‹D: - "⟦𝐡𝚘⟧"›􀊸
+  s = ‹+⸓›[𝐡𝚗􀉧dev𝘋𝘉]
+  ¿s􀉞␛⸓: ‹Found pre-existing dev "⟦𝐡𝚗⟧", Will overwrite.›􀊸
+  dev𝘋𝘉􊳠􀲴 = 𝐝
+  ‹D: ⟦s⟧ "⟦𝐡𝚗⟧"›􀊸
+  ↪𝐝
+⊢change_𝐝_𝐭(𝐭𝚘,𝐭𝚗,𝐮):  change tok𝘋𝘉 and dev𝘋𝘉
+  ⛯ tok𝘋𝘉
+  ¿𝐭𝚘􀉞𝐭𝚗: ↪dev𝘋𝘉􊳆₍􊳬􀲴󰄎􊳭₎
+  𝖣_set_𝐭(𝐭𝚗,𝐮,𝐭𝚘)
+  ↪𝖳_move_𝐮(𝐭𝚘,𝐭𝚗,𝐮)
+
+⊢update_𝐝(𝐭,𝐮,𝐝𝚗,force=✗):
+  ⛯ tok𝘋𝘉
+  𝐝𝚘,𝐡 = 𝖣(𝐭,𝐮),𝐇(𝐭,𝐮)
+  𝐝𝚗 􀯏 ŧ_DEV
+  𝐝𝚗 = force 􇀦𝐝𝚘􀊤𝐝𝚗􇀧 𝐝𝚗􀊤𝐝𝚘
+  ¿𝐝𝚘≠𝐝𝚗: s = ‹+⸓›􊳠􂔈ₑᵥ􍻕􍻑
+          dev𝘋𝘉􊳠=𝐝𝚗
+          ‹D: ⟦s⟧ "⟦𝐡⟧"›􀊸
+  ↪dev𝘋𝘉􊳠
+
+ Valid α β combos: 𝐡 □, ℵ □, 𝐡 𝐡, 𝐡 ℵ, ℵ ℵ
+⊢𝖽mod(α,β=□,force=✗):
+  ‹𝖽mod α=⟦α repr⟧𝗻𝘀𝘀𝘀𝘀𝘀β=⟦β repr⟧𝗻𝘀𝘀𝘀𝘀𝘀force=⟦‹✗✓›[force 𝑏]⟧›􀊸
+  ⛯ tok𝘋𝘉
+  ¿α􀊜ᔐ: ¿β􈇇 : ↪dev𝘋𝘉󰃤
+        ¿β􀊜ᔐ: ¿is𝐇(α)􀉚is𝐇(β): 𝚘𝐭,𝚘𝐮 = α inv𝐇
+                          𝚗𝐭,𝚗𝐮 = β inv𝐇
+                          𝚘𝐮􀉞𝚗𝐮 􀛷 ‹Device UUIDs do not match!›
+                          ↪change_𝐝_𝐭(𝚘𝐭,𝚗𝐭,𝚗𝐮)
+              ✗􁀒
+        ¿β􀊜𝑑: β 􀯏 ŧ_DEV_OPT
+              𝚘𝐭,𝚘𝐮 = α inv𝐇
+              𝚗𝐭,𝚗𝐮 = β􇣒􀲷􋆮􋕨󰂦󰂡󰂝󰂗󰂠􋕨,β􇣒􀲷􋆯􋕨󰂧󰂧󰂛󰂖􋕨
+              𝖽mod(α,𝐇(𝚗𝐭,𝚗𝐮))
+              ↪update_𝐝(𝚗𝐭,𝚗𝐮,β ŧ_DEV,force)
+  α􀊜𝑑 􁀒
+  ¿β􈇇: ‹TOKEN›􀉧α􀉨‹UUID› 􁀒 ‹Cannot determine device from parameters!›
+       𝐭,𝐮 = α􋕨󰂦󰂡󰂝󰂗󰂠􋕨,α􋕨󰂧󰂧󰂛󰂖􋕨
+       𝖣_set_𝐭(𝐭,𝐮)
+       ↪update_𝐝(𝐭,𝐮,α ŧ_DEV,force)
+  
+  (α,β) 􇀞􀉳 ŧ_DEV_OPT
+  𝚘𝐭,𝚘𝐮 = α􇣒􋕨󰂦󰂡󰂝󰂗󰂠􋕨, α􇣒􋕨󰂧󰂧󰂛󰂖􋕨
+  𝚗𝐭,𝚗𝐮 = β􇣒􋕨󰂦󰂡󰂝󰂗󰂠􋕨, β􇣒􋕨󰂧󰂧󰂛󰂖􋕨
+  𝚘𝐭􀉖𝚗𝐭 􀛾 𝚘𝐮􀉖𝚗𝐮 􁀒 ‹Cannot determine device from parameters!›
+  ↪𝖽mod(𝐇(𝚘𝐭􀉖𝚗𝐭,𝚘𝐮􀉖𝚗𝐮), β, force)
+
+⭷ tok𝘋𝘉,dev𝘋𝘉,show_dbs,𝐇,is𝐇,inv𝐇,𝖽mod

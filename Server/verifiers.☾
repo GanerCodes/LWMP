@@ -8,7 +8,7 @@ lineable = Ғ(󰲡x􀝀􋁜ᔐ)􀊩Ɱ(󷺹􀌎􀉼𝗻􀋢)  no newlines and
 ŧ_LEDC      = Ғ(󷺹􀊜􋁜𝑖 􁀙 1≤⟞≤10⁵)
 ŧ_RGB_ORDER = Ғ(􁀦 "RGB"􀊵³􀉳􀂐􀉻󷺹􀋵􀊹􀉞3)
 ŧ_REVERSE   = Ɱ(𝑏)
-ŧ_RECALB_T  = Ғ(󷺹􀊜􋁜𝑖 􁀙 0􀜊⟞􀜊24􀋈60²)
+ŧ_RECALB_T  = Ғ(󷺹􀊜􋁜𝑖 􁀙 0􀜊⟞􀜇24􀋈60²)
 ŧ_DEV       = { NAME     =ⴲ(ŧ_NAME     ),
                 RECALB_T =ⴲ(ŧ_RECALB_T ),
                 LEDC     =ⴲ(ŧ_LEDC     ),

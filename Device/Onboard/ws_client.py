@@ -142,8 +142,8 @@ class WS_Client:
   def write(𝕊,i,b):
     if isinstance(i,int): i = int.to_bytes(i,6,"big")
     𝕊.ws.write_frame(_OP_BYTES,i+b)
-  def close(𝕊):
-    return 𝕊.ws.close()
+  def close(𝕊,*𝔸,**𝕂):
+    return 𝕊.ws.close(*𝔸,**𝕂)
   def __call__(𝕊,𝑿=None,i=0,**𝕂):
     if not 𝕊.ws.open:
       raise ConnectionClosed()

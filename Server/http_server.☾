@@ -1,0 +1,88 @@
+⦃import urllib⦄
+⨡ http
+
+⨡ Lib/generate_site
+⨡ config ⭸ *
+⨡ util   ⭸ *
+⨡ verifiers
+⨡ database
+⨡ websocket_server
+
+⊢api:
+  methods = { Change_dev   = 1, dev
+              Set_schedule = 1, schedule
+              Set_scene    = 3, scene que dur
+              Del_scene    = 1, scene
+              Push_scenes  = 1, scenes
+              Pull_scenes  = 0,
+              Off          = 0,
+              Sync         = 0 }ℵ
+  conf_p = ‹TOKEN NAME WS_URL UPDATE_URL AP_MODE R_SSID R_PASS LEDC REVERSE RGB_ORDER RECALB_T LEDP BIT_TIMING›􀌌
+  ⊢api(𝘳):
+    𝘳 􀯏 ℵ􋄅
+    ¿𝘳􊯛􊳬􀯑𝐭ᑀ􈇇    ᐸ: ↪‹No token in request!›𝖡
+    ¿𝘳􊯛􋕞􀯑𝐛ᑀ􀌐􀛺⟞􀊞𝑙ᐸ: ↪‹No request contents!›𝖡
+    𝐦,⠤𝐁 = 𝐛  ᵉᵍ "Change_dev",{RGB_ORDER="GRB"}
+    ⛯ tok𝘋𝘉
+      ¿𝐦≡‹Get_devs›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
+                     ⊢norm(𝐮,𝙺=􀌌‹NAME RECALB_T LEDC REVERSE RGB_ORDER›):
+                       𝐡 = 𝐇(𝐭,𝐮)
+                       𝐝 = dev𝘋𝘉􊳠􀝊𝙺
+                       ¿𝐝􇣒􋕨󰂠󰂓󰂟󰂗􋕨􀌐: 󰆴 𝐝􋕨󰂠󰂓󰂟󰂗􋕨
+                       𝐝ᵒⁿˡⁱⁿᵉ = 𝐡􀉧ws_clients
+                       ↪𝐝
+                     ↪tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,norm(⟞)ᐸ􀯖𝑑􀯖𝖦
+      ¿𝘳􊯛􊳓􀯑𝐔􀌐: ↪‹Invalid "𝐔" field!›𝖡
+      
+      󰬏 = 𝐔􀉳𝐇(𝐭,⬤)
+      ¿󰬏ᐵ􀉧dev𝘋𝘉ᐸ􈇈: ↪‹Cannot find devices!›𝖡
+      
+      ⊢mod(𝐦,⠤𝐁):  validate/modify what is sent to LW
+        ¿𝐁􀊹􀜃methods􊳥􀯑p: ↪‹⟦𝐦⟧ expected ⟦p⟧ (≠⟦𝐁􀊹⟧) parameters!›𝖡
+        ¿𝐦􀉞‹Set_scene󷺗›: 𝐁 = [⠤𝐁,𝑖(time􀃅􀝍𝐁₁􀯗⁰3 􁂇 1000)]
+        ⸘𝐦􀉞‹Change_dev›: ¿𝐁₀􀊞𝑑: ↪‹Config is not a dict!›𝖡
+                           𝐁 = [𝐁₀ ℵ 􀝊 conf_p 􇀥 ŧ_DEV_OPT 􇀥 ℵ]
+                         ¡: ↪‹Invalid config!›𝖡
+        ↪[𝐦,⠤𝐁]
+      
+      ¿𝐦􀉞␛*: 𝘙 = 𝐁
+             ¿𝘙􀊜𝑙􀛾𝘙􀉳⬤􀁊𝑙􀋃􁃏: ↪‹Malformed * request!›𝖡
+      ¡    : 𝘙 = 𝐛􀋁
+      𝘙 􇀞􀉴 mod
+      ¿𝘙􀉼󷺹₀ᐸ􀯑bad: ↪bad􀋢𝗻􀯖𝖡
+      ¿𝘙ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
+      ¿𝘙􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
+        ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in a * request!›𝖡
+        ∀𝐡⬠󰬏: 𝖽mod(𝐡,C₀ ₁,✓)
+        show_dbs􀃅  󰤱
+    ⊢send_devs(𝐡):
+      ¿𝐡􀉩ws_clients: ↪‹Device is offline!›𝖡
+      m = 𝘙􀊹􀉤1 􇂖[␛*,⠤𝘙]􇂗 𝘙₀
+      ‹⟨⟦m⟧⟩ → ⟦𝐡⟧›􀊸
+      ↪(󰲟m ws_clients􊳠􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
+    ↪􀉵´(󰬏,send_devs,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
+  ↪api
+api = api􀃅
+
+𝐓 = make_converters(SITE_SOURCE,SITE_COMPILE,__dir__)
+transpile,gzip = 𝐓ᵗʳᵃⁿˢᵖⁱˡᵉ,𝐓ᵍᶻⁱᵖ
+
+⊢(HTTP_Server) http_server(𝚖,𝚙,𝙷,𝚎):  cors = { access-control-allow-origin=␛* }
+  ⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇇: ↪‹Invalid JSON!›𝖡
+            ↪api(d) 𝔍󰄞 􀝕 200 􀝕 ℵ(𝙲𝚃=‹.json›)
+  
+  ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›􀊸
+  𝚙􆿾􀌎␛/
+  UQ = urllib.parse.unquote
+  ¿𝚖≡‹GET󷺗›: 𝚙􀯿􀌎􀉖‹bundle.min.html›
+             ¿𝚙.startswith(𝓁􀯍‹󷺗󷺗󷺗api/›): ↪POST(𝚙.removeprefix(𝓁) UQ)
+             ⸘𝚙.startswith(𝓁􀯍‹update/›): p = safej(UPDATE_DIR,𝚙.removeprefix(𝓁))
+             ¡                         : p = safej(SITE_COMPILE,𝚙 UQ)
+             ¿p.exists􀃅􀌐: ↪400
+             p,H = gzip(p,𝙷)
+             ↪ p ᵇ, { 𝙲𝚃=p.suffix, Cache-Control=‹public, max-age=0, must-revalidate›, ⠤H }ℵ
+  ⸘𝚖≡‹POST›: ↪𝙷."content-length" 𝑖 𝚎􋈷 POST
+
+http_server = http_serverᐒ󰲟⟞(port=WEBSITE_PORT)
+
+⭷ transpile,http_server

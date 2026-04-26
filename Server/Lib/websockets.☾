@@ -1,30 +1,8 @@
-⦃from threading import ⦃Event,RLock⦄⦄
-
- 󰤱 add these to general libs?
-󱀘Mutable:
-  __slots__ = ␛𝕩,␛𝚍
-  ⊢__init__(𝕊,⠤𝔸): 𝔸􀊹􀒸1 􀛷
-                   ¿𝔸: setattr(𝕊,␛𝚍,𝔸₀)
-  ⊢__call__(𝕊,⠤𝔸): 𝔸􀊹􀒸1 􀛷
-                   ¿𝔸: setattr(𝕊,␛𝕩,𝔸₀)
-                       ↪𝔸₀
-                   ¿hasattr(𝕊,␛𝕩): ↪getattr(𝕊,␛𝕩)
-                   ¿hasattr(𝕊,␛𝚍): ↪getattr(𝕊,␛𝚍)
-                   ‹Mutable unset and has no default!› ValueError 􀊗
-  __bool__ = 𝕊↦hasattr(𝕊,␛𝕩)
-  reset    = 𝕊↦delattr(𝕊,␛𝕩)
-⊢Awaitor(𝚍=␀):
-  E,𝑽 = Event􀃅,Mutable􀃅
-  ⊢𜳬(𝚝𝚘=□): ¿E.wait(𝚝𝚘)􀌐:
-              ¿𝚍􀋑␀: ‹Awaitor timed out!› TimeoutError
-              ↪𝚍  Mutable(default) isn't used b/c edge case of 𝑽 getting set between E.wait and 𝑽􀃅
-            ↪𝑽􀃅
-  ⊢𜳪(x): x 𝑽
-         E.set􀃅
-  ↪𜳬,𜳪
-
 ⦃import socket⦄
 ⦃from struct import pack⦄
+
+⨡ concurrent
+
 ⊢ws_send(sock,dat,c=512):
   chunk = 󷺹􁁁􍭓0􀝕⟝􈇊􀝕󷺽
   dat = chunk(dat,c)􀉳𝑦
@@ -39,7 +17,7 @@
     𝕊._recv,𝕊._sock = ws.recv,ws.socket
     𝕊._sock.setsockopt(socket.IPPROTO_TCP,socket.TCP_NODELAY,1)
     𝕊.close = ws.close
-    𝕊.send_lock = RLock􀃅
+    𝕊.send_lock = TLock􀃅
     𝕊.chunk_size,𝕊.locks = chunk_size,{}
   __repr__ = 󷺹􋕟ʷˢ.__repr__􀃅
   ➰ = ⥌𝕊,⠤𝔸,𝚝𝚘=10↦𝕊(⠤𝔸,⠶𝕂)(𝚝𝚘)

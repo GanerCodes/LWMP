@@ -1,0 +1,25 @@
+⦃from threading import Event as ⦃Event⦄,RLock as ⦃TLock⦄⦄
+
+󱀘Mutable:
+  __slots__ = ␛𝕩,␛𝚍
+  ⊢__init__(𝕊,⠤𝔸): 𝔸􀊹􀒸1 􀛷
+                   ¿𝔸: setattr(𝕊,␛𝚍,𝔸₀)
+  ⊢__call__(𝕊,⠤𝔸): 𝔸􀊹􀒸1 􀛷
+                   ¿𝔸: setattr(𝕊,␛𝕩,𝔸₀)
+                       ↪𝔸₀
+                   ¿hasattr(𝕊,␛𝕩): ↪getattr(𝕊,␛𝕩)
+                   ¿hasattr(𝕊,␛𝚍): ↪getattr(𝕊,␛𝚍)
+                   ‹Mutable unset and has no default!› ValueError 􀊗
+  __bool__ = 𝕊↦hasattr(𝕊,␛𝕩)
+  reset    = 𝕊↦delattr(𝕊,␛𝕩)
+⊢Awaitor(𝚍=␀):
+  E,𝑽 = Event􀃅,Mutable􀃅
+  ⊢𜳬(𝚝𝚘=□): ¿E.wait(𝚝𝚘)􀌐:
+              ¿𝚍􀋑␀: ‹Awaitor timed out!› TimeoutError
+              ↪𝚍  Mutable(default) isn't used b/c edge case of 𝑽 getting set between E.wait and 𝑽􀃅
+            ↪𝑽􀃅
+  ⊢𜳪(x): x 𝑽
+         E.set􀃅
+  ↪𜳬,𜳪
+
+⭷ Mutable,Awaitor,TLock

@@ -1,164 +1,19 @@
-⦃from websockets.sync.server import serve as ⦃websocket_serve⦄⦄
-⦃import urllib⦄
-⨡ verifiers
-⨡ http
-⨡ 󰆼
-
-⨡ util ⭸ *
-⨡ websockets
-⨡ generate_site
-
-WEBSOCKET_PORT = 2096
-WEBSITE_PORT   = 4004
-SITE_SOURCE    = __dir__􀋋‹Website›
-SITE_COMPILE   = __dir__􀋋‹website_compiled›
-UPDATE_DIR     = __dir__􀋋‹../Update›􀯖.resolve􀃅
-DEV_DB         = __dir__􀋋‹Data/dev.db›
-TOK_DB         = __dir__􀋋‹Data/tok.db›
-ROM_VERSION    = __dir__􀋋‹../Device/VERSION›􀯖􀌎
-
-ws_clients = {}
-tok𝘋𝘉,dev𝘋𝘉 = 󰆼(__dir__􀋋‹Data›,
-                tok=􀌌"tok devs",
-                dev=􀌌"UUID NAME RECALB_T LEDC RGB_ORDER REVERSE")
-⊢show_dbs: ‹DBs:›􀊸
-           dev𝘋𝘉􀊱tok𝘋𝘉ᐵ.show􀃅
-
-⊢get_dev_update_db(𝐭,𝐮,𝐨𝐭=□,dev=□,overwrite=✗):
-  ‹get_dev_update_db⟦𝐭,𝐮,𝐨𝐭,dev,overwrite⟧›􀊸
-  𝐭,𝐮 = 𝐭 ŧ_TOKEN,𝐮 ŧ_UUID
-  ⛯ tok𝘋𝘉
-  ¿dev􇪨: ¿dev􇣒􊬏󰂠󰂓󰂟󰂗􊬐􀉞𝐮: dev􊬏󰂠󰂓󰂟󰂗􊬐=ᐦ
-         dev􀯏ŧ_DEV ℵ
-  ¿𝐮􀜍dev𝘋𝘉: dev􇪨 􁀒 ‹Device "⟦𝐮⟧" not in database!›
-            dev𝘋𝘉􊳭 = dev
-            ‹Added device "⟦𝐮⟧": ⟨⟦dev𝘋𝘉􊳭⟧⟩›􀊸
-  ¿𝐭􀜍tok𝘋𝘉: tok𝘋𝘉􊳬= {devs=⍁}
-  ¿𝐮􀜍tok𝘋𝘉􊳬ᵈᵉᵛˢ􀯑𝐃:
-    tok𝘋𝘉􊳬 = {devs=𝐃􀊳􊳭}
-    ‹Added "⟦𝐮⟧" to "⟦𝐭⟧"›􀊸
-  ¿𝐨𝐭􇪨 􀛾 𝐨𝐭􀉧tok𝘋𝘉 􀛾 𝐮􀕿tok𝘋𝘉􊳧􊳬ᵈᵉᵛˢ􀯑𝐃:
-    tok𝘋𝘉􊳧􊳬 = {devs=𝐃􀊷􊳭}
-    ‹Removed "⟦𝐮⟧" from "⟦𝐨𝐭⟧": ⟨⟦tok𝘋𝘉􊳧􊳬ᵈᵉᵛˢ⟧⟩›􀊸
-     󰤱􊽨 delete token from db if no devs
-  ¿dev􇪨 􀛾 overwrite: α = dev𝘋𝘉􊳭 ᔐ
-                     dev𝘋𝘉􊳭 = dev𝘋𝘉􊳭􀊤dev
-                     ‹Device change: ⟦α⟧ → ⟦dev𝘋𝘉􊳭⟧›􀊸
-  ↪dev𝘋𝘉􊳭
-
-⊢negotiate_controller_props(𝐈,ꭐ):  update newly connected lw w/ current data
-  ¿𝐈􇣒􊬏󰂨󰂗󰂤􊬐􀜃ROM_VERSION: ↪{VER=ROM_VERSION} 𝔠.Change_dev ꭐ
-  ‹TOKEN UUID›􀌌􀉫𝐈⁻ 􁀒 ‹Device is missing required connection fields!›
-  𝐭,𝐮,𝐧 = 𝐈ᵀᴼᴷᴱᴺ, 𝐈ᵁᵁᴵᴰ, 𝐈􇣒􊾖􊬏󰂠󰂓󰂟󰂗􊬐
-  ⛯ tok𝘋𝘉
-    𝐂 = dev𝘋𝘉􇣒󰁸󰁹􊳭
-    𝐝 = get_dev_update_db(𝐭,𝐮,dev=𝐈)
-  c = ‹NAME RECALB_T LEDC REVERSE RGB_ORDER›􀌌ᐖ𝐈􀉨⟞􀉧𝐂 􀛾 𝐈􍪴􀉟𝐂􍪴 􇂖􍭓 ⟞􀊱𝐂􍪴ᐸ 𝑑
-  ¿c: [‹Change_dev›,c] ꭐ
-  ↪✓
-
- 󰤱 rn negotication of controller props and stuff is broken so its not actually regestering the token (or dev?) in the db
-⊢WS_handle(ws):
-  ꭐ = WS_Client(ws)
-  init_msg = ꭐ.listener􀃅
-  ꭐ􀃅
-  
-  𝐈 = init_msg􀃅 􀯖 𝔍󰄟 􀯖 ŧ_DEV_REQ 􀯖 ℵ
-       ws_clients[𝐈ᵁᵁᴵᴰ] = ꭐ
-        ‹Established LW connection: ⟦𝐈⟧›􀊸
-        negotiate_controller_props(𝐈,ꭐ)
-        ∀: ‹⟦𝐈ᵁᵁᴵᴰ⟧ message ⟦ꭐ􀃅ᐒ‹⟦⟞₀􀉳􀁭¹⁶􀋢⟧: ⟦⟞₁⟧›⟧›􀊸
-  ¡ε=𝑒: ‹Disconnecting ⟦𝐈ᵁᵁᴵᴰ⟧: ε=⟦ε⟧›􀊸
-        󰆴 ws_clients[𝐈ᵁᵁᴵᴰ]
-        ⦃import traceback⦄
-        traceback.print_exception(ε)
-             ꭐ.close􀃅
-        ¡ε=𝑒: ‹Failed to close ⟦ꭐ⟧: ⟦ε⟧›􀊸
-
-⊢api:
-  methods = { Change_dev   = 1, dev
-              Set_schedule = 1, schedule
-              Set_scene    = 3, scene que dur
-              Del_scene    = 1, scene
-              Push_scenes  = 1, scenes
-              Pull_scenes  = 0,
-              Off          = 0,
-              Sync         = 0 }ℵ
-  conf_p = ‹WS_URL UPDATE_URL AP_MODE R_SSID R_PASS LEDP BIT_TIMING
-            NAME LEDC REVERSE RGB_ORDER RECALB_T
-            TOKEN›􀋦𝗻􀉳􀂺
-  ⊢api(𝘳):
-    𝘳 􀯏 ℵ􋄅
-    ¿𝘳􊯛􊳬􀯑𝐭ᑀ􈇇    ᐸ: ↪‹No token in request!›𝖡
-    ¿𝘳􊯛􋕞􀯑𝐛ᑀ􀌐􀛺⟞􀊞𝑙ᐸ: ↪‹No request contents!›𝖡
-    𝐦,⠤𝐁 = 𝐛  ᵉᵍ "Change_dev",{RGB_ORDER="GRB"}
-    ⛯ tok𝘋𝘉
-      ¿𝐦≡‹Get_devs›: ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
-                     ⊢norm(𝐮,𝐝,𝙺=􀌌‹NAME RECALB_T LEDC REVERSE RGB_ORDER›):
-                       𝐝 = 𝐝􀝊𝙺
-                       ¿𝐝􇣒􋕨󰂠󰂓󰂟󰂗􋕨􀉞ᐦ: 󰆴 𝐝􋕨󰂠󰂓󰂟󰂗􋕨
-                       𝐝􋕨󰂼ₙₗᵢₙₑ􋕨 = 𝐮∈ws_clients
-                       ↪𝐝
-                     ↪{⠤tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,norm(⟞,dev𝘋𝘉􍪴)ᐸ} 𝖦
-      ¿𝘳􊯛􊳓􀯑𝐔􀌐: ↪‹Invalid "𝐔" field!›𝖡
-      
-      ⊢mod(𝐦,⠤𝐁):  validate/modify what is sent to LW
-        ¿𝐁􀊹􀜃methods􊳥􀯑p: ↪‹⟦𝐦⟧ expected ⟦p⟧ (≠⟦𝐁􀊹⟧) parameters!›𝖡
-        ¿𝐦􀉞‹Set_scene󷺗›: 𝐁 = [⠤𝐁,𝑖(time􀃅􀝍𝐁₁􀯗⁰3 􁂇 1000)]
-        ⸘𝐦􀉞‹Change_dev›: ¿𝐁₀􀊞𝑑: ↪‹Config is not a dict!›𝖡
-                           𝐁 = [𝐁₀ ℵ 􀝊 conf_p􀋶 􇀥 ŧ_DEV_OPT 􇀥 ℵ]
-                         ¡: ↪‹Invalid config!›𝖡
-        ↪[𝐦,⠤𝐁]
-      
-      ¿𝐦􀉞␛*: 𝘙 = 𝐁
-             ¿𝘙􀊜𝑙􀛾𝘙􀋃⬤􀁊𝑙􁃏: ↪‹Malformed * request!›𝖡
-      ¡    : 𝘙 = 𝐛􀋁
-      𝘙 􇀞􀉴 mod
-      ¿𝘙􀉼󷺹₀ᐸ􀯑bad: ↪bad􀋢𝗻􀯖𝖡
-      ¿𝘙ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
-      ¿𝘙􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
-        ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in a * request!›𝖡
-        dev = C₀ ₁
-        ∀𝐮⬠𝐔: get_dev_update_db(⠤[dev􇣒􋆮􊬏󰂦󰂡󰂝󰂗󰂠􊬐􀯑nt,𝐮,¿􁌶ⁿᵗ𝐭],dev=dev􀊦conf_p₁,overwrite=✓)
-    ⊢send_devs(ꭒ):
-      ¿ꭒ􀉩tok𝘋𝘉􊳬ᵈᵉᵛˢ: ↪‹Cannot find device!›𝖡
-      ¿ꭒ􀉩ws_clients: ↪‹Device is offline󷺗!›𝖡
-      m = 𝘙􀊹􀉤1 􇂖[␛*,⠤𝘙]􇂗 𝘙₀
-      ‹⟨⟦m⟧⟩ → ⟦ꭒ⟧›􀊸
-      ↪(󰲟m ws_clients􍴊􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡)􀃅
-    ↪􀉵´(𝐔,send_devs,m=␛t)􀯖𝖦 ᑀ􀜾􍪵􁖤􍯏􊿥𝖡􀊱𝖦
-  ↪api
-api = api􀃅
-
-𝐓 = make_converters(SITE_SOURCE,SITE_COMPILE,__dir__)
-transpile,gzip = 𝐓ᵗʳᵃⁿˢᵖⁱˡᵉ,𝐓ᵍᶻⁱᵖ
-
-⊢(HTTP_Server) server(𝚖,𝚙,𝙷,𝚎):  cors = { access-control-allow-origin=␛* }
-  ⊢POST(x): ¿(𝔍󰄟􀍝□)(x)􀯑d􈇇: ↪‹Invalid JSON!›𝖡
-            ↪api(d) 𝔍󰄞 􀝕 200 􀝕 ℵ(𝙲𝚃=‹.json›)
-  
-  ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›􀊸
-  𝚙􆿾􀌎␛/
-  UQ = urllib.parse.unquote
-  ¿𝚖≡‹GET󷺗›: 𝚙􀯿􀌎􀉖‹bundle.min.html›
-             ¿𝚙.startswith(𝓁􀯍‹󷺗󷺗󷺗api/›): ↪POST(𝚙.removeprefix(𝓁) UQ)
-             ⸘𝚙.startswith(𝓁􀯍‹update/›): p = safej(UPDATE_DIR,𝚙.removeprefix(𝓁))
-             ¡                         : p = safej(SITE_COMPILE,𝚙 UQ)
-             ¿p.exists􀃅􀂾: ↪400
-             p,H = gzip(p,𝙷)
-             ↪ p ᵇ, { 𝙲𝚃=p.suffix, Cache-Control=‹public, max-age=0, must-revalidate›, ⠤H }ℵ
-  ⸘𝚖≡‹POST›: ↪𝙷."content-length" 𝑖 𝚎􋈷 POST
+⨡ Lib/concurrent
+⨡ config ⭸ *
+⨡ util   ⭸ *
+⨡ websocket_server
+⨡ http_server
+⨡ database
 
 transpile􀃅
 
+ws_internal = Mutable􀃅
 ‹Starting Websocket server›􀊸
-w = Mutable􀃅
-𝚲ⓦ(websocket_serve(WS_handle, ipv4(0x00000000), WEBSOCKET_PORT, server_header=□),
-   󷺹w􀯖.serve_forever􀃅)󰅂 PL_THREAD
-
+𝚲websocket_server(𝔴=ws_internal)󰅂 PL_THREAD
 ‹Starting HTTP server›􀊸
-      PL_THREAD(𝚲server(port=WEBSITE_PORT))
-       ∀: ¿sys.stdout.isatty􀃅􀌐:
+𝚲http_server     (             )󰅂 PL_THREAD
+
+      ∀: ¿sys.stdout.isatty􀃅􀌐:
             2.5 sleep; ↺
           input􀃅
                 ‹Clients: ⟦ws_clients⟧›􀊸
@@ -166,7 +21,7 @@ w = Mutable􀃅
                  transpile􀃅
           ¡ε=𝑒𝑒: ‹Transpile failed: ⟦ε⟧›􀊸
 ¡ε=𝑒𝑒: ε􀊸
-󰛕      w􀍠󷺹􀃅.shutdown􀃅
+󰛕      ws_internal􀊚󷺹􀃅.shutdown􀃅
        ⦃import signal as ⦃signal⦄⦄
        os.kill(os.getpid􀃅,signal.SIGTERM)
        exit􀃅
