@@ -12,6 +12,7 @@ DONE
   • Fixed issue of delting active token
   • Made sure we check the most updated device listings inside scenes panel
   • Stopped resizers appearing in the chooser screens
+  • Added text validation things
 TODO
   • Device options
     • pulling scenes, setting AP mode, setting reset time (automatically it's 3am user time, and is set when doing RGB or LEDC calib)
