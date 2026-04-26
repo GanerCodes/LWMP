@@ -57,8 +57,8 @@
 © ədevTile = ⥌Ѧ,[𝐮,𝐝],rem↦{
   © set = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
   © [𝐭,𝐧,𝔡] = [Ѧ􋈹 􋆮,𝐝ᴺᴬᴹᴱ??𝐮,Ѧ􋈹.dev(𝐮)];
-   󰤱 actually handle errors! also text validation
-   ədropdown
+   󰤱 actually handle errors!
+   󰤱 if the device if offline disable the token changing option!
   © ƒ = 𝚲{
     © ƒ = 󱟱 ⥌𝚗,𝚝↦{ set(✗);
                    © v = [𝚗,𝚝];
@@ -68,12 +68,12 @@
                    ¿(¬𝒪𝑏(󰬊)) ↪set(✓);
                    󱫬 𝔡.config(󰬊);
                    󱫬 load_devices(Ѧ􋈹);
-                   ¿(󰬊ᵀᴼᴷᴱᴺ≇󱣩) ↪rem();
+                   ¿(󰬊ᵀᴼᴷᴱᴺ≇󱣩) ↪rem();  󰤱 ???
                    Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
                    set(✓); };
     © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
     © tok  = ədropdown(get_toks(),{Ⴝ:𝐭});
-    əpromptGeneral({ƒ:󰲟ƒ(name􀴗 ᵛ,tok􀴗 ᵛ), :󰲟name􀴗 ᵛᵃˡⁱᵈ, ␛󰊄:‹Edit device info›},
+    əpromptGeneral({ƒ:󰲟ƒ(name􀴗 ᵛ,tok􀴗 􎁎), :󰲟name􀴗 ᵛᵃˡⁱᵈ, ␛󰊄:‹Edit device info›},
                    󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Name›, name, 󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Token›, tok); };
   © ƒ = 󱟱𝚲{ set(✗);
              󱫬 𝔡.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
