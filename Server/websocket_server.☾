@@ -22,11 +22,11 @@ ws_clients = {}
   
   𝐝 = init_msg􀃅 􀯖 𝔍󰄟 􀯖 ŧ_DEV_REQ 􀯖 ℵ
   𝐡 = 𝐇(𝐝ᵀᴼᴷᴱᴺ,𝐝ᵁᵁᴵᴰ)
-       ¿𝐡􀉧ws_clients: ‹WHY IS ⟦𝐡⟧ IN THE CLIENT LIST!›􀊸
+       ¿𝐡􀉧ws_clients: ‹WHY IS "⟦𝐡⟧" IN THE CLIENT LIST!›􀊸
         ws_clients􊳠 = ꭐ
         ‹Established LW connection: ⟦𝐝⟧›􀊸
         negotiate_controller_props(𝐝,ꭐ)
-        ∀: ‹⟦𝐡⟧ message ⟦ꭐ􀃅ᐒ‹⟦⟞₀􀉳􀁭¹⁶􀋢⟧: ⟦⟞₁⟧›⟧›􀊸
+        ∀: ‹"⟦𝐡⟧" - ⟦ꭐ􀃅ᐒ‹⟦⟞₀􀉳􀁭¹⁶􀋢⟧: ⟦⟞₁⟧›⟧›􀊸
   ¡ε=𝑒: ‹Disconnecting ⟦𝐡⟧: ε=⟦ε⟧›􀊸
         󰆴 ws_clients􊳠
         ⦃import traceback⦄

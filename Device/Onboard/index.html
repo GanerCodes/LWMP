@@ -55,7 +55,7 @@
     <input type="text" class="item" id="SSID" placeholder="Router SSID">
     <input type="text" class="item" id="PASS" placeholder="Router Password">
     <input type="text" class="item" id="TOKE" placeholder="Account Token"
-           title="Anyone with this token can control your LightWave">
+           title="(6-64 characters) Anyone with this token can control your LightWave">
     <span>
      <button id="setup_cancel" class="item">Cancel</button>
      <button id="setup_submit" class="item">Submit</button>
@@ -75,7 +75,8 @@
     setup_wifi  .onclick = _=>lw_setup.showModal();
     setup_submit.onclick = _=>{
       let C = [𝔚.R_SSID,𝔚.R_PASS,𝔚.TOKEN] = [SSID,PASS,TOKE].map(x=>x.value);
-      if(!C.every(x=>x)) return;
+      let tl = [...TOKEN].length;
+      if(!(C.every(x=>x) && 6<=tl && tl<=64)) return;
       api("/config", {R_SSID,R_PASS,TOKEN,AP_MODE:false});
       lw_setup.innerHTML = `<p class="text">Sent login info and restarted controller!<br><br>AP will be recreated in ≈30s if router connection fails.</p>`; };
     setup_cancel.onclick = _=>lw_setup.close();
