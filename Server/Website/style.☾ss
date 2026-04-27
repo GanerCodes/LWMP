@@ -295,7 +295,9 @@ input[type=range] ∣ «appearance 𝚠𝚔𝚊» 􋄅; 𝚠; 𝚑 0.5em; 𝚖�
                 >.𝘌pixels
                   𝚖← -1px
                   𝚍 grid; place-items start start
-
+  .𝘌elmDropButtons
+    𝚏↓; 𝚙 8.5px; 𝚋𝚛 5px; 𝚃𝚏 translate(25%,-50%)
+    𝚋 ⦑bg0⦒
   .𝘌inspector
     𝚏↓;𝚏𝚐 1;𝚑;󰊄𝚜 1em
      .multiButtonBar

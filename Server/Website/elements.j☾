@@ -115,3 +115,8 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
            ↪Ѧ􎁎; }
   Ѧˢᵉᵗ(Ѧ􎁎,Ѧⁱⁿⁱᵗ);
   ↪; };
+
+əpopover = ⥌base,x,y,↦{  󰤱 this isn't featured like at all
+  © p = 󱀝 div {𝐶 popover⍮⦅𝚙𝚘𝚜f;𝚣 25;↑ ⟦y⟧px;← ⟦x⟧px⦆} ⟦⟧; 
+  base􍪙(p);
+  ↪p; }
