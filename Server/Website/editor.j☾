@@ -13,7 +13,7 @@ prompt_editor = ⥌cb,𝔱,𝐬↦{
           setInspector: 󰲟𝘌setInspector  (Ѧ,⠤𝔸),
           setModeView : 󰲟𝘌makeModeViewer(Ѧ,⠤𝔸),
           render      : 󰲟(Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(⠤𝔸),Ѧˢᵉᵗᴵⁿˢᵖᵉᶜᵗᵒʳ()),
-          save        : 󰲟cb(𝐬) };
+          save        : 𝚲cb(𝐬) };
   
   Ϣᴱᴰᴵᵀᴼᴿ = Ѧ;  󰤱􊽨 temp?
   
@@ -54,11 +54,11 @@ prompt_editor = ⥌cb,𝔱,𝐬↦{
       󱀝{𝐶 𝘌inner} [
         󱀝{𝐶 𝘌preview} [
           󱀝{𝐶 multiButtonBar} [
-            󱀝:⟦Ѧ􍻬 ᵖʳᵛ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛←)⟧} ␛←
-            󱀝:⟦Ѧ􍻬 ᵍʳᵖ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛)⟧} ␛
-            󱀝:⟦Ѧ􍻬 ᵘᵍᵖ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛)⟧} ␛
-            󱀝:⟦Ѧ􍻬 ᵃᵈᵈ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛+)⟧} ␛+
-            󱀝:⟦Ѧ􍻬 ᵈᵉˡ􋑵⟧ button {𝐶 barButton⍮  ⟦󰲟tool(␛󰆴)⟧} ␛󰆴]
+            󱀝:⟦Ѧ􍻬 ᵖʳᵛ􋑵⟧ button {𝐶 barButton⍮  ⟦𝚲tool(␛←)⟧} ␛←
+            󱀝:⟦Ѧ􍻬 ᵍʳᵖ􋑵⟧ button {𝐶 barButton⍮  ⟦𝚲tool(␛)⟧} ␛
+            󱀝:⟦Ѧ􍻬 ᵘᵍᵖ􋑵⟧ button {𝐶 barButton⍮  ⟦𝚲tool(␛)⟧} ␛
+            󱀝:⟦Ѧ􍻬 ᵃᵈᵈ􋑵⟧ button {𝐶 barButton⍮  ⟦𝚲tool(␛+)⟧} ␛+
+            󱀝:⟦Ѧ􍻬 ᵈᵉˡ􋑵⟧ button {𝐶 barButton⍮  ⟦𝚲tool(␛󰆴)⟧} ␛󰆴]
           󱀝 [󱀝 [󱀝:⟦Ѧˡᵃᵇᵉˡˢ􋑵⟧ {𝐶 𝘌alignedLabels}
                 󱀝:⟦Ѧᵖⁱˣᵉˡˢ􋑵⟧ {𝐶 𝘌pixels       }]]]
         󱀝:⟦Ѧ􍻠􋑵⟧ ⟦ənavBar⟧ {Ⴝ ⍮𝐶 𝘌inspector} [

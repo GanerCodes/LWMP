@@ -26,7 +26,7 @@
     󱀝: {𝐶 𝘌fxSection} [
       󱀝 label ‹Brightness› ⟦luml⟧ ⟦lum⟧ ];
     fx_togs􊯛􈔨 = [toggleButton(󰲡(showə(,x),ƒ()),␛󰳲,␛󰳲,2∈fx_og), ]; }
-  ƒ = 󰲟Ѧ􈛈 ᶠˣ = [⠤check(␛,0), ⠤check(␛󱦙,1), ⠤check(␛󰳲,2)];
+  ƒ = 𝚲Ѧ􈛈 ᶠˣ = [⠤check(␛,0), ⠤check(␛󱦙,1), ⠤check(␛󰳲,2)];
   
   ↪󱀝 {𝐶 𝘌𝘐fx} [
      󱀝 span [⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧]
@@ -115,8 +115,8 @@
       󱀝 T ‹Infinite?›
       ⟦inf = toggleButton(󰲡(showə(dur,¬x),x∧que􀴗.set(✗,󱣩)),␛✗,␛✓,✓)􋑵⟧]
     ⟦dur⟧
-    󱀝 button {𝐶 borderButton⍮ ⟦󰲟     cmd(✗) ⟧} ‹Test Scene›
-    󱀝 button {𝐶 borderButton⍮ ⟦󰲟copy(cmd(✓))⟧} ‹Copy Webhook› ]; };
+    󱀝 button {𝐶 borderButton⍮ ⟦𝚲     cmd(✗) ⟧} ‹Test Scene›
+    󱀝 button {𝐶 borderButton⍮ ⟦𝚲copy(cmd(✓))⟧} ‹Copy Webhook› ]; };
 
 © 𝘌setInspector = ⥌Ѧ↦{ Ѧ􍻠􋑵 􀴗.set(␛,𝘌modePanel    (Ѧ));
                        Ѧ􍻠􋑵 􀴗.set(␛,𝘌fxPanel      (Ѧ));

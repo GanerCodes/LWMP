@@ -14,7 +14,7 @@ add_check_tok = ⥌𝐭↦{
   ↪𝘋𝘉􊳬; }
 del_tok = ⥌𝐭↦{ 󰆴 𝘋𝘉􊳬;
                updateDB(); }
-get_toks     = 󰲟𝒪k(𝘋𝘉)
+get_toks     = 𝚲𝒪k(𝘋𝘉)
 get_devs     = ⥌𝔱↦add_check_tok(𝔱􋆮).devs
 get_scenes   = ⥌𝔱↦add_check_tok(𝔱􋆮).scenes
 copy_scene = ⥌𝐭,o,n↦{

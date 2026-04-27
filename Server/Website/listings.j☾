@@ -1,7 +1,7 @@
 © ətileButton = ⥌t,ƒ,󰊄=t↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(󰊄,250,50)⟧⍮  ⟦𝚲ƒ(t)⟧} ⟦󰊄⟧
 © əpromptGeneral = ⥌Ѧ,⠤𝙴↦{
-  Ѧ = {ƒ:󰻾, :󰲟✓, ␛󰊄:‹Form›, ⠤Ѧ};
-  © submitƒ = 󰲟{ ¿(¬Ѧ􇦭()) ↪;
+  Ѧ = {ƒ:󰻾, :𝚲✓, ␛󰊄:‹Form›, ⠤Ѧ};
+  © submitƒ = 𝚲{ ¿(¬Ѧ􇦭()) ↪;
                  .close();
                  ↪Ѧ􊽺(); };
   ©  = popup({␛:✓,␛󰅙:✓},
@@ -16,8 +16,8 @@
   Ѧ = { ƒ:󰻾, delƒ:󰻾, init:✓, Ⴝ:󱣩, ⠤Ѧ };
   Ѧ􋆔??=[];
   
-  © prompt_token = ⥌ƒ↦{ ⎉ tok = textField({:✓,:󰲡(x=[⠤x]􋌵,x≥6∧x≤64)},{𝑃𝐻:‹Token›});
-                        ↪əpromptGeneral({ƒ:󰲟ƒ(tok􀴗 ᵛ),:󰲟tok􀴗 ᵛᵃˡⁱᵈ,␛󰊄:‹Enter token to add›},tok); }
+  © prompt_token = ⥌ƒ↦{ ⎉ tok = textField({:✓, :󰲡(x=[⠤x]􋌵,x≥6∧x≤64)}, {𝑃𝐻:‹Token›});
+                        ↪əpromptGeneral({ƒ:𝚲ƒ(tok􀴗 ᵛ), :𝚲tok􀴗 ᵛᵃˡⁱᵈ, ␛󰊄:‹Enter token to add›},tok); }
   © censor = 󰲡x.replace(⦋/(?<=.).(?=.)/g⦌,␛⋅);
   ©  = əitemGridEditable(
           ⥌  gen↦prompt_token(󰲡(add_check_tok(x),gen(x))),
@@ -73,17 +73,17 @@
                    set(✓); };
     © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
     © tok  = ədropdown(get_toks(),{Ⴝ:𝐭});
-    əpromptGeneral({ƒ:󰲟ƒ(name􀴗 ᵛ,tok􀴗 􎁎), :󰲟name􀴗 ᵛᵃˡⁱᵈ, ␛󰊄:‹Edit device info›},
+    əpromptGeneral({ƒ:𝚲ƒ(name􀴗 ᵛ,tok􀴗 􎁎), :𝚲name􀴗 ᵛᵃˡⁱᵈ, ␛󰊄:‹Edit device info›},
                    󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Name›, name, 󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Token›, tok); };
   © ƒ = 󱟱𝚲{ set(✗);
              󱫬 𝔡.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
              Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
              set(✓); };
   © B = [
-      əbuttonBar([␛,󰲟prompt_rgb_calibrate(𝔡,󰲡(x,Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
-                 [␛,󰲟prompt_led_calibrate(𝔡,󰲡(x,Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
-                 [␛󰐥,󰲟𝔡.off()                                 ],
-                 [␛,󰲟B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓)      ]),
+      əbuttonBar([␛,𝚲prompt_rgb_calibrate(𝔡,󰲡(x,Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
+                 [␛,𝚲prompt_led_calibrate(𝔡,󰲡(x,Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
+                 [␛󰐥,𝚲𝔡.off()                                 ],
+                 [␛,𝚲B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓)      ]),
       əbuttonBar([␛,ƒ],
                  [␛,ƒ])]  󰤱 [␛,󰻾],[␛,󰻾]
   B₁􈛘(‹dropped›);
@@ -95,7 +95,7 @@
                           󰲡☾(‹Removing:›,x),  󰤱 what/why
                           [],
                           { show_plus  : ✗,
-                            placeholder: 󰲟󱀝 h2 ‹No devices found for this token...› })  󰤱 why hℕ ever
+                            placeholder: 𝚲󱀝 h2 ‹No devices found for this token...› })  󰤱 why hℕ ever
   Ѧ=􀴗={⠤􀴗,⠤Ѧ,};
   Ѧᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱⥌𝔱,call=✓↦{
                 ¿(𝔱) Ѧ􋈹 = 𝔱;
@@ -114,7 +114,7 @@
   􋆯 = 𝐮;
   ↪dragItem(); };
 © prompt_scene = ⥌Ѧ,cb,𝐬={name:ᐦ,𝐔:[],󰠲:{}}↦{
-  © name = textField({𝑃𝐻:‹Scene Name›,value:𝐬ⁿᵃᵐᵉ});
+  © name = textField({},{𝑃𝐻:‹Scene Name›,value:𝐬ⁿᵃᵐᵉ});
   
   © devsL = dragHold(󱀝 div {𝐶 devDraggableHolder} ‹›);
   © devsR = dragHold(󱀝 div {𝐶 devDraggableHolder} ‹›);
@@ -137,7 +137,7 @@
                   󱀝 span ⦅𝚏→;𝚠󷷈;𝚑 325px;𝚖↓ 10px⦆ [
                     󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Unused›,devsL]⟧
                     󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Used›  ,devsR]⟧],
-                  textButton(‹Submit›,󰲟{.close();cb(get())})]⟧,
+                  textButton(‹Submit›,𝚲{.close();cb(get())})]⟧,
                 {outline:✗})); };
 ⎉ əsceneListing = ⥌Ѧ={}↦{
   Ѧ = {ƒ:󰻾,⠤Ѧ}
@@ -150,13 +150,13 @@
                    © update = ⥌𝚗↦{ rem(𝐬);
                                    add_scene(Ѧ􋆮,𝚗,✓);
                                    Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ(𝚗); };
-                   © clone = 󰲟Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ({⠤structuredClone(𝐬),name:‹⟦𝐬ⁿᵃᵐᵉ⟧ - Copy›});
+                   © clone = 𝚲Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ({⠤structuredClone(𝐬),name:‹⟦𝐬ⁿᵃᵐᵉ⟧ - Copy›});
                    © button = ətileButton(𝐬ⁿᵃᵐᵉ,𝚲Ѧ􊽺({𝐬,𝔱:Ѧ􋈹,󰠲:𝐬􈛈}));
                    ¿(¬𝐬􋆕 􋌵) button􋒗=✓;
                    ↪[button, əbuttonBar([␛󰆴,rem                        ],
-                                         [␛,󰲟prompt_editor(update,Ѧ􋈹,𝐬)],
+                                         [␛,𝚲prompt_editor(update,Ѧ􋈹,𝐬)],
                                          [␛󰆏,clone                      ],
-                                         [␛,󰲟prompt_scene (Ѧ,update ,𝐬)])]; },
+                                         [␛,𝚲prompt_scene (Ѧ,update ,𝐬)])]; },
           ⥌𝐬    ↦move_scene(Ѧ􋆮,𝐬ⁿᵃᵐᵉ));
   Ѧ=􀴗={⠤􀴗,⠤Ѧ,};
   Ѧᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝔱↦{ ¿(𝔱) Ѧ􋈹 = 𝔱;
