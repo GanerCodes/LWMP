@@ -11,8 +11,9 @@
   © fx_togs = {};
   { fx_togs􊯛􈔩 = [toggleButton(󰲡ƒ(),␛,␛,0∈fx_og,{polar:✗})]; };
   { ⎉ [speedl,offstl] = [󱀝 T ‹›,󱀝 T ‹›];
-    © speed = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽⟧⍮v ⟦fx₁ ₀⟧⍮h 100⍮s:0.1⍮ƒ ⟦󰲡(speedl􋒷=‹⟦fx₁ ₀=x⟧ Pixels/s›,ƒ())⟧};
-    © offst = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽⟧⍮v ⟦fx₁ ₁⟧⍮h 100⍮s:1  ⍮ƒ ⟦󰲡(offstl􋒷=‹⟦fx₁ ₁=x⟧ Pixels›  ,ƒ())⟧};
+    © 𝕕 = 𝔻(󰲡x⌃2,󰲡x⌃(0.5))􋉊()􋉍([󷰾,1],[󷰾󷰽󷰽,100,󷰾󷰽󷰽,100]);
+    © speed = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽⟧⍮v ⟦fx₁ ₀⟧⍮h 100⍮s:0.1⍮𝕕 ⟦𝕕⟧⍮ƒ ⟦󰲡(speedl􋒷=‹⟦fx₁ ₀=x⟧ Pixels/s›,ƒ())⟧};
+    © offst = 󱀝 ⟦əslider⟧ {l ⟦󷰾󷰽󷰽⟧⍮v ⟦fx₁ ₁⟧⍮h 100⍮s:1  ⍮𝕕 ⟦𝕕⟧⍮ƒ ⟦󰲡(offstl􋒷=‹⟦fx₁ ₁=x⟧ Pixels›  ,ƒ())⟧};
     ⎉ ;
     󱀝: {𝐶 𝘌fxSection} [
       󱀝 label ‹Rotation›
@@ -56,9 +57,12 @@
     𝘈.set(␛, 󱀝: ⟦ə⟧ {init ⟦✗⟧⍮ v ⟦𝚟⟧⍮ ƒ ⟦𝐔􊯛􇧓⟧}); }
   
   { ⎉ 󷸾;
-    © [adj,adjI] = [󰲡(20⋅60)⌃x÷60, 󰲡􋑯(60⋅x,20⋅60)];
-    ⎉ 𝚟 = 𝚖≡2 ⭜[adjI(󰠲₀),󰠲₁,󰠲􊽧(2)􊾡(𝑖2)]⭝ def􊯛􈕂;
-    𝐔􊯛􈕂 = 𝚲set(2,⠤(⥌[s,Δ,𝙲]↦[adj(s),Δ,⠤𝙲􊾡(2𝑖)])
+    © speed𝕕 = 𝔻(󰲡(20-1÷60)⋅x⌃3+1÷60, 󰲡((x-1÷60)÷(20-1÷60))⌃(1÷3));
+    © sharp𝕕 = 𝔻();
+    © speed󰊄 = 󰲡‹⟦(+x).toFixed(3-(x≥1))⟧\n/s›;
+    © sharp󰊄 = 󰲡‹⟦⬓(100⋅x)⟧%›;
+    ⎉ 𝚟 = 𝚖≡2 ⭜[󰠲₀,󰠲₁,󰠲􊽧(2)􊾡(𝑖2)]⭝ def􊯛􈕂;
+    𝐔􊯛􈕂 = 𝚲set(2,⠤(⥌[s,Δ,𝙲]↦[s,Δ,⠤𝙲􊾡(2𝑖)])
                   (𝚟=[s􀴗 ᵛ,Δ􀴗 ᵛ,󷸾􈞣(‹.rgbSliders›)􊾡(󰲡x􀴗 ᵛ)]));
     
     © add = ⥌↦{ © c = 󱀝 span [
@@ -67,9 +71,9 @@
                   󷸾􍪙(c); };
     𝘈.set(␛󷸾, 󱀝: {𝐶 𝘌󷸾mode} [
                  󱀝 [󱀝    T ‹Speed›
-                    󱀝:s ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₀⟧⍮h 1⍮s 0.001⍮ƒ ⟦𝐔􊯛􈕂⟧}]
+                    󱀝:s ⟦əsliderLabeled⟧ {init ⟦✗⟧⍮l 0⍮v ⟦𝚟₀⟧⍮h 1⍮s 0.00⍮𝕕 ⟦speed𝕕⟧⍮󰊄ƒ ⟦speed󰊄⟧⍮ƒ ⟦𝐔􊯛􈕂⟧}]
                  󱀝 [󱀝    T ‹Sharpness›
-                    󱀝:Δ ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₁⟧⍮h 1⍮s 0.001⍮ƒ ⟦𝐔􊯛􈕂⟧}]
+                    󱀝:Δ ⟦əsliderLabeled⟧ {init ⟦✗⟧⍮l 0⍮v ⟦𝚟₁⟧⍮h 1⍮s 0.01⍮𝕕 ⟦sharp𝕕⟧⍮󰊄ƒ ⟦sharp󰊄⟧⍮ƒ ⟦𝐔􊯛􈕂⟧}]
                  󱀝:󷸾 {𝐶 󷸾} []
                  󱀝 button {onclick ⟦𝚲(add([50,50,50]),𝐔􊯛􈕂())⟧} ‹Add› ]);
     𝚟₂􊾡(add); }
@@ -79,11 +83,11 @@
     𝐔􊯛􈕅 = 𝚲set(1,⠤𝚟 = [c,s,v]􊾡(󰲡x􀴗 ᵛ));
     𝘈.set(␛, 󱀝 {𝐶 mode} [
                  󱀝 [󱀝    T ‹Cycles›
-                    󱀝:c ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₀⟧⍮h  25⍮s 0.1⍮ƒ ⟦𝐔􊯛􈕅⟧}]
+                    󱀝:c ⟦əsliderLabeled⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₀⟧⍮h  25⍮s 1⍮ƒ ⟦𝐔􊯛􈕅⟧}]
                  󱀝 [󱀝    T ‹Saturation›
-                    󱀝:s ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₁⟧⍮h 255⍮s   1⍮ƒ ⟦𝐔􊯛􈕅⟧}]
+                    󱀝:s ⟦əsliderLabeled⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₁⟧⍮h 255⍮s 1⍮ƒ ⟦𝐔􊯛􈕅⟧}]
                  󱀝 [󱀝    T ‹Value›
-                    󱀝:v ⟦əslider⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₂⟧⍮h 255⍮s   1⍮ƒ ⟦𝐔􊯛􈕅⟧}] ]); }
+                    󱀝:v ⟦əsliderLabeled⟧ {init ⟦✗⟧⍮ l 0⍮v ⟦𝚟₂⟧⍮h 255⍮s 1⍮ƒ ⟦𝐔􊯛􈕅⟧}] ]); }
   
   ¿(𝚜≠𝚖) 𝐔[𝘌𝚖2s􀲾](); }
 © 𝘌modePanel = ⥌Ѧ↦{

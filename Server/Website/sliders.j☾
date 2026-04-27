@@ -1,9 +1,10 @@
+ *slips coin into the "I didn't realize this was a matrix thing until it was too late" jar*
 𝔻 = ⥌↑=󰻾,↓=󰻾
     ↦({ ↑,↓,
         𝕀: 𝚲𝔻(↓,↑),
         𝕄: 𝚲𝔻(󰲡x􋅒()⋅↑(x􋄽()), 󰲡x􋅒()⋅↓(x􋄽())),
         𝕋: ⥌[l=0,r=1,b=↑(l),t=↑(r)]=[],
-            [L=0,R=1,B=  0 ,T=  1 ]=[]
+            [L=0,R=1,B=  L ,T=  R ]=[]
            ↦{ © 𜳩 = ⥌ƒ,l,r,b,t,L,R,B,T
                     ↦{ © [α,β] = [(T-B)÷(t-b),(r-l)÷(R-L)];
                        ↪󰲡B+α⋅(ƒ(l+β⋅(x-L))-b); };
@@ -38,7 +39,7 @@
   ɒ = {⠤ɒ,init:✗,ƒ:𝚲Ѧˢᵉᵗ()};
   © s = 󱀝 ⟦əslider⟧ {⠤ɒ};
   
-  © len = (ᐦ+ +(Ѧʰ+Ѧˢ).toFixed(6))􋌵;
+  © len = Ѧ􋕨􋒶􊪸􋕨(ᐦ+ +(Ѧʰ+(Ѧˢ∨0.00001)).toFixed(6))􋌵⋅0.75;
   ⎉ l;
   ©  = 󱀝 {𝐶 sliderLabeled} ⟦[ 󱀝:l T ⦅𝚠 ⟦0.9⋅len⟧em⦆, s ]⟧;
   
