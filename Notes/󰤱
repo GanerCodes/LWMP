@@ -33,6 +33,7 @@ TODO
     • Change pin?
   • UI
     • Scene scheduler
+    • Re-style onboard AP page
     • Improvements
       • Add instructions/directions/re-style for the add token prompt
       • Enter hex code for colors (and in general click into and type out slider)
@@ -46,91 +47,84 @@ TODO
   • Technical stuff:
     • Proxy the token api with scene stuff
     • itemGridEditable needs the ability to directly control and modify elements
-DONE...?
-  • Scrolling things into view for some reason goes too far
 
-start dragging a mode:
-  have a trash icon you can drag it to
-  have a duplicate icon you can drag it to
-  when letting go over other mode:
-    [swap,replace] inline popups
+OLD PROGRESS TRACKING:
+  Done
+    𝟏
+      Reworked WiFi/AP things
+        Actual DNS trap, it now shows the popup when you connect to the AP
+          (at least on an iPhone 6 lol)
+        Got LED display working while HTTP and DNS servers run
+        Auto-restarts when in AP every 30 minutes when no connections/events
+          e.g. so now if your internet goes you don't need to unplug/replug lightwaves to get them to get out of setup mode
+      Fixed the dumb issues with flashing devices
+        (it also flashes faster and doesn't need fiddling with the button)
+      Device code cleanup
+      NTP Time (hopefully the like ±30ms is precise enough!!1)
+        (LOL YOU THOUGHT YOU HAD NTP WORKING AT THIS POINT HAHAHA BROTHER ITS LIKE 4 WEEKS LATER AND IT ONLY NOW IS ACCURATE)
+    𝟐
+      Database locks correctly now
+        We can do database things and talk w/ LW in the same request
+          (Important part is without freezing the database for the duration of the request)
+      Actual API flowthrough finished
+        LW scene storage, loading, deleting
+          Comes pre-equiped with some scenes
+          ✓ (tested ✓) API Pull_scenes (dumps all stored scenes)
+          ✓ (󰤱 test) API Push_scenes (bulk uploads scenes)
+          ✓ (󰤱 test) API Del_scene   (deletes a scene)  
+          󰤱 (dummy implementation used) Set_schedule
+          󰤱 (dummy implementation used) Set_scene (contingent on more work on the LED-mode side of things)
+        Change_dev API implemented :>
+      Change_dev API: Changing device parameters (working ✓, mostly tested)
+        Dynamic LED parameter changing (takes < ≈1 second to update any of the following)
+          LED count, RGB order, output PIN, timing
+        Change stuff about the device remotely now
+          Name, token, router credentials, websocket URL
+            Automatically restarts relevent services
+              router creds ⇒ resets internet entirely
+              websocket URL ⇒ resets only websocket
+    𝟑
+      Finish bidirectional websocket protocol implementation
+      Add to API file the returns of various methods from LW
+    𝟒
+      I stopped keeping track lol
 
-Done
-  𝟏
-    Reworked WiFi/AP things
-      Actual DNS trap, it now shows the popup when you connect to the AP
-        (at least on an iPhone 6 lol)
-      Got LED display working while HTTP and DNS servers run
-      Auto-restarts when in AP every 30 minutes when no connections/events
-        e.g. so now if your internet goes you don't need to unplug/replug lightwaves to get them to get out of setup mode
-    Fixed the dumb issues with flashing devices
-      (it also flashes faster and doesn't need fiddling with the button)
-    Device code cleanup
-    NTP Time (hopefully the like ±30ms is precise enough!!1)
-      (LOL YOU THOUGHT YOU HAD NTP WORKING AT THIS POINT HAHAHA BROTHER ITS LIKE 4 WEEKS LATER AND IT ONLY NOW IS ACCURATE)
-  𝟐
-    Database locks correctly now
-      We can do database things and talk w/ LW in the same request
-        (Important part is without freezing the database for the duration of the request)
-    Actual API flowthrough finished
-      LW scene storage, loading, deleting
-        Comes pre-equiped with some scenes
-        ✓ (tested ✓) API Pull_scenes (dumps all stored scenes)
-        ✓ (󰤱 test) API Push_scenes (bulk uploads scenes)
-        ✓ (󰤱 test) API Del_scene   (deletes a scene)  
-        󰤱 (dummy implementation used) Set_schedule
-        󰤱 (dummy implementation used) Set_scene (contingent on more work on the LED-mode side of things)
-      Change_dev API implemented :>
-    Change_dev API: Changing device parameters (working ✓, mostly tested)
-      Dynamic LED parameter changing (takes < ≈1 second to update any of the following)
-        LED count, RGB order, output PIN, timing
-      Change stuff about the device remotely now
-        Name, token, router credentials, websocket URL
-          Automatically restarts relevent services
-            router creds ⇒ resets internet entirely
-            websocket URL ⇒ resets only websocket
-  𝟑
-    Finish bidirectional websocket protocol implementation
-    Add to API file the returns of various methods from LW
-  𝟒
-    I stopped keeping track lol
-
-fix bad scenes cause dev to bootloop lol,
-⟨['*', ['Push_scenes', {'raw': {'mode': {'fx': [[1, 0, 0]], '*': [{'*': [{'1': [50, 0, 16711680]}, {'1': [50, 0, 65280]}, {'1': [50, 0, 255]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [5, 1, 3, 245, 50]}, {'1': [45, 0, 4456448]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [22, 1, 1, 245, 50]}, {'1': [15, 0, 17408]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [33, 1, 1, 245, 50]}, {'1': [25, 0, 68]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [2, 1, 1, 245, 50]}, {'1': [120, 0, 4456516]}]}]}, 'offsets': {'testdevice1': 'testdevice150', 'testdevice0': 'testdevice050', 'testdevice2': 'testdevice250', 'testdevice3': 'testdevice3'}}}], ['Set_scene', 'raw', False, -1, 1776004828852]]⟩ → testdevice3
+  fix bad scenes cause dev to bootloop lol,
+  ⟨['*', ['Push_scenes', {'raw': {'mode': {'fx': [[1, 0, 0]], '*': [{'*': [{'1': [50, 0, 16711680]}, {'1': [50, 0, 65280]}, {'1': [50, 0, 255]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [5, 1, 3, 245, 50]}, {'1': [45, 0, 4456448]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [22, 1, 1, 245, 50]}, {'1': [15, 0, 17408]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [33, 1, 1, 245, 50]}, {'1': [25, 0, 68]}]}, {'fx': [[1, 25, 0]], '*': [{'1': [2, 1, 1, 245, 50]}, {'1': [120, 0, 4456516]}]}]}, 'offsets': {'testdevice1': 'testdevice150', 'testdevice0': 'testdevice050', 'testdevice2': 'testdevice250', 'testdevice3': 'testdevice3'}}}], ['Set_scene', 'raw', False, -1, 1776004828852]]⟩ → testdevice3
 
 
 
-Planned
-  General
-    Finish API things
-  Bugs
-    https://ganer.xyz/s/43f776d9d071ec69
-  Features
-    ✓ Remote update ability
-    Prob sync scene names with database?
-    ✓ Offline AP mode (screen with buttons for the various stored modes)
-    Simple Calibration Function
-      RGB : Screen #1: Choose the current strip color (R G B)
-            Screen #2: Choose the current strip color (R G B) ∖ {Choosen in screen 1} (include reset button)
-      LEDC: [works by having #0F0 followed by #F00]
-            [start at like idk 100]
-            The strip will transition from green to red at LED 100. Can you see any red?
-              Y → binary search right [so 200 for step 1]
-              N → binary search left  [so 50 for step 1]
-              Reset button
-            (Note: first streak of Y presses just doubles until 2000 LEDs)
-            [ᵉᵍ for 300 LEDS we have ⇒ YNNYYYYYYY
-                                       400 300 250 275 287 293 296 298 299 ⇒ 300]
-    Settings Menu
-    10 Preset Scenes
-    Mobile App Experience
-    UI Design Update
-    ✓ Timer Function (w/ calendar)
-    <Conditional>
-        Create Bakkes Mod Plugin (cool, low priority)
-        Generate LED Preview (cool, low priority)
-      For like, comically large amount of time and money
-        HDMI Passthrough Capabilities
-      Maybe?
-    <N/A>
-      Fix LED Count Update Bug
+  Planned
+    General
+      Finish API things
+    Bugs
+      https://ganer.xyz/s/43f776d9d071ec69
+    Features
+      ✓ Remote update ability
+      Prob sync scene names with database?
+      ✓ Offline AP mode (screen with buttons for the various stored modes)
+      Simple Calibration Function
+        RGB : Screen #1: Choose the current strip color (R G B)
+              Screen #2: Choose the current strip color (R G B) ∖ {Choosen in screen 1} (include reset button)
+        LEDC: [works by having #0F0 followed by #F00]
+              [start at like idk 100]
+              The strip will transition from green to red at LED 100. Can you see any red?
+                Y → binary search right [so 200 for step 1]
+                N → binary search left  [so 50 for step 1]
+                Reset button
+              (Note: first streak of Y presses just doubles until 2000 LEDs)
+              [ᵉᵍ for 300 LEDS we have ⇒ YNNYYYYYYY
+                                         400 300 250 275 287 293 296 298 299 ⇒ 300]
+      Settings Menu
+      10 Preset Scenes
+      Mobile App Experience
+      UI Design Update
+      ✓ Timer Function (w/ calendar)
+      <Conditional>
+          Create Bakkes Mod Plugin (cool, low priority)
+          Generate LED Preview (cool, low priority)
+        For like, comically large amount of time and money
+          HDMI Passthrough Capabilities
+        Maybe?
+      <N/A>
+        Fix LED Count Update Bug
