@@ -66,6 +66,7 @@ input[type=range] ∣ «appearance 𝚠𝚔𝚊» 􋄅; 𝚠; 𝚑 0.5em; 𝚖�
   @font-face ∣ 󰊄𝚏 "Symbols";󰊄𝚍s;󰊄𝚋 400;src url("/Assets/Symbols.woff2"      ) format("woff2")
   :root ∣ 󰊄𝚏 "Symbols","Avenir"
   *     ∣ 𝚃 background-color 0.2s ease, transform 0.2s ease, border-radius 0.2s ease
+          interpolate-size allow-keywords
           scroll-behavior smooth
           box-sizing border-box
 
@@ -96,10 +97,21 @@ input[type=range] ∣ «appearance 𝚠𝚔𝚊» 􋄅; 𝚠; 𝚑 0.5em; 𝚖�
   .«barButton bigButton» ∣ 𝚠;𝚑;󰊄𝚊 center
   .bigButton ∣ 𝚏↓;𝚊𝙿󷷣;𝚊𝚜󷷣;󰊄𝚜 6em
    290px
+  dialog[open]
+    𝚏↓;𝚊𝚂󷷣;𝚙 30px
+    𝚠 􊽺(90􍾘); 𝚠≥ 400px
+    𝚑 􊽺(90􍽺); 𝚑≥ 650px
+     ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
+    𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
+    𝚜 ⦑fg0⦒33 0px 0px 20px 0px
+    .dialogCloseBtn
+      𝚙𝚘𝚜a; → 0.333em; ↑ 0px
+       ⦑fg3⦒; 󰊄𝚜 35px
+      􎁎 ∣  ⦑fg2⦒; 𝚋𝚐 􋄅
+      􀴗 ∣  ⦑fg1⦒; 𝚋𝚐 􋄅
+  dialog::backdrop ∣ 𝚋 0008; 𝚋𝚐𝚏 blur(5px)
   .dialogCloseBtn«􍳕 􎁎 􀴗»,.boxInput>«button input»
     𝚋 #0000
-  
-  * ∣ interpolate-size allow-keywords
   
   @keyframes 󰫮dropped𝚈 ∣ 0%   ∣ 𝚘𝚙 0; 𝚑 0
                          50%  ∣ 𝚘𝚙 0
@@ -238,12 +250,6 @@ input[type=range] ∣ «appearance 𝚠𝚔𝚊» 􋄅; 𝚠; 𝚑 0.5em; 𝚖�
                𝚋 2px solid #999; 𝚋𝚛 5px
                󰊄𝚜 40px
 
-  dialog[open]
-    𝚠 􊽺(90􍾘); 𝚑 􊽺(90􍽺)
-     ⦑fg0⦒; 𝚋 ⦑bg0⦒EE
-    𝚋 2px solid ⦑fg0⦒; 𝚋𝚛 10px
-    𝚜 ⦑fg0⦒33 0px 0px 20px 0px
-
   .𝘌«modes atom»
      𝚃 height 0.05s ease-out
     [dragitem]􍳵
@@ -267,7 +273,7 @@ input[type=range] ∣ «appearance 𝚠𝚔𝚊» 􋄅; 𝚠; 𝚑 0.5em; 𝚖�
              􍳵􊽬([dragging]) ∣ p
              , * ∣ 𝚏↓;𝚊𝙿󷷣
                      «𝚃 𝚃𝚏» 􋄅; 󰍽 􋉀
-
+  
   .editorDialog[open]􊽬([𝘌toolmode])
      .𝘌atom[atom1] ∣ 𝚋𝚛↗ 􊽺(0.5􋈼)
                       􊽬([devLayer]) ∣ 𝚋𝚛↖ 􊽺(0.5􋈼)
@@ -389,23 +395,23 @@ input[type=range] ∣ «appearance 𝚠𝚔𝚊» 􋄅; 𝚠; 𝚑 0.5em; 𝚖�
     *􊽬(􋁋(*[detector],.detectorMeta))
       󰈲 opacity(0)
     *[detector]
-      𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
       , * ∣ 󰈲 brightness(1)
       􍳵 ∣ p
-      [multidetect]
-        𝚜 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85)
+      􊽬(.detectorMeta)
+        𝚜 0px 0px 10px 4px rgba(255,255,46,0.85)
+        [multidetect]
+          𝚜 0px 0px 10px 6px rgba(50,200,36,0.5), 0px 0px 20px 2px rgba(255,255,46,0.85)
     *􋁋(*[detector],.detectorMeta)
       󰍽 􋉀
   .detectorMeta
-    𝚙𝚘𝚜f; 𝚣 10; ↑ 1em; 󰊄𝚜 2.5em
+    𝚙𝚘𝚜f; 𝚣 10; 󰊄𝚜 2.5em
+    → 􊽺(50% - 0.875em); ↑ 1.75em
     «𝚠 𝚑» 1.75em; 
     𝚋 0.1em solid ⦑bg3⦒; 𝚋𝚛 􋔛px
-    .detectorSubmit ∣ → 􊽺(50% - 1em)
-                       𝚋 #161
+    .detectorSubmit ∣ 𝚋 #161
                        􎁎 ∣ 𝚋 #172A
                        􀴗 ∣ 𝚋 #1824
-    .detectorCancel ∣ → 􊽺(25% - 1em)
-                       𝚋 #611
+    .detectorCancel ∣ 𝚋 #611
                        􎁎 ∣ 𝚋 #712A
                        􀴗 ∣ 𝚋 #8124
 @layer state

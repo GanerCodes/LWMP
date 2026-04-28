@@ -1,0 +1,27 @@
+ : clicking external closes
+ 󰅙: has an x to close
+ədialog = ⥌Ѧ,c↦{
+  ⎉ ,btn;
+  󱀝: dialog {closedby ⟦Ѧ􊯛􈕀⭜‹any›⭝‹none›⟧} [
+    ⟦Ѧ􊯛􈔲 ⭜(󱀝:btn button {𝐶 dialogCloseBtn} ‹✗›)⭝ []⟧
+    ⟦c⟧ ]
+  AEL(,‹close›,𝚲(Ѧᵒⁿᶜˡᵒˢᵉ⸮(),.remove()));
+  ¿(btn) btn.onclick = 𝚲.close();
+  ¿(¬Ѧⁿᵒᴬᵖᵖᵉⁿᵈ) { 󰈙.body􍪙();
+                  .showModal(); }
+  ↪; };
+
+ : clicking external closes
+əpopover = ⥌Ѧ,⠤𝙴↦{  󰤱 this isn't featured like at all
+  Ѧ = {"base":󰈙.body, closeƒ:󰻾, x:100,y:100, ⠤Ѧ};
+  ©  = 󱀝 div {𝐶 popover⍮⦅𝚙𝚘𝚜f;𝚣 25;↑ ⟦Ѧʸ⟧px;← ⟦Ѧˣ⟧px⦆} ⟦𝙴⟧; 
+  ⎉ clickoff = 󰻾;
+  Ѧᶜˡᵒˢᵉ = 𝚲{ Ѧᶜˡᵒˢᵉ􊽺();
+              clickoff();
+              .remove(); };
+  (Ѧ􋑵=)􀴗=Ѧ;
+  Ѧ􋕨ₐₛₑ􋑴􋕨􍪙();
+  ¿(Ѧ􊯛􈕀) setTimeout(  dumb hack
+           𝚲clickoff=AEL(Ϣ,‹click›,⥌𝜺↦.contains(𝜺ᵗᵃʳᵍᵉᵗ)∨Ѧᶜˡᵒˢᵉ()),
+           0);
+  ↪; }

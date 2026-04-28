@@ -78,32 +78,28 @@
        􊾡􎘌(󰲡[x,⠤n∨x􈞤(‹𝘌tickmark›)⭜[]⭝[əresizer(Ѧ,x)]]);
   ⎉  = 󱀝 {𝐶 𝘌modes} ⟦C⟧;
   
-  ¿(n≡0∧␛*∈󰠲)
-    C􋁃(⥌c↦{ ¿(¬c􈞝(‹.𝘌modes,.𝘌atom›)) ↪;
-             © onclick = 𝚲Ѧʳᵉⁿᵈᵉʳ(Ѧ􈛈􊯛 􋑴􊬖􊫵􊫄);
-             c.onclick = onclick;  󰤱 stupid hack
-             c = dragItem(c,n,⥌x,y,𝜺
-                                ↦{ c.onclick = 󰻾;  󰤱 stupid hack
-                                   ⎉ popover,clickoff;
-                                   © close = 𝚲{ c.onclick = onclick;  󰤱 stupid hack
-                                                clickoff();
-                                                popover.remove(); }
-                                   © swap = 𝚲{ swapə(x,y);
-                                               © d = Ѧ􈛈􊯛;
-                                               [dₓ􊬖􊫵􊫄,d􊬖􊫵􊫄] = [d􊬖􊫵􊫄,dₓ􊬖􊫵􊫄];
-                                               Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); };
-                                   © replace = 𝚲{ © d = Ѧ􈛈􊯛;
-                                                  𝑜Replace(d􊬖􊫵􊫄,dₓ􊬖􊫵􊫄);
-                                                  Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); };
-                                   setTimeout(  󰤱 this is stupid
-                                     𝚲(clickoff = AEL(Ϣ,‹click›,  󰤱 this should be handled by əpopover
-                                                    ⥌𝜺↦popover.contains(𝜺ᵗᵃʳᵍᵉᵗ)∨close())),
-                                     0);
-                                   󱀝:popover {𝐶 𝘌elmDropButtons} [
-                                     󱀝 button { ⟦𝚲(swap   (),close())⟧} ‹Swap›
-                                     󱀝 button { ⟦𝚲(replace(),close())⟧} ‹Replace›
-                                     󱀝 button { ⟦𝚲(          close())⟧} ‹Cancel›];
-                                   əpopover(Ѧ􋑵,𝜺ˣ,𝜺ʸ,popover); }); });
+  ¿(¬(n≡0∧␛*∈󰠲)) ↪;
+  
+  C􋁃(⥌c↦{
+    ¿(¬c􈞝(‹.𝘌modes,.𝘌atom›)) ↪;
+    © onclick = 𝚲Ѧʳᵉⁿᵈᵉʳ(Ѧ􈛈􊯛 􋑴􊬖􊫵􊫄);
+    c.onclick = onclick;  󰤱 stupid hack
+    c = dragItem(c,n,⥌x,y,𝜺↦{
+      c.onclick = 󰻾;  󰤱 stupid hack
+      © closeƒ  = 𝚲c.onclick = onclick;  󰤱 stupid hack
+      © swap    = 𝚲{ swapə(x,y);
+                     © d = Ѧ􈛈􊯛;
+                     [dₓ􊬖􊫵􊫄,d􊬖􊫵􊫄] = [d􊬖􊫵􊫄,dₓ􊬖􊫵􊫄];
+                     Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); };
+      © replace = 𝚲{ © d = Ѧ􈛈􊯛;
+                     𝑜Replace(d􊬖􊫵􊫄,dₓ􊬖􊫵􊫄);
+                     Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); };
+      ⎉ ;
+      󱀝: ⟦əpopover⟧ {base ⟦Ѧ􋑵⟧⍮x ⟦𝜺ˣ⟧⍮y ⟦𝜺ʸ⟧⍮ ⟦✓⟧⍮closeƒ ⟦closeƒ⟧} [
+        󱀝 {𝐶 𝘌elmDropButtons} [
+          󱀝 button { ⟦𝚲(swap   (),􀴗 ᶜˡᵒˢᵉ())⟧} ‹Swap›
+          󱀝 button { ⟦𝚲(replace(),􀴗 ᶜˡᵒˢᵉ())⟧} ‹Replace›
+          󱀝 button { ⟦𝚲(          􀴗 ᶜˡᵒˢᵉ())⟧} ‹Cancel›] ]; }); });
   ↪; };
 
 © 𝘌setPreview = ⥌Ѧ,dat↦{

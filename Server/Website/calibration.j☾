@@ -14,13 +14,13 @@ RGB_calibrate = 󱟱 ⥌𝔡↦{
                                [‹scene› , ‹_default›,✗,󷰾]);
                       ↪C }]; }]; };
 prompt_rgb_calibrate = 󱟱⥌𝔡,cb↦{
-  ⎉ α,β;
-  ©  = popup({:✓,󰅙:✓},
-              󱀝 div ⦅𝚏↓⦆ [
-                󱀝 h1 ‹RGB Calibration›
-                󱀝 □ ⦅𝚑 40px⦆ ‹›
-                󱀝:α □ ‹›
-                󱀝:β □ ‹›]);
+  ⎉ ,α,β;
+  󱀝: ⟦ədialog⟧ { ⟦✓⟧⍮󰅙 ⟦✓⟧} [
+    󱀝 {⦅𝚏↓⦆} [
+      󱀝 h1 ‹RGB Calibration›
+      󱀝 □ ⦅𝚑 40px⦆ ‹›
+      󱀝:α □ ‹›
+      󱀝:β □ ‹› ] ];
   
   © Ғ = 󱟱󰲡{
     α.replaceWith(α=󱀝 h2 ‹Loading...›)
@@ -31,8 +31,7 @@ prompt_rgb_calibrate = 󱟱⥌𝔡,cb↦{
     © [C,ƒ] = V;
     α.replaceWith(α=󱀝 h2 ‹Choose the color that is visible on your LED strip.›)
     β.replaceWith(β=󱀝 span {𝐶 rgbButtons}
-                      ⟦C􊾡(󰲡{© =textButton(x,𝚲Ғ(󱟱𝚲ƒ(x))); SAT(,‹c›,x); ↪})⟧);
-  };
+                      ⟦C􊾡(󰲡{© =textButton(x,𝚲Ғ(󱟱𝚲ƒ(x))); SAT(,‹c›,x); ↪})⟧); };
   Ғ(󱟱𝚲󱫬RGB_calibrate(𝔡)); }
 
 led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝔡,cb↦{
@@ -58,13 +57,13 @@ led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝔡,cb↦{
                     ↪cb(l); }
          𝔖.push([l,m,h]); } });
 prompt_led_calibrate = 󱟱⥌𝔡,cb↦{
-  ⎉ α,β;
-  ©  = popup({:✓,󰅙:✓},
-              󱀝 div ⦅𝚏↓⦆ [
-                󱀝 h1 ‹Pixel Count Calibration›
-                󱀝 □ ⦅𝚑 40px⦆ ‹›
-                󱀝:α □ ‹›
-                󱀝:β □ ‹›]);
+  ⎉ ,α,β;
+  󱀝: ⟦ədialog⟧ { ⟦✓⟧⍮󰅙 ⟦✓⟧} [
+    󱀝 div ⦅𝚏↓⦆ [
+      󱀝 h1 ‹Pixel Count Calibration›
+      󱀝 □ ⦅𝚑 40px⦆ ‹›
+      󱀝:α □ ‹›
+      󱀝:β □ ‹›] ];
   © load = 𝚲{ α.replaceWith(α=󱀝 h2 ‹Loading...›)
               β.replaceWith(β=󱀝 □  ‹›); }
   load();

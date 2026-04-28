@@ -7,16 +7,17 @@
 © hsv2hsl = ⥌[h,s,v]↦‹hsl(⟦h÷255⋅360⟧deg,⟦s÷2.55⟧%,⟦v÷255⋅50⟧%)›;
 
 clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
-  Ѧ = {␛*:✗,⠤Ѧ};
+  Ѧ = {␛*:✗,canAdd:𝚲✓,canRem:𝚲✓,⠤Ѧ};
   
   © B = [󱀝 button {𝐶 detectorMeta detectorCancel⍮ detector ⟦✓⟧} ‹←›];
-  ¿(Ѧ􊯛) B.push(󱀝 button {𝐶 detectorMeta detectorSubmit⍮ detector ⟦✓⟧} ‹✓›);
+  ¿(Ѧ􊯛) { B.push(󱀝 button {𝐶 detectorMeta detectorSubmit⍮ detector ⟦✓⟧} ‹✓›);
+           B₀􋛟.top = ‹3.75em›; }
   
   base􍪙(⠤B);
-  © 𝚂 = base􈞣(𝚚);
+  Ѧ􀳗 = base􈞣(𝚚);
   © restoreDrags = (󰲡𝚲x􋁃(󰲡xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ=✗))
-                   (𝚂􋐉(󰲡{© v=xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ; xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ=✓; ↪¬v∧x; }));
-  © tog = 𝚲𝚂􊾡􎘌(󰲡{ © r = x􈞧(‹multidetect›);
+                   (Ѧ􀳗 􋐉(󰲡{© v=xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ; xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ=✓; ↪¬v∧x; }));
+  © tog = 𝚲Ѧ􀳗 􊾡􎘌(󰲡{ © r = x􈞧(‹multidetect›);
                    x􈛣(‹detector›); x􈛑(‹multidetect›);
                    ↪r⭜[x]⭝[]; });
   tog();
@@ -27,7 +28,8 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
     ¿(ε.target.closest(‹.detectorCancel›)) ↪tog(),cease();
     ©  = ε.target.closest(𝚚);
     ¿(¬ ) ↪;
-    ¿(Ѧ􊯛) ↪􈛣(‹multidetect›);
+    ¿(Ѧ􊯛) { ¿(􈞧(‹multidetect›)) Ѧᶜᵃⁿᴿᵉᵐ(,Ѧ) ∧ 􈛑(‹multidetect›);
+             ¡                    Ѧᶜᵃⁿᴬᵈᵈ(,Ѧ) ∧ 􈛘(‹multidetect›); }
     ¡      ↪tog(),cease(); },✓);
   ↪rem; };
 
@@ -115,8 +117,3 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
            ↪Ѧ􎁎; }
   Ѧˢᵉᵗ(Ѧ􎁎,Ѧⁱⁿⁱᵗ);
   ↪; };
-
-əpopover = ⥌base,x,y,↦{  󰤱 this isn't featured like at all
-  © p = 󱀝 div {𝐶 popover⍮⦅𝚙𝚘𝚜f;𝚣 25;↑ ⟦y⟧px;← ⟦x⟧px⦆} ⟦⟧; 
-  base􍪙(p);
-  ↪p; }
