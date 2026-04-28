@@ -5,15 +5,15 @@ fit_size = ⥌𝐭,w,sz=100,st=ᐦ,Δ=5↦{
   ↪‹font-size:⟦sz⟧px;›; }
 
 𝘋𝘉 = 𝔏𝔖􋀭(‹tokens›,{});
-updateDB = 𝚲𝔏𝔖􋀫(‹tokens›,𝘋𝘉);
+update𝘋𝘉 = 𝚲𝔏𝔖􋀫(‹tokens›,𝘋𝘉);
 names = ⥌𝐮,𝐝↦[𝐝=𝐝ᴺᴬᴹᴱ∨𝐮,𝐝≠𝐮⭜𝐮⭝󱣩];
 
 add_check_tok = ⥌𝐭↦{
   ¿(¬(𝐭∈𝘋𝘉)) { 𝘋𝘉􊳬={ scenes:{}, devs:{} };
-               updateDB(); }
+               update𝘋𝘉(); }
   ↪𝘋𝘉􊳬; }
 del_tok = ⥌𝐭↦{ 󰆴 𝘋𝘉􊳬;
-               updateDB(); }
+               update𝘋𝘉(); }
 get_toks     = 𝚲𝒪k(𝘋𝘉)
 get_devs     = ⥌𝔱↦add_check_tok(𝔱􋆮).devs
 get_scenes   = ⥌𝔱↦add_check_tok(𝔱􋆮).scenes
@@ -21,21 +21,21 @@ copy_scene = ⥌𝐭,o,n↦{
   © 𝐒 = add_check_tok(𝐭).scenes;
   ¿(¬(o∈𝐒) ∨ (n∈𝐒)) ↪✗;
   𝐒ₙ = 𝐒󰂼;
-  updateDB();
+  update𝘋𝘉();
   ↪✓; }
 move_scene = ⥌𝐭,o,n=󱣩↦{  blank n for deletion
   © 𝐒 = add_check_tok(𝐭).scenes;
   ¿(¬(o∈𝐒)) ↪✗;
   ¿(n≇󱣩) ¿(¬copy_scene(𝐭,o,n)) ↪✗;
   󰆴 𝐒󰂼;
-  updateDB();
+  update𝘋𝘉();
   ↪✓; }
 add_scene = ⥌𝐭,𝐬,override↦{  𝐬={name,𝐔,󰠲}
   name = 𝐬ⁿᵃᵐᵉ; 𝐬 = {⠤𝐬}; 󰆴 𝐬ⁿᵃᵐᵉ;
   © 𝐒 = add_check_tok(𝐭).scenes;
   ¿(¬override ∧ name∈𝐒) ↪✗
   𝐒ₙₐₘₑ = 𝐬;
-  updateDB();
+  update𝘋𝘉();
   ↪𝐬; }
 
 load_devices = 󱟱⥌𝔱↦{
@@ -46,5 +46,5 @@ load_devices = 󱟱⥌𝔱↦{
   ¿(¬r ∨ ¬r₀ ∨ rˢᵗᵃᵗᵘˢ≠200) ↪𝖡(𝐃o);
   © 𝐃 = r₁;
   𝐋ᵈᵉᵛˢ = {⠤𝐃};
-  updateDB();
+  update𝘋𝘉();
   ↪𝖦(𝐃); }

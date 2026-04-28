@@ -7,7 +7,7 @@
                  ↪Ѧ􊽺(); };
   ↪󱀝: ⟦ədialog⟧ { ⟦✓⟧⍮󰅙 ⟦✓⟧} [
      ⟦ətitledBox(Ѧ􊯛􋒶,
-                 󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} ⟦[
+                 󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚠 󷷈;𝚏↓⦆} ⟦[
                    ⠤𝙴,
                    󱀝 {⦅𝚑 1em⦆},
                    textButton(‹Submit›,submitƒ)]⟧,
@@ -18,7 +18,7 @@
   Ѧ􋆔??=[];
   
   © prompt_token = ⥌ƒ↦{ ⎉ tok = textField({:✓, :󰲡(x=[⠤x]􋌵,x≥6∧x≤64)}, {𝑃𝐻:‹Token›});
-                        ↪əpromptGeneral({ƒ:𝚲ƒ(tok􀴗 ᵛ), :𝚲tok􀴗 ᵛᵃˡⁱᵈ, ␛󰊄:‹Enter token to add›},tok); }
+                        ↪əpromptGeneral({ƒ:𝚲ƒ(tok􀴗 ᵛ), :𝚲tok􀴗 ᵘᵖᵈᵃᵗᵉ(), ␛󰊄:‹Enter token to add›},tok); }
   © censor = 󰲡x.replace(⦋/(?<=.).(?=.)/g⦌,␛⋅);
   ©  = əitemGridEditable(
           ⥌  gen↦prompt_token(󰲡(add_check_tok(x),gen(x))),
@@ -56,26 +56,45 @@
           ⟦𝚋1st(‹Direction›,‹⟦[‹For›,‹Back›]₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧wards›)⟧];
   ↪ };
 © ədevTile = ⥌Ѧ,[𝐮,𝐝],rem↦{
+  ⎉ tile = ədevDisplay(𝐮,𝐝);
   © set = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
   © [𝐭,𝐧,𝔡] = [Ѧ􋈹 􋆮,𝐝ᴺᴬᴹᴱ??𝐮,Ѧ􋈹.dev(𝐮)];
    󰤱 actually handle errors!
    󰤱 if the device if offline disable the token changing option!
   © ƒ = 𝚲{
-    © ƒ = 󱟱 ⥌𝚗,𝚝↦{ set(✗);
-                   © v = [𝚗,𝚝];
-                   © 󰬊 = {};
-                   ¿(v₀≠𝐧) 󰬊ᴺᴬᴹᴱ  = v₀;
-                   ¿(v₁≠𝐭) 󰬊ᵀᴼᴷᴱᴺ = v₁;
-                   ¿(¬𝒪𝑏(󰬊)) ↪set(✓);
-                   󱫬 𝔡.config(󰬊);
-                   󱫬 load_devices(Ѧ􋈹);
-                   ¿(󰬊ᵀᴼᴷᴱᴺ≇󱣩) ↪rem();  󰤱 ???
-                   Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
-                   set(✓); };
+    © ƒ = 󱟱 ⥌𝚗,𝚝,𝚠
+            ↦{ set(✗);
+               © 󰬊 = {};
+               ¿(𝐧≠𝚗) 󰬊ᴺᴬᴹᴱ    = 𝚗;
+               ¿(𝐭≠𝚝) 󰬊ᵀᴼᴷᴱᴺ   = 𝚝;
+               ¿( ¬𝚠) 󰬊ᴬᴾ􋕟ᴹᴼᴰᴱ = ✓;
+               ¿(¬𝒪𝑏(󰬊)) ↪set(✓);
+               󱫬 𝔡.config(󰬊);
+               󱫬 load_devices(Ѧ􋈹);
+               ¿(𝐭≠𝚝) ↪rem();
+               © devL = get_devs(Ѧ􋈹)􊳭;
+               ¿(𝐧≠𝚗) { devLᴺᴬᴹᴱ   = 𝐝ᴺᴬᴹᴱ   = 𝚗; }
+               ¿( ¬𝚠) { devLᵒⁿˡⁱⁿᵉ = 𝐝ᵒⁿˡⁱⁿᵉ = ✗; }
+               update𝘋𝘉();
+               devTile.replaceChildren(⠤ədevDisplay(𝐮,𝐝)􋑱);  󰤱 this is jank
+                Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
+               set(✓); };
     © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
-    © tok  = ədropdown(get_toks(),{Ⴝ:𝐭});
-    əpromptGeneral({ƒ:𝚲ƒ(name􀴗 ᵛ,tok􀴗 􎁎), :𝚲name􀴗 ᵛᵃˡⁱᵈ, ␛󰊄:‹Edit device info›},
-                   󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Name›, name, 󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Token›, tok); };
+    ©  tok = ədropdown(get_toks(),{Ⴝ:𝐭});
+    tok􋛟.marginBottom = ‹30px›;
+    © netButton = ⦅«𝚠 𝚑» 1em;󰊄𝚜 2em;𝚋 2px solid ⦑fg2⦒;𝚋𝚛 0.1em⦆;
+    ©   netText = ⦅𝚠 2em;𝚖← 0.7em;𝚖→ 0.3em;󰊄𝚊󷷣⦆;
+    © net = toggleButton(
+               󰻾,
+               󱀝 {⦅𝚏→;𝚊𝚂󷷣⦆} [󱀝 button {𝑆 ⟦netButton⟧} ‹󰖪› 󱀝 T {𝑆 ⟦netText⟧} ‹AP󷺗󷺗›],
+               󱀝 {⦅𝚏→;𝚊𝚂󷷣⦆} [󱀝 button {𝑆 ⟦netButton⟧} ‹󰖩› 󱀝 T {𝑆 ⟦netText⟧} ‹WiFi›],
+               ✓)􋑵;
+    əpromptGeneral({ƒ:𝚲ƒ(name􀴗 ᵛ,tok􀴗 􎁎,net􀴗 󰀒),
+                    :𝚲name􀴗 ᵛᵃˡⁱᵈ,
+                    ␛󰊄:‹Edit device info›},
+                   󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Name󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›, name,
+                   󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Token󷺗󷺗󷺗󷺗󷺗󷺗󷺗›,  tok,
+                   󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Connectivity›,  net); };
   © ƒ = 󱟱𝚲{ set(✗);
              󱫬 𝔡.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
              Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
@@ -88,7 +107,7 @@
       əbuttonBar([␛,ƒ],
                  [␛,ƒ])]  󰤱 [␛,󰻾],[␛,󰻾]
   B₁􈛘(‹dropped›);
-  ↪[ədevDisplay(𝐮,𝐝),⠤B]; };
+  ↪[tile,⠤B]; };
 © ədevListing = ⥌Ѧ={}↦{
   Ѧ = { 𝔱:󱣩, ƒ:󰻾, ⠤Ѧ };
   ©  = əitemGridEditable(󱣩,
@@ -115,8 +134,6 @@
   􋆯 = 𝐮;
   ↪dragItem(); };
 © prompt_scene = ⥌Ѧ,cb,𝐬={name:ᐦ,𝐔:[],󰠲:{}}↦{
-  © name = textField({},{𝑃𝐻:‹Scene Name›,value:𝐬ⁿᵃᵐᵉ});
-  
   © devsL = dragHold(󱀝 div {𝐶 devDraggableHolder} ‹›);
   © devsR = dragHold(󱀝 div {𝐶 devDraggableHolder} ‹›);
   
@@ -130,16 +147,15 @@
                 © L = 𝐔􊾡(󰲡𝐃ₓᴸᴱᴰ󰀂);
                 © 󰠲 = 𝒪𝑏(𝐬􈛈) ∨ 󰠲Utilᵈᵉᶠᴹ(L);
                 cb({⠤𝐬,𝐔,󰠲,name:name􀲫.value}); };
+  
+  © name = textField({:󰲡x.trim()􋌵},{𝑃𝐻:‹Scene Name›,value:𝐬ⁿᵃᵐᵉ});
   ⎉ ;
-  󱀝: ⟦ədialog⟧ { ⟦✓⟧⍮󰅙 ⟦✓⟧} [
-    ⟦ətitledBox(‹Scene details›,
-                󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚏↓⦆} [
-                  ⟦name⟧
-                  󱀝 span ⦅𝚏→;𝚠󷷈;𝚑 325px;𝚖↓ 10px⦆ [
-                    󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Unused›,devsL]⟧
-                    󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Used›  ,devsR]⟧]
-                  ⟦textButton(‹Submit›,𝚲{ᶜˡᵒˢᵉ();submit()})⟧],
-                {outline:✗})⟧ ]; };
+  əpromptGeneral({ƒ:𝚲submit(), :𝚲name􀴗 ᵘᵖᵈᵃᵗᵉ(), ␛󰊄:‹Scene details›},
+                 name,
+                 󱀝 span ⦅𝚏→;𝚠;𝚑 325px;𝚖↓ 10px⦆ [
+                   󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Unused›,devsL]⟧
+                   󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Used›  ,devsR]⟧ ] ); };
+
 ⎉ əsceneListing = ⥌Ѧ={}↦{
   Ѧ = {ƒ:󰻾,⠤Ѧ}
   ©  = əitemGridEditable(

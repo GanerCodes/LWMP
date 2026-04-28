@@ -147,7 +147,9 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
             c = lightwave_hsv_to_rgb(mod(s.r0 + 5.0*fmulmodpartial(s.rΔ,t,0xFF), 0xFF), atom.R.s, atom.R.v);
             break; }
           f32 f = atom.R.segs*255.0/AΣS;
-          c = lightwave_hsv_to_rgb(f*(o+(reverse ?n-N+1: N-n+1.0)), atom.R.s, atom.R.v);
+          // c = lightwave_hsv_to_rgb(f*(o+(reverse ?n-N+1: N-n+1.0)), atom.R.s, atom.R.v);
+          c = lightwave_hsv_to_rgb(f*(o+(REVERSE^reverse ?n-N+1.0: N-n+1.0)), atom.R.s, atom.R.v);
+          // 󰤱          why does xor fix jitter ↑
         } break;
         case 2: {
           c = *(RGB*)(fades + atom.F.idx);

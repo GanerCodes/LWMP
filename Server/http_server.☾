@@ -53,12 +53,15 @@
       ¿𝘙ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
       ¿𝘙􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
         ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in a * request!›𝖡
-        ‹TOKEN›􀉧C₀ ₁ 􀛾 C₀ ₁ 􋕨󰂦󰂡󰂝󰂗󰂠􋕨 ŧ_TOKEN 􀉟 𝐭:
+        c = C₀ ₁
+         󰤱 the below solution is janky, it's always possible to desync
+             the device token from the server's token, so moving it
+             premptively like this isn't great. Something more advanced
+             needs to be added but I don't have time right now.
+        ‹TOKEN󷺗󷺗›􀉧c 􀛾 c􋕨󰂦󰂡󰂝󰂗󰂠􋕨ŧ_TOKEN􀉟𝐭:
           ¿󰬏􀉭ws_clients: ↪‹Cannot change token of an offline device!›𝖡
-           󰤱 this solution is janky, it's always possible to desync
-               the device token from the server's token, so moving it
-               premptively like this isn't great. Something more advanced
-               needs to be added but I don't have time right now.
+        ‹AP_MODE›􀉧c 􀛾 c􋕨󰂓󰂢􋕞󰂟󰂡󰂖󰂗􋕨:
+          ¿󰬏􀉭ws_clients: ↪‹Cannot change connectivity of an offline device!›𝖡
         ∀𝐡⬠󰬏: 𝖽mod(𝐡,C₀ ₁,✓)
         show_dbs􀃅  󰤱
     ⊢send_devs(𝐡):

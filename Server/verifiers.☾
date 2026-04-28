@@ -8,12 +8,14 @@ lineable = Ғ(󰲡x􀝀􋁜ᔐ)􀊩Ɱ(󷺹􀌎􀉼𝗻􀋢)  no newlines and
 ŧ_LEDC      = Ғ(󷺹􀊜􋁜𝑖 􁀙 1≤⟞≤10⁵)
 ŧ_RGB_ORDER = Ғ(􁀦 "RGB"􀊵³􀉳􀂐􀉻󷺹􀋵􀊹􀉞3)
 ŧ_REVERSE   = Ɱ(𝑏)
+ŧ_AP_MODE   = Ɱ(𝑏)
 ŧ_RECALB_T  = Ғ(󷺹􀊜􋁜𝑖 􁀙 0􀜊⟞􀜇24􀋈60²)
 ŧ_DEV       = { NAME     =ⴲ(ŧ_NAME     ),
                 RECALB_T =ⴲ(ŧ_RECALB_T ),
                 LEDC     =ⴲ(ŧ_LEDC     ),
                 RGB_ORDER=ⴲ(ŧ_RGB_ORDER),
-                REVERSE  =ⴲ(ŧ_REVERSE  ) }Ѵ
+                REVERSE  =ⴲ(ŧ_REVERSE  ),
+                AP_MODE  =ⴲ(ŧ_AP_MODE  ) }Ѵ
 ŧ_DEV_OPT,ŧ_DEV_REQ = { VER  =ŧ_VER  ,
                         TOKEN=ŧ_TOKEN,
                         UUID =ŧ_UUID  }ᑀ􀜘􁎀ⴲ􀊊􀁞􁁰⟞ᐵѴ􀊤ŧ_DEV

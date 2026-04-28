@@ -1,12 +1,13 @@
 © setBar = ⥌𝚜↦[‹Devices›,‹Scenes›,‹Schedule›]􋁃(󰲡nav􀴗 􀳕ₓ􀲝 􋒗=¬𝚜);
-© setTok = 󱟱⥌𝐭↦{ © 𝔱 = 𝐀(𝐭);
+© setTok = 󱟱⥌𝐭↦{ ¿(¬𝐭) ↪;
+                 © 𝔱 = 𝐀(𝐭);
                  𝔏𝔖􋀫(‹selTok›,𝔱􋆮);
                  © devs = 󱫬 devListing􀴗.populate(𝔱);
                  sceneListing􀴗.populate(𝔱);
                  setBar(✓);
-                 nav.set(𝒪𝑏(devs,‹Devices›,‹Scenes›)); }
-© delTok = ⥌𝐭↦{ ¿(𝔏𝔖􋀭(‹selTok›)≡𝐭) 𝔏𝔖􋀫(‹selTok›,󱣩);
-                setBar(✗); }
+                 nav.set(𝒪𝑏(devs,‹Devices›,‹Scenes›)); };
+© delTok = ⥌𝐭↦{ ¿(𝔏𝔖􋀭(‹selTok›)≡𝐭) 󰆴 𝔏𝔖􋕨ₛₑₗ󰂦󰂼ₖ􋕨;
+                setBar(✗); };
 
 ©  tokenListing = ətokenListing({ƒ:setTok, delƒ:delTok    });
 ©    devListing = ədevListing  ({                         });
