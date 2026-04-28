@@ -41,6 +41,9 @@ prompt_editor = ⥌cb,𝔱,𝐬↦{
         Ѧ􋑵, { ␛*:✓,
               canAdd:⥌,Ѧ↦{ © I = ⭥(⠤getR(,⠤Ѧ􀳗 􋐉(󰲡x􈞧(‹multidetect›))));
                             Ѧ􀳗 􋐉(󰲡I􋁋(xⁱᵈˣ))􊾡(󰲡x􈛘(‹multidetect›));
+                            ↪✓; },
+              canRem:⥌,Ѧ↦{ © [l,h] = getR(⠤Ѧ􀳗 􋐉(󰲡x􈞧(‹multidetect›)));
+                            ¿(¬[l,h-1]􋁋(ⁱᵈˣ)) Ѧ􀳗 􋐉(󰲡x􈛑(‹multidetect›));
                             ↪✓; } }); }
     ¡ clickDetect(css, ⥌s↦{
         ¿(¬s) ↪Ѧ􋑵 􈛑(‹𝘌toolmode›);
