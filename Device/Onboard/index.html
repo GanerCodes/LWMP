@@ -61,16 +61,14 @@
      <button id="setup_submit" class="item">Submit</button>
     </span>
   </dialog>
-  
   <span id="confBar">
     <button id="setup_wifi">Setup WiFi</button>
   </span>
   <div id="modes"></div>
   
   <script defer>
-    window.𝔚 = window;
-    𝔚.𝔇 = document;
-    𝔚.api = (m,j) => fetch(m, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(j)});
+    𝔇 = document;
+    api = (m,j) => fetch(m, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(j)});
     
     setup_wifi  .onclick = _=>lw_setup.showModal();
     setup_submit.onclick = _=>{
