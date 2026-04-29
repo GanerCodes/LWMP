@@ -140,14 +140,14 @@ API:
             ["Change_dev"   , 𝐷[...*∪{...DEV}]   ],
             ["Set_scene"    , ...SCENE_ACTIVATION],
             ["Off"                               ],
-            #   Outputs a max buffer size (≥ LEDC) number of black pixels
+              # Outputs a max buffer size (≥ LEDC) number of black pixels
             ["Del_scene"    , NAME               ],
             ["Push_scenes"  , 𝐷[...*⟨NAME↦SCENE⟩]],
             ["Pull_scenes"                       ],
-            #   Returns *𝐷[...*⟨NAME↦SCENE⟩]
+              # Returns *𝐷[...*⟨NAME↦SCENE⟩]
             ["Set_schedule" , SCHEDULE           ],
             ["Pull_schedule"                     ]
-            #   Returns *SCHEDULE
+              # Returns *SCHEDULE
           }
         ⟩
       ]
