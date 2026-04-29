@@ -51,8 +51,11 @@ def handle_API(𝐦,*𝔸):
     # if K & {"DELETE","UUID"}: D["UUID"],D["NAME"] = gen_id(),""
     
     Δ = { k:v for k,v in D.items() if k in ℭ }
-    print(f"[API] Changing settings with", Δ)
+    log(f"[API] Changing settings with", Δ)
     ℭ(Δ)
+    if "LOG_LEVEL" in Δ:
+      Logger.set(Δ["LOG_LEVEL"])
+    
     del Δ
     
     if K & RLED: 𝔏.configure()
@@ -95,11 +98,11 @@ def lw_websocket_loop():
   free()
   while 1:
     if (w:=ꭐ()) is None:
-      print('✗',end='')
+      log0('✗',end='')
       lw_check_periodics()
       continue
     else:
-      print('✓',end='')
+      log0('✓',end='')
     i,cmd = w
     cmd = 𝔍l(cmd)
     free()

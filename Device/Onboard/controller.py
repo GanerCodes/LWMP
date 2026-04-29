@@ -40,7 +40,7 @@ def set_𝕒(hw,mode,arg_fmt=len(𝕒_static)//4*'i'):
   return pin,timing,ledv,targΔ
 
 class Controller:
-  __repr__ = lambda 𝕊: f"Controller⟨{𝕊.dmode} recalb_t={𝕊.recalb_t} lstate={𝕊.lstate}⟩"
+  __repr__ = lambda 𝕊: f"Controller{{{𝕊.dmode} recalb_t={𝕊.recalb_t} lstate={𝕊.lstate}}}"
   def __init__(𝕊,ℭ,𝔐):
     𝕊.ℭ,𝕊.scenes = ℭ,Scene_Cacher(𝔐)
     𝕊.𝔖,𝕊.𝔔 = [],[]
@@ -136,7 +136,7 @@ class Controller:
       cache.add(A)
       d = min(_MS_PER_W if d in (None,-1,0) else d,
               ((1000*(𝔊[(i+1)%len(𝔊)][0] - Δ)) - 1)%_MS_PER_W + 1)
-      log(f'[Controller] Scheduled: "{s}" @ ⟨{fmt_date(1000*A)}⟩ (W=⟨{fmt_date(1000*W)}⟩) for ⟨{fmt_dur(1000*d)}⟩')
+      log(f'[Controller] Scheduled: "{s}" @ {fmt_date(1000*A)} (W={fmt_date(1000*W)}) for {fmt_dur(1000*d)}')
       h_add(𝔛,Activation(A,A,𝕊.scenes[s],d))
     return True
   
@@ -164,7 +164,7 @@ class Controller:
         h_pop(𝚇)
         if M>=ν.Ta+ν.d: continue
         𝕊.set(ν,M,m)
-        log(f"[Controller] Setting from {"𝔖𝔔"[i]} at ⟨{fmt_date(1000*M)}⟩: ({fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s)")
+        log(f"[Controller] Setting from {"𝔖𝔔"[i]} at {fmt_date(1000*M)}: ({fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s)")
         return 2
     if 𝕊.mode is None or M>=𝕊.mode.Ta+𝕊.mode.d:
       if ν := 𝕊.load_def_scene():
@@ -178,7 +178,7 @@ class Controller:
     pΔ = 𝕊.Δ
     while m+𝕊.Δ > _MS_PER_6H: 𝕊.Δ -= _MS_PER_6H # 𝕊.Δ = -m would prob be fine but eeeh
     𝕊.update_recalb_day(M)
-    log(f"[Controller] ⟨{fmt_date(1000*M)}⟩ Recalibrated Δ {pΔ}→{𝕊.Δ} to avoid rounding issues.")
+    log(f"[Controller] {fmt_date(1000*M)} Recalibrated Δ {pΔ}→{𝕊.Δ} to avoid rounding issues.")
     return 1 if pΔ!=𝕊.Δ else 0
   
   def get_wait_mode(𝕊):
@@ -224,9 +224,9 @@ class Controller:
             cur_s = M//1000 - day_start(1000*M)//10**6
             FPS = (n-log_n)/(δ_log or 10**-5)*1000
             log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {fs_perc()} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"
-                f"  {fmt_date()} (Ntp=⟨{fmt_date(last_ntp[1] or 0)}⟩ @ ⟨{fmt_dur(last_ntp[0] or 0)}⟩)\n"
-                f"  Sec=⟨{fmt_dur(10**6*cur_s)}⟩ recalb_t=⟨{fmt_dur(10**6*𝕊.recalb_t)}⟩ recalb_t_day=⟨{fmt_date(1000*𝕊.recalb_t_day)}⟩\n"
-                f"  Ta=⟨{fmt_date(1000*𝕊.mode.Ta)}⟩ Ts=⟨{fmt_date(1000*𝕊.mode.Ts)}⟩ d=⟨{fmt_dur(1000*𝕊.mode.d)}⟩")
+                f"  {fmt_date()} (Ntp={fmt_date(last_ntp[1] or 0)} @ {fmt_dur(last_ntp[0] or 0)})\n"
+                f"  Sec={fmt_dur(10**6*cur_s)} recalb_t={fmt_dur(10**6*𝕊.recalb_t)} recalb_t_day={fmt_date(1000*𝕊.recalb_t_day)}\n"
+                f"  Ta={fmt_date(1000*𝕊.mode.Ta)} Ts={fmt_date(1000*𝕊.mode.Ts)} d={fmt_dur(1000*𝕊.mode.d)}")
             log_n,log_ts = n,free_ts
           if targΔ != 𝕊.Δ:
             targΔ,prevΔ,tsΔ = 𝕊.Δ,Δ,free_ts

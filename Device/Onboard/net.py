@@ -49,7 +49,7 @@ def wifi_connect(router_ssid,router_pass,retries=30):
   log("[WiFi] Connected.")
   return lambda: net.active(False)
 
-def AP_basic(get=print,post=print,loop=True,ssid="AP",password=""):
+def AP_basic(get=log,post=log,loop=True,ssid="AP",password=""):
   def recv_until(G,x=b"\r\n\r\n",buf=b""):
     while c := G(512):
       buf += c
@@ -68,7 +68,7 @@ def AP_basic(get=print,post=print,loop=True,ssid="AP",password=""):
       header,_,body = recv_until(conn.recv).partition(b"\r\n\r\n")
       method,*header = header.decode().split("\r\n")
       method,path,_ = method.split(' ',2)
-      log(f'[AP] ⟨{join(addr)}⟩ {method} {path}')
+      log(f'[AP] [{join(addr)}] {method} {path}')
       headers = {}
       for h in header:
         k,v = h.split(':',1)
@@ -118,12 +118,12 @@ def AP_basic(get=print,post=print,loop=True,ssid="AP",password=""):
     return handle,s,lambda:(s.close(),net.active(False))
   while 1: handle()
 
-def DNS_trap(log=print,loop=True):
+def DNS_trap(loop=True):
   s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
   s.bind(("",53))
   def handle(): # this is half AI lol
     dat,addr = s.recvfrom(512)
-    print(f'[DNS] ⟨{join(addr)}⟩ Got DNS query')
+    log(f'[DNS] [{join(addr)}] Got DNS query')
     if len(dat)<12: return
     i = 12
     while dat[i]: i += dat[i]+1
@@ -170,7 +170,7 @@ def ssl_cond(s,uri,sec=("https","wss")):
   del uri,sec
   # micropython.mem_info(0)
   free()
-  # import time; print(time.localtime()); del time
+  # import time; log(time.localtime()); del time
   log(f"[SSL] >> Mem: {mem_perc()}")
   ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
   ctx.check_hostname = True

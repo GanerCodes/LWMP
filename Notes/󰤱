@@ -17,9 +17,9 @@ DONE
   • Made grouping option work better, automatically selects all intermediate elements. You can remove from the top or bottom or click within it to reset the selection.
   • Submit/cancel buttons in element picker mode are in a consistant place now.
   • Added changing between AP/WiFi modes.
+  • Added LOG_LEVEL setting to reduce stdout for performance
 TODO
   • LW-Controller
-    • Simple toggle for non-error stdout for performance
     • Performance
       • Redo how scene data is calulated because it can prob crash the device for too complex scenes
       • RAM usage is kinda cooked and SSL is often to blame

@@ -1,7 +1,7 @@
 import machine,random,time,sys,os
-from struct  import pack,unpack
-from json    import loads as 𝔍l,dumps as 𝔍d
-from gc      import mem_alloc,mem_free,collect as free
+from struct import pack,unpack
+from json   import loads as 𝔍l,dumps as 𝔍d
+from gc     import mem_alloc,mem_free,collect as free
 
 def frees(t=0,f=free,s=time.sleep): f();s(t)
 
@@ -14,15 +14,22 @@ def path_exists(p,_=os.stat):
 
 ls,rm,mv = os.listdir,os.remove,os.rename
 (LED_ONBOARD := machine.Pin(2)).init(LED_ONBOARD.OUT)
-onboard_led     = lambda s=1,_=LED_ONBOARD:_.value(s)
-𝔍lf             = lambda f  : 𝔍l(read_file(f))
-𝔍wf             = lambda f,x: write_file(f,𝔍d(x))
-join            = lambda x,s=' ': s.join(map(str,x))
-gen_id          = lambda _=random.getrandbits: _(32).to_bytes(4)+_(32).to_bytes(4)
+onboard_led = lambda s=1,_=LED_ONBOARD:_.value(s)
+𝔍lf         = lambda f  : 𝔍l(read_file(f))
+𝔍wf         = lambda f,x: write_file(f,𝔍d(x))
+join        = lambda x,s=' ': s.join(map(str,x))
+gen_id      = lambda _=random.getrandbits: _(32).to_bytes(4)+_(32).to_bytes(4)
 
-log = print
-# log = lambda *𝔸,_=print,**𝕂: _(*𝔸,**𝕂) and (𝔸[0] if 𝔸 else None)
-def dbg(*𝔸,_=print,pe=sys.print_exception,**𝕂):
+class Logger:
+  l = 0
+  def set(l):
+    l = min(max(0,int(l)),255)
+    print(f"[Logger] Setting loglevel to {l}")
+    Logger.l = l
+  def get(f,l):
+    return lambda *𝔸,**𝕂: f(*𝔸,**𝕂) if l>=Logger.l else 0
+
+def show_dbg(*𝔸,_=print,pe=sys.print_exception,**𝕂):
   v = _(*𝔸,**𝕂)
   for ε in 𝔸:
     if not isinstance(ε,BaseException): continue
@@ -30,6 +37,9 @@ def dbg(*𝔸,_=print,pe=sys.print_exception,**𝕂):
     pe(ε)
     _("<<<<<<<")
   return v
+log0 = Logger.get(print   ,0)
+log  = Logger.get(print   ,1)
+dbg  = Logger.get(show_dbg,2)
 
 def mem_info(a=mem_alloc,u=mem_free):
   return a(),u()

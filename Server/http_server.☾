@@ -41,7 +41,7 @@
         ¿𝐁􀊹􀜃methods􊳥􀯑p: ↪‹⟦𝐦⟧ expected ⟦p⟧ (≠⟦𝐁􀊹⟧) parameters!›𝖡
         ¿𝐦􀉞‹Set_scene󷺗›: 𝐁 = [⠤𝐁,𝑖(time􀃅􀝍𝐁₁􀯗⁰3 􁂇 1000)]
         ⸘𝐦􀉞‹Change_dev›: ¿𝐁₀􀊞𝑑: ↪‹Config is not a dict!›𝖡
-                           𝐁 = [𝐁₀ ℵ 􀝊 conf_p 􇀥 ŧ_DEV_OPT 􇀥 ℵ]
+                           𝐁 = [𝐁₀ ℵ 􇀥 ŧ_DEV_OPT 􇀥 ℵ]
                          ¡: ↪‹Invalid config!›𝖡
         ↪[𝐦,⠤𝐁]
       

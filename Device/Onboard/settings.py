@@ -40,7 +40,7 @@ class Settings:
     return 𝕊
   __getitem__ = __getattr__
   __setitem__ = __setattr__
-  __repr__ = lambda 𝕊: "⟨%s⟩"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
+  __repr__ = lambda 𝕊: "{%s}"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
 
 boolstr = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
 def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + doesn't break
@@ -64,7 +64,10 @@ def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + do
              RGB_ORDER  =("RGB"                                     ,       ),
              DEF_SCENE  =("_default"                                ,       ),
              VER        =("1"                                       ,       ),
-             RECALB_T   =(0                                         ,int    ))
+             RECALB_T   =(0                                         ,int    ),
+             LOG_LEVEL  =(3                                         ,int    ))
+
+Logger.set(ℭ.LOG_LEVEL)
 
 def wifi_from_ℭ(ℭ):
   if not     all(  ℭ("token","r_ssid","r_pass")) : raise Exception(f"WiFi credentials not found.")

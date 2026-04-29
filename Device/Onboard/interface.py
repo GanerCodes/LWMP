@@ -111,8 +111,8 @@ def specify_mode(mode,offsets,ℭ):
   l = (offsets or {}).get(ℭ.UUID,0)
   h = min(l+ℭ.LEDC,abs(Σ))
   if l>=h:
-    # print("[Interface] Device has no LEDs to display for mode.")
-    print('-',end='')
+    # log("[Interface] Device has no LEDs to display for mode.")
+    log0('-',end='')
     return None
   return mode,(l,h)
 
