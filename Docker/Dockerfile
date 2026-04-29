@@ -44,6 +44,12 @@ RUN : && git clone --recursive --depth=1 https://github.com/GanerCodes/LWMP.git 
       && ./build.sh
 # the pip install ar part? im going insane
 
+RUN --mount=type=bind,source=.,target=/context \
+    if [ -d /context/Preset ]; then \
+        mkdir -p /opt/LWMP/Device/Presets/Config/Docker && \
+        cp -r /context/Preset /opt/LWMP/Device/Presets/Config/Docker; \
+    fi
+
 # Create entrypoint + init dependencies
 RUN : && /bin/echo -en '#!/bin/bash\ncd /opt/LWMP\n./Docker/deps||:\nexec "$@"' > /start.sh \
       && chmod +x /start.sh \

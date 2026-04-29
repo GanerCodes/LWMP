@@ -1,5 +1,6 @@
-/Device/Presets/Config/Preconnect/R_SSID
-/Device/Presets/Config/Preconnect/R_PASS
+/Device/Presets/Config/*/R_SSID
+/Device/Presets/Config/*/R_PASS
+/Device/ROM/Out/onboard/*
 /Server/Data/
 /Server/website_compiled/
 .vscode

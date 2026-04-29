@@ -45,6 +45,7 @@ BUILD_ROM=$([[ $2 == 'y' ]] && echo -n y || echo -n)
 CLEAN_ROM=$([[ $3 == 'y' ]] && echo -n y || echo -n)
 DEV_UUIDS=$([[ $4 == 'y' ]] && echo -n y || echo -n)
 PRESET=${5:-"Normal"}
+# echo [${FLASH_ROM}] [${BUILD_ROM}] [${CLEAN_ROM}] [${DEV_UUIDS}] [${PRESET}]
 
 killall mpremote && sleep 0.05 || :
 rm /tmp/flash_flag     || :
@@ -52,7 +53,7 @@ rm /tmp/flash_bad_flag || :
 
 for i in "${!DEVS[@]}"; do
   dev="${DEVS[i]}"
-  uuid=$([[ -n "$DEV_UUIDS" ]] && echo -n "testdevice${i}" || echo -n "")
+  uuid=$([[ -n "$DEV_UUIDS" ]] && echo -n "testdevice${i}" || echo -n)
   
   echo "Spawning flasher for \"${dev}\""
   
