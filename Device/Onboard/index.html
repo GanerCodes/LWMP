@@ -86,11 +86,12 @@
       ə.onclick = _ => {api("/mode",{mode:m})};
       modes.append(ə); });
     // setTimeout(_=>populate("_ap _default fade_test synctest thousand"),500);
-    const ℭ = await (await api("/getConfig")).json();
-    SSID.value = ℭ.R_SSID;
-    PASS.value = ℭ.R_PASS;
-    TOKE.value = ℭ.TOKEN ;
-    populate(ℭ.modes);
+    (async _ => {
+      const ℭ = await (await api("/getConfig")).json();
+      SSID.value = ℭ.R_SSID;
+      PASS.value = ℭ.R_PASS;
+      TOKE.value = ℭ.TOKEN ;
+      populate(ℭ.modes); })();
   </script>
 </body>
 </html>
