@@ -11,8 +11,7 @@
     #confBar { margin: 1em;
                margin-bottom:1.7em; }
     ::backdrop { background:#000 ; }
-    dialog     { background:#0000;
-                 border:0; }
+    dialog     { background:#0000; border:0; }
     @keyframes popin { 0%   { transform:scale(0  ); }
                        90%  { transform:scale(1.1); }
                        100% { transform:scale(1  ); } }
@@ -67,18 +66,19 @@
   </span>
   <div id="modes"></div>
   
-  <script type="module">
+  <script defer>
     window.𝔚 = window;
     𝔚.𝔇 = document;
     𝔚.api = (m,j) => fetch(m, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(j)});
     
     setup_wifi  .onclick = _=>lw_setup.showModal();
     setup_submit.onclick = _=>{
-      let C = [𝔚.R_SSID,𝔚.R_PASS,𝔚.TOKEN] = [SSID,PASS,TOKE].map(x=>x.value);
-      let tl = [...TOKEN].length;
-      if(!(C.every(x=>x) && 6<=tl && tl<=64)) return;
-      api("/config", {R_SSID,R_PASS,TOKEN,AP_MODE:false});
-      lw_setup.innerHTML = `<p class="text">Sent login info and restarted controller!<br><br>AP will be recreated in ≈30s if router connection fails.</p>`; };
+      let C,S,P,T;
+      C = [S,P,T] = [SSID,PASS,TOKE].map(x=>x.value);
+      const l = [...T].length;
+      if(!(C.every(x=>x) && 6<=l && l<=64)) return;
+      api("/config",{R_SSID:C[0], R_PASS:C[1], TOKEN:C[2], AP_MODE:0});
+      lw_setup.innerHTML = '<p class="text">Sent login info and restarted controller!<br><br>AP will be recreated in ≈30s if router connection fails.</p>'; };
     setup_cancel.onclick = _=>lw_setup.close();
     
     const populate = x => x.split(' ').forEach(m => {
