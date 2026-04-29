@@ -11,7 +11,7 @@ Network stuff
 Nginx config snippet
   server {
     listen              443 ssl;
-    server_name         brynic_led_test.ganer.xyz;
+    server_name         lwmp.ganer.xyz;
     access_log          /var/log/nginx/LWMP_website_nrm.log;
     error_log           /var/log/nginx/LWMP_website_err.log;
     ssl_certificate     /etc/nginx/keys/cert.pem;
@@ -22,6 +22,7 @@ Nginx config snippet
                           proxy_set_header X-Real-IP $remote_addr; } }
   server {
     listen              2096 ssl;
+    server_name         lwmp.ganer.xyz;
     access_log          /var/log/nginx/LWMP_websock_nrm.log;
     error_log           /var/log/nginx/LWMP_websock_err.log;
     ssl_certificate     /etc/nginx/keys/cert.pem;
