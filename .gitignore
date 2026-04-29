@@ -1,5 +1,6 @@
+/Device/Presets/Config/Preconnect/R_SSID
+/Device/Presets/Config/Preconnect/R_PASS
 /Server/Data/
 /Server/website_compiled/
 .vscode
 *.db
-./venv

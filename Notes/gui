@@ -1,9 +1,0 @@
-> token screen
-        tabs: [scenes] [devices]
-        (both tabs have many squares, big plus button at end to add a scene / device)
-        click on a scene or add a new scene
-            // name this scene (optional) prompt
-            opens submenu, back button towards top left but keep the scenes/devices top bar
-            
-> scene screen:
-    [scene name] (pencil icon)

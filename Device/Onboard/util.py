@@ -1,4 +1,4 @@
-import machine,random,time,sys,os
+import machine,time,sys,os
 from struct import pack,unpack
 from json   import loads as 𝔍l,dumps as 𝔍d
 from gc     import mem_alloc,mem_free,collect as free
@@ -18,7 +18,6 @@ onboard_led = lambda s=1,_=LED_ONBOARD:_.value(s)
 𝔍lf         = lambda f  : 𝔍l(read_file(f))
 𝔍wf         = lambda f,x: write_file(f,𝔍d(x))
 join        = lambda x,s=' ': s.join(map(str,x))
-gen_id      = lambda _=random.getrandbits: _(32).to_bytes(4)+_(32).to_bytes(4)
 
 class Logger:
   l = 0
@@ -62,6 +61,6 @@ def write_file(fn,content,m="w"):
     f.write(c := str(content))
     return c
 
-del machine,random,time,sys,os,LED_ONBOARD,mem_alloc,mem_free
+del machine,time,sys,os,LED_ONBOARD,mem_alloc,mem_free
 
 from ntp import *

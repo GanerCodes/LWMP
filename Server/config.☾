@@ -1,9 +1,9 @@
 ⨡ 󰆼
 
-WEBSOCKET_PORT = 2096
-WEBSITE_PORT   = 4004
-DB_PATH        = __dir__􀋋‹Data›
-SITE_SOURCE    = __dir__􀋋‹Website›
-SITE_COMPILE   = __dir__􀋋‹website_compiled›
-UPDATE_DIR     = __dir__􀋋‹../Update›􀯖.resolve􀃅
-ROM_VERSION    = __dir__􀋋‹../Device/VERSION›􀯖􀌎
+WEBSITE_PORT = 𝔸􀊹􀉤1 􇀦𝔸₁𝑖􇀧 4004
+WEBSOCK_PORT = 𝔸􀊹􀉤2 􇀦𝔸₂𝑖􇀧 4005
+DB_PATH      = __dir__􀋋‹Data›
+SITE_SOURCE  = __dir__􀋋‹Website›
+SITE_COMPILE = __dir__􀋋‹website_compiled›
+UPDATE_DIR   = __dir__􀋋‹../Update›􀯖.resolve􀃅
+ROM_VERSION  = __dir__􀋋‹../Device/VERSION›􀯖􀌎

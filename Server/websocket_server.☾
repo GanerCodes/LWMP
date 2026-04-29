@@ -34,7 +34,8 @@ ws_clients = {}
              ꭐ.close􀃅
         ¡ε=𝑒: ‹Failed to close ⟦ꭐ⟧: ⟦ε⟧›􀊸
 
-⊢websocket_server(𝔴=󰻾): 𝔖 ⛯ websocket_serve(WS_handle,ᐦ,WEBSOCKET_PORT,server_header=□)
-                        𝔖 𝔴􀯖.serve_forever􀃅
+⊢websocket_server(port,𝔴=󰻾):
+  𝔖 ⛯ websocket_serve(WS_handle,ᐦ,port,server_header=□)
+  𝔖 𝔴􀯖.serve_forever􀃅
 
 ⭷ ws_clients,websocket_server

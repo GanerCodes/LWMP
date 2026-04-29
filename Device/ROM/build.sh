@@ -4,7 +4,7 @@
 PARTITIONS="$(pwd)/partitions.csv"
 USERMODS="$(realpath ../Modules_Native)"
 OUT_DIR="$(realpath ./Out)"
-NUM_CORES=15
+NUM_CORES="$(nproc)"
 
 mkdir -p "$OUT_DIR"
 unalias . || :; export PATH="$PATH:$PWD/../esp-idf"; source ../esp-idf/export.sh

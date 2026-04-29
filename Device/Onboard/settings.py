@@ -1,6 +1,15 @@
 from util import *
 from net  import wifi_connect
 
+from random import getrandbits
+def gen_id(n=12,r=getrandbits):
+  R = ""
+  for _ in range(n):
+    while (i:=r(6)) >= 62: pass
+    R += chr(i+48 + 7*((i>9)+(i>35)))
+  return R
+del getrandbits
+
 class Settings:
   def __init__(𝕊,**𝕂):
     super().__setattr__("X",{})
@@ -66,7 +75,6 @@ def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + do
              VER        =("1"                                       ,       ),
              RECALB_T   =(0                                         ,int    ),
              LOG_LEVEL  =(3                                         ,int    ))
-
 Logger.set(ℭ.LOG_LEVEL)
 
 def wifi_from_ℭ(ℭ):

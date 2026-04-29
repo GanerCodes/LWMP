@@ -8,10 +8,10 @@
 transpile􀃅
 
 ws_internal = Mutable􀃅
-‹Starting Websocket server›􀊸
-𝚲websocket_server(𝔴=ws_internal)󰅂 PL_THREAD
-‹Starting HTTP server›􀊸
-𝚲http_server     (             )󰅂 PL_THREAD
+‹Starting website󷺗󷺗 server›􀊸
+𝚲http_server     (WEBSITE_PORT               )󰅂 PL_THREAD
+‹Starting websocket server›􀊸
+𝚲websocket_server(WEBSOCK_PORT, 𝔴=ws_internal)󰅂 PL_THREAD
 
       ∀: ¿sys.stdout.isatty􀃅􀌐:
             2.5 sleep; ↺

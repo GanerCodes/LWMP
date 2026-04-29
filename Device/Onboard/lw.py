@@ -53,9 +53,7 @@ def handle_API(𝐦,*𝔸):
     Δ = { k:v for k,v in D.items() if k in ℭ }
     log(f"[API] Changing settings with", Δ)
     ℭ(Δ)
-    if "LOG_LEVEL" in Δ:
-      Logger.set(Δ["LOG_LEVEL"])
-    
+    if "LOG_LEVEL" in Δ: Logger.set(Δ["LOG_LEVEL"])
     del Δ
     
     if K & RLED: 𝔏.configure()
