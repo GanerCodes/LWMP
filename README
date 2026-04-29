@@ -2,10 +2,13 @@ The brand new iteration of LW.
 
 Docker:
   Install:
-    curl -fsSL "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/man" | bash
+    `curl -fsSL "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/man" | bash`
+    Notes:
+      if $PWD contains a dir called "Preset", it is added as the "Docker" preset
+      if $PWD contains a file called "CERT.pem", it sets the cert to it
   Flash:
-    ./manage y
+    `./manage y`
   Server:
-    ./manage s
+    `./manage s`
 
 (More info will go here at some point as well as fixing various jank)

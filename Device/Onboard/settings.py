@@ -58,8 +58,8 @@ def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + do
   mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
   return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
-ℭ = Settings(WS_URL     =("wss://brynic_led_test.ganer.xyz:2096"    ,       ),
-             UPDATE_URL =("https://brynic_led_test.ganer.xyz/update",       ),
+ℭ = Settings(WS_URL     =("wss://lwmp.ganer.xyz:2096"               ,       ),
+             UPDATE_URL =("https://lwmp.ganer.xyz/update"           ,       ),
              UUID       =(gen_id                                    ,       ),
              AP_MODE    =(False                                     ,boolstr),
              TOKEN      =(                                                  ),
