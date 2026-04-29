@@ -120,7 +120,7 @@ def lw_websocket_loop():
 def lw_AP(setup=False):
   log(f"[LW] Starting AP.")
   def get(path):
-    return 200,"text/html",read_file("index.html.gzip","rb")
+    return 200,"text/html",read_file("index.html.gz","rb")
   def post(path,body):
     try:
       body = 𝔍l(body) if body else ""

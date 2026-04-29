@@ -90,7 +90,7 @@ pushd ./Device
       popd
     pushd ./Onboard
       npx minify index.html > /tmp/index.min.html
-      gzip -9 -c /tmp/index.min.html > "${DEV_FS}/index.html.gzip"
+      gzip -9 -c /tmp/index.min.html > "${DEV_FS}/index.html.gz"
       
       cp main._py "${DEV_FS}/main.py"
       for f in *.py; do
