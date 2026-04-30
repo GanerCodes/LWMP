@@ -19,6 +19,14 @@ ws_internal = Mutable􀃅
                 ‹Clients: ⟦ws_clients⟧›􀊸
                  show_dbs􀃅
                  transpile􀃅
+                  ⊢get_large_𝑜(n=100):
+                    ⦃import gc⦄
+                    ⦃from heapq import nlargest⦄
+                    𝙾 = gc.get_objects()
+                    R = ⍁
+                    ∀o⬠𝙾:  R.append((𝔖ℨ(o),o))
+                    ↪nlargest(n,R,key=󷺹₀)
+                  get_large_𝑜(100)􀉴󰲣‹⟦x􀋆1024²􀋪⁵⟧MiB ⟦y id⟧ ⟦y􀊜⟧ ⟦y ᔐ􀯖﹕₁₀₀⟧›􀊸
           ¡ε=𝑒𝑒: ‹Transpile failed: ⟦ε⟧›􀊸
 ¡ε=𝑒𝑒: ε􀊸
 󰛕      ws_internal􀊚󷺹􀃅.shutdown􀃅

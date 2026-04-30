@@ -6,7 +6,7 @@ def gen_id(n=12,r=getrandbits):
   R = ""
   for _ in range(n):
     while (i:=r(6)) >= 62: pass
-    R += chr(i+48 + 7*((i>9)+(i>35)))
+    R += chr(i+48 + 7*(i>9) + 6*(i>35))
   return R
 del getrandbits
 
