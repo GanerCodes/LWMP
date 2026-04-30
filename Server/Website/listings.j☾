@@ -76,7 +76,7 @@
                ¿(𝐧≠𝚗) { devLᴺᴬᴹᴱ   = 𝐝ᴺᴬᴹᴱ   = 𝚗; }
                ¿( ¬𝚠) { devLᵒⁿˡⁱⁿᵉ = 𝐝ᵒⁿˡⁱⁿᵉ = ✗; }
                update𝘋𝘉();
-               devTile.replaceChildren(⠤ədevDisplay(𝐮,𝐝)􋑱);  󰤱 this is jank
+               tile.replaceChildren(⠤ədevDisplay(𝐮,𝐝)􋑱);  󰤱 this is jank
                 Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
                set(✓); };
     © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
