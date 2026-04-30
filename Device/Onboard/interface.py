@@ -112,7 +112,7 @@ def specify_mode(mode,offsets,ℭ):
   h = min(l+ℭ.LEDC,abs(Σ))
   if l>=h:
     # log("[Interface] Device has no LEDs to display for mode.")
-    log0('-',end='')
+    log0('.',end='')
     return None
   return mode,(l,h)
 

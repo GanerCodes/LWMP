@@ -36,19 +36,19 @@ def handle_API(𝐦,*𝔸):
       rst = max(rst,s)
     return rst,𝚁
   if 𝐦=="Change_dev":
-    WCON = set("WS_URL TOKEN DELETE".split())
+    BOOT = set("VER UPDATE_URL WS_URL".split())
     ICON = set("R_SSID R_PASS AP_MODE".split())
+    WCON = set("WS_URL TOKEN".split())
     RLED = set("RECALB_T LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
-    K = set(D := { k.upper():v for k,v in 𝔸[0].items() })
     
-    if "VER" in D and D["VER"] != ℭ.VER:
-      write_file("UPDATE_FLAG",str(D["VER"]).strip())
-      return _RESET_BOOT,_RESET_BOOT
+    D = { k.upper():v for k,v in 𝔸[0].items() }
+    if "UUID" in D: del D["UUID"] # 󰤱 resetting UUID is disabled for now
+    K = set(D)
     
-    # 󰤱 deleting/resetting UUID is disabled for now
-    if "DELETE" in K: del D["DELETE"]
-    if "UUID"   in K: del D["UUID"  ]
-    # if K & {"DELETE","UUID"}: D["UUID"],D["NAME"] = gen_id(),""
+    if "VER" in D:
+      if D["VER"] != ℭ.VER:
+        write_file("UPDATE_FLAG",str(D["VER"]).strip())
+      del D["VER"]
     
     Δ = { k:v for k,v in D.items() if k in ℭ }
     log(f"[API] Changing settings with", Δ)
@@ -57,6 +57,7 @@ def handle_API(𝐦,*𝔸):
     del Δ
     
     if K & RLED: 𝔏.configure()
+    if K & BOOT: return _RESET_BOOT,_RESET_BOOT
     if K & ICON: return _RESET_WIFI,_RESET_WIFI
     if K & WCON: return _RESET_WS  ,_RESET_WS
     return              _RESET_NO  ,True
@@ -96,11 +97,11 @@ def lw_websocket_loop():
   free()
   while 1:
     if (w:=ꭐ()) is None:
-      log0('✗',end='')
+      log0('-',end='')
       lw_check_periodics()
       continue
     else:
-      log0('✓',end='')
+      log0('+',end='')
     i,cmd = w
     cmd = 𝔍l(cmd)
     free()
@@ -108,11 +109,12 @@ def lw_websocket_loop():
       con,resp = handle_API(*cmd)
     except Exception as ε:
       dbg("[API] Error!",ε)
-      con,resp = _RESET_WS,"ERROR"
+      # con,resp = _RESET_WS,"ERROR"
+      con,resp = _RESET_NO,"ERROR" # 󰤱 why was I resetting on bad request?
     if resp is not None: ꭐ(resp,i=i)
     if con > _RESET_NO:
       try                  : ꭐ.close(reason="Intentional")
-      except Exception as ε: dbg(f'Failed to close WS:',ε)
+      except Exception as ε: dbg(f'[WS] Failed to close WS:',ε)
       if con > _RESET_WS   : return con
       break
     frees()
@@ -180,7 +182,7 @@ def lw_net():
         log("[LW-WS] Resetting WS")
         continue
       else:
-        raise Exception("Websocket loop exited for an unknown reason!")
+        raise Exception(f'Websocket loop exited for an unknown reason ({r})!')
     except OSError   as ε:
       dbg(f'[LW-WS] Connection failed! Resetting net:',ε)
       return

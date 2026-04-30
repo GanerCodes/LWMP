@@ -30,7 +30,6 @@ DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*' | sed 's/tty/\/dev\/tty/'))
     pushd ./Onboard
       stty -F "$DEV" 115200 raw -echo
       for _ in {1..20}; do { printf '\x03'; sleep 0.05; } done > "$DEV"
-      mpremote connect "$DEV" fs rm -r :/defaults/* || :
       mpremote connect "$DEV" fs cp -r ${DEV_FS}/* :/
       [[ -n "$UUID" ]] && {
         tmp=$(mktemp)
@@ -50,6 +49,8 @@ PRESET=${5:-"Normal"}
 killall mpremote && sleep 0.05 || :
 rm /tmp/flash_flag     || :
 rm /tmp/flash_bad_flag || :
+
+SYSTEM="_"
 
 for i in "${!DEVS[@]}"; do
   dev="${DEVS[i]}"
@@ -84,7 +85,8 @@ pushd ./Device
     
     cp "./VERSION" "${DEV_FS}/VER"
     pushd ./Presets
-      cp    ./Config/CERT.pem    "${DEV_FS}/CERT.pem"
+      cp      "./Config/${PRESET}/CERT.pem" "${DEV_FS}/CERT.pem" \
+        || cp "./Config/CERT.pem"           "${DEV_FS}/CERT.pem"
       cp -r ./Config/${PRESET}/* "${DEV_FS}"
       cp -r ./Scenes             "${DEV_FS}/Scenes"
       popd

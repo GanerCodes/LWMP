@@ -8,7 +8,7 @@ Network stuff
   Website  : 443  → 4004
   Websocket: 2096 → 4005
 
-Nginx config snippet
+Example nginx config snippet
   server {
     listen              443 ssl;
     server_name         lwmp.ganer.xyz;
