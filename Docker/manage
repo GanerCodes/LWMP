@@ -1,7 +1,13 @@
 #!/bin/bash -e
 
+setup_dir() { shift
+              DIR=$(realpath -m "${1:-/root/LWMP}")
+              echo "Using install dir \"${DIR}\""
+              mkdir -p "$DIR/Data"; cd "$DIR"
+              shift || :; }
+
 if [ "$1" = "i" ]; then
-  mkdir -p /tmp/lwmp; cd /tmp/lwmp
+  setup_dir "$@"
   echo "Downloading Dockerfile"
   curl -fsSL "https://raw.githubusercontent.com/GanerCodes/LWMP/refs/heads/main/Docker/Dockerfile" -o Dockerfile
   echo "Building Docker image"
@@ -12,17 +18,14 @@ elif [ "$1" = "f" ]; then
   docker run -it --privileged --device=/dev/bus/usb --group-add dialout -v /dev:/dev \
          lwmp /bin/bash -c "./flash.sh $*"
 elif [ "$1" = "s" ]; then
-  shift
-  DIR=$(realpath -m "${1:-/root/LWMP}")
-  shift || :
-  mkdir -p "$DIR/Data"; cd "$DIR"
+  setup_dir "$@"
   echo "Running server in Docker"
   docker run --net=host -v "$DIR/Data:/opt/LWMP/Server/Data" \
          lwmp /bin/bash -c "cd Server && ☾ ./server.☾ $*"
 else
   echo "Usage:"
-  echo "  $0 i                                  # Install Dockerfile"
-  echo "  $0 f [y/n] [y/n] [y/n] [y/n] [Preset] # Flash"
-  echo "  $0 s [dir] [site_port] [ws_port]      # Start server"
+  echo "  $0 i <dir?>                                # Install Dockerfile"
+  echo "  $0 f <y/n?> <y/n?> <y/n?> <y/n?> <Preset?> # Flash"
+  echo "  $0 s <dir?> <site_port?> <ws_port?>        # Start server"
   exit 1
 fi
