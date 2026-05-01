@@ -82,7 +82,11 @@ inv𝐇 = 󷺹is𝐇 􀉓 ‹Not a valid device identifier!› 􀝔 ⟞􀋦¹␛
   𝚗𝐭,𝚗𝐮 = β􇣒􋕨󰂦󰂡󰂝󰂗󰂠􋕨, β􇣒􋕨󰂧󰂧󰂛󰂖􋕨
   𝚘𝐭􀉖𝚗𝐭 􀛾 𝚘𝐮􀉖𝚗𝐮 􁀒 ‹Cannot determine device from parameters!›
   ↪𝖽mod(𝐇(𝚘𝐭􀉖𝚗𝐭,𝚘𝐮􀉖𝚗𝐮), β, force)
-⊢𝖽delete(𝐭,𝐮):
-  
+⊢𝖽delete(𝐭,𝐮):  󰤱 test
+  𝐡 = 𝐇(𝐭,𝐮)
+  ¿𝐭􀉧tok𝘋𝘉 􀛾 𝐮􀉧(tok𝘋𝘉􊳬􀯑𝐓)ᵈᵉᵛˢ: tok𝘋𝘉􊳬 = { ⠤𝐓, devs=𝐓ᵈᵉᵛˢ􀊷􊳭}
+                               ‹T: "⟦𝐭⟧" - "⟦𝐮⟧"›􀊸
+  ¿𝐡􀉧dev𝘋𝘉                   : 󰆴 dev𝘋𝘉􊳠
+                               ‹D: - "⟦𝐡⟧"›􀊸
 
 ⭷ tok𝘋𝘉,dev𝘋𝘉,show_dbs,𝐇,is𝐇,inv𝐇,𝖽mod
