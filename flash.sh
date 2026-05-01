@@ -50,8 +50,6 @@ killall mpremote && sleep 0.05 || :
 rm /tmp/flash_flag     || :
 rm /tmp/flash_bad_flag || :
 
-SYSTEM="_"
-
 for i in "${!DEVS[@]}"; do
   dev="${DEVS[i]}"
   uuid=$([[ -n "$DEV_UUIDS" ]] && echo -n "testdevice${i}" || echo -n)
