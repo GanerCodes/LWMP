@@ -8,7 +8,7 @@
 transpile􀃅
 
 ws_internal = Mutable􀃅
-‹Starting website󷺗󷺗 server›􀊸
+‹Starting website󷺗󷺗 server (ROM version "⟦ROM_VERSION⟧")›􀊸
 𝚲http_server     (WEBSITE_PORT               )󰅂 PL_THREAD
 ‹Starting websocket server›􀊸
 𝚲websocket_server(WEBSOCK_PORT, 𝔴=ws_internal)󰅂 PL_THREAD

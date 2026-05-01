@@ -84,12 +84,13 @@ transpile,gzip = 𝐓ᵗʳᵃⁿˢᵖⁱˡᵉ,𝐓ᵍᶻⁱᵖ
   ‹⟦𝚎ⁱᵖ⟧ ⟦𝚖⟧ ⟦𝚙⟧›􀊸
   𝚙􆿾􀌎␛/
   UQ = urllib.parse.unquote
-  send = ⥌p,H={}↦(p ᵇ, { 𝙲𝚃=p.suffix, Cache-Control=‹public, max-age=0, must-revalidate›, ⠤H }ℵ)
+  ⊢send(p,H={}): ¿p.is_file􀃅􀌐: ↪400
+                 ↪p ᵇ, {𝙲𝚃=p.suffix, Cache-Control=‹public, max-age=0, must-revalidate›, ⠤H}ℵ
   ¿𝚖≡‹GET󷺗›: 𝚙􀯿􀌎􀉖‹bundle.min.html›
              ¿𝚙.startswith(𝓁􀯍‹󷺗󷺗󷺗api/›): ↪POST(𝚙.removeprefix(𝓁) UQ)
              ¿𝚙.startswith(𝓁􀯍‹update/›): ↪send(safej(UPDATE_DIR,𝚙.removeprefix(𝓁)))
              p = safej(SITE_COMPILE,𝚙 UQ)
-             ¿p.exists􀃅􀌐: ↪400
+             ¿p.is_file􀃅􀌐: ↪400
              p,H = gzip(p,𝙷)
              ↪send(p,H)
   ⸘𝚖≡‹POST›: ↪𝙷."content-length" 𝑖 𝚎􋈷 POST

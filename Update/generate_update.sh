@@ -14,5 +14,6 @@ files=("${files[@]##*/}")
 printf "%s" "$(printf "%s\n" "${files[@]}")" | jq -Rs 'split("\n")' > "${VERSION}/index.json"
 
 echo -n "${VERSION}" > ../Device/VERSION
+echo "Created version ${VERSION}!"
 
-}
+exit $?; }

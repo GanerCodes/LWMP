@@ -1,4 +1,5 @@
 ⦃from websockets.sync.server import serve as ⦃websocket_serve⦄⦄
+⨡ text_format
 
 ⨡ Lib/websockets
 ⨡ config ⭸ *
@@ -8,7 +9,10 @@
 
 ws_clients = {}
 ⊢negotiate_controller_props(𝐝,ꭐ):  update newly connected lw w/ current data
-  ¿𝐝􇣒􊬏󰂨󰂗󰂤􊬐􀜃ROM_VERSION: ↪{VER=ROM_VERSION} 𝔠.Change_dev ꭐ
+  ¿𝐝􇣒􊬏󰂨󰂗󰂤􊬐􀯑v􀜃ROM_VERSION:
+    ‹Sending version update command (⟦v⟧ → ⟦ROM_VERSION⟧) to ⟨⟦dotrim(𝐝 ᔐ,32)⟧⟩›􀊸
+    [‹Change_dev›,{VER=ROM_VERSION}] ꭐ
+    ↪✗
   ‹TOKEN UUID›􀌌􀉫𝐝⁻ 􁀒 ‹Device is missing required connection fields!›
   𝐝𝚗 = 𝖽mod(𝐝,force=✗)
   c = ‹NAME RECALB_T LEDC REVERSE RGB_ORDER›􀌌ᐖ𝐝􀉨⟞􀉧𝐝𝚗 􀛾 𝐝􍪴􀉟𝐝𝚗􍪴 􇂖􍭓 ⟞􀊱𝐝𝚗􍪴ᐸ 𝑑
@@ -20,19 +24,25 @@ ws_clients = {}
   init_msg = ꭐ.listener􀃅
   ꭐ􀃅
   
+  ⊢dc(close=✓): 󰆴 ws_clients􊳠
+                ¿close􀌐: ↪
+                     ꭐ.close􀃅
+                ¡ε=𝑒: ‹Failed to close ⟦ꭐ⟧: ⟦ε⟧›􀊸
+  
   𝐝 = init_msg􀃅 􀯖 𝔍󰄟 􀯖 ŧ_DEV_REQ 􀯖 ℵ
   𝐡 = 𝐇(𝐝ᵀᴼᴷᴱᴺ,𝐝ᵁᵁᴵᴰ)
        ¿𝐡􀉧ws_clients: ‹WHY IS "⟦𝐡⟧" IN THE CLIENT LIST!›􀊸
         ws_clients􊳠 = ꭐ
+        ¿negotiate_controller_props(𝐝,ꭐ)􀌐:
+          ‹Rejecting LW due to outdated version›􀊸
+          ↪dc􀃅
         ‹Established LW connection: ⟦𝐝⟧›􀊸
-        negotiate_controller_props(𝐝,ꭐ)
         ∀: ‹"⟦𝐡⟧" - ⟦ꭐ􀃅ᐒ‹⟦⟞₀􀉳􀁭¹⁶􀋢⟧: ⟦⟞₁⟧›⟧›􀊸
   ¡ε=𝑒: ‹Disconnecting ⟦𝐡⟧: ε=⟦ε⟧›􀊸
         󰆴 ws_clients􊳠
         ⦃import traceback⦄
         traceback.print_exception(ε)
-             ꭐ.close􀃅
-        ¡ε=𝑒: ‹Failed to close ⟦ꭐ⟧: ⟦ε⟧›􀊸
+        ↪dc􀃅
 
 ⊢websocket_server(port,𝔴=󰻾):
   𝔖 ⛯ websocket_serve(WS_handle,ᐦ,port,server_header=□)
