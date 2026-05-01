@@ -5,7 +5,7 @@ shopt -s nullglob
 
 VERSION=${1:?Usage: $0 <version>}
 mkdir "${VERSION}" || {
-  echo 'Version "${VERSION}" already exists!'
+  echo "Version \"${VERSION}\" already exists!"
   exit 1; }
 
 files=(../Device/ROM/Out/onboard/{*.mpy,*.py,*.gz,*.pem})
