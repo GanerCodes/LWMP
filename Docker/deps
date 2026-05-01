@@ -10,6 +10,7 @@ install_deps() { npm install -g lightningcss-cli esbuild minify html-minifier-te
                  python3.11 -m pip install ar || : # there are so many hacks
                  cp --remove-destination -r ./Server/Tools/jsbeautifier/ \
                                              /opt/python3.14/lib/python3.14/site-packages
+                 ☾ --update
                  mkdir -p "$(dirname "$FLAG")"
                  touch "$FLAG" || :; }
 

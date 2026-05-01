@@ -28,6 +28,7 @@ class Settings:
         pass # dbg(f'[Settings] File "{k}" not found.')
       if not default:
         v = v() if callable(v) else v
+        𝔍wf(k,v)
         pass # dbg(f'[Settings] Using default value for "{k}"')
       𝕊.X[k] = [v,f]
       free()
