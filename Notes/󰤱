@@ -15,12 +15,17 @@ DONE
   • Dragging one element into another should make a tooltip menu with `swap` and `replace`
   • Added smoothing functions to sliders so smaller numbers are easier to set.
   • Made grouping option work better, automatically selects all intermediate elements. You can remove from the top or bottom or click within it to reset the selection.
-  • Submit/cancel buttons in element picker mode are in a consistant place now.
-  • Added changing between AP/WiFi modes.
+  • Submit/cancel buttons in element picker mode are in a consistant place now
+  • Added changing between AP/WiFi modes
   • Added LOG_LEVEL setting to reduce stdout for performance
+  • Added deleting dev from DB function
 TODO
+  • Deletion option
+    • "Delete_dev" Endpoint
+    • UI implementation
+    • Note: only applicable for an offline device
   • Security
-      • I don't trust humanity enough to gracefully handle that leaking a token lets an attacker add all your devs to a botnet, so I need UPDATE_URL/WS_URL to be changable in, and only in, AP mode
+    • I don't trust humanity enough to gracefully handle that leaking a token lets an attacker add all your devs to a botnet, so I need UPDATE_URL/WS_URL to be changable in, and only in, AP mode
   • LW-Controller
     • Performance
       • Redo how scene data is calulated because it can prob crash the device for too complex scenes

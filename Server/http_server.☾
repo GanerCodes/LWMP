@@ -59,12 +59,12 @@
              premptively like this isn't great. Something more advanced
              needs to be added but I don't have time right now.
         
-        ‹TOKEN󷺗󷺗›􀉧c 􀛾 c􋕨󰂦󰂡󰂝󰂗󰂠􋕨ŧ_TOKEN􀉟𝐭:
+        ¿‹TOKEN󷺗󷺗›􀉧c 􀛾 c􋕨󰂦󰂡󰂝󰂗󰂠􋕨ŧ_TOKEN􀉟𝐭:
           ¿󰬏􀉭ws_clients: ↪‹Cannot change token of an offline device!›𝖡
-        ‹AP_MODE›􀉧c 􀛾 c􋕨󰂓󰂢􋕞󰂟󰂡󰂖󰂗􋕨:
+        ¿‹AP_MODE›􀉧c 􀛾 c􋕨󰂓󰂢􋕞󰂟󰂡󰂖󰂗􋕨:
           ¿󰬏􀉭ws_clients: ↪‹Cannot change connectivity of an offline device!›𝖡
+        
         ∀𝐡⬠󰬏: 𝖽mod(𝐡,C₀ ₁,✓)
-        show_dbs􀃅  󰤱
     ⊢send_devs(𝐡):
       ¿𝐡􀉩ws_clients: ↪‹Device is offline!›𝖡
       m = 𝘙􀊹􀉤1 􇂖[␛*,⠤𝘙]􇂗 𝘙₀

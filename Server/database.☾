@@ -84,9 +84,12 @@ inv𝐇 = 󷺹is𝐇 􀉓 ‹Not a valid device identifier!› 􀝔 ⟞􀋦¹␛
   ↪𝖽mod(𝐇(𝚘𝐭􀉖𝚗𝐭,𝚘𝐮􀉖𝚗𝐮), β, force)
 ⊢𝖽delete(𝐭,𝐮):  󰤱 test
   𝐡 = 𝐇(𝐭,𝐮)
+  ‹Deleting device "⟦𝐡⟧"›
   ¿𝐭􀉧tok𝘋𝘉 􀛾 𝐮􀉧(tok𝘋𝘉􊳬􀯑𝐓)ᵈᵉᵛˢ: tok𝘋𝘉􊳬 = { ⠤𝐓, devs=𝐓ᵈᵉᵛˢ􀊷􊳭}
                                ‹T: "⟦𝐭⟧" - "⟦𝐮⟧"›􀊸
+  ¡                          : ‹Token "⟦𝐭⟧" not found›􀊸
   ¿𝐡􀉧dev𝘋𝘉                   : 󰆴 dev𝘋𝘉􊳠
                                ‹D: - "⟦𝐡⟧"›􀊸
+  ¡                          : ‹Device "⟦𝐡⟧" not found›􀊸
 
-⭷ tok𝘋𝘉,dev𝘋𝘉,show_dbs,𝐇,is𝐇,inv𝐇,𝖽mod
+⭷ tok𝘋𝘉,dev𝘋𝘉,show_dbs,𝐇,is𝐇,inv𝐇,𝖽mod,𝖽delete
