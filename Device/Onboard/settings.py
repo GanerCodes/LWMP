@@ -28,8 +28,8 @@ class Settings:
         pass # dbg(f'[Settings] File "{k}" not found.')
       if not default:
         v = v() if callable(v) else v
+        log(f'[Settings] generated default value {v!r} for "{k}"')
         𝔍wf(k,v)
-        pass # dbg(f'[Settings] Using default value for "{k}"')
       𝕊.X[k] = [v,f]
       free()
   def __contains__(𝕊,k):
@@ -59,27 +59,27 @@ def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + do
   mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
   return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
-ℭ = Settings(WS_URL     =("wss://lwmp.ganer.xyz:2096"               ,       ),
-             UPDATE_URL =("https://lwmp.ganer.xyz/update"           ,       ),
-             UUID       =(gen_id                                    ,       ),
-             AP_MODE    =(False                                     ,boolstr),
-             TOKEN      =(                                                  ),
-             NAME       =(""                                        ,       ),
-             R_SSID     =(                                                  ),
-             R_PASS     =(                                                  ),
-             LEDP       =(23                                        ,int    ),
-             LEDC       =(300                                       ,int    ),
-             REVERSE    =(False                                     ,boolstr),
-             BIT_TIMING =("400 850 800 450"                         ,       ),
-             RGB_ORDER  =("RGB"                                     ,       ),
-             DEF_SCENE  =("_default"                                ,       ),
-             VER        =("1"                                       ,       ),
-             RECALB_T   =(0                                         ,int    ),
-             LOG_LEVEL  =(3                                         ,int    ))
+ℭ = Settings(WS_URL     =("wss://lwmp.ganer.xyz:2096"    ,        ),
+             UPDATE_URL =("https://lwmp.ganer.xyz/update",        ),
+             UUID       =(gen_id                         ,        ),
+             AP_MODE    =(False                          , boolstr),
+             TOKEN      =(""                             ,        ),
+             NAME       =(""                             ,        ),
+             R_SSID     =(""                             ,        ),
+             R_PASS     =(""                             ,        ),
+             LEDP       =(23                             , int    ),
+             LEDC       =(300                            , int    ),
+             REVERSE    =(False                          , boolstr),
+             BIT_TIMING =("400 850 800 450"              ,        ),
+             RGB_ORDER  =("RGB"                          ,        ),
+             DEF_SCENE  =("_default"                     ,        ),
+             VER        =("1"                            ,        ),
+             RECALB_T   =(0                              , int    ),
+             LOG_LEVEL  =(3                              , int    ))
 Logger.set(ℭ.LOG_LEVEL)
 
 def wifi_from_ℭ(ℭ):
-  if not     all(  ℭ("token","r_ssid","r_pass")) : raise Exception(f"WiFi credentials not found.")
+  if not     all  (ℭ("token","r_ssid","r_pass")) : raise Exception(f"WiFi credentials not found.")
   if not (R:=wifi_connect(*ℭ("r_ssid","r_pass"))): raise Exception(f'Could not connect to WiFi!')
   return R
 

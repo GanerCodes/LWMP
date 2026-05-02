@@ -15,8 +15,8 @@ def path_exists(p,_=os.stat):
 ls,rm,mv = os.listdir,os.remove,os.rename
 (LED_ONBOARD := machine.Pin(2)).init(LED_ONBOARD.OUT)
 onboard_led = lambda s=1,_=LED_ONBOARD:_.value(s)
-𝔍lf         = lambda f  : 𝔍l(read_file(f))
-𝔍wf         = lambda f,x: write_file(f,𝔍d(x))
+𝔍lf         = lambda f      : 𝔍l(read_file(f))
+𝔍wf         = lambda f,x    : write_file(f,𝔍d(x))
 join        = lambda x,s=' ': s.join(map(str,x))
 
 class Logger:

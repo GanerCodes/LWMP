@@ -194,18 +194,28 @@ def http_get(uri):
   s,uri = http_connect(uri)
   s.write(f"GET {uri.path} HTTP/1.1\r\nHost: {uri.host}:{uri.port}\r\n\r\n".encode())
   
-  s.readline() # head
-  cl = 0
+  head = s.readline()
+  try:
+    if head.split(None,2)[1] != b'200':
+      raise Exception(f"Response code is not 200!")
+  except Exception as ε:
+    dbg(f'[HTTP] Could not validate HTTP header: {head!r}',ε)
+    free()
+    raise ε
+  del head
+  
+  cl = None
   while line := s.readline().decode().strip():
     k,v = line.split(':',1)
     k,v = k.rstrip().lower(), v.lstrip()
     if k == "content-length": cl = int(v)
     del k,v
   del line
+  if cl is None: raise Exception("Could not find content-length header!")
   body = bytearray(cl)
   while cl>0: cl -= s.readinto(body)
   s.close()
-  del uri,s,cl
+  del uri,s,cl # this stuff seems excessive
   free()
   return body
 
