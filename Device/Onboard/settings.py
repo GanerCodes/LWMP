@@ -73,7 +73,7 @@ def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + do
              BIT_TIMING =("400 850 800 450"              ,        ),
              RGB_ORDER  =("RGB"                          ,        ),
              DEF_SCENE  =("_default"                     ,        ),
-             VER        =("1"                            ,        ),
+             VER        =("0"                            ,        ),
              RECALB_T   =(0                              , int    ),
              LOG_LEVEL  =(3                              , int    ))
 Logger.set(ℭ.LOG_LEVEL)

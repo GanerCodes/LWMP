@@ -1,0 +1,17 @@
+[
+  "consts.mpy",
+  "controller.mpy",
+  "interface.mpy",
+  "lightwave.mpy",
+  "lw.mpy",
+  "net.mpy",
+  "ntp.mpy",
+  "scene_manager.mpy",
+  "settings.mpy",
+  "updater.mpy",
+  "util.mpy",
+  "ws_client.mpy",
+  "main.py",
+  "index.html.gz",
+  "CERT.pem"
+]

@@ -15,7 +15,12 @@ add_check_tok = ⥌𝐭↦{
 del_tok = ⥌𝐭↦{ 󰆴 𝘋𝘉􊳬;
                update𝘋𝘉(); }
 get_toks     = 𝚲𝒪k(𝘋𝘉)
-get_devs     = ⥌𝔱↦add_check_tok(𝔱􋆮).devs
+get_devs     = ⥌𝔞↦{ © r = add_check_tok(𝔞􋆮).devs;
+                    ↪𝔞ᵗʸᵖᵉ≡␛d ⭜𝒟(𝒪(r)􋐉(⥌[k,v]↦𝔞􋆕 􋁋(k)))⭝ r; };
+get_dev      = ⥌𝔡↦{ ⨳(𝔡ᵗʸᵖᵉ≡␛d);
+                    © v = 𝒪v(get_devs(𝔡));
+                    ⨳(v􋌵≡1);
+                    ↪v₀; };
 get_scenes   = ⥌𝔱↦add_check_tok(𝔱􋆮).scenes
 copy_scene = ⥌𝐭,o,n↦{
   © 𝐒 = add_check_tok(𝐭).scenes;

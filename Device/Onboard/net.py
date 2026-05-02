@@ -176,7 +176,16 @@ def ssl_cond(s,uri,sec=("https","wss")):
   ctx.check_hostname = True
   ctx.verify_mode    = ssl.CERT_REQUIRED
   ctx.load_verify_locations(cafile="CERT.pem")
-  s = ctx.wrap_socket(s, server_hostname=host)
+  try:
+    s = ctx.wrap_socket(s, server_hostname=host)
+  except Exception as ε:
+    dbg(f'Failed to wrap socket! server_hostname="{host}"')
+    with open("CERT.pem",'r') as f:
+      dbg("cafile:",f.read(),sep='\n')
+    dbg(ε)
+    free()
+    raise ε
+    
   log(f"[SSL] << Mem: {mem_perc()}")
   free()
   return s

@@ -24,25 +24,23 @@ ws_clients = {}
   init_msg = ꭐ.listener􀃅
   ꭐ􀃅
   
-  ⊢dc(close=✓): 󰆴 ws_clients􊳠
+  𝐝 = init_msg􀃅 􀯖 𝔍󰄟 􀯖 ŧ_DEV_REQ 􀯖 ℵ
+  𝐡 = 𝐇(𝐝ᵀᴼᴷᴱᴺ,𝐝ᵁᵁᴵᴰ)
+  ⊢dc(close=✓): ¿𝐡∈ws_clients: 󰆴 ws_clients􊳠
                 ¿close􀌐: ↪
                      ꭐ.close􀃅
                 ¡ε=𝑒: ‹Failed to close ⟦ꭐ⟧: ⟦ε⟧›􀊸
-  
-  𝐝 = init_msg􀃅 􀯖 𝔍󰄟 􀯖 ŧ_DEV_REQ 􀯖 ℵ
-  𝐡 = 𝐇(𝐝ᵀᴼᴷᴱᴺ,𝐝ᵁᵁᴵᴰ)
        ¿𝐡􀉧ws_clients: ‹WHY IS "⟦𝐡⟧" IN THE CLIENT LIST!›􀊸
         ws_clients􊳠 = ꭐ
         ¿negotiate_controller_props(𝐝,ꭐ)􀌐:
-          ‹Rejecting LW due to outdated version›􀊸
-          ↪dc􀃅
+          ✗􀉓‹Rejecting LW due to outdated version!›
         ‹Established LW connection: ⟦𝐝⟧›􀊸
         ∀: ‹"⟦𝐡⟧" - ⟦ꭐ􀃅ᐒ‹⟦⟞₀􀉳􀁭¹⁶􀋢⟧: ⟦⟞₁⟧›⟧›􀊸
   ¡ε=𝑒: ‹Disconnecting ⟦𝐡⟧: ε=⟦ε⟧›􀊸
-        󰆴 ws_clients􊳠
+        dc􀃅
         ⦃import traceback⦄
         traceback.print_exception(ε)
-        ↪dc􀃅
+        ↪
 
 ⊢websocket_server(port,𝔴=󰻾):
   𝔖 ⛯ websocket_serve(WS_handle,ᐦ,port,server_header=□)

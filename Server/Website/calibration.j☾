@@ -36,25 +36,29 @@ prompt_rgb_calibrate = 󱟱⥌𝔡,cb↦{
 
 led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝔡,cb↦{
   󱫬 recalb_t_temp_hack(𝔡);
-  © SCENE_CALIB = 󰲡({'*':[{1:[x,0,0xFF00]},{1:[1001-x,0,0xFF0000]}                 ]});
-  © SCENE_FINAL = 󰲡({'*':[{1:[1,0,0xFF00]},{1:[   x-2,0,0       ]},{1:[1,0,0xFF00]}]});
-  © MSG = ‹Is red visible at the end of the LED strip?›;
+  © SCENE_CALIB = 󰲡({␛*:[{1:[x,0,255<<8]},{1:[1001-x,0,255<<16]}                 ]});
+  © SCENE_FINAL = 󰲡({␛*:[{1:[1,0,255<<8]},{1:[   x-2,0,0      ]},{1:[1,0,255<<8]}]});
+  © MSG = ‹Is red visible on the LED strip?›;
   ⎉ 𝔖 = [[1,100,1000]];
   ⎉ first=✓;
+  
+  ☾(get_dev(𝔡));
+  © init_rev = get_dev(𝔡).REVERSE;
+  
   ➰(✓) { ⎉ [l,m,h] = 𝔖􋕛(󷰾);
-         󱫬 𝔡.bulk(⠤first⭜[[‹config›, {LEDC:1000}]]⭝[],
+         󱫬 𝔡.bulk(⠤first⭜[[‹config›, {LEDC:1000,⠤init_rev∧{REVERSE:✗}}]]⭝[],
                   [‹scene›, ‹_calib›,SCENE_CALIB(m),✗,󷰾]);
          first=✗;
          𝘴(m,MSG,[⠤𝔖􋌵>1⭜[␛←]⭝[],‹No›,‹Yes›]);
          ⎉ r = 󱫬 𝘳();
-         ¿(r≡‹←›) { 𝔖.pop(); ↺; }
-         ¿(l<h  ) { ¿(r≡‹No›) h = m;
-                    ¡         l = m+1;
-                    m = ~~((l+h)/2); }
-         ¿(l≡h  ) { 󱫬 𝔡.bulk(["config", {LEDC:m}                   ],
-                             ["scene" , ‹_calib›,SCENE_FINAL(m),✗,󷰾]);
-                    𝘴();
-                    ↪cb(l); }
+         ¿(r≡␛←) { 𝔖.pop(); ↺; }
+         ¿(l<h ) { ¿(r≡‹No›) h = m;
+                   ¡         l = m+1;
+                   m = ~~((l+h)/2); }
+         ¿(l≡h ) { 󱫬 𝔡.bulk(["config", {LEDC:m,⠤init_rev∧{REVERSE:✓}}],
+                            ["scene" , ‹_calib›,SCENE_FINAL(m),✗,󷰾]);
+                   𝘴();
+                   ↪cb(l); }
          𝔖.push([l,m,h]); } });
 prompt_led_calibrate = 󱟱⥌𝔡,cb↦{
   ⎉ ,α,β;

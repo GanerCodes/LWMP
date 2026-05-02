@@ -36,21 +36,25 @@ def handle_API(𝐦,*𝔸):
       rst = max(rst,s)
     return rst,𝚁
   if 𝐦=="Change_dev":
-    BOOT = set("VER UPDATE_URL WS_URL".split())
+    BOOT = set("VER".split())
     ICON = set("R_SSID R_PASS AP_MODE".split())
-    WCON = set("WS_URL TOKEN".split())
+    WCON = set("UPDATE_URL WS_URL TOKEN".split())
     RLED = set("RECALB_T LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     
     # 󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱
-    Δ = { k.upper():v for k,v in 𝔸[0].items() if k.upper() in ℭ }
-    if "UUID" in Δ: del Δ["UUID"] # 󰤱 resetting UUID is disabled for now
+    Δ = {}
+    for k,v in 𝔸[0].items():
+      k = k.upper()
+      if k not in ℭ or k=="UUID":
+        log(f'Ignoring key "{k}"')
+        continue
+      Δ[k] = v
     K = set(Δ)
-    
-    log(f"[API] Changing settings with", Δ)
+    log(f"[API] Changing settings with",Δ)
     
     if "VER" in Δ:
-      if Δ["VER"] != ℭ.VER:
-        write_file("UPDATE_FLAG",str(Δ["VER"]).strip())
+      v = str(Δ["VER"]).strip()
+      if v != ℭ.VER: write_file("UPDATE_FLAG",v)
       del Δ["VER"]
     ℭ(Δ)
     if "LOG_LEVEL" in Δ: Logger.set(Δ["LOG_LEVEL"])

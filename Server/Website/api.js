@@ -51,11 +51,10 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
     
     const M = {sync,config,recalb_t,set_AP,off,scene,scheg};
     const send = v=>𝔄𝔘(...v.length>1 ? ["*",...v] : v[0])
-    return { 𝐭,𝐔,
+    return { type:"d",𝐭,𝐔,
              bulk: (...𝔸)=>send(𝔸.flatMap(([n,...𝔸])=>M[n](...𝔸))),
-             ...Object.fromEntries(Object.entries(M)
-                                         .map(([k,ƒ])=>[k,(...𝔸)=>send(ƒ(...𝔸))])) }; };
+             ...Object.fromEntries(Object.entries(M).map(([k,ƒ])=>[k,(...𝔸)=>send(ƒ(...𝔸))])) }; };
   if(𝐔.length) return dev(...𝐔);
-  return {𝐭,get_devs,dev}; };
+  return {type:"t",𝐭,get_devs,dev}; };
 
 // const make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs).Ϝ((x,y)=>x+y,0)).slice(0,-1)) });
