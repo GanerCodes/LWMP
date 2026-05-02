@@ -20,7 +20,9 @@ DONE
   • Added LOG_LEVEL setting to reduce stdout for performance
   • Added deleting dev from DB function
 TODO
-  • Bug: somehow I changed the tok of an offline device -_-
+  • Bugs (General/random)
+    • ws api i get keyerrors randomly on dc
+    • Somehow I changed the tok of an offline device -_-
   • Deletion option
     • "Delete_dev" Endpoint
     • UI implementation

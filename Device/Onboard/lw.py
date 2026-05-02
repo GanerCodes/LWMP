@@ -41,11 +41,11 @@ def handle_API(𝐦,*𝔸):
     WCON = set("WS_URL TOKEN".split())
     RLED = set("RECALB_T LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     
-    D = { k.upper():v for k,v in 𝔸[0].items() }
-    if "UUID" in D: del D["UUID"] # 󰤱 resetting UUID is disabled for now
-    K = set(D)
+    # 󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱
+    Δ = { k.upper():v for k,v in 𝔸[0].items() if k.upper() in ℭ }
+    if "UUID" in Δ: del Δ["UUID"] # 󰤱 resetting UUID is disabled for now
+    K = set(Δ)
     
-    Δ = { k:v for k,v in D.items() if k in ℭ }
     log(f"[API] Changing settings with", Δ)
     
     if "VER" in Δ:
