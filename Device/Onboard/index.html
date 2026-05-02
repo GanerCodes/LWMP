@@ -15,20 +15,20 @@
     @keyframes popin { 0%   { transform:scale(0  ); }
                        90%  { transform:scale(1.1); }
                        100% { transform:scale(1  ); } }
-    @keyframes fade { from { opacity:0; }
-                      to   { opacity:1; } }
-    dialog:open,::backdrop { animation: fade 0.15s ease-in-out normal; }
+    @keyframes fade { 0%   { opacity:0; }
+                      100% { opacity:1; } }
+    dialog[open],::backdrop { animation: fade 0.15s ease-in-out normal; }
     .entry { animation: popin 0.15s cubic-bezier(0.2,0.8,0.2,1) normal; }
     
     body { background:#000; padding: 1em; }
-    body,#lw_setup:open {
+    body,#lw_setup[open] {
       display:flex; flex-direction:column;
       justify-content:center; align-items:center;
       font-family:sans-serif; text-align:center;
       color:#FFF; }
-    #modes { display:grid; grid-template-columns:repeat(auto-fill,110px);
+    #modes { display:grid; grid-template-columns:repeat(auto-fill,125px);
              grid-gap:10px; justify-content:center; width:100%; }
-    #lw_setup:open :nth-child(-n+2) { margin-bottom:5%; }
+    #lw_setup[open] :nth-child(-n+2) { margin-bottom:5%; }
     .item { margin:8px; }
     .text { text-align:center; }
     input::placeholder { color:#AAA; }
@@ -42,7 +42,7 @@
                                        transform:scale(1.03); }
     button:active                    { background:#333; }
     .entry { aspect-ratio:1; border-radius:10px;
-             overflow:hidden; text-wrap:wrap;
+             overflow:hidden; overflow-wrap:anywhere;
              font-size: 0.9em; text-overflow:ellipsis; line-break:anywhere; }
     .entry:is(:hover,:focus-visible) { transform:scale(1.02) translateY(-3px); }
   </style>
@@ -66,9 +66,12 @@
   </span>
   <div id="modes"></div>
   
-  <script defer>
+  <script>
     𝔇 = document;
     api = (m,j) => fetch(m, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(j)});
+    // api = (...𝔸) => { console.log("API:",...𝔸);
+    //                   return { json: _=>({ R_SSID:"coolnet",
+    //                                        modes :"_ap _default fade_test synctest thousand" }) } };
     
     setup_wifi  .onclick = _=>lw_setup.showModal();
     setup_submit.onclick = _=>{
@@ -88,10 +91,10 @@
     // setTimeout(_=>populate("_ap _default fade_test synctest thousand"),500);
     (async _ => {
       const ℭ = await (await api("/getConfig")).json();
-      SSID.value = ℭ.R_SSID;
-      PASS.value = ℭ.R_PASS;
-      TOKE.value = ℭ.TOKEN ;
-      populate(ℭ.modes); })();
+      SSID.value = ℭ.R_SSID || '';
+      PASS.value = ℭ.R_PASS || '';
+      TOKE.value = ℭ.TOKEN  || '';
+      populate(ℭ.modes || ''); })();
   </script>
 </body>
 </html>
