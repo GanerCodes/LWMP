@@ -10,6 +10,7 @@
 
 ⊢api:
   methods = { Change_dev   = 1, dev
+              Delete_dev   = 0,
               Set_schedule = 1, schedule
               Set_scene    = 3, scene que dur
               Del_scene    = 1, scene
@@ -51,8 +52,13 @@
       𝘙 􇀞􀉴 mod
       ¿𝘙􀉼󷺹₀ᐸ􀯑bad: ↪bad􀋢𝗻􀯖𝖡
       ¿𝘙ᐵ₀ᐸ􀊷methods􁎁􀯑b: ↪‹The following methods are invalid: ⟦b􀉳‹"⬤"›􀋢␛,⟧›𝖡
+      ¿𝘙􀉻󷺹₀􀉞‹Delete_dev›ᐸ􀯑C:  󰤱 test!
+        ¿𝘙􀊹􀉟1        : ↪‹Device deletion has the be the only thing in a request!›𝖡
+        ¿󰬏􀊴ws_clients: ↪‹Cannot delete an online device!›𝖡
+        𝐔 􀉳 𝖽delete(𝐭,⬤)
+        ↪‹Deleted devices!›𝖦
       ¿𝘙􀉻󷺹₀􀉞‹Change_dev›ᐸ􀯑C:
-        ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in a * request!›𝖡
+        ¿C􀊹􀉤1: ↪‹Cannot change device multiple times in a single request!›𝖡
         c = C₀ ₁
          󰤱 the below solution is janky, it's always possible to desync
              the device token from the server's token, so moving it

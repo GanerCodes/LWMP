@@ -79,8 +79,8 @@ def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + do
 Logger.set(ℭ.LOG_LEVEL)
 
 def wifi_from_ℭ(ℭ):
-  if not     all  (ℭ("token","r_ssid","r_pass")) : raise Exception(f"WiFi credentials not found.")
-  if not (R:=wifi_connect(*ℭ("r_ssid","r_pass"))): raise Exception(f'Could not connect to WiFi!')
+  if not              all( ℭ("r_ssid","token" )) : raise Exception(f"WiFi credentials not found.")
+  if not (R:=wifi_connect(*ℭ("r_ssid","r_pass"))): raise Exception(f"Failed to connect to WiFi!" )
   return R
 
 # parse_rgb_mode ℭ wifi_from_ℭ

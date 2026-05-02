@@ -23,6 +23,7 @@ TODO
   • Bugs (General/random)
     • ws api i get keyerrors randomly on dc
     • Somehow I changed the tok of an offline device -_-
+    • Bruh a rainbow being reversed doesn't work 😭
   • Deletion option
     • "Delete_dev" Endpoint
     • UI implementation
