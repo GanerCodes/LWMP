@@ -45,13 +45,13 @@ def handle_API(𝐦,*𝔸):
     if "UUID" in D: del D["UUID"] # 󰤱 resetting UUID is disabled for now
     K = set(D)
     
-    if "VER" in D:
-      if D["VER"] != ℭ.VER:
-        write_file("UPDATE_FLAG",str(D["VER"]).strip())
-      del D["VER"]
-    
     Δ = { k:v for k,v in D.items() if k in ℭ }
     log(f"[API] Changing settings with", Δ)
+    
+    if "VER" in Δ:
+      if Δ["VER"] != ℭ.VER:
+        write_file("UPDATE_FLAG",str(Δ["VER"]).strip())
+      del Δ["VER"]
     ℭ(Δ)
     if "LOG_LEVEL" in Δ: Logger.set(Δ["LOG_LEVEL"])
     del Δ
@@ -115,8 +115,7 @@ def lw_websocket_loop():
     if con > _RESET_NO:
       try                  : ꭐ.close(reason="Intentional")
       except Exception as ε: dbg(f'[WS] Failed to close WS:',ε)
-      if con > _RESET_WS   : return con
-      break
+      return con
     frees()
 
 def lw_AP(setup=False):

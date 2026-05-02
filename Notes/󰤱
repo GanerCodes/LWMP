@@ -20,6 +20,7 @@ DONE
   • Added LOG_LEVEL setting to reduce stdout for performance
   • Added deleting dev from DB function
 TODO
+  • Bug: somehow I changed the tok of an offline device -_-
   • Deletion option
     • "Delete_dev" Endpoint
     • UI implementation
@@ -42,11 +43,13 @@ TODO
     • Scene scheduler
     • Re-style onboard AP page
     • Improvements
+      • ABC order toks/devs/scenes
       • Add instructions/directions/re-style for the add token prompt
       • Enter hex code for colors (and in general click into and type out slider)
       • Making the delete and ungroup options be hidden and just appear somewhere as an obvious option when you start dragging an element and you can just stick it into the option
       • For element picker modes scroll such that the the closest valid element is centered if it's not at least ≈10% visible already
     • Bugs
+      • Bc the optimization for changing device properties, changing a dev's token doesn't remove it from the dev menu in scene editing. bruh.
       • Sliders/value labels inside of fade mode is jank
       • The lower menu in device listing doesn't close automatically and reopens when re-entering the devices tab
     • Misc
