@@ -19,15 +19,13 @@ DONE
   • Added changing between AP/WiFi modes
   • Added LOG_LEVEL setting to reduce stdout for performance
   • Added deleting dev from DB function
+  • Added Delete_dev Endpoint + UI implementation. It (intentionally) only applies for offline devices
 TODO
   • Bugs (General/random)
-    • ws api i get keyerrors randomly on dc
+    • Why does modifying offline devices always throw? just prevent like token/ap mode or whatever
+      • Also server gives error but literally does the change, heh?
     • Somehow I changed the tok of an offline device -_-
     • Bruh a rainbow being reversed doesn't work 😭
-  • Deletion option
-    • "Delete_dev" Endpoint
-    • UI implementation
-    • Note: only applicable for an offline device
   • Security
     • I don't trust humanity enough to gracefully handle that leaking a token lets an attacker add all your devs to a botnet, so I need UPDATE_URL/WS_URL to be changable in, and only in, AP mode
   • LW-Controller
@@ -43,6 +41,7 @@ TODO
     • Change bit timing (useful for controlling certain nonstandard ws*-like LED strips)
     • Change pin?
   • UI
+    • We should be updating everything whenever we get data about anything!!
     • Scene scheduler
     • Re-style onboard AP page
     • Improvements

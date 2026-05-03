@@ -36,6 +36,7 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
     const off      = (    ) => [["Off"]];
     const sync     = (    ) => [["Sync"]];
     const config   = ( dev) => [["Change_dev",dev]];
+    const del      = (    ) => [["Delete_dev"]]
     const recalb_t = (   s) => config({RECALB_T:s2utcD(s??3*60**2)});
     const set_AP   = (    ) => config({AP_MODE:true});
     const scene    = (...𝔸) => { const [n,s,q,d] = 𝔸;
@@ -49,7 +50,7 @@ const dhms2s = (d,h,m,s) => (((d)*24+h)*60+m)*60+s;
                                  const scheg = Object.fromEntries(S.map(([x,y]) => [s2utcW(dhms2s(...x)),y]));
                                  return [["Set_schedule", scheg]]; };
     
-    const M = {sync,config,recalb_t,set_AP,off,scene,scheg};
+    const M = {del,sync,config,recalb_t,set_AP,off,scene,scheg};
     const send = v=>𝔄𝔘(...v.length>1 ? ["*",...v] : v[0])
     return { type:"d",𝐭,𝐔,
              bulk: (...𝔸)=>send(𝔸.flatMap(([n,...𝔸])=>M[n](...𝔸))),

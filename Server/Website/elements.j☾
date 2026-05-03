@@ -6,6 +6,8 @@
 © grad   = ⥌c,s,v↦‹linear-gradient(180deg in hsl longer hue,⟦hsv2hsl([0,s,v])⟧,⟦hsv2hsl([255,s,v])⟧) 0 0 / 100% ⟦100÷c⟧% repeat-y›;
 © hsv2hsl = ⥌[h,s,v]↦‹hsl(⟦h÷255⋅360⟧deg,⟦s÷2.55⟧%,⟦v÷255⋅50⟧%)›;
 
+showErr = 󰲡☾(‹󰤱 show "⟦x⟧" to the user in a not annoying/cringe way›);
+
 clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
   Ѧ = {␛*:✗,canAdd:𝚲✓,canRem:𝚲✓,⠤Ѧ};
   

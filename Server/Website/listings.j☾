@@ -56,19 +56,26 @@
           ⟦𝚋1st(‹Direction›,‹⟦[‹For›,‹Back›]₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧wards›)⟧];
   ↪ };
 © ədevTile = ⥌Ѧ,[𝐮,𝐝],rem↦{
-  ⎉ tile = ədevDisplay(𝐮,𝐝);
-  © set = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
+  ⎉ tile;
+  
+  © update = ⥌𝐮,𝐝↦{
+    ©  = ədevDisplay(𝐮,𝐝);
+    ¿(tile) tile.replaceChildren(⠤􋑱);
+    ¡        tile = ;
+    dƒ􋑵 􋒗 = 𝐝ᵒⁿˡⁱⁿᵉ; }
+  © canButtons = ⥌𝚜↦B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
+  
   © [𝐭,𝐧,𝔡] = [Ѧ􋈹 􋆮,𝐝ᴺᴬᴹᴱ??𝐮,Ѧ􋈹.dev(𝐮)];
    󰤱 actually handle errors!
    󰤱 if the device if offline disable the token changing option!
   © ƒ = 𝚲{
     © ƒ = 󱟱 ⥌𝚗,𝚝,𝚠
-            ↦{ set(✗);
+            ↦{ canButtons(✗);
                © 󰬊 = {};
                ¿(𝐧≠𝚗) 󰬊ᴺᴬᴹᴱ    = 𝚗;
                ¿(𝐭≠𝚝) 󰬊ᵀᴼᴷᴱᴺ   = 𝚝;
                ¿( ¬𝚠) 󰬊ᴬᴾ􋕟ᴹᴼᴰᴱ = ✓;
-               ¿(¬𝒪𝑏(󰬊)) ↪set(✓);
+               ¿(¬𝒪𝑏(󰬊)) ↪canButtons(✓);
                󱫬 𝔡.config(󰬊);
                󱫬 load_devices(Ѧ􋈹);
                ¿(𝐭≠𝚝) ↪rem();
@@ -76,9 +83,9 @@
                ¿(𝐧≠𝚗) { devLᴺᴬᴹᴱ   = 𝐝ᴺᴬᴹᴱ   = 𝚗; }
                ¿( ¬𝚠) { devLᵒⁿˡⁱⁿᵉ = 𝐝ᵒⁿˡⁱⁿᵉ = ✗; }
                update𝘋𝘉();
-               tile.replaceChildren(⠤ədevDisplay(𝐮,𝐝)􋑱);  󰤱 this is jank
+               update();
                 Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
-               set(✓); };
+               canButtons(✓); };
     © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
     ©  tok = ədropdown(get_toks(),{Ⴝ:𝐭});
     tok􋛟.marginBottom = ‹30px›;
@@ -95,18 +102,28 @@
                    󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Name󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›, name,
                    󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Token󷺗󷺗󷺗󷺗󷺗󷺗󷺗›,  tok,
                    󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Connectivity›,  net); };
-  © ƒ = 󱟱𝚲{ set(✗);
-             󱫬 𝔡.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
-             Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
-             set(✓); };
+  © ƒ = 󱟱𝚲{ canButtons(✗);
+                 { 󱫬 𝔡.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
+                    Ѧᵖᵒᵖᵘˡᵃᵗᵉ();                        }
+             catch{ showErr(‹Error reversing device!›); }
+             󰛕    { canButtons(✓);                      } };
+  © dƒ = 󱟱𝚲{ canButtons(✗);
+                 { 󱫬 𝔡.del();                          }
+             catch{ showErr(‹Error 󷺗deleting device!›); }
+             󰛕    { canButtons(✓);                      }
+             ↪rem(); };
   © B = [
       əbuttonBar([␛,𝚲prompt_rgb_calibrate(𝔡,󰲡(x,Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
                  [␛,𝚲prompt_led_calibrate(𝔡,󰲡(x,Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
                  [␛󰐥,𝚲𝔡.off()                                 ],
-                 [␛,𝚲B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓)      ]),
+                 [␛,𝚲B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓)]),
       əbuttonBar([␛,ƒ],
-                 [␛,ƒ])]  󰤱 [␛,󰻾],[␛,󰻾]
+                 [␛,ƒ],
+                 [␛󰆴,dƒ])]  󰤱 [␛,󰻾]
+  dƒ􋑵 = B₁􋑱₂;  󰤱 hacky/inconsistant way of doing this, prob should be option in əbuttonbar and make that an Ѧ style ə
+  update(𝐮,𝐝);
   B₁􈛘(‹dropped›);
+  
   ↪[tile,⠤B]; };
 © ədevListing = ⥌Ѧ={}↦{
   Ѧ = { 𝔱:󱣩, ƒ:󰻾, ⠤Ѧ };
