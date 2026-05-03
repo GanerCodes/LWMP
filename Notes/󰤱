@@ -22,9 +22,7 @@ DONE
   • Added Delete_dev Endpoint + UI implementation. It (intentionally) only applies for offline devices
 TODO
   • Bugs (General/random)
-    • Why does modifying offline devices always throw? just prevent like token/ap mode or whatever
-      • Also server gives error but literally does the change, heh?
-    • Somehow I changed the tok of an offline device -_-
+    • Frontend error handling for changing tok and stuff?
     • Bruh a rainbow being reversed doesn't work 😭
   • Security
     • I don't trust humanity enough to gracefully handle that leaking a token lets an attacker add all your devs to a botnet, so I need UPDATE_URL/WS_URL to be changable in, and only in, AP mode

@@ -41,7 +41,6 @@ def handle_API(𝐦,*𝔸):
     WCON = set("UPDATE_URL WS_URL TOKEN".split())
     RLED = set("RECALB_T LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
     
-    # 󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱󰤱
     Δ = {}
     for k,v in 𝔸[0].items():
       k = k.upper()

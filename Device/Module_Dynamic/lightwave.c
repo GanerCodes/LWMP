@@ -69,9 +69,6 @@ fast inline RGB lightwave_hsv_to_rgb(u8 h, u8 s, u8 v) {
                 case  4: ret (RGB){t,p,v}; break;
                 default: ret (RGB){v,p,q}; break; } }
 
-fast inline RGB lightwave_atom_rainbow(f32 i, f32 n, f32 segN, u8 s, u8 v) {
-    ret lightwave_hsv_to_rgb((u8)(i*segN/n*0xFF),s,v); }
-
 // https://www.desmos.com/calculator/yli6q8tc25?nobranding=&nokeypad=
 fast inline RGB compute_fade(Atom atom, u8* fades, f32 t) {
   f32 p = fmulmodpartial(atom.F.speed,t,1<<16);

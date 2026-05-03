@@ -1,0 +1,81 @@
+⨡ util ⭸ *
+⨡ websocket_server
+⨡ verifiers
+⨡ database
+
+methods = { Change_dev   = 1, dev
+            Delete_dev   = 0,
+            Set_schedule = 1, schedule
+            Set_scene    = 3, scene que dur
+            Del_scene    = 1, scene
+            Push_scenes  = 1, scenes
+            Pull_scenes  = 0,
+            Off          = 0,
+            Sync         = 0 }ℵ
+db_p = ‹NAME RECALB_T LEDC REVERSE RGB_ORDER›􀌌
+do_p = ‹TOKEN WS_URL UPDATE_URL AP_MODE R_SSID R_PASS LEDP BIT_TIMING›􀌌
+
+⊢api(𝘳):
+  𝘳 􀯏 ℵ􋄅
+  ¿𝘳􊯛􊳬􀯑𝐭ᑀ􈇇    ᐸ: ↪‹No token in request!›𝖡
+  ¿𝘳􊯛􋕞􀯑𝐛ᑀ􀌐􀛺⟞􀊞𝑙ᐸ: ↪‹No request contents!›𝖡
+  𝐦,⠤𝐁 = 𝐛  ᵉᵍ "Change_dev",{RGB_ORDER="GRB"}
+  ¿𝐦≡‹Get_devs›: ⛯ tok𝘋𝘉
+                   ¿𝐭∉tok𝘋𝘉: ↪{} 𝖦
+                   ⊢norm(𝐮): 𝐡 = 𝐇(𝐭,𝐮)
+                             𝐝 = dev𝘋𝘉􊳠􀝊db_p
+                             ¿𝐝􇣒􋕨󰂠󰂓󰂟󰂗􋕨􀌐: 󰆴 𝐝􋕨󰂠󰂓󰂟󰂗􋕨
+                             𝐝ᵒⁿˡⁱⁿᵉ = 𝐡􀉧ws_clients
+                             ↪𝐝
+                   ↪tok𝘋𝘉􊳬ᵈᵉᵛˢᐵ,norm(⟞)ᐸ􀯖𝑑􀯖𝖦
+  
+  ¿𝘳􊯛􊳓􀯑𝐔 􀛾 𝐔􀊜𝑙 􀛾 𝐔􀉳ᔐ􀯑𝐔 􁃏: ↪‹Invalid "𝐔" field!›𝖡
+  
+   normalize into list of requests
+  ¿𝐦􀉞␛*: 𝘙 = 𝐁
+         ¿𝘙􀊜𝑙􀛾𝘙􀉳⬤􀁊𝑙􀋃􁃏: ↪‹Malformed * request!›𝖡
+  ¡    : 𝘙 = 𝐛􀋁
+  
+  ⊢mod(𝐦,⠤𝐁):  validate/modify what is sent to LW
+    ¿𝐦􀉩methods     : ↪‹"⟦𝐦⟧" is not an API method!›𝖡
+    ¿𝐁􀊹􀜃methods􊳥􀯑p : ↪‹"⟦𝐦⟧" expected ⟦p⟧ (≠⟦𝐁􀊹⟧) parameters!›𝖡
+    ¿𝐦􀉞‹Set_scene󷺗›: 𝐁 = [⠤𝐁,𝑖(time􀃅􀝍𝐁₁􀯗⁰3 􁂇 1000)]
+    ⸘𝐦􀉞‹Change_dev›: ¿𝐁₀􀊞𝑑: ↪‹Config is not a dict!›𝖡
+                       𝐁 = [𝐁₀ ℵ 􇀥 ŧ_DEV_OPT 􇀥 ℵ]
+                     ¡: ↪‹Invalid config!›𝖡
+    ↪[𝐦,⠤𝐁]
+  𝘙 􇀞􀉴 mod
+  ¿𝘙􀉼󷺹₀ᐸ􀯑bad: ↪bad􀋢𝗻􀯖𝖡
+  ¿𝘙􇭧󷺹₀􀉞‹Delete_dev›ᐸ 􀛾 𝘙􀊹􀉟1: ↪‹Dev deletion must be the only thing in a single request!›𝖡
+  ¿𝘙􇭧󷺹₀􀉞‹Change_dev›ᐸ     􀉤1: ↪‹Cannot change dev multiple times󷺗󷺗󷺗 in a single request!›𝖡
+  󰬏 = 𝐔􀉳𝐇(𝐭,⬤)
+  
+   The request should be valid at this point up to database stuff
+  ⛯ tok𝘋𝘉
+    ¿󰬏􀉳􀀕dev𝘋𝘉􈇈: ↪‹Cannot find devs!›𝖡
+    󰬏󰰕 = 󰬏􀊴ws_clients
+    
+    ∀𝐦,⠤𝚟⬠𝘙:
+       󰤱 solutions here are janky, it's always possible to desync the dev token from
+       the server's token, so moving it premptively like this isn't great. Something
+       more advanced needs to be added but I don't have time right now.
+      ¿𝐦􀉞‹Delete_dev›:
+        ¿󰬏󰰕: ↪‹Cannot delete an online dev!›𝖡
+        𝐔 􀉳 𝖽delete(𝐭,⬤)
+        ↪‹Deleted devs!›𝖦
+      ⸘𝐦􀉞‹Change_dev›:
+        ¿𝚟₀􀊴do_p􀯑P 􀛾 󰬏󰰕􀉟􁎐󰬏: ↪‹Cannot change properties ⟦P􀉳‹"⬤"›􀋢⟧ of an offline dev!›𝖡
+        󰬏 􀉳 𝖽mod(⬤,𝚟₀,✓)
+      ⸘󰬏󰰕􀌐: ↪‹No provided dev online!›𝖡
+  msg = 𝘙􀊹􀉤1 􇂖[␛*,⠤𝘙]􇂗 𝘙₀
+  ⊢send_devs(𝐡):
+    ¿𝐡􀉩ws_clients: ↪‹Dev offline.›𝖡
+    ‹⟨⟦msg⟧⟩ → ⟦𝐡⟧›􀊸
+    ↪𝚲msg ws_clients􊳠􋄜 𝔍󰄟 𝖦󰅂 􀊗 ‹Unknown failure!›𝖡 􇂕 􀃅
+  
+  t0 = time􀃅
+  r = 􀉵´(󰬏,send_devs,m=␛t)􀯖𝖦
+  ‹Sending to devices took ⟦time􀃅􀊪t0􀋈1000􀋪²⟧ms›􀊸
+  ↪r
+
+⭷ api

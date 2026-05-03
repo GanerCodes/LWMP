@@ -3,6 +3,7 @@ from uctypes       import addressof as Ѧ
 from machine       import bitstream,Pin,mem8
 from heapq         import heappush as h_add,heappop as h_pop
 from math          import inf,exp,ceil
+from time          import sleep
 from util          import *
 from consts        import ref_hold,lstk_ptr,leds,leds_ptr,last_ntp,𝕒_static,𝕒_ptr
 from settings      import parse_rgb_mode
@@ -214,6 +215,7 @@ class Controller:
           tq,tr = divmod(t,1000)
           assign_leds(𝕒_ptr,tq+tr*0.001)
           bitstream(pin,0,timing,ledv)
+          sleep(0.001)
           
           if u:=𝕊.update_to_que():
             if u==2: break
@@ -225,7 +227,7 @@ class Controller:
             FPS = (n-log_n)/(δ_log or 10**-5)*1000
             log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {fs_perc()} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"
                 f"  {fmt_date()} (Ntp={fmt_date(last_ntp[1] or 0)} @ {fmt_dur(last_ntp[0] or 0)})\n"
-                f"  Sec={fmt_dur(10**6*cur_s)} recalb_t={fmt_dur(10**6*𝕊.recalb_t)} recalb_t_day={fmt_date(1000*𝕊.recalb_t_day)}\n"
+                f"  Sec={fmt_dur(10**6*cur_s)} recalb_t={fmt_dur(10**6*𝕊.recalb_t)} recalb_t_day={fmt_date(_MS_PER_D*𝕊.recalb_t_day)}\n"
                 f"  Ta={fmt_date(1000*𝕊.mode.Ta)} Ts={fmt_date(1000*𝕊.mode.Ts)} d={fmt_dur(1000*𝕊.mode.d)}")
             log_n,log_ts = n,free_ts
           if targΔ != 𝕊.Δ:
