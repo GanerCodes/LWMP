@@ -67,7 +67,7 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
    󰤱 clean way to hide/unhide certain pages
   𝙴 = 𝙴􊾡(󰲡xⁿᵒᵈᵉᴺᵃᵐᵉ≠␛✗ ⭜[x􈞠(␛󰊄), x􋑱₀, (x􈛑(␛󰊄),x􈞠())]⭝ [ᐦ,x􋑱₀]);
   
-  Ѧ = {init:✓,top:✗,ƒ:󰻾,𝙳:{},⠤Ѧ};
+  Ѧ = {init:✓,top:✗,ƒ:󰻾,chkAdd:𝚲✓,𝙳:{},⠤Ѧ};
   © bar = [];
   ∀(⎉[k,e,ɒ={}] ⎔ 𝙴)
     ¿(k) { © 𝚋 = 󱀝 button {𝐶 barButton⍮  ⟦𝚲ˢᵉᵗ(k)⟧⍮ ⠤𝒟([⠤ɒ]􊾡(󰲡[xⁿᵃᵐᵉ,xᵛᵃˡᵘᵉ]))} ⟦k⟧
@@ -80,28 +80,31 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
   ©  = 󱀝 ⟦α⟧ {𝐶 navContainer} [
           󱀝:bar    ⟦β⟧ {𝐶 multiButtonBar} ⟦bar⟧
           󱀝:holder ⟦γ⟧ {𝐶  navBodyHolder} ⟦Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ??(󱀝 T ‹›)⟧]
-  Ѧᵘᵖᵈᵃᵗᵉ = Ѧᵐᵘˡᵗⁱ ⭜ ⥌k   ↦{ © s = Ѧ􎁎.includes(k)
-                             ¿(s){ Ѧ􎁎 = Ѧ􎁎 􋐉(󰲡x≠k);
-                                   Ѧ􀳕ₖ􀲝 􈛑(‹choosen›);
-                                   holder.removeChild(Ѧ􀳕ₖ􋑵); }
-                             ¡   { Ѧ􎁎.push(k);
-                                   Ѧ􀳕ₖ􀲝 􈛘(‹choosen›);
-                                   holder􍪙(Ѧ􀳕ₖ􋑵); }
-                             ↪Ѧ􎁎; }
-                   ⭝ ⥌k=Ѧ􎁎↦{ Ѧ􀳕􀴖􎎵􀲝 􈛑([‹choosen›,‹disabled›]);
-                             Ѧ􎁎=k;
-                             Ѧ􀳕􀴖􎎵􀲝 􈛘(‹disabled›);
-                             Ѧ􀳕􀴖􎎵􀲝 􈛘(‹choosen›,k);
-                             holder.replaceChildren(Ѧ􀳕􀴖􎎵􋑵);
-                             ↪Ѧ􎁎; };
-  ˢᵉᵗ = Ѧˢᵉᵗ = 󰲟Ѧ􊽺(Ѧᵘᵖᵈᵃᵗᵉ(⠤𝔸));
+  Ѧᵘᵖᵈᵃᵗᵉ = Ѧᵐᵘˡᵗⁱ ⭜ ⥌k   ,f=✗↦{ © s = Ѧ􎁎.includes(k)
+                                 ¿(s){ Ѧ􎁎 = Ѧ􎁎 􋐉(󰲡x≠k);
+                                       Ѧ􀳕ₖ􀲝 􈛑(‹choosen›);
+                                       holder.removeChild(Ѧ􀳕ₖ􋑵); }
+                                 ¡   { ¿(¬f ∧ ¬Ѧᶜʰᵏᴬᵈᵈ(k)) ↪;
+                                       Ѧ􎁎.push(k);
+                                       Ѧ􀳕ₖ􀲝 􈛘(‹choosen›);
+                                       holder􍪙(Ѧ􀳕ₖ􋑵); }
+                                 ↪Ѧ􎁎; }
+                   ⭝ ⥌k=Ѧ􎁎,f=✗↦{ ¿(¬f ∧ ¬Ѧᶜʰᵏᴬᵈᵈ(k)) ↪;
+                                 Ѧ􀳕􀴖􎎵􀲝 􈛑([‹choosen›,‹disabled›]);
+                                 Ѧ􎁎=k;
+                                 Ѧ􀳕􀴖􎎵􀲝 􈛘(‹disabled›);
+                                 Ѧ􀳕􀴖􎎵􀲝 􈛘(‹choosen›,k);
+                                 holder.replaceChildren(Ѧ􀳕􀴖􎎵􋑵);
+                                 ↪Ѧ􎁎; };
+  ˢᵉᵗ = Ѧˢᵉᵗ = 󰲟{ © Ⴝ = Ѧᵘᵖᵈᵃᵗᵉ(⠤𝔸);
+                   ¿(Ⴝ≇󱣩) ↪Ѧ􊽺(Ⴝ); };
   
   Ѧˢᵉᵗ􋑵 = ⥌𝚔,↦Ѧ􀳕􀲮􋑵.replaceWith(Ѧ􀳕􀲮􋑵=);
   ¿(Ѧᵐᵘˡᵗⁱ) { SAT(bar,‹plural›)
               © Ⴝ = Ѧ􎁎;
               Ѧ􎁎 = [];
-              Ⴝ 􋁃(󰲡Ѧᵘᵖᵈᵃᵗᵉ(x)); }
-  ¡ Ѧᵘᵖᵈᵃᵗᵉ();
+              Ⴝ 􋁃(󰲡Ѧᵘᵖᵈᵃᵗᵉ(x,✓)); }
+  ¡ Ѧᵘᵖᵈᵃᵗᵉ(Ѧ􎁎,✓);
   􀴗 = Ѧ;
   ¿(Ѧ􋆷) 􈛓(Ѧ􋆷);
   ¿(Ѧⁱⁿⁱᵗ) Ѧ􊽺(Ѧ􎁎);

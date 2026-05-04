@@ -127,7 +127,7 @@ fast mp_obj_t lightwave_assign_leds(size_t n_args, const mp_obj_t *args) {
           i32 AΣE = abs(e.Σ);
           n = mod(n+e.r,AΣE);
           if(e.Σ<0) { n = AΣE-1.0-n; // negative length ⇒ reversed
-                      reverse = !reverse; } // 󰤱[optional?] optimize out reverse thing to only happen for o=0
+                      reverse ^= 1; } // 󰤱[optional?] optimize out reverse thing to only happen for o=0
           n += e.σ; }
       
       // u32 N = (u32)(reverse ?n+0.995: n);

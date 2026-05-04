@@ -130,7 +130,7 @@ class Controller:
     
     T = now-W
     for i,(Δ,(s,q,d)) in enumerate(𝔊):
-      assert not q, "󰤱"
+      assert not q,"󰤱"
       if (Δ-T)%_S_PER_W > _S_PER_D: continue
       A = 1000*(W + Δ + (Δ<T)*_S_PER_W)
       if A in cache: continue

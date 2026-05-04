@@ -14,7 +14,11 @@
 ©  sceneListing = əsceneListing({ƒ:⥌Ѧ↦𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈹,✗,✗,󷰾)});
 © sceneSheduler = 󱀝 T ‹󰤱›;
 
-© nav = 󱀝 ⟦ənavBar⟧ {Ⴝ ‹Tokens›⍮top ⟦✓⟧} [
+© barDropHack = ⥌k↦{ devListing􈞣(‹.multiButtonBar[dropped="✓"]›)􋁃(󰲡{
+                        x􈛘(‹dropped›,ᐦ); });
+                     ↪✓; }
+
+© nav = 󱀝 ⟦ənavBar⟧ {Ⴝ ‹Tokens›⍮top ⟦✓⟧⍮chkAdd ⟦barDropHack⟧} [
            󱀝 ✗              [󱀝 img {⦅𝚑 2em;𝚖← 0.5em⦆⍮src ‹/Assets/logo.svg›⍮alt Logo}]
            󱀝 {󰊄 ‹Tokens󷺗󷺗›} ⟦tokenListing ⟧
            󱀝 {󰊄 ‹Devices󷺗›} ⟦devListing   ⟧

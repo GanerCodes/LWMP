@@ -79,12 +79,11 @@
                󱫬 𝔡.config(󰬊);
                󱫬 load_devices(Ѧ􋈹);
                ¿(𝐭≠𝚝) ↪rem();
-               © devL = get_devs(Ѧ􋈹)􊳭;
-               ¿(𝐧≠𝚗) { devLᴺᴬᴹᴱ   = 𝐝ᴺᴬᴹᴱ   = 𝚗; }
-               ¿( ¬𝚠) { devLᵒⁿˡⁱⁿᵉ = 𝐝ᵒⁿˡⁱⁿᵉ = ✗; }
+               © dev_db = get_devs(Ѧ􋈹)􊳭;
+               ¿(𝐧≠𝚗) { dev_dbᴺᴬᴹᴱ   = 𝐝ᴺᴬᴹᴱ   = 𝚗; }
+               ¿( ¬𝚠) { dev_dbᵒⁿˡⁱⁿᵉ = 𝐝ᵒⁿˡⁱⁿᵉ = ✗; }
                update𝘋𝘉();
-               update();
-                Ѧᵖᵒᵖᵘˡᵃᵗᵉ();
+               update(𝐮,𝐝);
                canButtons(✓); };
     © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
     ©  tok = ədropdown(get_toks(),{Ⴝ:𝐭});
@@ -102,24 +101,42 @@
                    󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Name󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›, name,
                    󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Token󷺗󷺗󷺗󷺗󷺗󷺗󷺗›,  tok,
                    󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Connectivity›,  net); };
-  © ƒ = 󱟱𝚲{ canButtons(✗);
-                 { 󱫬 𝔡.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
-                    Ѧᵖᵒᵖᵘˡᵃᵗᵉ();                        }
-             catch{ showErr(‹Error reversing device!›); }
-             󰛕    { canButtons(✓);                      } };
-  © dƒ = 󱟱𝚲{ canButtons(✗);
-                 { 󱫬 𝔡.del();                          }
-             catch{ showErr(‹Error 󷺗deleting device!›); }
-             󰛕    { canButtons(✓);                      }
-             ↪rem(); };
+  © wrap = ⥌ƒ,e=‹An error occured!›,
+           ↦󱟱󰲟{ canButtons(✗);
+                ⎉ show = ✓;
+                    { show = 󱫬 ƒ(⠤𝔸);        }
+                catch{ showErr(e);            }
+                󰛕    { ¿(show) canButtons(✓); } };
+  
+  © 󰐥ƒ = wrap(󱟱𝚲 { 󱫬 𝔡.off();
+                   ↪✓; },
+              ‹Error reversing device!›);
+  © ƒ = wrap(󱟱𝚲 { 󱫬 𝔡.config({REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ});
+                   𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ = ¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ;
+                   ↪(update(𝐮,𝐝),✓); },
+              ‹Error reversing device!›);
+  © dƒ = wrap(󱟱𝚲 { 󱫬 𝔡.del();
+                   ↪(rem(),✗); },
+              ‹Error 󷺗deleting device!›);
+   © setDrop = ⥌,drop=✓,instant=✗↦{
+     ¿(instant) { 􋛟.opacity = drop ⭜␛1           ⭝ ␛0;
+                  􋛟.height  = drop ⭜‹max-content›⭝ ␛0;
+                  ↪; }
+     © KF_⭣ = [{ opacity: 0, height: 0             },
+               { opacity: 0, offset: 0.5           },
+               { opacity: 1, height: ‹max-content› }];
+     © KF_⭡ = [{ opacity: 1, height: ‹max-content› },
+               { opacity: 0, offset: 0.5           },
+               { opacity: 0, height: 0             }];
+     ↪.animate(drop⭜KF_⭣⭝KF_⭡, { duration:500, easing:‹ease›, fill:‹forwards› }); };
   © B = [
-      əbuttonBar([␛,𝚲prompt_rgb_calibrate(𝔡,󰲡(x,Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
-                 [␛,𝚲prompt_led_calibrate(𝔡,󰲡(x,Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
-                 [␛󰐥,𝚲𝔡.off()                                 ],
+      əbuttonBar([␛,𝚲prompt_rgb_calibrate(𝔡,󰲡(☾(0,x),Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
+                 [␛,𝚲prompt_led_calibrate(𝔡,󰲡(☾(1,x),Ѧᵖᵒᵖᵘˡᵃᵗᵉ()))],
+                 [␛󰐥,󰐥ƒ                                            ],
                  [␛,𝚲B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓)]),
       əbuttonBar([␛,ƒ],
                  [␛,ƒ],
-                 [␛󰆴,dƒ])]  󰤱 [␛,󰻾]
+                 [␛󰆴,dƒ])];  󰤱 [␛,󰻾]
   dƒ􋑵 = B₁􋑱₂;  󰤱 hacky/inconsistant way of doing this, prob should be option in əbuttonbar and make that an Ѧ style ə
   update(𝐮,𝐝);
   B₁􈛘(‹dropped›);
