@@ -26,12 +26,11 @@ prompt_rgb_calibrate = 󱟱⥌𝔡,cb↦{
     α.replaceWith(α=󱀝 h2 ‹Loading...›)
     β.replaceWith(β=󱀝 □  ‹›)
     © V = 󱫬 x();
-    ¿(isStr(V)) { .close();
-                  ↪cb(V); }
+    ¿(isStr(V)) ↪ᶜˡᵒˢᵉ(),cb(V);
     © [C,ƒ] = V;
     α.replaceWith(α=󱀝 h2 ‹Choose the color that is visible on your LED strip.›)
     β.replaceWith(β=󱀝 span {𝐶 rgbButtons}
-                      ⟦C􊾡(󰲡{© =textButton(x,𝚲Ғ(󱟱𝚲ƒ(x))); SAT(,‹c›,x); ↪})⟧); };
+                      ⟦C􊾡(󰲡{© =textButton(x,𝚲Ғ(󱟱𝚲ƒ(x))); 􈛘(␛c,x); ↪})⟧); };
   Ғ(󱟱𝚲󱫬RGB_calibrate(𝔡)); }
 
 led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝔡,cb↦{
@@ -42,7 +41,6 @@ led_calibrate = 󰇮(⥌𝘴,𝘳↦󱟱⥌𝔡,cb↦{
   ⎉ 𝔖 = [[1,100,1000]];
   ⎉ first=✓;
   
-  ☾(get_dev(𝔡));
   © init_rev = get_dev(𝔡).REVERSE;
   
   ➰(✓) { ⎉ [l,m,h] = 𝔖􋕛(󷰾);

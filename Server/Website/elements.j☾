@@ -6,6 +6,8 @@
 © grad   = ⥌c,s,v↦‹linear-gradient(180deg in hsl longer hue,⟦hsv2hsl([0,s,v])⟧,⟦hsv2hsl([255,s,v])⟧) 0 0 / 100% ⟦100÷c⟧% repeat-y›;
 © hsv2hsl = ⥌[h,s,v]↦‹hsl(⟦h÷255⋅360⟧deg,⟦s÷2.55⟧%,⟦v÷255⋅50⟧%)›;
 
+© sorts = ⥌ƒ=󰲡x􋒷,,⠤𝙴↦𝙴.sort(󰲣ƒ(x).localeCompare(ƒ(y)))􋁃(󰲡􍪙(x));
+
 showErr = 󰲡☾(‹󰤱 show "⟦x⟧" to the user in a not annoying/cringe way›);
 
 clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
@@ -43,19 +45,22 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
   󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮  ⟦y⟧} ⟦x⟧)⟧;
 
 əitemGridEditable = ⥌𝚙𝚕𝚞𝚜,𝚐𝚎𝚗,𝚛𝚎𝚖,items=[],Ѧ={}↦{
-  Ѧ = {show_plus:✓,placeholder:󱣩,⠤Ѧ};
+  Ѧ = {sort:󱣩,show_plus:✓,placeholder:󱣩,⠤Ѧ};
   ⎉ ,adder;
   󱀝: {𝐶 itemGrid} [
       󱀝:adder {𝐶 itemGridItem itemGridAdder} [
         󱀝 button {𝐶 bigButton⍮  ⟦𝚲𝚙𝚕𝚞𝚜(Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ)⟧} ‹+› ] ];
+  Ѧᴱˡᵐˢ = 𝚲􈞣(‹:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))›)
+  Ѧᵒʳᵈᵉʳ = 𝚲Ѧˢᵒʳᵗ ∧ sorts(Ѧˢᵒʳᵗ,,⠤Ѧᴱˡᵐˢ());
   Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ = 󰲣{ ⎉ new = 󱀝 div {𝐶 itemGridItem};
                  ¿(y) { new􋒅 ⁺(‹itemGridPlaceholder›);
-                        chainIntoElements(x, new); }
+                        chainIntoElements(x,new); }
                  ¡    { chainIntoElements(𝚐𝚎𝚗(x,𝚲(𝚛𝚎𝚖(x),new.remove())), new); }
                  new􌿱 = new􋑱₀
-                 .insertBefore(new,adder); };
+                 .insertBefore(new,adder);
+                 Ѧᵒʳᵈᵉʳ(); };
   ¿(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ≇󱣩) Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ(Ѧᵖˡᵃᶜᵉʰᵒˡᵈᵉʳ(),✓);
-  Ѧᶜˡᵉᵃʳ    = 𝚲􈞣(‹:scope > :not(:is(.itemGridAdder,.itemGridPlaceholder))›)􊾡(󰲡x.remove())
+  Ѧᶜˡᵉᵃʳ    = 𝚲Ѧᴱˡᵐˢ()􊾡(󰲡x.remove())
   Ѧˢᵉᵗ􋕟ᵖˡᵘˢ = 󰲡adder􋛟.display = x⭜‹unset›⭝‹none›;
   Ѧˢᵉᵗ􋕟ᵖˡᵘˢ(Ѧˢʰᵒʷ􋕟ᵖˡᵘˢ);
   items􋁃(Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ);

@@ -20,10 +20,12 @@ DONE
   • Added LOG_LEVEL setting to reduce stdout for performance
   • Added deleting dev from DB function
   • Added Delete_dev Endpoint + UI implementation. It (intentionally) only applies for offline devices
+  • Fixed lower menu in dev listing not closing automatically and reopens when re-entering the devices tab
+  • Added ABC ordering to toks/devs/scenes
 TODO
   • Bugs (General/random)
     • Frontend error handling for changing tok and stuff?
-    • Bruh a rainbow being reversed doesn't work 😭
+    • A rainbow being reversed has unintuitive implications, it basically needs to be in a group to behave as expected...?
   • Security
     • I don't trust humanity enough to gracefully handle that leaking a token lets an attacker add all your devs to a botnet, so I need UPDATE_URL/WS_URL to be changable in, and only in, AP mode
   • LW-Controller
@@ -44,7 +46,6 @@ TODO
     • Scene scheduler
     • Re-style onboard AP page
     • Improvements
-      • ABC order toks/devs/scenes
       • Add instructions/directions/re-style for the add token prompt
       • Enter hex code for colors (and in general click into and type out slider)
       • Making the delete and ungroup options be hidden and just appear somewhere as an obvious option when you start dragging an element and you can just stick it into the option
@@ -52,10 +53,9 @@ TODO
     • Bugs
       • Bc the optimization for changing device properties, changing a dev's token doesn't remove it from the dev menu in scene editing. bruh.
       • Sliders/value labels inside of fade mode is jank
-      • The lower menu in device listing doesn't close automatically and reopens when re-entering the devices tab
     • Misc
       • 󰖪 and 󰖩 to indicate AP and WiFi seems a bit weird, both are wireless
-  • Technical stuff:
+  • Technical stuff
     • Proxy the token api with scene stuff
     • itemGridEditable needs the ability to directly control and modify elements
   • Dumb stuff
