@@ -32,7 +32,9 @@ pushd ./Onboard
     done
   popd
 pushd ./Module_Dynamic
-  export CFLAGS="-Wno-error=unused-variable -Wno-error=unused-function -Wno-error=parentheses -Wno-error=maybe-uninitialized"
+  rm -r build .mpy_ld_cache || :
+  export CFLAGS="-Wno-error=unused-variable -Wno-error=unused-function -Wno-error=parentheses -Wno-error=maybe-uninitialized \
+                 -Wno-unused-variable       -Wno-unused-function       -Wno-parentheses       -Wno-maybe-uninitialized"
   make && { cp *.mpy "${DEV_FS}/"; } || { bad=1; }
   popd
 

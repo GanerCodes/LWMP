@@ -39,7 +39,7 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
 
 ətitledBox = ⥌𝚝,ə,Ѧ={outline:✓}↦
   󱀝 div {𝐶 titledBox} [
-    󱀝 T ⦅󰊄𝚜 2.25em⦆ ‹⟦𝚝⟧›
+    󱀝 T ⦅󰊄𝚜 2em⦆ ‹⟦𝚝⟧›
     󱀝 {𝐶 ‹box⟦¬Ѧᵒᵘᵗˡⁱⁿᵉ⭜‹ noOutline›⭝ᐦ⟧›⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto⦆} [⟦ə⟧]]
 əbuttonBar = 󰲟
   󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮  ⟦y⟧} ⟦x⟧)⟧;

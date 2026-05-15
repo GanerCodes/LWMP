@@ -26,6 +26,7 @@ pushd ../micropython
       echo "CONFIG_MBEDTLS_SSL_IN_CONTENT_LEN=4096"
       echo "CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=4096"
       echo "CONFIG_MBEDTLS_HAVE_TIME_DATE=n"
+      
       # echo "CONFIG_MBEDTLS_SSL_MAX_FRAGMENT_LENGTH=y"
       # echo "CONFIG_MBEDTLS_DYNAMIC_BUFFER=y"
     } > "$T"
@@ -33,6 +34,9 @@ pushd ../micropython
     { echo '#define MICROPY_HW_BOARD_NAME        "ESP32 LightWave"'
       echo '#define MICROPY_HW_MCU_NAME          "ESP32LW"        '
     } > "./boards/ESP32_GENERIC/mpconfigboard.h"
+    
+    sed -i 's/^#define MP_TASK_COREID *(1)/#define MP_TASK_COREID (0)/' ./mphalport.h # hack upon hack upon hacks
+    
     popd
   
   make -C ports/esp32 BOARD=ESP32_GENERIC submodules

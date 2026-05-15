@@ -1,0 +1,19 @@
+msg = 󰦥󰦥󰦥󰦥󰦥
+<01715.2480> 󰤱 message →
+<01715.2580> [API] Handling "*"
+<01715.2600> [API] Handling "Push_scenes"
+<01715.2620> Writing scene "rainbow hehe"
+<01715.4560> [Scenes] Updated scene "rainbow hehe" at "/Scenes/rainbow hehe"
+<01715.4710> [API] Handling "Set_scene"
+<01715.4930> [Controller] Calling with ('rainbow hehe', False, -1, None, 1778456257209)
+<01715.4950> [Scene Cache] Getting "rainbow hehe"
+<01715.5320> [Scene Cache] Not in cache.
+<01715.5690> 󰤱 encode_mode →
+<01715.6020> [Interface] (Mem:62%) Size = 24+16+0 = 40
+<01715.6040> 󰤱 encode_mode ←
+<01715.7840> 󰤱 message ←
+󰦥󰦥󰦥󰦥󰦥
+
+⨡ text_format
+msg􀌎􀯖lines􀯑l􀊠(lᐵ₁􊬋₁₀𝑓ᐸ􀜤2􀋲􀜘􀂘³􀊊􀁘ᵜ􇀠T)􀋶􀉳􀁦
+T􀉹⁰􀯖‹Tot: ⬤›􀊸

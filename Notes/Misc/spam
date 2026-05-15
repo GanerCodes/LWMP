@@ -34,16 +34,93 @@ else:
 //             0xFF*(n-(u32)n)),
 //       atom.R.s, atom.R.v);
 
-
-cd /home/ganer/Projects/Brynic/LWMP/Device/micropython/ports/esp32/build-ESP32_GENERIC
-unalias . || :; export PATH="$PATH:/opt/esp-idf/tools"; source /opt/esp-idf/export.sh
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400bc459:0x3ffdd670
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400a1cfd:0x3fffecd0 0x400a24ab:0x3fffee10 0x401001a1:0x3fffee30 0x4012c467:0x3fffee50 0x4012c4b1:0x3fffee90 0x401001a1:0x3fffeeb0 0x40129044:0x3fffeed0 0x4011af05:0x3fffef70
+cd /home/ganer/Projects/Brynic/LWMP/Device/micropython/ports/esp32/build-ESP32_GENERIC; unalias . || :; export PATH="$PATH:/home/ganer/Projects/Brynic/LWMP/Device/esp-idf/tools"; source /home/ganer/Projects/Brynic/LWMP/Device/esp-idf/export.sh
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400fabe0:0x3ffdd380 0x4009e889:0x3ffdd3d0 0x4009e945:0x3ffdd420 0x4009e985:0x3ffdd440 0x400d2099:0x3ffdd480
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x40094c99:0x3ffbd2c0 0x40094c65:0x3ffbd2e0 0x40099fda:0x3ffbd300 0x40082bc7:0x3ffbd370 0x40082d5e:0x3ffbd3b0 0x401f7f52:0x3ffbd3e0 0x401f4abf:0x3ffbd490 0x400d1fe7:0x3ffbd4e0 0x4009d755:0x3ffbd500 0x400d2041:0x3ffbd540
 xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x4009529d:0x3ffdc9a0 0x40095269:0x3ffdc9c0 0x40095e9a:0x3ffdc9e0 0x40097365:0x3ffdca60 0x40096008:0x3ffdca90 0x40095fba:0x00000008
 xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x4009d881:0x3ffde870 0x4009df97:0x3ffde9b0 0x401001a1:0x3ffde9d0 0x4012c463:0x3ffde9f0 0x4012c4ad:0x3ffdea30 0x401001a1:0x3ffdea50 0x40129040:0x3ffdea70 0x4011af01:0x3ffdeb10
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400a1cfd:0x3fffecd0 0x400a24ab:0x3fffee10 0x401001a1:0x3fffee30 0x4012c467:0x3fffee50 0x4012c4b1:0x3fffee90 0x401001a1:0x3fffeeb0 0x40129044:0x3fffeed0 0x4011af05:0x3fffef70
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400bc459:0x3ffdd670
 xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400f7571:0x3ffde600 0x4012b92a:0x3ffde620 0x4009d993:0x3ffde650 0x400f8f9f:0x3ffde710 0x40100195:0x3ffde730 0x4012b8d5:0x3ffde750 0x4009ddaf:0x3ffde770 0x4009dbc4:0x3ffde870 0x40100195:0x3ffde890 0x4012c423:0x3ffde8b0 0x4012c46d:0x3ffde8f0 0x40100195:0x3ffde910 0x40128fb8:0x3ffde930 0x4011aebd:0x3ffde9d0
 xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x401065e0:0x3ffde6f0 0x4009e258:0x3ffde710 0x4009e777:0x3ffde870 0x40106535:0x3ffde890 0x4012ff7f:0x3ffde8b0 0x4012ffc9:0x3ffde8f0 0x40106535:0x3ffde910 0x4012df7c:0x3ffde930 0x400f9445:0x3ffde9d0
 
 bruh
 https://ganer.xyz/s/4be9634d9fb4f369?e
 https://ganer.xyz/s/f67ad4c77d025723?e
+
+// static void lightwave_led_loop(void *arg) { // 󰤱 replace with the stuff in lw_animation once that's finished
+//   passed_ptrs_t* A = (passed_ptrs_t*)arg;
+//   globals_from_ptrs(A);
+  
+//   LedConf led_cfg = { .n = 200, .p = 23,
+//                       .t = 400LL<<48 | 850LL<<32 | 800LL<<16 | 450LL };
+//   led_cfg.𝔇 = f_malloc(3*led_cfg.n);
+//   led_init(&led_cfg);
+  
+//   // taskENTER_CRITICAL(); taskEXIT_CRITICAL();
+//   i64 t0=micros(),t,Δ;
+//   i64 t_log = 0;
+  
+//   u32 i = 0;
+//   while((Δ=(t=micros())-t0)<10000000) {
+//     i32 rt = Δ*255/1000000;
+//     u8 r = rt%255, b = 255-r;
+//     if(Δ>t_log) { P("rt=");P_i64(rt); P(" Δ=");P_i64(Δ);
+//                   P(" r=");P_i64(r ); P(" b=");P_i64(b);
+//                   P(" from "); P(xPortGetCoreID()?"1":"0"); P("\n");
+//                   t_log += 525211; }
+//     for(u32 i=0; i<led_cfg.n; i++) {
+//       led_cfg.𝔇[3*i+0] = i*25%255;
+//       led_cfg.𝔇[3*i+1] = r;
+//       led_cfg.𝔇[3*i+2] = b; }
+//     led_flush(&led_cfg);
+//     led_show(&led_cfg);
+//     i++;
+//   }
+//   P("\nFPS:");P_i64(i/10);P("\n"); }
+
+#@micropython.native
+#def loop(𝕊,leds=leds,set_𝕒=set_𝕒,𝕒_ptr=𝕒_ptr):
+#  while 𝕊.lstate:
+#    try:
+#      𝕊.lstate = _LOOP_TIGHT
+#      pin,timing,ledv,targΔ = set_𝕒(𝕊.dmode,𝕊.get_wait_mode())
+#      
+#      Δ = prevΔ = targΔ
+#      log_n = n = tsΔ = 0
+#      log_ts = free_ts = ms()
+#      
+#      while 𝕊.lstate == _LOOP_TIGHT:
+#        m = ms()
+#        if ΔΔ := targΔ-Δ: # experp Δ from prevΔ to targΔ over m-tsΔ ms (assuming nondrastic change)
+#          if -10_000<=ΔΔ<10000 and (δ_Δ:=dt_ms(m,tsΔ))<1000: # https://www.desmos.com/calculator/hexqqffwi9?nobranding=&nokeypad=
+#            l = clamp(δ_Δ*0.001,0,1)
+#            Δ = prevΔ+ceil((targΔ-prevΔ)*((exp(2*l)-1)/(exp(2)-1)))
+#          else:
+#            Δ = targΔ
+#        t = m+Δ # 󰤱 this wraps
+#        tq,tr = divmod(t,1000)
+#        assign_leds(𝕒_ptr,tq+tr*0.001)
+#        bitstream(pin,0,timing,ledv)
+#        sleep(0.001)
+#        
+#        if u:=𝕊.update_to_que():
+#          if u==2: break
+#          if u==1: Δ = targΔ = prevΔ = 𝕊.Δ
+#        if (n:=n+1)%_FREE_INTRV_FRAME and dt_ms(m,free_ts)<_FREE_INTRV_MS: continue
+#        if (δ_log := dt_ms(free_ts:=ms(),log_ts)) >= _LOG_INTRV_MS:
+#          M = MS()
+#          cur_s = M//1000 - day_start(1000*M)//10**6
+#          FPS = (n-log_n)/(δ_log or 10**-5)*1000
+#          log(f"[Controller] {tq:06}.{tr:03} {FPS=:6.2f} {fs_perc()} {mem_perc()} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} {Δ=}\n"
+#              f"  {fmt_date()} (Ntp={fmt_date(last_ntp[1] or 0)} @ {fmt_dur(last_ntp[0] or 0)})\n"
+#              f"  Sec={fmt_dur(10**6*cur_s)} recalb_t={fmt_dur(10**6*𝕊.recalb_t)} recalb_t_day={fmt_date(_MS_PER_D*𝕊.recalb_t_day)}\n"
+#              f"  Ta={fmt_date(1000*𝕊.mode.Ta)} Ts={fmt_date(1000*𝕊.mode.Ts)} d={fmt_dur(1000*𝕊.mode.d)}")
+#          log_n,log_ts = n,free_ts
+#        if targΔ != 𝕊.Δ:
+#          targΔ,prevΔ,tsΔ = 𝕊.Δ,Δ,free_ts
+#          log(f"[Controller] Moving Δ: {prevΔ}→{targΔ}")
+#        frees()
+#    except Exception as ε:
+#      dbg(f"[Controller] Error in LED loop! Restarting in 3 seconds:",ε)
+#      frees(3)

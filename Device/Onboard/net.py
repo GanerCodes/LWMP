@@ -1,4 +1,5 @@
-import micropython,socket,select,ssl
+# import micropython,
+import socket,select,ssl
 from collections import namedtuple
 from network     import WLAN,STA_IF,AP_IF
 from time        import sleep
@@ -179,10 +180,8 @@ def ssl_cond(s,uri,sec=("https","wss")):
   try:
     s = ctx.wrap_socket(s, server_hostname=host)
   except Exception as ε:
-    dbg(f'Failed to wrap socket! server_hostname="{host}"')
-    with open("CERT.pem",'r') as f:
-      dbg("cafile:",f.read(),sep='\n')
-    dbg(ε)
+    dbg(f'Failed to wrap socket! server_hostname="{host}"',ε)
+    with open("CERT.pem",'r') as f: log(f.read())
     free()
     raise ε
     

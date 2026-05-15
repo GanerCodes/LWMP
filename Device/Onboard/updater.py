@@ -33,7 +33,7 @@ def check_perform_update(force=None,fp="UPDATE_FLAG"):
     log(f"[Updater] FS={fs_perc()} MEM={mem_perc()}")
     if f<need:
       log(f"[Updater] Removing scenes due to needing space ({f}<{need})")
-      ℭ.DEF_SCENE = "_default"
+      ℭ.DEF_SCENE = "_default_"
       for s in ls("/Scenes"):
         if s[0] == '_': continue
         s = f"/Scenes/{s}"

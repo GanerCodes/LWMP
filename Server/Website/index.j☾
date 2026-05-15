@@ -9,10 +9,21 @@
 © delTok = ⥌𝐭↦{ ¿(𝔏𝔖􋀭(‹selTok›)≡𝐭) 󰆴 𝔏𝔖􋕨ₛₑₗ󰂦󰂼ₖ􋕨;
                 setBar(✗); };
 
-©  tokenListing = ətokenListing({ƒ:setTok, delƒ:delTok    });
-©    devListing = ədevListing  ({                         });
-©  sceneListing = əsceneListing({ƒ:⥌Ѧ↦𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈹,✗,✗,󷰾)});
-© sceneSheduler = 󱀝 T ‹󰤱›;
+©   tokenListing = ətokenListing({ƒ:setTok, delƒ:delTok    });
+©     devListing = ədevListing  ({                         });
+©   sceneListing = əsceneListing({ƒ:⥌Ѧ↦𝘌run(Ѧ􈛈,Ѧ􋆭,Ѧ􋈹,✗,✗,󷰾)});
+© sceneScheduler = 󱀝 T ‹󰤱›;
+
+© devRefreshBtnə = 𝚲{
+  ⎉ ;
+  © ƒ = 󱟱𝚲{ 􋒗 = ✓; devListing􈞣(‹button›)􊾡(󰲡x􋒗=✓);
+                { 󱫬 devListing􀴗.populate(𝐀(𝔏𝔖ˢᵉˡᵀᵒᵏ));  }
+            catch{ showErr(‹Failed to refresh devices!›); }
+            󰛕    { 􋒗 = ✗;                                } };
+  ↪󱀝: button {⦅󰊄𝚜 1.3em; «𝚠 𝚑» 1.175em; 𝚖↓ 0.5em⦆⍮𝐶 devRefreshBtn⍮ ⟦ƒ⟧} ‹↺›; };
+
+© devicesTab = 󱀝 {⦅𝚏↓;𝚊𝚂󷷣⦆} [⟦devRefreshBtnə()⟧
+                              ⟦devListing     ⟧];
 
 © barDropHack = ⥌k↦{ devListing􈞣(‹.multiButtonBar[dropped="✓"]›)􋁃(󰲡{
                         x􈛘(‹dropped›,ᐦ); });
@@ -20,10 +31,11 @@
 
 © nav = 󱀝 ⟦ənavBar⟧ {Ⴝ ‹Tokens›⍮top ⟦✓⟧⍮chkAdd ⟦barDropHack⟧} [
            󱀝 ✗              [󱀝 img {⦅𝚑 2em;𝚖← 0.5em⦆⍮src ‹/Assets/logo.svg›⍮alt Logo}]
-           󱀝 {󰊄 ‹Tokens󷺗󷺗›} ⟦tokenListing ⟧
-           󱀝 {󰊄 ‹Devices󷺗›} ⟦devListing   ⟧
-           󱀝 {󰊄 ‹Scenes󷺗󷺗›} ⟦sceneListing ⟧
-           󱀝 {󰊄 ‹Schedule›} ⟦sceneSheduler⟧];
+           󱀝 {󰊄 ‹Tokens󷺗󷺗›} ⟦tokenListing  ⟧
+            󱀝 {󰊄 ‹Devices󷺗›} ⟦devListing    ⟧
+           󱀝 {󰊄 ‹Devices󷺗›} ⟦devicesTab    ⟧
+           󱀝 {󰊄 ‹Scenes󷺗󷺗›} ⟦sceneListing  ⟧
+           󱀝 {󰊄 ‹Schedule›} ⟦sceneScheduler⟧];
 setBar(✗);
 nav􀴗 􀳕 󰀒ᶜʰᵉᵈᵘˡᵉ 􀲝 􋛟 ᵈⁱˢᵖˡᵃʸ = ‹None›;  󰤱 temp until we get scheduler working
 

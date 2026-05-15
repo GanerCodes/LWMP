@@ -20,43 +20,47 @@ DONE
   • Added LOG_LEVEL setting to reduce stdout for performance
   • Added deleting dev from DB function
   • Added Delete_dev Endpoint + UI implementation. It (intentionally) only applies for offline devices
-  • Fixed lower menu in dev listing not closing automatically and reopens when re-entering the devices tab
   • Added ABC ordering to toks/devs/scenes
+  • Fixed some jank in the speed/sharpness labels inside of fade mode
+  • Fixed the bug regression of changing a dev's token not removing it from the dev menu in scene editing
+  • UPDATE_URL/WS_URL is changable in, and only in, AP mode (I don't trust humanity enough to gracefully handle that leaking a token lets an attacker add all your devs to a botnet)
+  • Redid how the entire LED loop works, it now is written in C and properly runs on the 2nd core.
+  • AP mode now can- and is the sole way to- control WS_URL and UPDATE_URL.
+  • Added instructions/directions/re-style for the add token prompt
 TODO
   • Bugs (General/random)
+    • Ask viz for the new URL for the support info, rn its `https://www.brynicsolutions.com/set-up` which is the old one
+    • [󰤱 NOT FIXED LOL] Fixed lower menu in dev listing not closing automatically and reopens when re-entering the devices tab
     • Frontend error handling for changing tok and stuff?
     • A rainbow being reversed has unintuitive implications, it basically needs to be in a group to behave as expected...?
-  • Security
-    • I don't trust humanity enough to gracefully handle that leaking a token lets an attacker add all your devs to a botnet, so I need UPDATE_URL/WS_URL to be changable in, and only in, AP mode
   • LW-Controller
     • Performance
       • Redo how scene data is calulated because it can prob crash the device for too complex scenes
       • RAM usage is kinda cooked and SSL is often to blame
-      • Really the whole 2nd python thread instead of pinning the entire LED thing to a core didn't work. Mostly single threaded atm which, kinda sucks ngl
     • Bugs
       • Random disconnects/freezes. unfortunately I suspect it's that stupid websocket SSL bug which is by-and-large the worst problem i've had to deal with this entire project
   • Advanced device options
     • Setting recalb time (atm it's 3am user time, and is set when doing RGB or LEDC calib)
     • Pulling scenes
-    • Websocket/update URLs
     • Change bit timing (useful for controlling certain nonstandard ws*-like LED strips)
-    • Change pin?
+    • Change pin
+  • Scenes
+    • Export/import json dump
   • UI
-    • We should be updating everything whenever we get data about anything!!
     • Scene scheduler
     • Re-style onboard AP page
     • Improvements
-      • Add instructions/directions/re-style for the add token prompt
+      • There's some inconsistancy with how buttons/dropdowns/inputs look, prob remove the border from stuffs and have a background.
       • Enter hex code for colors (and in general click into and type out slider)
       • Making the delete and ungroup options be hidden and just appear somewhere as an obvious option when you start dragging an element and you can just stick it into the option
       • For element picker modes scroll such that the the closest valid element is centered if it's not at least ≈10% visible already
-    • Bugs
-      • Bc the optimization for changing device properties, changing a dev's token doesn't remove it from the dev menu in scene editing. bruh.
-      • Sliders/value labels inside of fade mode is jank
+      • Some intuitive way to change accuracy of slider, e.g. a button that binds the slider to the 2nd decimal point
+      • Refactor to updating everything whenever we get data about anything
     • Misc
       • 󰖪 and 󰖩 to indicate AP and WiFi seems a bit weird, both are wireless
+      • Make the `Haven't added your device yet?` button not longer than the text
   • Technical stuff
-    • Proxy the token api with scene stuff
+    • Proxy the token api with scene stuff?
     • itemGridEditable needs the ability to directly control and modify elements
   • Dumb stuff
     • I'm like 87.882523% sure that I commited wifi creds again 💀

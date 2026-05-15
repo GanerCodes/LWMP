@@ -71,6 +71,7 @@ class Scene_Manager:
     N = 0
     for k,v in X.items():
       try:
+        log(f'Writing scene "{k}"')
         𝕊[k] = v
         N += 1
       except Exception as ε:

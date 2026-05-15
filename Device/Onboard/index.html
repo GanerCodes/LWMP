@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Lightwave Setup</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
     :root { font-size:20px; }
     button,input,dialog { font-size:unset; }
@@ -28,8 +28,7 @@
       color:#FFF; }
     #modes { display:grid; grid-template-columns:repeat(auto-fill,125px);
              grid-gap:10px; justify-content:center; width:100%; }
-    #lw_setup[open] :nth-child(-n+2) { margin-bottom:5%; }
-    .item { margin:8px; }
+    .item { width:75vw; margin-top:8px; margin-bottom:8px; }
     .text { text-align:center; }
     input::placeholder { color:#AAA; }
     button { border-radius:4px; }
@@ -38,8 +37,9 @@
     input:focus, button:is(:hover,:focus-visible) {
       background:#222; color:#FFF;
       border:1px solid #FFF; outline:none; }
-    button:is(:hover,:focus-visible) { cursor:pointer;
-                                       transform:scale(1.03); }
+    .botBtns { width: 40%; }
+    *:is(button,summary):is(:hover,:focus-visible) { cursor:pointer; }
+    button:is(:hover,:focus-visible) { transform:scale(1.03); }
     button:active                    { background:#333; }
     .entry { aspect-ratio:1; border-radius:10px;
              overflow:hidden; overflow-wrap:anywhere;
@@ -51,14 +51,19 @@
   <t style="font-size:2em">LightWave</t>
   <dialog id="lw_setup">
     <t style="font-size:2em">WiFi Setup</t>
-    <t style="font-size:0.75em;color:#AAA">All Fields Case Sensitive</t>
+    <t style="margin-bottom:1.25em;font-size:0.75em;color:#AAA">All Fields Case Sensitive</t>
     <input type="text" class="item" id="SSID" placeholder="Router SSID">
     <input type="text" class="item" id="PASS" placeholder="Router Password">
     <input type="text" class="item" id="TOKE" placeholder="Account Token"
            title="(6-64 characters) Anyone with this token can control your LightWave">
-    <span>
-     <button id="setup_cancel" class="item">Cancel</button>
-     <button id="setup_submit" class="item">Submit</button>
+    <details>
+      <summary>Advanced</summary>
+      <input type="text" class="item" id="WS_URL" title="Websocket URL" placeholder="Websocket URL">
+      <input type="text" class="item" id="UD_URL" title="Update URL"    placeholder="Update URL">
+    </details>
+    <span class="item" style="margin-top:1.5em">
+     <button class="botBtns" id="setup_cancel">Cancel</button>
+     <button class="botBtns" id="setup_submit">Submit</button>
     </span>
   </dialog>
   <span id="confBar">
@@ -69,9 +74,6 @@
   <script>
     𝔇 = document;
     api = (m,j) => fetch(m, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(j)});
-    // api = (...𝔸) => { console.log("API:",...𝔸);
-    //                   return { json: _=>({ R_SSID:"coolnet",
-    //                                        modes :"_ap _default fade_test synctest thousand" }) } };
     
     setup_wifi  .onclick = _=>lw_setup.showModal();
     setup_submit.onclick = _=>{
@@ -79,21 +81,28 @@
       C = [S,P,T] = [SSID,PASS,TOKE].map(x=>x.value);
       const l = [...T].length;
       if(!(C.every(x=>x) && 6<=l && l<=64)) return;
-      api("/config",{R_SSID:C[0], R_PASS:C[1], TOKEN:C[2], AP_MODE:0});
+      const r = { R_SSID:C[0], R_PASS:C[1], TOKEN:C[2], AP_MODE:0,
+                  ...(_=WS_URL.value) && {WS_URL    : _},
+                  ...(_=UD_URL.value) && {UPDATE_URL: _} };
+      api("/config",r);
       lw_setup.innerHTML = '<p class="text">Sent login info and restarted controller!<br><br>AP will be recreated in ≈30s if router connection fails.</p>'; };
     setup_cancel.onclick = _=>lw_setup.close();
     
     const populate = x => x.split(' ').forEach(m => {
+      if(m.at(-1) == '_') return;
       const ə = 𝔇.createElement("button");
       ə.innerText = m; ə.className = "entry";
       ə.onclick = _ => {api("/mode",{mode:m})};
       modes.append(ə); });
-    // setTimeout(_=>populate("_ap _default fade_test synctest thousand"),500);
+    
+    // api = (...𝔸) => (console.log("API:",...𝔸),{ json: _=>({WS_URL:"https://ws_url.com",UPDATE_URL:"https://update_url.com",R_SSID:"coolnet",modes :"_ap_ _default_ fade_test synctest thousand" }) });
     (async _ => {
       const ℭ = await (await api("/getConfig")).json();
-      SSID.value = ℭ.R_SSID || '';
-      PASS.value = ℭ.R_PASS || '';
-      TOKE.value = ℭ.TOKEN  || '';
+      SSID  .value = ℭ.R_SSID     || '';
+      PASS  .value = ℭ.R_PASS     || '';
+      TOKE  .value = ℭ.TOKEN      || '';
+      WS_URL.value = ℭ.WS_URL     || '';
+      UD_URL.value = ℭ.UPDATE_URL || '';
       populate(ℭ.modes || ''); })();
   </script>
 </body>
