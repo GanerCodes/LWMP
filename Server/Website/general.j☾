@@ -1,4 +1,4 @@
-© MAX_LEDC = 4000;
+© MAX_LEDC = 1000;
 
 fit_size = ⥌𝐭,w,sz=100,st=ᐦ,Δ=5↦{
   ➰(measureText(𝐭,sz,ᐦ)ʷⁱᵈᵗʰ≥w) sz -= Δ;
@@ -53,3 +53,14 @@ load_devices = 󱟱⥌𝔱↦{
   𝐋ᵈᵉᵛˢ = {⠤𝐃};
   update𝘋𝘉();
   ↪𝖦(𝐃); }
+
+ stuff that's useful for console stuff
+cur_uuids    = 𝚲𝒪k(get_devs(𝐀(𝔏𝔖.selTok)));
+api_all      = 𝚲𝐀(𝔏𝔖.selTok,⠤cur_uuids());
+api_all_conf = 󰲡api_all().config(x);
+test_scheg   = 𝚲{ 𝐝 = api_all();
+                  ⎉ [now,S] = [🆕 Date(),[]];
+                  ∀(⎉ i=5; i<15; i++)
+                    S.push([[now.getDay(),now.getHours(),now.getMinutes(),now.getSeconds()+i],
+                            [i%2 ⭜"c_b"⭝ "c_r",✗,󷰾]]);
+                  ↪𝐝.scheg(S); }

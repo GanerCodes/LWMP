@@ -23,12 +23,12 @@ class Settings:
           v = f(𝔍lf(k))
           default = True
         except Exception as ε:
-          dbg(f'[Settings] Error parsing file "{k}":',ε)
-      else:
-        pass # dbg(f'[Settings] File "{k}" not found.')
+          dbg("Settings",f'Error parsing file "{k}":',ε)
+      # else:
+      #   dbg("Settings",f'File "{k}" not found.')
       if not default:
         v = v() if callable(v) else v
-        log(f'[Settings] generated default value {v!r} for "{k}"')
+        log("Settings",f'generated default value {v!r} for "{k}"')
         𝔍wf(k,v)
       𝕊.X[k] = [v,f]
       free()
@@ -53,11 +53,6 @@ class Settings:
   __repr__ = lambda 𝕊: "{%s}"%(", ".join(f"{k}={v[0]}" for k,v in 𝕊.X.items()),)
 
 boolstr = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
-def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + doesn't break
-  if not isinstance(mode,str): raise ValueError("Not a string")
-  if len(mode) != 3: raise ValueError("RGB mode not length 3")
-  mode = int(mode.index('R')), int(mode.index('G')), int(mode.index('B'))
-  return (mode[0]<<16)|(mode[1]<<8)|mode[2]
 
 ℭ = Settings(WS_URL     =("wss://lwmp.ganer.xyz:2096"    ,        ),
              UPDATE_URL =("https://lwmp.ganer.xyz/update",        ),
@@ -72,7 +67,7 @@ def parse_rgb_mode(mode): # 󷹇 modes like GGR allowed bc it's interesting + do
              REVERSE    =(False                          , boolstr),
              BIT_TIMING =("400 850 800 450"              ,        ),
              RGB_ORDER  =("RGB"                          ,        ),
-             DEF_SCENE  =("_default"                     ,        ),
+             DEF_SCENE  =("_default_"                    ,        ),
              VER        =("0"                            ,        ),
              RECALB_T   =(0                              , int    ),
              LOG_LEVEL  =(3                              , int    ))
@@ -83,4 +78,4 @@ def wifi_from_ℭ(ℭ):
   if not (R:=wifi_connect(*ℭ("r_ssid","r_pass"))): raise Exception(f"Failed to connect to WiFi!" )
   return R
 
-# parse_rgb_mode ℭ wifi_from_ℭ
+# parse_rgb_mode parse_timing ℭ wifi_from_ℭ

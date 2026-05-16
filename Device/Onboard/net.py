@@ -1,4 +1,5 @@
-import micropython,socket,select,ssl
+# import micropython,
+import socket,select,ssl
 from collections import namedtuple
 from network     import WLAN,STA_IF,AP_IF
 from time        import sleep
@@ -25,13 +26,13 @@ def wlan(m,**𝕂):
   return net
 
 def wifi_connect(router_ssid,router_pass,retries=30):
-  log(f'[WiFi] Connecting to wifi: SSID="{router_ssid}" Pass="{router_pass}"')
+  log("WiFi",f'Connecting to wifi: SSID="{router_ssid}" Pass="{router_pass}"')
   net = wlan(STA_IF)
   try:
     net.connect(router_ssid,router_pass)
   except Exception as ε:
     net.active(False)
-    dbg(f'[WiFi] Error connecting using above SSID and password',ε)
+    dbg("WiFi","Error connecting using above SSID and password",ε)
     return False
   for i in range(r := retries):
     onboard_led(1)
@@ -41,12 +42,12 @@ def wifi_connect(router_ssid,router_pass,retries=30):
     sleep(0.1)
     onboard_led(0)
     sleep(0.9)
-    log(f'[WiFi] Failed to connect to network [{i+1}/{r}] - "{net.status()}"')
+    log("WiFi",f'Failed to connect to network [{i+1}/{r}] - "{net.status()}"')
   else:
     net.active(False)
-    log("[WiFi] Could not connect to network.")
+    log("WiFi","Could not connect to network.")
     return False
-  log("[WiFi] Connected.")
+  log("WiFi","Connected.")
   return lambda: net.active(False)
 
 def AP_basic(get=log,post=log,loop=True,ssid="AP",password=""):
@@ -58,7 +59,7 @@ def AP_basic(get=log,post=log,loop=True,ssid="AP",password=""):
     return buf
   net = wlan(AP_IF,essid=ssid,password=password)
   while not net.active(): frees(0.025)
-  log(f'[AP] Created "{ssid}" {net.ifconfig()}')
+  log("AP",f'Created "{ssid}" {net.ifconfig()}')
   s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
   s.bind(("",80))
   s.listen(5)
@@ -68,7 +69,7 @@ def AP_basic(get=log,post=log,loop=True,ssid="AP",password=""):
       header,_,body = recv_until(conn.recv).partition(b"\r\n\r\n")
       method,*header = header.decode().split("\r\n")
       method,path,_ = method.split(' ',2)
-      log(f'[AP] [{join(addr)}] {method} {path}')
+      log("AP",f'[{join(addr)}] {method} {path}')
       headers = {}
       for h in header:
         k,v = h.split(':',1)
@@ -76,7 +77,7 @@ def AP_basic(get=log,post=log,loop=True,ssid="AP",password=""):
         headers[k.lower().strip()] = v.strip()
         del k,v
       del _,header
-      # log('[AP] Headers:\n  '+join((f"{k}: {v}" for k,v in headers.items()),'\n  '))
+      # log("AP",'Headers:\n  '+join((f"{k}: {v}" for k,v in headers.items()),'\n  '))
       if blen := int(headers.get("content-length",0))-len(body):
         while blen>0 and (c:=conn.recv(512)):
           body += c
@@ -108,7 +109,7 @@ def AP_basic(get=log,post=log,loop=True,ssid="AP",password=""):
         raise CloseConnection("Closed Intentionally") 
     except Exception as ε:
       if isinstance(ε,CloseConnection): raise ε
-      dbg(f'[AP] Error processing request:',ε)
+      dbg("AP","Error processing request:",ε)
     finally:
       try             : conn.close()
       except Exception: pass
@@ -123,7 +124,7 @@ def DNS_trap(loop=True):
   s.bind(("",53))
   def handle(): # this is half AI lol
     dat,addr = s.recvfrom(512)
-    log(f'[DNS] [{join(addr)}] Got DNS query')
+    log("DNS",f"[{join(addr)}] Got DNS query")
     if len(dat)<12: return
     i = 12
     while dat[i]: i += dat[i]+1
@@ -153,14 +154,14 @@ def AP_with_DNS(*𝔸,timeout=None,timeout_f=None,**𝕂):
         else           : continue
         l_evt = ms()
     except CloseConnection: close = True
-    except Exception      : dbg("[NET] Unhandled exception",ε)
+    except Exception      : dbg("NET","Unhandled exception",ε)
     finally:
       if close or timeout is not None and dt_ms(l_evt) > 1000*timeout:
         if timeout_f is not None: timeout_f()
         try                  : c1()
-        except Exception as ε: dbg("[NET] Failed to close AP" ,ε)
+        except Exception as ε: dbg("NET","Failed to close AP" ,ε)
         try                  : c2()
-        except Exception as ε: dbg("[NET] Failed to close DNS",ε)
+        except Exception as ε: dbg("NET","Failed to close DNS",ε)
         return
 
 # @micropython.native
@@ -170,23 +171,25 @@ def ssl_cond(s,uri,sec=("https","wss")):
   del uri,sec
   # micropython.mem_info(0)
   free()
-  # import time; log(time.localtime()); del time
-  log(f"[SSL] >> Mem: {mem_perc()}")
+  # import time; log("SSL",time.localtime()); del time
+  log("SSL",">> Mem:",mem_perc())
+  
   ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
   ctx.check_hostname = True
   ctx.verify_mode    = ssl.CERT_REQUIRED
   ctx.load_verify_locations(cafile="CERT.pem")
   try:
     s = ctx.wrap_socket(s, server_hostname=host)
+  # try:
+  #   with open("CERT.pem") as f:
+  #     cadata = f.read()
+  #   s = ssl.wrap_socket(s, cert_reqs=ssl.CERT_REQUIRED, server_hostname=host, cadata=cadata)
   except Exception as ε:
-    dbg(f'Failed to wrap socket! server_hostname="{host}"')
-    with open("CERT.pem",'r') as f:
-      dbg("cafile:",f.read(),sep='\n')
-    dbg(ε)
+    dbg("SSL",f'Failed to wrap socket! server_hostname="{host}"',ε)
     free()
     raise ε
     
-  log(f"[SSL] << Mem: {mem_perc()}")
+  log("SSL","<< Mem:",mem_perc())
   free()
   return s
 
@@ -208,7 +211,7 @@ def http_get(uri):
     if head.split(None,2)[1] != b'200':
       raise Exception(f"Response code is not 200!")
   except Exception as ε:
-    dbg(f'[HTTP] Could not validate HTTP header: {head!r}',ε)
+    dbg("HTTP",f"Could not validate HTTP header: {head!r}",ε)
     free()
     raise ε
   del head

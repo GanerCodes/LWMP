@@ -1,8 +1,8 @@
 from collections import namedtuple
 from util        import *
-from consts      import leds,lstk
+from consts      import LED_BUF_SIZE,STK_BUF_SIZE
 
-@micropython.native
+# @micropython.native
 def add_mag(x,y): return (abs(x)+abs(y))*(1-2*(x<0))
 
 Seg = namedtuple("Seg", ["σ","Σ","d","m","r0","rΔ"])
@@ -42,7 +42,7 @@ def pre(N,ν=None,σ=0,d=0):
 
 def flab(S):
   p,m,mx = S,0,0
-  R = b''
+  R = bytearray() # b''
   while p:
     m += p.m
     if p.d>mx: mx = p.d
@@ -74,11 +74,11 @@ def convert_atom(dat,bright,out):
     raise Exception(f'Unknown atom type "{t}"!')
 def parse_mode(mode,brightness=1,data=None,reverse=False):
   free()
-  if data is None: data = dict(atoms=b'',fades=b'')
+  if data is None: data = dict(atoms=bytearray(),fades=bytearray())
   
   r0 = rΔ = 0
   for t,(*v) in mode.get("fx",()):
-    if   t==0: reverse     = True # Rev
+    if   t==0: reverse = True # Rev
     elif t==1: rΔ,r0 = float(v[0]),float(v[1])
     elif t==2: brightness *= max(min(float(v[0]),1000),0) # Lum, idk why im allowing 1000 but it might factor through
     else     : raise Exception(f'Unknown effect type "{t}"!')
@@ -95,25 +95,23 @@ def encode_mode(N):
   # N   = optf(flat(pre(N)))
   # S   = b''.join(pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
   # mx  = max(s.d for s in N)+1
+  log("Interface","󰤱 encode_mode →")
   N,data = parse_mode(N)
   
   tmp  = pre (N); del N; free(); N=tmp
   S,mx = flab(N); del N; free()
   
-  if 3*4*mx > len(lstk): raise Exception(f"Stk too large for lstk! {mx=}")
+  if 3*4*mx > STK_BUF_SIZE: raise Exception(f"{3*4*mx>STK_BUF_SIZE=}!")
   
   lens = len(S),len(data["atoms"]),len(data["fades"])
-  log(f"[Interface] (Mem:{mem_perc()}) Size = {join(lens,'+')} = {sum(lens)}")
-  
-  return S,len(S)//24,data["atoms"],len(data["atoms"])//16,bytes(data["fades"])
-def specify_mode(mode,offsets,ℭ):
-  Σ = int.from_bytes(mode[0][4:8],"little")
+  log("Interface",f"(Mem:{mem_perc()}) Size = {join(lens,'+')} = {sum(lens)}")
+  log("Interface","󰤱 encode_mode ←")
+  return S,data["atoms"],data["fades"]
+  # return S,len(S)//24,data["atoms"],len(data["atoms"])//16,bytes(data["fades"])
+def get_mode_bounds(S,offsets,ℭ):
+  Σ = int.from_bytes(S[4:8],"little")
   l = (offsets or {}).get(ℭ.UUID,0)
   h = min(l+ℭ.LEDC,abs(Σ))
-  if l>=h:
-    # log("[Interface] Device has no LEDs to display for mode.")
-    log0('.',end='')
-    return None
-  return mode,(l,h)
+  return None if l>=h else (l,h)
 
-# encode_mode specify_mode
+# encode_mode get_mode_bounds

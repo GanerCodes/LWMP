@@ -37,7 +37,8 @@ DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*' | sed 's/tty/\/dev\/tty/'))
         mpremote connect "$DEV" fs cp "$tmp" :/UUID
         rm -f "$tmp"; }
       # exec mpremote connect "$DEV" reset
-      exec mpremote connect "$DEV" run ./main._py; }
+      exec mpremote connect "$DEV" run ./main._py || :
+      read; }
 
 FLASH_ROM=$([[ $1 == 'y' ]] && echo -n y || echo -n)
 BUILD_ROM=$([[ $2 == 'y' ]] && echo -n y || echo -n)
@@ -68,13 +69,15 @@ for i in "${!DEVS[@]}"; do
       tmux select-layout -t "$TARG" tiled
     fi
   fi
-  
-  done
+done
 
 unalias . || :; export PATH="$PATH:$PWD/Device/esp-idf"; source ./Device/esp-idf/export.sh
 
-{ cd ./Device
-  [[ -n "$BUILD_ROM" ]] && ./ROM/build.sh $([[ -n "$CLEAN_ROM" ]] && echo "-c")
+{ set -e
+  cd ./Device
+  if [[ -n "$BUILD_ROM" ]]; then
+    ./ROM/build.sh ${CLEAN_ROM:+-c}
+  fi
   ./ROM/gen_files.sh '' "$PRESET"
 } || touch /tmp/flash_bad_flag
 

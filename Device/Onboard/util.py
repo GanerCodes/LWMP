@@ -26,7 +26,7 @@ class Logger:
     print(f"[Logger] Setting loglevel to {l}")
     Logger.l = l
   def get(f,l):
-    return lambda *𝔸,**𝕂: f(*𝔸,**𝕂) if l>=Logger.l else 0
+    return lambda t,*𝔸,**𝕂: f(f"<{ms()/1000:010.4f}> [{t}]",*𝔸,**𝕂) if l>=Logger.l else 0
 
 def show_dbg(*𝔸,_=print,pe=sys.print_exception,**𝕂):
   v = _(*𝔸,**𝕂)

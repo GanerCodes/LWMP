@@ -13,6 +13,7 @@ api = async (𝐭,P,...𝔸) => {
   const r = await req.json();
   r.status = req.status;
   console.log(`API with "${JSON.stringify(JSON.parse(body))}" → "${JSON.stringify(r,null,2)}"`);
+  if(!r[0]) throw `Request failed!`;
   return r; };
 apiURL = (...𝔸) => `${api_base}/api/${encodeURIComponent(apiBody(...𝔸))}`;
 

@@ -4,6 +4,9 @@ import select
 from util import *
 from net  import http_connect
 
+_PING_WAIT_MS    = const(30_000)
+_PONG_TIMEOUT_MS = const(30_000)
+
 _OP_CONT  = const(0x0)
 _OP_TEXT  = const(0x1)
 _OP_BYTES = const(0x2)
@@ -26,6 +29,7 @@ class WebsocketClient:
   def __init__(𝕊,uri):
     s,uri = http_connect(uri,"wss")
     𝕊.sock,𝕊.open = s,True
+    𝕊.last_ping,𝕊.last_pong = None,ms()
     𝕊.raw_buf = bytearray()
     𝕊.frag_buf,𝕊.expect_cont = bytearray(),False
     
@@ -72,7 +76,6 @@ class WebsocketClient:
     op,l = b1&0x0F, b2&0x7F
     if   l==126: l, = unpack("!H",read(2))
     elif l==127: l, = unpack("!Q",read(8))
-    # log(f"[WS] Recv frame length: {l}")
     if mask: mask_bits = read(4)
     dat = read(l)
     dat = bytearray(dat)
@@ -87,21 +90,21 @@ class WebsocketClient:
       fin,op,dat = 𝕊.read_frame()
       if 𝕊.expect_cont:
         if op != _OP_CONT:
-          log("[WS] Unfinished message:",𝕊.frag_buf)
-          log("[WS] Irrelevent data:",dat)
+          log("WS-Client","Unfinished message:",𝕊.frag_buf)
+          log("WS-Client","Irrelevent data:",dat)
           𝕊.frag_buf[:],𝕊.expect_cont = b'',False
           raise ValueError(f'Expected CONT frame, got "{op}"')
         𝕊.frag_buf.extend(dat)
         if fin:
           r = 𝕊.frag_buf
           𝕊.frag_buf,𝕊.expect_cont = bytearray(),False
-          log(f"[WS] Multifragment total recieve length: {len(r)}")
+          log("WS-Client","Multifragment total recieve length:",len(r))
           return r
       elif op in (_OP_TEXT,_OP_BYTES):
         if fin: return dat
         𝕊.expect_cont = True
         𝕊.frag_buf.extend(dat)
-      elif op==_OP_PONG : pass
+      elif op==_OP_PONG : 𝕊.last_pong = ms()
       elif op==_OP_PING : 𝕊.write_frame(_OP_PONG,dat)
       elif op==_OP_CLOSE: raise 𝕊._close("WS Connection closed.")
       elif op==_OP_CONT : raise ValueError("Unexpected CONT frame")
@@ -131,15 +134,28 @@ class WebsocketClient:
     𝕊.open = False
     𝕊.sock.close()
     if E is not None: raise ConnectionClosed(E)
+  
+  def ping(𝕊):
+    𝕊.write_frame(_OP_PING)
+    𝕊.last_pong,𝕊.last_ping = None,ms()
+  def check(𝕊):
+    if 𝕊.last_pong is None:
+      if dt_ms(𝕊.last_ping) > _PONG_TIMEOUT_MS:
+        𝕊._close("Timeout waiting for pong")
+    else:
+      if dt_ms(𝕊.last_pong) > _PING_WAIT_MS:
+        𝕊.ping()
 
 class WS_Client:
   def __init__(𝕊,uri,t=None):
     𝕊.ws = WebsocketClient(uri)
     𝕊.recv_timeout = t
   def read(𝕊):
+    𝕊.ws.check()
     r = 𝕊.ws.recv_timeout(𝕊.recv_timeout)
     if r is not None: return bytes(r[:6]),memoryview(r)[6:]
   def write(𝕊,i,b):
+    𝕊.ws.check()
     if isinstance(i,int): i = int.to_bytes(i,6,"big")
     𝕊.ws.write_frame(_OP_BYTES,i+b)
   def close(𝕊,*𝔸,**𝕂):
@@ -149,14 +165,16 @@ class WS_Client:
       raise ConnectionClosed()
     if 𝑿 is None and not 𝕂:
       return 𝕊.read()
-    if type(𝑿) in (str,bytes,float,int,bool):
+    # if type(𝑿) in (str,bytes,float,int,bool):
+    if isinstance(𝑿,(str,bytes,float,int,bool)):
       if 𝕂:
         raise ValueError(f"Cannot create dict from {type(𝑿)} and kwargs")
-      if type(𝑿) not in (str,bytes):
+      # if type(𝑿) not in (str,bytes):
+      if not isinstance(𝑿,(str,bytes)):
         𝑿 = 𝔍d(𝑿)
     else:
       𝑿 = {} if 𝑿 is None else 𝑿
       𝑿 = 𝔍d(𝑿|𝕂 if 𝕂 else 𝑿)
     𝕊.write(i,𝑿.encode("utf-8") if isinstance(𝑿,str) else 𝑿)
 
-#  WS_Client
+# WS_Client

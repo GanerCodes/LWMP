@@ -13,13 +13,13 @@
   ©  = 󱀝 {𝐶 resizer} [
           󱀝:l T ⟦󰠲Utilˡᵉⁿ(i2m(Ѧ,𝘔ⁱᵈˣ))⟧];
   .dragstart = ⥌𝜺↦{
-    © y0    = 𝜺󰀒ʸ;
-    © stot0 = Ѧˢᵗᵒᵗ;
-    © M     = i2m(Ѧ,𝘔ⁱᵈˣ);
-    © Mtot  = 󰠲Utilˡᵉⁿ (M);
-    © A     = 󰠲Utilᵉⁿᵈˢ(M)₁;
-    © Atot  = 󰠲Utilˡᵉⁿ (A);
-    © 𝘈    = 𝘔􈞚(‹.𝘌atom›)􋕛(󷰾);
+    © [x0,y0] = [𝜺ˣ,𝜺󰀒ʸ];
+    © stot0   = Ѧˢᵗᵒᵗ;
+    © M       = i2m(Ѧ,𝘔ⁱᵈˣ);
+    © Mtot    = 󰠲Utilˡᵉⁿ (M);
+    © A       = 󰠲Utilᵉⁿᵈˢ(M)₁;
+    © Atot    = 󰠲Utilˡᵉⁿ (A);
+    © 𝘈      = 𝘔􈞚(‹.𝘌atom›)􋕛(󷰾);
     
     𝘔􀳩 = ⥌𝚗=󱣩↦{ ¿(𝚗≅󱣩) 𝚗=Mtot;
                  © Δ = 𝚗-Mtot;
@@ -28,10 +28,32 @@
                  𝘈􋛟.height = 𝔥(Atot+Δ);
                  l􋒷 = 𝚗;
                  scale();
-                 ↪𝚗; }
-    © update = ⥌Δ↦{ © n = 󷹄(Atot+▢(Δ÷Ѧᶜʰ⋅⤈(100,⤉(10,Ѧˢᵗᵒᵗ))),1,MAX_LEDC);
-                    𝘔􀳩(Mtot-Atot+n); };
-    .drag      = ⥌𝜺↦𝜺󰀒ʸ ∧ update(𝜺󰀒ʸ-y0);
+                 ↪𝚗; };
+    
+    ⎉ [prevY,prevN] = [y0,Atot];
+    © update = ⥌𝜺↦{ © Δy    = 𝜺󰀒ʸ-prevY;
+                    ⎉ η     = 𝜺ˣ<x0 ⭜󷰾+𝜺ˣ÷x0⭝ (𝜺ˣ-x0)÷(Ϣᵒᵘᵗᵉʳᵂⁱᵈᵗʰ-x0);
+                      η = ⤉(η,-Ѧˢᵗᵒᵗ÷50);
+                    © fac   = η<0 ⭜1+⤉(2⋅η,-0.9)⭝ 1+4⋅η;
+                    ⎉ Δn    = Δy÷Ѧᶜʰ⋅⤈(2000,⤉(30,Ѧˢᵗᵒᵗ))⋅fac;
+                    © n     = 󷹄(prevN+Δn,1,MAX_LEDC);
+                    ¿((▢(prevN)-▢(n))􋄽()≥1) 𝘔􀳩(Mtot-Atot+▢(n));
+                    [prevY,prevN] = [𝜺󰀒ʸ,n];
+                  };
+    .drag   = ⥌𝜺↦𝜺󰀒ʸ ∧ update(𝜺);
+    
+    🟑
+    ⎉ prev = 󱣩;
+    © update = ⥌Δ↦{ ¿(prev≡󱣩) { prev=Δ; ↪; }
+                     © fac = ⤉(1,(prev-Atot)÷100);
+                    © n = 󷹄(Atot+▢((Δ-prev)÷Ѧᶜʰ⋅⤈(100,⤉(10,Ѧˢᵗᵒᵗ))),
+                            1,MAX_LEDC);
+                    𝘔􀳩(Mtot-Atot+n);
+                    prev = Δ;
+    };
+    .drag      = ⥌𝜺↦𝜺󰀒ʸ ∧ update(𝜺󰀒ʸ);
+    🟑
+    
     .dragend   = ⥌𝜺↦{ 􈛑(‹dragging›);
                        Ѧˢᵉᵗᴾʳᵉᵛⁱᵉʷ(); };
     􈛘(‹dragging›); };
@@ -41,7 +63,7 @@
 
 © 𝘌atom = ⥌Ѧ,[n,i,⠤󰠲]↦{
   © 𝗆 = 󰲡󱀝 {𝐶 𝘌atom⍮ 𝑆 ⟦⦅𝚑 ⟦𝔥(n)⟧⦆+x⟧} ‹›;
-  © bgPfx = 1∈Ѧ􈛈 ⭜stagger+␛,⭝ ᐦ
+  © bgPfx = 1∈Ѧ􈛈∧Ѧ􈛈􊯛₁ ₀<100 ⭜stagger+␛,⭝ ᐦ
   ¿(i≡0) { © [𝚌] = 󰠲;
            © bg = (󰲡‹linear-gradient(0deg,⟦x⟧)›)((𝑖2(󰠲₀)));
            ↪𝗆(‹background:⟦bgPfx⟧⟦bg⟧›); }

@@ -18,7 +18,14 @@
   Ѧ􋆔??=[];
   
   © prompt_token = ⥌ƒ↦{ ⎉ tok = textField({:✓, :󰲡(x=[⠤x]􋌵,x≥6∧x≤64)}, {𝑃𝐻:‹Token›});
-                        ↪əpromptGeneral({ƒ:𝚲ƒ(tok􀴗 ᵛ), :𝚲tok􀴗 ᵘᵖᵈᵃᵗᵉ(), ␛󰊄:‹Enter token to add›},tok); }
+                        ↪əpromptGeneral(
+                           {ƒ:𝚲ƒ(tok􀴗 ᵛ), :𝚲tok􀴗 ᵘᵖᵈᵃᵗᵉ(), ␛󰊄:‹Add a Token›},
+                           󱀝 {⦅󰊄𝚜 1.25em⦆} [
+                             ⟦tok⟧
+                             󱀝 {⦅𝚏↓;𝚖↑ 0.75em;󰊄𝚜 0.75em; ⦑fg1⦒⦆} [
+                               󱀝 T ‹This is the token that you used to connect your device to the wifi.›
+                               󱀝 T ‹Make sure to type it in exactly how you typed it in when setting up your device.›
+                               󱀝 a {target _blank⍮href https://www.brynicsolutions.com/set-up} ‹Haven't added your device yet?›]]); }
   © censor = 󰲡x.replace(⦋/(?<=.).(?=.)/g⦌,␛⋅);
   ©  = əitemGridEditable(
           ⥌  gen↦prompt_token(󰲡(add_check_tok(x),gen(x))),
@@ -58,8 +65,9 @@
           ⟦𝚋1st(‹Direction›,‹⟦[‹For›,‹Back›]₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧wards›)⟧];
   ↪ };
 © ədevTile = ⥌Ѧ,[𝐮,𝐝],rem↦{
-  ⎉ tile;
+  © [𝐭,𝔡] = [Ѧ􋈹 􋆮,Ѧ􋈹.dev(𝐮)];
   
+  ⎉ tile;
   © update = ⥌𝐮,𝐝↦{
     ©  = ədevDisplay(𝐮,𝐝);
     ¿(tile) tile.replaceChildren(⠤􋑱);
@@ -69,49 +77,16 @@
   © canButtons = ⥌𝚜↦{ B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
                       dƒ􋑵 􋒗 = 𝐝ᵒⁿˡⁱⁿᵉ 🟑 󰤱 dumb 🟑;  }
   
-  © [𝐭,𝐧,𝔡] = [Ѧ􋈹 􋆮,𝐝ᴺᴬᴹᴱ??𝐮,Ѧ􋈹.dev(𝐮)];
-   󰤱 actually handle errors!
    󰤱 if the device if offline disable the token changing option!
-  
   © mergeDev = ⥌𝚍↦{ © dev_db = get_devs(Ѧ􋈹)􊳭;
                     𝑜.assign(𝐝     ,𝚍);
                     𝑜.assign(dev_db,𝚍);
                     update𝘋𝘉();
                     update(𝐮,𝐝);
                     ↪𝐝; };
+  © delDev = 𝚲{ 󰆴 get_devs(Ѧ􋈹)􊳭;
+                update𝘋𝘉(); };
   
-  © ƒ = 𝚲{
-    © ƒ = 󱟱 ⥌𝚗,𝚝,𝚠
-            ↦{ canButtons(✗);
-               © 󰬊 = {};
-               ¿(𝐧≠𝚗) 󰬊ᴺᴬᴹᴱ    = 𝚗;
-               ¿(𝐭≠𝚝) 󰬊ᵀᴼᴷᴱᴺ   = 𝚝;
-               ¿( ¬𝚠) 󰬊ᴬᴾ􋕟ᴹᴼᴰᴱ = ✓;
-               ¿(¬𝒪𝑏(󰬊)) ↪canButtons(✓);
-               󱫬 𝔡.config(󰬊);
-               󱫬 load_devices(Ѧ􋈹);
-               ¿(𝐭≠𝚝) ↪rem();
-               © Δ = {}
-               ¿(𝐧≠𝚗) Δᴺᴬᴹᴱ   = 𝚗;
-               ¿( ¬𝚠) Δᵒⁿˡⁱⁿᵉ = ✗;
-               mergeDev(Δ);
-               canButtons(✓); };
-    © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
-    ©  tok = ədropdown(get_toks(),{Ⴝ:𝐭});
-    tok􋛟.marginBottom = ‹30px›;
-    © netButton = ⦅«𝚠 𝚑» 1em;󰊄𝚜 2em;𝚋 2px solid ⦑fg2⦒;𝚋𝚛 0.1em⦆;
-    ©   netText = ⦅𝚠 2em;𝚖← 0.7em;𝚖→ 0.3em;󰊄𝚊󷷣⦆;
-    © net = toggleButton(
-               󰻾,
-               󱀝 {⦅𝚏→;𝚊𝚂󷷣⦆} [󱀝 button {𝑆 ⟦netButton⟧} ‹󰖪› 󱀝 T {𝑆 ⟦netText⟧} ‹AP󷺗󷺗›],
-               󱀝 {⦅𝚏→;𝚊𝚂󷷣⦆} [󱀝 button {𝑆 ⟦netButton⟧} ‹󰖩› 󱀝 T {𝑆 ⟦netText⟧} ‹WiFi›],
-               ✓)􋑵;
-    əpromptGeneral({ƒ:𝚲ƒ(name􀴗 ᵛ,tok􀴗 􎁎,net􀴗 󰀒),
-                    :𝚲name􀴗 ᵛᵃˡⁱᵈ,
-                    ␛󰊄:‹Edit device info›},
-                   󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Name󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›, name,
-                   󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Token󷺗󷺗󷺗󷺗󷺗󷺗󷺗›,  tok,
-                   󱀝 T ⦅󰊄𝚜 1.6em⦆ ‹Connectivity›,  net); };
   © wrap = ⥌ƒ,e=‹An error occured!›,
            ↦󱟱󰲟{ canButtons(✗);
                 ⎉ show = ✓;
@@ -119,18 +94,49 @@
                 catch{ showErr(e);            }
                 󰛕    { ¿(show) canButtons(✓); } };
   
-  © ƒ = 𝚲prompt_rgb_calibrate(𝔡,󰲡mergeDev({RGB_ORDER:x}));
-  © ƒ = 𝚲prompt_led_calibrate(𝔡,󰲡mergeDev({LEDC     :x}));
+  © ƒ = 𝚲{
+    © 𝐧 = names(𝐮,𝐝)₀;
+    © ƒ = wrap(󱟱 ⥌𝚗,𝚝,𝚠↦{
+                 © 󰬊 = {};
+                 ¿(𝐧≠𝚗) 󰬊ᴺᴬᴹᴱ    = 𝚗;
+                 ¿(𝐭≠𝚝) 󰬊ᵀᴼᴷᴱᴺ   = 𝚝;
+                 ¿( ¬𝚠) 󰬊ᴬᴾ􋕟ᴹᴼᴰᴱ = ✓;
+                 ¿(¬𝒪𝑏(󰬊)) ↪✓;
+                 󱫬 𝔡.config(󰬊);
+                 ¿(𝐭≠𝚝) ↪delDev(),rem(),✗;
+                  refresh here?
+                 mergeDev({⠤𝐧≠𝚗 ∧ {NAME:𝚗}});
+                 ↪✓; },
+               ‹Failed to configure device!›);
+    © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
+    ©  tok = ədropdown(get_toks(),{Ⴝ:𝐭});
+    tok􋛟.marginBottom = ‹30px›;
+    © netButton = ⦅«𝚠 𝚑» 1em;󰊄𝚜 2em;𝚋 2px solid ⦑fg2⦒;𝚋𝚛 0.1em⦆;
+    ©   netText = ⦅𝚠 2em;𝚖← 0.7em;𝚖→ 0.3em;󰊄𝚊󷷣⦆;
+    © net = toggleButton(󰻾,
+                          󱀝 {⦅𝚏→;𝚊𝚂󷷣⦆} [󱀝 button {𝑆 ⟦netButton⟧} ‹󰖪› 󱀝 T {𝑆 ⟦netText⟧} ‹AP󷺗󷺗›],
+                          󱀝 {⦅𝚏→;𝚊𝚂󷷣⦆} [󱀝 button {𝑆 ⟦netButton⟧} ‹󰖩› 󱀝 T {𝑆 ⟦netText⟧} ‹WiFi›],
+                          ✓)􋑵;
+    əpromptGeneral({ƒ:𝚲ƒ(name􀴗 ᵛ,tok􀴗 􎁎,net􀴗 󰀒),
+                    :𝚲name􀴗 ᵛᵃˡⁱᵈ,
+                    ␛󰊄:‹Edit device info›},
+                   󱀝 T ⦅󰊄𝚜 1.6em;𝚖↓ 0.1em⦆ ‹Name󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›, name,
+                   󱀝 T ⦅󰊄𝚜 1.6em;𝚖↓ 0.1em⦆ ‹Token󷺗󷺗󷺗󷺗󷺗󷺗󷺗›,  tok,
+                   󱀝 T ⦅󰊄𝚜 1.6em;𝚖↓ 0.1em⦆ ‹Connectivity›,  net); };
+  
+  © ƒ = 𝚲prompt_rgb_calibrate(𝔡,󰲡mergeDev({RGB_ORDER:x, online:✓}));
+  © ƒ = 𝚲prompt_led_calibrate(𝔡,󰲡mergeDev({LEDC     :x, online:✓}));
   © 󰐥ƒ = wrap(󱟱𝚲 { 󱫬 𝔡.off();
+                   mergeDev({online:✓});
                    ↪✓; },
               ‹Error reversing device!›);
   © ƒ = wrap(󱟱𝚲 { © Δ = {REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ};
                    󱫬 𝔡.config(Δ);
-                   mergeDev(Δ);
+                   mergeDev({⠤Δ, online:✓});
                    ↪✓; },
               ‹Error reversing device!›);
   © dƒ = wrap(󱟱𝚲 { 󱫬 𝔡.del();
-                   ↪(rem(),✗); },
+                   ↪(delDev(),rem(),✗); },
               ‹Error 󷺗deleting device!›);
   © ƒ = 𝚲B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓);
   
@@ -191,7 +197,7 @@
                    󱀝 div ⦅𝚏↓;𝚠½;󰊄𝚜 26px⦆ ⟦[‹Used›  ,devsR]⟧ ] ); };
 
 ⎉ əsceneListing = ⥌Ѧ={}↦{
-  Ѧ = {ƒ:󰻾,⠤Ѧ}
+  Ѧ = {ƒ:󰻾,⠤Ѧ};
   ©  = əitemGridEditable(
           ⥌  gen↦prompt_scene(Ѧ,⥌𝐬↦{ ¿(¬add_scene(Ѧ􋆮,𝐬))
                                        ↪showErr(‹A scene called "⟦𝐬ⁿᵃᵐᵉ⟧" already exists!›);

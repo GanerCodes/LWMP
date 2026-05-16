@@ -62,9 +62,9 @@ end:
 static MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(lw_ntp_ntp_raw_obj,2,2,lw_ntp_ntp_raw);
 
 static const mp_rom_map_elem_t lw_ntp_module_globals_table[] = {
-    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_lw_ntp    ) },
-    { MP_ROM_QSTR(MP_QSTR_ntp_raw ), MP_ROM_PTR(&lw_ntp_ntp_raw_obj) },
-    { MP_ROM_QSTR(MP_QSTR_micros  ), MP_ROM_PTR(&lw_ntp_micros_obj ) } };
+    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_lw_ntp     ) },
+    { MP_ROM_QSTR(MP_QSTR_ntp_raw ), MP_ROM_PTR (&lw_ntp_ntp_raw_obj) },
+    { MP_ROM_QSTR(MP_QSTR_micros  ), MP_ROM_PTR (&lw_ntp_micros_obj ) } };
 static MP_DEFINE_CONST_DICT(lw_ntp_module_globals, lw_ntp_module_globals_table);
 const mp_obj_module_t lw_ntp_user_c_module = {
     .base    = { &mp_type_module },
