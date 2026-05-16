@@ -7,6 +7,7 @@ from settings      import ℭ,wifi_from_ℭ
 from ws_client     import WS_Client
 from controller    import Controller
 from scene_manager import get_scheg,check_scheg,update_scheg,Scene_Manager
+from consts        import LED_BUF_SIZE
 
 _RESET_NO   = const(0)
 _RESET_WS   = const(1)
@@ -18,7 +19,7 @@ for i in range(10): # blinky at boots
   sleep(0.05)
 free()
 
-log(f"[LW] Starting with Settings={ℭ}");
+log("LW",f"Starting with Settings={ℭ}");
 𝔐 = Scene_Manager()
 𝔏 = Controller(ℭ,𝔐)
 
@@ -27,7 +28,7 @@ A_ICON = set("R_SSID R_PASS AP_MODE".split())
 A_WCON = set("UPDATE_URL WS_URL TOKEN".split())
 A_RLED = set("RECALB_T LEDP LEDC REVERSE BIT_TIMING RGB_ORDER".split())
 def handle_API(𝐦,*𝔸):
-  log(f'[API] Handling "{𝐦}"')
+  log("API",f'Handling "{𝐦}"')
   if 𝐦=='*':
     rst,𝚁 = _RESET_NO,[]
     for 𝕒 in 𝔸:
@@ -42,9 +43,11 @@ def handle_API(𝐦,*𝔸):
       if k not in ℭ or k in ("UUID","WS_URL","UPDATE_URL"):
         log(f'Ignoring key "{k}"')
         continue
+      if k == "LEDC":
+        v = max(1,min(int(v),LED_BUF_SIZE//3))
       Δ[k] = v
     K = set(Δ)
-    log(f"[API] Changing settings with",Δ)
+    log("API","Changing settings with",Δ)
     
     if "VER" in Δ:
       v = str(Δ["VER"]).strip()
@@ -62,7 +65,7 @@ def handle_API(𝐦,*𝔸):
   elif 𝐦=="Set_scene":
     s,q,dur,Ts = 𝔸
     if s not in 𝔐:
-      log(f'[API] Scene "{s}" not found!')
+      log("API",f'Scene "{s}" not found!')
       return _RESET_NO,False
     𝔏(s,q,dur,None,Ts)
     if not q and dur in (-1,inf,None): ℭ.DEF_SCENE = s
@@ -77,7 +80,7 @@ def handle_API(𝐦,*𝔸):
     try:
       r = 𝔍d(𝔏.check_ntp(True))
     except Exception as ε:
-      log("[API] NTP Sync failed!",ε)
+      dbg("API","NTP Sync failed!",ε)
       r = False
     return _RESET_NO,str(r)
   return _RESET_NO,False
@@ -90,7 +93,7 @@ def lw_check_periodics():
 def lw_websocket_loop():
   lw_check_periodics()
   ꭐ = WS_Client(ℭ.WS_URL)
-  log("[WS] Connected.")
+  log("WS","Connected.")
   ꭐ({k:ℭ[k] for k in "VER TOKEN UUID NAME RECALB_T LEDC REVERSE RGB_ORDER".split()})
   free()
   while 1:
@@ -100,26 +103,26 @@ def lw_websocket_loop():
       continue
     else:
       pass # log0('+',end='')
-    log(f"[API] →")
+    log("API","󰤱 →")
     i,cmd = w
     cmd = 𝔍l(cmd)
     free()
     try:
       con,resp = handle_API(*cmd)
     except Exception as ε:
-      dbg("[API] Error!",ε)
+      dbg("API","Error!",ε)
       # con,resp = _RESET_WS,"ERROR"
       con,resp = _RESET_NO,"ERROR" # 󰤱 why was I resetting on bad request?
     if resp is not None: ꭐ(resp,i=i)
-    log(f"[API] ←")
+    log("API","󰤱 ←")
     if con > _RESET_NO:
       try                  : ꭐ.close(reason="Intentional")
-      except Exception as ε: dbg(f'[WS] Failed to close WS:',ε)
+      except Exception as ε: dbg("API","Failed to close WS:",ε)
       return con
     frees()
 
 def lw_AP(setup=False):
-  log(f"[LW] Starting AP.")
+  log("LW",f"Starting AP.")
   def get(path):
     𝔏.feed()
     return 200,"text/html",read_file("index.html.gz","rb")
@@ -140,7 +143,7 @@ def lw_AP(setup=False):
         𝔏(m := body["mode"])
         ℭ.DEF_SCENE = m
     except Exception as ε:
-      dbg(f"[LW] Error in AP:",ε)
+      dbg("LW","Error in AP:",ε)
       return 400,"text/plain","Error!"
     return 200,"text/plain","Success!"
   
@@ -158,7 +161,7 @@ def lw_net():
   try:
     close_wifi = wifi_from_ℭ(ℭ)
   except Exception as ε:
-    dbg(f'[LW] Could not connect to WiFi:',ε)
+    dbg("LW","Could not connect to WiFi:",ε)
     𝔏("_ap_")
     lw_AP(True)
     return
@@ -168,36 +171,36 @@ def lw_net():
     𝔏(); 𝔏.feed()
     check_scheg(𝔏)
   except Exception as ε:
-    dbg("[LW] Unhandled Exception!",ε)
+    dbg("LW","Unhandled Exception!",ε)
   
   while 1:
     free()
     try:
       r = lw_websocket_loop()
       if r == _RESET_BOOT:
-        log("[LW-WS] Resetting machine")
+        log("LW-WS","Resetting machine")
         return r
       if r == _RESET_WIFI:
-        log("[LW-WS] Resetting WiFi")
+        log("LW-WS","Resetting WiFi")
         close_wifi()
         break
       if r == _RESET_WS:
-        log("[LW-WS] Resetting WS")
+        log("LW-WS","Resetting WS")
         continue
       else:
         raise Exception(f'Websocket loop exited for an unknown reason ({r})!')
     except OSError   as ε:
-      dbg(f'[LW-WS] Connection failed! Resetting net:',ε)
+      dbg("LW-WS","Connection failed! Resetting net:",ε)
       return
     except Exception as ε:
-      dbg(f'[LW-WS] Error in loop! Restarting in 5 seconds:',ε)
+      dbg("LW-WS","Error in loop! Restarting in 5 seconds:",ε)
     frees(5)
 
 try:
   while lw_net() != _RESET_BOOT: pass
 except BaseException as ε:
   𝔏.𝔏.kill()
-  dbg("[LW] Top level exception in network loop",ε)
+  dbg("LW","Top level exception in network loop",ε)
   if isinstance(ε,KeyboardInterrupt):
     raise ε # avoid reset()
 reset()

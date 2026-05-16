@@ -36,14 +36,14 @@ class Scene_Manager:
     if isinstance(mode,str): return # ??
     E = path_exists(loc := f"{𝕊.dir}/{name}")
     𝔍wf(loc,mode)
-    log(f'[Scenes] {"Updated" if E else "Wrote"} scene "{name}" at "{loc}"')
+    log("Scenes",f'{"Updated" if E else "Wrote"} scene "{name}" at "{loc}"')
     free()
   def __delitem__(𝕊,name):
     if loc := 𝕊():
       rm(loc)
-      log(f'[Scenes] Removed scene "{name}"')
+      log("Scenes",f'Removed scene "{name}"')
       return True
-    log(f'[Scenes] Scene "{name}" already nonexistant')
+    log("Scenes",f'Scene "{name}" already nonexistant')
     return False
   def __getitem__(𝕊,name):
     if (loc := 𝕊(name)) is None:
@@ -51,7 +51,7 @@ class Scene_Manager:
     try:
       return 𝔍lf(loc)
     except Exception as ε:
-      dbg(f'[Scenes] Failed to load scene from "{loc}"!')
+      dbg("Scenes",f'Failed to load scene from "{loc}"!')
       raise ε
   def get(𝕊,name,default=None):
     return 𝕊[name] if name in 𝕊 else default
@@ -63,19 +63,19 @@ class Scene_Manager:
       except Exception as ε:
         if destroy_cripples:
           loc = 𝕊(f)
-          log(f'[Scenes] Removing broken scene from "{loc}"')
+          log("Scenes",f'Removing broken scene from "{loc}"')
           rm(loc)
-        dbg(f'[Scenes] Broken scene found at "{loc}":',ε)
+        dbg("Scenes",f'Broken scene found at "{loc}":',ε)
     return r
   def bulk_save(𝕊,X):
     N = 0
     for k,v in X.items():
       try:
-        log(f'Writing scene "{k}"')
+        log("Scenes",f'Writing scene "{k}"')
         𝕊[k] = v
         N += 1
       except Exception as ε:
-        dbg(f'[Scenes] Failed to save scene "{k}":',ε)
+        dbg("Scenes",f'Failed to save scene "{k}":',ε)
     free()
     return N
 
@@ -91,13 +91,13 @@ class Scene_Cacher:
       scene,offsets = scene,None
     return encode_mode(scene),offsets
   def __getitem__(𝕊,k):
-    log(f'[Scene Cache] Getting "{k}"')
+    log("Scene Cache",f'Getting "{k}"')
     if isinstance(k,dict): return 𝕊(k)
     fp = 𝕊.man(k)
     if fp is None: raise Exception("No scene found!")
     h = (fp,stat(fp)[8])
     if h in 𝕊.cache: return 𝕊.cache[h]
-    log(f'[Scene Cache] Not in cache.')
+    log("Scene Cache","Not in cache.")
     r = 𝕊(𝕊.man[k])
     # 𝕊.cache[h] = r # 󰤱 CHECK FOR MEMORY STUFF BRO
     return r

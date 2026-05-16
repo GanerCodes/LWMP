@@ -95,7 +95,7 @@ def encode_mode(N):
   # N   = optf(flat(pre(N)))
   # S   = b''.join(pack("iiiiff",s.σ,s.Σ,s.d,s.m,s.r0,s.rΔ) for s in N)
   # mx  = max(s.d for s in N)+1
-  log(f"󰤱 encode_mode →")
+  log("Interface","󰤱 encode_mode →")
   N,data = parse_mode(N)
   
   tmp  = pre (N); del N; free(); N=tmp
@@ -104,8 +104,8 @@ def encode_mode(N):
   if 3*4*mx > STK_BUF_SIZE: raise Exception(f"{3*4*mx>STK_BUF_SIZE=}!")
   
   lens = len(S),len(data["atoms"]),len(data["fades"])
-  log(f"[Interface] (Mem:{mem_perc()}) Size = {join(lens,'+')} = {sum(lens)}")
-  log(f"󰤱 encode_mode ←")
+  log("Interface",f"(Mem:{mem_perc()}) Size = {join(lens,'+')} = {sum(lens)}")
+  log("Interface","󰤱 encode_mode ←")
   return S,data["atoms"],data["fades"]
   # return S,len(S)//24,data["atoms"],len(data["atoms"])//16,bytes(data["fades"])
 def get_mode_bounds(S,offsets,ℭ):

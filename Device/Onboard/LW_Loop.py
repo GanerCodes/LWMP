@@ -6,8 +6,9 @@ from lw_thread import RMT_CLK_SRC_DEFAULT,xPortGetCoreID,get_ptrs,run_on_core
 from util      import *
 from consts    import LED_BUF_SIZE,STK_BUF_SIZE
 
-log0(f"RMT_CLK_SRC_DEFAULT={RMT_CLK_SRC_DEFAULT()}"
-      f"\nxPortGetCoreID()={xPortGetCoreID     ()}")
+log0("Device",
+     f"RMT_CLK_SRC_DEFAULT={RMT_CLK_SRC_DEFAULT()}"
+     f"\nxPortGetCoreID()={xPortGetCoreID     ()}")
 
 _STATE_LOOP_NONE   = const(0)
 _STATE_LOOP        = const(1)
@@ -113,7 +114,7 @@ class LW_Loop:
     𝕊.d_state = bytearray(pack("<BxxxI"      , _STATE_SPIN ,𝕊.Δ            ))
     𝕊.d_args  = bytearray(pack("<III"        , Ѧ(d_globals),Ѧ(𝕊.d_state), 0))
     
-    log("Starting LW loop")
+    log("LW-Loop","Starting C loop")
     run_on_core(get_loop_ptr(),Ѧ(𝕊.d_args),1)
     𝕊.wait(_STATE_INIT)
     del ptrs,𝔸,d_globals

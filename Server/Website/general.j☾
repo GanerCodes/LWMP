@@ -1,4 +1,4 @@
-© MAX_LEDC = 4000;
+© MAX_LEDC = 1000;
 
 fit_size = ⥌𝐭,w,sz=100,st=ᐦ,Δ=5↦{
   ➰(measureText(𝐭,sz,ᐦ)ʷⁱᵈᵗʰ≥w) sz -= Δ;

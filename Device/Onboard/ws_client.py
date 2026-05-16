@@ -76,7 +76,6 @@ class WebsocketClient:
     op,l = b1&0x0F, b2&0x7F
     if   l==126: l, = unpack("!H",read(2))
     elif l==127: l, = unpack("!Q",read(8))
-    # log(f"[WS] Recv frame length: {l}")
     if mask: mask_bits = read(4)
     dat = read(l)
     dat = bytearray(dat)
@@ -91,15 +90,15 @@ class WebsocketClient:
       fin,op,dat = 𝕊.read_frame()
       if 𝕊.expect_cont:
         if op != _OP_CONT:
-          log("[WS] Unfinished message:",𝕊.frag_buf)
-          log("[WS] Irrelevent data:",dat)
+          log("WS-Client","Unfinished message:",𝕊.frag_buf)
+          log("WS-Client","Irrelevent data:",dat)
           𝕊.frag_buf[:],𝕊.expect_cont = b'',False
           raise ValueError(f'Expected CONT frame, got "{op}"')
         𝕊.frag_buf.extend(dat)
         if fin:
           r = 𝕊.frag_buf
           𝕊.frag_buf,𝕊.expect_cont = bytearray(),False
-          log(f"[WS] Multifragment total recieve length: {len(r)}")
+          log("WS-Client","Multifragment total recieve length:",len(r))
           return r
       elif op in (_OP_TEXT,_OP_BYTES):
         if fin: return dat

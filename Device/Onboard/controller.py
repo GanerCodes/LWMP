@@ -32,9 +32,9 @@ class Controller: # 󰤱
     𝕊.𝔖,𝕊.𝔔 = [],[]
     𝕊.configure()
   def __repr__(𝕊):
-    return f"Controller{{recalb_t={𝕊.recalb_t} recalb_t_day={𝕊.recalb_t_day} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} loop={𝕊.𝔏}}}"
+    return f"{{recalb_t={𝕊.recalb_t} recalb_t_day={𝕊.recalb_t_day} 𝔖🃌={len(𝕊.𝔖)} 𝔔🃌={len(𝕊.𝔔)} loop={𝕊.𝔏}}}"
   def __call__(𝕊,s=None,q=False,d=inf,Ta=None,Ts=None):
-    log(f'[Controller] Calling with ({s!r}, {q}, {d}, {Ta}, {Ts})')
+    log("Controller",f'Calling with ({s!r}, {q}, {d}, {Ta}, {Ts})')
     if s is None:
       𝕊.mode = None
       return
@@ -58,17 +58,17 @@ class Controller: # 󰤱
   def check_ntp(𝕊,force=False):
     t = μs()
     if not force and last_ntp[0] is not None and t <= last_ntp[0] + _NTP_REFRESH_TIME_μs: return
-    log(f"[Controller] Starting NTP sync")
+    log("Controller",f"Starting NTP sync")
     try:
       T,ΔΔ = ntp()
     except Exception as ε:
-      dbg(f"[Controller] NTP sync failed!",ε)
+      dbg("Controller",f"NTP sync failed!",ε)
       return False
     ΔΔ //= 1000
     if ΔΔ:
       prevΔ = 𝕊.𝔏.Δ
       𝕊.𝔏.Δ += ΔΔ
-      log(f"[Controller] Updating Δ from NTP drift {prevΔ}+{ΔΔ}={𝕊.𝔏.Δ}")
+      log("Controller",f"Updating Δ from NTP drift {prevΔ}+{ΔΔ}={𝕊.𝔏.Δ}")
       𝕊.𝔏.set_Δ()
     return T,ΔΔ
   def check_update_mode(𝕊,M,m):
@@ -78,7 +78,7 @@ class Controller: # 󰤱
         if M<ν.Ta: break
         h_pop(𝚇)
         if M>=ν.Ta+ν.d: continue
-        log(f"[Controller] Setting from {"𝔖𝔔"[i]} at {fmt_date(1000*M)}: {fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s")
+        log("Controller",f"Setting from {"𝔖𝔔"[i]} at {fmt_date(1000*M)}: {fmt_date(1000*(ν.Ta or 0))} {ν.d/1000}s")
         𝕊.set(ν,M,m)
         return 2
     if 𝕊.mode is None or M>=𝕊.mode.Ta+𝕊.mode.d:
@@ -93,14 +93,14 @@ class Controller: # 󰤱
     pΔ = 𝕊.𝔏.Δ
     while m+𝕊.𝔏.Δ > _MS_PER_6H: 𝕊.𝔏.Δ -= _MS_PER_6H # 𝕊.𝔏.Δ = -m would prob be fine but eeeh
     𝕊.update_recalb_day(M)
-    log(f"[Controller] {fmt_date(1000*M)} Recalibrated Δ {pΔ}→{𝕊.𝔏.Δ} to avoid rounding issues.")
+    log("Controller",f"{fmt_date(1000*M)} Recalibrated Δ {pΔ}→{𝕊.𝔏.Δ} to avoid rounding issues.")
     return int(pΔ!=𝕊.𝔏.Δ)
   def feed(𝕊,_count=[ms()]):
     𝕊.check_ntp()
     M,m = MS(),ms()
     𝕊.check_update_mode(M,m)
     if m>_count[0]:
-      log(𝕊)
+      log("Controller",𝕊,"Mem:",mem_perc())
       _count[0] += 5000
 
   def configure(𝕊):
@@ -116,7 +116,7 @@ class Controller: # 󰤱
     if not(r := get_mode_bounds(S_,offsets,𝕊.ℭ)): return
     l,h = r
     𝕊.𝔏.set_Δ()
-    log(f'[Controller] Setting mode: range<{l} {h}>')
+    log("Controller",f'Setting mode: range<{l} {h}>')
     # 𝕊.𝔏.set_mode(Ѧ(S_),s_len,Ѧ(atoms),Ѧ(fades),l,h)
     𝕊.𝔏.set_mode(S_,atoms,fades,l,h)
     𝕊.𝔏.on()
@@ -124,11 +124,11 @@ class Controller: # 󰤱
 
   def load_def_scene(𝕊):
     if 𝕊.ℭ.DEF_SCENE not in 𝕊.scenes.man:
-      log("[Controller] No default scene found.")
+      log("Controller","No default scene found.")
       return False
     s = 𝕊.ℭ.DEF_SCENE
     D = day_start_ms()
-    log(f'[Controller] Loading default scene "{s}"')
+    log("Controller",f'Loading default scene "{s}"')
     return Activation(D,D,𝕊.scenes[s],inf)
 
   def update_scheg(𝕊,schedule,reset=False,tried={-1}): # -1 is a dumb hack bc namespace stuff
@@ -152,10 +152,10 @@ class Controller: # 󰤱
       if A in tried: continue
       tried.add(A)
       if q:
-        log(f'[Controller] 󰤱 allow scheduling qued modes! 󰤱')
+        log("Controller",f'󰤱 allow scheduling qued modes! 󰤱')
         continue
       if s not in 𝕊.scenes.man:
-        log(f'[Controller] Unable to find scene "{s}"!')
+        log("Controller",f'Unable to find scene "{s}"!')
         continue
 
       if s not in local_scene_cache:
@@ -165,7 +165,7 @@ class Controller: # 󰤱
       d = min(_MS_PER_W if d in (None,-1,0) else d,
               ((1000*(𝔊[(i+1)%len(𝔊)][0] - Δ)) - 1)%_MS_PER_W + 1)
 
-      log(f'[Controller] Scheduling: "{s}" @ {fmt_date(1000*A)} ({W=}) for {fmt_dur(1000*d)}')
+      log("Controller",f'Scheduling: "{s}" @ {fmt_date(1000*A)} ({W=}) for {fmt_dur(1000*d)}')
       h_add(𝕊.𝔖,Activation(A,A,scene,d))
     return True
 

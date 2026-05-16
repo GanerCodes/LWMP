@@ -5,6 +5,7 @@ PARTITIONS="$(pwd)/partitions.csv"
 USERMODS="$(realpath ../Modules_Native)"
 OUT_DIR="$(realpath ./Out)"
 NUM_CORES="$(nproc)"
+Q_STRS="$(realpath ./Q_strs)"
 
 mkdir -p "$OUT_DIR"
 unalias . || :; export PATH="$PATH:$PWD/../esp-idf"; source ../esp-idf/export.sh
@@ -14,6 +15,8 @@ pushd ../micropython
     [[ " $* " == *" -c "* ]] && {
       rm -rf build-ESP32_GENERIC || :
       idf.py fullclean; }
+    
+    cp "$Q_STRS" "./qstrdefsport.h"
     
     B="./boards/sdkconfig.base.original"
     T="./boards/sdkconfig.base"

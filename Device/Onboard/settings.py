@@ -23,12 +23,12 @@ class Settings:
           v = f(𝔍lf(k))
           default = True
         except Exception as ε:
-          dbg(f'[Settings] Error parsing file "{k}":',ε)
-      else:
-        pass # dbg(f'[Settings] File "{k}" not found.')
+          dbg("Settings",f'Error parsing file "{k}":',ε)
+      # else:
+      #   dbg("Settings",f'File "{k}" not found.')
       if not default:
         v = v() if callable(v) else v
-        log(f'[Settings] generated default value {v!r} for "{k}"')
+        log("Settings",f'generated default value {v!r} for "{k}"')
         𝔍wf(k,v)
       𝕊.X[k] = [v,f]
       free()

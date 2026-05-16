@@ -59,6 +59,7 @@ TODO
     • Misc
       • 󰖪 and 󰖩 to indicate AP and WiFi seems a bit weird, both are wireless
       • Make the `Haven't added your device yet?` button not longer than the text
+      • If devices tend to get reset often then make scenes store the sync time on device
   • Technical stuff
     • Proxy the token api with scene stuff?
     • itemGridEditable needs the ability to directly control and modify elements

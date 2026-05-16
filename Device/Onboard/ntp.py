@@ -100,7 +100,7 @@ def ntp_single(host=None,timeout=10):
 @micropython.native
 def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   if isinstance(hosts,int): hosts = sample(NTP_HOSTS,hosts)
-  log(f"[NTP] Average: using {dup*len(hosts)} trials")
+  log("NTP",f"Using {dup*len(hosts)} trials")
   X,Δ = { h:[] for h in hosts },[]
   for h in hosts:
     for d in range(dup):
@@ -109,13 +109,13 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
       except Exception as ε:
         X[h].append(ε)
   
-  log(f"[NTP] Probes")
+  log("NTP","Probes")
   for h,V in X.items():
     for i,v in enumerate(V):
       if not (e := isinstance(v,BaseException)):
         t,RTT = v[1]-v[0],v[2]
       s = f"Failed to sync: {v}" if e else f"{fmt_date(get_date(t+μs()))} (RTT={RTT/1_000_000})"
-      log(f'  "{h}" Trial #{i}: {s}')
+      log("NTP",f'  "{h}" Trial #{i}: {s}')
       if e: continue
       Δ.append((RTT,t))
   
@@ -123,9 +123,9 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   
   def show_Δ(v):
     X,Y = [x[0] for x in Δ],[x[1] for x in Δ]
-    log(f"[NTP] [n={len(Δ)}] Statistics - {v}")
-    log(f"  Mid range: {(max(Y)-min(Y)) / 1_000_000}")
-    log(f"  RTT range: {(max(X)-min(X)) / 1_000_000}")
+    log("NTP",f"[n={len(Δ)}] Statistics - {v}")
+    log("NTP",f"  Mid range: {(max(Y)-min(Y)) / 1_000_000}")
+    log("NTP",f"  RTT range: {(max(X)-min(X)) / 1_000_000}")
   
   show_Δ("Initial")
   if cull_rtt := max(0, min(cull_rtt, len(Δ)   -1)):
@@ -141,7 +141,7 @@ def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   r = (t := μs()) + off
   ΔΔ = off-(last_ntp[1]-last_ntp[0]) if (last_ntp[0] is not None) else 0
   last_ntp[:] = [t,r]
-  log(f"[NTP] Got time: {r}{fmt_date(get_date(r))} @ {t}{fmt_dur(t)}")
+  log("NTP",f"Got time: {r}{fmt_date(get_date(r))} @ {t}{fmt_dur(t)}")
   # d = get_date(r); RTC().init((d[0],d[1],d[2],d[4],d[5],d[6],d[7],0))
   free()
   return r,ΔΔ
@@ -152,8 +152,8 @@ __all__ = "fmt_date","fmt_dur","day_start","week_start", \
 # if __name__ == "__main__":
 #   T = get_date(t := ntp())
 #   W = get_date(w := week_start(t))
-#   log(f"{t} ⇒ {fmt_date(T)}")
-#   log(f"{w} ⇒ {fmt_date(W)}")
+#   print(f"{t} ⇒ {fmt_date(T)}")
+#   print(f"{w} ⇒ {fmt_date(W)}")
 #   while 1:
-#     log(fmt_date())
+#     print(fmt_date())
 #     sleep(1)
