@@ -33,7 +33,8 @@ static mp_obj_t lw_thread_run_on_core(mp_obj_t f_obj, mp_obj_t arg_obj, mp_obj_t
   lw_task_ctx_t *ctx = malloc(sizeof(lw_task_ctx_t));
   ctx->f   = (void (*)(void *))(uintptr_t)mp_obj_get_int(f_obj);
   ctx->arg = (void *)(uintptr_t)mp_obj_get_int(arg_obj);
-  xTaskCreatePinnedToCore(lw_thread_task_entry,"lw_task",4096,ctx,10,NULL,mp_obj_get_int(core_obj));
+  // xTaskCreatePinnedToCore(lw_thread_task_entry,"lw_task",4096,ctx,10,NULL,mp_obj_get_int(core_obj));
+  xTaskCreatePinnedToCore(lw_thread_task_entry,"lw_task",4096,ctx,25,NULL,mp_obj_get_int(core_obj));
   return mp_const_none; }
 MP_DEFINE_CONST_FUN_OBJ_3(lw_thread_run_on_core_obj, lw_thread_run_on_core);
 

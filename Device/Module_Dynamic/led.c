@@ -1,4 +1,4 @@
-#define LATCH_D   90
+#define LATCH_D   100
 #define CLOCK_DIV 2
 
 static rmt_channel_handle_t tx_chan;
@@ -26,19 +26,20 @@ static void led_init(LedConf *ℭ) {
   ESP_CHK(rmt_new_bytes_encoder,&e_𝔠,&bytes_encoder); }
 
 static u32 led_write_dur(LedConf *ℭ) {
-  ret ℭ->n*3*8*( (ℭ->t>>48&0xFFFF)+(ℭ->t>>32&0xFFFF) 
-                +(ℭ->t>>16&0xFFFF)+(ℭ->t>> 0&0xFFFF))/1000 + LATCH_D; }
+  u32 b0 = (ℭ->t>>48&0xFFFF)+(ℭ->t>>32&0xFFFF),
+      b1 = (ℭ->t>>16&0xFFFF)+(ℭ->t>> 0&0xFFFF);
+  ret (b1>b0 ?b1: b0)*3*8/1000*ℭ->n + LATCH_D; }
 static void led_show(LedConf *ℭ) {
-  ℭ->write_finish_μ = micros()+led_write_dur(ℭ);
   rmt_transmit_config_t t_𝔠 = { .loop_count      = 0,
                                 .flags.eot_level = 0 };
   ESP_CHK(rmt_encoder_reset,bytes_encoder);
   ESP_CHK(rmt_transmit,tx_chan,bytes_encoder,ℭ->𝔇,3*ℭ->n,&t_𝔠);
+  ℭ->write_finish_μ = micros()+led_write_dur(ℭ);
   ℭ->𝔇 = ℭ->𝔇==ℭ->𝔇α ?ℭ->𝔇β: ℭ->𝔇α; }
 static void led_flush(LedConf *ℭ) {
   if(!tx_chan) return;
+  // ESP_CHK(rmt_tx_wait_all_done,tx_chan,1000);
   loop { BAR;
-         if(micros()>=ℭ->write_finish_μ) break; }
-  ESP_CHK(rmt_tx_wait_all_done,tx_chan,1000); }
+         if(micros()>=ℭ->write_finish_μ) break; } }
 
 static void led_flow(LedConf *ℭ) { led_flush(ℭ); led_show(ℭ); }

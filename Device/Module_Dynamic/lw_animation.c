@@ -77,7 +77,6 @@ static void lightwave_led_loop(void* volatile arg) { // 󰤱
           el
             Δ = targΔ; }
         
-        
         u32 t_ms = ms+Δ; // 󰤱􊽨 this wraps?
         f32 t = (t_ms/1000)+0.001f*(t_ms%1000);
         lightwave_prerender(𝔐.atoms, 𝔐.atoms_len, 𝔐.fades, t);

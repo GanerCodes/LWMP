@@ -1,4 +1,6 @@
 // import micropython;micropython.qstr_info(1)
+// from util import *;import lightwave,lw_thread,lw_ntp,ntp,net,LW_Loop,scene_manager,ws_client,interface,settings,consts,controller,updater
+// 󰤱 ↑ is not complete! import lw as well and other stuff
 
 Q(𝔐)
 Q(q)
