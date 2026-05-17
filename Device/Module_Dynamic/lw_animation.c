@@ -113,7 +113,7 @@ static void lightwave_led_loop(void* volatile arg) { // 󰤱
         ƿe ƿs("    ")
         ƿs(" ledc["    )ƿn(𝔏.n)
         ƿs(" / "       )ƿn(𝼥.n)ƿs("]")
-        ƿs(" Range<")ƿn(𝔐.l)ƿs(" ")ƿn(𝔐.h)ƿs(">")
+        ƿs(" <")ƿn(𝔐.l)ƿs(" ")ƿn(𝔐.h)ƿs(">")
         ƿe
         fcount = 0;
         t_log += LOG_INTRV_MS; } }
