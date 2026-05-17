@@ -16,7 +16,7 @@ elif [ "$1" = "f" ]; then
   shift
   echo "Running flasher in Docker"
   docker run -it --privileged --device=/dev/bus/usb --group-add dialout -v /dev:/dev \
-         lwmp /bin/bash -c "./flash.sh $*"
+         lwmp /bin/bash -c 'exec ./flash.sh "$@"' -- "$@"
 elif [ "$1" = "s" ]; then
   setup_dir "$@"
   echo "Running server in Docker"
