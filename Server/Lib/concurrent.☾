@@ -21,5 +21,11 @@
   ⊢𜳪(x): x 𝑽
          E.set􀃅
   ↪𜳬,𜳪
+⊢LockWrap(ϙ,𝙳=ℵ,𝗅=TLock􀃅):  󰤱 this keeps refs to objects but atp idc its not used in a way where that's mattered
+  ⛯ 𝗅
+  𝚒 = id(ϙ)
+  ¿𝚒􀉧𝙳􀛾𝙳􀲪 ₁􀋑ϙ: ↪𝙳􀲪 ₀
+  𝙳􀲪 = (TLock􀃅,ϙ)
+  ↪𝙳􀲪 ₀
 
-⭷ Mutable,Awaitor,TLock
+⭷ Mutable,Awaitor,TLock,LockWrap

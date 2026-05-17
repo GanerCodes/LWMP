@@ -1,7 +1,9 @@
 ⦃from websockets.sync.server import serve as ⦃websocket_serve⦄⦄
+⦃import traceback⦄
 ⨡ text_format
 
 ⨡ Lib/websockets
+⨡ Lib/concurrent
 ⨡ config ⭸ *
 ⨡ util   ⭸ *
 ⨡ verifiers
@@ -20,27 +22,33 @@ ws_clients = {}
   ↪✓
 
 ⊢WS_handle(ws):
-  ꭐ = WS_Client(ws)
+  ꭐ = WS_Connection(ws)
   init_msg = ꭐ.listener􀃅
   ꭐ􀃅
   
   𝐝 = init_msg􀃅 􀯖 𝔍󰄟 􀯖 ŧ_DEV_REQ 􀯖 ℵ
   𝐡 = 𝐇(𝐝ᵀᴼᴷᴱᴺ,𝐝ᵁᵁᴵᴰ)
-  ⊢dc(close=✓): ¿𝐡∈ws_clients: 󰆴 ws_clients􊳠
-                ¿close􀌐: ↪
-                     ꭐ.close􀃅
-                ¡ε=𝑒: ‹Failed to close ⟦ꭐ⟧: ⟦ε⟧›􀊸
-       ¿𝐡􀉧ws_clients: ‹WHY IS "⟦𝐡⟧" IN THE CLIENT LIST!›􀊸
-        ws_clients􊳠 = ꭐ
-        ¿negotiate_controller_props(𝐝,ꭐ)􀌐:
-          ✗􀉓‹Rejecting LW due to outdated version!›
+  
+  ⊢dc(close=✓):
+    ⊢try_close(ꭐ):      ꭐ.close􀃅
+                   ¡ε=𝑒: ‹Failed to close ⟦ꭐ⟧: ⟦ε⟧›􀊸
+    ¿close: try_close(ꭐ)
+    ¿𝐡􀉩ws_clients: ↪
+    ¿close: ¿ws_clients􊳠􀯑ꭐ2􀝶ꭐ: try_close(ꭐ2)
+    󰆴 ws_clients􊳠
+  
+       ⛯ LockWrap(ws_clients)
+          ¿𝐡􀉧ws_clients:
+            ✗􀉓‹⟦𝐡⟧ is already in client list! Rejecting›
+          ws_clients􊳠 = ꭐ
+          ¿negotiate_controller_props(𝐝,ꭐ)􀌐:
+            ✗􀉓‹Rejecting LW due to outdated version!›
         ‹Established LW connection: ⟦𝐝⟧›􀊸
         ∀: ‹"⟦𝐡⟧" - ⟦ꭐ􀃅ᐒ‹⟦⟞₀􀉳􀁭¹⁶􀋢⟧: ⟦⟞₁⟧›⟧›􀊸
   ¡ε=𝑒: ‹Disconnecting ⟦𝐡⟧: ε=⟦ε⟧›􀊸
-        dc􀃅
-        ⦃import traceback⦄
+        ⛯ LockWrap(ws_clients)
+          dc􀃅
         traceback.print_exception(ε)
-        ↪
 
 ⊢websocket_server(port,𝔴=󰻾):
   𝔖 ⛯ websocket_serve(WS_handle,ᐦ,port,server_header=□)

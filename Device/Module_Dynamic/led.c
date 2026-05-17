@@ -37,9 +37,8 @@ static void led_show(LedConf *ℭ) {
   ℭ->write_finish_μ = micros()+led_write_dur(ℭ);
   ℭ->𝔇 = ℭ->𝔇==ℭ->𝔇α ?ℭ->𝔇β: ℭ->𝔇α; }
 static void led_flush(LedConf *ℭ) {
-  if(!tx_chan) return;
-  // ESP_CHK(rmt_tx_wait_all_done,tx_chan,1000);
   sleep(1);
+  if(!tx_chan) return;
   loop { BAR;
          if(micros()>=ℭ->write_finish_μ) break;
          sleep(1); } }

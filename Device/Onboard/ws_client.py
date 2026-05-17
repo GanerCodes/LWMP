@@ -104,11 +104,15 @@ class WebsocketClient:
         if fin: return dat
         𝕊.expect_cont = True
         𝕊.frag_buf.extend(dat)
-      elif op==_OP_PONG : 𝕊.last_pong = ms()
-      elif op==_OP_PING : 𝕊.write_frame(_OP_PONG,dat)
+      elif op==_OP_PONG :
+        log0("WS","Got pong")
+        𝕊.last_pong = ms()
+      elif op==_OP_PING :
+        log0("WS","Got ping")
+        𝕊.write_frame(_OP_PONG,dat)
       elif op==_OP_CLOSE: raise 𝕊._close("WS Connection closed.")
       elif op==_OP_CONT : raise ValueError("Unexpected CONT frame")
-      else              : raise ValueError(f'[WS] Unknown op "{op}" ({dat=} {fin=})')
+      else              : raise ValueError(f'Unknown WS op "{op}" ({dat=} {fin=})')
   def recv_instant(𝕊):
     if not 𝕊.open          : raise ConnectionClosed("Already closed")
     if not 𝕊.poller.poll(0): raise NoDataException()

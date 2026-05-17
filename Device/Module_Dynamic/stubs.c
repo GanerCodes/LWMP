@@ -2,6 +2,7 @@
 #pragma push_macro("base")
 #define ret return
 #define base break;case
+#define bade break;default
 #define loop while(1)
 #define el else
 #define ef el if

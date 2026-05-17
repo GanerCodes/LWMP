@@ -59,7 +59,8 @@ static void lightwave_led_loop(void* volatile arg) { // 󰤱
         led_flow(&𝔏);
         𝔏.n = restore;
         WRITE(STATE_ARGS_SET);
-      break; default: {} }
+      bade:
+        sleep(1); }
     
     BAR; continue;
     

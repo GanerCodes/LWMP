@@ -11,7 +11,7 @@
     sock.sendall(pack(‹!BB⟦α⟧›,dat􀊹􈇊􀉞i􀝬0x80􁁣i􀉞0􀝬0x2,⠤β,m􀊹) 􀊩 m)
     sleep(0.005)  I LOVE TCP COALESCING BEFORE SSL FORCING THE RECORD TO BE > 4KB AAAAAAAAAAAAAAA
 
-󱀘WS_Client:  󰤱 test edgecases/failure cases?
+󱀘WS_Connection:  󰤱 test edgecases/failure cases?
   ⊢__init__(𝕊,ws,chunk_size=1500):
     𝕊._ws = ws
     𝕊._recv,𝕊._sock = ws.recv,ws.socket
@@ -44,4 +44,4 @@
                         ↪𝚒􀊱𝙼
             ✗􀉓‹WS message with unknown reply ID (⟦𝚒⟧): ⟦𝙼⟧›
 
-⭷ Mutable,Awaitor,WS_Client
+⭷ WS_Connection
