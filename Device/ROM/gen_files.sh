@@ -2,8 +2,23 @@
 { cd "${0%/*}/.."
 
 DEV_FS="$(realpath ./ROM/Out)/onboard"
-VER="${1:-$(cat "./VERSION")}"
-PRESET="${2:-"Normal"}"
+
+VER="$(cat "./VERSION")"
+PRESET="Normal"
+CONFIG_INJ='{}'
+SCENES_INJ='{}'
+if [ $# -gt 0 ]; then
+  [ -n "$1" ] && VER="$1"
+  shift; fi
+if [ $# -gt 0 ]; then
+  [ -n "$1" ] && PRESET="$1"
+  shift; fi
+if [ $# -gt 0 ]; then
+  [ -n "$1" ] && CONFIG_INJ="$1"
+  shift; fi
+if [ $# -gt 0 ]; then
+  [ -n "$1" ] && SCENES_INJ="$1"
+  shift; fi
 
 echo "Generating flash files (VER=$VER PRESET=$PRESET)"
 
@@ -12,14 +27,24 @@ mkdir -p ${DEV_FS}   || :
 rm    -r ${DEV_FS}/* || :
 
 N=0
-
-python -c 'import json,sys;print(json.dumps(sys.argv[1]))' "$VER" > "${DEV_FS}/VER"
 pushd ./Presets
   certf="./Config/${PRESET}/CERT.pem"
   [[ -f "$certf" ]] || certf="./Config/CERT.pem"
   cp "$certf" "${DEV_FS}/CERT.pem"
   cp -r ./Config/${PRESET}/* "${DEV_FS}"
   cp -r ./Scenes             "${DEV_FS}/Scenes"
+  
+  python -c '
+  from json import loads as L, dumps as D
+  from sys import argv as 𝔸
+  del 𝔸[0]
+  o = { "VER":D(𝔸[1]),
+        **L(𝔸[2]),
+        **{f"Scenes/{k}":v for k,v in L(𝔸[3]).items()} }
+  for k,v in o.items():
+    with open(f"{𝔸[0]}/{k}","w") as f:
+      f.write(str(v))
+  ' "$DEV_FS" "$VER" "$CONFIG_INJ" "$SCENES_INJ"
   popd
 pushd ./Onboard
   npx minify index.html > /tmp/index.min.html
@@ -36,6 +61,7 @@ pushd ./Module_Dynamic
   export CFLAGS="-Wno-error=unused-variable -Wno-error=unused-function -Wno-error=parentheses -Wno-error=maybe-uninitialized \
                  -Wno-unused-variable       -Wno-unused-function       -Wno-parentheses       -Wno-maybe-uninitialized"
   make && { cp *.mpy "${DEV_FS}/"; } || { bad=1; }
+  rm -r build .mpy_ld_cache || :
   popd
 
 for ((n=0; n < $N; n++)); do

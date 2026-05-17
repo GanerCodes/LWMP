@@ -46,6 +46,9 @@ BUILD_ROM=$([[ $2 == 'y' ]] && echo -n y || echo -n)
 CLEAN_ROM=$([[ $3 == 'y' ]] && echo -n y || echo -n)
 DEV_UUIDS=$([[ $4 == 'y' ]] && echo -n y || echo -n)
 PRESET=${5:-"Normal"}
+CONFIG_INJ=${6:-'{}'}
+SCENES_INJ=${7:-'{}'}
+
 # echo [${FLASH_ROM}] [${BUILD_ROM}] [${CLEAN_ROM}] [${DEV_UUIDS}] [${PRESET}]
 
 killall mpremote && sleep 0.05 || :
@@ -79,7 +82,7 @@ unalias . || :; export PATH="$PATH:$PWD/Device/esp-idf"; source ./Device/esp-idf
   if [[ -n "$BUILD_ROM" ]]; then
     ./ROM/build.sh ${CLEAN_ROM:+-c}
   fi
-  ./ROM/gen_files.sh '' "$PRESET"
+  ./ROM/gen_files.sh '' "$PRESET" "$CONFIG_INJ" "$SCENES_INJ"
 } || touch /tmp/flash_bad_flag
 
 touch /tmp/flash_flag
