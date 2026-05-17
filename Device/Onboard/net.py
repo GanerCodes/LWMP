@@ -151,7 +151,7 @@ def AP_with_DNS(*𝔸,timeout=None,timeout_f=None,no_evt_f=None,**𝕂):
     close = False
     try:
       p_evt = l_evt
-      for sock,ev in poll.poll(50):
+      for sock,ev in poll.poll(100):
         free()
         if   sock is s1: f1()
         elif sock is s2: f2()

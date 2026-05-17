@@ -99,9 +99,9 @@ class Controller: # 󰤱
     if check_ntp: 𝕊.check_ntp()
     M,m = MS(),ms()
     𝕊.check_update_mode(M,m)
-    if m>_count[0]:
-      log("Controller",𝕊,"Mem:",mem_perc())
-      _count[0] += 5000
+    if m<_count[0]: return
+    log("Controller",𝕊,"Mem:",mem_perc())
+    _count[0] += 5000
 
   def configure(𝕊):
     ℭ = 𝕊.ℭ

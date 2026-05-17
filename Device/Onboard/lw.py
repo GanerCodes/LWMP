@@ -136,16 +136,24 @@ def lw_AP(setup=False):
         if "TOKEN" in body: return 200,"text/plain","Exiting AP",True
       elif path=="/mode":
         𝔏(m := body["mode"])
+        𝔏.feed()
         ℭ.DEF_SCENE = m
     except Exception as ε:
       dbg("LW-AP","Error in post:",ε)
       return 400,"text/plain","Error!"
     return 200,"text/plain","Success!"
   
+  @micropython.native
+  def feed(_count=[0]):
+    m = ms()
+    if m<_count[0]: return
+    𝔏.feed(False)
+    _count[0] = m+10000
+  
   dottrim = lambda x,l=10,d="...": x[:l-len(d)]+d if len(x)>l else x
   AP_with_DNS(get,post,timeout=60**2 if setup else None,
               ssid    =f"LightWave {dottrim(ℭ.uuid,20)}",
-              no_evt_f=lambda: 𝔏.feed(False))
+              no_evt_f=feed)
 
 def lw_net():
   if ℭ.AP_MODE:

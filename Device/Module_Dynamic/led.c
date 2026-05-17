@@ -39,7 +39,9 @@ static void led_show(LedConf *ℭ) {
 static void led_flush(LedConf *ℭ) {
   if(!tx_chan) return;
   // ESP_CHK(rmt_tx_wait_all_done,tx_chan,1000);
+  sleep(1);
   loop { BAR;
-         if(micros()>=ℭ->write_finish_μ) break; } }
+         if(micros()>=ℭ->write_finish_μ) break;
+         sleep(1); } }
 
 static void led_flow(LedConf *ℭ) { led_flush(ℭ); led_show(ℭ); }
