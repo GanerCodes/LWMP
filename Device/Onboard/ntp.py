@@ -38,7 +38,6 @@ def week_start(μ=None):
   μ //= _μS_PER_D
   return (μ-((μ+4)%7)) * _μS_PER_D
 
-# @micropython.native
 def is_leap(x):
   return x%4==0 and (x%100 or not x%400)
 @micropython.native

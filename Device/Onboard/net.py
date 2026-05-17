@@ -59,7 +59,7 @@ def AP_basic(get=log,post=log,loop=True,ssid="AP",password=""):
     return buf
   net = wlan(AP_IF,essid=ssid,password=password)
   while not net.active(): frees(0.025)
-  log("AP",f'Created "{ssid}" {net.ifconfig()}')
+  log("AP",f'Created "{ssid}"',net.ifconfig())
   s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
   s.bind(("",80))
   s.listen(5)
@@ -122,7 +122,7 @@ def AP_basic(get=log,post=log,loop=True,ssid="AP",password=""):
 def DNS_trap(loop=True):
   s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
   s.bind(("",53))
-  def handle(): # this is half AI lol
+  def handle(): # AI used for protocol stuff
     dat,addr = s.recvfrom(512)
     log("DNS",f"[{join(addr)}] Got DNS query")
     if len(dat)<12: return
@@ -136,33 +136,41 @@ def DNS_trap(loop=True):
     return handle,s,s.close
   while 1: handle()
 
-def AP_with_DNS(*𝔸,timeout=None,timeout_f=None,**𝕂):
+def AP_with_DNS(*𝔸,timeout=None,timeout_f=None,no_evt_f=None,**𝕂):
+  timeout *= 1000
   (f1,s1,c1),(f2,s2,c2) = AP_basic(*𝔸,loop=False,**𝕂),DNS_trap(loop=False)
   
   poll = select.poll()
-  poll.register(s1, select.POLLIN)
-  poll.register(s2, select.POLLIN)
+  poll.register(s1,select.POLLIN)
+  poll.register(s2,select.POLLIN)
   
   l_evt = ms()
+  log0("AP-DNS",f"Starting with {timeout=}")
   while 1:
+    free()
     close = False
     try:
-      for sock,ev in poll.poll(100):
+      p_evt = l_evt
+      for sock,ev in poll.poll(50):
         free()
         if   sock is s1: f1()
         elif sock is s2: f2()
-        else           : continue
+        else           : continue # shouldn't even happen... I think?
         l_evt = ms()
+      if p_evt == l_evt and no_evt_f is not None:
+        no_evt_f()
     except CloseConnection: close = True
-    except Exception      : dbg("NET","Unhandled exception",ε)
+    except Exception      : dbg("AP-DNS","Unhandled exception",ε)
     finally:
-      if close or timeout is not None and dt_ms(l_evt) > 1000*timeout:
-        if timeout_f is not None: timeout_f()
-        try                  : c1()
-        except Exception as ε: dbg("NET","Failed to close AP" ,ε)
-        try                  : c2()
-        except Exception as ε: dbg("NET","Failed to close DNS",ε)
-        return
+      # if close or timeout is not None and dt_ms(l_evt) > timeout:
+      if not close and (timeout is None or dt_ms(l_evt)<=timeout):
+        continue
+      if timeout_f is not None: timeout_f()
+      try                  : c1()
+      except Exception as ε: dbg("AP-DNS","Failed to close AP" ,ε)
+      try                  : c2()
+      except Exception as ε: dbg("AP-DNS","Failed to close DNS",ε)
+      return
 
 # @micropython.native
 def ssl_cond(s,uri,sec=("https","wss")):

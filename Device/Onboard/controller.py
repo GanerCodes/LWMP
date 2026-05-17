@@ -95,8 +95,8 @@ class Controller: # 󰤱
     𝕊.update_recalb_day(M)
     log("Controller",f"{fmt_date(1000*M)} Recalibrated Δ {pΔ}→{𝕊.𝔏.Δ} to avoid rounding issues.")
     return int(pΔ!=𝕊.𝔏.Δ)
-  def feed(𝕊,_count=[ms()]):
-    𝕊.check_ntp()
+  def feed(𝕊,check_ntp=True,_count=[ms()]):
+    if check_ntp: 𝕊.check_ntp()
     M,m = MS(),ms()
     𝕊.check_update_mode(M,m)
     if m>_count[0]:
