@@ -134,7 +134,7 @@ def lw_AP(setup=False):
       if   path=="/config":
         ℭ(body)
         if "TOKEN" in body: return 200,"text/plain","Exiting AP",True
-      elif path=="/mode":
+      elif path=="/mode": 
         𝔏(m := body["mode"])
         𝔏.feed()
         ℭ.DEF_SCENE = m
