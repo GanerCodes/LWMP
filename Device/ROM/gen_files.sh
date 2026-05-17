@@ -35,15 +35,15 @@ pushd ./Presets
   cp -r ./Scenes             "${DEV_FS}/Scenes"
   
   python -c '
-  from json import loads as L, dumps as D
-  from sys import argv as 𝔸
-  del 𝔸[0]
-  o = { "VER":D(𝔸[1]),
-        **L(𝔸[2]),
-        **{f"Scenes/{k}":v for k,v in L(𝔸[3]).items()} }
-  for k,v in o.items():
-    with open(f"{𝔸[0]}/{k}","w") as f:
-      f.write(str(v))
+from json import loads as L, dumps as D
+from sys import argv as 𝔸
+del 𝔸[0]
+o = { "VER":D(𝔸[1]),
+      **L(𝔸[2]),
+      **{f"Scenes/{k}":v for k,v in L(𝔸[3]).items()} }
+for k,v in o.items():
+  with open(f"{𝔸[0]}/{k}","w") as f:
+    f.write(str(v))
   ' "$DEV_FS" "$VER" "$CONFIG_INJ" "$SCENES_INJ"
   popd
 pushd ./Onboard
