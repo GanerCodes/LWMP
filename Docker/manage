@@ -1,8 +1,7 @@
 #!/bin/bash -e
 
 setup_dir() { shift
-              DIR=$(cd "${1:-/root/LWMP}" 2>/dev/null && pwd -P || \
-                    printf "%s/%s\n" "$PWD" "${1:-/root/LWMP}";)
+              DIR="${1:-/root/LWMP}"
               echo "Using install dir \"${DIR}\""
               mkdir -p "$DIR/Data"; cd "$DIR"
               shift || :; }
