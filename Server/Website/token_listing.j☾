@@ -1,0 +1,39 @@
+© ətokenListing = ⥌Ѧ={}↦{
+  Ѧ = { ƒ:󰻾, delƒ:󰻾, init:✓, Ⴝ:󱣩, ⠤Ѧ };
+  Ѧ􋆔??=[];
+  
+  © prompt_token = ⥌ƒ↦{ ⎉ tok = textField({:✓, :󰲡(x=[⠤x]􋌵,x≥6∧x≤64)}, {𝑃𝐻:‹Token›});
+                        ↪əpromptGeneral(
+                           {ƒ:𝚲ƒ(tok􀴗 ᵛ), :𝚲tok􀴗 ᵘᵖᵈᵃᵗᵉ(), ␛󰊄:‹Add a Token›},
+                           󱀝 {⦅󰊄𝚜 1.25em⦆} [
+                             ⟦tok⟧
+                             󱀝 {⦅𝚏↓;𝚖↑ 0.75em;󰊄𝚜 0.75em; ⦑fg1⦒⦆} [
+                               󱀝 T ‹This is the token that you used to connect your device to the wifi.›
+                               󱀝 T ‹Make sure to type it in exactly how you typed it in when setting up your device.›
+                               󱀝 a {target _blank⍮href https://www.brynicsolutions.com/set-up} ‹Haven't added your device yet?›]]); }
+  © censor = 󰲡x.replace(⦋/(?<=.).(?=.)/g⦌,␛⋅);
+  ©  = əitemGridEditable(
+          ⥌  gen↦prompt_token(󰲡(add_check_tok(x),gen(x))),
+          ⥌𝐭,rem↦{ ¿(¬Ѧ􋆔 􋁋(𝐭)) Ѧ􋆔.push(𝐭);
+                   ↪[(󰲡(x􋆮=𝐭,x))(ətileButton(censor(𝐭),𝚲Ѧˢᵉᵗ(𝐭))),
+                     əbuttonBar([␛󰆴,rem])] },
+          ⥌𝐭    ↦(Ѧᵈᵉˡ􊽺(𝐭),del_tok(𝐭),Ѧᵖᵒᵖᵘˡᵃᵗᵉ(Ѧ􋆔 􋐉(󰲡x≠𝐭))),
+          [],
+          {sort: ⥌↦􈞢(‹.bigButton›)􋆮});
+  Ѧ=􀴗={⠤􀴗,⠤Ѧ,};
+  Ѧᵖᵒᵖᵘˡᵃᵗᵉ = ⥌𝐓=󱣩↦{
+                ¿(𝐓≇󱣩) Ѧ􋆔 = 𝐓;
+                ¿(¬Ѧ􋆔 􋁋(Ѧ􎁎)) Ѧ􎁎 = 󱣩
+                Ѧᶜˡᵉᵃʳ();
+                𝐓􋁃(󰲡Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x));
+                Ѧˢᵉᵗ(); }
+  Ѧˢᵉᵗ      = ⥌Ⴝ=󱣩,call=✓↦{
+                © o = 􀴗 ᴱˡᵐˢ()􋐉(󰲡x􈞢(‹.bigButton›)􋆮≡Ѧ􎁎)⸮₀;
+                © n = 􀴗 ᴱˡᵐˢ()􋐉(󰲡x􈞢(‹.bigButton›)􋆮≡Ⴝ )⸮₀;
+                Ѧ􎁎 = n ⭜Ⴝ⭝ 󱣩;
+                ¿(Ѧ􎁎≇󱣩 ∧ call) Ѧ􊽺(Ѧ􎁎);
+                o⸮󱗟(‹choosen›);
+                n⸮󰧥(‹choosen›);
+                ↪Ѧ􎁎 }
+  ¿(Ѧⁱⁿⁱᵗ) Ѧˢᵉᵗ(Ѧ􎁎,Ѧⁱⁿⁱᵗ);
+  ↪; }

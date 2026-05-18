@@ -33,6 +33,8 @@
      󱀝 span [⟦𝒪v(fx_togs)􋅝(󰲣x􋑵)⟧]
      󱀝      [⟦𝒪v(fx_togs)􊾡􎘌(󰲡x􋌵≡2⭜[x₁]⭝[])⟧]]; };
 
+──── SPLIT ────
+
 © 𝘌makeModeViewer = ⥌Ѧ,𝚜=󱣩↦{
   © 𝘈 = Ѧ􍻐􋑵 􀴗;
   ¿(¬(1∈Ѧ􈛈)) ↪;
@@ -113,7 +115,9 @@
   Ѧˢᵉᵗᴹᵒᵈᵉⱽⁱᵉʷ();
   ↪Ѧ􍻐􋑵; };
 
-© copy = 󰲡navigator.clipboard.writeText(x);
+──── SPLIT ────
+
+© copy = 󰲡navigator.clipboard.writeText(x);  󰤱 move into general libs/lang libs?
 
 © 𝘌activatePanel = ⥌Ѧ↦{
   © cmd = 󰲡𝘌run(Ѧ􈛈􍻞₀,Ѧ􋆭,Ѧ􋈹,x,que􀴗 󰀒,inf􀴗 󰀒⭜󷰾⭝dur􀴗 ˢᵉᶜˢ());

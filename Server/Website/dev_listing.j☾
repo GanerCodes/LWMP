@@ -1,0 +1,115 @@
+© ədevDisplay = ⥌𝐮,𝐝↦{
+  © clr = ‹#⟦𝐝ᵒⁿˡⁱⁿᵉ⭜‹8CD521›⭝‹D54C21›⟧›;
+  © [name1,name2] = names(𝐮,𝐝);
+  © 𝚋1st = 󰲣󱀝 span ⦅𝚏→⦆ [󱀝 T ⦅󰊄𝚋n⦆ ‹⟦x⟧› 󱀝 T ⦅𝚖󷷢 0.25em⦆ ‹-› 󱀝 T ‹⟦y⟧›];
+  ©  = 󱀝 div ⦅𝚙𝚘𝚜r;𝚑≥ 150px;𝚏↓;𝚊𝚂←;𝚙󷷢 10px;𝚙󷷤 6px;󰊄𝚜 20px;󰊄𝚋l⦆ [
+          󱀝 T ⦅󰊄𝚋n;𝚙𝚘𝚜a;↑ -7px;→ 10px;󰊄𝚜 50px; ⟦clr⟧⦆ ‹⬤›
+          󱀝 T {𝐶 devNamePrimary⍮⦅󰊄𝚋n;󰊄𝚜 30px; ⦑fgb⦒⦆} ‹⟦name1⟧›
+          ⟦name2⭜[𝚋1st(‹UUID›,name2)]⭝[]⟧
+          ⟦𝚋1st(𝐝ᴿᴳᴮ􋕟ᴼᴿᴰᴱᴿ,‹⟦𝐝ᴸᴱᴰ󰀂⟧ pixels›)⟧
+          ⟦𝚋1st(‹Direction›,‹⟦[‹For›,‹Back›]₊􊳜􊫯􊫤􊲍􊫤􊫯􊻐􊫤⟧wards›)⟧];
+  ↪ };
+──── SPLIT ────
+© ədevTile = ⥌Ѧ,[𝐮,𝐝],rem↦{
+  © [𝐭,𝔡] = [Ѧ􋈹 􋆮,Ѧ􋈹.dev(𝐮)];
+  
+  ⎉ tile;
+  © update = ⥌𝐮,𝐝↦{
+    ©  = ədevDisplay(𝐮,𝐝);
+    ¿(tile) tile.replaceChildren(⠤􋑱);
+    ¡        tile = ;
+    dƒ􋑵 􋒗 = 𝐝ᵒⁿˡⁱⁿᵉ; 🟑 󰤱 dumb 🟑
+    🟑 Ѧᵒʳᵈᵉʳ(); 󰤱 why did i do the menu thing in such a bad way 🟑 };
+  © canButtons = ⥌𝚜↦{ B􊾡􎘌(󰲡x􊾡(󰻾))􎘌()􊾡(󰲡x􋒗=¬𝚜);
+                      dƒ􋑵 􋒗 = 𝐝ᵒⁿˡⁱⁿᵉ 🟑 󰤱 dumb 🟑;  }
+  
+   󰤱 if the device if offline disable the token changing option!
+  © mergeDev = ⥌𝚍↦{ © dev_db = get_devs(Ѧ􋈹)􊳭;
+                    𝑜.assign(𝐝     ,𝚍);
+                    𝑜.assign(dev_db,𝚍);
+                    update𝘋𝘉();
+                    update(𝐮,𝐝);
+                    ↪𝐝; };
+  © delDev = 𝚲{ 󰆴 get_devs(Ѧ􋈹)􊳭;
+                update𝘋𝘉(); };
+  
+  © wrap = ⥌ƒ,e=‹An error occured!›,
+           ↦󱟱󰲟{ canButtons(✗);
+                ⎉ show = ✓;
+                    { show = 󱫬 ƒ(⠤𝔸);        }
+                catch{ showErr(e);            }
+                󰛕    { ¿(show) canButtons(✓); } };
+  
+  © ƒ = 𝚲{
+    © 𝐧 = names(𝐮,𝐝)₀;
+    © ƒ = wrap(󱟱 ⥌𝚗,𝚝,𝚠↦{
+                 © 󰬊 = {};
+                 ¿(𝐧≠𝚗) 󰬊ᴺᴬᴹᴱ    = 𝚗;
+                 ¿(𝐭≠𝚝) 󰬊ᵀᴼᴷᴱᴺ   = 𝚝;
+                 ¿( ¬𝚠) 󰬊ᴬᴾ􋕟ᴹᴼᴰᴱ = ✓;
+                 ¿(¬𝒪𝑏(󰬊)) ↪✓;
+                 󱫬 𝔡.config(󰬊);
+                 ¿(𝐭≠𝚝) ↪delDev(),rem(),✗;
+                  refresh here?
+                 mergeDev({⠤𝐧≠𝚗 ∧ {NAME:𝚗}});
+                 ↪✓; },
+               ‹Failed to configure device!›);
+    © name = textField({:✓, :󰲡(x=[⠤x]􋌵,1≤x∧x≤64), valid:✓}, {𝑃𝐻:‹Name›,value:𝐧});
+    ©  tok = ədropdown(get_toks(),{Ⴝ:𝐭});
+    tok􋛟.marginBottom = ‹30px›;
+    © netButton = ⦅«𝚠 𝚑» 1em;󰊄𝚜 2em;𝚋 2px solid ⦑fg2⦒;𝚋𝚛 0.1em⦆;
+    ©   netText = ⦅𝚠 2em;𝚖← 0.7em;𝚖→ 0.3em;󰊄𝚊󷷣⦆;
+    © net = toggleButton(󰻾,
+                          󱀝 {⦅𝚏→;𝚊𝚂󷷣⦆} [󱀝 button {𝑆 ⟦netButton⟧} ‹󰖪› 󱀝 T {𝑆 ⟦netText⟧} ‹AP󷺗󷺗›],
+                          󱀝 {⦅𝚏→;𝚊𝚂󷷣⦆} [󱀝 button {𝑆 ⟦netButton⟧} ‹󰖩› 󱀝 T {𝑆 ⟦netText⟧} ‹WiFi›],
+                          ✓)􋑵;
+    əpromptGeneral({ƒ:𝚲ƒ(name􀴗 ᵛ,tok􀴗 􎁎,net􀴗 󰀒),
+                    :𝚲name􀴗 ᵛᵃˡⁱᵈ,
+                    ␛󰊄:‹Edit device info›},
+                   󱀝 T ⦅󰊄𝚜 1.6em;𝚖↓ 0.1em⦆ ‹Name󷺗󷺗󷺗󷺗󷺗󷺗󷺗󷺗›, name,
+                   󱀝 T ⦅󰊄𝚜 1.6em;𝚖↓ 0.1em⦆ ‹Token󷺗󷺗󷺗󷺗󷺗󷺗󷺗›,  tok,
+                   󱀝 T ⦅󰊄𝚜 1.6em;𝚖↓ 0.1em⦆ ‹Connectivity›,  net); };
+  
+  © ƒ = 𝚲prompt_rgb_calibrate(𝔡,󰲡mergeDev({RGB_ORDER:x, online:✓}));
+  © ƒ = 𝚲prompt_led_calibrate(𝔡,󰲡mergeDev({LEDC     :x, online:✓}));
+  © 󰐥ƒ = wrap(󱟱𝚲 { 󱫬 𝔡.off();
+                   mergeDev({online:✓});
+                   ↪✓; },
+              ‹Error reversing device!›);
+  © ƒ = wrap(󱟱𝚲 { © Δ = {REVERSE:¬𝐝ᴿᴱⱽᴱᴿ󰀒ᴱ};
+                   󱫬 𝔡.config(Δ);
+                   mergeDev({⠤Δ, online:✓});
+                   ↪✓; },
+              ‹Error reversing device!›);
+  © dƒ = wrap(󱟱𝚲 { 󱫬 𝔡.del();
+                   ↪(delDev(),rem(),✗); },
+              ‹Error 󷺗deleting device!›);
+  © ƒ = 𝚲B₁􈛘(‹dropped›,B₁􈞠(‹dropped›)≡␛✓⭜␛✗⭝␛✓);
+  
+  © B = [əbuttonBar([␛,ƒ],[␛,ƒ],[␛󰐥,󰐥ƒ],[␛,ƒ]),
+          əbuttonBar([␛,ƒ],[␛,ƒ],[␛󰆴,dƒ])];  󰤱 [␛,󰻾]
+  dƒ􋑵 = B₁􋑱₂; 🟑 󰤱 dumb; prob should be option in əbuttonbar so Ѧ styles 🟑
+  update(𝐮,𝐝);
+  B₁􈛘(‹dropped›);
+  
+  ↪[tile,⠤B]; };
+──── SPLIT ────
+© ədevListing = ⥌Ѧ={}↦{
+  Ѧ = { 𝔱:󱣩, ƒ:󰻾, ⠤Ѧ };
+  ©  = əitemGridEditable(󱣩,
+                          ⥌x,rem↦ədevTile(Ѧ,x,rem),
+                          󰲡☾(‹Removing:›,x),  󰤱 what/why
+                          [],
+                          { sort       : ⥌↦􈞢(‹.devNamePrimary›)􋒷,
+                            show_plus  : ✗,
+                            placeholder: 𝚲󱀝 h2 ‹No devices found for this token...› })  󰤱 why hℕ ever
+  Ѧ=􀴗={⠤􀴗,⠤Ѧ,};
+  Ѧᵖᵒᵖᵘˡᵃᵗᵉ = 󱟱⥌𝔱,call=✓↦{
+                ¿(𝔱) Ѧ􋈹 = 𝔱;
+                ⎉ devs = 󱫬 load_devices(Ѧ􋈹);
+                devs = devs₁;  󰤱 handle errors
+                Ѧᶜˡᵉᵃʳ();
+                𝒪(devs)􋁃(󰲡Ѧᵃᵈᵈ􋕟ⁱᵗᵉᵐ(x));
+                ¿(call) Ѧ􊽺(devs);
+                ↪devs; };
+  ↪; };

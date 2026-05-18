@@ -1,49 +1,3 @@
-© 𝑖2   = 󰲡[x>>16&0xFF,x>>8&0xFF,x>>0&0xFF];
-© 2𝑖   = 󰲡x₀<<16|x₁<<8|x₂;
-© lerp = 󰲥󱑼(x,y)􋅝(󰲣x+z⋅(y-x));
-
-©        = ⥌[r,g,b,a=255]↦‹rgba(⟦r⟧,⟦g⟧,⟦b⟧,⟦a÷2.55⟧%)›;
-© grad   = ⥌c,s,v↦‹linear-gradient(180deg in hsl longer hue,⟦hsv2hsl([0,s,v])⟧,⟦hsv2hsl([255,s,v])⟧) 0 0 / 100% ⟦100÷c⟧% repeat-y›;
-© hsv2hsl = ⥌[h,s,v]↦‹hsl(⟦h÷255⋅360⟧deg,⟦s÷2.55⟧%,⟦v÷255⋅50⟧%)›;
-
-© sorts = ⥌ƒ=󰲡x􋒷,,⠤𝙴↦𝙴.sort(󰲣ƒ(x).localeCompare(ƒ(y)))􋁃(󰲡􍪙(x));
-
-showErr = 󰲡☾(‹󰤱 show "⟦x⟧" to the user in a not annoying/cringe way›);
-
-clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
-  Ѧ = {␛*:✗,canAdd:𝚲✓,canRem:𝚲✓,⠤Ѧ};
-  
-  © B = [󱀝 button {𝐶 detectorMeta detectorCancel⍮ detector ⟦✓⟧} ‹←›];
-  ¿(Ѧ􊯛) { B.push(󱀝 button {𝐶 detectorMeta detectorSubmit⍮ detector ⟦✓⟧} ‹✓›);
-           B₀􋛟.top = ‹3.75em›; }
-  
-  base􍪙(⠤B);
-  Ѧ􀳗 = base􈞣(𝚚);
-  © restoreDrags = (󰲡𝚲x􋁃(󰲡xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ=✗))
-                   (Ѧ􀳗 􋐉(󰲡{© v=xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ; xᵈⁱˢᵃᵇˡᵉᴰʳᵃᵍ=✓; ↪¬v∧x; }));
-  © tog = 𝚲Ѧ􀳗 􊾡􎘌(󰲡{ © r = x􈞧(‹multidetect›);
-                   x􈛣(‹detector›); x􈛑(‹multidetect›);
-                   ↪r⭜[x]⭝[]; });
-  tog();
-  © rem = AEL(󰈙,‹click›,⥌ε↦{
-    © cease = 󰲟(restoreDrags(),B􊾡(󰲡x.remove()),rem(),ƒ(⠤𝔸));
-    ε.stopPropagation(); ε.preventDefault();
-    ¿(ε.target.closest(‹.detectorSubmit›)) ↪cease(tog());
-    ¿(ε.target.closest(‹.detectorCancel›)) ↪tog(),cease();
-    ©  = ε.target.closest(𝚚);
-    ¿(¬ ) ↪;
-    ¿(Ѧ􊯛) { ¿(􈞧(‹multidetect›)) Ѧᶜᵃⁿᴿᵉᵐ(,Ѧ) ∧ 􈛑(‹multidetect›);
-             ¡                    Ѧᶜᵃⁿᴬᵈᵈ(,Ѧ) ∧ 􈛘(‹multidetect›); }
-    ¡      ↪tog(),cease(); },✓);
-  ↪rem; };
-
-ətitledBox = ⥌𝚝,ə,Ѧ={outline:✓}↦
-  󱀝 div {𝐶 titledBox} [
-    󱀝 T ⦅󰊄𝚜 2em⦆ ‹⟦𝚝⟧›
-    󱀝 {𝐶 ‹box⟦¬Ѧᵒᵘᵗˡⁱⁿᵉ⭜‹ noOutline›⭝ᐦ⟧›⍮ ⦅𝚘𝚏x hidden; 𝚘𝚏y auto⦆} [⟦ə⟧]]
-əbuttonBar = 󰲟
-  󱀝 span {𝐶 multiButtonBar} ⟦𝔸􋅝(󰲣󱀝 button {𝐶 barButton⍮  ⟦y⟧} ⟦x⟧)⟧;
-
 əitemGridEditable = ⥌𝚙𝚕𝚞𝚜,𝚐𝚎𝚗,𝚛𝚎𝚖,items=[],Ѧ={}↦{
   Ѧ = {sort:󱣩,show_plus:✓,placeholder:󱣩,⠤Ѧ};
   ⎉ ,adder;
@@ -113,17 +67,4 @@ clickDetect = ⥌𝚚,ƒ,base=󰈙.body,Ѧ={}↦{
   􀴗 = Ѧ;
   ¿(Ѧ􋆷) 􈛓(Ѧ􋆷);
   ¿(Ѧⁱⁿⁱᵗ) Ѧ􊽺(Ѧ􎁎);
-  ↪; };
-
-ədropdown = ⥌𝙴,Ѧ={}↦{
-  Ѧ = {𝙴,Ⴝ:𝙴₀,init:✓,ƒ:󰻾,⠤Ѧ};
-  ©  = 󱀝 select {autocomplete off} ⟦𝙴􊾡(󰲡󱀝 option {value ⟦x⟧} ‹⟦x⟧›)⟧;
-  AEL(,‹change›,󰲡Ѧˢᵉᵗ(x.target.value));
-  Ѧ=􀴗={⠤Ѧ,};
-  Ѧˢᵉᵗ = ⥌Ⴝ=󱣩,call=✓↦{
-           Ⴝ≅󱣩 ⭜Ⴝ=Ѧ􎁎⭝ Ѧ􎁎=Ⴝ;
-           ᵛᵃˡᵘᵉ = Ѧ􎁎;
-           ¿(call) Ѧ􊽺(Ѧ􎁎);
-           ↪Ѧ􎁎; }
-  Ѧˢᵉᵗ(Ѧ􎁎,Ѧⁱⁿⁱᵗ);
   ↪; };

@@ -1,0 +1,14 @@
+© ətileButton = ⥌t,ƒ,󰊄=t↦󱀝 button {𝐶 bigButton⍮ 𝑆 ⟦fit_size(󰊄,250,50)⟧⍮  ⟦𝚲ƒ(t)⟧} ⟦󰊄⟧
+© əpromptGeneral = ⥌Ѧ,⠤𝙴↦{
+  Ѧ = {ƒ:󰻾, :𝚲✓, ␛󰊄:‹Form›, ⠤Ѧ};
+  ⎉ 
+  © submitƒ = 𝚲{ ¿(¬Ѧ􇦭()) ↪;
+                 .close();
+                 ↪Ѧ􊽺(); };
+  ↪󱀝: ⟦ədialog⟧ { ⟦✓⟧⍮󰅙 ⟦✓⟧} [
+     ⟦ətitledBox(Ѧ􊯛􋒶,
+                 󱀝 div {𝐶 promptBox⍮ 𝑆 ⦅𝚠≤ ⅘;𝚠 󷷈;𝚏↓⦆} ⟦[
+                   ⠤𝙴,
+                   󱀝 {⦅𝚑 1em⦆},
+                   textButton(‹Submit›,submitƒ)]⟧,
+                 {outline:✗})⟧]; }

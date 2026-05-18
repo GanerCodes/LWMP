@@ -1,5 +1,5 @@
 symbols
   󰆴+󰐥󷹁↺󰭧󰍜←→✓✗󰤱󷸾󰳲󱦙󰍞󰍟⯇⯈⬤󷹻󰡏󰮹󷷥󰆏󰖪󰖩
 bundle
-   ∣ header extra custom_elements sliders api general elements popup calibration modeUtil editorPreview editorInspector editor listings index
+   ∣ header extra custom_elements sliders api general elms_general elms_nav elms_listings popup calibration modeUtil editorPreview editorInspector editor token_listing dev_listing scene_listing index
    ∣ custom_elements style
