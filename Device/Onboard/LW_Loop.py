@@ -8,7 +8,7 @@ from consts    import LED_BUF_SIZE,STK_BUF_SIZE
 
 log0("Device",
      f"RMT_CLK_SRC_DEFAULT={RMT_CLK_SRC_DEFAULT()}"
-     f"\nxPortGetCoreID()={xPortGetCoreID     ()}")
+      f"\nxPortGetCoreID()={xPortGetCoreID     ()}")
 
 _STATE_LOOP_NONE   = const(0)
 _STATE_LOOP        = const(1)

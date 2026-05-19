@@ -18,6 +18,8 @@ DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*' | sed 's/tty/\/dev\/tty/'))
   UUID="$3"
   FLASH_ROM=$([[ $4 == 'y' ]] && echo -n y || echo -n)
   echo "Flashing ${DEV} - ${UUID:-"No UUID"}"
+  echo "Using esptool : \"$(which esptool )\""
+  echo "Using mpremote: \"$(which mpremote)\""
   pushd ./Device
     [[ -n "$FLASH_ROM" ]] && {
       pushd ./ROM/Out
