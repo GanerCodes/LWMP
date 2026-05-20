@@ -18,7 +18,7 @@ static void lightwave_led_loop(void* volatile arg) { // 󰤱
   globals_from_ptrs(𝔄->globals);
   volatile LW_State* 𝔖 = 𝔄->state;
   volatile u8 𝔪;
-  LedConf   𝔏 = { .n=300, .p=23, .t=400LL<<48 | 850LL<<32 | 800LL<<16 | 450LL };
+  LedConf   𝔏 = { .n=300, .p=17, .t=400LL<<48 | 850LL<<32 | 800LL<<16 | 450LL };
   LW_Device 𝼥;
   LW_Mode   𝔐;
   u32 prevΔ=0,Δ=0,targΔ=0,δ_Δ=0,ΔΔ=0;
