@@ -1,3 +1,19 @@
+cd /home/ganer/Projects/Brynic/LWMP/Device/micropython/ports/esp32/build-ESP32_GENERIC; unalias . || :; export PATH="$PATH:/home/ganer/Projects/Brynic/LWMP/Device/esp-idf/tools"; source /home/ganer/Projects/Brynic/LWMP/Device/esp-idf/export.sh
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x4000c2dd:0x3ffceb70 0x400fee01:0x3ffceb80 0x400d1fcd:0x3ffceba0 0x4010094a:0x3ffcebc0 0x40107c39:0x3ffcebe0 0x40085ce1:0x3ffcec00 0x40100a8b:0x3ffceca0 0x40107c39:0x3ffcecd0 0x40107d03:0x3ffcecf0 0x4010695f:0x3ffced10 0x4010656d:0x3ffced70 0x40107c39:0x3ffced90 0x40085ce1:0x3ffcedb0 0x40100a8b:0x3ffcee50 0x40107c39:0x3ffceeb0 0x40107d03:0x3ffceed0 0x40106994:0x3ffceef0 0x4010656d:0x3ffcef50 0x40107c39:0x3ffcef70 0x40085ce1:0x3ffcef90 0x40100a8b:0x3ffcf030 0x40107c39:0x3ffcf060 0x40107c4e:0x3ffcf080 0x40124cc2:0x3ffcf0a0 0x40124d35:0x3ffcf0d0 0x40124f16:0x3ffcf110 0x40107d88:0x3ffcf210 0x40086001:0x3ffcf250 0x40100a8b:0x3ffcf2f0 0x40107c39:0x3ffcf360 0x40107c4e:0x3ffcf380 0x4013a956:0x3ffcf3a0 0x4013ac93:0x3ffcf430 0x4011d67e:0x3ffcf460
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x4000c2ac:0x3ffce6c0 0x400ffe12:0x3ffce6d0 0x40130eaa:0x3ffce6f0 0x401314b5:0x3ffce720 0x40100113:0x3ffce7a0 0x40107a98:0x3ffce840 0x40107dcb:0x3ffce890 0x400851a5:0x3ffce8b0 0x40100a8b:0x3ffce950 0x40107c39:0x3ffce9c0 0x40085ce1:0x3ffce9e0 0x40100a8b:0x3ffcea80 0x40107c39:0x3ffceaf0 0x40107d03:0x3ffceb10 0x40106994:0x3ffceb30 0x4010656d:0x3ffceb90 0x40107c39:0x3ffcebb0 0x40085ce1:0x3ffcebd0 0x40100a8b:0x3ffcec70 0x40107c39:0x3ffcecd0 0x40107d03:0x3ffcecf0 0x40106994:0x3ffced10 0x4010656d:0x3ffced70 0x40107c39:0x3ffced90 0x40085ce1:0x3ffcedb0 0x40100a8b:0x3ffcee50 0x40107c39:0x3ffcee80 0x40085ce1:0x3ffceea0 0x40100a8b:0x3ffcef40 0x40107c39:0x3ffcef70 0x40085ce1:0x3ffcef90 0x40100a8b:0x3ffcf030 0x40107c39:0x3ffcf060 0x40107c4e:0x3ffcf080 0x40124c16:0x3ffcf0a0 0x40124c89:0x3ffcf0d0 0x40124e6a:0x3ffcf110 0x40107d88:0x3ffcf210 0x40086001:0x3ffcf250 0x40100a8b:0x3ffcf2f0 0x40107c39:0x3ffcf360 0x40107c4e:0x3ffcf380 0x4013b1e2:0x3ffcf3a0 0x4013b51f:0x3ffcf430 0x4011d5d2:0x3ffcf460
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400fabe0:0x3ffdd380 0x4009e889:0x3ffdd3d0 0x4009e945:0x3ffdd420 0x4009e985:0x3ffdd440 0x400d2099:0x3ffdd480
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x40094c99:0x3ffbd2c0 0x40094c65:0x3ffbd2e0 0x40099fda:0x3ffbd300 0x40082bc7:0x3ffbd370 0x40082d5e:0x3ffbd3b0 0x401f7f52:0x3ffbd3e0 0x401f4abf:0x3ffbd490 0x400d1fe7:0x3ffbd4e0 0x4009d755:0x3ffbd500 0x400d2041:0x3ffbd540
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x4009529d:0x3ffdc9a0 0x40095269:0x3ffdc9c0 0x40095e9a:0x3ffdc9e0 0x40097365:0x3ffdca60 0x40096008:0x3ffdca90 0x40095fba:0x00000008
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x4009d881:0x3ffde870 0x4009df97:0x3ffde9b0 0x401001a1:0x3ffde9d0 0x4012c463:0x3ffde9f0 0x4012c4ad:0x3ffdea30 0x401001a1:0x3ffdea50 0x40129040:0x3ffdea70 0x4011af01:0x3ffdeb10
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400a1cfd:0x3fffecd0 0x400a24ab:0x3fffee10 0x401001a1:0x3fffee30 0x4012c467:0x3fffee50 0x4012c4b1:0x3fffee90 0x401001a1:0x3fffeeb0 0x40129044:0x3fffeed0 0x4011af05:0x3fffef70
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400bc459:0x3ffdd670
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400f7571:0x3ffde600 0x4012b92a:0x3ffde620 0x4009d993:0x3ffde650 0x400f8f9f:0x3ffde710 0x40100195:0x3ffde730 0x4012b8d5:0x3ffde750 0x4009ddaf:0x3ffde770 0x4009dbc4:0x3ffde870 0x40100195:0x3ffde890 0x4012c423:0x3ffde8b0 0x4012c46d:0x3ffde8f0 0x40100195:0x3ffde910 0x40128fb8:0x3ffde930 0x4011aebd:0x3ffde9d0
+xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x401065e0:0x3ffde6f0 0x4009e258:0x3ffde710 0x4009e777:0x3ffde870 0x40106535:0x3ffde890 0x4012ff7f:0x3ffde8b0 0x4012ffc9:0x3ffde8f0 0x40106535:0x3ffde910 0x4012df7c:0x3ffde930 0x400f9445:0x3ffde9d0
+
+bruh
+https://ganer.xyz/s/4be9634d9fb4f369?e
+https://ganer.xyz/s/f67ad4c77d025723?e
+
 WS2811 350 900 700 700  ??
 WS2812 400 850 800 450
 
@@ -33,20 +49,6 @@ else:
 //             (u8)(f*(o==0?AΣS-1:o-1)),
 //             0xFF*(n-(u32)n)),
 //       atom.R.s, atom.R.v);
-
-cd /home/ganer/Projects/Brynic/LWMP/Device/micropython/ports/esp32/build-ESP32_GENERIC; unalias . || :; export PATH="$PATH:/home/ganer/Projects/Brynic/LWMP/Device/esp-idf/tools"; source /home/ganer/Projects/Brynic/LWMP/Device/esp-idf/export.sh
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400fabe0:0x3ffdd380 0x4009e889:0x3ffdd3d0 0x4009e945:0x3ffdd420 0x4009e985:0x3ffdd440 0x400d2099:0x3ffdd480
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x40094c99:0x3ffbd2c0 0x40094c65:0x3ffbd2e0 0x40099fda:0x3ffbd300 0x40082bc7:0x3ffbd370 0x40082d5e:0x3ffbd3b0 0x401f7f52:0x3ffbd3e0 0x401f4abf:0x3ffbd490 0x400d1fe7:0x3ffbd4e0 0x4009d755:0x3ffbd500 0x400d2041:0x3ffbd540
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x4009529d:0x3ffdc9a0 0x40095269:0x3ffdc9c0 0x40095e9a:0x3ffdc9e0 0x40097365:0x3ffdca60 0x40096008:0x3ffdca90 0x40095fba:0x00000008
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x4009d881:0x3ffde870 0x4009df97:0x3ffde9b0 0x401001a1:0x3ffde9d0 0x4012c463:0x3ffde9f0 0x4012c4ad:0x3ffdea30 0x401001a1:0x3ffdea50 0x40129040:0x3ffdea70 0x4011af01:0x3ffdeb10
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400a1cfd:0x3fffecd0 0x400a24ab:0x3fffee10 0x401001a1:0x3fffee30 0x4012c467:0x3fffee50 0x4012c4b1:0x3fffee90 0x401001a1:0x3fffeeb0 0x40129044:0x3fffeed0 0x4011af05:0x3fffef70
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400bc459:0x3ffdd670
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x400f7571:0x3ffde600 0x4012b92a:0x3ffde620 0x4009d993:0x3ffde650 0x400f8f9f:0x3ffde710 0x40100195:0x3ffde730 0x4012b8d5:0x3ffde750 0x4009ddaf:0x3ffde770 0x4009dbc4:0x3ffde870 0x40100195:0x3ffde890 0x4012c423:0x3ffde8b0 0x4012c46d:0x3ffde8f0 0x40100195:0x3ffde910 0x40128fb8:0x3ffde930 0x4011aebd:0x3ffde9d0
-xtensa-esp32-elf-addr2line -pfiaC -e micropython.elf Backtrace: 0x401065e0:0x3ffde6f0 0x4009e258:0x3ffde710 0x4009e777:0x3ffde870 0x40106535:0x3ffde890 0x4012ff7f:0x3ffde8b0 0x4012ffc9:0x3ffde8f0 0x40106535:0x3ffde910 0x4012df7c:0x3ffde930 0x400f9445:0x3ffde9d0
-
-bruh
-https://ganer.xyz/s/4be9634d9fb4f369?e
-https://ganer.xyz/s/f67ad4c77d025723?e
 
 // static void lightwave_led_loop(void *arg) { // 󰤱 replace with the stuff in lw_animation once that's finished
 //   passed_ptrs_t* A = (passed_ptrs_t*)arg;
@@ -124,3 +126,52 @@ https://ganer.xyz/s/f67ad4c77d025723?e
 #    except Exception as ε:
 #      dbg(f"[Controller] Error in LED loop! Restarting in 3 seconds:",ε)
 #      frees(3)
+
+https://ganer.xyz/s/8b55bbb4ad44650a is funny to me bc im up too long
+
+/*
+static rmt_channel_handle_t tx_chan;
+static rmt_encoder_handle_t bytes_encoder;
+static void led_init(LedConf *ℭ) {
+  if(ℭ->𝔇 == NULL) ℭ->𝔇 = ℭ->𝔇α;
+  u32 hz  = APB_CLK_FREQ / CLOCK_DIV;
+  u32 khz = hz / 1000;
+  rmt_tx_channel_config_t    c_𝔠 = { .mem_block_symbols = SOC_RMT_MEM_WORDS_PER_CHANNEL,
+                                     .clk_src           = SOC_MOD_CLK_APB,
+                                     .gpio_num          = ℭ->p,
+                                     .resolution_hz     = hz,
+                                     .trans_queue_depth = 1,
+                                     .intr_priority     = 3,
+                                     
+                                     .flags.invert_out   = 0,
+                                     .flags.with_dma     = 0, // not supported
+                                     .flags.io_loop_back = 0,
+                                     .flags.io_od_mode   = 0,
+                                     .flags.allow_pd     = 0
+                                   };
+  rmt_bytes_encoder_config_t e_𝔠 = { .bit0 = { .level0=1, .duration0=khz*(ℭ->t>>48 & 0xFFFF)/1e6,
+                                               .level1=0, .duration1=khz*(ℭ->t>>32 & 0xFFFF)/1e6 },
+                                     .bit1 = { .level0=1, .duration0=khz*(ℭ->t>>16 & 0xFFFF)/1e6,
+                                               .level1=0, .duration1=khz*(ℭ->t>> 0 & 0xFFFF)/1e6 },
+                                     .flags.msb_first = 1 };
+  if(tx_chan) { ESP_CHK(rmt_disable    ,tx_chan);
+                ESP_CHK(rmt_del_channel,tx_chan); }
+  if(bytes_encoder) ESP_CHK(rmt_del_encoder,bytes_encoder);
+  ESP_CHK(rmt_new_tx_channel,&c_𝔠,&tx_chan);
+  ESP_CHK(rmt_enable,tx_chan);
+  ESP_CHK(rmt_new_bytes_encoder,&e_𝔠,&bytes_encoder); }
+
+static void led_show(LedConf *ℭ) {
+  rmt_transmit_config_t t_𝔠 = { .loop_count      = 0,
+                                .flags.eot_level = 0 };
+  ESP_CHK(rmt_encoder_reset,bytes_encoder);
+  ESP_CHK(rmt_transmit,tx_chan,bytes_encoder,ℭ->𝔇,3*ℭ->n,&t_𝔠);
+  ℭ->write_finish_μ = micros()+led_write_dur_μ(ℭ);
+  ℭ->𝔇 = ℭ->𝔇==ℭ->𝔇α ?ℭ->𝔇β: ℭ->𝔇α; }
+static void led_flush(LedConf *ℭ) {
+  sleep(1);
+  if(!tx_chan) return;
+  loop { BAR;
+         if(micros()>=ℭ->write_finish_μ) break;
+         sleep(1); } }
+*/

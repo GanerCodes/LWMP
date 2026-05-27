@@ -15,12 +15,9 @@ typedef struct { u16 clrN; u16 idx; f32 speed,sharp;     } Fade;
 typedef struct { u8 brightness, mode;
                  union { Static S; Rainbow R; Fade F; }; } Atom;
 
-// #define struct4 __attribute__((aligned (4))) struct
-typedef uint64_t u64a4 __attribute__((aligned(4)));
-
-typedef struct { u32 n; u64a4 t; u8 *𝔇α,*𝔇β; u8 p;
-                 u8 *𝔇; u64a4 write_finish_μ; } LedConf;
-typedef struct { u32 n; u64a4 t; u8 *𝔇α,*𝔇β; u8 p,rgb_offs,reverse; } LW_Device;
+#define PARAM_LED_SHARED u32 n; u64a4 t; u32 lch; u8 *𝔇_α,*𝔇_β; u8 p;
+typedef struct { PARAM_LED_SHARED; u8 i; u64a4 write_finish_μ; } LedConf;
+typedef struct { PARAM_LED_SHARED; u8 rgb_offs,reverse;        } LW_Device;
 typedef struct { Seg        *S    ; u32     S_len;
                  Atom       *atoms; u32 atoms_len;
                  u8         *fades;

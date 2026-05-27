@@ -11,7 +11,7 @@ from scene_manager import Scene_Cacher
 from LW_Loop       import LW_Loop
 
 _NTP_REFRESH_TIME_μs = const(15*60*1_000_000)
-
+_LOG_INTRV_MS        = const(30_000)
 _MS_PER_6H = const(   6*60*60*1000)
 _S_PER_D   = const(  24*60*60     )
 _MS_PER_D  = const(  24*60*60*1000)
@@ -20,11 +20,10 @@ _MS_PER_W  = const(7*24*60*60*1000)
 
 Activation = namedtuple("Activation",["Ta","Ts","s","d"])
 
-def clamp(x,a,b): return a if x<=a else b if x>=b else x
 def inf0(x,inf=inf): return 0 if x==inf else x
 def day_start_ms(): return day_start(1000*MS())//1000
 
-class Controller: # 󰤱
+class Controller:
   def __init__(𝕊,ℭ,𝔐):
     𝕊.𝔏 = LW_Loop()
     𝕊.ℭ,𝕊.scenes = ℭ,Scene_Cacher(𝔐)
@@ -54,23 +53,6 @@ class Controller: # 󰤱
       if Ts is None: Ts = day_start(M*1000)//1_000 # 󷹇 if ntp not ran then its just some ancient date
       𝕊.set(Activation(Ts,Ts,s,d),M,m)
     free()
-
-  def check_ntp(𝕊,force=False):
-    t = μs()
-    if not force and last_ntp[0] is not None and t <= last_ntp[0] + _NTP_REFRESH_TIME_μs: return
-    log("Controller",f"Starting NTP sync")
-    try:
-      T,ΔΔ = ntp()
-    except Exception as ε:
-      dbg("Controller",f"NTP sync failed!",ε)
-      return False
-    ΔΔ //= 1000
-    if ΔΔ:
-      prevΔ = 𝕊.𝔏.Δ
-      𝕊.𝔏.Δ += ΔΔ
-      log("Controller",f"Updating Δ from NTP drift {prevΔ}+{ΔΔ}={𝕊.𝔏.Δ}")
-      𝕊.𝔏.set_Δ()
-    return T,ΔΔ
   def check_update_mode(𝕊,M,m):
     for i,𝚇 in enumerate((𝕊.𝔖,𝕊.𝔔)):
       while 𝚇:
@@ -101,24 +83,20 @@ class Controller: # 󰤱
     𝕊.check_update_mode(M,m)
     if m<_count[0]: return
     log("Controller",𝕊,"Mem:",mem_perc())
-    _count[0] += 5000
+    _count[0] += _LOG_INTRV_MS
 
   def configure(𝕊):
     ℭ = 𝕊.ℭ
     𝕊.𝔏.set_dev(ℭ.LEDC,ℭ.BIT_TIMING,ℭ.LEDP,ℭ.RGB_ORDER,ℭ.REVERSE)
-
+  def off(𝕊):
+    𝕊.𝔏.clear()
   def set(𝕊,ν,M,m):
     𝕊.mode,𝕊.𝔏.Δ = ν,M-ν.Ts-m
     𝕊.update_recalb_day(M)
-
-    # (s,s_len,atoms,atoms_len,fades),offsets = 𝕊.mode.s
     (S_,atoms,fades),offsets = 𝕊.mode.s
     if not(r := get_mode_bounds(S_,offsets,𝕊.ℭ)): return
-    l,h = r
     𝕊.𝔏.set_Δ()
-    log("Controller",f'Setting mode: range<{l} {h}>')
-    # 𝕊.𝔏.set_mode(Ѧ(S_),s_len,Ѧ(atoms),Ѧ(fades),l,h)
-    𝕊.𝔏.set_mode(S_,atoms,fades,l,h)
+    𝕊.𝔏.set_mode(S_,atoms,fades,r[0],r[1])
     𝕊.𝔏.on()
     free()
 
@@ -173,8 +151,22 @@ class Controller: # 󰤱
     day = M//_MS_PER_D
     s_day = M//1000 - day_start(1000*M)//1_000_000
     𝕊.recalb_t_day = day - (s_day < 𝕊.recalb_t-60) # prevents ᵉᵍ mode at 12am w/ 1159pm recalb_t taking ≈48hr
-
-  def off(𝕊):
-    𝕊.𝔏.clear()
+  
+  def check_ntp(𝕊,force=False):
+    t = μs()
+    if not force and last_ntp[0] is not None and t <= last_ntp[0] + _NTP_REFRESH_TIME_μs: return
+    log("Controller",f"Starting NTP sync")
+    try:
+      T,ΔΔ = ntp()
+    except Exception as ε:
+      dbg("Controller",f"NTP sync failed!",ε)
+      return False
+    ΔΔ //= 1000
+    if ΔΔ:
+      prevΔ = 𝕊.𝔏.Δ
+      𝕊.𝔏.Δ += ΔΔ
+      log("Controller",f"Updating Δ from NTP drift {prevΔ}+{ΔΔ}={𝕊.𝔏.Δ}")
+      𝕊.𝔏.set_Δ()
+    return T,ΔΔ
 
 # Controller

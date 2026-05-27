@@ -1,0 +1,115 @@
+⨡ text_format
+
+ 󷹇 DO NOT REORDER THE LINES ONCE WE RELEASE AS WE CANNOT REBUILD LW_THREAD
+
+🟑
+✗ │ i2s_channel_disable                 │                  │ esp_err_t │ i2s_chan_handle_t handle
+✗ │ i2s_channel_enable                  │                  │ esp_err_t │ i2s_chan_handle_t handle
+✗ │ i2s_channel_get_info                │                  │ esp_err_t │ i2s_chan_handle_t handle, i2s_chan_info_t *chan_info
+✗ │ i2s_channel_init_std_mode           │                  │ esp_err_t │ i2s_chan_handle_t handle, const i2s_std_config_t *std_cfg
+✗ │ i2s_channel_preload_data            │                  │ esp_err_t │ i2s_chan_handle_t tx_handle, const void *src, size_t size, size_t *bytes_loaded
+✗ │ i2s_channel_read                    │                  │ esp_err_t │ i2s_chan_handle_t handle, void *dest, size_t size, size_t *bytes_read, uint32_t timeout_ms
+✗ │ i2s_channel_reconfig_std_clock      │                  │ esp_err_t │ i2s_chan_handle_t handle, const i2s_std_clk_config_t *clk_cfg
+✗ │ i2s_channel_reconfig_std_gpio       │                  │ esp_err_t │ i2s_chan_handle_t handle, const i2s_std_gpio_config_t *gpio_cfg
+✗ │ i2s_channel_reconfig_std_slot       │                  │ esp_err_t │ i2s_chan_handle_t handle, const i2s_std_slot_config_t *slot_cfg
+✗ │ i2s_channel_register_event_callback │                  │ esp_err_t │ i2s_chan_handle_t handle, const i2s_event_callbacks_t *callbacks, void *user_data
+✗ │ i2s_channel_tune_rate               │                  │ esp_err_t │ i2s_chan_handle_t handle, const i2s_tuning_config_t *tune_cfg, i2s_tuning_info_t *tune_info
+✗ │ i2s_channel_write                   │                  │ esp_err_t │ i2s_chan_handle_t handle, const void *src, size_t size, size_t *bytes_written, uint32_t timeout_ms
+✗ │ i2s_del_channel                     │                  │ esp_err_t │ i2s_chan_handle_t handle
+✗ │ i2s_new_channel                     │                  │ esp_err_t │ const i2s_chan_config_t *chan_cfg, i2s_chan_handle_t *ret_tx_handle, i2s_chan_handle_t *ret_rx_handle
+
+✗ │ rmt_new_rx_channel                  │                  │           │
+✗ │ rmt_rx_register_event_callbacks     │                  │           │
+✗ │ rmt_receive                         │                  │           │
+
+✓ │ rmt_encode_led_strip                │                  │ size_t    │ rmt_encoder_t *encoder, rmt_channel_handle_t channel, const void *primary_data, size_t data_size, rmt_encode_state_t *ret_state
+✓ │ rmt_led_strip_encoder_reset         │                  │ esp_err_t │ rmt_encoder_t *encoder
+🟑
+
+󰦥󰦥󰦥󰦥󰦥
+
+✓ │ esp_err_to_name                     │                  │ char*     │ esp_err_t code
+✗ │ esp_get_free_heap_size              │                  │           │
+✗ │ esp_get_minimum_free_heap_size      │                  │           │
+✗ │ esp_intr_alloc                      │                  │           │
+✗ │ esp_intr_disable                    │                  │           │
+✗ │ esp_intr_enable                     │                  │           │
+✗ │ esp_log_write                       │                  │           │
+✗ │ esp_random                          │                  │           │
+✗ │ esp_restart                         │                  │           │
+✗ │ esp_rom_gpio_connect_out_signal     │                  │           │
+✗ │ esp_system_abort                    │                  │           │
+✓ │ esp_timer_get_time                  │ micros           │ i64       │
+✓ │ esp_wifi_set_promiscuous            │                  │ esp_err_t │ bool en
+✓ │ gpio_config                         │                  │ esp_err_t │ const gpio_config_t *pGPIOConfig
+✗ │ gpio_get_level                      │                  │           │
+✗ │ gpio_set_direction                  │                  │           │
+✗ │ gpio_set_level                      │                  │           │
+✗ │ heap_caps_free                      │                  │           │
+✗ │ heap_caps_malloc                    │                  │           │
+✓ │ rmt_alloc_encoder_mem               │                  │ void*     │ size_t size
+✗ │ rmt_apply_carrier                   │                  │           │
+✗ │ rmt_bytes_encoder_update_config     │                  │           │
+✓ │ rmt_del_channel                     │                  │ esp_err_t │ rmt_channel_handle_t channel
+✓ │ rmt_del_encoder                     │                  │ esp_err_t │ rmt_encoder_handle_t encoder
+✗ │ rmt_del_sync_manager                │                  │           │
+✓ │ rmt_disable                         │                  │ esp_err_t │ rmt_channel_handle_t channel
+✓ │ rmt_enable                          │                  │ esp_err_t │ rmt_channel_handle_t channel
+✓ │ rmt_encoder_reset                   │                  │ esp_err_t │ rmt_encoder_handle_t encoder
+✓ │ rmt_new_bytes_encoder               │                  │ esp_err_t │ const rmt_bytes_encoder_config_t *config, rmt_encoder_handle_t *ret_encoder
+✓ │ rmt_new_copy_encoder                │                  │ esp_err_t │ const rmt_copy_encoder_config_t *config, rmt_encoder_handle_t *ret_encoder
+✓ │ rmt_new_simple_encoder              │                  │ esp_err_t │ const rmt_simple_encoder_config_t *config, rmt_encoder_handle_t *ret_encoder
+✗ │ rmt_new_sync_manager                │                  │           │
+✓ │ rmt_new_tx_channel                  │                  │ esp_err_t │ const rmt_tx_channel_config_t *config, rmt_channel_handle_t *ret_chan
+✗ │ rmt_sync_reset                      │                  │           │
+✓ │ rmt_transmit                        │                  │ esp_err_t │ rmt_channel_handle_t tx_channel, rmt_encoder_handle_t encoder, const void *payload, size_t payload_bytes, const rmt_transmit_config_t *config
+✗ │ rmt_tx_register_event_callbacks     │                  │           │
+✗ │ rmt_tx_switch_gpio                  │                  │           │
+✓ │ rmt_tx_wait_all_done                │                  │ esp_err_t │ rmt_channel_handle_t channel, i32 timeout_ms
+✗ │ rtc_wdt_disable                     │                  │           │
+✗ │ rtc_wdt_feed                        │                  │           │
+✗ │ rtc_wdt_protect_off                 │                  │           │
+✗ │ rtc_wdt_set_length_of_reset_signal  │                  │           │
+✗ │ rtc_wdt_set_stage                   │                  │           │
+✗ │ rtc_wdt_set_time                    │                  │           │
+✓ │ vTaskDelay                          │ sleep            │           │ u32
+✓ │ vTaskList                           │                  │           │ char* pcWriteBuffer
+✗ │ vTaskResume                         │                  │           │
+✗ │ vTaskSuspend                        │                  │           │
+✓ │ xPortGetCoreID                      │                  │ i32       │
+✗ │ xTaskDelayUntil                     │                  │           │
+✗ │ xTaskGetCurrentTaskHandle           │                  │           │
+✗ │ xTaskGetTickCount                   │                  │           │
+✗ │ xTaskGetTickCountFromISR            │                  │           │
+
+✓ │ free                                │ f_free           │           │ void *p
+✓ │ calloc                              │ f_calloc         │ void*     │ size_t n, size_t s
+✓ │ malloc                              │ f_malloc         │ void*     │ size_t s
+✓ │ memcpy                              │ f_memcpy         │ void*     │ void* p_d, void* p_s, size_t s
+✓ │ realloc                             │ f_realloc        │ void*     │ void *p, size_t s
+
+✓ │ lw_thread_print                     │ P                │           │ const char *
+✗ │ lw_portInterrupts_N                 │ portInterrupts_N │           │ 
+✗ │ lw_portInterrupts_Y                 │ portInterrupts_Y │           │ 
+✗ │ lw_taskCritical_Y                   │ taskCritical_Y   │           │ void
+✗ │ lw_taskCritical_N                   │ taskCritical_N   │           │ void
+✗ │ lw_mp_GIL_Y                         │ mp_GIL_Y         │           │ void
+✗ │ lw_mp_GIL_N                         │ mp_GIL_N         │           │ void
+✗ │ lw_hal_timing_Y                     │ hal_timing_Y     │ u32       │
+✗ │ lw_hal_timing_N                     │ hal_timing_N     │           │ u32
+
+󰦥󰦥󰦥󰦥󰦥lines􀉻􀂼ᐵ􀰎␛│􀉳􀂼ᐸ 􀯑 methods
+
+struct,globs,setglobs = methodsᐵ₀􀉞␛✓ 􇂖􍭓  ‹⟦⟞₃􀉖‹void›􀯑t⟧ (*⟦⟞₂􀉖⟞₁􀯑m⟧)(⟦⟞₄􀉖‹void›􀯑a⟧);›␛
+                                        􀊱‹static ⟦t⟧(*⟦m⟧)(⟦a⟧);›␛
+                                        􀊱‹⟦m⟧=A->⟦m⟧;›␛
+                                        􀊱mᐸ␛
+                        􀋅ᐒ[⠤⟞􊬋₃􀉳⬤􀂐𝘀]
+
+𝙵 = 􀌌‹Modules_Native/lw_thread/EXPORT_GLOBALS.c Module_Dynamic/IMPORT_GLOBALS.c Onboard/LW_Loop.py›
+𝚆 = [‹#define EXPORT_GLOBALS {⟦methodsᐖ‹(uintptr_t)&⟦⟞₁⟧›ᐸ􀋢␛,⟧}›􀊸􋋉􋋉,
+     ‹#define IMPORT_GLOBALS ⟦globs⟧
+      typedef struct {⟦struct⟧} passed_ptrs_t;
+      static void globals_from_ptrs(passed_ptrs_t* A) {⟦setglobs⟧}› lines 􀋢 𝘀 􀊸􋋉􋋉,
+     [‹GLOBAL_PTR_IDX = b"⟦methods􀉻ᔨ󷺹₀􀉞␛✓ᐸᐵ􀊿¹⁶􁗒⁴􍢉􀋴2􀉳‹\x⬤›􀋢ᐸ􀋢⟧"›􀊸,⠤(__dir__􀋋‹Onboard/LW_Loop.py›􀯖􀯖lines)₁􊬋]􀋢𝗻 ]
+𝙵􀊠𝚆􀉴

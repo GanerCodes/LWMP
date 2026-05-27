@@ -36,7 +36,7 @@ static mp_obj_t lw_ntp_ntp_raw(size_t n_args, const mp_obj_t *args) { // AI
 
   he = gethostbyname(host);
   if(!he) goto end;
-
+  
   memset(&addr,0,sizeof(addr));
   addr.sin_family = AF_INET;
   addr.sin_port = htons(123);

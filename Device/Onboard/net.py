@@ -23,6 +23,7 @@ def wlan(m,**𝕂):
   net = WLAN(m)
   net.active(True)
   net.config(pm=0,**𝕂)
+  # net.config(pm=WLAN.PM_POWERSAVE,**𝕂)
   return net
 
 def wifi_connect(router_ssid,router_pass,retries=30):
@@ -172,7 +173,6 @@ def AP_with_DNS(*𝔸,timeout=None,timeout_f=None,no_evt_f=None,**𝕂):
       except Exception as ε: dbg("AP-DNS","Failed to close DNS",ε)
       return
 
-# @micropython.native
 def ssl_cond(s,uri,sec=("https","wss")):
   if uri.prot not in sec: return s
   host = uri.host
@@ -188,10 +188,6 @@ def ssl_cond(s,uri,sec=("https","wss")):
   ctx.load_verify_locations(cafile="CERT.pem")
   try:
     s = ctx.wrap_socket(s, server_hostname=host)
-  # try:
-  #   with open("CERT.pem") as f:
-  #     cadata = f.read()
-  #   s = ssl.wrap_socket(s, cert_reqs=ssl.CERT_REQUIRED, server_hostname=host, cadata=cadata)
   except Exception as ε:
     dbg("SSL",f'Failed to wrap socket! server_hostname="{host}"',ε)
     free()
@@ -209,7 +205,6 @@ def http_connect(uri,impl="https"):
   s = ssl_cond(s,uri)
   return s,uri
 
-# @micropython.native
 def http_get(uri):
   s,uri = http_connect(uri)
   s.write(f"GET {uri.path} HTTP/1.1\r\nHost: {uri.host}:{uri.port}\r\n\r\n".encode())

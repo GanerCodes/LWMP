@@ -38,6 +38,7 @@ TODO
       • RAM usage is kinda cooked and SSL is often to blame
     • Bugs
       • Random disconnects/freezes. unfortunately I suspect it's that stupid websocket SSL bug which is by-and-large the worst problem i've had to deal with this entire project
+      • Limit path length bc 128 char limit!
   • Server
     • Rate limiting
   • Advanced device options

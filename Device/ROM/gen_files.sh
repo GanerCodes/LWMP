@@ -38,7 +38,7 @@ pushd ./Presets
 from json import loads as L, dumps as D
 from sys import argv as 𝔸
 del 𝔸[0]
-print("[","|".join(𝔸),"]",sep="")
+print("CLI Injection args:","|".join(𝔸),"]")
 o = { "VER":D(𝔸[1]),
       **L(𝔸[2]),
       **{f"Scenes/{k}":v for k,v in L(𝔸[3]).items()} }
@@ -60,9 +60,10 @@ pushd ./Onboard
 pushd ./Module_Dynamic
   rm -r build .mpy_ld_cache || :
   export CFLAGS="-Wno-error=unused-variable -Wno-error=unused-function -Wno-error=parentheses -Wno-error=maybe-uninitialized \
-                 -Wno-unused-variable       -Wno-unused-function       -Wno-parentheses       -Wno-maybe-uninitialized"
-  make && { cp *.mpy "${DEV_FS}/"; } || { bad=1; }
-  rm -r build .mpy_ld_cache || :
+                 -Wno-unused-variable       -Wno-unused-function       -Wno-parentheses       -Wno-maybe-uninitialized \
+                 -Wno-error=unused-label"
+  make && { cp *.mpy "${DEV_FS}/"; rm -r build .mpy_ld_cache || :; } || { bad=1; }
+  
   popd
 
 for ((n=0; n < $N; n++)); do

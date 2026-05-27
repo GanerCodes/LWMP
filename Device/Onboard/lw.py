@@ -23,11 +23,16 @@ log("LW","Starting with Settings:",ℭ);
 𝔐 = Scene_Manager()
 𝔏 = Controller(ℭ,𝔐)
 
+def lw_check_periodics():
+  𝔏.feed()
+  check_scheg(𝔏)
+  free()
+
 A_BOOT = {"VER"}
 A_ICON = {"R_SSID","R_PASS","AP_MODE"}
 A_WCON = {"UPDATE_URL","WS_URL","TOKEN"}
 A_RLED = {"RECALB_T","LEDP","LEDC","REVERSE","BIT_TIMING","RGB_ORDER"}
-def handle_API(𝐦,*𝔸):
+def handle_API(𝐦,*𝔸): # 󰤱 figure out if we can accidently brick with bad e.g. bit_timing
   log("API","Handling:",𝐦)
   if 𝐦=='*':
     rst,𝚁 = _RESET_NO,[]
@@ -46,6 +51,8 @@ def handle_API(𝐦,*𝔸):
         continue
       if k == "LEDC":
         v = max(1,min(int(v),LED_BUF_SIZE//3))
+      elif k == "LOG_LEVEL":
+        v = float(v)
       Δ[k] = v
     K = set(Δ)
     log("API","Changing settings with",Δ)
@@ -86,11 +93,6 @@ def handle_API(𝐦,*𝔸):
     return _RESET_NO,str(r)
   return _RESET_NO,False
 
-def lw_check_periodics():
-  𝔏.feed()
-  check_scheg(𝔏)
-  free()
-
 def lw_websocket_loop():
   lw_check_periodics()
   ꭐ = WS_Client(ℭ.WS_URL)
@@ -110,7 +112,9 @@ def lw_websocket_loop():
     except Exception as ε:
       dbg("LW-WS","API Error:",ε)
       con,resp = _RESET_NO,"ERROR" # 󰤱 why was this _RESET_WS before
-    if resp is not None: ꭐ(resp,i=i)
+    if resp is not None:
+      ꭐ(resp,i=i)
+      
     log0("LW-WS","API ←")
     if con > _RESET_NO:
       try                  : ꭐ.close(reason="Intentional")
@@ -143,7 +147,7 @@ def lw_AP(setup=False):
       return 400,"text/plain","Error!"
     return 200,"text/plain","Success!"
   
-  @micropython.native
+  #󰤱@micropython.native
   def feed(_count=[0]):
     m = ms()
     if m<_count[0]: return
@@ -200,6 +204,7 @@ def lw_net():
     frees(3)
 
 try:
+  # 𝔏("_default_");𝔏.feed(False);frees(3600)
   while lw_net() != _RESET_BOOT: free()
 except BaseException as ε:
   𝔏.𝔏.kill()

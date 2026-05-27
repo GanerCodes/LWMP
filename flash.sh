@@ -32,12 +32,13 @@ DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*' | sed 's/tty/\/dev\/tty/'))
         popd; };
     pushd ./Onboard
       stty -F "$DEV" 115200 raw -echo
-      for _ in {1..20}; do { printf '\x03'; sleep 0.05; } done > "$DEV"
-      mpremote connect "$DEV" fs cp -r ${DEV_FS}/* :/
+      for _ in {1..5}; do { printf '\x03'; sleep 0.05; } done > "$DEV"
+      sleep 0.5
+      mpremote connect "$DEV" fs cp -r ${DEV_FS}/* :/ || read
       [[ -n "$UUID" ]] && {
         tmp=$(mktemp)
         echo "\"${UUID}\"" > "$tmp"
-        mpremote connect "$DEV" fs cp "$tmp" :/UUID
+        mpremote connect "$DEV" fs cp "$tmp" :/UUID || read
         rm -f "$tmp"; }
       # exec mpremote connect "$DEV" reset
       exec mpremote connect "$DEV" run ./main._py || :
@@ -79,13 +80,17 @@ done
 
 unalias . || :; export PATH="$PATH:$PWD/Device/esp-idf"; source ./Device/esp-idf/export.sh
 
-{ set -e
+set +e
+( set -e
   cd ./Device
+  ☾ generate_sigs.☾
   if [[ -n "$BUILD_ROM" ]]; then
     ./ROM/build.sh ${CLEAN_ROM:+-c}
   fi
   ./ROM/gen_files.sh '' "$PRESET" "$CONFIG_INJ" "$SCENES_INJ"
-} || touch /tmp/flash_bad_flag
+)
+[[ $? != "0" ]] && touch /tmp/flash_bad_flag
+set -e
 
 touch /tmp/flash_flag
 [[ "$SYSTEM" != "desktop" ]] && tmux a -t flash

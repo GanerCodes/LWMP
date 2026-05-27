@@ -1,4 +1,4 @@
-import machine,time,sys,os
+import machine,time,sys,esp,os
 from struct import pack,unpack
 from json   import loads as 𝔍l,dumps as 𝔍d
 from gc     import mem_alloc,mem_free,collect as free
@@ -22,9 +22,15 @@ join        = lambda x,s=' ': s.join(map(str,x))
 class Logger:
   l = 0
   def set(l):
-    l = min(max(0,int(l)),255)
+    l = float(l)
     print(f"[Logger] Setting loglevel to {l}")
     Logger.l = l
+    if   l>=4: esp.osdebug(0,0)
+    elif l>=3: esp.osdebug(0,1)
+    elif l>=2: esp.osdebug(0,2)
+    elif l>=1: esp.osdebug(0,3)
+    elif l>=0: esp.osdebug(0,4)
+    else     : esp.osdebug(0,5)
   def get(f,l):
     return lambda t,*𝔸,**𝕂: f(f"<{ms()/1000:010.4f}> [{t}]",*𝔸,**𝕂) if l>=Logger.l else 0
 

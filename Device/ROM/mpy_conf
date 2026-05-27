@@ -1,0 +1,24 @@
+#define MICROPY_HW_BOARD_NAME  "ESP32 LightWave"
+#define MICROPY_HW_MCU_NAME    "ESP32LW"
+
+#define MICROPY_PY_ASYNC_AWAIT      (0)
+#define MICROPY_PY_BUILTINS_COMPLEX (0)
+#define MICROPY_PY_BUILTINS_POW3    (0)
+
+#define MICROPY_PY_MACHINE_SPI (0)
+// #define MICROPY_PY_MACHINE_I2S (0)
+// ↑ removed via mpconfigport checking SOC
+
+#define MICROPY_PY_THREAD      (0)
+#define MICROPY_PY_THREAD_GIL  (0)
+
+#define MICROPY_PY_BLUETOOTH   (0)
+#define MICROPY_PY_BINASCII    (0)
+#define MICROPY_PY_WEBSOCKET   (0)
+#define MICROPY_PY_HASHLIB     (0)
+#define MICROPY_PY_RE          (0)
+
+// #define MICROPY_PY_MATH_CONSTANTS         (0) // inf moment
+#define MICROPY_PY_MATH_SPECIAL_FUNCTIONS (0)
+#define MICROPY_PY_MATH_FACTORIAL         (0)
+#define MICROPY_PY_MATH_ISCLOSE           (0)

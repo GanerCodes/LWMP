@@ -12,14 +12,16 @@ lineable = Ғ(󰲡x􀝀􋁜ᔐ)􀊩Ɱ(󷺹􀌎􀉼𝗻􀋢)  remove newlines
 ŧ_LEDC       = Ғ(󷺹􀊜􋁜𝑖 􁀙 1≤⟞≤10⁵)
 ŧ_LOG_LEVEL  = Ғ(󷺹􀊜􋁜𝑖 􁀙 0≤⟞<255)
 ŧ_RECALB_T   = Ғ(󷺹􀊜􋁜𝑖 􁀙 0􀜊⟞􀜇24􀋈60²)
+ŧ_BIT_TIMING = Ғ(󷺹􀊜􋁜𝑙 􁀙 4􀜊⟞􀊹􀜊5 􁀙 (⟞ᐖ0􀜊⟞􀜇2⁶⁴ᐸ􀋃))  󰤱 better bounds
+
 ŧ_REVERSE    = Ɱ(𝑏)
 ŧ_AP_MODE    = Ɱ(𝑏)
- 󰤱 add BIT_TIMING
 
 ŧ_DEV = { NAME      =ⴲ(ŧ_NAME      ),
           RECALB_T  =ⴲ(ŧ_RECALB_T  ),
           LEDC      =ⴲ(ŧ_LEDC      ),
           LEDP      =ⴲ(ŧ_LEDP      ),
+          BIT_TIMING=ⴲ(ŧ_BIT_TIMING),
           RGB_ORDER =ⴲ(ŧ_RGB_ORDER ),
           REVERSE   =ⴲ(ŧ_REVERSE   ),
           AP_MODE   =ⴲ(ŧ_AP_MODE   ),

@@ -1,56 +1,47 @@
 #!/bin/bash -e
 { cd "${0%/*}"
 
-PARTITIONS="$(pwd)/partitions.csv"
-USERMODS="$(realpath ../Modules_Native)"
-OUT_DIR="$(realpath ./Out)"
-NUM_CORES="$(nproc)"
-Q_STRS="$(realpath ./Q_strs)"
+      NUM_CORES="$(nproc)"
+       USERMODS="$(realpath ../Modules_Native)"
+      MPY_PORTS="$(realpath ../MPY_ports_custom)"
+     PARTITIONS="$(pwd)/partitions.csv"
+SDK_CONF_CUSTOM="$(pwd)/sdk_conf"
+MPY_CONF_CUSTOM="$(pwd)/mpy_conf"
+         Q_STRS="$(pwd)/q_strs"
+        OUT_DIR="$(pwd)/Out"
 
 mkdir -p "$OUT_DIR"
 unalias . || :; export PATH="$PATH:$PWD/../esp-idf"; source ../esp-idf/export.sh
 
 pushd ../micropython
+  rm -r ./ports || :
+  cp -r "$MPY_PORTS" ./ports
   pushd ports/esp32
-    [[ " $* " == *" -c "* ]] && {
-      rm -rf build-ESP32_GENERIC || :
-      idf.py fullclean; }
+    # [[ " $* " == *" -c "* ]] && {
+    #   rm -rf build-LightWave || :
+    #   idf.py fullclean; }
     
-    cp "$Q_STRS" "./qstrdefsport.h"
-    
+    cp "$MPY_CONF_CUSTOM" "./boards/LightWave/mpconfigboard.h"
+    cp "$SDK_CONF_CUSTOM" "./boards/sdkconfig.base.original"
+    cp "$Q_STRS"          "./qstrdefsport.h"
     B="./boards/sdkconfig.base.original"
     T="./boards/sdkconfig.base"
     [[ ! -f "$B" ]] && cp "$T" "$B" || :
-    { cat "$B"; echo "";
-      echo "CONFIG_PARTITION_TABLE_CUSTOM=y"
-      echo "CONFIG_PARTITION_TABLE_CUSTOM_FILENAME=\"${PARTITIONS}\""
-      echo "CONFIG_MBEDTLS_MPI_MAX_SIZE=256"
-      echo "CONFIG_MBEDTLS_SSL_MAX_CONTENT_LEN=4096"
-      echo "CONFIG_MBEDTLS_SSL_IN_CONTENT_LEN=4096"
-      echo "CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=4096"
-      echo "CONFIG_MBEDTLS_HAVE_TIME_DATE=n"
-      
-      # echo "CONFIG_MBEDTLS_SSL_MAX_FRAGMENT_LENGTH=y"
-      # echo "CONFIG_MBEDTLS_DYNAMIC_BUFFER=y"
-    } > "$T"
-    
-    { echo '#define MICROPY_HW_BOARD_NAME        "ESP32 LightWave"'
-      echo '#define MICROPY_HW_MCU_NAME          "ESP32LW"        '
-    } > "./boards/ESP32_GENERIC/mpconfigboard.h"
-    
-    sed -i 's/^#define MP_TASK_COREID *(1)/#define MP_TASK_COREID (0)/' ./mphalport.h # hack upon hack upon hacks
-    
+    { cat "$B"; echo -e "\nCONFIG_PARTITION_TABLE_CUSTOM=y"
+      echo "CONFIG_PARTITION_TABLE_CUSTOM_FILENAME=\"${PARTITIONS}\""; } > "$T"
+    sed -i 's/^#define MP_TASK_COREID *(1)/#define MP_TASK_COREID (0)/' "./mphalport.h" # hack upon hack upon hacks
     popd
   
-  make -C ports/esp32 BOARD=ESP32_GENERIC submodules
+  # make -C ports/esp32 BOARD=LightWave submodules
   make -C ports/esp32 EXTRA_CFLAGS="-DMICROPY_GC_INITIAL_HEAP_SIZE=53248 \
                                     -Wno-error=misleading-indentation \
                                     -Wno-error=maybe-uninitialized \
                                     -Wno-error=uninitialized \
                                     -Wno-error=unused-value \
+                                    -Wno-error=unused-label \
                                     -Wno-error=parentheses" \
-                      BOARD=ESP32_GENERIC USER_C_MODULES="$USERMODS"
-  pushd ports/esp32/build-ESP32_GENERIC
+                      BOARD=LightWave USER_C_MODULES="$USERMODS" # 󰤱 why is heapsize put here
+  pushd ports/esp32/build-LightWave
     cp bootloader/bootloader.bin partition_table/partition-table.bin ota_data_initial.bin micropython.bin "$OUT_DIR"
     popd
   

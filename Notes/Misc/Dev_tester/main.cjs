@@ -54,7 +54,7 @@ const make_mode = (offs,mode) => ({ mode, offsets:𝒟(ζ(𝒪k(offs),𝒪v(offs
     log(await get_devs());
     const devs = "testdevice0 testdevice2 testdevice1 testdevice3".split(' ');
     with(dev(devs)) {
-      const conf = {LEDC:50,REVERSE:false,RGB_ORDER:"GBR",BIT_TIMING:"350 900 700 700"};
+      const conf = {LEDC:50,REVERSE:false,RGB_ORDER:"GBR",BIT_TIMING:"350 900 700 700 50000"};
       const offs = 𝒟(devs.ᴍ(x=>[x,conf.LEDC]));
       const scenes = ᴍv(require("./scenes.json"),x=>make_mode(offs,x));
       scenes.synctest = S_timetest(devs,120);

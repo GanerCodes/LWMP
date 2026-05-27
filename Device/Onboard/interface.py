@@ -2,7 +2,7 @@ from collections import namedtuple
 from util        import *
 from consts      import LED_BUF_SIZE,STK_BUF_SIZE
 
-@micropython.native
+#󰤱@micropython.native
 def add_mag(x,y): return (abs(x)+abs(y))*(1-2*(x<0))
 
 Seg = namedtuple("Seg", ["σ","Σ","d","m","r0","rΔ"])

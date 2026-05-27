@@ -16,23 +16,23 @@ def sample(X,n):
   free()
   return r
 
-@micropython.native
+#󰤱@micropython.native
 def ms(*,μs=μs): return μs()//1000
-@micropython.native
+#󰤱@micropython.native
 def dt_ms(x,y=None,*,ms=ms): return ms()-x if y is None else x-y
 
-@micropython.native
+#󰤱@micropython.native
 def μS(*,S=last_ntp,μs=μs):
   if S[0] is None: return μs()
   o,T = S
   return μs()-o+T
-@micropython.native
+#󰤱@micropython.native
 def MS(*,μS=μS): return μS()//1000
-@micropython.native
+#󰤱@micropython.native
 def day_start(μ=None):
   if μ is None: μ = μS()
   return (μ//_μS_PER_D) * _μS_PER_D
-@micropython.native
+#󰤱@micropython.native
 def week_start(μ=None):
   if μ is None: μ = μS()
   μ //= _μS_PER_D
@@ -40,7 +40,7 @@ def week_start(μ=None):
 
 def is_leap(x):
   return x%4==0 and (x%100 or not x%400)
-@micropython.native
+#󰤱@micropython.native
 def get_date(μ=None,*,dm=divmod):
   if μ is None: μ = μS()
   s,μ = dm(μ,1_000_000)
@@ -59,12 +59,10 @@ def get_date(μ=None,*,dm=divmod):
     d -= month_days[mo]
     mo += 1
   return y,mo,d,wd,h,m,s,μ
-# @micropython.native
 def fmt_date(d=None):
   if d is None          : d = get_date( )
   elif isinstance(d,int): d = get_date(d)
   return f"<{d[0]:04}/{d[1]+1:02}/{d[2]+1:02}[Sun+{d[3]}] {d[4]:02}:{d[5]:02}:{d[6]:02}.{d[7]:06}>"
-# @micropython.native
 def fmt_dur(μ):
   if μ == inf: return "<∞>"
   s,μ = divmod(μ,1_000_000)
@@ -79,7 +77,7 @@ def fmt_dur(μ):
   if not (          d): return '<'+R+'>'
   R  =   f"{d   }:{R}"
   return                       '<'+R+'>'
-@micropython.native
+#󰤱@micropython.native
 def ntp_single(host=None,timeout=10):
   if host is None: host=choice(NTP_HOSTS)
   
@@ -96,7 +94,7 @@ def ntp_single(host=None,timeout=10):
   θ = ((T1-T0)+(T2-T3))//2 - _μS_70Y
   δ =  (T3-T0)-(T2-T1)
   return T3, T3+θ, δ # subtract δ//2 from ret[0]?
-@micropython.native
+#󰤱@micropython.native
 def ntp(hosts=2,dup=3,cull_rtt=2,cull_mid=3,timeout=5): # 3 4 3 3
   if isinstance(hosts,int): hosts = sample(NTP_HOSTS,hosts)
   log("NTP",f"Using {dup*len(hosts)} trials")
