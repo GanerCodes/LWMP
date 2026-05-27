@@ -38,7 +38,7 @@ pushd ./Presets
 from json import loads as L, dumps as D
 from sys import argv as 𝔸
 del 𝔸[0]
-print("CLI Injection args:","|".join(𝔸),"]")
+print("CLI Injection args:","|".join(𝔸))
 o = { "VER":D(𝔸[1]),
       **L(𝔸[2]),
       **{f"Scenes/{k}":v for k,v in L(𝔸[3]).items()} }
