@@ -1,3 +1,8 @@
+• increase LED limit to 1k again?
+• recheck RMT timings and see if clock div of 8 works
+• wait its the clock div timings being fundamentally different than pure ns timings aint it so prob fix that
+• changed name + token at once and got cannot find devs failed to configure device
+
 DONE
   • Added the logo
   • Activate panel
