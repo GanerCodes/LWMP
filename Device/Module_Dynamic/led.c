@@ -1,14 +1,10 @@
 #define PAUSE_DUR_μ 2500
 
 // #include "led_driver_bitbang.c"
-// #include "led_driver_i2s.c"
+// #include "led_driver_i2s.c" // incomplete
 #include "led_driver_rmt.c"
 
 static u8 _led_state = 0;
-static u32 led_write_dur_μ(LedConf *ℭ) {
-  u32 w0 = (ℭ->t>>48&0xFFFF)+(ℭ->t>>32&0xFFFF),
-      w1 = (ℭ->t>>16&0xFFFF)+(ℭ->t>> 0&0xFFFF);
-  ret ((u64)(w0>w1 ?w0: w1)*8*3*ℭ->n + ℭ->lch)/1000; }
 static void led_init(LedConf *ℭ) {
   // ESP_CHK(esp_wifi_set_promiscuous,false);
   if(ℭ->i > 1) ℭ->i = 0;

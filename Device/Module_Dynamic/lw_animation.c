@@ -99,9 +99,10 @@ static void lightwave_led_loop(void* volatile arg) {
         f32 max_fps = 1000000.f/dur_μ;
         f32 eff     = fps/max_fps*100;
         ƿs("[LW]")
-        ƿs(" FPS: ")ƿf(fps    )
-        ƿs(" / "   )ƿf(max_fps)
-        ƿs(" = "   )ƿf(eff    )ƿs("% efficiency")
+        ƿs(" FPS: "  )ƿf(fps    )
+        ƿs(" / "     )ƿf(max_fps)
+        ƿs(" = "     )ƿf(eff    )ƿs("% efficiency")
+        ƿs(" (frame=")ƿn(dur_μ)ƿs("μ)")
         ƿe ƿs("    ")
         ƿs(" ms="      )ƿn(ms)
         ƿs(" ms+Δ="    )ƿn(t_ms)

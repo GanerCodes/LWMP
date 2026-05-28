@@ -3,10 +3,16 @@ f_ASM(T0L, "nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop
 f_ASM(T1H, "nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n")
 f_ASM(T1L, "nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n")
 
-fast inline u8* get_led_buf(LedConf *ℭ) { ret ℭ->i ?ℭ->𝔇_β: ℭ->𝔇_α; }
+fast inline u8* get_led_buf(LedConf *ℭ) {
+  ret ℭ->i ?ℭ->𝔇_β: ℭ->𝔇_α; }
+static u32 led_write_dur_μ(LedConf *ℭ) {
+  u32 w0 = (ℭ->t>>48&0xFFFF)+(ℭ->t>>32&0xFFFF),
+      w1 = (ℭ->t>>16&0xFFFF)+(ℭ->t>> 0&0xFFFF);
+  ret ((u64)(w0>w1 ?w0: w1)*8*3*ℭ->n + ℭ->lch)/1000; }
+
 static void driver_init(LedConf *ℭ) {
   *(volatile uint32_t*)GPIO_ENABLE_W1TS_REG = (1 << ℭ->p); }
-// IRAM_ATTR 
+// IRAM_ATTR
 static void driver_write(LedConf *ℭ) {
   const u32 m = 3*ℭ->n;
   const u32 b = 1 << ℭ->p;
@@ -24,11 +30,4 @@ static void driver_write(LedConf *ℭ) {
                    *(volatile uint32_t*)GPIO_OUT_W1TC_REG = b;
                    T0L(); }
       v <<= 1; } }
-  
-  hal_timing_N(irq_r);
-  
-  // char buf[2048];
-  // vTaskList(buf);
-  // ƿs("Task Name\tState\tPrio\tStack\tNum\n")ƿe
-  // ƿs(buf)ƿe
-}
+  hal_timing_N(irq_r); }

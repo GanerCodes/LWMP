@@ -20,13 +20,9 @@ fast void lightwave_prerender(Atom *atoms, u32 atoms_len, u8 *fades, f32 t) {
 fast void lightwave_render(Seg *S, u32 S_len, Atom *atoms, u32 atoms_len,
                            u8 *fades, StackEntry *stk, u8 *leds,
                            u8 RGB_OFFS, u8 REVERSE, u32 l, u32 h, f32 t) {
-  // u8 OFF_R = ((RGB_OFFS >> 16) & 0xFF);
-  // u8 OFF_G = ((RGB_OFFS >>  8) & 0xFF);
-  // u8 OFF_B = ((RGB_OFFS >>  0) & 0xFF);
   u8 OFF_R = (RGB_OFFS >> 4) & 0b11;
   u8 OFF_G = (RGB_OFFS >> 2) & 0b11;
   u8 OFF_B = (RGB_OFFS >> 0) & 0b11;
-  // precompute_fades(atoms,atoms_len,fades,t);
   
   // 500000
   for(i32 i=0,p=0,d=0; i<S_len; i++) {

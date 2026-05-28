@@ -1,4 +1,4 @@
-// 󰤱 this dont work
+// 󰤱 this didn't work
 
 static i2s_chan_handle_t ws_i2s_chan;
 
