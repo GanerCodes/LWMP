@@ -30,7 +30,7 @@ DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*|ttyS2$' | sed 's/tty/\/dev\/tty/'))
                 # 0x1000       bootloader.bin 0x8000  partition-table.bin \
                 # 0xD000 ota_data_initial.bin 0x10000 micropython.bin
         esptool --port "$DEV" --baud 115200                  \
-          --before no-reset --after no-reset                 \
+          --before no-reset --after no-reset --no-stub     \
           --chip esp32 write_flash                           \
           --flash-mode dio --flash-size 4MB --flash-freq 40m \
           0x1000       bootloader.bin                        \
