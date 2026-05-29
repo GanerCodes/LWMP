@@ -5,7 +5,7 @@ WRITE_BAUD_RATE="460800"
 # WRITE_BAUD_RATE="921600"
 # WRITE_BAUD_RATE="2000000"
 DEV_FS="$(realpath ./Device/ROM/Out)/onboard"
-DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*|ttyS2$' | sed 's/tty/\/dev\/tty/'))
+DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*' | sed 's/tty/\/dev\/tty/'))
 
 [[ $1 == "--single" ]] && {
   
