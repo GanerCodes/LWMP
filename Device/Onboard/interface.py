@@ -83,14 +83,14 @@ def parse_mode(mode,brightness=1,data=None,reverse=False):
   return (reverse,r0,rΔ,s),data
 
 def encode_mode(N):
-  log0("Interface","encode_mode →")
+  log0("Interface","encode_mode →",mem_perc())
   N,data = parse_mode(N)
-  
+  log0("Interface","parse_mode() finished",mem_perc())
   tmp  = pre (N); del N; free(); N=tmp
+  log0("Interface","pre() finished",mem_perc())
   S,mx = flab(N); del N; free()
-  
+  log0("Interface","flab() finished",mem_perc())
   if 3*4*mx > STK_BUF_SIZE: raise Exception(f"{3*4*mx>STK_BUF_SIZE=}!")
-  
   lens = len(S),len(data["atoms"]),len(data["fades"])
   log0("Interface",f"encode_mode ← {{Mem={mem_perc()} Size={join(lens,'+')}={sum(lens)}}}")
   return S,data["atoms"],data["fades"]

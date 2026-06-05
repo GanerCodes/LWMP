@@ -1,8 +1,8 @@
 #!/bin/bash -e
 { cd "${0%/*}"
 
-WRITE_BAUD_RATE="460800"
-# WRITE_BAUD_RATE="921600"
+# WRITE_BAUD_RATE="460800"
+WRITE_BAUD_RATE="921600"
 # WRITE_BAUD_RATE="2000000"
 DEV_FS="$(realpath ./Device/ROM/Out)/onboard"
 DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*' | sed 's/tty/\/dev\/tty/'))
@@ -40,8 +40,8 @@ DEVS=($(ls /dev | grep -E '.*tty(ACM|USB).*' | sed 's/tty/\/dev\/tty/'))
         popd; };
     pushd ./Onboard
       stty -F "$DEV" 115200 raw -echo
-      for _ in {1..5}; do { printf '\x03'; sleep 0.05; } done > "$DEV"
-      sleep 0.5
+      for _ in {1..10}; do { printf '\x03'; sleep 0.025; } done > "$DEV"
+      sleep 0.1
       mpremote connect "$DEV" fs cp -r ${DEV_FS}/* :/ || read
       [[ -n "$UUID" ]] && {
         tmp=$(mktemp)

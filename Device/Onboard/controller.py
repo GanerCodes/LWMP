@@ -135,14 +135,14 @@ class Controller:
       if s not in 𝕊.scenes.man:
         log("Controller",f'Unable to find scene "{s}"!')
         continue
-
+      
       if s not in local_scene_cache:
         local_scene_cache[s] = 𝕊.scenes[s]
       scene = local_scene_cache[s]
-
+      
       d = min(_MS_PER_W if d in (None,-1,0) else d,
               ((1000*(𝔊[(i+1)%len(𝔊)][0] - Δ)) - 1)%_MS_PER_W + 1)
-
+      
       log("Controller",f'Scheduling: "{s}" @ {fmt_date(1000*A)} ({W=}) for {fmt_dur(1000*d)}')
       h_add(𝕊.𝔖,Activation(A,A,scene,d))
     return True

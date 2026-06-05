@@ -35,6 +35,8 @@ class Scene_Manager:
   def __setitem__(𝕊,name,mode):
     if isinstance(mode,str): return # ??
     E = path_exists(loc := f"{𝕊.dir}/{name}")
+    log("Scenes",f'Testing scene "{name}"')
+    encode_mode(mode["mode"])
     𝔍wf(loc,mode)
     log("Scenes",f'{"Updated" if E else "Wrote"} scene "{name}" at "{loc}"')
     free()
