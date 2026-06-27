@@ -63,6 +63,8 @@ TODO
       • Making the delete and ungroup options be hidden and just appear somewhere as an obvious option when you start dragging an element and you can just stick it into the option
       • Some intuitive way to change accuracy of slider, e.g. a button that binds the slider to the 2nd decimal point
         • Prob similar thing to the resizers? I really like that trick it works on so many levels
+      • Nitpicks
+        • Make multi-tab usage coherent; way to middle click buttons to do the middle click thing as one would expect
     • Misc
       • 󰖪 and 󰖩 to indicate AP and WiFi seems a bit weird, both are wireless
       • Make the `Haven't added your device yet?` button not longer than the text
