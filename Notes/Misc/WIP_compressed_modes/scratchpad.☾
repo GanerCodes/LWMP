@@ -1,0 +1,36 @@
+['*', ['Push_scenes', {'joe': {'mode': {'*': [{'1': [210, 1, 1, 245, 255], 'fx': [[1, 6, 0]]}, {'*': [{'1': [45, 0, 5045887], 'fx': [[0], [2, 0.4196078431372549]]}, {'1': [45, 2, 0.28736109025871104, 0.61, 13122451, 5692738, 13831218, 3333682], 'fx': [[2, 1]]}], 'fx': [[1, 28.8, -43], [2, 0.3176470588235294]]}], 'fx': [[1, -2.2, 0], [2, 1]]}, 'offsets': {'3wFqpp6c8ujp': 0}}}], ['Set_scene', 'joe', False, -1, 1782606427295]]
+
+HEADER COMMAND BODY
+HEADER: "I'm not 􇦌" ↓   ↓↓↓↓ API/format version
+                    1xxx0000
+            Reserved ↑↑↑
+
+_SETTING_WS_URL
+_SETTING_UPDATE_URL
+_SETTING_UUID
+_SETTING_AP_MODE
+_SETTING_TOKEN
+_SETTING_NAME
+_SETTING_R_SSID
+_SETTING_R_PASS
+_SETTING_LEDP
+_SETTING_LEDC
+_SETTING_REVERSE
+_SETTING_BIT_TIMING
+_SETTING_RGB_ORDER
+_SETTING_DEF_SCENE
+_SETTING_VER
+_SETTING_RECALB_T
+_SETTING_LOG_LEVEL
+
+
+100nnnnn : *
+00000001 : Change_dev
+00000010 : Set_scene
+00000011 : Off
+00000100 : Del_scene
+00000101 : Push_scenes
+00000110 : Pull_scenes
+00000111 : Set_schedule
+00001000 : Pull_schedule
+00001001 : Sync

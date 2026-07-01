@@ -54,23 +54,23 @@ class Settings:
 
 boolstr = lambda s: s.strip().lower() in ('true','y','1') if isinstance(s,str) else bool(s)
 
-ℭ = Settings(WS_URL     =("wss://lwmp.ganer.xyz:2096"    ,        ),
-             UPDATE_URL =("https://lwmp.ganer.xyz/update",        ),
-             UUID       =(gen_id                         ,        ),
-             AP_MODE    =(False                          , boolstr),
-             TOKEN      =(""                             ,        ),
-             NAME       =(""                             ,        ),
-             R_SSID     =(""                             ,        ),
-             R_PASS     =(""                             ,        ),
-             LEDP       =(17                             , int    ),
-             LEDC       =(300                            , int    ),
-             REVERSE    =(False                          , boolstr),
-             BIT_TIMING =("400 850 800 450 60000"        ,        ),
-             RGB_ORDER  =("RGB"                          ,        ),
-             DEF_SCENE  =("_default_"                    ,        ),
-             VER        =("0"                            ,        ),
-             RECALB_T   =(0                              , int    ),
-             LOG_LEVEL  =(3                              , int    ))
+ℭ = Settings(WS_URL    =("wss://lwmp.ganer.xyz:2096"    ,        ),
+             UPDATE_URL=("https://lwmp.ganer.xyz/update",        ),
+             UUID      =(gen_id                         ,        ),
+             AP_MODE   =(False                          , boolstr),
+             TOKEN     =(""                             ,        ),
+             NAME      =(""                             ,        ),
+             R_SSID    =(""                             ,        ),
+             R_PASS    =(""                             ,        ),
+             LEDP      =(17                             , int    ),
+             LEDC      =(300                            , int    ),
+             REVERSE   =(False                          , boolstr),
+             BIT_TIMING=("400 850 800 450 60000"        ,        ),
+             RGB_ORDER =("RGB"                          ,        ),
+             DEF_SCENE =("_default_"                    ,        ),
+             VER       =("0"                            ,        ),
+             RECALB_T  =(0                              , int    ),
+             LOG_LEVEL =(3                              , int    ))
 Logger.set(ℭ.LOG_LEVEL)
 
 def wifi_from_ℭ(ℭ):

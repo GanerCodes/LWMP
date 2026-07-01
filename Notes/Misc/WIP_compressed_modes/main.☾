@@ -30,8 +30,6 @@
    ]
  }
 
- 1940-
-
  𝔟: bit
 
 ⦃from struct import pack,unpack⦄
@@ -59,7 +57,7 @@ unpack􇂾ᐒ󰲡⟞(␛<x,⠤𝔸)
          𝐌 􇀞􀊩 𝑖.to_bytes(𝙼₀,2)
          ¿𝙼₁􀉞0: 𝐌 􇀞􀊩 𝑖.to_bytes(𝙼₂,3)
          ⸘𝙼₁􀉞1: 𝐌 􇀞􀊩 pack(‹fBB›,𝙼₂,𝙼₃,𝙼₄)
-         ⸘𝙼₁􀉞2: 𝐌 􇂎􀝍 pack(‹ff󷺗›,𝙼₂,𝙼₃)􀗁𝑖.to_bytes(𝙼􀊹􀊪4,2)􀗁𝙼₄􊬋􀉳𝑖.to_bytes(⬤,3)􀉹􍸒􋇦
+         ⸘𝙼₁􀉞2: 𝐌 􇂎􀝍 pack(‹ff󷺗›,𝙼₂,𝙼₃)􀗁𝑖.to_bytes(𝙼􀊹􀊪4,1)􀗁𝙼₄􊬋􀉳𝑖.to_bytes(⬤,3)􀉹􍸒􋇦
          ¡    : ✗􀉓‹Invalid mode.›
   ¡    : 𝙼􀯏􊯛
          𝐌 􇀞􀊩 𝑖.to_bytes(𝙼􀊹,2)
@@ -67,17 +65,17 @@ unpack􇂾ᐒ󰲡⟞(␛<x,⠤𝔸)
   ↪𝐌
 ⊢TO_MODE(𝔖):
   𝙼,fx = ℵ,⍁
-  TYPE = 𝔖(1)𝐼
+  TYPE = 1 𝔖 𝐼
   ¿TYPE&0b01000000: fx.append([0            ])
-  ¿TYPE&0b00100000: fx.append([1,𝔖(4)𝐹,𝔖(4)𝐹])
-  ¿TYPE&0b00010000: fx.append([2,𝔖(4)𝐹      ])
+  ¿TYPE&0b00100000: fx.append([1,4 𝔖 𝐹,4 𝔖 𝐹])
+  ¿TYPE&0b00010000: fx.append([2,4 𝔖 𝐹      ])
   ¿fx: 𝙼ᶠˣ = fx
-  mode,n = TYPE&15,𝔖(2)𝐼
+  mode,n = TYPE&15,2 𝔖 𝐼
    (fx,mode,n,TYPE)􀊸
   ¿mode≡15: 𝙼􊯛 = n􀋲ᐖTO_MODE(𝔖)
-  ¡       : ¿mode≡0: dat = [𝔖(3)𝐼                    ]
-            ⸘mode≡1: dat = [𝔖(4)𝐹,𝔖(1)𝐼,        𝔖(1)𝐼]
-            ⸘mode≡2: dat = [𝔖(4)𝐹,𝔖(4)𝐹,⠤𝔖(2)𝐼􀋲ᐖ𝔖(3)𝐼]
+  ¡       : ¿mode≡0: dat = [3 𝔖 𝐼                    ]
+            ⸘mode≡1: dat = [4 𝔖 𝐹,1 𝔖 𝐼,        1 𝔖 𝐼]
+            ⸘mode≡2: dat = [4 𝔖 𝐹,4 𝔖 𝐹,⠤1 𝔖 𝐼􀋲ᐖ3 𝔖 𝐼]
             ¡      : ✗􀉓‹Invalid mode.›
             𝙼􊯛₁ = [n,mode,⠤dat]
   ↪𝙼 𝑑
